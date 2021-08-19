@@ -1,19 +1,18 @@
 :root {
   /* COLORS */
-  --arc-white-000: #ffffff;
+  --arc-white-000: #fff;
   --arc-grey-000: #fafafa;
   --arc-grey-010: #efefef;
   --arc-grey-020: #dbdbdb;
   --arc-grey-030: #bebebe;
-  --arc-grey-040: #aaaaaa;
+  --arc-grey-040: #aaa;
   --arc-grey-050: #9b9b9b;
   --arc-grey-060: #767676;
   --arc-grey-070: #575757;
   --arc-grey-080: #424242;
   --arc-grey-090: #353535;
   --arc-grey-100: #1c1c1c;
-  --arc-black-100: #000000;
-
+  --arc-black-100: #000;
   --arc-red-000: #ffe0e0;
   --arc-red-010: #ffd0d0;
   --arc-red-020: #ffb6b6;
@@ -25,7 +24,6 @@
   --arc-red-080: #a60606;
   --arc-red-090: #850101;
   --arc-red-100: #530000;
-
   --arc-orange-000: #ffe0c6;
   --arc-orange-010: #ffd280;
   --arc-orange-020: #fec59b;
@@ -37,7 +35,6 @@
   --arc-orange-080: #bd4a2a;
   --arc-orange-090: #9a3c21;
   --arc-orange-100: #752b16;
-
   --arc-yellow-000: #feff99;
   --arc-yellow-010: #fef740;
   --arc-yellow-020: #ffed1d;
@@ -49,7 +46,6 @@
   --arc-yellow-080: #d58e10;
   --arc-yellow-090: #ae7007;
   --arc-yellow-100: #856800;
-
   --arc-green-000: #e2ffd9;
   --arc-green-010: #d0ffc5;
   --arc-green-020: #baffb9;
@@ -61,7 +57,6 @@
   --arc-green-080: #11822d;
   --arc-green-090: #056937;
   --arc-green-100: #005023;
-
   --arc-blue-000: #e2f1ff;
   --arc-blue-010: #ade5f7;
   --arc-blue-020: #7cd4f2;
@@ -73,7 +68,6 @@
   --arc-blue-080: #2148a8;
   --arc-blue-090: #1c2f81;
   --arc-blue-100: #192866;
-
   --arc-purple-000: #f0dcff;
   --arc-purple-010: #e6c0ff;
   --arc-purple-020: #dea7ff;
@@ -85,7 +79,6 @@
   --arc-purple-080: #661fb2;
   --arc-purple-090: #542cbc;
   --arc-purple-100: #41215e;
-
   --arc-pink-000: #ffd7ef;
   --arc-pink-010: #fcafdb;
   --arc-pink-020: #f897cc;
@@ -101,6 +94,7 @@
   /* TYPOGRAPHY */
   --arc-font-headline: "Times New Roman";
 
+  /* FONTSIZE */
   --arc-fontsize-xx-small: 24px;
   --arc-fontsize-small: 48px;
   --arc-fontsize-medium: 72px;
@@ -108,6 +102,12 @@
   --arc-fontsize-xx-large: 96px;
 }
 
-html, body {
+body {
   margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }

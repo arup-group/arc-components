@@ -5,8 +5,8 @@
   "author": "arc-components",
   "version": "0.0.0",
   "scripts": {
-    "lint": "eslint --ext .js,.html . --ignore-path .gitignore && prettier \"**/*.js\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .js,.html . --fix --ignore-path .gitignore && prettier \"**/*.js\" --write --ignore-path .gitignore",
+    "lint": "eslint --ext .js,.html . && prettier \"**/*.js\" --check && stylelint \"**/*.css\" --check",
+    "format": "eslint --ext .js,.html . --fix && prettier \"**/*.js\" --write && stylelint \"**/*.css\" --fix",
     "test": "web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
     "storybook": "web-dev-server -c .storybook/server.mjs",
@@ -41,24 +41,9 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.56.2",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-workbox": "^6.2.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "@open-wc/eslint-config",
-      "eslint-config-prettier"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "*.test.js",
-          "*.spec.js"
-        ],
-        "rules": {
-          "no-unused-expressions": "off"
-        }
-      }
-    ]
+    "rollup-plugin-workbox": "^6.2.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0"
   },
   "prettier": {
     "trailingComma": "es5",

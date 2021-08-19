@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "@open-wc/eslint-config",
+    "eslint-config-prettier"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.test.js",
+        "*.spec.js"
+      ],
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ]
+}

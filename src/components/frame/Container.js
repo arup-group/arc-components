@@ -13,6 +13,8 @@ export class Container extends LitElement {
     return css`
       .main {
         min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
     `;
   }

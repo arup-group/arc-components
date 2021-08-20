@@ -12,8 +12,12 @@
 </head>
 
 <body>
-  <arc-component></arc-component>
-  <script type="module" src="./src/components/arc/ArcComponent.js"></script>
+  <arc-container>
+    <arc-navbar slot='nav'>Hello World</arc-navbar>
+    <arc-sidebar slot='side' width='365px;'>Sidebar</arc-sidebar>
+    <arc-content slot='content'>Content</arc-content>
+  </arc-container>
+  <script type="module" src="./src/components/frame/Container.js"></script>
 </body>
 
 </html>

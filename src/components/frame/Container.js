@@ -11,28 +11,39 @@ export class Container extends LitElement {
 
   static get styles() {
     return css`
+      :host {
+        --navbar-height: 3.5rem;
+        --navbar-width: 23rem;
+      }
+      
       #main {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         background: var(--arc-grey-010);
       }
-      #nav::slotted(arc-navbar) {
-        background: var(--arc-red-040);
-        height: 56px;
+      
+      ::slotted(*) {
+        /* TODO: Use arc-white-000 once testing is done */
+        background: var(--arc-red-010);
+      }
+      
+      /* Navbar */
+      ::slotted(arc-navbar) {
+        height: var(--navbar-height);
       }
       
       /* Content */
       #container {
         flex: 1 1 100%;
         display: flex;
+        padding: var(--arc-spacing-medium);
       }
       ::slotted(arc-sidebar) {
-        background: var(--arc-blue-040);
         width: 0;
+        transition: all var(--arc-transition-slow);
       }
       ::slotted(arc-content) {
-        background: var(--arc-purple-040);
         flex: 1 1 100%;
       }
       
@@ -40,7 +51,8 @@ export class Container extends LitElement {
       /* Small devices (landscape phones, 576px and up)  */
       @media (min-width: 36em) { 
         ::slotted(arc-sidebar) {
-          width: 368px;
+          width: var(--navbar-width);
+          margin-right: var(--arc-spacing-medium);
         }
       }
       /* Medium devices (tablets, 768px and up)  */

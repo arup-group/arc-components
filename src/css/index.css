@@ -1,9 +1,9 @@
 :root {
-  /* Typography */
+  /* Font */
   --arc-font-headline: "Times New Roman";
   --arc-font-family: "Roboto Light";
 
-  /* Fonts */
+  /* Fontsize */
   --arc-fontsize-xx-small: 0.5rem;
   --arc-fontsize-x-small: 0.625rem;
   --arc-fontsize-small: 0.75rem;
@@ -13,6 +13,19 @@
   --arc-fontsize-x-large: 4.5rem;
   --arc-fontsize-xx-large: 5rem;
   --arc-fontsize-xxx-large: 6rem;
+
+  /* Spacing */
+  --arc-spacing-small: 0.75rem;
+  --arc-spacing-normal: 1rem;
+  --arc-spacing-medium: 1.5rem;
+  --arc-spacing-large: 1.75rem;
+
+  /* Transition */
+  --arc-transition-x-slow: 1000ms;
+  --arc-transition-slow: 500ms;
+  --arc-transition-medium: 250ms;
+  --arc-transition-fast: 150ms;
+  --arc-transition-x-fast: 50ms;
 
   /* Colors */
   --arc-white-000: #fff;

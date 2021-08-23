@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit';
 
+import { themeConstants } from './Constants/ThemeConstants.js';
+
 export class Container extends LitElement {
   static get tag() {
     return 'arc-container';
@@ -27,7 +29,7 @@ export class Container extends LitElement {
         display: flex;
         flex-direction: column;
         background: var(--arc-background-color);
-        color: var(--arc-text-color);
+        color: var(--arc-color-default);
       }
 
       ::slotted(*),
@@ -36,6 +38,7 @@ export class Container extends LitElement {
       }
 
       /* Navbar / Bottom */
+
       ::slotted(arc-navbar),
       ::slotted(arc-bottombar),
       #bottom {
@@ -43,6 +46,7 @@ export class Container extends LitElement {
       }
 
       /* Content */
+
       #container {
         flex: 1 1 100%;
         display: flex;
@@ -95,14 +99,27 @@ export class Container extends LitElement {
   }
 
   setTheme() {
-    if (this.theme !== 'auto') {
-      return;
-    }
-    const currentDate = new Date();
-    const time = currentDate.getHours();
+    // Check if the given theme attribute exists in the themeConstants
+    const hasTheme = Object.prototype.hasOwnProperty.call(
+      themeConstants,
+      this.theme
+    );
 
-    // eslint-disable-next-line no-console
-    console.log(time);
+    if (hasTheme) {
+      // If the given theme exists, set it
+      this.classList.add(themeConstants[this.theme]);
+    } else {
+      // Calculate a theme based on the time
+      const currentDate = new Date();
+      const time = currentDate.getHours();
+
+      // Show Dark theme between 19:00 and 07:00
+      if (time >= 19 || time < 7) {
+        this.classList.add(themeConstants.dark);
+      } else {
+        this.classList.add(themeConstants.light);
+      }
+    }
   }
 
   render() {

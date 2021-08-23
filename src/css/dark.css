@@ -1,5 +1,5 @@
 .arc-theme-dark {
-  --arc-background-color: var(--arc-grey-010);
+  --arc-background-color: var(--arc-black-100);
   --arc-container-color: var(--arc-grey-100);
   --arc-color-default: var(--arc-white-000);
 }

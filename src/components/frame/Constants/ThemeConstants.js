@@ -1,5 +1,5 @@
 export const themeConstants = {
-  auto: 'arc-theme-auto',
+  auto: 'auto',
   dark: 'arc-theme-dark',
   light: 'arc-theme-light',
 };

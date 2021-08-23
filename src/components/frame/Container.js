@@ -30,6 +30,10 @@ export class Container extends LitElement {
         flex-direction: column;
         background: var(--arc-background-color);
         color: var(--arc-color-default);
+
+        -webkit-transition: all var(--arc-transition-x-slow) linear;
+        -ms-transition: all var(--arc-transition-x-slow) linear;
+        transition: all var(--arc-transition-x-slow) linear;
       }
 
       ::slotted(*),
@@ -90,13 +94,16 @@ export class Container extends LitElement {
 
   constructor() {
     super();
-    this.theme = null;
+    this.theme = '';
   }
 
   connectedCallback() {
     super.connectedCallback();
+  }
 
-    if (this.theme) {
+  attributeChangedCallback(name, _old, value) {
+    super.attributeChangedCallback(name, _old, value);
+    if (name === 'theme' && value) {
       this.setTheme();
     }
   }
@@ -140,7 +147,7 @@ export class Container extends LitElement {
         <slot id="nav" name="nav"></slot>
         <div id="container">
           <slot name="side"></slot>
-          <slot></slot>
+          <slot name="content"></slot>
         </div>
         <slot name="bottom">
           <arc-bottombar id="bottom">DEFAULT BOTTOM BAR</arc-bottombar>

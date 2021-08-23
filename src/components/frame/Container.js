@@ -13,10 +13,6 @@ export class Container extends LitElement {
     };
   }
 
-  static get slots() {
-    return ['nav', 'side', '', 'bottom'];
-  }
-
   static get styles() {
     return css`
       :host {
@@ -30,10 +26,6 @@ export class Container extends LitElement {
         flex-direction: column;
         background: var(--arc-background-color);
         color: var(--arc-color-default);
-
-        -webkit-transition: all var(--arc-transition-x-slow) linear;
-        -ms-transition: all var(--arc-transition-x-slow) linear;
-        transition: all var(--arc-transition-x-slow) linear;
       }
 
       ::slotted(*),
@@ -42,7 +34,6 @@ export class Container extends LitElement {
       }
 
       /* Navbar / Bottom */
-
       ::slotted(arc-navbar),
       ::slotted(arc-bottombar),
       #bottom {
@@ -50,7 +41,6 @@ export class Container extends LitElement {
       }
 
       /* Content */
-
       #container {
         flex: 1 1 100%;
         display: flex;
@@ -97,13 +87,9 @@ export class Container extends LitElement {
     this.theme = '';
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
-  attributeChangedCallback(name, _old, value) {
-    super.attributeChangedCallback(name, _old, value);
-    if (name === 'theme' && value) {
+  attributeChangedCallback(attr, oldVal, newVal) {
+    super.attributeChangedCallback(attr, oldVal, newVal);
+    if (attr === 'theme' && newVal) {
       this.setTheme();
     }
   }
@@ -128,11 +114,9 @@ export class Container extends LitElement {
         return;
       }
 
-      // Calculate theme based on time
-      const currentDate = new Date();
-      const currentTime = currentDate.getHours();
-
       // Show Dark theme between 19:00 and 07:00
+      const currentTime = new Date().getHours();
+
       if (currentTime >= 19 || currentTime < 7) {
         this.classList.add(themeConstants.dark);
       } else {

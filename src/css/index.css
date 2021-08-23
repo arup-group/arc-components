@@ -1,31 +1,34 @@
 :root {
-  /* Font */
+  /* Font Family */
   --arc-font-headline: "Times New Roman";
-  --arc-font-family: "Roboto Light";
+  --arc-font-body: "Roboto Light";
 
-  /* Fontsize */
-  --arc-fontsize-xx-small: 0.5rem;
-  --arc-fontsize-x-small: 0.625rem;
-  --arc-fontsize-small: 0.75rem;
-  --arc-fontsize-normal: 1rem;
-  --arc-fontsize-medium: 1.5rem;
-  --arc-fontsize-large: 3rem;
-  --arc-fontsize-x-large: 4.5rem;
-  --arc-fontsize-xx-large: 5rem;
-  --arc-fontsize-xxx-large: 6rem;
+  /* Font Size */
+  --arc-font-size-xx-small: 0.625rem;
+  --arc-font-size-x-small: 0.75rem;
+  --arc-font-size-small: 0.875rem;
+  --arc-font-size-medium: 1rem;
+  --arc-font-size-large: 1.25rem;
+  --arc-font-size-x-large: 1.5rem;
+  --arc-font-size-xx-large: 2.25rem;
+  --arc-font-size-xxx-large: 3rem;
+  --arc-font-size-xxxx-large: 4.5rem;
 
-  /* Spacing */
-  --arc-spacing-small: 0.75rem;
-  --arc-spacing-normal: 1rem;
-  --arc-spacing-medium: 1.5rem;
-  --arc-spacing-large: 1.75rem;
+  /* Font Weight */
+  --arc-font-weight-light: 300;
+  --arc-font-weight-normal: 400;
+  --arc-font-weight-semibold: 500;
+  --arc-font-weight-bold: 700;
 
-  /* Transition */
-  --arc-transition-x-slow: 1000ms;
-  --arc-transition-slow: 500ms;
-  --arc-transition-medium: 250ms;
-  --arc-transition-fast: 150ms;
-  --arc-transition-x-fast: 50ms;
+  /* Letter spacing */
+  --arc-letter-spacing-dense: -0.015em;
+  --arc-letter-spacing-normal: normal;
+  --arc-letter-spacing-loose: 0.075em;
+
+  /* Line height */
+  --arc-line-height-dense: 1.4;
+  --arc-line-height-normal: 1.8;
+  --arc-line-height-loose: 2.2;
 
   /* Colors */
   --arc-white-000: #fff;
@@ -118,12 +121,25 @@
   --arc-pink-080: #915963;
   --arc-pink-090: #771c51;
   --arc-pink-100: #6e174e;
+
+  /* Padding / Margin */
+  --arc-spacing-small: 0.75rem;
+  --arc-spacing-normal: 1rem;
+  --arc-spacing-medium: 1.5rem;
+  --arc-spacing-large: 1.75rem;
+
+  /* Transition */
+  --arc-transition-x-slow: 1000ms;
+  --arc-transition-slow: 500ms;
+  --arc-transition-medium: 250ms;
+  --arc-transition-fast: 150ms;
+  --arc-transition-x-fast: 50ms;
 }
 
 body {
   margin: 0;
-  font-family: var(--arc-font-family);
-  font-size: var(--arc-fontsize-normal);
+  font-family: var(--arc-font-body);
+  font-size: var(--arc-font-size-medium);
 }
 
 /* Account for any border and padding in the width/height values of an element */

@@ -6,7 +6,9 @@ export class Container extends LitElement {
   }
 
   static get properties() {
-    return {};
+    return {
+      theme: { type: String },
+    };
   }
 
   static get slots() {
@@ -24,13 +26,13 @@ export class Container extends LitElement {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        background: var(--arc-grey-010);
+        background: var(--arc-background-color);
+        color: var(--arc-text-color);
       }
 
-      /* TODO: Set to arc-white-000 */
       ::slotted(*),
       #bottom {
-        background: var(--arc-red-010);
+        background: var(--arc-container-color);
       }
 
       /* Navbar / Bottom */
@@ -50,6 +52,7 @@ export class Container extends LitElement {
       ::slotted(arc-sidebar) {
         width: var(--sidebar-width);
         margin-right: var(--arc-spacing-medium);
+        transition: var(--arc-transition-slow);
       }
 
       ::slotted(arc-content) {
@@ -68,7 +71,9 @@ export class Container extends LitElement {
         }
 
         ::slotted(arc-sidebar) {
-          display: none;
+          width: 0;
+          margin-right: 0;
+          transform: translateX(-16em);
         }
 
         ::slotted(arc-bottombar),
@@ -77,6 +82,27 @@ export class Container extends LitElement {
         }
       }
     `;
+  }
+
+  constructor() {
+    super();
+    this.theme = 'auto';
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.setTheme();
+  }
+
+  setTheme() {
+    if (this.theme !== 'auto') {
+      return;
+    }
+    const currentDate = new Date();
+    const time = currentDate.getHours();
+
+    // eslint-disable-next-line no-console
+    console.log(time);
   }
 
   render() {

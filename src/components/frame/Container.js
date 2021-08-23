@@ -90,31 +90,43 @@ export class Container extends LitElement {
 
   constructor() {
     super();
-    this.theme = 'auto';
+    this.theme = null;
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.setTheme();
+
+    if (this.theme) {
+      this.setTheme();
+    }
   }
 
   setTheme() {
-    // Check if the given theme attribute exists in the themeConstants
-    const hasTheme = Object.prototype.hasOwnProperty.call(
+    // Check if the given theme exists in the themeConstants
+    const themeExists = Object.prototype.hasOwnProperty.call(
       themeConstants,
       this.theme
     );
 
-    if (hasTheme) {
-      // If the given theme exists, set it
-      this.classList.add(themeConstants[this.theme]);
-    } else {
-      // Calculate a theme based on the time
+    if (themeExists) {
+      const classList = Array.from(this.classList);
+      const themeClasses = classList.filter(
+        name => name.search('arc-theme-[a-z]*') > -1
+      );
+      this.classList.remove(...themeClasses);
+
+      // Fixed theme
+      if (themeConstants[this.theme] !== themeConstants.auto) {
+        this.classList.add(themeConstants[this.theme]);
+        return;
+      }
+
+      // Calculate theme based on time
       const currentDate = new Date();
-      const time = currentDate.getHours();
+      const currentTime = currentDate.getHours();
 
       // Show Dark theme between 19:00 and 07:00
-      if (time >= 19 || time < 7) {
+      if (currentTime >= 19 || currentTime < 7) {
         this.classList.add(themeConstants.dark);
       } else {
         this.classList.add(themeConstants.light);

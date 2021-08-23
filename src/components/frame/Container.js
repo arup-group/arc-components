@@ -61,10 +61,10 @@ export class Container extends LitElement {
         display: none;
       }
 
-      /* Medium devices (tablets, 768px and up)  */
+      /* Medium devices (tablets, 768px)  */
       @media (max-width: 48em) {
         #container {
-          padding: var(--arc-spacing-medium) 0 0 0;
+          padding: 0;
         }
 
         ::slotted(arc-sidebar) {

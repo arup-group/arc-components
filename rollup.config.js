@@ -68,6 +68,7 @@ export default {
     }),
     /** Create and inject a service worker */
     generateSW({
+      globIgnores: ['polyfills/*.js', 'nomodule-*.js'],
       navigateFallback: '/index.html',
       // where to output the generated sw
       swDest: path.join('dist', 'sw.js'),
@@ -77,6 +78,7 @@ export default {
       globPatterns: ['**/*.{html,js,css,webmanifest}'],
       skipWaiting: true,
       clientsClaim: true,
+      runtimeCaching: [{ urlPattern: 'polyfills/*.js', handler: 'CacheFirst' }],
     }),
   ],
 };

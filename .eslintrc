@@ -1,13 +1,31 @@
 {
+  "parser": "@typescript-eslint/parser",
   "extends": [
-    "@open-wc/eslint-config",
-    "eslint-config-prettier"
+    "@open-wc",
+    "prettier"
   ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error"
+    ],
+    "import/no-unresolved": "off",
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "ignorePackages": true
+      }
+    ]
+  },
   "overrides": [
     {
       "files": [
-        "*.test.js",
-        "*.spec.js"
+        "*.test.ts",
+        "*.spec.ts"
       ],
       "rules": {
         "no-unused-expressions": "off"

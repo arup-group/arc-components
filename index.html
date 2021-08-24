@@ -1,25 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Web-components related to the ARC design system">
-  <base href="/">
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
+  <meta name='Description' content='Put your description here.'>
+  <base href='/'>
+
   <title>ARC</title>
 
-  <link href="src/css/index.css" rel="stylesheet" crossorigin="anonymous">
-  <link href="src/css/light.css" rel="stylesheet" crossorigin="anonymous">
-  <link href="src/css/dark.css" rel="stylesheet" crossorigin="anonymous">
+  <link crossorigin='anonymous' href='themes/index.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='themes/light.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='themes/dark.css' rel='stylesheet'>
 </head>
 
 <body>
-<arc-container theme="auto">
-  <arc-navbar slot="nav">NAVBAR</arc-navbar>
-  <arc-sidebar slot="side">SIDEBAR</arc-sidebar>
-  <arc-content slot="content">CONTENT</arc-content>
+<arc-container>
+  <arc-navbar slot='nav'>NAVBAR</arc-navbar>
+  <arc-sidebar slot='side'>SIDEBAR</arc-sidebar>
+  <arc-content slot='content'>CONTENT</arc-content>
 </arc-container>
-<script type="module" src="./src/components/frame/Container.js"></script>
+
+<script type='module' src='./out-tsc/components/container/arc-container.js'></script>
 </body>
 
 </html>

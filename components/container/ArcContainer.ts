@@ -75,23 +75,13 @@ export class ArcContainer extends LitElement {
   @property({
     type: String,
     reflect: true,
-    hasChanged: (newVal: string, oldVal: string) => {
-      // Check if the given theme exists in the frameConstants
-      const themeExists = Object.prototype.hasOwnProperty.call(
-        CONTAINER_THEMES,
-        newVal
-      );
-      return themeExists && oldVal !== newVal;
-    },
   })
-  theme: string = 'auto';
+  theme: string = isNight() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
       if (CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto) {
-        this.theme = isNight(new Date())
-          ? CONTAINER_THEMES.dark
-          : CONTAINER_THEMES.light;
+        this.theme = isNight() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
       }
     }
   }

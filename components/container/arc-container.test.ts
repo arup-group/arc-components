@@ -35,7 +35,7 @@ describe('ArcContainer', () => {
       } else {
         element.setAttribute('theme', key);
         expect(element.getAttribute('theme')).to.be.equal(
-          isNight(new Date()) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light
+          isNight() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light
         );
       }
     });

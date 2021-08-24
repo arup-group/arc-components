@@ -1,4 +1,5 @@
-export function isNight(date: Date) {
-  const time = date.getTime();
-  return time >= 19 || time < 7;
+export function isNight(date?: Date) {
+  const currDate = date || new Date();
+  const currTime = currDate.getHours();
+  return currTime >= 19 || currTime < 7;
 }

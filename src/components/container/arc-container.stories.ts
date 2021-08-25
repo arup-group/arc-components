@@ -6,6 +6,8 @@ export default {
   component: 'arc-container',
   argTypes: {
     theme: {
+      description: 'Set the theme',
+      default: 'auto',
       options: ['auto', 'dark', 'light'],
       control: { type: 'select' },
     },

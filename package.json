@@ -17,8 +17,9 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
   },
   "dependencies": {
-    "lit": "^2.0.0-rc.3",
-    "@open-wc/testing": "next"
+    "@open-wc/testing": "next",
+    "@web/test-runner-commands": "^0.5.11",
+    "lit": "^2.0.0-rc.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.0",

@@ -2,7 +2,7 @@ import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
-import { isNight } from '../../utils/date-utils.js';
+import { DateUtils } from '../../utils/date-utils.js';
 
 export class ArcContainer extends LitElement {
   static tag = 'arc-container';
@@ -76,14 +76,19 @@ export class ArcContainer extends LitElement {
     type: String,
     reflect: true,
   })
-  theme: string = isNight() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
+  theme: string = this.getTheme();
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
       if (CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto) {
-        this.theme = isNight() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
+        this.theme = this.getTheme();
       }
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getTheme() {
+    return DateUtils.isNight() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
   }
 
   render() {

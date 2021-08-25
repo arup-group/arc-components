@@ -28,7 +28,8 @@
         "*.spec.ts"
       ],
       "rules": {
-        "no-unused-expressions": "off"
+        "no-unused-expressions": "off",
+        "prefer-destructuring": "off"
       }
     }
   ]

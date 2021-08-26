@@ -22,6 +22,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+      
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.0
 
@@ -42,5 +49,4 @@ jobs:
           bucket: arup-arc-components
           # The destination bucket region
           bucket-region: eu-west-1
-          # Upload files with private ACL, needed for S3 static website hosting
-          private: true
+

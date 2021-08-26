@@ -38,11 +38,11 @@ jobs:
       - name: build 
         run: npm run build
         
-      - name: Sync S3
+      - name: Upload S3
         # You may pin to the exact commit or the version.
         # uses: shallwefootball/upload-s3-action@bcd7c2408245fd6cd19b5512a473b1a7a8b48a35
-#         uses: shallwefootball/upload-s3-action@v1.1.3
-        uses: jakejarvis/s3-sync-action@v0.5.1
+        uses: shallwefootball/upload-s3-action@v1.1.3
+#         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           # aws key id
           aws_key_id:  ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -52,7 +52,7 @@ jobs:
           aws_bucket: arup-arc-components
           # directory to upload
           source_dir: dist/
-          destination_dir: /
+          destination_dir: .
           
           
           

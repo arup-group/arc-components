@@ -4,7 +4,7 @@ const filteredLogs = ['Running in dev mode', 'lit-html is in dev mode'];
 
 export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   /** Test files to run */
-  files: 'src/**/*.test.js',
+  files: 'out-tsc/**/*.test.js',
 
   /** Resolve bare module imports */
   nodeResolve: {
@@ -21,6 +21,9 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
     return true;
   },
 
+  /** Compile JS for older browsers. Requires @web/dev-server-esbuild plugin */
+  // esbuildTarget: 'auto',
+
   /** Amount of browsers to run concurrently */
   // concurrentBrowsers: 2,
 
@@ -33,4 +36,6 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   //   playwrightLauncher({ product: 'firefox' }),
   //   playwrightLauncher({ product: 'webkit' }),
   // ],
+
+  // See documentation for all available options
 });

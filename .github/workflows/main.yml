@@ -51,3 +51,7 @@ jobs:
           aws_bucket: arup-arc-components
           # directory to upload
           source_dir: dist/
+          destination_dir: /
+          
+          
+          

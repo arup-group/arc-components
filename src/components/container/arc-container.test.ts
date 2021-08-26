@@ -127,13 +127,11 @@ describe('ArcContainer', () => {
 
     it('provides the correct theme based on the time of day', () => {
       const element: ArcContainer = new ArcContainer();
-      const theme = element.getTheme();
+      const night = new Date('August 25, 21 01:00');
+      const morning = new Date('August 26, 21 08:00');
 
-      if (DateUtils.isNight()) {
-        expect(theme).to.equal(CONTAINER_THEMES.dark);
-      } else {
-        expect(theme).to.equal(CONTAINER_THEMES.light);
-      }
+      expect(element.getTheme(night)).to.equal(CONTAINER_THEMES.dark);
+      expect(element.getTheme(morning)).to.equal(CONTAINER_THEMES.light);
     });
   });
 });

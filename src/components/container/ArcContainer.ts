@@ -87,8 +87,10 @@ export class ArcContainer extends LitElement {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  getTheme() {
-    return DateUtils.isNight() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
+  getTheme(date?: Date) {
+    return DateUtils.isNight(date)
+      ? CONTAINER_THEMES.dark
+      : CONTAINER_THEMES.light;
   }
 
   render() {

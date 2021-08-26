@@ -6,10 +6,12 @@ export default {
   component: 'arc-container',
   argTypes: {
     theme: {
-      description: 'Set the theme',
-      default: 'auto',
-      options: ['auto', 'dark', 'light'],
+      name: 'theme',
+      type: { required: false },
+      description: 'Set the theme for the container',
+      defaultValue: { summary: 'auto' },
       control: { type: 'select' },
+      options: ['auto', 'dark', 'light'],
     },
   },
 };
@@ -34,5 +36,5 @@ const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
 
 export const ArcContainer = Template.bind({});
 ArcContainer.args = {
-  theme: 'light',
+  theme: 'auto',
 };

@@ -1,3 +1,4 @@
+:host,
 arc-container[theme='dark'] {
   --arc-background-color: var(--arc-black-100);
   --arc-container-color: var(--arc-grey-100);

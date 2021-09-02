@@ -1,0 +1,95 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import { html } from 'lit';
+import '../../../out-tsc/src/components/container/arc-container.js';
+
+<Meta
+  title="Frame/arc-container"
+  argTypes={{
+    theme: {
+      name: 'theme',
+      type: { required: false },
+      description: 'Set the theme for the container',
+      defaultValue: { summary: 'auto' },
+      control: { type: 'select' },
+      options: ['auto', 'dark', 'light'],
+      table: {
+        category: 'Properties',
+      },
+    },
+    nav: {
+      name: 'nav',
+      type: { required: false },
+      description: 'The container navbar',
+      control: {type: null,},
+      table: {
+        category: 'Slots'
+      }
+    },
+    side: {
+      name: 'side',
+      type: { required: false },
+      description: 'The container sidebar',
+      control: {type: null,},
+      table: {
+        category: 'Slots'
+      }
+    },
+    content: {
+      name: 'content',
+      type: { required: false },
+      description: 'The container content section',
+      control: {type: null,},
+      table: {
+        category: 'Slots'
+      }
+    },
+    bottom: {
+      name: 'bottom',
+      type: { required: false },
+      description: 'The container bottombar',
+      control: {type: null,},
+      table: {
+        category: 'Slots'
+      }
+    },
+    height: {
+      name: '--navbar-height',
+      type: { required: false },
+      description: 'Set the base height of the navbar',
+      table: {
+        category: 'CSS Custom Properties'
+      }
+    },
+    width: {
+      name: '--sidebar-width',
+      type: { required: false },
+      description: 'Set the base width of the sidebar',
+      table: {
+        category: 'CSS Custom Properties'
+      }
+    }
+  }}
+  component="arc-container" />
+
+# ArcContainer
+
+The ARC container is a fundamental building block that contains, pads, and aligns your content within a given device or viewport.
+It handles time consuming tasks such as responsiveness and theming, out of the box!
+
+export const Template = (args) => html`
+  <arc-container .theme=${args.theme} style="--navbar-height:${args.height}; --sidebar-width:${args.width}">
+    <arc-navbar slot="nav">NAVBAR</arc-navbar>
+    <arc-sidebar slot="side">SIDEBAR</arc-sidebar>
+    <arc-content slot="content">CONTENT</arc-content>
+  </arc-container>
+`;
+
+<Story name="arc-container" args={{
+  theme: 'auto',
+  height: '3.5rem',
+  width: '23rem'
+}}>
+  {Template.bind({})}
+</Story>
+
+<ArgsTable story="arc-container" />

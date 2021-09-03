@@ -2,6 +2,7 @@
   /* Font Family */
   --arc-font-headline: "Times New Roman";
   --arc-font-body: "Roboto Light";
+  --arc-font-button: "Roboto";
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;
@@ -24,6 +25,19 @@
   --arc-letter-spacing-dense: -0.015em;
   --arc-letter-spacing-normal: normal;
   --arc-letter-spacing-loose: 0.075em;
+
+  /* Padding / Margin */
+  --arc-spacing-small: 0.75rem;
+  --arc-spacing-normal: 1rem;
+  --arc-spacing-medium: 1.5rem;
+  --arc-spacing-large: 1.75rem;
+
+  /* Transition */
+  --arc-transition-x-slow: 1000ms;
+  --arc-transition-slow: 500ms;
+  --arc-transition-medium: 250ms;
+  --arc-transition-fast: 150ms;
+  --arc-transition-x-fast: 50ms;
 
   /* Line height */
   --arc-line-height-dense: 1.4;
@@ -121,25 +135,15 @@
   --arc-pink-080: #915963;
   --arc-pink-090: #771c51;
   --arc-pink-100: #6e174e;
-
-  /* Padding / Margin */
-  --arc-spacing-small: 0.75rem;
-  --arc-spacing-normal: 1rem;
-  --arc-spacing-medium: 1.5rem;
-  --arc-spacing-large: 1.75rem;
-
-  /* Transition */
-  --arc-transition-x-slow: 1000ms;
-  --arc-transition-slow: 500ms;
-  --arc-transition-medium: 250ms;
-  --arc-transition-fast: 150ms;
-  --arc-transition-x-fast: 50ms;
 }
 
 body {
   margin: 0;
   font-family: var(--arc-font-body);
   font-size: var(--arc-font-size-medium);
+  font-weight: var(--arc-font-weight-normal);
+  letter-spacing: var(--arc-letter-spacing-normal);
+  line-height: var(--arc-line-height-normal);
 }
 
 /* Account for any border and padding in the width/height values of an element */

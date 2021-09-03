@@ -11,6 +11,7 @@ export default {
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
       table: {
+        type: { summary: 'boolean' },
         category: 'Properties',
       },
     }
@@ -29,7 +30,7 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ active, disabled }: ArgTypes) => html`
-  <arc-tab></arc-tab>
+  <arc-tab ?active=${active} ?disabled=${disabled}>My tab</arc-tab>
 `;
 
 export const ArcTab = Template.bind({});

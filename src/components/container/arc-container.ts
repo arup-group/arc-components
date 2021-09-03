@@ -17,7 +17,7 @@ export class ArcContainer extends LitElement {
       display: flex;
       flex-direction: column;
       background: var(--arc-background-color);
-      color: var(--arc-color-default);
+      color: var(--arc-color-default) !important;
     }
 
     ::slotted(*),

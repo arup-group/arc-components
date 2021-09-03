@@ -94,7 +94,7 @@ const Template: Story<ArgTypes> = ({ theme, height, width }: ArgTypes) => html`
     <arc-sidebar slot="side">SIDEBAR</arc-sidebar>
     <arc-content slot="content">CONTENT</arc-content>
   </arc-container>
-` as any;
+`;
 
 export const ArcContainer = Template.bind({});
 ArcContainer.args = {

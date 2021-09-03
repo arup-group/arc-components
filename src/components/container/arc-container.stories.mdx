@@ -20,7 +20,7 @@ import '../../../out-tsc/src/components/container/arc-container.js';
       name: 'nav',
       type: { required: false },
       description: 'The container navbar',
-      control: {type: null,},
+      control: { type: 'boolean' },
       table: {
         category: 'Slots'
       }
@@ -29,7 +29,7 @@ import '../../../out-tsc/src/components/container/arc-container.js';
       name: 'side',
       type: { required: false },
       description: 'The container sidebar',
-      control: {type: null,},
+      control: { type: 'boolean' },
       table: {
         category: 'Slots'
       }
@@ -38,7 +38,7 @@ import '../../../out-tsc/src/components/container/arc-container.js';
       name: 'content',
       type: { required: false },
       description: 'The container content section',
-      control: {type: null,},
+      control: { type: 'boolean' },
       table: {
         category: 'Slots'
       }
@@ -56,6 +56,7 @@ import '../../../out-tsc/src/components/container/arc-container.js';
       name: '--navbar-height',
       type: { required: false },
       description: 'Set the base height of the navbar',
+      defaultValue: { summary: '3.5rem' },
       table: {
         category: 'CSS Custom Properties'
       }
@@ -64,6 +65,7 @@ import '../../../out-tsc/src/components/container/arc-container.js';
       name: '--sidebar-width',
       type: { required: false },
       description: 'Set the base width of the sidebar',
+      defaultValue: { summary: '23rem' },
       table: {
         category: 'CSS Custom Properties'
       }
@@ -74,7 +76,10 @@ import '../../../out-tsc/src/components/container/arc-container.js';
 # ArcContainer
 
 The ARC container is a fundamental building block that contains, pads, and aligns your content within a given device or viewport.
-It handles time consuming tasks such as responsiveness and theming, out of the box!
+It handles time consuming tasks such as responsiveness and theming out of the box!
+Within the container you can use the [arc-navbar](?path=/docs/some--id), [arc-sidebar](?path=/docs/some--id),
+[arc-content](?path=/docs/some--id) and [arc-bottombar](?path=/docs/some--id) to compose a container.
+
 
 export const Template = (args) => html`
   <arc-container .theme=${args.theme} style="--navbar-height:${args.height}; --sidebar-width:${args.width}">

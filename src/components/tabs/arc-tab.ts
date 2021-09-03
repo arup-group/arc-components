@@ -28,6 +28,7 @@ export class ArcTab extends LitElement {
       font-family: var(--arc-button-font-family);
       font-size: var(--arc-button-font-size);
       font-weight: var(--arc-button-font-weight);
+      text-decoration: none;
     }
 
     /* Disabled */
@@ -52,11 +53,14 @@ export class ArcTab extends LitElement {
 
   @property({reflect: true}) disabled: boolean = false;
 
+  @property({reflect: true}) href: string = '';
+
   render() {
     return html`
-      <button class='tab' tabindex="-1">
-        <slot></slot>
-      </button>
+      ${this.href
+        ? html`<a class='tab' href='${this.href}' tabindex="-1"><slot></slot></a>`
+        : html`<button class='tab' tabindex="-1"><slot></slot></button>`
+      }
     `;
   }
 }

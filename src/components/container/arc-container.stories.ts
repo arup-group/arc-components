@@ -1,10 +1,10 @@
-import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
-import { html } from 'lit';
-import '../../../out-tsc/src/components/container/arc-container.js';
+import { html, TemplateResult } from 'lit';
+import './arc-container.js';
 
-<Meta
-  title="Frame/arc-container"
-  argTypes={{
+export default {
+  title: 'Containers',
+  component: 'arc-container',
+  argTypes: {
     theme: {
       name: 'theme',
       type: { required: false },
@@ -20,37 +20,37 @@ import '../../../out-tsc/src/components/container/arc-container.js';
       name: 'nav',
       type: { required: false },
       description: 'The container navbar',
-      control: { type: 'boolean' },
+      control: { type: null },
       table: {
-        category: 'Slots'
-      }
+        category: 'Slots',
+      },
     },
     side: {
       name: 'side',
       type: { required: false },
       description: 'The container sidebar',
-      control: { type: 'boolean' },
+      control: { type: null },
       table: {
-        category: 'Slots'
-      }
+        category: 'Slots',
+      },
     },
     content: {
       name: 'content',
       type: { required: false },
       description: 'The container content section',
-      control: { type: 'boolean' },
+      control: { type: null },
       table: {
-        category: 'Slots'
-      }
+        category: 'Slots',
+      },
     },
     bottom: {
       name: 'bottom',
       type: { required: false },
       description: 'The container bottombar',
-      control: {type: null,},
+      control: { type: null },
       table: {
-        category: 'Slots'
-      }
+        category: 'Slots',
+      },
     },
     height: {
       name: '--navbar-height',
@@ -58,8 +58,8 @@ import '../../../out-tsc/src/components/container/arc-container.js';
       description: 'Set the base height of the navbar',
       defaultValue: { summary: '3.5rem' },
       table: {
-        category: 'CSS Custom Properties'
-      }
+        category: 'CSS Custom Properties',
+      },
     },
     width: {
       name: '--sidebar-width',
@@ -67,34 +67,38 @@ import '../../../out-tsc/src/components/container/arc-container.js';
       description: 'Set the base width of the sidebar',
       defaultValue: { summary: '23rem' },
       table: {
-        category: 'CSS Custom Properties'
-      }
-    }
-  }}
-  component="arc-container" />
+        category: 'CSS Custom Properties',
+      },
+    },
+  },
+};
 
-# ArcContainer
+interface Story<T> {
+  (args: T): TemplateResult;
+  args?: Partial<T>;
+  argTypes?: Record<string, unknown>;
+}
 
-The ARC container is a fundamental building block that contains, pads, and aligns your content within a given device or viewport.
-It handles time consuming tasks such as responsiveness and theming out of the box!
-Within the container you can use the [arc-navbar](?path=/docs/some--id), [arc-sidebar](?path=/docs/some--id),
-[arc-content](?path=/docs/some--id) and [arc-bottombar](?path=/docs/some--id) to compose a container.
+interface ArgTypes {
+  theme: string;
+  height: string;
+  width: string;
+}
 
-
-export const Template = (args) => html`
-  <arc-container .theme=${args.theme} style="--navbar-height:${args.height}; --sidebar-width:${args.width}">
+const Template: Story<ArgTypes> = ({ theme, height, width }: ArgTypes) => html`
+  <arc-container
+    .theme=${theme}
+    style="--navbar-height:${height}; --sidebar-width:${width}"
+  >
     <arc-navbar slot="nav">NAVBAR</arc-navbar>
     <arc-sidebar slot="side">SIDEBAR</arc-sidebar>
     <arc-content slot="content">CONTENT</arc-content>
   </arc-container>
-`;
+` as any;
 
-<Story name="arc-container" args={{
+export const ArcContainer = Template.bind({});
+ArcContainer.args = {
   theme: 'auto',
   height: '3.5rem',
-  width: '23rem'
-}}>
-  {Template.bind({})}
-</Story>
-
-<ArgsTable story="arc-container" />
+  width: '23rem',
+};

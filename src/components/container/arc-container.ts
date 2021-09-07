@@ -40,7 +40,7 @@ export class ArcContainer extends LitElement {
     ::slotted(arc-sidebar) {
       width: var(--sidebar-width);
       margin-right: min(5vh, var(--arc-spacing-medium));
-      transition: var(--arc-transition-slow);
+      transition: width var(--arc-transition-slow);
     }
 
     ::slotted(arc-content) {
@@ -52,7 +52,7 @@ export class ArcContainer extends LitElement {
       display: none;
     }
 
-    /* Medium devices (tablets, 768px)  */
+    /* Medium devices */
     @media (max-width: 40em) {
       #container {
         padding: 0;

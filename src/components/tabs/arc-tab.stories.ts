@@ -34,7 +34,34 @@ export default {
         type: { summary: 'string' },
         category: 'Properties',
       },
-    }
+    },
+    default: {
+      name: '(default)',
+      type: { required: false },
+      description: 'The tab\'s label.',
+      control: { type: null },
+      table: {
+        category: 'Slots',
+      },
+    },
+    height: {
+      name: '--height',
+      type: { required: false },
+      description: 'Set the base height of the tab',
+      defaultValue: { summary: '3rem' },
+      table: {
+        category: 'CSS Parts',
+      },
+    },
+    width: {
+      name: '--width',
+      type: { required: false },
+      description: 'Set the base width of the tab',
+      defaultValue: { summary: '7.5rem' },
+      table: {
+        category: 'CSS Parts',
+      },
+    },
   },
 };
 
@@ -48,15 +75,24 @@ interface ArgTypes {
   active: boolean;
   disabled: boolean;
   href: string;
+  height: string;
+  width: string;
 }
 
-const Template: Story<ArgTypes> = ({ active, disabled, href }: ArgTypes) => html`
-  <arc-tab ?active=${active} ?disabled=${disabled} href='${href}'>My tab</arc-tab>
+const Template: Story<ArgTypes> = ({ active, disabled, href, height, width }: ArgTypes) => html`
+  <arc-tab
+    ?active=${active}
+    ?disabled=${disabled}
+    href='${href}'
+    style="--height:${height}; --width:${width}"
+  >My tab</arc-tab>
 `;
 
 export const ArcTab = Template.bind({});
 ArcTab.args = {
   active: false,
   disabled: false,
-  href: ''
+  href: '',
+  height: '3rem',
+  width: '7.5rem',
 };

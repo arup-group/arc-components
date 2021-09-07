@@ -54,7 +54,7 @@ export default {
       description: 'Set the base height of the navbar',
       defaultValue: { summary: '3.5rem' },
       table: {
-        category: 'CSS Custom Properties',
+        category: 'CSS Parts',
       },
     },
     width: {
@@ -63,7 +63,7 @@ export default {
       description: 'Set the base width of the sidebar',
       defaultValue: { summary: '23rem' },
       table: {
-        category: 'CSS Custom Properties',
+        category: 'CSS Parts',
       },
     },
   },

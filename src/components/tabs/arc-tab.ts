@@ -5,12 +5,12 @@ import { customElement, property } from 'lit/decorators.js';
 export class ArcTab extends LitElement {
   static styles = css`
     :host {
-      --min-height: 3rem;
+      --height: 3rem;
       --width: 7.5rem;
     }
 
     .tab {
-      min-height: var(--min-height);
+      min-height: var(--height);
       height: 100%;
       width: var(--width);
       background: none;

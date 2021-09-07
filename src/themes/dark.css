@@ -6,7 +6,7 @@ arc-container[theme='dark'] {
 
   --arc-button-color: var(--arc-white-000);
   --arc-button-color-active: var(--arc-red-050);
-  --arc-button-color-hover: var(--arc-grey-090);
+  --arc-button-color-hover: var(--arc-red-000);
   --arc-button-font-family: var(--arc-font-button);
   --arc-button-font-size: var(--arc-font-size-small);
   --arc-button-font-weight: var(--arc-font-weight-semibold);

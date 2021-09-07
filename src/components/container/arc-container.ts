@@ -28,18 +28,18 @@ export class ArcContainer extends LitElement {
     ::slotted(arc-navbar),
     ::slotted(arc-bottombar),
     #bottom {
-      height: var(--navbar-height);
+      min-height: var(--navbar-height);
     }
 
     #container {
       flex: 1 1 100%;
       display: flex;
-      padding: var(--arc-spacing-medium);
+      padding: min(5vh, var(--arc-spacing-medium));
     }
 
     ::slotted(arc-sidebar) {
       width: var(--sidebar-width);
-      margin-right: var(--arc-spacing-medium);
+      margin-right: min(5vh, var(--arc-spacing-medium));
       transition: var(--arc-transition-slow);
     }
 
@@ -53,7 +53,7 @@ export class ArcContainer extends LitElement {
     }
 
     /* Medium devices (tablets, 768px)  */
-    @media (max-width: 48em) {
+    @media (max-width: 40em) {
       #container {
         padding: 0;
       }

@@ -2,7 +2,7 @@
   /* Font Family */
   --arc-font-headline: "Times New Roman";
   --arc-font-body: "Roboto Light";
-  --arc-font-button: "Roboto";
+  --arc-font-button: "Roboto","sans-serif";
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;
@@ -31,6 +31,12 @@
   --arc-spacing-normal: 1rem;
   --arc-spacing-medium: 1.5rem;
   --arc-spacing-large: 1.75rem;
+
+  /* Border radius */
+  --arc-border-radius-small: 0.125rem;
+  --arc-border-radius-medium: 0.25rem;
+  --arc-border-radius-large: 0.5rem;
+  --arc-border-radius-x-large: 1rem;
 
   /* Transition */
   --arc-transition-x-slow: 1000ms;

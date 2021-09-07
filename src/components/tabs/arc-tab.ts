@@ -33,18 +33,18 @@ export class ArcTab extends LitElement {
 
     /* Disabled */
     :host([disabled]:not([disabled='false'])) .tab {
+      color: var(--arc-button-color-disabled);
       opacity: 0.5;
       cursor: not-allowed;
     }
 
     /* Active */
     :host([active]:not([active='false'])[disabled='false']) .tab {
-      color: var(--arc-button-color-active);
-      border-bottom: solid 2px var(--arc-button-color-active);
+      border-bottom: solid 2px var(--arc-button-color);
     }
 
     /* Hover */
-    .tab:hover {
+    :host([disabled='false']) .tab:hover {
       background-color: var(--arc-button-color-hover);
     }
   `;

@@ -1,13 +1,13 @@
 import { html, TemplateResult } from 'lit';
-import './arc-tab.js';
+import './arc-button.js';
 
 export default {
-  title: 'Tabs',
-  component: 'arc-tab',
+  title: 'Buttons',
+  component: 'arc-button',
   argTypes: {
     active: {
       type: { required: false },
-      description: 'Draws the tab in an active state.',
+      description: 'Draws the button in an active state.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
       table: {
@@ -17,7 +17,7 @@ export default {
     },
     disabled: {
       type: { required: false },
-      description: 'Draws the tab in a disabled state.',
+      description: 'Draws the button in a disabled state.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
       table: {
@@ -38,25 +38,16 @@ export default {
     default: {
       name: '(default)',
       type: { required: false },
-      description: 'The tab\'s label.',
+      description: 'The button\'s label.',
       control: { type: null },
       table: {
         category: 'Slots',
       },
     },
-    height: {
-      name: '--height',
-      type: { required: false },
-      description: 'Set the base height of the tab',
-      defaultValue: { summary: '3rem' },
-      table: {
-        category: 'CSS Parts',
-      },
-    },
     width: {
-      name: '--width',
+      name: '--min-width',
       type: { required: false },
-      description: 'Set the base width of the tab',
+      description: 'Set the base width of the button',
       defaultValue: { summary: '7.5rem' },
       table: {
         category: 'CSS Parts',
@@ -72,27 +63,27 @@ interface Story<T> {
 }
 
 interface ArgTypes {
+  label: string;
   active: boolean;
   disabled: boolean;
   href: string;
-  height: string;
   width: string;
 }
 
-const Template: Story<ArgTypes> = ({ active, disabled, href, height, width }: ArgTypes) => html`
-  <arc-tab
+const Template: Story<ArgTypes> = ({ label, active, disabled, href, width }: ArgTypes) => html`
+  <arc-button
     ?active=${active}
     ?disabled=${disabled}
     href='${href}'
-    style="--height:${height}; --width:${width}"
-  >My tab</arc-tab>
+    style="--min-width:${width}"
+  >${label}</arc-button>
 `;
 
-export const ArcTab = Template.bind({});
-ArcTab.args = {
+export const ArcButton = Template.bind({});
+ArcButton.args = {
+  label: 'Button',
   active: false,
   disabled: false,
   href: '',
-  height: '3rem',
   width: '7.5rem',
 };

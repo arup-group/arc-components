@@ -149,7 +149,6 @@ body {
   font-size: var(--arc-font-size-medium);
   font-weight: var(--arc-font-weight-normal);
   letter-spacing: var(--arc-letter-spacing-normal);
-  line-height: var(--arc-line-height-normal);
 }
 
 /* Account for any border and padding in the width/height values of an element */

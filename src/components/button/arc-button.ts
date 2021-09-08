@@ -1,5 +1,5 @@
-import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 
 @customElement('arc-button')
 export class ArcButton extends LitElement {
@@ -17,28 +17,47 @@ export class ArcButton extends LitElement {
     #button {
       min-height: 100%;
       min-width: var(--min-width);
-      background: none;
-      display: inline-flex;
-      align-items: stretch;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      border: none;
-      outline: none;
-      text-align: center;
-      padding: var(--arc-spacing-normal);
-      text-decoration: none;
-      user-select: none;
-      white-space: nowrap;
-      vertical-align: middle;
-      cursor: pointer;
-      -webkit-appearance: none;
-      z-index: 1;
-      color: var(--arc-button-color);
       font-family: var(--arc-button-font-family);
       font-size: var(--arc-button-font-size);
       font-weight: var(--arc-button-font-weight);
+      cursor: pointer;
+      line-height: normal;
+      outline: none;
+      padding: var(--arc-spacing-normal);
+      -webkit-appearance: none;
+      white-space: nowrap;
+      transition: var(--arc-transition-fast) background-color, var(--arc-transition-fast) color, var(--arc-transition-fast) border, var(--arc-transition-fast) box-shadow;
     }
 
-    #button > span {
+    #button.normal {
+      border: none;
+      color: var(--arc-button-color);
+    }
+
+    #button.primary {
+
+    }
+
+    #button.text {
+
+    }
+
+    #button.tile {
+
+    }
+
+    #button.tab {
+      color: var(--arc-tab-color);
+      text-decoration: none;
+      user-select: none;
+      background: none;
+      border: none;
+    }
+
+    span {
       padding: 0 var(--arc-spacing-medium);
     }
 
@@ -50,27 +69,43 @@ export class ArcButton extends LitElement {
     }
 
     /* Active */
-    :host([active]:not([active='false'])[disabled='false']) #button {
+    :host([active]:not([active='false'])[disabled='false']) #button.tab {
       border-bottom: solid 2px currentColor;
     }
 
     /* Hover */
-    :host([disabled='false']) #button:hover {
+    :host(:not([disabled='true'])) #button:hover {
       background-color: var(--arc-button-color-hover);
     }
   `;
 
-  @property({
-    converter: (attrValue: string | null) => attrValue === '',
-    reflect: true
-  }) active: boolean = false;
+  /** @type { 'normal' | 'primary' | 'text' | 'tile' | 'tab' } */
+  @property({type: String, reflect: true })
+  type: string = 'normal';
 
-  @property({
-    converter: (attrValue: string | null) => attrValue === '',
-    reflect: true
-  }) disabled: boolean = false;
+  @property({type: Boolean, reflect: true})
+  rounded: boolean = false;
 
-  @property({reflect: true}) href: string = '';
+  @property({type: Boolean, reflect: true})
+  outlined: boolean = false;
+
+  @property({type: Boolean, reflect: true})
+  active: boolean = false;
+
+  @property({type: Boolean, reflect: true})
+  disabled: boolean = false;
+
+  @property()
+  href = null;
+
+  @query('#button')
+  button!: HTMLSpanElement;
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('type')) {
+      this.button.classList.add(this.type);
+    }
+  }
 
   render() {
     return html`

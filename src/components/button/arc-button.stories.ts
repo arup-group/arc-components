@@ -71,12 +71,12 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ label, active, disabled, href, width }: ArgTypes) => html`
-  <arc-button
+  Testing something <arc-button
     ?active=${active}
     ?disabled=${disabled}
     href='${href}'
     style="--min-width:${width}"
-  >${label}</arc-button>
+  >${label}</arc-button> around the button
 `;
 
 export const ArcButton = Template.bind({});

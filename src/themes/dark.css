@@ -4,7 +4,8 @@ arc-container[theme='dark'] {
   --arc-container-color: var(--arc-grey-100);
   --arc-color-default: var(--arc-white-000);
 
-  --arc-button-color: var(--arc-white-000);
   --arc-button-color-disabled: var(--arc-grey-060);
   --arc-button-color-hover: var(--arc-grey-090);
+
+  --arc-tab-color: var(--arc-white-000);
 }

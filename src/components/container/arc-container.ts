@@ -72,10 +72,7 @@ export class ArcContainer extends LitElement {
   `;
 
   /** @type { 'auto' | 'dark' | 'light' } */
-  @property({
-    type: String,
-    reflect: true,
-  })
+  @property({ type: String, reflect: true })
   theme: string = this.getTheme();
 
   updated(changedProperties: PropertyValues<this>) {

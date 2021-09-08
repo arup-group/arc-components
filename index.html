@@ -17,15 +17,15 @@
 <body>
 <arc-container>
   <arc-navbar slot='nav' style='display: flex;'>
-    <arc-button>1</arc-button>
-    <arc-button>2</arc-button>
-    <arc-button>3</arc-button>
+    <arc-button type='tab'>1</arc-button>
+    <arc-button type='tab'>2</arc-button>
+    <arc-button type='tab' href='/'>3</arc-button>
   </arc-navbar>
   <arc-sidebar slot='side'></arc-sidebar>
   <arc-content slot='content' style='padding: 50px;'>
-    <arc-button size='small'>One</arc-button>
-    <arc-button size='medium'>One longer</arc-button>
-    <arc-button size='large'>One even longer than that</arc-button>
+    <arc-button size='small' type='primary'>One</arc-button>
+    <arc-button size='medium' type='secondary'>One longer</arc-button>
+    <arc-button size='large' disabled>One even longer than that</arc-button>
   </arc-content>
 </arc-container>
 

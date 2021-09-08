@@ -1,5 +1,6 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
+import {styleMap} from 'lit/directives/style-map.js';
 
 @customElement('arc-button')
 export class ArcButton extends LitElement {
@@ -8,6 +9,7 @@ export class ArcButton extends LitElement {
       display: inline-block;
       cursor: pointer;
       width: auto;
+      --min-width: 6rem;
     }
 
     :host *, :host ::before, :host ::after {
@@ -16,6 +18,9 @@ export class ArcButton extends LitElement {
 
     #button {
       min-height: 100%;
+      width: 100%;
+      border: none;
+      border-radius: var(--arc-border-radius-medium);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -23,6 +28,8 @@ export class ArcButton extends LitElement {
       font-size: var(--arc-font-size-small);
       font-weight: var(--arc-font-weight-semibold);
       cursor: inherit;
+      text-decoration: none;
+      user-select: none;
       line-height: normal;
       outline: none;
       padding: 0;
@@ -31,50 +38,42 @@ export class ArcButton extends LitElement {
       transition: var(--arc-transition-fast) background-color, var(--arc-transition-fast) color, var(--arc-transition-fast) border, var(--arc-transition-fast) box-shadow;
     }
 
-    /* Types */
-    #button.normal {
-      color: var(--arc-button-color);
-      background: var(--arc-button-background-color);
-      border: none;
-    }
-
-    #button.tab {
-      color: var(--arc-tab-color);
-      background: none;
-      border: none;
-      text-decoration: none;
-      user-select: none;
+    :host([type='tab']) #button {
+      color: var(--arc-color-secondary);
+      min-width: var(--min-width);
     }
 
     /* Sizes */
-    #button.small {
+    :host([size='small']) #button {
       height: var(--arc-input-height-small);
     }
 
-    #button.medium {
-      height: var(--arc-input-height-medium);
-    }
-
-    #button.large {
-      height: var(--arc-input-height-large);
-    }
-
-    #button.small > span {
+    :host([size='small']) span {
       padding: 0 var(--arc-spacing-small);
     }
 
-    #button.medium > span {
+    :host([size='medium']) #button {
+      height: var(--arc-input-height-medium);
+    }
+
+    :host([size='medium']) span {
       padding: 0 var(--arc-spacing-medium);
     }
 
-    #button.large > span {
+    :host([size='large']) #button {
+      height: var(--arc-input-height-large);
+    }
+
+    :host([size='large']) span {
       padding: 0 var(--arc-spacing-large);
     }
 
     /* Disabled */
     :host([disabled]) #button {
-      color: var(--arc-button-color-disabled);
+      color: var(--arc-color-disabled) !important;
+      background-color: var(--arc-background-disabled) !important;
       opacity: 0.5;
+      box-shadow: none;
       cursor: not-allowed;
     }
 
@@ -89,9 +88,9 @@ export class ArcButton extends LitElement {
     }
   `;
 
-  /** @type { 'normal' | 'tab' } */
-  @property({type: String, reflect: true })
-  type: string = 'normal';
+  /** @type { 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' } */
+  @property({ type: String, reflect: true })
+  type: string = 'default';
 
   /** @type { 'small' | 'medium' | 'large' } */
   @property({type: String, reflect: true })
@@ -115,20 +114,16 @@ export class ArcButton extends LitElement {
   @query('#button')
   button!: HTMLSpanElement;
 
-  updated(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has('type')) {
-      this.button.classList.add(this.type);
-    }
-    if (changedProperties.has('size')) {
-      this.button.classList.add(this.size);
-    }
-  }
-
   render() {
+    const styles = {
+      backgroundColor: `var(--arc-color-${this.type})`,
+      color: this.type !== 'default' && this.type !== 'tab' ? 'white' : null
+    };
+
     return html`
       ${this.href && !this.disabled
-        ? html`<a id='button' href='${this.href}' tabindex="-1"><span><slot></slot></span></a>`
-        : html`<button id='button' tabindex="-1"><span><slot></slot></span></button>`
+        ? html`<a id='button' style=${styleMap(styles)} href='${this.href}' tabindex="-1"><span><slot></slot></span></a>`
+        : html`<button id='button' style=${styleMap(styles)} tabindex="-1"><span><slot></slot></span></button>`
       }
     `;
   }

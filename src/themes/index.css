@@ -26,11 +26,6 @@
   --arc-letter-spacing-normal: normal;
   --arc-letter-spacing-loose: 0.075em;
 
-  /* Focus */
-  --arc-focus-ring-width: 3px;
-  --arc-focus-ring-alpha: 40%;
-  --arc-focus-ring: 0 0 0 var(--arc-focus-ring-width) rgb(var(--arc-focus-ring-color) / var(--arc-focus-ring-alpha));
-
   /* Padding / Margin */
   --arc-spacing-small: 0.75rem;
   --arc-spacing-normal: 1rem;
@@ -44,6 +39,7 @@
   --arc-border-radius-medium: 0.25rem;
   --arc-border-radius-large: 0.5rem;
   --arc-border-radius-x-large: 1rem;
+  --arc-box-shadow: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.14)) drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.12)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.2));
 
   /* Transition */
   --arc-transition-x-slow: 1000ms;

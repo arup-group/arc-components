@@ -3,21 +3,16 @@
 arc-container[theme='light'] {
   --arc-background-color: var(--arc-grey-010);
   --arc-container-color: var(--arc-white-000);
-  --arc-color-default: var(--arc-black-100);
+  --arc-font-color: var(--arc-black-100);
 
-  /* Borders */
-  --arc-border-color: var(--arc-grey-020);
-  --arc-border-color-hover: var(--sl-color-neutral-400);
-  --arc-border-color-focus: var(--sl-color-primary-500);
-  --arc-border-color-disabled: var(--sl-color-neutral-300);
+  --arc-color-default: var(--arc-grey-020);
+  --arc-color-primary: var(--arc-blue-070);
+  --arc-color-secondary: var(--arc-red-060);
+  --arc-color-error: var(--arc-red-040);
+  --arc-color-warning: var(--arc-orange-030);
+  --arc-color-info: var(--arc-blue-020);
+  --arc-color-success: var(--arc-green-030);
 
-  /* Buttons */
-  --arc-button-color: var(--arc-color-default);
-  --arc-button-color-hover: var(--arc-red-000);
-  --arc-button-color-focus:
-  --arc-button-color-disabled: var(--arc-grey-060);
-  --arc-button-background-color: var(--arc-grey-010);
-  --arc-button-border-color
-
-  --arc-tab-color: var(--arc-red-060);
+  --arc-color-disabled: var(--arc-grey-080);
+  --arc-background-disabled: var(--arc-grey-030)
 }

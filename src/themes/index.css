@@ -26,13 +26,20 @@
   --arc-letter-spacing-normal: normal;
   --arc-letter-spacing-loose: 0.075em;
 
+  /* Focus */
+  --arc-focus-ring-width: 3px;
+  --arc-focus-ring-alpha: 40%;
+  --arc-focus-ring: 0 0 0 var(--arc-focus-ring-width) rgb(var(--arc-focus-ring-color) / var(--arc-focus-ring-alpha));
+
   /* Padding / Margin */
   --arc-spacing-small: 0.75rem;
   --arc-spacing-normal: 1rem;
   --arc-spacing-medium: 1.5rem;
   --arc-spacing-large: 1.75rem;
 
-  /* Border radius */
+  /* Border */
+  --arc-border-width: 1px;
+  --arc-border-style: solid;
   --arc-border-radius-small: 0.125rem;
   --arc-border-radius-medium: 0.25rem;
   --arc-border-radius-large: 0.5rem;
@@ -49,6 +56,11 @@
   --arc-line-height-dense: 1.4;
   --arc-line-height-normal: 1.8;
   --arc-line-height-loose: 2.2;
+
+  /* Input height */
+  --arc-input-height-small: 1.875rem;
+  --arc-input-height-medium: 2.5rem;
+  --arc-input-height-large: 3.125rem;
 
   /* Colors */
   --arc-white-000: #fff;

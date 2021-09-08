@@ -5,12 +5,19 @@ arc-container[theme='light'] {
   --arc-container-color: var(--arc-white-000);
   --arc-color-default: var(--arc-black-100);
 
+  /* Borders */
+  --arc-border-color: var(--arc-grey-020);
+  --arc-border-color-hover: var(--sl-color-neutral-400);
+  --arc-border-color-focus: var(--sl-color-primary-500);
+  --arc-border-color-disabled: var(--sl-color-neutral-300);
+
+  /* Buttons */
   --arc-button-color: var(--arc-color-default);
-  --arc-button-color-disabled: var(--arc-grey-060);
   --arc-button-color-hover: var(--arc-red-000);
-  --arc-button-font-family: var(--arc-font-button);
-  --arc-button-font-size: var(--arc-font-size-small);
-  --arc-button-font-weight: var(--arc-font-weight-semibold);
+  --arc-button-color-focus:
+  --arc-button-color-disabled: var(--arc-grey-060);
+  --arc-button-background-color: var(--arc-grey-010);
+  --arc-button-border-color
 
   --arc-tab-color: var(--arc-red-060);
 }

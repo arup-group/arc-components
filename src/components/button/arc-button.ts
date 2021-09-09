@@ -143,7 +143,7 @@ export class ArcButton extends LitElement {
   @property({ type: String, reflect: true })
   type: string = 'contained';
 
-  /** @type { 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' } */
+  /** @type { 'default' | 'primary' | 'error' | 'warning' | 'info' | 'success' } */
   @property({ type: String, reflect: true })
   color: string = 'default';
 

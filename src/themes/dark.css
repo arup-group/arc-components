@@ -10,5 +10,5 @@ arc-container[theme='dark'] {
   --arc-color-secondary: var(--arc-red-030);
   --arc-color-error: var(--arc-red-060);
 
-  --arc-hover-light: rgba(var(--arc-black-100), 0.85);
+  --arc-hover-light: rgba(var(--arc-black-100), 0.80);
 }

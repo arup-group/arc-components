@@ -9,6 +9,7 @@ export class ArcButton extends LitElement {
       cursor: pointer;
       width: auto;
       --min-width: 6rem;
+      --background-color: rgb(var(--arc-color-default));
     }
 
     :host *, :host ::before, :host ::after {
@@ -23,6 +24,7 @@ export class ArcButton extends LitElement {
       align-items: center;
       justify-content: center;
       color: rgb(var(--arc-input-color));
+      background-color: var(--background-color);
       border: none;
       border-radius: var(--arc-border-radius-medium);
       box-shadow: var(--arc-box-shadow);
@@ -40,28 +42,25 @@ export class ArcButton extends LitElement {
     }
 
     /* Main - Colors */
-    :host([color='default']) #button {
-      background-color: rgb(var(--arc-color-default));
-    }
     :host([color='primary']) #button {
       color: rgb(var(--arc-background-color));
-      background-color: rgb(var(--arc-color-primary));
+      --background-color: rgb(var(--arc-color-primary));
     }
     :host([color='secondary']) #button {
       color: rgb(var(--arc-background-color));
-      background-color: rgb(var(--arc-color-secondary));
+      --background-color: rgb(var(--arc-color-secondary));
     }
     :host([color='error']) #button {
-      background-color: rgb(var(--arc-color-error));
+      --background-color: rgb(var(--arc-color-error));
     }
     :host([color='warning']) #button {
-      background-color: rgb(var(--arc-color-warning));
+      --background-color: rgb(var(--arc-color-warning));
     }
     :host([color='info']) #button {
-      background-color: rgb(var(--arc-color-info));
+      --background-color: rgb(var(--arc-color-info));
     }
     :host([color='success']) #button {
-      background-color: rgb(var(--arc-color-success));
+      --background-color: rgb(var(--arc-color-success));
     }
 
     /* Main - Hover */
@@ -70,12 +69,41 @@ export class ArcButton extends LitElement {
     }
 
     /* Main - Disabled */
-    :host([disabled]) #button {
+    :host(:not([type='outlined'])[disabled]) #button {
       color: rgb(var(--arc-input-color)); !important;
       background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       opacity: 0.5;
       box-shadow: none;
       cursor: not-allowed;
+    }
+
+    /* Tile */
+    :host([type='tile']) #button {
+      border-radius: 0;
+    }
+
+    /* Outlined */
+    :host([type='outlined']) #button {
+      color: var(--background-color);
+      border: var(--arc-border-width) solid currentColor;
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    :host([type='outlined'][color='default']:not([disabled])) #button {
+      color: rgb(var(--arc-grey-060));
+      border: var(--arc-border-width) solid currentColor
+    }
+
+    /* Outlined - Disabled */
+    :host([type='outlined'][disabled]) {
+      cursor: not-allowed;
+    }
+
+    /* Outlined - Hover */
+    :host([type='outlined']:not([disabled])) #button:hover {
+      background-color: currentColor;
+      background-image: linear-gradient(var(--arc-hover-light) 0 0);
     }
 
     /* Tab */

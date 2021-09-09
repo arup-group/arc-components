@@ -16,7 +16,7 @@ export class ArcButton extends LitElement {
       box-sizing: inherit;
     }
 
-    /* Main */
+    /* Button */
     #button {
       min-height: 100%;
       width: 100%;
@@ -41,14 +41,18 @@ export class ArcButton extends LitElement {
       white-space: nowrap;
     }
 
+    /* Button - Disabled */
+    :host([disabled]) #button {
+      color: rgb(var(--arc-input-color)); !important;
+      opacity: 0.5;
+      box-shadow: none;
+      cursor: default;
+    }
+
     /* Main - Colors */
     :host([color='primary']) #button {
-      color: rgb(var(--arc-background-color));
+      color: rgb(var(--arc-container-color));
       --background-color: rgb(var(--arc-color-primary));
-    }
-    :host([color='secondary']) #button {
-      color: rgb(var(--arc-background-color));
-      --background-color: rgb(var(--arc-color-secondary));
     }
     :host([color='error']) #button {
       --background-color: rgb(var(--arc-color-error));
@@ -64,17 +68,13 @@ export class ArcButton extends LitElement {
     }
 
     /* Main - Hover */
-    :host(:not([type='tab']):not([disabled])) #button:hover {
+    :host(:not([type='tab']):not([type='outlined']):not([disabled])) #button:hover {
       background-image: linear-gradient(var(--arc-hover-dark) 0 0);
     }
 
     /* Main - Disabled */
-    :host(:not([type='outlined'])[disabled]) #button {
-      color: rgb(var(--arc-input-color)); !important;
+    :host(:not([type='outlined']):not([type='tab'])[disabled]) #button {
       background-image: linear-gradient(var(--arc-hover-dark) 0 0);
-      opacity: 0.5;
-      box-shadow: none;
-      cursor: not-allowed;
     }
 
     /* Tile */
@@ -90,20 +90,21 @@ export class ArcButton extends LitElement {
       box-shadow: none;
     }
 
+    /* Outlined - Default */
     :host([type='outlined'][color='default']:not([disabled])) #button {
-      color: rgb(var(--arc-grey-060));
-      border: var(--arc-border-width) solid currentColor
-    }
-
-    /* Outlined - Disabled */
-    :host([type='outlined'][disabled]) {
-      cursor: not-allowed;
+      color: rgb(var(--arc-font-color));
     }
 
     /* Outlined - Hover */
     :host([type='outlined']:not([disabled])) #button:hover {
       background-color: currentColor;
       background-image: linear-gradient(var(--arc-hover-light) 0 0);
+    }
+
+    /* Outlined - Disabled */
+    :host([type='outlined'][disabled]) #button {
+      color: rgba(var(--arc-input-color),);
+      border-color: rgba(var(--arc-input-color),);
     }
 
     /* Tab */

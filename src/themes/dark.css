@@ -6,9 +6,10 @@ arc-container[theme='dark'] {
   --arc-background-color: var(--arc-black-100);
   --arc-container-color: var(--arc-grey-100);
 
-  --arc-color-primary: var(--arc-blue-030);
-  --arc-color-secondary: var(--arc-red-030);
-  --arc-color-error: var(--arc-red-060);
+  --arc-color-error: var(--arc-red-030);
+  --arc-color-warning: var(--arc-orange-030);
+  --arc-color-info: var(--arc-blue-030);
+  --arc-color-success: var(--arc-green-030);
 
   --arc-hover-light: rgba(var(--arc-black-100), 0.80);
 }

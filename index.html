@@ -22,10 +22,21 @@
     <arc-button type='tab' href='/'>3</arc-button>
   </arc-navbar>
   <arc-sidebar slot='side'></arc-sidebar>
-  <arc-content slot='content' style='padding: 50px;'>
-    <arc-button size='small' type='primary'>One</arc-button>
-    <arc-button size='medium' type='secondary'>One longer</arc-button>
-    <arc-button size='large' disabled>One even longer than that</arc-button>
+  <arc-content slot='content'>
+    <div style='display: flex; flex-direction: column'>
+      <div style='margin-bottom: 3rem;'>
+        <arc-button color='primary'>Primary</arc-button>
+        <arc-button color='secondary'>Secondary</arc-button>
+        <arc-button>Default</arc-button>
+        <arc-button disabled>Disabled</arc-button>
+      </div>
+      <div>
+        <arc-button color='primary' type='outlined'>Primary</arc-button>
+        <arc-button color='secondary' type='outlined'>Secondary</arc-button>
+        <arc-button type='outlined'>Default</arc-button>
+        <arc-button type='outlined' disabled>Disabled</arc-button>
+      </div>
+    </div>
   </arc-content>
 </arc-container>
 

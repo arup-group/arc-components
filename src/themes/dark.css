@@ -6,6 +6,7 @@ arc-container[theme='dark'] {
   --arc-background-color: var(--arc-black-100);
   --arc-container-color: var(--arc-grey-100);
 
+  --arc-color-secondary: var(--arc-white-000);
   --arc-color-error: var(--arc-red-030);
   --arc-color-warning: var(--arc-orange-030);
   --arc-color-info: var(--arc-blue-030);

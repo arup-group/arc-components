@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 @customElement('arc-button')
 export class ArcButton extends LitElement {
@@ -9,14 +10,12 @@ export class ArcButton extends LitElement {
       cursor: pointer;
       width: auto;
       --min-width: 6rem;
-      --background-color: rgb(var(--arc-color-default));
     }
 
     :host *, :host ::before, :host ::after {
       box-sizing: inherit;
     }
 
-    /* Button */
     #button {
       min-height: 100%;
       width: 100%;
@@ -24,7 +23,7 @@ export class ArcButton extends LitElement {
       align-items: center;
       justify-content: center;
       color: rgb(var(--arc-input-color));
-      background-color: var(--background-color);
+      background-color: var(--btn-color-palette);
       border: none;
       border-radius: var(--arc-border-radius-medium);
       box-shadow: var(--arc-box-shadow);
@@ -41,50 +40,56 @@ export class ArcButton extends LitElement {
       white-space: nowrap;
     }
 
-    /* Button - Disabled */
+    /* Disabled */
     :host([disabled]) #button {
-      color: rgb(var(--arc-input-color)); !important;
       opacity: 0.5;
       box-shadow: none;
       cursor: default;
     }
 
-    /* Main - Colors */
-    :host([color='primary']) #button {
-      color: rgb(var(--arc-container-color));
-      --background-color: rgb(var(--arc-color-primary));
-    }
-    :host([color='error']) #button {
-      --background-color: rgb(var(--arc-color-error));
-    }
-    :host([color='warning']) #button {
-      --background-color: rgb(var(--arc-color-warning));
-    }
-    :host([color='info']) #button {
-      --background-color: rgb(var(--arc-color-info));
-    }
-    :host([color='success']) #button {
-      --background-color: rgb(var(--arc-color-success));
-    }
-
-    /* Main - Hover */
+    /* Hover */
     :host(:not([type='tab']):not([type='outlined']):not([disabled])) #button:hover {
       background-image: linear-gradient(var(--arc-hover-dark) 0 0);
     }
 
-    /* Main - Disabled */
-    :host(:not([type='outlined']):not([type='tab'])[disabled]) #button {
-      background-image: linear-gradient(var(--arc-hover-dark) 0 0);
+    /* Color overwrites */
+    :host([color='primary']) #button,
+    :host([color='secondary']) #button {
+      color: rgb(var(--arc-container-color));
     }
+
+    /* Sizes */
+    :host([size='small']) #button {height: var(--arc-input-height-small);}
+
+    :host([size='small']) span {padding: 0 var(--arc-spacing-small);}
+
+    :host([size='medium']) #button {height: var(--arc-input-height-medium);}
+
+    :host([size='medium']) span {padding: 0 var(--arc-spacing-medium);}
+
+    :host([size='large']) #button {height: var(--arc-input-height-large);}
+
+    :host([size='large']) span {padding: 0 var(--arc-spacing-large);}
 
     /* Tile */
     :host([type='tile']) #button {
       border-radius: 0;
     }
 
+    /* Pill */
+    :host([type='pill'][size='small']) #button {
+      border-radius: var(--arc-input-height-small);
+    }
+    :host([type='pill'][size='medium']) #button {
+      border-radius: var(--arc-input-height-medium);
+    }
+    :host([type='pill'][size='large']) #button {
+      border-radius: var(--arc-input-height-large);
+    }
+
     /* Outlined */
     :host([type='outlined']) #button {
-      color: var(--background-color);
+      color: var(--btn-color-palette);
       border: var(--arc-border-width) solid currentColor;
       background-color: transparent;
       box-shadow: none;
@@ -99,12 +104,6 @@ export class ArcButton extends LitElement {
     :host([type='outlined']:not([disabled])) #button:hover {
       background-color: currentColor;
       background-image: linear-gradient(var(--arc-hover-light) 0 0);
-    }
-
-    /* Outlined - Disabled */
-    :host([type='outlined'][disabled]) #button {
-      color: rgba(var(--arc-input-color),);
-      border-color: rgba(var(--arc-input-color),);
     }
 
     /* Tab */
@@ -124,26 +123,13 @@ export class ArcButton extends LitElement {
       background-color: currentColor;
       background-image: linear-gradient(var(--arc-hover-light) 0 0);
     }
-
-    /* Sizes */
-    :host([size='small']) #button {height: var(--arc-input-height-small);}
-
-    :host([size='small']) span {padding: 0 var(--arc-spacing-small);}
-
-    :host([size='medium']) #button {height: var(--arc-input-height-medium);}
-
-    :host([size='medium']) span {padding: 0 var(--arc-spacing-medium);}
-
-    :host([size='large']) #button {height: var(--arc-input-height-large);}
-
-    :host([size='large']) span {padding: 0 var(--arc-spacing-large);}
   `;
 
   /** @type { 'contained' | 'tile' | 'outlined' | 'tab' } */
   @property({ type: String, reflect: true })
   type: string = 'contained';
 
-  /** @type { 'default' | 'primary' | 'error' | 'warning' | 'info' | 'success' } */
+  /** @type { 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' } */
   @property({ type: String, reflect: true })
   color: string = 'default';
 
@@ -164,10 +150,12 @@ export class ArcButton extends LitElement {
   button!: HTMLSpanElement;
 
   render() {
+    const styles = { '--btn-color-palette': `rgb(var(--arc-color-${this.color}))` };
+
     return html`
       ${this.href && !this.disabled
-        ? html`<a id='button' href='${this.href}' tabindex="-1"><span><slot></slot></span></a>`
-        : html`<button id='button' tabindex="-1"><span><slot></slot></span></button>`
+        ? html`<a id='button' style=${styleMap(styles)} href='${this.href}' tabindex="-1"><span><slot></slot></span></a>`
+        : html`<button id='button' style=${styleMap(styles)} tabindex="-1"><span><slot></slot></span></button>`
       }
     `;
   }

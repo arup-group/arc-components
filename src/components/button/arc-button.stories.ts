@@ -91,7 +91,7 @@ export default {
       name: '--min-width',
       type: { required: false },
       description: 'Set the min width of the button',
-      defaultValue: { summary: '6rem' },
+      defaultValue: { summary: '0' },
       control: { type: 'text' },
       table: {
         category: 'CSS Parts',

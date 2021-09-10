@@ -21,10 +21,18 @@ describe('ArcButton', () => {
   });
   describe('states', () => {
     it('draws the button in an active state', async () => {
-      const element = await fixture(html`<arc-button></arc-button>`);
+      const element: ArcButton = await fixture(html`<arc-button active></arc-button>`);
+      expect(element.hasAttribute('active')).to.be.true;
+      expect(element.active).to.be.true;
     });
     it('draws the button in a disabled state', async () => {
-      const element = await fixture(html`<arc-button></arc-button>`);
+      const element: ArcButton = await fixture(html`<arc-button disabled></arc-button>`);
+      expect(element.hasAttribute('disabled')).to.be.true;
+      expect(element.disabled).to.be.true;
     });
+    // TODO: Add this test once the arc-loader component is done
+    // it('draws the button in a loading state', async () => {
+    //   const element = await fixture(html`<arc-button></arc-button>`);
+    // });
   })
 })

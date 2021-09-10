@@ -9,7 +9,7 @@ export class ArcButton extends LitElement {
       display: inline-block;
       cursor: pointer;
       width: auto;
-      --min-width: 6rem;
+      --min-width: 0;
     }
 
     :host *, :host ::before, :host ::after {
@@ -18,6 +18,7 @@ export class ArcButton extends LitElement {
 
     #button {
       min-height: 100%;
+      min-width: var(--min-width);
       width: 100%;
       display: flex;
       align-items: center;
@@ -92,7 +93,6 @@ export class ArcButton extends LitElement {
       background: none;
       border-radius: 0;
       box-shadow: none;
-      min-width: var(--min-width);
     }
     /* Tab - Active */
     :host([type='tab']:not([disabled])[active]) #button {
@@ -161,8 +161,8 @@ export class ArcButton extends LitElement {
 
     return html`
       ${this.href && !this.disabled
-        ? html`<a id='button' style=${styleMap(styles)} href='${this.href}' tabindex="-1"><span><slot></slot></span></a>`
-        : html`<button id='button' style=${styleMap(styles)} tabindex="-1"><span><slot></slot></span></button>`
+        ? html`<a id='button' style=${styleMap(styles)} href='${this.href}' rel='noreferrer noopener' tabindex='-1'><span><slot></slot></span></a>`
+        : html`<button id='button' style=${styleMap(styles)} tabindex='-1'><span><slot></slot></span></button>`
       }
     `;
   }

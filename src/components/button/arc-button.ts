@@ -10,6 +10,7 @@ export class ArcButton extends LitElement {
       cursor: pointer;
       width: auto;
       --min-width: 6rem;
+      --btn-color-palette: '';
     }
 
     :host *, :host ::before, :host ::after {
@@ -125,7 +126,7 @@ export class ArcButton extends LitElement {
     }
   `;
 
-  /** @type { 'contained' | 'tile' | 'outlined' | 'tab' } */
+  /** @type { 'contained' | 'tile' | 'outlined' | 'tab' | 'pill' } */
   @property({ type: String, reflect: true })
   type: string = 'contained';
 

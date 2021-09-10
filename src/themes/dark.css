@@ -13,4 +13,6 @@ arc-container[theme='dark'] {
   --arc-color-success: var(--arc-green-030);
 
   --arc-hover-light: rgba(var(--arc-black-100), 0.80);
+
+  --arc-color-custom: var(--arc-purple-030);
 }

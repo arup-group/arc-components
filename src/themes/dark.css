@@ -2,7 +2,6 @@
 arc-container[theme='dark'] {
   --arc-font-color: var(--arc-white-000);
   --arc-input-color: var(--arc-grey-100);
-  --arc-tab-color: var(--arc-font-color);
   --arc-background-color: var(--arc-black-100);
   --arc-container-color: var(--arc-grey-100);
 
@@ -13,6 +12,4 @@ arc-container[theme='dark'] {
   --arc-color-success: var(--arc-green-030);
 
   --arc-hover-light: rgba(var(--arc-black-100), 0.80);
-
-  --arc-color-custom: var(--arc-purple-030);
 }

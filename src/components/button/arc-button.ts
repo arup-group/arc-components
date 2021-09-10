@@ -10,7 +10,6 @@ export class ArcButton extends LitElement {
       cursor: pointer;
       width: auto;
       --min-width: 6rem;
-      --btn-color-palette: '';
     }
 
     :host *, :host ::before, :host ::after {
@@ -23,8 +22,8 @@ export class ArcButton extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgb(var(--arc-input-color));
-      background-color: var(--btn-color-palette);
+      color: var(--btn-color);
+      background-color: var(--btn-background);
       border: none;
       border-radius: var(--arc-border-radius-medium);
       box-shadow: var(--arc-box-shadow);
@@ -51,12 +50,6 @@ export class ArcButton extends LitElement {
     /* Hover */
     :host(:not([type='tab']):not([type='outlined']):not([disabled])) #button:hover {
       background-image: linear-gradient(var(--arc-hover-dark) 0 0);
-    }
-
-    /* Color overwrites */
-    :host([color='primary']) #button,
-    :host([color='secondary']) #button {
-      color: rgb(var(--arc-container-color));
     }
 
     /* Sizes */
@@ -90,7 +83,7 @@ export class ArcButton extends LitElement {
 
     /* Outlined */
     :host([type='outlined']) #button {
-      color: var(--btn-color-palette);
+      color: var(--btn-background);
       border: var(--arc-border-width) solid currentColor;
       background-color: transparent;
       box-shadow: none;
@@ -109,7 +102,7 @@ export class ArcButton extends LitElement {
 
     /* Tab */
     :host([type='tab']) #button {
-      color: rgb(var(--arc-tab-color));
+      color: rgb(var(--arc-color-primary));
       background: none;
       border-radius: 0;
       box-shadow: none;
@@ -126,7 +119,7 @@ export class ArcButton extends LitElement {
     }
   `;
 
-  /** @type { 'contained' | 'tile' | 'outlined' | 'tab' | 'pill' } */
+  /** @type { 'contained' | 'tile' | 'outlined' | 'pill' | 'tab' } */
   @property({ type: String, reflect: true })
   type: string = 'contained';
 
@@ -151,7 +144,18 @@ export class ArcButton extends LitElement {
   button!: HTMLSpanElement;
 
   render() {
-    const styles = { '--btn-color-palette': `rgb(var(--arc-color-${this.color}))` };
+    const compStyles = window.getComputedStyle(this);
+    const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
+    const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
+
+    const getColor = () => this.color === 'primary' || this.color === 'secondary'
+      ? 'rgb(var(--arc-container-color))'
+      : 'rgb(var(--arc-input-color))'
+
+    const styles = {
+      '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
+      '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`
+    };
 
     return html`
       ${this.href && !this.disabled

@@ -65,33 +65,20 @@ export class ArcButton extends LitElement {
 
     :host([size='large']) span {padding: 0 var(--arc-spacing-large);}
 
-    /* Tile */
-    :host([type='tile']) #button {
-      border-radius: 0;
-    }
+    /* Radius */
+    :host([type='tile']) #button {border-radius: 0;}
 
-    /* Pill */
-    :host([type='pill'][size='small']) #button {
-      border-radius: var(--arc-input-height-small);
-    }
-    :host([type='pill'][size='medium']) #button {
-      border-radius: var(--arc-input-height-medium);
-    }
-    :host([type='pill'][size='large']) #button {
-      border-radius: var(--arc-input-height-large);
-    }
+    :host([type='pill'][size='small']) #button {border-radius: var(--arc-input-height-small);}
+
+    :host([type='pill'][size='medium']) #button {border-radius: var(--arc-input-height-medium);}
+
+    :host([type='pill'][size='large']) #button {border-radius: var(--arc-input-height-large);}
 
     /* Outlined */
     :host([type='outlined']) #button {
-      color: var(--btn-background);
       border: var(--arc-border-width) solid currentColor;
       background-color: transparent;
       box-shadow: none;
-    }
-
-    /* Outlined - Default */
-    :host([type='outlined'][color='default']:not([disabled])) #button {
-      color: rgb(var(--arc-font-color));
     }
 
     /* Outlined - Hover */
@@ -102,7 +89,6 @@ export class ArcButton extends LitElement {
 
     /* Tab */
     :host([type='tab']) #button {
-      color: rgb(var(--arc-color-primary));
       background: none;
       border-radius: 0;
       box-shadow: none;
@@ -148,9 +134,25 @@ export class ArcButton extends LitElement {
     const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
     const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
 
-    const getColor = () => this.color === 'primary' || this.color === 'secondary'
-      ? 'rgb(var(--arc-container-color))'
-      : 'rgb(var(--arc-input-color))'
+    const getColor = () => {
+      switch (this.type) {
+        case 'outlined': {
+          return this.color === 'default'
+            ? 'rgb(var(--arc-font-color))'
+            : 'var(--btn-background)';
+        }
+        case 'tab': {
+          return this.color === 'default'
+            ? 'rgb(var(--arc-color-primary))'
+            : 'var(--btn-background)';
+        }
+        default: {
+          return this.color === 'primary' || this.color === 'secondary'
+            ? 'rgb(var(--arc-container-color))'
+            : 'rgb(var(--arc-input-color))'
+        }
+      }
+    }
 
     const styles = {
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),

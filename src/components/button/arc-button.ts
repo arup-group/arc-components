@@ -77,7 +77,7 @@ export class ArcButton extends LitElement {
 
     /* Outlined */
     :host([type='outlined']) #button {
-      border: var(--arc-border-width) solid currentColor;
+      border: var(--arc-border-width) var(--arc-border-style) currentColor;
       background-color: transparent;
       box-shadow: none;
     }
@@ -96,7 +96,7 @@ export class ArcButton extends LitElement {
     }
     /* Tab - Active */
     :host([type='tab']:not([disabled])[active]) #button {
-      border-bottom: solid 2px currentColor;
+      border: var(--arc-border-width) var(--arc-border-style) currentColor;
     }
     /* Tab - Hover */
     :host([type='tab']:not([disabled])) #button:hover {

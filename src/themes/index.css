@@ -39,7 +39,7 @@
   --arc-border-radius-medium: 0.25rem;
   --arc-border-radius-large: 0.5rem;
   --arc-border-radius-x-large: 1rem;
-  --arc-box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);;
+  --arc-box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
 
   /* Transition */
   --arc-transition-x-slow: 1000ms;
@@ -55,7 +55,7 @@
 
   /* Input height */
   --arc-input-height-small: 1.875rem;
-  --arc-input-height-medium: 2.5rem;
+  --arc-input-height-medium: 2rem;
   --arc-input-height-large: 3.125rem;
 
   /* Colors */

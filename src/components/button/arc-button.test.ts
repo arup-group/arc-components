@@ -13,8 +13,8 @@ describe('ArcButton', () => {
       expect(buttonTarget.querySelector('slot')).to.exist;
     })
     it('renders a button with default properties', async () => {
-      const button: ArcButton = await fixture(html` <arc-button></arc-button> `);
-      expect(button).dom.to.equal(`<arc-button></arc-button>`);
+      const button: ArcButton = await fixture(html` <arc-button>Test</arc-button> `);
+      expect(button).dom.to.equal(`<arc-button type='contained' color='default' size='medium'>Test</arc-button>`);
     })
 
     it('passes the a11y audit', async () => {

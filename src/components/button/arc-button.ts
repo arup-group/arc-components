@@ -1,6 +1,8 @@
-import { css, html, LitElement } from 'lit';
+import { css, unsafeCSS, html, LitElement } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+
+import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
 
 @customElement('arc-button')
 export class ArcButton extends LitElement {
@@ -49,57 +51,49 @@ export class ArcButton extends LitElement {
     }
 
     /* Hover */
-    :host(:not([type='tab']):not([type='outlined']):not([disabled])) #button:hover {
+    :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:hover {
       background-image: linear-gradient(var(--arc-hover-dark) 0 0);
     }
 
     /* Sizes */
-    :host([size='small']) #button {height: var(--arc-input-height-small);}
-
-    :host([size='small']) span {padding: 0 var(--arc-spacing-small);}
-
-    :host([size='medium']) #button {height: var(--arc-input-height-medium);}
-
-    :host([size='medium']) span {padding: 0 var(--arc-spacing-medium);}
-
-    :host([size='large']) #button {height: var(--arc-input-height-large);}
-
-    :host([size='large']) span {padding: 0 var(--arc-spacing-large);}
+    :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {height: var(--arc-input-height-small);}
+    :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) span {padding: 0 var(--arc-spacing-small);}
+    :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {height: var(--arc-input-height-medium);}
+    :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) span {padding: 0 var(--arc-spacing-medium);}
+    :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {height: var(--arc-input-height-large);}
+    :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) span {padding: 0 var(--arc-spacing-large);}
 
     /* Radius */
-    :host([type='tile']) #button {border-radius: 0;}
-
-    :host([type='pill'][size='small']) #button {border-radius: var(--arc-input-height-small);}
-
-    :host([type='pill'][size='medium']) #button {border-radius: var(--arc-input-height-medium);}
-
-    :host([type='pill'][size='large']) #button {border-radius: var(--arc-input-height-large);}
+    :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {border-radius: 0;}
+    :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {border-radius: var(--arc-input-height-small);}
+    :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {border-radius: var(--arc-input-height-medium);}
+    :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {border-radius: var(--arc-input-height-large);}
 
     /* Outlined */
-    :host([type='outlined']) #button {
+    :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
       border: var(--arc-border-width) var(--arc-border-style) currentColor;
       background-color: transparent;
       box-shadow: none;
     }
 
     /* Outlined - Hover */
-    :host([type='outlined']:not([disabled])) #button:hover {
+    :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover {
       background-color: currentColor;
       background-image: linear-gradient(var(--arc-hover-light) 0 0);
     }
 
     /* Tab */
-    :host([type='tab']) #button {
+    :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) #button {
       background: none;
       border-radius: 0;
       box-shadow: none;
     }
     /* Tab - Active */
-    :host([type='tab']:not([disabled])[active]) #button {
+    :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])[active]) #button {
       border: var(--arc-border-width) var(--arc-border-style) currentColor;
     }
     /* Tab - Hover */
-    :host([type='tab']:not([disabled])) #button:hover {
+    :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover {
       background-color: currentColor;
       background-image: linear-gradient(var(--arc-hover-light) 0 0);
     }
@@ -107,15 +101,15 @@ export class ArcButton extends LitElement {
 
   /** @type { 'contained' | 'tile' | 'outlined' | 'pill' | 'tab' } */
   @property({ type: String, reflect: true })
-  type: string = 'contained';
+  type: string = BUTTON_TYPES.contained;
 
   /** @type { 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' } */
   @property({ type: String, reflect: true })
-  color: string = 'default';
+  color: string = BUTTON_COLORS.default;
 
   /** @type { 'small' | 'medium' | 'large' } */
   @property({type: String, reflect: true })
-  size: string = 'medium';
+  size: string = BUTTON_SIZES.medium;
 
   @property({type: Boolean, reflect: true})
   active: boolean = false;
@@ -136,18 +130,18 @@ export class ArcButton extends LitElement {
 
     const getColor = () => {
       switch (this.type) {
-        case 'outlined': {
-          return this.color === 'default'
+        case BUTTON_TYPES.outlined: {
+          return this.color === BUTTON_COLORS.default
             ? 'rgb(var(--arc-font-color))'
             : 'var(--btn-background)';
         }
-        case 'tab': {
-          return this.color === 'default'
+        case BUTTON_TYPES.tab: {
+          return this.color === BUTTON_COLORS.default
             ? 'rgb(var(--arc-color-primary))'
             : 'var(--btn-background)';
         }
         default: {
-          return this.color === 'primary' || this.color === 'secondary'
+          return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary
             ? 'rgb(var(--arc-container-color))'
             : 'rgb(var(--arc-input-color))'
         }

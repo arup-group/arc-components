@@ -22,9 +22,9 @@
   --arc-font-weight-bold: 700;
 
   /* Letter spacing */
-  --arc-letter-spacing-dense: -0.015em;
+  --arc-letter-spacing-dense: -0.015rem;
   --arc-letter-spacing-normal: normal;
-  --arc-letter-spacing-loose: 0.075em;
+  --arc-letter-spacing-loose: 0.075rem;
 
   /* Padding / Margin */
   --arc-spacing-small: 0.75rem;

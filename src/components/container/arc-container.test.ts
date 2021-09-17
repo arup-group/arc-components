@@ -13,7 +13,7 @@ describe('ArcContainer', () => {
   describe('rendering', () => {
     let element: ArcContainer;
     beforeEach(async () => {
-      element = await fixture(html` <arc-container></arc-container>`);
+      element = await fixture(html`<arc-container></arc-container>`);
     });
 
     it('renders slots to fill the container', () => {

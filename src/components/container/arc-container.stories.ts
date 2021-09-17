@@ -6,18 +6,17 @@ export default {
   component: 'arc-container',
   argTypes: {
     theme: {
-      name: 'theme',
       type: { required: false },
       description: 'Set the theme for the container',
       defaultValue: { summary: 'auto' },
       control: { type: 'select' },
       options: ['auto', 'dark', 'light'],
       table: {
+        type: { summary: 'string' },
         category: 'Properties',
       },
     },
     nav: {
-      name: 'nav',
       type: { required: false },
       description: 'The container navbar',
       control: { type: null },
@@ -26,7 +25,6 @@ export default {
       },
     },
     side: {
-      name: 'side',
       type: { required: false },
       description: 'The container sidebar',
       control: { type: null },
@@ -35,7 +33,6 @@ export default {
       },
     },
     content: {
-      name: 'content',
       type: { required: false },
       description: 'The container content section',
       control: { type: null },
@@ -44,7 +41,6 @@ export default {
       },
     },
     bottom: {
-      name: 'bottom',
       type: { required: false },
       description: 'The container bottombar',
       control: { type: null },
@@ -58,7 +54,7 @@ export default {
       description: 'Set the base height of the navbar',
       defaultValue: { summary: '3.5rem' },
       table: {
-        category: 'CSS Custom Properties',
+        category: 'CSS Parts',
       },
     },
     width: {
@@ -67,7 +63,7 @@ export default {
       description: 'Set the base width of the sidebar',
       defaultValue: { summary: '23rem' },
       table: {
-        category: 'CSS Custom Properties',
+        category: 'CSS Parts',
       },
     },
   },

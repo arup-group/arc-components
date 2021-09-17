@@ -5,9 +5,7 @@ import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { DateUtils } from '../../utils/date-utils.js';
 
 export class ArcContainer extends LitElement {
-  static get tag() {
-    return 'arc-container';
-  }
+  static tag = 'arc-container';
 
   static styles = css`
     :host {

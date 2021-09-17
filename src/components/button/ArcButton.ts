@@ -5,9 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
 
 export class ArcButton extends LitElement {
-  static get tag() {
-    return 'arc-button';
-  }
+  static tag = 'arc-button';
 
   static styles = css`
     :host {

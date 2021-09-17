@@ -19,13 +19,13 @@ export class ArcContainer extends LitElement {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background: var(--arc-background-color);
-      color: var(--arc-color-default);
+      background: rgb(var(--arc-background-color));
+      color: rgb(var(--arc-font-color));
     }
 
     ::slotted(*),
     #bottom {
-      background: var(--arc-container-color);
+      background: rgb(var(--arc-container-color));
     }
 
     ::slotted(arc-navbar),

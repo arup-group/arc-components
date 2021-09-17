@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@open-wc/testing": "next",
+    "@web/test-runner": "^0.13.17",
     "@web/test-runner-commands": "^0.5.11",
     "lit": "^2.0.0-rc.3"
   },
@@ -34,7 +35,6 @@
     "@web/dev-server-storybook": "next",
     "@web/rollup-plugin-html": "^1.9.1",
     "@web/rollup-plugin-import-meta-assets": "^1.0.7",
-    "@web/test-runner": "next",
     "babel-plugin-template-html-minifier": "^4.1.0",
     "concurrently": "^6.2.1",
     "deepmerge": "^4.2.2",

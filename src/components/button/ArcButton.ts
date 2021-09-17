@@ -127,7 +127,7 @@ export class ArcButton extends LitElement {
   disabled: boolean = false;
 
   @property()
-  href = null;
+  href: string = '';
 
   @query('#button')
   button!: HTMLSpanElement;

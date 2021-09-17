@@ -13,53 +13,45 @@ describe('ArcButton', () => {
       button = await fixture(html`<arc-button>Test</arc-button>`);
     })
 
-    it('renders a slot to fill the button with a label', () => {
-      const buttonTarget = button.shadowRoot!.getElementById('button')!;
-      expect(buttonTarget.querySelector('slot')).to.exist;
-    })
-
-    it('renders a default button', () => {
+    it('renders the button with default properties in the dom', () => {
       expect(button).dom.to.equal(`<arc-button type='contained' color='default' size='medium'>Test</arc-button>`);
     });
+
+    it('renders a slot to fill the button / anchor with a label', async () => {
+      const buttonTarget = button.shadowRoot!.querySelector('button')!;
+      expect(buttonTarget.querySelector('slot')).to.exist;
+
+      // Turn the button into an <a>
+      button.href = '/';
+      await elementUpdated(button);
+      const anchorTarget = button.shadowRoot!.querySelector('a')!;
+      expect(anchorTarget.querySelector('slot')).to.exist;
+    })
 
     it('passes the a11y audit', async () => {
       await expect(button).shadowDom.to.be.accessible();
     });
 
-    describe('types', () => {
-      it('renders different button types', async () => {
-        for (const key of Object.keys(BUTTON_TYPES)) {
-          button.type = key;
-          await elementUpdated(button); // eslint-disable-line no-await-in-loop
-          expect(button.type).to.equal(key);
-          expect(button.getAttribute('type')).to.equal(key);
-          expect(button).dom.to.equal(`<arc-button type=${key} color='default' size='medium'>Test</arc-button>`)
-        }
-      })
-    })
+    it('renders the button with different colors, types and sizes', async () => {
+      for (const buttonColor of Object.keys(BUTTON_COLORS)) {
+        button.color = buttonColor;
+        for (const buttonType of Object.keys(BUTTON_TYPES)) {
+          button.type = buttonType;
+          for (const buttonSize of Object.keys(BUTTON_SIZES)) {
+            button.size = buttonSize;
 
-    describe('colors', () => {
-      it('renders different button colors', async () => {
-        for (const key of Object.keys(BUTTON_COLORS)) {
-          button.color = key;
-          await elementUpdated(button); // eslint-disable-line no-await-in-loop
-          expect(button.color).to.equal(key);
-          expect(button.getAttribute('color')).to.equal(key);
-          expect(button).dom.to.equal(`<arc-button type='contained' color=${key} size='medium'>Test</arc-button>`)
-        }
-      })
-    })
+            await elementUpdated(button); // eslint-disable-line no-await-in-loop
+            expect(button.color).to.equal(buttonColor);
+            expect(button.getAttribute('color')).to.equal(buttonColor);
+            expect(button.type).to.equal(buttonType);
+            expect(button.getAttribute('type')).to.equal(buttonType);
+            expect(button.size).to.equal(buttonSize);
+            expect(button.getAttribute('size')).to.equal(buttonSize);
 
-    describe('sizes', () => {
-      it('renders different button sizes', async () => {
-        for (const key of Object.keys(BUTTON_SIZES)) {
-          button.size = key;
-          await elementUpdated(button); // eslint-disable-line no-await-in-loop
-          expect(button.size).to.equal(key);
-          expect(button.getAttribute('size')).to.equal(key);
-          expect(button).dom.to.equal(`<arc-button type='contained' color='default' size=${key}>Test</arc-button>`)
+            expect(button).dom.to.equal(`<arc-button type=${buttonType} color=${buttonColor} size=${buttonSize}>Test</arc-button>`)
+          }
         }
-      })
+      }
     })
 
     describe('states', () => {
@@ -83,4 +75,44 @@ describe('ArcButton', () => {
       })
     })
   });
+  describe('css variables', () => {
+    it('uses the default css variables', async () => {
+      const button: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
+      const buttonTarget = button.shadowRoot!.getElementById('button')!;
+      const buttonStyles = window.getComputedStyle(button);
+      const targetStyles = window.getComputedStyle(buttonTarget);
+
+      expect(buttonStyles.getPropertyValue('--min-width').split('')[1]).to.equal('0');
+      expect(buttonStyles.getPropertyValue('--btn-color')).to.equal('');
+      expect(buttonStyles.getPropertyValue('--btn-background')).to.equal('');
+
+      expect(targetStyles.getPropertyValue('--min-width').split('')[1]).to.equal('0');
+      expect(targetStyles.getPropertyValue('--btn-color')).to.equal('');
+      expect(targetStyles.getPropertyValue('--btn-background')).to.equal('');
+    })
+    it('overwrites the width', async () => {
+      const button: ArcButton = await fixture(html`<arc-button style='width:200px; --min-width:150px;'>Test</arc-button>`);
+      const buttonTarget = button.shadowRoot!.getElementById('button')!;
+      const buttonStyles = window.getComputedStyle(button);
+      const targetStyles = window.getComputedStyle(buttonTarget);
+
+      expect(buttonStyles.getPropertyValue('width')).to.equal('200px');
+      expect(buttonStyles.getPropertyValue('--min-width')).to.equal('150px');
+
+      expect(targetStyles.getPropertyValue('width')).to.equal('200px');
+      expect(targetStyles.getPropertyValue('--min-width')).to.equal('150px');
+    })
+    it('overwrites the css variables', async () => {
+      const button: ArcButton = await fixture(html`<arc-button style='--btn-color:red; --btn-background:green;'>Test</arc-button>`);
+      const buttonTarget = button.shadowRoot!.getElementById('button')!;
+      const buttonStyles = window.getComputedStyle(button);
+      const targetStyles = window.getComputedStyle(buttonTarget);
+
+      expect(buttonStyles.getPropertyValue('--btn-color')).to.equal('red');
+      expect(buttonStyles.getPropertyValue('--btn-background')).to.equal('green');
+
+      expect(targetStyles.getPropertyValue('--btn-color')).to.equal('red');
+      expect(targetStyles.getPropertyValue('--btn-background')).to.equal('green');
+    })
+  })
 });

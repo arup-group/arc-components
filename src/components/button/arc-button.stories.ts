@@ -173,16 +173,16 @@ Contained.args = {
 };
 
 export const Tile = Template.bind({});
-Tile.args = { ...Contained.args, type: 'tile' }
+Tile.args = { ...Contained.args, type: BUTTON_TYPES.tile }
 
 export const Outlined = Template.bind({});
-Outlined.args = { ...Contained.args, type: 'outlined' }
+Outlined.args = { ...Contained.args, type: BUTTON_TYPES.outlined }
 
 export const Pill = Template.bind({});
-Pill.args = { ...Contained.args, type: 'pill' }
+Pill.args = { ...Contained.args, type: BUTTON_TYPES.pill }
 
 export const Tab = Template.bind({});
-Tab.args = { ...Contained.args, type: 'tab' }
+Tab.args = { ...Contained.args, type: BUTTON_TYPES.tab }
 
 export const CustomWidth = Template.bind({});
 CustomWidth.args = { ...Contained.args, width: '10rem', }

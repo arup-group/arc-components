@@ -4,7 +4,7 @@ import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { ArcButton } from './ArcButton.js';
 import './arc-button.js';
 
-import {BUTTON_TYPES, BUTTON_SIZES, BUTTON_COLORS} from './constants/ButtonConstants.js';
+import { BUTTON_TYPES, BUTTON_SIZES, BUTTON_COLORS } from './constants/ButtonConstants.js';
 
 describe('ArcButton', () => {
   describe('rendering', () => {

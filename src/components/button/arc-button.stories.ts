@@ -1,6 +1,8 @@
 import { html, TemplateResult } from 'lit';
 import './arc-button.js';
 
+import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
+
 export default {
   title: 'Buttons',
   component: 'arc-button',
@@ -10,7 +12,7 @@ export default {
       description: 'Set the type of the button',
       defaultValue: { summary: 'contained' },
       control: { type: 'select' },
-      options: ['contained', 'tile', 'outlined', 'pill', 'tab'],
+      options: Object.keys(BUTTON_TYPES),
       table: {
         type: { summary: 'string' },
         category: 'Properties',
@@ -21,7 +23,7 @@ export default {
       description: 'Set the color of the button. This property uses the --arc-color-xxx css variable, where xxx can be any default (or custom) provided RGB value',
       defaultValue: { summary: 'default' },
       control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'error', 'warning', 'info', 'success'],
+      options: Object.keys(BUTTON_COLORS),
       table: {
         type: { summary: 'string' },
         category: 'Properties',
@@ -32,7 +34,7 @@ export default {
       description: 'Set the size of the button',
       defaultValue: { summary: 'medium' },
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: Object.keys(BUTTON_SIZES),
       table: {
         type: { summary: 'string' },
         category: 'Properties',
@@ -98,7 +100,7 @@ export default {
       },
     },
     buttonColor: {
-      name: '--btn-color-palette',
+      name: '--btn-color',
       type: { required: false },
       description: 'Set the font color of the button. If none is given, it uses the color property instead',
       defaultValue: { summary: '' },
@@ -108,7 +110,7 @@ export default {
       },
     },
     buttonBackground: {
-      name: '--btn-background-palette',
+      name: '--btn-background',
       type: { required: false },
       description: 'Set the font color of the button. If none is given, it uses the color property instead',
       defaultValue: { summary: '' },

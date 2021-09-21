@@ -5,27 +5,45 @@ export class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';
 
   static styles = css`
-    :host, #main, .brand, #tabs {
+    :host {
       display: flex;
     }
+
+    #main, #left, #right {
+      display: grid;
+    }
+
     #main {
       min-width: 100%;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
     }
+
+    #left {
+      grid-auto-flow: column;
+      justify-content: flex-start;
+    }
+
+    #right {
+      grid-auto-flow: column;
+      justify-content: flex-end;
+    }
+
     .brand {
-      align-items: center;
+      align-self: center;
       margin: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
     }
-    #tabs {
-      margin-left: auto;
+
+    /* Medium devices (tablets, 768px)  */
+    @media (max-width: 40em) {
+      #tabs {
+        display: none;
+      }
     }
   `;
 
-  /** @type { 'left' | 'right' } */
-  @property({ type: String, reflect: true })
-  position: string = 'right';
-
   @property({ type: String })
-  brand: string = 'Arup';
+  brand: string = 'Web Components';
 
   @property({ type: String })
   logo: string = '';
@@ -33,15 +51,18 @@ export class ArcNavbar extends LitElement {
   render() {
     return html`
       <div id='main'>
-        ${this.position === 'left' ? html`
-          <div class='brand'>ArupLogo</div>
-          <div class='brand' style='margin-left: 0;'>My brand</div>
+        <div id='left'>
+          ${this.logo ? html`
+            <img src='' alt='' class='brand'>
+            <span>${this.brand}</span>
+          ` : html`
+            <span class='brand'>${this.brand}</span>
+          `}
+        </div>
+        <div id='right'>
           <div id='tabs'><slot></slot></div>
-        ` : html`
-          <div class='brand'>My brand</div>
-          <div id='tabs'><slot></slot></div>
           <div class='brand'>ArupLogo</div>
-        `}
+        </div>
       </div>
     `
   }

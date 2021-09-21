@@ -12,12 +12,12 @@ export class ArcNavbar extends LitElement {
     #main {
       min-width: 100%;
     }
-    #tabs {
-      flex-basis: 100%;
-      flex-direction: row;
+    #brand {
+      align-items: center;
+      margin: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
     }
-    #tabs.right {
-      flex-direction: row-reverse;
+    #tabs {
+      margin-left: auto;
     }
   `;
 
@@ -32,8 +32,10 @@ export class ArcNavbar extends LitElement {
 
     return html`
       <div id='main'>
-        <div id='brand'></div>
-        <div id='tabs' class=${classMap(classes)}><slot></slot></div>
+        <div id='brand'>My brand</div>
+        <div id='tabs'>
+          <slot></slot>
+        </div>
       </div>
     `
   }

@@ -43,7 +43,7 @@ export class ArcContainer extends LitElement {
     ::slotted(arc-sidebar) {
       width: var(--sidebar-width);
       margin-right: var(--arc-spacing-medium);
-      transition: var(--arc-transition-slow);
+      transition: all var(--arc-transition-slow), background 1ms;
     }
 
     ::slotted(arc-content) {

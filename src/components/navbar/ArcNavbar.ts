@@ -1,18 +1,17 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 
 export class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';
 
   static styles = css`
-    :host, #main, #brand, #tabs {
+    :host, #main, .brand, #tabs {
       display: flex;
     }
     #main {
       min-width: 100%;
     }
-    #brand {
+    .brand {
       align-items: center;
       margin: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
     }
@@ -25,17 +24,24 @@ export class ArcNavbar extends LitElement {
   @property({ type: String, reflect: true })
   position: string = 'right';
 
-  render() {
-    const classes = {
-      right: this.position === 'right',
-    };
+  @property({ type: String })
+  brand: string = 'Arup';
 
+  @property({ type: String })
+  logo: string = '';
+
+  render() {
     return html`
       <div id='main'>
-        <div id='brand'>My brand</div>
-        <div id='tabs'>
-          <slot></slot>
-        </div>
+        ${this.position === 'left' ? html`
+          <div class='brand'>ArupLogo</div>
+          <div class='brand' style='margin-left: 0;'>My brand</div>
+          <div id='tabs'><slot></slot></div>
+        ` : html`
+          <div class='brand'>My brand</div>
+          <div id='tabs'><slot></slot></div>
+          <div class='brand'>ArupLogo</div>
+        `}
       </div>
     `
   }

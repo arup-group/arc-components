@@ -55,8 +55,8 @@ export class ArcContainer extends LitElement {
       display: none;
     }
 
-    /* Small devices */
-    @media (max-width: 40em) {
+    /* Phone */
+    @media (max-width: 40rem) {
       #container {
         padding: 0;
       }
@@ -64,7 +64,7 @@ export class ArcContainer extends LitElement {
       ::slotted(arc-sidebar) {
         width: 0;
         margin-right: 0;
-        transform: translateX(-16em);
+        transform: translateX(-16rem);
       }
 
       ::slotted(arc-bottombar),

@@ -1,0 +1,16 @@
+:root {
+  /* Padding / Margins */
+  --arc-spacing-small: 0.75rem;
+  --arc-spacing-normal: 1rem;
+  --arc-spacing-medium: 1.5rem;
+  --arc-spacing-large: 1.75rem;
+
+  /* Borders */
+  --arc-border-width: 1px;
+  --arc-border-style: solid;
+  --arc-border-radius-small: 0.125rem;
+  --arc-border-radius-medium: 0.25rem;
+  --arc-border-radius-large: 0.5rem;
+  --arc-border-radius-x-large: 1rem;
+  --arc-box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+}

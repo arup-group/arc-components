@@ -1,0 +1,8 @@
+:root {
+  /* Transition */
+  --arc-transition-x-slow: 1000ms;
+  --arc-transition-slow: 500ms;
+  --arc-transition-medium: 250ms;
+  --arc-transition-fast: 150ms;
+  --arc-transition-x-fast: 50ms;
+}

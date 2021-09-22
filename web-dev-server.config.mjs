@@ -5,14 +5,11 @@ const hmr = process.argv.includes('--hmr');
 
 export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   open: '/',
-  watch: !hmr,
+  watch: hmr,
   /** Resolve bare module imports */
   nodeResolve: {
     exportConditions: ['browser', 'development'],
   },
-
-  /** Set appIndex to enable SPA routing */
-  appIndex: 'index.html',
 
   plugins: [
     hmr && hmrPlugin({ exclude: ['**/*/node_modules/**/*'], presets: [presets.litElement] }),

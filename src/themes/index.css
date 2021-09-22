@@ -58,6 +58,9 @@
   --arc-input-height-medium: 2rem;
   --arc-input-height-large: 3.125rem;
 
+  /* Branding */
+  --arc-brand-height: 1.25rem;
+
   /* Colors */
   --arc-white-000: 255, 255, 255;
   --arc-grey-000: 250, 250, 250;

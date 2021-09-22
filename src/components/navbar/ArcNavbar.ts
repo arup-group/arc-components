@@ -1,6 +1,9 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
+// const companyLight = new URL('../../../../assets/arup-light.svg', import.meta.url).href;
+const companyRed = new URL('../../../../assets/arup-red.svg', import.meta.url).href;
+
 export class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';
 
@@ -9,41 +12,70 @@ export class ArcNavbar extends LitElement {
       display: flex;
     }
 
-    #main, #left, #right {
+    /* Layout */
+    #main, #left, #right, #tabs {
       display: grid;
+      grid-auto-flow: column;
     }
 
     #main {
-      min-width: 100%;
-      grid-auto-flow: column;
-      grid-auto-columns: 1fr;
+      width: 100%;
+      padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
     }
 
     #left {
-      grid-auto-flow: column;
       justify-content: flex-start;
     }
 
+    #left > img + span {
+      margin-left: var(--arc-spacing-small);
+    }
+
+    #left > span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     #right {
-      grid-auto-flow: column;
       justify-content: flex-end;
     }
 
-    .brand {
-      align-self: center;
-      margin: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
+    /* Navigation tabs */
+    #tabs {
+      margin-right: var(--arc-spacing-medium);
     }
 
-    /* Medium devices (tablets, 768px)  */
-    @media (max-width: 40em) {
+    ::slotted(arc-button) {
+      border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+    }
+
+    ::slotted(arc-button:last-child) {
+      border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+    }
+
+    /* Images */
+    img {
+      height: var(--arc-brand-height);
+    }
+
+    .center {
+      align-self: center;
+    }
+
+    /* Medium devices */
+    @media (max-width: 48em) {
       #tabs {
         display: none;
       }
     }
-  `;
 
-  @property({ type: String })
-  brand: string = 'Web Components';
+    /* Small devices */
+    @media (max-width: 40em) {
+      #left > img + span {
+        display: none;
+      }
+    }
+  `;
 
   @property({ type: String })
   logo: string = '';
@@ -52,16 +84,12 @@ export class ArcNavbar extends LitElement {
     return html`
       <div id='main'>
         <div id='left'>
-          ${this.logo ? html`
-            <img src='' alt='' class='brand'>
-            <span>${this.brand}</span>
-          ` : html`
-            <span class='brand'>${this.brand}</span>
-          `}
+          ${this.logo && html`<img src=${this.logo} alt='tool-logo' class='center'>`}
+          <span class='center'><slot name='brand'></slot></span>
         </div>
         <div id='right'>
           <div id='tabs'><slot></slot></div>
-          <div class='brand'>ArupLogo</div>
+          <img src=${companyRed} alt='company-logo' class='center'>
         </div>
       </div>
     `

@@ -9,40 +9,34 @@
 
   <title>ARC</title>
 
-  <link crossorigin='anonymous' href='src/themes/index.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='src/styles/index.css' rel='stylesheet'>
   <link crossorigin='anonymous' href='src/themes/light.css' rel='stylesheet'>
   <link crossorigin='anonymous' href='src/themes/dark.css' rel='stylesheet'>
 </head>
 
 <body>
-<arc-container>
-  <arc-navbar slot='nav'></arc-navbar>
+<arc-container id='container' theme='light'>
+  <arc-navbar slot='nav' logo='http://localhost:8000/assets/arc-red.svg'>
+    <span slot='name'>WebComponents</span>
+    <arc-button id='themeSetter' type='tab'>Switch theme</arc-button>
+    <arc-button type='tab'>Link 1</arc-button>
+    <arc-button type='tab'>Link 2</arc-button>
+    <arc-button type='tab'>Link 3</arc-button>
+  </arc-navbar>
   <arc-sidebar slot='side'></arc-sidebar>
-  <arc-content id='content' slot='content'>
-    <!-- Render buttons here -->
-  </arc-content>
+  <arc-content slot='content'></arc-content>
 </arc-container>
 
 <script type='module' src='./out-tsc/src/components/container/arc-container.js'></script>
+<script type='module' src='./out-tsc/src/components/navbar/arc-navbar.js'></script>
 <script type='module' src='./out-tsc/src/components/button/arc-button.js'></script>
 
 <script type='module'>
-  import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './out-tsc/src/components/button/constants/ButtonConstants.js';
-
-  const content = document.getElementById('content');
-
-  for (const buttonColor of Object.keys(BUTTON_COLORS)) {
-    for (const buttonType of Object.keys(BUTTON_TYPES)) {
-      for (const buttonSize of Object.keys(BUTTON_SIZES)) {
-        content.appendChild(Object.assign(document.createElement('arc-button'), {
-          color: buttonColor,
-          type: buttonType,
-          size: buttonSize,
-          innerHTML: 'Test Button',
-        }))
-      }
-    }
-  }
+  const container = document.getElementById('container');
+  const button = document.getElementById('themeSetter');
+  button.addEventListener('click', () => {
+    container.theme = container.theme === 'light' ? 'dark' : 'light'
+  })
 </script>
 </body>
 

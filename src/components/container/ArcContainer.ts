@@ -35,13 +35,13 @@ export class ArcContainer extends LitElement {
     #container {
       flex: 1 1 100%;
       display: flex;
-      padding: var(--arc-spacing-medium);
+      padding: min(5vh, var(--arc-spacing-medium));
     }
 
     ::slotted(arc-sidebar) {
       width: var(--sidebar-width);
-      margin-right: var(--arc-spacing-medium);
-      transition: all var(--arc-transition-slow), background 1ms;
+      margin-right: min(5vh, var(--arc-spacing-medium));
+      transition: var(--arc-transition-slow);
     }
 
     ::slotted(arc-content) {
@@ -53,8 +53,8 @@ export class ArcContainer extends LitElement {
       display: none;
     }
 
-    /* Phone */
-    @media (max-width: 40rem) {
+    /* Medium devices (tablets, 768px)  */
+    @media (max-width: 40em) {
       #container {
         padding: 0;
       }
@@ -62,7 +62,7 @@ export class ArcContainer extends LitElement {
       ::slotted(arc-sidebar) {
         width: 0;
         margin-right: 0;
-        transform: translateX(-16rem);
+        transform: translateX(-16em);
       }
 
       ::slotted(arc-bottombar),

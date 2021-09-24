@@ -51,10 +51,10 @@ export class ArcContainer extends LitElement {
         flex: 1 1 100%;
       }
 
-      ::slotted(arc-bottombar),
-      #bottom {
-        display: none;
-      }
+    ::slotted(arc-bottombar),
+    #bottom {
+      display: none;
+    }
 
       /* Phone */
       @media (max-width: 40rem) {

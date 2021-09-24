@@ -20,7 +20,7 @@ export default {
     },
     color: {
       type: { required: true },
-      description: 'Set the color of the button. This property uses the --arc-color-xxx css variable, where xxx can be any default (or custom) provided RGB value',
+      description: 'Set the color of the button. This property uses the --arc-color-xxx styles variable, where xxx can be any default (or custom) provided RGB value',
       defaultValue: { summary: 'default' },
       control: { type: 'select' },
       options: Object.keys(BUTTON_COLORS),

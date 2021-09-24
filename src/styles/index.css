@@ -17,10 +17,3 @@ body {
   letter-spacing: var(--arc-letter-spacing-normal);
   line-height: var(--arc-line-height-normal);
 }
-
-/* Account for any border and padding in the width/height values of an element */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}

@@ -75,8 +75,8 @@ describe('ArcButton', () => {
       })
     })
   });
-  describe('css variables', () => {
-    it('uses the default css variables', async () => {
+  describe('styles variables', () => {
+    it('uses the default styles variables', async () => {
       const button: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
       const buttonTarget = button.shadowRoot!.getElementById('button')!;
       const buttonStyles = window.getComputedStyle(button);
@@ -102,7 +102,7 @@ describe('ArcButton', () => {
       expect(targetStyles.getPropertyValue('width')).to.equal('200px');
       expect(targetStyles.getPropertyValue('--min-width')).to.equal('150px');
     })
-    it('overwrites the css variables', async () => {
+    it('overwrites the styles variables', async () => {
       const button: ArcButton = await fixture(html`<arc-button style='--btn-color:red; --btn-background:green;'>Test</arc-button>`);
       const buttonTarget = button.shadowRoot!.getElementById('button')!;
       const buttonStyles = window.getComputedStyle(button);

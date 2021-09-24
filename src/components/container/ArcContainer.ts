@@ -1,6 +1,6 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
-import { componentStyles } from '../../styles/component.styles.js';
+import { componentStyles } from '../styles/component.styles.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { DateUtils } from '../../utils/date-utils.js';

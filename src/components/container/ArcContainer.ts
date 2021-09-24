@@ -11,69 +11,69 @@ export class ArcContainer extends LitElement {
   static styles = [
     componentStyles,
     css`
-    :host {
-      --navbar-height: 3.5rem;
-      --sidebar-width: 23rem;
-    }
+      :host {
+        --navbar-height: 3.5rem;
+        --sidebar-width: 23rem;
+      }
 
-    #main {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: rgb(var(--arc-background-color));
-      color: rgb(var(--arc-font-color));
-    }
+      #main {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: rgb(var(--arc-background-color));
+        color: rgb(var(--arc-font-color));
+      }
 
-    ::slotted(*),
-    #bottom {
-      background: rgb(var(--arc-container-color));
-    }
+      ::slotted(*),
+      #bottom {
+        background: rgb(var(--arc-container-color));
+      }
 
-    ::slotted(arc-navbar),
-    ::slotted(arc-bottombar),
-    #bottom {
-      min-height: var(--navbar-height);
-    }
+      ::slotted(arc-navbar),
+      ::slotted(arc-bottombar),
+      #bottom {
+        min-height: var(--navbar-height);
+      }
 
-    #container {
-      flex: 1 1 100%;
-      display: flex;
-      padding: var(--arc-spacing-medium);
-    }
-
-    ::slotted(arc-sidebar) {
-      width: var(--sidebar-width);
-      margin-right: var(--arc-spacing-medium);
-      transition: all var(--arc-transition-slow), background 1ms;
-    }
-
-    ::slotted(arc-content) {
-      flex: 1 1 100%;
-    }
-
-    ::slotted(arc-bottombar),
-    #bottom {
-      display: none;
-    }
-
-    /* Phone */
-    @media (max-width: 40rem) {
       #container {
-        padding: 0;
+        flex: 1 1 100%;
+        display: flex;
+        padding: var(--arc-spacing-medium);
       }
 
       ::slotted(arc-sidebar) {
-        width: 0;
-        margin-right: 0;
-        transform: translateX(-16rem);
+        width: var(--sidebar-width);
+        margin-right: var(--arc-spacing-medium);
+        transition: all var(--arc-transition-slow), background 1ms;
+      }
+
+      ::slotted(arc-content) {
+        flex: 1 1 100%;
       }
 
       ::slotted(arc-bottombar),
       #bottom {
-        display: block;
+        display: none;
       }
-    }
-  `
+
+      /* Phone */
+      @media (max-width: 40rem) {
+        #container {
+          padding: 0;
+        }
+
+        ::slotted(arc-sidebar) {
+          width: 0;
+          margin-right: 0;
+          transform: translateX(-16rem);
+        }
+
+        ::slotted(arc-bottombar),
+        #bottom {
+          display: block;
+        }
+      }
+    `,
   ];
 
   /** @type { 'auto' | 'dark' | 'light' } */
@@ -100,14 +100,14 @@ export class ArcContainer extends LitElement {
 
   render() {
     return html`
-      <main id="main">
-        <slot id="nav" name="nav"></slot>
-        <div id="container">
-          <slot name="side"></slot>
-          <slot name="content"></slot>
+      <main id='main'>
+        <slot id='nav' name='nav'></slot>
+        <div id='container'>
+          <slot name='side'></slot>
+          <slot name='content'></slot>
         </div>
-        <slot name="bottom">
-          <arc-bottombar id="bottom">DEFAULT BOTTOM BAR</arc-bottombar>
+        <slot name='bottom'>
+          <arc-bottombar id='bottom'>DEFAULT BOTTOM BAR</arc-bottombar>
         </slot>
       </main>
     `;

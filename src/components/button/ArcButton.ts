@@ -60,26 +60,46 @@ export class ArcButton extends LitElement {
       }
 
       /* Sizes */
-      :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {height: var(--arc-input-height-small);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {
+        height: var(--arc-input-height-small);
+      }
 
-      :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) span {padding: 0 var(--arc-spacing-small);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) span {
+        padding: 0 var(--arc-spacing-small);
+      }
 
-      :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {height: var(--arc-input-height-medium);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {
+        height: var(--arc-input-height-medium);
+      }
 
-      :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) span {padding: 0 var(--arc-spacing-medium);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) span {
+        padding: 0 var(--arc-spacing-medium);
+      }
 
-      :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {height: var(--arc-input-height-large);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {
+        height: var(--arc-input-height-large);
+      }
 
-      :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) span {padding: 0 var(--arc-spacing-large);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) span {
+        padding: 0 var(--arc-spacing-large);
+      }
 
       /* Radius */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {border-radius: 0;}
+      :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {
+        border-radius: 0;
+      }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {border-radius: var(--arc-input-height-small);}
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {
+        border-radius: var(--arc-input-height-small);
+      }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {border-radius: var(--arc-input-height-medium);}
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {
+        border-radius: var(--arc-input-height-medium);
+      }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {border-radius: var(--arc-input-height-large);}
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {
+        border-radius: var(--arc-input-height-large);
+      }
 
       /* Outlined */
       :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
@@ -98,21 +118,24 @@ export class ArcButton extends LitElement {
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) {
         height: 100%;
       }
+
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) #button {
         background: none;
         border-radius: 0;
         box-shadow: none;
       }
+
       /* Tab - Active */
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])[active]) #button {
         border-bottom: var(--arc-border-width) var(--arc-border-style) currentColor;
       }
+
       /* Tab - Hover */
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
-    `
+    `,
   ];
 
   /** @type { 'contained' | 'tile' | 'outlined' | 'pill' | 'tab' } */
@@ -124,13 +147,13 @@ export class ArcButton extends LitElement {
   color: string = BUTTON_COLORS.default;
 
   /** @type { 'small' | 'medium' | 'large' } */
-  @property({type: String, reflect: true })
+  @property({ type: String, reflect: true })
   size: string = BUTTON_SIZES.medium;
 
-  @property({type: Boolean, reflect: true})
+  @property({ type: Boolean, reflect: true })
   active: boolean = false;
 
-  @property({type: Boolean, reflect: true})
+  @property({ type: Boolean, reflect: true })
   disabled: boolean = false;
 
   @property()
@@ -159,21 +182,23 @@ export class ArcButton extends LitElement {
         default: {
           return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary
             ? 'rgb(var(--arc-container-color))'
-            : 'rgb(var(--arc-input-color))'
+            : 'rgb(var(--arc-input-color))';
         }
       }
-    }
+    };
 
     const styles = {
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
-      '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`
+      '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
 
     return html`
       ${this.href && !this.disabled
-      ? html`<a id='button' style=${styleMap(styles)} href='${this.href}' rel='noreferrer noopener' tabindex='-1'><span><slot></slot></span></a>`
-      : html`<button id='button' style=${styleMap(styles)} tabindex='-1'><span><slot></slot></span></button>`
-    }
+        ? html`<a id='button' style=${styleMap(styles)} href='${this.href}' rel='noreferrer noopener'
+                  tabindex='-1'><span><slot></slot></span></a>`
+        : html`
+          <button id='button' style=${styleMap(styles)} tabindex='-1'><span><slot></slot></span></button>`
+      }
     `;
   }
 }

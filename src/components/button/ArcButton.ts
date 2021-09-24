@@ -1,117 +1,119 @@
 import { css, unsafeCSS, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { componentStyles } from '../../styles/component.styles.js';
 
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
 
 export class ArcButton extends LitElement {
-  static get tag() {
-    return 'arc-button';
-  }
+  static tag = 'arc-button';
 
-  static styles = css`
-    :host {
-      display: inline-block;
-      cursor: pointer;
-      width: auto;
-      --min-width: 0;
-    }
+  static styles = [
+    componentStyles,
+    css`
+      :host {
+        display: inline-block;
+        cursor: pointer;
+        width: auto;
+        --min-width: 0;
+      }
 
-    :host *, :host ::before, :host ::after {
-      box-sizing: inherit;
-    }
+      :host *, :host ::before, :host ::after {
+        box-sizing: inherit;
+      }
 
-    #button {
-      min-height: 100%;
-      min-width: var(--min-width);
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--btn-color);
-      background-color: var(--btn-background);
-      border: none;
-      border-radius: var(--arc-border-radius-medium);
-      box-shadow: var(--arc-box-shadow);
-      font-family: var(--arc-font-button);
-      font-size: var(--arc-font-size-small);
-      font-weight: var(--arc-font-weight-semibold);
-      cursor: inherit;
-      text-decoration: none;
-      user-select: none;
-      line-height: normal;
-      outline: none;
-      padding: 0;
-      -webkit-appearance: none;
-      white-space: nowrap;
-    }
+      #button {
+        min-height: 100%;
+        min-width: var(--min-width);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--btn-color);
+        background-color: var(--btn-background);
+        border: none;
+        border-radius: var(--arc-border-radius-medium);
+        box-shadow: var(--arc-box-shadow);
+        font-family: var(--arc-font-button);
+        font-size: var(--arc-font-size-small);
+        font-weight: var(--arc-font-weight-semibold);
+        cursor: inherit;
+        text-decoration: none;
+        user-select: none;
+        line-height: normal;
+        outline: none;
+        padding: 0;
+        -webkit-appearance: none;
+        white-space: nowrap;
+      }
 
-    /* Disabled */
-    :host([disabled]) #button {
-      opacity: 0.5;
-      box-shadow: none;
-      cursor: default;
-    }
+      /* Disabled */
+      :host([disabled]) #button {
+        opacity: 0.5;
+        box-shadow: none;
+        cursor: default;
+      }
 
-    /* Hover */
-    :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:hover {
-      background-image: linear-gradient(var(--arc-hover-dark) 0 0);
-    }
+      /* Hover */
+      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:hover {
+        background-image: linear-gradient(var(--arc-hover-dark) 0 0);
+      }
 
-    /* Sizes */
-    :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {height: var(--arc-input-height-small);}
+      /* Sizes */
+      :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {height: var(--arc-input-height-small);}
 
-    :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) span {padding: 0 var(--arc-spacing-small);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) span {padding: 0 var(--arc-spacing-small);}
 
-    :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {height: var(--arc-input-height-medium);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {height: var(--arc-input-height-medium);}
 
-    :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) span {padding: 0 var(--arc-spacing-medium);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) span {padding: 0 var(--arc-spacing-medium);}
 
-    :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {height: var(--arc-input-height-large);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {height: var(--arc-input-height-large);}
 
-    :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) span {padding: 0 var(--arc-spacing-large);}
+      :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) span {padding: 0 var(--arc-spacing-large);}
 
-    /* Radius */
-    :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {border-radius: 0;}
+      /* Radius */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {border-radius: 0;}
 
-    :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {border-radius: var(--arc-input-height-small);}
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {border-radius: var(--arc-input-height-small);}
 
-    :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {border-radius: var(--arc-input-height-medium);}
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {border-radius: var(--arc-input-height-medium);}
 
-    :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {border-radius: var(--arc-input-height-large);}
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {border-radius: var(--arc-input-height-large);}
 
-    /* Outlined */
-    :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
-      border: var(--arc-border-width) var(--arc-border-style) currentColor;
-      background-color: transparent;
-      box-shadow: none;
-    }
+      /* Outlined */
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
+        border: var(--arc-border-width) var(--arc-border-style) currentColor;
+        background-color: transparent;
+        box-shadow: none;
+      }
 
-    /* Outlined - Hover */
-    :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover {
-      background-color: currentColor;
-      background-image: linear-gradient(var(--arc-hover-light) 0 0);
-    }
+      /* Outlined - Hover */
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover {
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
 
-    /* Tab */
-    :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) {
-      height: 100%;
-    }
-    :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) #button {
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    }
-    /* Tab - Active */
-    :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])[active]) #button {
-      border-bottom: var(--arc-border-width) var(--arc-border-style) currentColor;
-    }
-    /* Tab - Hover */
-    :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover {
-      background-color: currentColor;
-      background-image: linear-gradient(var(--arc-hover-light) 0 0);
-    }
-  `;
+      /* Tab */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) {
+        height: 100%;
+      }
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) #button {
+        background: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      /* Tab - Active */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])[active]) #button {
+        border-bottom: var(--arc-border-width) var(--arc-border-style) currentColor;
+      }
+      /* Tab - Hover */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover {
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
+    `
+  ];
 
   /** @type { 'contained' | 'tile' | 'outlined' | 'pill' | 'tab' } */
   @property({ type: String, reflect: true })

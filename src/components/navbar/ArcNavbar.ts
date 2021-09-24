@@ -1,74 +1,78 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { componentStyles } from '../../styles/component.styles.js';
 
 export class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';
 
-  static styles = css`
-    :host {
-      display: flex;
-    }
-
-    /* Layout */
-    #main, #left, #right, #tabs {
-      display: grid;
-      grid-auto-flow: column;
-    }
-
-    #main {
-      width: 100%;
-      padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
-    }
-
-    #left {
-      justify-content: flex-start;
-      padding-right: var(--arc-spacing-medium);
-    }
-
-    #left > img + span {
-      margin-left: var(--arc-spacing-small);
-    }
-
-    #left > span {
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    #right {
-      justify-content: flex-end;
-      color: rgb(var(--arc-color-primary));
-    }
-
-    /* Navigation tabs */
-    #tabs {
-      margin-right: var(--arc-spacing-medium);
-    }
-
-    ::slotted(arc-button) {
-      border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-    }
-
-    ::slotted(arc-button:last-child) {
-      border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-    }
-
-    /* Images */
-    img, svg {
-      height: var(--arc-brand-height);
-      width: auto;
-    }
-
-    #tool-logo, #company-logo, #tool-name {
-      align-self: center;
-    }
-
-    /* Phone */
-    @media (max-width: 40rem) {
-      #tabs, #left > img + span {
-        display: none;
+  static styles = [
+    componentStyles,
+    css`
+      :host {
+        display: flex;
       }
-    }
-  `;
+
+      /* Layout */
+      #main, #left, #right, #tabs {
+        display: grid;
+        grid-auto-flow: column;
+      }
+
+      #main {
+        width: 100%;
+        padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
+      }
+
+      #left {
+        justify-content: flex-start;
+        padding-right: var(--arc-spacing-medium);
+      }
+
+      #left > img + span {
+        margin-left: var(--arc-spacing-small);
+      }
+
+      #left > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      #right {
+        justify-content: flex-end;
+        color: rgb(var(--arc-color-primary));
+      }
+
+      /* Navigation tabs */
+      #tabs {
+        margin-right: var(--arc-spacing-medium);
+      }
+
+      ::slotted(arc-button) {
+        border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      }
+
+      ::slotted(arc-button:last-child) {
+        border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      }
+
+      /* Images */
+      img, svg {
+        height: var(--arc-brand-height);
+        width: auto;
+      }
+
+      #tool-logo, #company-logo, #tool-name {
+        align-self: center;
+      }
+
+      /* Phone */
+      @media (max-width: 40rem) {
+        #tabs, #left > img + span {
+          display: none;
+        }
+      }
+    `
+  ];
 
   @property({ type: String })
   logo: string = '';

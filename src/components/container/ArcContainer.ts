@@ -1,15 +1,16 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
+import { componentStyles } from '../../styles/component.styles.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { DateUtils } from '../../utils/date-utils.js';
 
 export class ArcContainer extends LitElement {
-  static get tag() {
-    return 'arc-container';
-  }
+  static tag = 'arc-container';
 
-  static styles = css`
+  static styles = [
+    componentStyles,
+    css`
     :host {
       --navbar-height: 3.5rem;
       --sidebar-width: 23rem;
@@ -72,7 +73,8 @@ export class ArcContainer extends LitElement {
         display: block;
       }
     }
-  `;
+  `
+  ];
 
   /** @type { 'auto' | 'dark' | 'light' } */
   @property({

@@ -1,6 +1,6 @@
 {
   "name": "arc-test",
-  "description": "Webcomponent arc-test following open-wc recommendations",
+  "description": "Web-components related to the ARC design system",
   "license": "MIT",
   "author": "arc-test",
   "version": "0.0.0",

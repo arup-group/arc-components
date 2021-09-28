@@ -12,8 +12,7 @@ export class ArcContainer extends LitElement {
     componentStyles,
     css`
       :host {
-        --navbar-height: 3.5rem;
-        --sidebar-width: 23rem;
+        --bottom-height: 3.5rem;
       }
 
       #main {
@@ -29,12 +28,6 @@ export class ArcContainer extends LitElement {
         background: rgb(var(--arc-container-color));
       }
 
-      ::slotted(arc-navbar),
-      ::slotted(arc-bottombar),
-      #bottom {
-        min-height: var(--navbar-height);
-      }
-
       #container {
         flex: 1 1 100%;
         display: flex;
@@ -42,7 +35,6 @@ export class ArcContainer extends LitElement {
       }
 
       ::slotted(arc-sidebar) {
-        width: var(--sidebar-width);
         margin-right: var(--arc-spacing-medium);
         transition: all var(--arc-transition-slow), background 1ms;
       }
@@ -51,10 +43,14 @@ export class ArcContainer extends LitElement {
         flex: 1 1 100%;
       }
 
-    ::slotted(arc-bottombar),
-    #bottom {
-      display: none;
-    }
+      #bottom {
+        height: var(--bottom-height);
+      }
+
+      ::slotted(arc-bottombar),
+      #bottom {
+        display: none;
+      }
 
       /* Phone */
       @media (max-width: 40rem) {
@@ -63,7 +59,7 @@ export class ArcContainer extends LitElement {
         }
 
         ::slotted(arc-sidebar) {
-          width: 0;
+          width: 0 !important;
           margin-right: 0;
           transform: translateX(-16rem);
         }

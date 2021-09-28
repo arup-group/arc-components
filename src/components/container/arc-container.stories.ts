@@ -1,5 +1,6 @@
 import { html, TemplateResult } from 'lit';
 import './arc-container.js';
+import '../navbar/arc-navbar.js';
 
 export default {
   title: 'Containers',
@@ -48,24 +49,16 @@ export default {
         category: 'Slots',
       },
     },
-    height: {
-      name: '--navbar-height',
+    bottomHeight: {
+      name: '--bottom-height',
       type: { required: false },
-      description: 'Set the base height of the navbar',
+      description: 'Set the height of the default bottom bar',
       defaultValue: { summary: '3.5rem' },
+      control: { type: 'text' },
       table: {
         category: 'CSS Parts',
       },
-    },
-    width: {
-      name: '--sidebar-width',
-      type: { required: false },
-      description: 'Set the base width of the sidebar',
-      defaultValue: { summary: '23rem' },
-      table: {
-        category: 'CSS Parts',
-      },
-    },
+    }
   },
 };
 
@@ -77,17 +70,21 @@ interface Story<T> {
 
 interface ArgTypes {
   theme: string;
-  height: string;
-  width: string;
+  bottomHeight: string;
 }
 
-const Template: Story<ArgTypes> = ({ theme, height, width }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ theme, bottomHeight }: ArgTypes) => html`
   <arc-container
     .theme=${theme}
-    style="--navbar-height:${height}; --sidebar-width:${width}"
+    style="--bottom-height:${bottomHeight}"
   >
-    <arc-navbar slot="nav">NAVBAR</arc-navbar>
-    <arc-sidebar slot="side">SIDEBAR</arc-sidebar>
+    <arc-navbar slot='nav' logo='http://localhost:8000/assets/arc-red.svg'>
+      <span slot='name'>WebComponents</span>
+      <arc-button type='tab'>Link 1</arc-button>
+      <arc-button type='tab'>Link 2</arc-button>
+      <arc-button type='tab'>Link 3</arc-button>
+    </arc-navbar>
+    <arc-sidebar slot="side" style='width: 23rem;'>SIDEBAR</arc-sidebar>
     <arc-content slot="content">CONTENT</arc-content>
   </arc-container>
 `;
@@ -95,6 +92,5 @@ const Template: Story<ArgTypes> = ({ theme, height, width }: ArgTypes) => html`
 export const ArcContainer = Template.bind({});
 ArcContainer.args = {
   theme: 'auto',
-  height: '3.5rem',
-  width: '23rem',
+  bottomHeight: '3.5rem',
 };

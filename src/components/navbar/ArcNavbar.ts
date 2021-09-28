@@ -10,6 +10,7 @@ export class ArcNavbar extends LitElement {
     css`
       :host {
         display: flex;
+        --height: 3.5rem;
       }
 
       /* Layout */
@@ -19,6 +20,7 @@ export class ArcNavbar extends LitElement {
       }
 
       #main {
+        height: var(--height);
         width: 100%;
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
       }

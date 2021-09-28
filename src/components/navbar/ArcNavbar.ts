@@ -30,11 +30,11 @@ export class ArcNavbar extends LitElement {
         padding-right: var(--arc-spacing-medium);
       }
 
-      #left > img + div {
+      #left > img + #tool-name {
         margin-left: var(--arc-spacing-small);
       }
 
-      #left > div {
+      #left > #tool-name {
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -69,7 +69,7 @@ export class ArcNavbar extends LitElement {
 
       /* Phone */
       @media (max-width: 40rem) {
-        #tabs, #left > img + span {
+        #tabs, #left > img + #tool-name {
           display: none;
         }
       }
@@ -81,15 +81,11 @@ export class ArcNavbar extends LitElement {
 
   @property({
     type: Boolean,
-    converter: (attrValue: string | null) => {
-      if (attrValue)
-        return attrValue !== 'false';
-      return true;
-    }
+    converter: (attrValue: string | null) => attrValue ? attrValue !== 'false' : true,
   })
   arup: boolean = true;
 
-  @property({ type: Number })
+  @property({ type: Number, reflect: true })
   tabs: number = 5;
 
   handleTabChange = (e: any) => {
@@ -99,7 +95,7 @@ export class ArcNavbar extends LitElement {
     const arcTabs = childNodes.filter(isButton);
 
     if (arcTabs.length > this.tabs) {
-      // TODO: Put the slotted tabs inside of an arc-dropdown component once they exceed the given tab count
+      // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
     }
   }
 

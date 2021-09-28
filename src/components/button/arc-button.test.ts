@@ -75,8 +75,8 @@ describe('ArcButton', () => {
       })
     })
   });
-  describe('styles variables', () => {
-    it('uses the default styles variables', async () => {
+  describe('style variables', () => {
+    it('uses the default style variables', async () => {
       const button: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
       const buttonTarget = button.shadowRoot!.getElementById('button')!;
       const buttonStyles = window.getComputedStyle(button);

@@ -79,6 +79,10 @@ export class ArcNavbar extends LitElement {
   @property({ type: String })
   logo: string = '';
 
+  handleTabChange() {
+
+  }
+
   render() {
     return html`
       <div id='main'>
@@ -88,7 +92,7 @@ export class ArcNavbar extends LitElement {
         </div>
         <div id='right'>
           <div id='tabs'>
-            <slot></slot>
+            <slot @slotchange=${this.handleTabChange}></slot>
           </div>
           <svg id='company-logo' width='512' height='159' viewBox='0 0 512 159' fill='currentColor'
                xmlns='http://www.w3.org/2000/svg'>

@@ -77,7 +77,7 @@ export class ArcContainer extends LitElement {
     type: String,
     reflect: true,
   })
-  theme: string = this.getTheme();
+  theme: string = 'auto';
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
@@ -87,12 +87,7 @@ export class ArcContainer extends LitElement {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  getTheme(date?: Date) {
-    return DateUtils.isNight(date)
-      ? CONTAINER_THEMES.dark
-      : CONTAINER_THEMES.light;
-  }
+  getTheme = (date?: Date) => DateUtils.isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light
 
   render() {
     return html`

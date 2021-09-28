@@ -15,15 +15,15 @@
 </head>
 
 <body>
-<arc-container id='container' theme='light'>
-  <arc-navbar slot='nav' logo='http://localhost:8000/assets/arc-red.svg'>
+<arc-container id='container'>
+  <arc-navbar slot='nav' logo='http://localhost:8000/assets/arc-red.svg' tabs='6'>
     <span slot='name'>WebComponents</span>
     <arc-button id='themeSetter' type='tab'>Switch theme</arc-button>
     <arc-button type='tab'>Link 1</arc-button>
     <arc-button type='tab'>Link 2</arc-button>
     <arc-button type='tab'>Link 3</arc-button>
   </arc-navbar>
-  <arc-sidebar slot='side'></arc-sidebar>
+  <arc-sidebar slot='side' style='width: 23rem;'></arc-sidebar>
   <arc-content slot='content'></arc-content>
 </arc-container>
 

@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { componentStyles } from '../styles/component.styles.js';
+import Protocol from 'devtools-protocol';
+import integer = Protocol.integer;
 
 export class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';
@@ -79,8 +81,19 @@ export class ArcNavbar extends LitElement {
   @property({ type: String })
   logo: string = '';
 
-  handleTabChange() {
+  @property({ type: Number })
+  tabs: number = 5;
 
+  // TODO: Put the tabs inside of an arc-dropdown once they exceed the tab count
+  handleTabChange = (e: any) => {
+    const isButton = (element: any) => element.tagName === 'ARC-BUTTON';
+
+    const childNodes = e.target.assignedNodes({flatten: true});
+    const tabs = childNodes.filter(isButton);
+
+    if (tabs.length > this.tabs) {
+      window.alert(`There are too many tabs, the limit is set to ${this.tabs}`)
+    }
   }
 
   render() {

@@ -30,11 +30,11 @@ export class ArcNavbar extends LitElement {
         padding-right: var(--arc-spacing-medium);
       }
 
-      #left > img + span {
+      #left > img + div {
         margin-left: var(--arc-spacing-small);
       }
 
-      #left > span {
+      #left > div {
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -79,13 +79,19 @@ export class ArcNavbar extends LitElement {
   @property({ type: String })
   logo: string = '';
 
-  @property({ type: String })
-  arup: string = 'true';
+  @property({
+    type: Boolean,
+    converter: (attrValue: string | null) => {
+      if (attrValue)
+        return attrValue !== 'false';
+      return true;
+    }
+  })
+  arup: boolean = true;
 
   @property({ type: Number })
   tabs: number = 5;
 
-  // TODO: Put the tabs inside of an arc-dropdown once they exceed the tab count
   handleTabChange = (e: any) => {
     const isButton = (element: any) => element.tagName === 'ARC-BUTTON';
 
@@ -93,7 +99,7 @@ export class ArcNavbar extends LitElement {
     const arcTabs = childNodes.filter(isButton);
 
     if (arcTabs.length > this.tabs) {
-      console.warn(`There are too many tabs, the limit is set to ${this.tabs}`)
+      // TODO: Put the slotted tabs inside of an arc-dropdown component once they exceed the given tab count
     }
   }
 
@@ -102,13 +108,13 @@ export class ArcNavbar extends LitElement {
       <div id='main'>
         <div id='left'>
           ${this.logo && html`<img id='tool-logo' src='${this.logo}' alt='tool-logo'>`}
-          <span id='tool-name'><slot name='name'></slot></span>
+          <div id='tool-name'><slot name='name'></slot></div>
         </div>
         <div id='right'>
           <div id='tabs'>
             <slot @slotchange=${this.handleTabChange}></slot>
           </div>
-          ${this.arup === 'true' ? html`
+          ${this.arup ? html`
             <svg id='company-logo' width='512' height='159' viewBox='0 0 512 159' fill='currentColor'
                  xmlns='http://www.w3.org/2000/svg'>
               <path

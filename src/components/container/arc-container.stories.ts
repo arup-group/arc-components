@@ -1,9 +1,10 @@
 import { html, TemplateResult } from 'lit';
 import './arc-container.js';
 import '../navbar/arc-navbar.js';
+import '../button/arc-button.js';
 
 export default {
-  title: 'Containers',
+  title: 'Container',
   component: 'arc-container',
   argTypes: {
     theme: {

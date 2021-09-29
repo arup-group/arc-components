@@ -23,7 +23,7 @@ export class ArcContainer extends LitElement {
         color: rgb(var(--arc-font-color));
       }
 
-      ::slotted(*),
+      ::slotted(arc-content),
       #bottom {
         background: rgb(var(--arc-container-color));
       }

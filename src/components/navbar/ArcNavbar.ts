@@ -9,8 +9,8 @@ export class ArcNavbar extends LitElement {
     componentStyles,
     css`
       :host {
-        display: flex;
         --height: 3.5rem;
+        background: rgb(var(--arc-container-color));
       }
 
       /* Layout */
@@ -101,7 +101,7 @@ export class ArcNavbar extends LitElement {
 
   render() {
     return html`
-      <div id='main'>
+      <main id='main'>
         <div id='left'>
           ${this.logo && html`<img id='tool-logo' src='${this.logo}' alt='tool-logo'>`}
           <div id='tool-name'><slot name='name'></slot></div>
@@ -124,7 +124,7 @@ export class ArcNavbar extends LitElement {
             </svg>
           ` : html``}
         </div>
-      </div>
+      </main>
     `;
   }
 }

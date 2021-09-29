@@ -24,30 +24,23 @@
     <arc-button type='tab'>Link 3</arc-button>
     <arc-button type='tab'>Link 4</arc-button>
   </arc-navbar>
-  <arc-sidebar slot='side'>
-    <div>One</div>
-    <div>Two</div>
-    <arc-menu-divider></arc-menu-divider>
-    <div>Three</div>
-    <div>Four</div>
-    <div>Five</div>
-    <div>Six</div>
-    <arc-menu-divider border></arc-menu-divider>
-    <div>Seven</div>
-    <div>Eight</div>
-    <div>Nine</div>
-    <div>Ten</div>
-    <div>Eleven</div>
-    <div>Twelve</div>
-    <div>Thirteen</div>
-  </arc-sidebar>
-  <arc-content slot='content'></arc-content>
+  <arc-sidebar slot='side' style='width: 23rem;'></arc-sidebar>
+  <arc-content slot='content'>
+    <div>Dotted</div>
+    <arc-divider type='dotted'></arc-divider>
+    <div>Dashed</div>
+    <arc-divider type='dashed'></arc-divider>
+    <div>Solid</div>
+    <arc-divider type='solid'></arc-divider>
+    <div>Default</div>
+    <arc-divider></arc-divider>
+  </arc-content>
 </arc-container>
 
 <script type='module' src='./out-tsc/src/components/container/arc-container.js'></script>
 <script type='module' src='./out-tsc/src/components/navbar/arc-navbar.js'></script>
 <script type='module' src='./out-tsc/src/components/button/arc-button.js'></script>
-<script type='module' src='./out-tsc/src/components/menu-divider/arc-menu-divider.js'></script>
+<script type='module' src='./out-tsc/src/components/divider/arc-divider.js'></script>
 
 <script type='module'>
   const container = document.getElementById('container');

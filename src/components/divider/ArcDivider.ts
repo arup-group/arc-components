@@ -1,10 +1,13 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { componentStyles } from '../styles/component.styles.js';
 
-export class ArcMenuDivider extends LitElement {
-  static tag = 'arc-menu-divider';
+import { DIVIDER_TYPES } from './constants/DividerConstants.js';
+
+export class ArcDivider extends LitElement {
+  static tag = 'arc-divider';
 
   static styles = [
     componentStyles,
@@ -20,7 +23,6 @@ export class ArcMenuDivider extends LitElement {
       #border {
         margin: 0;
         border: 0;
-        border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
 
       #borderless {
@@ -29,21 +31,25 @@ export class ArcMenuDivider extends LitElement {
     `
   ]
 
+  /** @type { 'dotted' | 'dashed' | 'solid' | 'none' } */
   @property({
-    type: Boolean,
-    reflect: true
+    type: String,
   })
-  border: boolean = false;
+  type: string = DIVIDER_TYPES.none;
 
   render() {
     const classes = {
-      border: this.border,
+      border: this.type !== DIVIDER_TYPES.none,
+    }
+
+    const styles = {
+      border: `var(--arc-border-width) ${this.type} rgb(var(--arc-color-default))`
     }
 
     return html`
       <div id='main' class='${classMap(classes)}'>
-        ${this.border ? html`
-          <hr id='border'>
+        ${this.type !== DIVIDER_TYPES.none ? html`
+          <hr id='border' style='${styleMap(styles)}'>
         ` : html`
           <div id='borderless'></div>
         `}

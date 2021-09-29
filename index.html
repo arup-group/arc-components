@@ -24,8 +24,11 @@
     <arc-button type='tab'>Link 3</arc-button>
     <arc-button type='tab'>Link 4</arc-button>
   </arc-navbar>
-  <arc-sidebar slot='side' style='width: 23rem;'></arc-sidebar>
-  <arc-content slot='content'>
+  <arc-sidebar slot='side'>
+    <div>Container 1</div>
+    <div>Container 2</div>
+  </arc-sidebar>
+  <arc-content slot='content' style='background: rgb(var(--arc-container-color))'>
     <div>Dotted</div>
     <arc-divider type='dotted'></arc-divider>
     <div>Dashed</div>
@@ -39,6 +42,7 @@
 
 <script type='module' src='./out-tsc/src/components/container/arc-container.js'></script>
 <script type='module' src='./out-tsc/src/components/navbar/arc-navbar.js'></script>
+<script type='module' src='./out-tsc/src/components/sidebar/arc-sidebar.js'></script>
 <script type='module' src='./out-tsc/src/components/button/arc-button.js'></script>
 <script type='module' src='./out-tsc/src/components/divider/arc-divider.js'></script>
 

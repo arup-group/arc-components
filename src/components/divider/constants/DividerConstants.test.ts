@@ -7,10 +7,9 @@ describe('DividerConstants', () => {
     expect(DIVIDER_TYPES).to.exist;
     const keys: Array<keyof typeof DIVIDER_TYPES> = Object.keys(DIVIDER_TYPES);
 
-    expect(keys.length).to.be.equal(4);
+    expect(keys.length).to.be.equal(3);
     expect(keys).to.contain('dotted');
     expect(keys).to.contain('dashed');
     expect(keys).to.contain('solid');
-    expect(keys).to.contain('none');
   })
 })

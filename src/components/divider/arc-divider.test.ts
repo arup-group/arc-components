@@ -14,7 +14,7 @@ describe('ArcDivider', () => {
     })
 
     it('renders the divider with default properties in the dom', () => {
-      expect(divider).dom.to.equal(`<arc-divider type='none'></arc-divider>`)
+      expect(divider).dom.to.equal(`<arc-divider type='solid'></arc-divider>`)
     });
 
     it('renders the divider with different types', async () => {

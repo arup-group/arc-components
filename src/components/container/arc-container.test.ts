@@ -64,30 +64,20 @@ describe('ArcContainer', () => {
       await setViewport({ width: 1200, height: 640 });
       expect(UiUtils.isMobile()).to.be.false;
 
-      expect(window.getComputedStyle(<Element>slottedNav).display).to.equal(
-        'block'
-      );
-      expect(window.getComputedStyle(<Element>slottedSide).display).to.equal(
-        'block'
-      );
-      expect(window.getComputedStyle(<Element>slottedContent).display).to.equal(
-        'block'
-      );
-      expect(window.getComputedStyle(<Element>slottedBottom).display).to.equal(
-        'none'
-      );
+      expect(window.getComputedStyle(<Element>slottedNav).display).to.equal('block');
+      expect(window.getComputedStyle(<Element>slottedSide).display).to.equal('block');
+      expect(window.getComputedStyle(<Element>slottedContent).display).to.equal('block');
+      expect(window.getComputedStyle(<Element>slottedBottom).display).to.equal('none');
     });
     it('shows correct styling on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
       expect(UiUtils.isMobile()).to.be.true;
 
+      expect(window.getComputedStyle(<Element>slottedNav).display).to.equal('block');
+      expect(window.getComputedStyle(container).gap).to.equal('0px');
       expect(window.getComputedStyle(container).padding).to.equal('0px');
-      expect(window.getComputedStyle(<Element>slottedSide).width).to.equal(
-        '0px'
-      );
-      expect(
-        window.getComputedStyle(<Element>slottedSide).marginRight
-      ).to.equal('0px');
+      expect(window.getComputedStyle(<Element>slottedSide).display).to.equal('none');
+      expect(window.getComputedStyle(<Element>slottedContent).display).to.equal('block');
       expect(window.getComputedStyle(<Element>slottedBottom).display).to.equal(
         'block'
       );

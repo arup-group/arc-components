@@ -43,7 +43,7 @@ export class ArcDivider extends LitElement {
     }
 
     const styles = {
-      border: `var(--arc-border-width) ${this.type} rgb(var(--arc-color-default))`
+      borderTop: `var(--arc-border-width) ${this.type} rgb(var(--arc-color-default))`
     }
 
     return html`

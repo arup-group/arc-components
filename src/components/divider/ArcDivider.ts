@@ -34,6 +34,7 @@ export class ArcDivider extends LitElement {
   /** @type { 'dotted' | 'dashed' | 'solid' | 'none' } */
   @property({
     type: String,
+    reflect: true,
   })
   type: string = DIVIDER_TYPES.none;
 

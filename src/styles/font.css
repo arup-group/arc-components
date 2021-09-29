@@ -1,0 +1,33 @@
+:root {
+  /* Family */
+  --arc-font-headline: "Times New Roman";
+  --arc-font-body: "Roboto Light";
+  --arc-font-button: "Roboto","sans-serif";
+
+  /* Size */
+  --arc-font-size-xx-small: 0.625rem;
+  --arc-font-size-x-small: 0.75rem;
+  --arc-font-size-small: 0.875rem;
+  --arc-font-size-medium: 1rem;
+  --arc-font-size-large: 1.25rem;
+  --arc-font-size-x-large: 1.5rem;
+  --arc-font-size-xx-large: 2.25rem;
+  --arc-font-size-xxx-large: 3rem;
+  --arc-font-size-xxxx-large: 4.5rem;
+
+  /* Weight */
+  --arc-font-weight-light: 300;
+  --arc-font-weight-normal: 400;
+  --arc-font-weight-semibold: 500;
+  --arc-font-weight-bold: 700;
+
+  /* Line Height */
+  --arc-line-height-dense: 1.4;
+  --arc-line-height-normal: 1.8;
+  --arc-line-height-loose: 2.2;
+
+  /* Letter Spacing */
+  --arc-letter-spacing-dense: -0.015rem;
+  --arc-letter-spacing-normal: normal;
+  --arc-letter-spacing-loose: 0.075rem;
+}

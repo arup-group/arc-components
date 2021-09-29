@@ -1,5 +1,6 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
+import { componentStyles } from '../styles/component.styles.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { DateUtils } from '../../utils/date-utils.js';
@@ -7,77 +8,76 @@ import { DateUtils } from '../../utils/date-utils.js';
 export class ArcContainer extends LitElement {
   static tag = 'arc-container';
 
-  static styles = css`
-    :host {
-      --navbar-height: 3.5rem;
-      --sidebar-width: 23rem;
-    }
+  static styles = [
+    componentStyles,
+    css`
+      :host {
+        --bottom-height: 3.5rem;
+      }
 
-    #main {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: rgb(var(--arc-background-color));
-      color: rgb(var(--arc-font-color));
-    }
+      #main {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: rgb(var(--arc-background-color));
+        color: rgb(var(--arc-font-color));
+      }
 
-    ::slotted(*),
-    #bottom {
-      background: rgb(var(--arc-container-color));
-    }
+      ::slotted(*),
+      #bottom {
+        background: rgb(var(--arc-container-color));
+      }
 
-    ::slotted(arc-navbar),
-    ::slotted(arc-bottombar),
-    #bottom {
-      min-height: var(--navbar-height);
-    }
-
-    #container {
-      flex: 1 1 100%;
-      display: flex;
-      padding: min(5vh, var(--arc-spacing-medium));
-    }
-
-    ::slotted(arc-sidebar) {
-      width: var(--sidebar-width);
-      margin-right: min(5vh, var(--arc-spacing-medium));
-      transition: var(--arc-transition-slow);
-    }
-
-    ::slotted(arc-content) {
-      flex: 1 1 100%;
-    }
-
-    ::slotted(arc-bottombar),
-    #bottom {
-      display: none;
-    }
-
-    /* Medium devices (tablets, 768px)  */
-    @media (max-width: 40em) {
       #container {
-        padding: 0;
+        flex: 1 1 100%;
+        display: flex;
+        padding: var(--arc-spacing-medium);
       }
 
       ::slotted(arc-sidebar) {
-        width: 0;
-        margin-right: 0;
-        transform: translateX(-16em);
+        margin-right: var(--arc-spacing-medium);
+        transition: all var(--arc-transition-slow), background 1ms;
+      }
+
+      ::slotted(arc-content) {
+        flex: 1 1 100%;
+      }
+
+      #bottom {
+        height: var(--bottom-height);
       }
 
       ::slotted(arc-bottombar),
       #bottom {
-        display: block;
+        display: none;
       }
-    }
-  `;
+
+      /* Phone */
+      @media (max-width: 40rem) {
+        #container {
+          padding: 0;
+        }
+
+        ::slotted(arc-sidebar) {
+          width: 0 !important;
+          margin-right: 0;
+          transform: translateX(-16rem);
+        }
+
+        ::slotted(arc-bottombar),
+        #bottom {
+          display: block;
+        }
+      }
+    `,
+  ];
 
   /** @type { 'auto' | 'dark' | 'light' } */
   @property({
     type: String,
     reflect: true,
   })
-  theme: string = this.getTheme();
+  theme: string = 'auto';
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
@@ -87,23 +87,18 @@ export class ArcContainer extends LitElement {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  getTheme(date?: Date) {
-    return DateUtils.isNight(date)
-      ? CONTAINER_THEMES.dark
-      : CONTAINER_THEMES.light;
-  }
+  getTheme = (date?: Date) => DateUtils.isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light
 
   render() {
     return html`
-      <main id="main">
-        <slot id="nav" name="nav"></slot>
-        <div id="container">
-          <slot name="side"></slot>
-          <slot name="content"></slot>
+      <main id='main'>
+        <slot id='nav' name='nav'></slot>
+        <div id='container'>
+          <slot name='side'></slot>
+          <slot name='content'></slot>
         </div>
-        <slot name="bottom">
-          <arc-bottombar id="bottom">DEFAULT BOTTOM BAR</arc-bottombar>
+        <slot name='bottom'>
+          <arc-bottombar id='bottom'>DEFAULT BOTTOM BAR</arc-bottombar>
         </slot>
       </main>
     `;

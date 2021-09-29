@@ -2,6 +2,8 @@ import { html, TemplateResult } from 'lit';
 import './arc-navbar.js';
 import '../button/arc-button.js';
 
+const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
+
 export default {
   title: 'Navbar',
   component: 'arc-navbar',
@@ -92,7 +94,7 @@ const Template: Story<ArgTypes> = ({ arup, logo, tabs, height }: ArgTypes) => ht
 export const ArcNavbar = Template.bind({});
 ArcNavbar.args = {
   arup: true,
-  logo: 'https://cdn.worldvectorlogo.com/logos/microsoft-teams-1.svg',
+  logo: arcLogo,
   tabs: 5,
   height: '3.5rem',
 };

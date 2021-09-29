@@ -3,6 +3,8 @@ import './arc-container.js';
 import '../navbar/arc-navbar.js';
 import '../button/arc-button.js';
 
+const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
+
 export default {
   title: 'Container',
   component: 'arc-container',
@@ -79,7 +81,7 @@ const Template: Story<ArgTypes> = ({ theme, bottomHeight }: ArgTypes) => html`
     .theme=${theme}
     style="--bottom-height:${bottomHeight}"
   >
-    <arc-navbar slot='nav' logo='http://localhost:8000/assets/arc-red.svg'>
+    <arc-navbar slot='nav' logo='${arcLogo}'>
       <span slot='name'>WebComponents</span>
       <arc-button type='tab'>Link 1</arc-button>
       <arc-button type='tab'>Link 2</arc-button>

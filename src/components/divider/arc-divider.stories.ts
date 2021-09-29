@@ -34,7 +34,7 @@ interface ArgTypes {
 const Template: Story<ArgTypes> = ({ type }: ArgTypes) => html`
   <style>
     .parent > *:not(arc-divider[type="none"]) {
-      background: lightblue;
+      background: rgb(var(--arc-background-color));
     }
   </style>
   <div class='parent'>

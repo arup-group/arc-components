@@ -28,10 +28,6 @@ describe('ArcButton', () => {
       expect(anchorTarget.querySelector('slot')).to.exist;
     })
 
-    it('passes the a11y audit', async () => {
-      await expect(button).shadowDom.to.be.accessible();
-    });
-
     it('renders the button with different colors, types and sizes', async () => {
       for (const buttonColor of Object.keys(BUTTON_COLORS)) {
         button.color = buttonColor;
@@ -53,6 +49,10 @@ describe('ArcButton', () => {
         }
       }
     })
+
+    it('passes the a11y audit', async () => {
+      await expect(button).shadowDom.to.be.accessible();
+    });
 
     describe('states', () => {
       it('renders the button in an active state', async () => {

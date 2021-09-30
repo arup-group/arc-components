@@ -1,4 +1,5 @@
 import { html, TemplateResult } from 'lit';
+import '../container/arc-container.js';
 import './arc-sidebar.js';
 
 export default {
@@ -14,10 +15,10 @@ export default {
         category: 'Slots',
       },
     },
-    distance: {
-      name: 'width',
+    gap: {
+      name: '--gap-distance',
       type: { required: false },
-      description: 'Set the height of the gap',
+      description: 'Set the distance between sidebar elements',
       defaultValue: { summary: 'var(--arc-spacing-normal)' },
       control: { type: 'text' },
       table: {
@@ -49,16 +50,19 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`
-  <arc-navbar style='--gap-distance:${gap}; width: ${width}'>
-    <span slot='name'>Sub Branding</span>
-    <arc-button type='tab'>Link 1</arc-button>
-    <arc-button type='tab'>Link 2</arc-button>
-    <arc-button type='tab'>Link 3</arc-button>
-  </arc-navbar>
+  <arc-sidebar slot='side' style='--gap-distance:${gap}; width: ${width}'>
+    <div>Some content</div>
+    <div>Some more content</div>
+    <div>
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+    </div>
+  </arc-sidebar>
 `;
 
-export const ArcNavbar = Template.bind({});
-ArcNavbar.args = {
+export const ArcSidebar = Template.bind({});
+ArcSidebar.args = {
   gap: 'var(--arc-spacing-normal)',
   width: 'clamp(15rem, 30%, var(--arc-sidebar-width))',
 };

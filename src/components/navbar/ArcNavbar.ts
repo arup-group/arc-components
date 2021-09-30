@@ -28,7 +28,6 @@ export class ArcNavbar extends LitElement {
       /* Left side */
       #left {
         justify-content: flex-start;
-        //padding-right: var(--arc-spacing-medium);
       }
 
       #tool-logo + #tool-name {
@@ -75,7 +74,10 @@ export class ArcNavbar extends LitElement {
         #right > #tabs {
           display: grid;
           grid-auto-flow: column;
-          margin-right: var(--arc-spacing-medium);
+        }
+
+        #company-logo {
+          margin-left: var(--arc-spacing-medium);
         }
 
         #tool-logo + #tool-name {

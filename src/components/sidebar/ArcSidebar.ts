@@ -24,6 +24,7 @@ export class ArcSidebar extends LitElement {
         gap: var(--gap-distance);
       }
 
+      #noContent,
       ::slotted(*) {
         background: rgb(var(--arc-container-color));
       }
@@ -44,7 +45,9 @@ export class ArcSidebar extends LitElement {
   render() {
     return html`
       <main id='main'>
-        <slot @slotchange=${this.handleSlots}></slot>
+        <slot @slotchange=${this.handleSlots}>
+          <div id='noContent'>No sidebar items</div>
+        </slot>
       </main>
     `
   }

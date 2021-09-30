@@ -33,7 +33,7 @@ export class ArcButton extends LitElement {
         background-color: var(--btn-background);
         border: none;
         border-radius: var(--arc-border-radius-medium);
-        box-shadow: var(--arc-box-shadow);
+        box-shadow: var(--arc-input-box-shadow);
         font-family: var(--arc-font-button);
         font-size: var(--arc-font-size-small);
         font-weight: var(--arc-font-weight-semibold);

@@ -22,7 +22,8 @@ export class ArcNavbar extends LitElement {
       #main {
         height: inherit;
         width: 100%;
-        padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
+        padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
+        box-shadow: var(--arc-box-shadow);
       }
 
       /* Left side */
@@ -67,7 +68,6 @@ export class ArcNavbar extends LitElement {
       #tool-logo, #company-logo, #tool-name {
         align-self: center;
       }
-
 
       /* Medium devices (tablets, 48rem and up) */
       @media (min-width: 48rem) {

@@ -10,7 +10,7 @@ export class ArcSidebar extends LitElement {
     css`
       :host {
         --gap-distance: var(--arc-spacing-normal);
-        width: clamp(15rem, 30%, var(--arc-sidebar-width))
+        width: clamp(15rem, 30%, var(--arc-sidebar-width));
       }
 
       /* Layout */

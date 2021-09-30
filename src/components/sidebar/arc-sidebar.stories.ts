@@ -2,6 +2,8 @@ import { html, TemplateResult } from 'lit';
 import '../container/arc-container.js';
 import './arc-sidebar.js';
 
+const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
+
 export default {
   title: 'Sidebar',
   component: 'arc-sidebar',
@@ -50,15 +52,14 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`
-  <arc-sidebar slot='side' style='--gap-distance:${gap}; width: ${width}'>
-    <div>Some content</div>
-    <div>Some more content</div>
-    <div>
-      <div>One</div>
-      <div>Two</div>
-      <div>Three</div>
-    </div>
-  </arc-sidebar>
+  <arc-container>
+    <arc-navbar slot='nav' logo='${arcLogo}'></arc-navbar>
+    <arc-sidebar slot="side" style='--gap-distance: ${gap}; width: ${width}'>
+      <div>Side block 1</div>
+      <div>Side block 2</div>
+    </arc-sidebar>
+    <arc-content slot="content" style='background: rgb(var(--arc-container-color))'>CONTENT</arc-content>
+  </arc-container>
 `;
 
 export const ArcSidebar = Template.bind({});

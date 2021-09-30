@@ -35,8 +35,9 @@ export class ArcContainer extends LitElement {
         flex: 1 0 auto;
       }
 
-      ::slotted(arc-content) {
+      #content {
         flex: 1 1 100%;
+        background: rgb(var(--arc-container-color));
       }
 
       ::slotted(arc-bottombar),
@@ -72,6 +73,9 @@ export class ArcContainer extends LitElement {
   })
   theme: string = 'auto';
 
+  @property()
+  slottedContent = false;
+
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
       if (CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto) {
@@ -88,7 +92,7 @@ export class ArcContainer extends LitElement {
         <slot id='nav' name='nav'></slot>
         <div id='container'>
           <slot name='side'></slot>
-          <slot name='content'></slot>
+          <div id='content'><slot></slot></div>
         </div>
         <slot name='bottom'>
           <arc-bottombar id='bottom'>DEFAULT BOTTOM BAR</arc-bottombar>

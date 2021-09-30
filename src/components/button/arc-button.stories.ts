@@ -143,11 +143,7 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ label, type, color, size, active, disabled, href, width, minWidth, buttonColor, buttonBackground }: ArgTypes) => html`
-  <arc-button style='
-  width: ${width};
-  --min-width: ${minWidth};
-  --btn-color: ${buttonColor};
-  --btn-background: ${buttonBackground}'
+  <arc-button style='width: ${width}; --min-width: ${minWidth}; --btn-color: ${buttonColor}; --btn-background: ${buttonBackground}'
     type='${type}'
     color='${color}'
     size='${size}'
@@ -166,10 +162,10 @@ Contained.args = {
   active: false,
   disabled: false,
   href: '',
-  width: '',
-  minWidth: '',
-  buttonColor: '',
-  buttonBackground: '',
+  width: 'auto',
+  minWidth: 'auto',
+  buttonColor: 'initial',
+  buttonBackground: 'initial',
 };
 
 export const Tile = Template.bind({});

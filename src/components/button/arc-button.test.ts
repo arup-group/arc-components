@@ -90,20 +90,8 @@ describe('ArcButton', () => {
       expect(targetStyles.getPropertyValue('--btn-color')).to.equal('');
       expect(targetStyles.getPropertyValue('--btn-background')).to.equal('');
     })
-    it('overwrites the width', async () => {
-      const button: ArcButton = await fixture(html`<arc-button style='width:200px; --min-width:150px;'>Test</arc-button>`);
-      const buttonTarget = button.shadowRoot!.getElementById('button')!;
-      const buttonStyles = window.getComputedStyle(button);
-      const targetStyles = window.getComputedStyle(buttonTarget);
-
-      expect(buttonStyles.getPropertyValue('width')).to.equal('200px');
-      expect(buttonStyles.getPropertyValue('--min-width')).to.equal('150px');
-
-      expect(targetStyles.getPropertyValue('width')).to.equal('200px');
-      expect(targetStyles.getPropertyValue('--min-width')).to.equal('150px');
-    })
     it('overwrites the css variables', async () => {
-      const button: ArcButton = await fixture(html`<arc-button style='--btn-color:red; --btn-background:green;'>Test</arc-button>`);
+      const button: ArcButton = await fixture(html`<arc-button style='width:200px; --min-width:150px; --btn-color:red; --btn-background:green;'>Test</arc-button>`);
       const buttonTarget = button.shadowRoot!.getElementById('button')!;
       const buttonStyles = window.getComputedStyle(button);
       const targetStyles = window.getComputedStyle(buttonTarget);
@@ -113,6 +101,12 @@ describe('ArcButton', () => {
 
       expect(targetStyles.getPropertyValue('--btn-color')).to.equal('red');
       expect(targetStyles.getPropertyValue('--btn-background')).to.equal('green');
+
+      expect(buttonStyles.getPropertyValue('width')).to.equal('200px');
+      expect(buttonStyles.getPropertyValue('--min-width')).to.equal('150px');
+
+      expect(targetStyles.getPropertyValue('width')).to.equal('200px');
+      expect(targetStyles.getPropertyValue('--min-width')).to.equal('150px');
     })
   })
 });

@@ -32,8 +32,7 @@ export class ArcContainer extends LitElement {
 
       ::slotted(arc-sidebar) {
         display: none;
-        flex: 1 0 30%;
-        max-width: var(--arc-sidebar-width);
+        flex: 1 0 auto;
       }
 
       ::slotted(arc-content) {

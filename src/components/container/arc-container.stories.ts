@@ -1,6 +1,7 @@
 import { html, TemplateResult } from 'lit';
 import './arc-container.js';
 import '../navbar/arc-navbar.js';
+import '../sidebar/arc-sidebar.js';
 import '../button/arc-button.js';
 
 const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
@@ -46,7 +47,7 @@ export default {
     },
     bottom: {
       type: { required: false },
-      description: 'The container bottombar',
+      description: 'The container bottom bar',
       control: { type: null },
       table: {
         category: 'Slots',
@@ -56,7 +57,7 @@ export default {
       name: '--bottom-height',
       type: { required: false },
       description: 'Set the height of the default bottom bar',
-      defaultValue: { summary: '3.5rem' },
+      defaultValue: { summary: 'var(--arc-bottom-height)' },
       control: { type: 'text' },
       table: {
         category: 'CSS Parts',
@@ -77,23 +78,22 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ theme, bottomHeight }: ArgTypes) => html`
-  <arc-container
-    .theme=${theme}
-    style="--bottom-height:${bottomHeight}"
-  >
+  <arc-container .theme=${theme} style="--bottom-height:${bottomHeight}">
     <arc-navbar slot='nav' logo='${arcLogo}'>
       <span slot='name'>WebComponents</span>
       <arc-button type='tab'>Link 1</arc-button>
       <arc-button type='tab'>Link 2</arc-button>
       <arc-button type='tab'>Link 3</arc-button>
     </arc-navbar>
-    <arc-sidebar slot="side" style='width: 23rem;'>SIDEBAR</arc-sidebar>
-    <arc-content slot="content">CONTENT</arc-content>
+    <arc-sidebar slot="side">
+      <span>SIDEBAR</span>
+    </arc-sidebar>
+    <arc-content slot="content" style='background: rgb(var(--arc-container-color))'>CONTENT</arc-content>
   </arc-container>
 `;
 
 export const ArcContainer = Template.bind({});
 ArcContainer.args = {
   theme: 'auto',
-  bottomHeight: '3.5rem',
+  bottomHeight: 'var(--arc-bottom-height)',
 };

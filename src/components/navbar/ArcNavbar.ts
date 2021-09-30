@@ -9,7 +9,7 @@ export class ArcNavbar extends LitElement {
     componentStyles,
     css`
       :host {
-        --height: var(--arc-navbar-height);
+        height: var(--arc-navbar-height);
         background: rgb(var(--arc-container-color));
       }
 
@@ -20,7 +20,7 @@ export class ArcNavbar extends LitElement {
       }
 
       #main {
-        height: var(--height);
+        height: 100%;
         width: 100%;
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
       }

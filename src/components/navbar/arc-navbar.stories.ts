@@ -57,10 +57,10 @@ export default {
       },
     },
     height: {
-      name: '--height',
+      name: 'height',
       type: { required: false },
-      description: 'Set the height of navbar',
-      defaultValue: { summary: '3.5rem' },
+      description: 'Set the height of the navbar',
+      defaultValue: { summary: 'var(--arc-navbar-height)' },
       control: { type: 'text' },
       table: {
         category: 'CSS Parts',
@@ -96,6 +96,6 @@ ArcNavbar.args = {
   arup: true,
   logo: arcLogo,
   tabs: 5,
-  height: '3.5rem',
+  height: 'var(--arc-navbar-height)',
 };
 

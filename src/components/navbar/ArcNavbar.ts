@@ -9,12 +9,12 @@ export class ArcNavbar extends LitElement {
     componentStyles,
     css`
       :host {
-        --height: 3.5rem;
+        --height: var(--arc-navbar-height);
         background: rgb(var(--arc-container-color));
       }
 
       /* Layout */
-      #main, #left, #right, #tabs {
+      #main, #left, #right {
         display: grid;
         grid-auto-flow: column;
       }
@@ -25,26 +25,32 @@ export class ArcNavbar extends LitElement {
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
       }
 
+      /* Left side */
       #left {
         justify-content: flex-start;
-        padding-right: var(--arc-spacing-medium);
+        //padding-right: var(--arc-spacing-medium);
       }
 
-      #left > img + #tool-name {
+      #tool-logo + #tool-name {
+        display: none;
         margin-left: var(--arc-spacing-small);
       }
 
-      #left > #tool-name {
+      #tool-name {
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
+      /* Right side */
       #right {
         justify-content: flex-end;
         color: rgb(var(--arc-color-primary));
       }
 
-      /* Navigation tabs */
+      #right > #tabs {
+        display: none;
+      }
+
       ::slotted(arc-button) {
         border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
@@ -63,14 +69,17 @@ export class ArcNavbar extends LitElement {
         align-self: center;
       }
 
-      #company-logo {
-        margin-left: var(--arc-spacing-medium);
-      }
 
-      /* Phone */
-      @media (max-width: 40rem) {
-        #tabs, #left > img + #tool-name {
-          display: none;
+      /* Medium devices (tablets, 48rem and up) */
+      @media (min-width: 48rem) {
+        #right > #tabs {
+          display: grid;
+          grid-auto-flow: column;
+          margin-right: var(--arc-spacing-medium);
+        }
+
+        #tool-logo + #tool-name {
+          display: block;
         }
       }
     `,

@@ -1,4 +1,9 @@
 :root {
+  /* Layout elements */
+  --arc-navbar-height: 3.5rem;
+  --arc-sidebar-width: 23rem;
+  --arc-bottom-height: var(--arc-navbar-height);
+
   /* Padding / Margins */
   --arc-spacing-small: 0.75rem;
   --arc-spacing-normal: 1rem;

@@ -1,5 +1,5 @@
 export class UiUtils {
   static isMobile() {
-    return window.matchMedia('(max-width: 40rem)').matches;
+    return window.matchMedia('(max-width: 48rem)').matches;
   }
 }

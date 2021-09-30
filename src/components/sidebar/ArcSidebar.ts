@@ -9,7 +9,6 @@ export class ArcSidebar extends LitElement {
     componentStyles,
     css`
       :host {
-        --width: 23rem;
         --gap-distance: var(--arc-spacing-normal);
       }
 

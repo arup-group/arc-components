@@ -20,7 +20,7 @@ export class ArcNavbar extends LitElement {
       }
 
       #main {
-        height: 100%;
+        height: inherit;
         width: 100%;
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
       }

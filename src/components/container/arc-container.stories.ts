@@ -85,8 +85,11 @@ const Template: Story<ArgTypes> = ({ theme, bottomHeight }: ArgTypes) => html`
       <arc-button type='tab'>Link 2</arc-button>
       <arc-button type='tab'>Link 3</arc-button>
     </arc-navbar>
-    <arc-sidebar slot="side"></arc-sidebar>
-    <arc-content slot="content" style='background: rgb(var(--arc-container-color))'>CONTENT</arc-content>
+    <arc-sidebar slot="side">
+      <div>Side block 1</div>
+      <div>Side block 2</div>
+    </arc-sidebar>
+    Some content to display
   </arc-container>
 `;
 

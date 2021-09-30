@@ -21,7 +21,7 @@ describe('ArcContainer', () => {
 
       expect(main.querySelector('slot[name="nav"]')).to.exist;
       expect(main.querySelector('slot[name="side"]')).to.exist;
-      expect(main.querySelector('slot[name="content"]')).to.exist;
+      expect(main.querySelector('#content > slot')).to.exist;
       expect(main.querySelector('slot[name="bottom"]')).to.exist;
     });
 
@@ -34,11 +34,9 @@ describe('ArcContainer', () => {
     let container: HTMLElement;
     let nav: HTMLSlotElement;
     let side: HTMLSlotElement;
-    let content: HTMLSlotElement;
     let bottom: HTMLSlotElement;
     let slottedNav: Node;
     let slottedSide: Node;
-    let slottedContent: Node;
     let slottedBottom: Node;
 
     beforeEach(async () => {
@@ -46,18 +44,16 @@ describe('ArcContainer', () => {
         <arc-container>
           <arc-navbar id="nav" slot="nav">nav</arc-navbar>
           <arc-sidebar id="side" slot="side">side</arc-sidebar>
-          <arc-content id="content" slot="content">content</arc-content>
+          Some content
           <arc-bottombar id="bottom" slot="bottom">bottom</arc-bottombar>
         </arc-container>
       `);
       container = element.shadowRoot!.getElementById('container')!;
       nav = element.shadowRoot!.querySelector('slot[name="nav"]')!;
       side = element.shadowRoot!.querySelector('slot[name="side"]')!;
-      content = element.shadowRoot!.querySelector('slot[name="content"]')!;
       bottom = element.shadowRoot!.querySelector('slot[name="bottom"]')!;
       slottedNav = nav.assignedNodes()[0];
       slottedSide = side.assignedNodes()[0];
-      slottedContent = content.assignedNodes()[0];
       slottedBottom = bottom.assignedNodes()[0];
     });
     it('shows correct styling on a desktop', async () => {
@@ -66,7 +62,6 @@ describe('ArcContainer', () => {
 
       expect(window.getComputedStyle(<Element>slottedNav).display).to.equal('block');
       expect(window.getComputedStyle(<Element>slottedSide).display).to.equal('block');
-      expect(window.getComputedStyle(<Element>slottedContent).display).to.equal('block');
       expect(window.getComputedStyle(<Element>slottedBottom).display).to.equal('none');
     });
     it('shows correct styling on a phone', async () => {
@@ -77,7 +72,6 @@ describe('ArcContainer', () => {
       expect(window.getComputedStyle(container).gap).to.equal('0px');
       expect(window.getComputedStyle(container).padding).to.equal('0px');
       expect(window.getComputedStyle(<Element>slottedSide).display).to.equal('none');
-      expect(window.getComputedStyle(<Element>slottedContent).display).to.equal('block');
       expect(window.getComputedStyle(<Element>slottedBottom).display).to.equal(
         'block'
       );

@@ -84,7 +84,7 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ arup, logo, tabs, height }: ArgTypes) => html`
-  <arc-navbar slot='nav' style='--height: ${height}' arup='${arup}' logo='${logo}' tabs='${tabs}'>
+  <arc-navbar slot='nav' style='height: ${height}' arup='${arup}' logo='${logo}' tabs='${tabs}'>
     <span slot='name'>Sub Branding</span>
     <arc-button type='tab'>Link 1</arc-button>
     <arc-button type='tab'>Link 2</arc-button>

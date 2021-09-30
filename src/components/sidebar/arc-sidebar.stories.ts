@@ -58,7 +58,6 @@ const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`
       <div>Side block 1</div>
       <div>Side block 2</div>
     </arc-sidebar>
-    <arc-content slot="content" style='background: rgb(var(--arc-container-color))'>CONTENT</arc-content>
   </arc-container>
 `;
 

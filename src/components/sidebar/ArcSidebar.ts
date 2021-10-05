@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
-import { query } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { componentStyles } from '../styles/component.styles.js';
+
+import '../icon/arc-icon.js';
 
 export class ArcSidebar extends LitElement {
   static tag = 'arc-sidebar';
@@ -30,6 +32,12 @@ export class ArcSidebar extends LitElement {
     `
   ]
 
+  @property({
+    type: Boolean,
+    reflect: true
+  })
+  open: boolean = true;
+
   @query('#main')
   main!: HTMLElement;
 
@@ -44,7 +52,11 @@ export class ArcSidebar extends LitElement {
   render() {
     return html`
       <main id='main'>
-        <slot @slotchange=${this.handleSlots}></slot>
+        ${this.open ? html`
+          <slot @slotchange=${this.handleSlots}></slot>
+        ` : html`
+          <arc-icon type='arrow-right'></arc-icon>
+        `}
       </main>
     `
   }

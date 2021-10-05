@@ -50,7 +50,7 @@ export class ArcContainer extends LitElement {
       /* Medium devices (tablets, 48rem and up) */
       @media (min-width: 48rem) {
         #container {
-          gap: var(--arc-spacing-normal);
+          gap: var(--arc-spacing-medium);
           padding: var(--arc-spacing-normal) var(--arc-spacing-medium);
         }
 

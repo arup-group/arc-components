@@ -32,24 +32,19 @@ describe('ArcSidebar', () => {
 
   // Test whether the slots can be filled and that they exist
   describe('slots', () => {
-    let element: ArcSidebar;
-    let main: HTMLElement;
+    it ('renders a slot to fill the sidebar', async () => {
+      const element = await fixture(html`<arc-sidebar></arc-sidebar>`)
+      expect(element.shadowRoot!.querySelector('slot')).to.exist;
+    })
 
-    beforeEach(async () => {
-      element = await fixture(html`
+    it('should automatically add a gap between added slots', async () => {
+      const element = await fixture(html`
         <arc-sidebar style='--gap-distance: 30px;'>
           <div>Test container</div>
           <div>Test container</div>
         </arc-sidebar>
       `)
-      main = element.shadowRoot!.getElementById('main')!;
-    })
-
-    it ('renders a slot to fill the sidebar', () => {
-      expect(element.querySelector('slot')).to.exist;
-    })
-
-    it('should automatically add a gap between added slots', () => {
+      const main = element.shadowRoot!.getElementById('main')!;
       const containerStyles = window.getComputedStyle(<Element>main);
       expect(containerStyles.getPropertyValue('column-gap')).to.equal('30px');
     })

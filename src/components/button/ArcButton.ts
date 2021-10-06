@@ -125,10 +125,10 @@ export class ArcButton extends LitElement {
   @property({ type: String, reflect: true })
   size: string = BUTTON_SIZES.medium;
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   active: boolean = false;
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   disabled: boolean = false;
 
   @property()

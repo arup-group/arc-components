@@ -14,7 +14,7 @@ describe('ArcSidebar', () => {
     })
 
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-sidebar></arc-sidebar>`)
+      expect(element).dom.to.equal(`<arc-sidebar open=''></arc-sidebar>`)
     });
 
     it('passes the a11y audit', async () => {

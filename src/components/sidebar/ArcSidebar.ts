@@ -32,10 +32,7 @@ export class ArcSidebar extends LitElement {
     `
   ]
 
-  @property({
-    type: Boolean,
-    reflect: true
-  })
+  @property({ type: Boolean, reflect: true })
   open: boolean = true;
 
   @query('#main')

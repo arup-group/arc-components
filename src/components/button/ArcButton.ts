@@ -59,31 +59,6 @@ export class ArcButton extends LitElement {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
-      /* Sizes */
-      :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {
-        height: var(--arc-input-height-small);
-      }
-
-      :host([size='${unsafeCSS(BUTTON_SIZES.small)}']) span {
-        padding: 0 var(--arc-spacing-small);
-      }
-
-      :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {
-        height: var(--arc-input-height-medium);
-      }
-
-      :host([size='${unsafeCSS(BUTTON_SIZES.medium)}']) span {
-        padding: 0 var(--arc-spacing-medium);
-      }
-
-      :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {
-        height: var(--arc-input-height-large);
-      }
-
-      :host([size='${unsafeCSS(BUTTON_SIZES.large)}']) span {
-        padding: 0 var(--arc-spacing-large);
-      }
-
       /* Radius */
       :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {
         border-radius: 0;
@@ -150,10 +125,10 @@ export class ArcButton extends LitElement {
   @property({ type: String, reflect: true })
   size: string = BUTTON_SIZES.medium;
 
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean })
   active: boolean = false;
 
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean })
   disabled: boolean = false;
 
   @property()
@@ -187,17 +162,22 @@ export class ArcButton extends LitElement {
       }
     };
 
-    const styles = {
+    const btnStyles = {
+      'height': `var(--arc-input-height-${this.size})`,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
 
+    const spanStyles = {
+      'padding': `0 var(--arc-spacing-${this.size})`,
+    }
+
     return html`
       ${this.href && !this.disabled
-        ? html`<a id='button' style=${styleMap(styles)} href='${this.href}' rel='noreferrer noopener'
-                  tabindex='-1'><span><slot></slot></span></a>`
+        ? html`<a id='button' style=${styleMap(btnStyles)} href='${this.href}' rel='noreferrer noopener'
+                  tabindex='-1'><span style=${styleMap(spanStyles)}><slot></slot></span></a>`
         : html`
-          <button id='button' style=${styleMap(styles)} tabindex='-1'><span><slot></slot></span></button>`
+          <button id='button' style=${styleMap(btnStyles)} tabindex='-1'><span style=${styleMap(spanStyles)}><slot></slot></span></button>`
       }
     `;
   }

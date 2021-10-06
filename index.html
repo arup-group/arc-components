@@ -17,19 +17,11 @@
 <body>
 <arc-container id='container' theme='light'>
   <arc-navbar slot='nav' logo='./assets/arc-red.svg'>
-    <span slot='name'>WebComponents</span>
-    <arc-button id='themeSetter' type='tab'>Switch theme</arc-button>
-    <arc-button type='tab'>Link 1</arc-button>
-    <arc-button type='tab'>Link 2</arc-button>
-    <arc-button type='tab'>Link 3</arc-button>
-    <arc-button type='tab'>Link 4</arc-button>
+    <arc-button id='themeSetter' type='tab'>Toggle theme</arc-button>
   </arc-navbar>
   <arc-sidebar slot='side'>
-    <div>Container 1</div>
+    <div></div>
   </arc-sidebar>
-
-  <arc-icon></arc-icon>
-
 </arc-container>
 
 <script type='module' src='./out-tsc/src/components/container/arc-container.js'></script>
@@ -40,9 +32,9 @@
 
 <script type='module'>
   const container = document.getElementById('container');
-  const button = document.getElementById('themeSetter');
-  button.addEventListener('click', () => {
-    container.theme = container.theme === 'light' ? 'dark' : 'light'
+  const themeSetter = document.getElementById('themeSetter');
+  themeSetter.addEventListener('click', () => {
+    container.theme = container.theme === 'light' ? 'dark' : 'light';
   })
 </script>
 </body>

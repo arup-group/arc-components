@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { expect, fixture } from '@open-wc/testing';
+import { expect, fixture, elementUpdated } from '@open-wc/testing';
 
 import { ArcSidebar } from './ArcSidebar.js';
 import './arc-sidebar.js';
@@ -23,12 +23,21 @@ describe('ArcSidebar', () => {
   });
 
   // Test different component states (active, disabled, loading etc.)
-  // describe('states', () => {
-  //   let element: ArcSidebar;
-  //   beforeEach(async() => {
-  //     element = await fixture(html`<arc-sidebar></arc-sidebar>`);
-  //   })
-  // });
+  describe('states', () => {
+    let element: ArcSidebar;
+    beforeEach(async() => {
+      element = await fixture(html`<arc-sidebar></arc-sidebar>`);
+    })
+    it('renders the open state', async () => {
+      expect(element.open).to.be.true;
+      expect(element.hasAttribute('open')).to.be.true;
+
+      element.open = false
+      await elementUpdated(element);
+      expect(element.open).to.be.false;
+      expect(element.hasAttribute('open')).to.be.false;
+    })
+  });
 
   // Test whether the slots can be filled and that they exist
   describe('slots', () => {

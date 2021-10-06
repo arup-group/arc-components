@@ -14,7 +14,8 @@ export class ArcIcon extends LitElement {
   static styles = [
     componentStyles,
     css`
-      :root {
+      :host {
+        display: flex;
         --icon-color-primary: inherit;
         --icon-color-secondary: currentColor;
       }
@@ -83,7 +84,7 @@ export class ArcIcon extends LitElement {
     }
 
     const styles = {
-      'transform': `${this.rotation ? `rotate(${this.rotation}deg)` : null}`,
+      'transform': this.rotation ? `rotate(${this.rotation}deg)` : null,
       'height': `var(--arc-font-size-${this.size})`,
       'width': `var(--arc-font-size-${this.size})`,
     };

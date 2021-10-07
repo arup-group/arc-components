@@ -92,7 +92,8 @@ export class ArcNavbar extends LitElement {
 
   @property({
     type: Boolean,
-    converter: (attrValue: string | null) => attrValue ? attrValue !== 'false' : true,
+    reflect: true,
+    converter: (attrValue: string | null) => attrValue ? attrValue !== 'false' : true
   })
   arup: boolean = true;
 

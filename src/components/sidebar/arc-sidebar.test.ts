@@ -28,14 +28,39 @@ describe('ArcSidebar', () => {
     beforeEach(async() => {
       element = await fixture(html`<arc-sidebar></arc-sidebar>`);
     })
-    it('renders the open state', async () => {
+    it('toggle the open state with setters/getters', async () => {
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
 
-      element.open = false
+      // Close
+      element.open = false;
+      await elementUpdated(element);
+      expect(element.hasAttribute('open')).to.be.false;
+
+      // Open
+      element.open = true;
+      await elementUpdated(element);
+      expect(element.open).to.be.true;
+      expect(element.hasAttribute('open')).to.be.true;
+    })
+    it('toggle the open state with the toggle button', async () => {
+      // By default the sidebar is set in the open state
+      const toggleClose = element.shadowRoot!.getElementById('toggleClose')!;
+      expect(toggleClose).to.exist;
+      toggleClose.click();
+
       await elementUpdated(element);
       expect(element.open).to.be.false;
       expect(element.hasAttribute('open')).to.be.false;
+
+      // When the open state === false, the toggleOpen should be displayed
+      const toggleOpen = element.shadowRoot!.getElementById('toggleOpen')!;
+      expect(toggleOpen).to.exist;
+      toggleOpen.click();
+
+      await elementUpdated(element);
+      expect(element.open).to.be.true;
+      expect(element.hasAttribute('open')).to.be.true;
     })
   });
 
@@ -53,8 +78,8 @@ describe('ArcSidebar', () => {
           <div>Test container</div>
         </arc-sidebar>
       `)
-      const main = element.shadowRoot!.getElementById('main')!;
-      const containerStyles = window.getComputedStyle(<Element>main);
+      const sidebar = element.shadowRoot!.getElementById('sidebar')!;
+      const containerStyles = window.getComputedStyle(sidebar);
       expect(containerStyles.getPropertyValue('column-gap')).to.equal('30px');
     })
   });

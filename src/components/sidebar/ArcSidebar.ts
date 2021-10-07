@@ -68,21 +68,29 @@ export class ArcSidebar extends LitElement {
     }
   }
 
-  _setState = () => {
+  _toggleOpenState = () => {
     this.open = !this.open;
+    this._dispatchOpenState();
+  }
+
+  private _dispatchOpenState = () => {
+    const options = {
+      detail: { open: this.open },
+      bubbles: true,
+      composed: true
+    }
+    this.dispatchEvent(new CustomEvent(`${this.open ? 'arc-show' : 'arc-hide'}`, options));
   }
 
   render() {
     return html`
       ${this.open ? html`
         <div id='sidebar'>
-          <div id='toggleClose'>
-            <arc-icon name='arrow-left' @click=${this._setState}></arc-icon>
-          </div>
+          <arc-icon id='toggleClose' name='arrow-left' @click=${this._toggleOpenState}></arc-icon>
           <slot @slotchange=${this._handleSlots}></slot>
         </div>
       ` : html`
-        <arc-button id='toggleOpen' type='tile' @click=${this._setState}>
+        <arc-button id='toggleOpen' type='tile' @click=${this._toggleOpenState}>
           <arc-icon name='arrow-right'></arc-icon>
         </arc-button>
       `}

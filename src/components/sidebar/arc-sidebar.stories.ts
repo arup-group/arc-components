@@ -28,7 +28,7 @@ export default {
       },
     },
     width: {
-      name: 'width',
+      name: '--sidebar-width',
       type: { required: false },
       description: 'Set the width of the sidebar',
       defaultValue: { summary: 'clamp(15rem, 30%, var(--arc-sidebar-width))' },
@@ -54,7 +54,7 @@ interface ArgTypes {
 const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`
   <arc-container>
     <arc-navbar slot='nav' logo='${arcLogo}'></arc-navbar>
-    <arc-sidebar slot="side" style='--gap-distance: ${gap}; width: ${width}'>
+    <arc-sidebar slot="side" style='--gap-distance: ${gap}; --sidebar-width: ${width}'>
       <div>Side block 1</div>
       <div>Side block 2</div>
     </arc-sidebar>

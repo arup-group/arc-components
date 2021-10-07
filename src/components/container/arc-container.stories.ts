@@ -73,8 +73,8 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  theme: string;
-  bottomHeight: string;
+  theme: string,
+  bottomHeight: string,
 }
 
 const Template: Story<ArgTypes> = ({ theme, bottomHeight }: ArgTypes) => html`

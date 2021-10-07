@@ -28,7 +28,7 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  type: string;
+  type: string,
 }
 
 const Template: Story<ArgTypes> = ({ type }: ArgTypes) => html`

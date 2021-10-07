@@ -129,17 +129,17 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  label: string;
-  type: string;
-  color: string;
-  size: string;
-  active: boolean;
-  disabled: boolean;
-  href: string;
-  width: string;
-  minWidth: string;
-  buttonColor: string;
-  buttonBackground: string;
+  label: string,
+  type: string,
+  color: string,
+  size: string,
+  active: boolean,
+  disabled: boolean,
+  href: string,
+  width: string,
+  minWidth: string,
+  buttonColor: string,
+  buttonBackground: string,
 }
 
 const Template: Story<ArgTypes> = ({ label, type, color, size, active, disabled, href, width, minWidth, buttonColor, buttonBackground }: ArgTypes) => html`

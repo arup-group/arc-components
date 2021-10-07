@@ -77,10 +77,10 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  arup: boolean;
-  logo: string;
-  tabs: number;
-  height: string;
+  arup: boolean,
+  logo: string,
+  tabs: number,
+  height: string,
 }
 
 const Template: Story<ArgTypes> = ({ arup, logo, tabs, height }: ArgTypes) => html`

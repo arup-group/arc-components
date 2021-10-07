@@ -52,8 +52,8 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  gap: string;
-  width: string;
+  gap: string,
+  width: string,
 }
 
 const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`

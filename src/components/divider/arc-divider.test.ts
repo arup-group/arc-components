@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated } from '@open-wc/testing';
+import { expect, fixture } from '@open-wc/testing';
 
 import { ArcDivider } from './ArcDivider.js';
 import './arc-divider.js';
@@ -7,30 +7,52 @@ import './arc-divider.js';
 import { DIVIDER_TYPES } from './constants/DividerConstants.js';
 
 describe('ArcDivider', () => {
+  // Test the rendering of the component
   describe('rendering', () => {
-    let divider: ArcDivider;
+    let element: ArcDivider;
     beforeEach(async() => {
-      divider = await fixture(html`<arc-divider></arc-divider>`);
-    })
-
-    it('renders the divider with default properties in the dom', () => {
-      expect(divider).dom.to.equal(`<arc-divider type='solid'></arc-divider>`)
+      element = await fixture(html`<arc-divider></arc-divider>`);
     });
 
-    it('renders the divider with different types', async () => {
+    // Test default properties that reflect to the DOM
+    it('renders the element with default properties in the dom', () => {
+      expect(element).dom.to.equal(`<arc-divider type='solid'></arc-divider>`);
+    });
+
+    // Test the accessibility
+    it('passes the a11y audit', async () => {
+      await expect(element).shadowDom.to.be.accessible();
+    });
+  });
+
+  // Test the setters/getters
+  describe('setters/getters', () => {
+    it('renders the element with custom properties in the dom', async () => {
       for (const dividerType of Object.keys(DIVIDER_TYPES)) {
-        divider.type = dividerType;
+        const element: ArcDivider = await fixture(html`<arc-divider type=${dividerType}></arc-divider>`); // eslint-disable-line no-await-in-loop
 
-        await elementUpdated(divider); // eslint-disable-line no-await-in-loop
-        expect(divider.type).to.equal(dividerType);
-        expect(divider.getAttribute('type')).to.equal(dividerType);
-
-        expect(divider).dom.to.equal(`<arc-divider type=${dividerType}></arc-divider>`)
+        expect(element.type).to.equal(dividerType);
+        expect(element.getAttribute('type')).to.equal(dividerType);
       }
     });
+  });
 
-    it('passes the a11y audit', async () => {
-      await expect(divider).shadowDom.to.be.accessible();
-    });
-  })
+  // Test the css variables that can be overwritten
+  // TODO: Add the below test when custom css variables are added to the web-component
+  // describe('css variables', () => {
+  //   it('uses the default css variables', async () => {
+  //       const element: ArcDivider = await fixture(html`<arc-divider></arc-divider>`);
+  //
+  //       // Optional: Use the style utility instead
+  //       const computedStyles = window.getComputedStyle(element);
+  //       expect(computedStyles.getPropertyValue('propertyValue')).to.equal('propertyValue');
+  //   });
+  //   it('overwrites the css variables', async () => {
+  //       const element: ArcDivider = await fixture(html`<arc-divider style='--customCssVariable:customValue'></arc-divider>`);
+  //
+  //       // Optional: Use the style utility instead
+  //       const computedStyles = window.getComputedStyle(element);
+  //       expect(computedStyles.getPropertyValue('--customCssVariable')).to.equal('customValue');
+  //   })
+  // });
 })

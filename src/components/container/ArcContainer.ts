@@ -72,9 +72,6 @@ export class ArcContainer extends LitElement {
   })
   theme: string = 'auto';
 
-  @property()
-  slottedContent = false;
-
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
       if (CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto) {

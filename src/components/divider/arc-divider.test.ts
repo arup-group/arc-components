@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { expect, fixture } from '@open-wc/testing';
+import { elementUpdated, expect, fixture } from '@open-wc/testing';
 
 import { ArcDivider } from './ArcDivider.js';
 import './arc-divider.js';
@@ -27,10 +27,13 @@ describe('ArcDivider', () => {
 
   // Test the setters/getters
   describe('setters/getters', () => {
-    it('renders the element with custom properties in the dom', async () => {
-      for (const dividerType of Object.keys(DIVIDER_TYPES)) {
-        const element: ArcDivider = await fixture(html`<arc-divider type=${dividerType}></arc-divider>`); // eslint-disable-line no-await-in-loop
+    it('renders the element with a custom type property', async () => {
+      const element: ArcDivider = await fixture(html`<arc-divider></arc-divider>`);
 
+      for (const dividerType of Object.keys(DIVIDER_TYPES)) {
+        element.type = dividerType;
+
+        await elementUpdated(element); // eslint-disable-line no-await-in-loop
         expect(element.type).to.equal(dividerType);
         expect(element.getAttribute('type')).to.equal(dividerType);
       }

@@ -35,10 +35,15 @@ describe('ArcIcon', () => {
       expect(element.getAttribute('name')).to.equal('heart');
     });
     it('renders the element with a custom size property', async () => {
-      const element: ArcIcon = await fixture(html`<arc-icon size='${ICON_SIZES.small}'></arc-icon>`);
+      const element: ArcIcon = await fixture(html`<arc-icon></arc-icon>`);
 
-      expect(element.size).to.equal(ICON_SIZES.small);
-      expect(element.getAttribute('size')).to.equal(ICON_SIZES.small);
+      for (const iconSize of Object.keys(ICON_SIZES)) {
+        element.size = iconSize;
+
+        await elementUpdated(element); // eslint-disable-line no-await-in-loop
+        expect(element.size).to.equal(iconSize);
+        expect(element.getAttribute('size')).to.equal(iconSize);
+      }
     });
     it('renders the element with a custom rotation property', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon rotation='90'></arc-icon>`);
@@ -46,23 +51,6 @@ describe('ArcIcon', () => {
       expect(element.rotation).to.equal(90);
       expect(element.getAttribute('rotation')).to.equal('90');
     });
-  });
-
-  // Test different component states (active, disabled, loading etc.)
-  describe('states', () => {
-    let element: ArcIcon;
-    beforeEach(async() => {
-      element = await fixture(html`<arc-icon></arc-icon>`);
-    });
-    it('renders the element in a spinning state', async () => {
-      expect(element.spinning).to.be.false;
-      expect(element.hasAttribute('spinning')).to.be.false;
-
-      element.spinning = true;
-      await elementUpdated(element);
-      expect(element.spinning).to.be.true;
-      expect(element.hasAttribute('spinning')).to.be.true;
-    })
   });
 
   // Test the css variables that can be overwritten

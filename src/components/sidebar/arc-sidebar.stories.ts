@@ -38,6 +38,11 @@ export default {
       },
     }
   },
+  parameters: {
+    actions: {
+      handles: ['arc-show', 'arc-hide'],
+    },
+  },
 };
 
 interface Story<T> {

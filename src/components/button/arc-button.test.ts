@@ -14,7 +14,7 @@ describe('ArcButton', () => {
     })
 
     it('renders the button with default properties in the dom', () => {
-      expect(button).dom.to.equal(`<arc-button type='contained' color='default' size='medium'>Test</arc-button>`);
+      expect(button).dom.to.equal(`<arc-button type=${BUTTON_TYPES.contained} color=${BUTTON_COLORS.default} size=${BUTTON_SIZES.medium}>Test</arc-button>`);
     });
 
     it('renders a slot to fill the button / anchor with a label', async () => {

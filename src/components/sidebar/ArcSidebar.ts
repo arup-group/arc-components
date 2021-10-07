@@ -95,7 +95,7 @@ export class ArcSidebar extends LitElement {
           <slot @slotchange=${this._handleSlots}></slot>
         </div>
       ` : html`
-        <arc-button id='toggleOpen' type='tile' @click=${this._toggleOpenState}>
+        <arc-button id='toggleOpen' type='tab' @click=${this._toggleOpenState}>
           <arc-icon name='arrow-right'></arc-icon>
         </arc-button>
       `}

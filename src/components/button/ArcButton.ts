@@ -29,6 +29,7 @@ export class ArcButton extends LitElement {
         min-width: var(--min-width);
         width: 100%;
         display: flex;
+        gap: var(--arc-spacing-small);
         align-items: center;
         justify-content: center;
         color: var(--btn-color);
@@ -168,21 +169,16 @@ export class ArcButton extends LitElement {
     };
 
     const btnStyles = {
-      'height': `var(--arc-input-height-${this.size})`,
+      height: `var(--arc-input-height-${this.size})`,
+      padding: `0 var(--arc-spacing-${this.size})`,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
 
     const interior = html`
-      <span id='prefix'>
-        <slot name='prefix'></slot>
-      </span>
-      <span id='label'>
-        <slot></slot>
-      </span>
-      <span id='suffix'>
-        <slot name='suffix'></slot>
-      </span>
+      <slot name='prefix'></slot>
+      <slot></slot>
+      <slot name='suffix'></slot>
     `
 
     return html`

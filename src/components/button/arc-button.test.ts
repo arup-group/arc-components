@@ -116,4 +116,4 @@ describe('ArcButton', () => {
       expect(getPropertyValue(element, '--btn-background')).to.equal('green');
     });
   });
-})
+});

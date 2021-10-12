@@ -6,9 +6,10 @@ import { ArcContainer } from './ArcContainer.js';
 import './arc-container.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
-import { DateUtils } from '../../utils/date-utils.js';
-import { StyleUtils } from '../../utils/style-utils.js';
-import { UiUtils } from '../../utils/ui-utils.js';
+
+import { isNight } from '../../utils/date-utils.js';
+import { isMobile } from '../../utils/ui-utils.js';
+import { getPropertyValue } from '../../utils/style-utils.js';
 
 describe('ArcContainer', () => {
   // Test the rendering of the component
@@ -21,7 +22,7 @@ describe('ArcContainer', () => {
 
     // Test default properties that reflect to the DOM
     it('renders the element with default properties in the dom', () => {
-      if (DateUtils.isNight()) {
+      if (isNight()) {
         expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`);
       } else {
         expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.light}></arc-container>`);
@@ -46,7 +47,7 @@ describe('ArcContainer', () => {
     it('renders a theme based on the time of day', async () => {
       const element: ArcContainer = await fixture(html`<arc-container theme='auto'></arc-container>`);
 
-      if (DateUtils.isNight()) {
+      if (isNight()) {
         expect(element.theme).to.equal(CONTAINER_THEMES.dark);
       } else {
         expect(element.theme).to.equal(CONTAINER_THEMES.light);
@@ -84,21 +85,21 @@ describe('ArcContainer', () => {
     });
     it('shows correct styling on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
-      expect(UiUtils.isMobile()).to.be.false;
+      expect(isMobile()).to.be.false;
 
-      expect(StyleUtils.getPropertyValue(slottedNav, 'display')).to.equal('block');
-      expect(StyleUtils.getPropertyValue(slottedSide, 'display')).to.equal('block');
-      expect(StyleUtils.getPropertyValue(slottedBottom, 'display')).to.equal('none');
+      expect(getPropertyValue(slottedNav, 'display')).to.equal('block');
+      expect(getPropertyValue(slottedSide, 'display')).to.equal('block');
+      expect(getPropertyValue(slottedBottom, 'display')).to.equal('none');
     });
     it('shows correct styling on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
-      expect(UiUtils.isMobile()).to.be.true;
+      expect(isMobile()).to.be.true;
 
-      expect(StyleUtils.getPropertyValue(slottedNav, 'display')).to.equal('block');
-      expect(StyleUtils.getPropertyValue(container, 'gap')).to.equal('0px');
-      expect(StyleUtils.getPropertyValue(container, 'padding')).to.equal('0px');
-      expect(StyleUtils.getPropertyValue(slottedSide, 'display')).to.equal('none');
-      expect(StyleUtils.getPropertyValue(slottedBottom, 'display')).to.equal('block');
+      expect(getPropertyValue(slottedNav, 'display')).to.equal('block');
+      expect(getPropertyValue(container, 'gap')).to.equal('0px');
+      expect(getPropertyValue(container, 'padding')).to.equal('0px');
+      expect(getPropertyValue(slottedSide, 'display')).to.equal('none');
+      expect(getPropertyValue(slottedBottom, 'display')).to.equal('block');
     });
   });
 
@@ -124,12 +125,12 @@ describe('ArcContainer', () => {
     it('uses the default css variables', async () => {
       const element: ArcContainer = await fixture(html`<arc-container></arc-container>`);
 
-      expect(StyleUtils.getPropertyValue(element, '--bottom-height')).to.equal('');
+      expect(getPropertyValue(element, '--bottom-height')).to.equal('');
     });
     it('overwrites the css variables', async () => {
       const element: ArcContainer = await fixture(html`<arc-container style='--bottom-height:30rem'></arc-container>`);
 
-      expect(StyleUtils.getPropertyValue(element, '--bottom-height')).to.equal('30rem');
+      expect(getPropertyValue(element, '--bottom-height')).to.equal('30rem');
     });
 
   });

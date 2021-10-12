@@ -3,6 +3,8 @@ import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { componentStyles } from '../styles/component.styles.js';
 
+import '../icon/arc-icon.js';
+
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
 
 export class ArcButton extends LitElement {
@@ -131,6 +133,9 @@ export class ArcButton extends LitElement {
   @property({ type: Boolean, reflect: true })
   disabled: boolean = false;
 
+  @property({ type: Boolean, reflect: true })
+  loading: boolean = false;
+
   @property()
   href: string = '';
 
@@ -168,17 +173,24 @@ export class ArcButton extends LitElement {
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
 
-    const spanStyles = {
-      'padding': `0 var(--arc-spacing-${this.size})`,
-    }
+    const interior = html`
+      <span id='prefix'>
+        <slot name='prefix'></slot>
+      </span>
+      <span id='label'>
+        <slot></slot>
+      </span>
+      <span id='suffix'>
+        <slot name='suffix'></slot>
+      </span>
+    `
 
     return html`
       ${this.href && !this.disabled
-        ? html`<a id='button' style=${styleMap(btnStyles)} href='${this.href}' rel='noreferrer noopener'
-                  tabindex='-1'><span style=${styleMap(spanStyles)}><slot></slot></span></a>`
-        : html`
-          <button id='button' style=${styleMap(btnStyles)} tabindex='-1'><span style=${styleMap(spanStyles)}><slot></slot></span></button>`
+        ? html`<a id='button' style=${styleMap(btnStyles)} href='${this.href}' rel='noreferrer noopener'>${interior}</a>`
+        : html`<button id='button' style=${styleMap(btnStyles)}>${interior}</button>`
       }
     `;
+
   }
 }

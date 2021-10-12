@@ -5,7 +5,7 @@ import { ArcButton } from './ArcButton.js';
 import './arc-button.js';
 
 import { BUTTON_TYPES, BUTTON_SIZES, BUTTON_COLORS } from './constants/ButtonConstants.js';
-import { StyleUtils } from '../../utils/style-utils.js';
+import { getPropertyValue } from '../../utils/style-utils.js';
 
 describe('ArcButton', () => {
   // Test the rendering of the component
@@ -103,17 +103,17 @@ describe('ArcButton', () => {
     it('uses the default css variables', async () => {
       const element: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
 
-      expect(StyleUtils.getPropertyValue(element, '--min-width')).to.equal('0');
-      expect(StyleUtils.getPropertyValue(element, '--btn-color')).to.equal('');
-      expect(StyleUtils.getPropertyValue(element, '--btn-background')).to.equal('');
+      expect(getPropertyValue(element, '--min-width')).to.equal('0');
+      expect(getPropertyValue(element, '--btn-color')).to.equal('');
+      expect(getPropertyValue(element, '--btn-background')).to.equal('');
     });
     it('overwrites the css variables', async () => {
       const element: ArcButton = await fixture(html`<arc-button style='width: 200px; --min-width: 150px; --btn-color: red; --btn-background: green;'>Test</arc-button>`);
 
-      expect(StyleUtils.getPropertyValue(element, 'width')).to.equal('200px');
-      expect(StyleUtils.getPropertyValue(element, '--min-width')).to.equal('150px');
-      expect(StyleUtils.getPropertyValue(element, '--btn-color')).to.equal('red');
-      expect(StyleUtils.getPropertyValue(element, '--btn-background')).to.equal('green');
+      expect(getPropertyValue(element, 'width')).to.equal('200px');
+      expect(getPropertyValue(element, '--min-width')).to.equal('150px');
+      expect(getPropertyValue(element, '--btn-color')).to.equal('red');
+      expect(getPropertyValue(element, '--btn-background')).to.equal('green');
     });
   });
 })

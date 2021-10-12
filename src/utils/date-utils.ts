@@ -1,7 +1,9 @@
-export class DateUtils {
-  static isNight(date?: Date) {
-    const currDate = date || new Date();
-    const currTime = currDate.getHours();
-    return currTime >= 19 || currTime < 7;
-  }
+function isNight(date?: Date) {
+  const currDate = date || new Date();
+  const currTime = currDate.getHours();
+  return currTime >= 19 || currTime < 7;
+}
+
+export {
+  isNight
 }

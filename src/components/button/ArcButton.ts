@@ -1,13 +1,11 @@
 import { css, unsafeCSS, html, LitElement } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { componentStyles } from '../styles/component.styles.js';
 
 import '../icon/arc-icon.js';
 
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
-
-import { hasSlot } from '../../utils/dom-utils.js';
 
 export class ArcButton extends LitElement {
   static tag = 'arc-button';
@@ -69,7 +67,7 @@ export class ArcButton extends LitElement {
       :host([disabled]) #button {
         opacity: 0.5;
         box-shadow: none;
-        cursor: default;
+        cursor: not-allowed;
       }
 
       /* Hover */
@@ -158,17 +156,6 @@ export class ArcButton extends LitElement {
   @query('#button')
   button!: HTMLSpanElement;
 
-  @state()
-  hasPrefix: boolean = false;
-
-  @state()
-  hasSuffix: boolean = false;
-
-  handleSlotChange(e: any) {
-    this.hasPrefix = hasSlot(e, 'prefix');
-    this.hasSuffix = hasSlot(e, 'suffix');
-  }
-
   handleClick(e: any) {
     if (this.disabled || this.loading) {
       e.preventDefault();
@@ -203,15 +190,15 @@ export class ArcButton extends LitElement {
 
     const btnStyles = {
       height: `var(--arc-input-height-${this.size})`,
-      padding: this.hasPrefix || this.hasSuffix ? `0 var(--arc-spacing-${this.size})` : null,
+      padding: `0 var(--arc-spacing-${this.size})`,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
 
     const interior = html`
-      <slot name='prefix'></slot>
-      <slot></slot>
-      <slot name='suffix'></slot>
+      <slot name='prefix' part='prefix'></slot>
+      <slot id='label' part='label'></slot>
+      <slot name='suffix' part='suffix'></slot>
       ${this.loading ? html`<arc-icon name='refresh' spinning></arc-icon>` : null}
     `;
 
@@ -223,12 +210,14 @@ export class ArcButton extends LitElement {
              href=${this.href}
              rel='noreferrer noopener'
              tabindex=${this.disabled ? '-1' : '0'}
+             part='base'
              @click=${this.handleClick}
           >${interior}</a>`
         : html`
           <button id='button'
                   style=${styleMap(btnStyles)}
                   tabindex=${this.disabled ? '-1' : '0'}
+                  part='base'
                   @click=${this.handleClick}
           >${interior}
           </button>`

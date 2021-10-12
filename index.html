@@ -17,25 +17,17 @@
 <body>
 <arc-container id='arcContainer' theme='light'>
   <arc-navbar id='arcNavbar' slot='nav' logo='./assets/arc-red.svg'>
-    <arc-button id='themeSetter' type='tab'>
-      <arc-icon name='brightness_low' slot='prefix'></arc-icon>
-      Theme
+    <arc-button id='themeSetter' type='tab' loading>
+      <arc-icon name='brightness_low' slot='prefix' size='large'></arc-icon>
     </arc-button>
   </arc-navbar>
   <arc-sidebar id='arcSidebar' slot='side'>
     <div></div>
   </arc-sidebar>
 
-  <arc-button type='outlined' color='primary'>
-    <arc-icon slot='prefix' name='brightness_low'></arc-icon>
-    Some text
-  </arc-button>
+  <arc-button type='outlined' color='primary' loading>Hey there</arc-button>
 
-  <arc-button type='outlined' color='primary'>
-    <arc-icon slot='prefix' name='brightness_low'></arc-icon>
-    Some text
-    <arc-icon slot='suffix' name='brightness_low'></arc-icon>
-  </arc-button>
+  <arc-button type='outlined' color='primary'>Hey there</arc-button>
 </arc-container>
 
 <script type='module' src='./out-tsc/src/components/container/arc-container.js'></script>

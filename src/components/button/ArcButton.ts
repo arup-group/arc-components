@@ -1,11 +1,13 @@
 import { css, unsafeCSS, html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { componentStyles } from '../styles/component.styles.js';
 
 import '../icon/arc-icon.js';
 
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
+
+import { hasSlot } from '../../utils/dom-utils.js';
 
 export class ArcButton extends LitElement {
   static tag = 'arc-button';
@@ -48,6 +50,19 @@ export class ArcButton extends LitElement {
         padding: 0;
         -webkit-appearance: none;
         white-space: nowrap;
+      }
+
+      /* Loading */
+      :host([loading]) #button {
+        cursor: wait;
+      }
+
+      :host([loading]) slot {
+        visibility: hidden;
+      }
+
+      arc-icon {
+        position: absolute;
       }
 
       /* Disabled */
@@ -143,6 +158,24 @@ export class ArcButton extends LitElement {
   @query('#button')
   button!: HTMLSpanElement;
 
+  @state()
+  hasPrefix: boolean = false;
+
+  @state()
+  hasSuffix: boolean = false;
+
+  handleSlotChange(e: any) {
+    this.hasPrefix = hasSlot(e, 'prefix');
+    this.hasSuffix = hasSlot(e, 'suffix');
+  }
+
+  handleClick(e: any) {
+    if (this.disabled || this.loading) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
   render() {
     const compStyles = window.getComputedStyle(this);
     const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
@@ -170,7 +203,7 @@ export class ArcButton extends LitElement {
 
     const btnStyles = {
       height: `var(--arc-input-height-${this.size})`,
-      padding: `0 var(--arc-spacing-${this.size})`,
+      padding: this.hasPrefix || this.hasSuffix ? `0 var(--arc-spacing-${this.size})` : null,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
@@ -179,12 +212,26 @@ export class ArcButton extends LitElement {
       <slot name='prefix'></slot>
       <slot></slot>
       <slot name='suffix'></slot>
-    `
+      ${this.loading ? html`<arc-icon name='refresh' spinning></arc-icon>` : null}
+    `;
 
     return html`
       ${this.href && !this.disabled
-        ? html`<a id='button' style=${styleMap(btnStyles)} href='${this.href}' rel='noreferrer noopener'>${interior}</a>`
-        : html`<button id='button' style=${styleMap(btnStyles)}>${interior}</button>`
+        ? html`
+          <a id='button'
+             style=${styleMap(btnStyles)}
+             href=${this.href}
+             rel='noreferrer noopener'
+             tabindex=${this.disabled ? '-1' : '0'}
+             @click=${this.handleClick}
+          >${interior}</a>`
+        : html`
+          <button id='button'
+                  style=${styleMap(btnStyles)}
+                  tabindex=${this.disabled ? '-1' : '0'}
+                  @click=${this.handleClick}
+          >${interior}
+          </button>`
       }
     `;
 

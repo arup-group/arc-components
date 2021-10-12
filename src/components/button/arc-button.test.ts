@@ -49,6 +49,17 @@ describe('ArcButton', () => {
         }
       }
     })
+
+    it('renders the button as an anchor', async () => {
+      const element: ArcButton = await fixture(html`<arc-button href='/'>Test</arc-button>`);
+      const buttonTarget = element.shadowRoot!.querySelector('button');
+      const anchorTarget = element.shadowRoot!.querySelector('a');
+
+      expect(buttonTarget).to.be.null;
+      expect(anchorTarget).to.exist;
+      expect(element.href).to.equal('/');
+      expect(element.getAttribute('href')).to.equal('/');
+    })
   });
 
   // Test different component states (active, disabled, loading etc.)
@@ -82,19 +93,23 @@ describe('ArcButton', () => {
   // Test whether the slots can be filled and that they exist
   describe('slots', () => {
     let element: ArcButton;
+    let buttonTarget: HTMLElement;
+
     beforeEach(async() => {
       element = await fixture(html`<arc-button></arc-button>`);
+      buttonTarget = element.shadowRoot!.getElementById('button')!;
     });
 
-    it('renders a slot to fill the button / anchor with a label', async () => {
-      const buttonTarget = element.shadowRoot!.querySelector('button')!;
-      expect(buttonTarget.querySelector('span > slot')).to.exist;
+    it('renders a slot to fill the button with a label', async () => {
+      expect(buttonTarget.querySelector('slot')).to.exist;
+    })
 
-      // Turn the button into an <a>
-      element.href = '/';
-      await elementUpdated(element);
-      const anchorTarget = element.shadowRoot!.querySelector('a')!;
-      expect(anchorTarget.querySelector('span > slot')).to.exist;
+    it('renders a slot to fill the button with a prefix', async () => {
+      expect(buttonTarget.querySelector('slot[name="prefix"]')).to.exist;
+    })
+
+    it('renders a slot to fill the button with a suffix', async () => {
+      expect(buttonTarget.querySelector('slot[name="suffix"]')).to.exist;
     })
   });
 

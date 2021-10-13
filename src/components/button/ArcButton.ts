@@ -141,6 +141,9 @@ export class ArcButton extends LitElement {
   @property({ type: String, reflect: true })
   size: string = BUTTON_SIZES.medium;
 
+  @property()
+  href: string = '';
+
   @property({ type: Boolean, reflect: true })
   active: boolean = false;
 
@@ -149,9 +152,6 @@ export class ArcButton extends LitElement {
 
   @property({ type: Boolean, reflect: true })
   loading: boolean = false;
-
-  @property()
-  href: string = '';
 
   @query('#button')
   button!: HTMLSpanElement;

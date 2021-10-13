@@ -7,158 +7,91 @@ export default {
   title: 'Buttons',
   component: 'arc-button',
   argTypes: {
+    type: {
+      type: { required: true },
+      description: 'Set the type of the button.',
+      defaultValue: { summary: 'contained' },
+      control: { type: 'select' },
+      options: Object.keys(BUTTON_TYPES),
+    },
+    color: {
+      type: { required: true },
+      description: 'Set the color of the button.',
+      defaultValue: { summary: 'default' },
+      control: { type: 'select' },
+      options: Object.keys(BUTTON_COLORS),
+    },
+    size: {
+      type: { required: true },
+      description: 'Set the size of the button.',
+      defaultValue: { summary: 'medium' },
+      control: { type: 'select' },
+      options: Object.keys(BUTTON_SIZES),
+    },
     href: {
       type: { required: false },
-      description: 'When set, the underlying button will be rendered as an `<a>` with this attribute instead of a `<button>`',
+      description: 'When set, the underlying button will be rendered as an `<a>` with this attribute',
       defaultValue: { summary: '' },
       control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
     },
-    basePart: {
-      name: 'base',
+    active: {
       type: { required: false },
-      description: 'The component\'s base wrapper.',
-      control: { type: null },
-      table: {
-        category: 'CSS Parts',
-      },
+      description: 'Draws the button in an active state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
     },
-    prefixPart: {
-      name: 'prefix',
+    disabled: {
       type: { required: false },
-      description: 'The prefix container.',
-      control: { type: null },
-      table: {
-        category: 'CSS Parts',
-      },
+      description: 'Draws the button in a disabled state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
     },
-    labelPart: {
-      name: 'label',
+    loading: {
       type: { required: false },
-      description: 'The button\'s label.',
-      control: { type: null },
-      table: {
-        category: 'CSS Parts',
-      },
-    },
-    suffixPart: {
-      name: 'suffix',
-      type: { required: false },
-      description: 'The suffix container.',
-      control: { type: null },
-      table: {
-        category: 'CSS Parts',
-      },
-    },
-    width: {
-      name: 'width',
-      type: { required: false },
-      description: 'Set the width of the button',
-      defaultValue: { summary: 'auto' },
-      control: { type: 'text' },
-      table: {
-        category: 'CSS Variables',
-      },
-    },
-    minWidth: {
-      name: '--min-width',
-      type: { required: false },
-      description: 'Set the min width of the button',
-      defaultValue: { summary: '0' },
-      control: { type: 'text' },
-      table: {
-        category: 'CSS Variables',
-      },
-    },
-    buttonColor: {
-      name: '--btn-color',
-      type: { required: false },
-      description: 'Set the font color of the button. If none is given, it uses the color property instead',
-      defaultValue: { summary: '' },
-      control: { type: 'color' },
-      table: {
-        category: 'CSS Variables',
-      },
-    },
-    buttonBackground: {
-      name: '--btn-background',
-      type: { required: false },
-      description: 'Set the font color of the button. If none is given, it uses the color property instead',
-      defaultValue: { summary: '' },
-      control: { type: 'color' },
-      table: {
-        category: 'CSS Variables',
-      },
+      description: 'Draws the button in a loading state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
     },
   },
 };
 
 interface Story<T> {
   (args: T): TemplateResult;
-
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
 
 interface ArgTypes {
-  label: string,
   type: string,
   color: string,
   size: string,
+  href: string,
   active: boolean,
   disabled: boolean,
   loading: boolean,
-  href: string,
-  width: string,
-  minWidth: string,
-  buttonColor: string,
-  buttonBackground: string,
 }
 
-const Template: Story<ArgTypes> = ({
-                                     label,
-                                     type,
-                                     color,
-                                     size,
-                                     active,
-                                     disabled,
-                                     loading,
-                                     href,
-                                     width,
-                                     minWidth,
-                                     buttonColor,
-                                     buttonBackground,
-                                   }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ type, color, size, active, disabled, loading, href }: ArgTypes) => html`
   <arc-button
-    style='width: ${width}; --min-width: ${minWidth}; --btn-color: ${buttonColor}; --btn-background: ${buttonBackground}'
     type='${type}'
     color='${color}'
     size='${size}'
+    href='${href}'
     ?active='${active}'
     ?disabled='${disabled}'
     ?loading='${loading}'
-    href='${href}'
-  >${label}
-  </arc-button>
+  >Button</arc-button>
 `;
 
 export const Contained = Template.bind({});
 Contained.args = {
-  label: 'My Button!',
-  type: 'contained',
-  color: 'default',
-  size: 'medium',
+  type: BUTTON_TYPES.contained,
+  color: BUTTON_COLORS.default,
+  size: BUTTON_SIZES.medium,
+  href: '',
   active: false,
   disabled: false,
   loading: false,
-  href: '',
-  width: 'auto',
-  minWidth: 'auto',
-  buttonColor: 'initial',
-  buttonBackground: 'initial',
 };
 
 export const Tile = Template.bind({});
@@ -172,12 +105,3 @@ Pill.args = { ...Contained.args, type: BUTTON_TYPES.pill };
 
 export const Tab = Template.bind({});
 Tab.args = { ...Contained.args, type: BUTTON_TYPES.tab };
-
-export const CustomWidth = Template.bind({});
-CustomWidth.args = { ...Contained.args, width: '10rem' };
-
-export const CustomPalette = Template.bind({});
-CustomPalette.args = { ...Contained.args, color: 'custom' };
-
-export const CustomOverwrite = Template.bind({});
-CustomOverwrite.args = { ...Contained.args, buttonColor: 'red', buttonBackground: 'green' };

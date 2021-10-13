@@ -51,7 +51,7 @@ export class ArcSidebar extends LitElement {
         --btn-background: rgb(var(--arc-container-color));
       }
 
-      #toggleOpen::part(base) {
+      arc-button::part(base) {
         padding: 0;
       }
 

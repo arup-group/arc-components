@@ -50,6 +50,11 @@ export class ArcButton extends LitElement {
         white-space: nowrap;
       }
 
+      #button:focus {
+        color: green;
+        padding: 20px !important;
+      }
+
       /* Loading */
       :host([loading]) #button {
         cursor: wait;

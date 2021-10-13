@@ -6,53 +6,6 @@ import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonCon
 export default {
   title: 'Buttons',
   component: 'arc-button',
-  argTypes: {
-    type: {
-      type: { required: true },
-      description: 'Set the type of the button.',
-      defaultValue: { summary: 'contained' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_TYPES),
-    },
-    color: {
-      type: { required: true },
-      description: 'Set the color of the button.',
-      defaultValue: { summary: 'default' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_COLORS),
-    },
-    size: {
-      type: { required: true },
-      description: 'Set the size of the button.',
-      defaultValue: { summary: 'medium' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_SIZES),
-    },
-    href: {
-      type: { required: false },
-      description: 'When set, the underlying button will be rendered as an `<a>` with this attribute',
-      defaultValue: { summary: '' },
-      control: { type: 'text' },
-    },
-    active: {
-      type: { required: false },
-      description: 'Draws the button in an active state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-    },
-    disabled: {
-      type: { required: false },
-      description: 'Draws the button in a disabled state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-    },
-    loading: {
-      type: { required: false },
-      description: 'Draws the button in a loading state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-    },
-  },
 };
 
 interface Story<T> {
@@ -62,6 +15,7 @@ interface Story<T> {
 }
 
 interface ArgTypes {
+  label: string,
   type: string,
   color: string,
   size: string,
@@ -71,7 +25,7 @@ interface ArgTypes {
   loading: boolean,
 }
 
-const Template: Story<ArgTypes> = ({ type, color, size, active, disabled, loading, href }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ label, type, color, size, active, disabled, loading, href }: ArgTypes) => html`
   <arc-button
     type='${type}'
     color='${color}'
@@ -80,28 +34,65 @@ const Template: Story<ArgTypes> = ({ type, color, size, active, disabled, loadin
     ?active='${active}'
     ?disabled='${disabled}'
     ?loading='${loading}'
-  >Button</arc-button>
+  >${label.toUpperCase()}
+  </arc-button>
 `;
 
-export const Contained = Template.bind({});
-Contained.args = {
-  type: BUTTON_TYPES.contained,
-  color: BUTTON_COLORS.default,
-  size: BUTTON_SIZES.medium,
+const defaultArgs = {
+  label: 'Default',
+  type: 'contained',
+  color: 'default',
+  size: 'medium',
   href: '',
   active: false,
   disabled: false,
   loading: false,
 };
 
+// TYPES
+export const Contained = Template.bind({});
 export const Tile = Template.bind({});
-Tile.args = { ...Contained.args, type: BUTTON_TYPES.tile };
-
 export const Outlined = Template.bind({});
-Outlined.args = { ...Contained.args, type: BUTTON_TYPES.outlined };
-
 export const Pill = Template.bind({});
-Pill.args = { ...Contained.args, type: BUTTON_TYPES.pill };
-
 export const Tab = Template.bind({});
-Tab.args = { ...Contained.args, type: BUTTON_TYPES.tab };
+
+Contained.args = { ...defaultArgs, label: BUTTON_TYPES.contained, type: BUTTON_TYPES.contained };
+Tile.args = { ...defaultArgs, label: BUTTON_TYPES.tile, type: BUTTON_TYPES.tile };
+Outlined.args = { ...defaultArgs, label: BUTTON_TYPES.outlined, type: BUTTON_TYPES.outlined };
+Pill.args = { ...defaultArgs, label: BUTTON_TYPES.pill, type: BUTTON_TYPES.pill };
+Tab.args = { ...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab };
+
+// COLORS
+export const Default = Template.bind({});
+export const Primary = Template.bind({});
+export const Secondary = Template.bind({});
+export const Error = Template.bind({});
+export const Warning = Template.bind({});
+export const Info = Template.bind({});
+export const Success = Template.bind({});
+
+Default.args = { ...defaultArgs, label: BUTTON_COLORS.default, color: BUTTON_COLORS.default };
+Primary.args = { ...defaultArgs, label: BUTTON_COLORS.primary, color: BUTTON_COLORS.primary };
+Secondary.args = { ...defaultArgs, label: BUTTON_COLORS.secondary, color: BUTTON_COLORS.secondary };
+Error.args = { ...defaultArgs, label: BUTTON_COLORS.error, color: BUTTON_COLORS.error };
+Warning.args = { ...defaultArgs, label: BUTTON_COLORS.warning, color: BUTTON_COLORS.warning };
+Info.args = { ...defaultArgs, label: BUTTON_COLORS.info, color: BUTTON_COLORS.info };
+Success.args = { ...defaultArgs, label: BUTTON_COLORS.success, color: BUTTON_COLORS.success };
+
+// SIZES
+export const Small = Template.bind({});
+export const Medium = Template.bind({});
+export const Large = Template.bind({});
+
+Small.args = { ...defaultArgs, label: BUTTON_SIZES.small, size: BUTTON_SIZES.small };
+Medium.args = { ...defaultArgs, label: BUTTON_SIZES.medium, size: BUTTON_SIZES.medium };
+Large.args = { ...defaultArgs, label: BUTTON_SIZES.large, size: BUTTON_SIZES.large };
+
+// STATES
+export const Active = Template.bind({});
+export const Disabled = Template.bind({});
+export const Loading = Template.bind({});
+
+Active.args = { ...Tab.args, label: 'Active', active: true };
+Disabled.args = { ...Tab.args, label: 'Disabled', disabled: true };
+Loading.args = { ...Tab.args, label: 'Loading', loading: true };

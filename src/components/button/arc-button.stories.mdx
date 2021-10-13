@@ -6,19 +6,38 @@ import * as stories from '../../../../out-tsc/src/components/button/arc-button.s
 # Button
 ### `<arc-button>`
 
-<Story name="Contained" story={stories.Contained} />
-
 Buttons represent actions that are available to the user.
 
 ## Examples
 ### Types
 Use the `type` attribute to set the button's type.
+<Canvas>
+  <Story name="Contained" story={stories.Contained} />
+  <Story name="Tile" story={stories.Tile} />
+  <Story name="Outlined" story={stories.Outlined} />
+  <Story name="Pill" story={stories.Pill} />
+  <Story name="Tab" story={stories.Tab} />
+</Canvas>
 
 ### Colors
 Use the `color` attribute to set the button's color.
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+  <Story name="Primary" story={stories.Primary} />
+  <Story name="Secondary" story={stories.Secondary} />
+  <Story name="Error" story={stories.Error} />
+  <Story name="Warning" story={stories.Warning} />
+  <Story name="Info" story={stories.Info} />
+  <Story name="Success" story={stories.Success} />
+</Canvas>
 
 ### Sizes
 Use the `size` attribute to set the button's size
+<Canvas>
+  <Story name="Small" story={stories.Small} />
+  <Story name="Medium" story={stories.Medium} />
+  <Story name="Large" story={stories.Large} />
+</Canvas>
 
 ### Link button
 It's often helpful to have a button that works like a link.
@@ -26,19 +45,16 @@ This is possible by setting the `href` attribute, which will make the component 
 This gives all the default link behavior the browser provides (e.g. CMD/CTRL/SHIFT + CLICK) and exposes the target and download attributes.
 
 ### States
-Use the `active` attribute to activate a button.
+Use the `active`, `disabled` or `loading` attributes to change the state of the button.
 
-Use the `loading` attribute to make a button busy.
-Clicks will be suppressed until the loading state is removed.
-
-Use the `disabled` attribute to disable a button.
-Clicks will be suppressed until the disabled state is removed.
+<Canvas>
+  <Story name="Active" story={stories.Active} />
+  <Story name="Disabled" story={stories.Disabled} />
+  <Story name="Loading" story={stories.Loading} />
+</Canvas>
 
 ### Prefix and Suffix icons
 <!-- TODO -->
-
-## Properties
-<ArgsTable story="Contained" />
 
 ## Events
 <!-- TODO -->

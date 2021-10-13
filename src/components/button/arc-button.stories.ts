@@ -7,59 +7,6 @@ export default {
   title: 'Buttons',
   component: 'arc-button',
   argTypes: {
-    type: {
-      type: { required: true },
-      description: 'Set the type of the button',
-      defaultValue: { summary: 'contained' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_TYPES),
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
-    },
-    color: {
-      type: { required: true },
-      description: 'Set the color of the button. This property uses the --arc-color-xxx css variable, where xxx can be any default (or custom) provided RGB value',
-      defaultValue: { summary: 'default' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_COLORS),
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
-    },
-    size: {
-      type: { required: true },
-      description: 'Set the size of the button',
-      defaultValue: { summary: 'medium' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_SIZES),
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
-    },
-    active: {
-      type: { required: false },
-      description: 'Draws the button in an active state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        category: 'Properties',
-      },
-    },
-    disabled: {
-      type: { required: false },
-      description: 'Draws the button in a disabled state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        category: 'Properties',
-      },
-    },
     href: {
       type: { required: false },
       description: 'When set, the underlying button will be rendered as an `<a>` with this attribute instead of a `<button>`',
@@ -70,13 +17,40 @@ export default {
         category: 'Properties',
       },
     },
-    default: {
-      name: '(default)',
+    basePart: {
+      name: 'base',
+      type: { required: false },
+      description: 'The component\'s base wrapper.',
+      control: { type: null },
+      table: {
+        category: 'CSS Parts',
+      },
+    },
+    prefixPart: {
+      name: 'prefix',
+      type: { required: false },
+      description: 'The prefix container.',
+      control: { type: null },
+      table: {
+        category: 'CSS Parts',
+      },
+    },
+    labelPart: {
+      name: 'label',
       type: { required: false },
       description: 'The button\'s label.',
       control: { type: null },
       table: {
-        category: 'Slots',
+        category: 'CSS Parts',
+      },
+    },
+    suffixPart: {
+      name: 'suffix',
+      type: { required: false },
+      description: 'The suffix container.',
+      control: { type: null },
+      table: {
+        category: 'CSS Parts',
       },
     },
     width: {
@@ -86,7 +60,7 @@ export default {
       defaultValue: { summary: 'auto' },
       control: { type: 'text' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     },
     minWidth: {
@@ -96,7 +70,7 @@ export default {
       defaultValue: { summary: '0' },
       control: { type: 'text' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     },
     buttonColor: {
@@ -106,7 +80,7 @@ export default {
       defaultValue: { summary: '' },
       control: { type: 'color' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     },
     buttonBackground: {
@@ -116,14 +90,15 @@ export default {
       defaultValue: { summary: '' },
       control: { type: 'color' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
-    }
+    },
   },
 };
 
 interface Story<T> {
   (args: T): TemplateResult;
+
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
@@ -135,6 +110,7 @@ interface ArgTypes {
   size: string,
   active: boolean,
   disabled: boolean,
+  loading: boolean,
   href: string,
   width: string,
   minWidth: string,
@@ -142,15 +118,31 @@ interface ArgTypes {
   buttonBackground: string,
 }
 
-const Template: Story<ArgTypes> = ({ label, type, color, size, active, disabled, href, width, minWidth, buttonColor, buttonBackground }: ArgTypes) => html`
-  <arc-button style='width: ${width}; --min-width: ${minWidth}; --btn-color: ${buttonColor}; --btn-background: ${buttonBackground}'
+const Template: Story<ArgTypes> = ({
+                                     label,
+                                     type,
+                                     color,
+                                     size,
+                                     active,
+                                     disabled,
+                                     loading,
+                                     href,
+                                     width,
+                                     minWidth,
+                                     buttonColor,
+                                     buttonBackground,
+                                   }: ArgTypes) => html`
+  <arc-button
+    style='width: ${width}; --min-width: ${minWidth}; --btn-color: ${buttonColor}; --btn-background: ${buttonBackground}'
     type='${type}'
     color='${color}'
     size='${size}'
-    ?active=${active}
-    ?disabled=${disabled}
+    ?active='${active}'
+    ?disabled='${disabled}'
+    ?loading='${loading}'
     href='${href}'
-  >${label}</arc-button>
+  >${label}
+  </arc-button>
 `;
 
 export const Contained = Template.bind({});
@@ -161,6 +153,7 @@ Contained.args = {
   size: 'medium',
   active: false,
   disabled: false,
+  loading: false,
   href: '',
   width: 'auto',
   minWidth: 'auto',
@@ -169,22 +162,22 @@ Contained.args = {
 };
 
 export const Tile = Template.bind({});
-Tile.args = { ...Contained.args, type: BUTTON_TYPES.tile }
+Tile.args = { ...Contained.args, type: BUTTON_TYPES.tile };
 
 export const Outlined = Template.bind({});
-Outlined.args = { ...Contained.args, type: BUTTON_TYPES.outlined }
+Outlined.args = { ...Contained.args, type: BUTTON_TYPES.outlined };
 
 export const Pill = Template.bind({});
-Pill.args = { ...Contained.args, type: BUTTON_TYPES.pill }
+Pill.args = { ...Contained.args, type: BUTTON_TYPES.pill };
 
 export const Tab = Template.bind({});
-Tab.args = { ...Contained.args, type: BUTTON_TYPES.tab }
+Tab.args = { ...Contained.args, type: BUTTON_TYPES.tab };
 
 export const CustomWidth = Template.bind({});
-CustomWidth.args = { ...Contained.args, width: '10rem', }
+CustomWidth.args = { ...Contained.args, width: '10rem' };
 
 export const CustomPalette = Template.bind({});
-CustomPalette.args = { ...Contained.args, color: 'custom' }
+CustomPalette.args = { ...Contained.args, color: 'custom' };
 
 export const CustomOverwrite = Template.bind({});
-CustomOverwrite.args = { ...Contained.args, buttonColor: 'red', buttonBackground: 'green' }
+CustomOverwrite.args = { ...Contained.args, buttonColor: 'red', buttonBackground: 'green' };

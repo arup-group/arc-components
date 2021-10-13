@@ -59,7 +59,7 @@ export class ArcButton extends LitElement {
         visibility: hidden;
       }
 
-      arc-icon {
+      #loader {
         position: absolute;
       }
 
@@ -73,6 +73,18 @@ export class ArcButton extends LitElement {
       /* Hover */
       :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:hover {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
+      }
+
+      /* Tab - Hover */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover {
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
+
+      /* Outlined - Hover */
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover {
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
       /* Radius */
@@ -92,19 +104,6 @@ export class ArcButton extends LitElement {
         border-radius: var(--arc-input-height-large);
       }
 
-      /* Outlined */
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
-        border: var(--arc-border-width) var(--arc-border-style) currentColor;
-        background-color: transparent;
-        box-shadow: none;
-      }
-
-      /* Outlined - Hover */
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
-      }
-
       /* Tab */
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) {
         height: 100%;
@@ -121,10 +120,11 @@ export class ArcButton extends LitElement {
         border-bottom: var(--arc-border-width) var(--arc-border-style) currentColor;
       }
 
-      /* Tab - Hover */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      /* Outlined */
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
+        border: var(--arc-border-width) var(--arc-border-style) currentColor;
+        background-color: transparent;
+        box-shadow: none;
       }
     `,
   ];
@@ -199,7 +199,7 @@ export class ArcButton extends LitElement {
       <slot name='prefix' part='prefix'></slot>
       <slot id='label' part='label'></slot>
       <slot name='suffix' part='suffix'></slot>
-      ${this.loading ? html`<arc-icon name='refresh' spinning></arc-icon>` : null}
+      ${this.loading ? html`<arc-icon id='loader' name='refresh' spinning></arc-icon>` : null}
     `;
 
     return html`
@@ -223,6 +223,5 @@ export class ArcButton extends LitElement {
           </button>`
       }
     `;
-
   }
 }

@@ -24,7 +24,7 @@ export default {
       defaultValue: { summary: 'var(--arc-spacing-normal)' },
       control: { type: 'text' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     },
     width: {
@@ -34,7 +34,7 @@ export default {
       defaultValue: { summary: 'clamp(15rem, 30%, var(--arc-sidebar-width))' },
       control: { type: 'text' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     }
   },

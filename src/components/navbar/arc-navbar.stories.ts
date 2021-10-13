@@ -64,7 +64,7 @@ export default {
       defaultValue: { summary: 'var(--arc-navbar-height)' },
       control: { type: 'text' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     }
   },

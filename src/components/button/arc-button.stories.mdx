@@ -1,0 +1,137 @@
+import { html } from 'lit';
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+
+import '../../../out-tsc/src/components/button/arc-button.js'
+
+import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from '../../../out-tsc/src/components/button/constants/ButtonConstants.js';
+
+<Meta title='Buttons' component='arc-button' argTypes={{
+  label: {
+    control: { type: 'text' }
+  },
+  type: {
+    control: { type: 'select' },
+    options: Object.keys(BUTTON_TYPES),
+  },
+  color: {
+    control: { type: 'select' },
+    options: Object.keys(BUTTON_COLORS),
+  },
+  size: {
+    control: { type: 'select' },
+    options: Object.keys(BUTTON_SIZES),
+  },
+  href: {
+    type: { required: false },
+    control: { type: 'text' },
+  },
+  active: {
+    control: { type: 'boolean' },
+  },
+  disabled: {
+    control: { type: 'boolean' },
+  },
+  loading: {
+    control: { type: 'boolean' },
+  },
+}} />
+
+export const Template = ({ label, type, color, size, active, disabled, loading, href }) => html`
+  <arc-button
+    type='${type}'
+    color='${color}'
+    size='${size}'
+    href='${href}'
+    ?active='${active}'
+    ?disabled='${disabled}'
+    ?loading='${loading}'
+  >${label}
+  </arc-button>
+`;
+
+# Button
+### `<arc-button>`
+
+Buttons represent actions that are available to the user.
+
+<Canvas>
+  <Story
+    name="Contained"
+    args={{
+      type: BUTTON_TYPES.contained,
+      color: BUTTON_COLORS.default,
+      size: BUTTON_SIZES.medium,
+      label: 'Hi there',
+      active: false,
+      disabled: false,
+      loading: false,
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Examples
+### Types
+Use the `type` attribute to set the button's type.
+
+### Colors
+Use the `color` attribute to set the button's color.
+
+### Sizes
+Use the `size` attribute to set the button's size
+
+### Link button
+It's often helpful to have a button that works like a link.
+This is possible by setting the `href` attribute, which will make the component render an `<a>` under the hood.
+This gives all the default link behavior the browser provides (e.g. CMD/CTRL/SHIFT + CLICK) and exposes the target and download attributes.
+
+### States
+Use the `active` attribute to activate a button.
+
+Use the `loading` attribute to make a button busy.
+Clicks will be suppressed until the loading state is removed.
+
+Use the `disabled` attribute to disable a button.
+Clicks will be suppressed until the disabled state is removed.
+
+### Prefix and Suffix icons
+<!-- TODO -->
+
+### Properties
+<!-- TODO -->
+
+### Events
+<!-- TODO -->
+
+### Methods
+<!-- TODO -->
+
+### Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The button's label.                                       |
+| prefix       | Used to prepend an icon or similar element to the button. |
+| suffix       | Used to append an icon or similar element to the button.  |
+
+### CSS Parts
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| base         | The component's base wrapper.                             |
+| prefix       | The prefix container.                                     |
+| label        | The button's label.                                       |
+| suffix       | The suffix container.                                     |
+
+### CSS Variables
+
+| Name             | Description                                           |
+|------------------|-------------------------------------------------------|
+| width            | Set the width of the button.                          |
+| --min-width      | Set the min width of the button.                      |
+| --btn-color      | Overwrite the font color of the button.               |
+| --btn-background | Overwrite the background color of the button          |
+
+### Dependencies
+This component imports the following dependencies.
+* `<arc-icon>`

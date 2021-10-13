@@ -55,7 +55,7 @@ export default {
       defaultValue: { summary: '' },
       control: { type: 'color' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     },
     secondaryColor: {
@@ -65,7 +65,7 @@ export default {
       defaultValue: { summary: '' },
       control: { type: 'color' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     }
   }

@@ -60,7 +60,7 @@ export default {
       defaultValue: { summary: 'var(--arc-bottom-height)' },
       control: { type: 'text' },
       table: {
-        category: 'CSS Parts',
+        category: 'CSS Variables',
       },
     }
   },

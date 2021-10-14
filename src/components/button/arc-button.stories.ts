@@ -31,9 +31,8 @@ export default {
     },
     href: {
       description: 'When set, the underlying button will be rendered as an `<a>` with this property.',
-      defaultValue: { summary: 'medium' },
+      defaultValue: { summary: '' },
       control: { type: 'text' },
-      options: Object.keys(BUTTON_SIZES),
     },
     target: {
       description: 'Tells the browser where to open the link. Only used when href is set. ',
@@ -87,8 +86,8 @@ interface ArgTypes {
   disabled: boolean,
   loading: boolean,
   submit: boolean,
-  prefix: boolean,
-  suffix: boolean
+  prefix: boolean | undefined,
+  suffix: boolean | undefined
 }
 
 const Template: Story<ArgTypes> = ({ label, type, color, size, href, target, download, active, disabled, loading, submit, prefix, suffix }: ArgTypes) => html`
@@ -122,8 +121,6 @@ const defaultArgs = {
   disabled: false,
   loading: false,
   submit: false,
-  prefix: false,
-  suffix: false
 };
 
 // TYPES
@@ -137,7 +134,7 @@ export const LinkNewWindow = Template.bind({});
 export const LinkDownload = Template.bind({});
 export const LinkDisabled = Template.bind({});
 
-Contained.args = { ...defaultArgs, label: BUTTON_TYPES.contained, type: BUTTON_TYPES.contained };
+Contained.args = { ...defaultArgs, label: BUTTON_TYPES.contained };
 Tile.args = { ...defaultArgs, label: BUTTON_TYPES.tile, type: BUTTON_TYPES.tile };
 Outlined.args = { ...defaultArgs, label: BUTTON_TYPES.outlined, type: BUTTON_TYPES.outlined };
 Pill.args = { ...defaultArgs, label: BUTTON_TYPES.pill, type: BUTTON_TYPES.pill };

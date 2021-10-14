@@ -167,6 +167,10 @@ export class ArcButton extends LitElement {
   @query('#button')
   button!: HTMLSpanElement;
 
+  click() {
+    this.button.click();
+  }
+
   handleClick(e: any) {
     if (this.disabled || this.loading) {
       e.preventDefault();

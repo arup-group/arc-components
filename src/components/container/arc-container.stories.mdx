@@ -1,0 +1,71 @@
+import { Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../../../../out-tsc/src/components/container/arc-container.stories.js';
+
+<Meta title="Container" component='arc-container' />
+
+# Container
+### `<arc-container>`
+
+The Container can be used as a wrapper around web-components to provide out of the box responsiveness and theming.
+
+<Canvas>
+  <Story name="Container" story={stories.Container} />
+</Canvas>
+
+## Theming
+### Theme Basics
+All themes are scoped to the arc-container using the arc-container[theme={name}] convention, where {name} is a lowercase, hyphen-delimited value representing the name of the theme.
+The included light and dark themes use arc-container[theme='light'] and arc-container[theme='dark'], respectively.
+Every selector must be scoped to the theme attribute to ensure interoperability with other themes.
+You should also scope them to :host, so they can be imported and applied to custom element shadow roots.
+
+### Activating a theme
+To activate a theme, import it and apply the theme's name to the `<arc-container>` element.
+This example imports and activates the dark theme, or dark mode.
+
+```bash
+<html>
+  <head>
+    <link rel="stylesheet" href="path/to/arc/dist/themes/dark.css">
+  </head>
+
+  <body>
+    <arc-container theme='dark'></arc-container>
+  </body>
+</html>
+```
+
+which results in the following
+
+<Canvas>
+  <Story name="DarkContainer" story={stories.DarkContainer} />
+</Canvas>
+
+There is one exception to this rule — the light theme does not need to be activated.
+For convenience, the light theme is scoped to :root and will be activated by default when imported.
+By default, the arc-container figures out the theme based on the users local time.
+For this to work, both light and dark theme need to be imported and included within the `<head>` tags.
+
+## Properties
+<ArgsTable story="Container" />
+
+## Events
+Coming soon
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The container's content                                   |
+| nav          | The container's navbar                                    |
+| side         | The container's sidebar                                   |
+| bottom       | The container's bottom bar                                |
+
+## CSS Parts
+Coming soon
+
+## CSS Variables
+
+| Name             | Description                                           |
+|------------------|-------------------------------------------------------|
+| --bottom-height  | Set the height of the default bottom bar.             |

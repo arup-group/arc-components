@@ -11,58 +11,11 @@ export default {
   component: 'arc-container',
   argTypes: {
     theme: {
-      type: { required: false },
       description: 'Set the theme for the container',
       defaultValue: { summary: 'auto' },
       control: { type: 'select' },
       options: ['auto', 'dark', 'light'],
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
     },
-    nav: {
-      type: { required: false },
-      description: 'The container navbar',
-      control: { type: null },
-      table: {
-        category: 'Slots',
-      },
-    },
-    side: {
-      type: { required: false },
-      description: 'The container sidebar',
-      control: { type: null },
-      table: {
-        category: 'Slots',
-      },
-    },
-    content: {
-      type: { required: false },
-      description: 'The container content section',
-      control: { type: null },
-      table: {
-        category: 'Slots',
-      },
-    },
-    bottom: {
-      type: { required: false },
-      description: 'The container bottom bar',
-      control: { type: null },
-      table: {
-        category: 'Slots',
-      },
-    },
-    bottomHeight: {
-      name: '--bottom-height',
-      type: { required: false },
-      description: 'Set the height of the default bottom bar',
-      defaultValue: { summary: 'var(--arc-bottom-height)' },
-      control: { type: 'text' },
-      table: {
-        category: 'CSS Variables',
-      },
-    }
   },
 };
 
@@ -74,11 +27,10 @@ interface Story<T> {
 
 interface ArgTypes {
   theme: string,
-  bottomHeight: string,
 }
 
-const Template: Story<ArgTypes> = ({ theme, bottomHeight }: ArgTypes) => html`
-  <arc-container .theme=${theme} style="--bottom-height:${bottomHeight}">
+const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
+  <arc-container .theme=${theme}>
     <arc-navbar slot='nav' logo='${arcLogo}'>
       <span slot='name'>WebComponents</span>
       <arc-button type='tab'>Link 1</arc-button>
@@ -91,8 +43,8 @@ const Template: Story<ArgTypes> = ({ theme, bottomHeight }: ArgTypes) => html`
   </arc-container>
 `;
 
-export const ArcContainer = Template.bind({});
-ArcContainer.args = {
-  theme: 'auto',
-  bottomHeight: 'var(--arc-bottom-height)',
-};
+export const Container = Template.bind({});
+export const DarkContainer = Template.bind({});
+
+Container.args = { theme: 'auto' };
+DarkContainer.args = { theme: 'dark' };

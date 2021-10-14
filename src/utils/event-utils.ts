@@ -1,4 +1,4 @@
-function emit(element: any, name: string, options: {}) {
+function emit(element: any, name: string, options?: {}) {
   const event = new CustomEvent(name, {
     bubbles: true,
     cancelable: false,

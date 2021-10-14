@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
+import sinon from 'sinon';
 
 import { ArcButton } from './ArcButton.js';
 import './arc-button.js';
@@ -102,6 +103,7 @@ describe('ArcButton', () => {
   // Test different component states (active, disabled, loading etc.)
   describe('states', () => {
     let element: ArcButton;
+
     beforeEach(async () => {
       element = await fixture(html`<arc-button></arc-button>`);
     });
@@ -117,14 +119,39 @@ describe('ArcButton', () => {
     });
 
     it('renders the button in a disabled state', async () => {
+      const buttonTarget = element.shadowRoot!.querySelector('button');
+
+      expect(buttonTarget!.hasAttribute('disabled')).to.be.false;
       expect(element.disabled).to.be.false;
       expect(element.hasAttribute('disabled')).to.be.false;
 
       element.disabled = true;
       await elementUpdated(element);
+
+      expect(buttonTarget!.hasAttribute('disabled')).to.be.true;
       expect(element.disabled).to.be.true;
       expect(element.hasAttribute('disabled')).to.be.true;
     });
+
+    it('renders the anchor in a disabled state', async () => {
+      element.href = '/';
+      await elementUpdated(element);
+
+      const anchorTarget = element.shadowRoot!.querySelector('a');
+
+      expect(anchorTarget!.getAttribute('aria-disabled')).to.equal('false');
+      expect(anchorTarget!.getAttribute('tabindex')).to.equal('0');
+      expect(element.disabled).to.be.false;
+      expect(element.hasAttribute('disabled')).to.be.false;
+
+      element.disabled = true;
+      await elementUpdated(element);
+
+      expect(anchorTarget!.getAttribute('aria-disabled')).to.equal('true');
+      expect(anchorTarget!.getAttribute('tabindex')).to.equal('-1');
+      expect(element.disabled).to.be.true;
+      expect(element.hasAttribute('disabled')).to.be.true;
+    })
 
     it('renders the button in a loading state', async () => {
       expect(element.loading).to.be.false;
@@ -132,6 +159,7 @@ describe('ArcButton', () => {
 
       element.loading = true;
       await elementUpdated(element);
+
       expect(element.loading).to.be.true;
       expect(element.hasAttribute('loading')).to.be.true;
     });
@@ -140,11 +168,53 @@ describe('ArcButton', () => {
   // Test the events (click, focus, blur etc.)
   describe('events', () => {
     let element: ArcButton;
-    beforeEach(async() => {
+    let clickSpy: any;
+    let isClicked: boolean;
+
+    function updateClicked() {
+      isClicked = true;
+    }
+
+    beforeEach(async () => {
+      isClicked = false;
       element = await fixture(html`<arc-button></arc-button>`);
+      clickSpy = sinon.spy(element, 'click');
+      element.addEventListener('click', updateClicked);
+    })
+
+    afterEach(() => {
+      element.removeEventListener('click', updateClicked);
+    })
+
+    it('simulates a click on the button', async () => {
+      element.click();
+      expect(clickSpy.callCount).to.equal(1);
+      expect(isClicked).to.be.true;
     });
 
-    it('')
+    it('suppresses a click on the button while in a disabled or loading state', async () => {
+      element.disabled = true;
+      await elementUpdated(element);
+
+      element.click();
+      expect(clickSpy.callCount).to.equal(1);
+      expect(isClicked).to.be.false;
+
+      element.disabled = false;
+      element.loading = true;
+      await elementUpdated(element);
+
+      element.click();
+      expect(clickSpy.callCount).to.equal(2);
+      expect(isClicked).to.be.false;
+
+      element.loading = false;
+      await elementUpdated(element);
+
+      element.click();
+      expect(clickSpy.callCount).to.equal(3);
+      expect(isClicked).to.be.true;
+    })
   });
 
   // Test whether the slots can be filled and that they exist

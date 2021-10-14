@@ -1,5 +1,5 @@
 import { css, unsafeCSS, html, LitElement } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { componentStyles } from '../styles/component.styles.js';
@@ -66,8 +66,9 @@ export class ArcButton extends LitElement {
 
       /* Disabled */
       :host([disabled]) #button {
+        opacity: 0.5;
+        box-shadow: none;
         cursor: not-allowed;
-        pointer-events: none;
       }
 
       /* Hover */
@@ -165,9 +166,6 @@ export class ArcButton extends LitElement {
 
   @query('#button')
   button!: HTMLSpanElement;
-
-  @state()
-  hasFocus = false;
 
   click() {
     this.button.click();

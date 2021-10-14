@@ -1,7 +1,11 @@
 import { html, TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import './arc-button.js';
+import '../icon/arc-icon.js';
 
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
+
+const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
 
 export default {
   title: 'Buttons',
@@ -20,21 +24,32 @@ interface ArgTypes {
   color: string,
   size: string,
   href: string,
+  target: string,
+  download: string,
   active: boolean,
   disabled: boolean,
   loading: boolean,
+  submit: boolean,
+  prefix: boolean,
+  suffix: boolean
 }
 
-const Template: Story<ArgTypes> = ({ label, type, color, size, active, disabled, loading, href }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ label, type, color, size, href, target, download, active, disabled, loading, submit, prefix, suffix }: ArgTypes) => html`
   <arc-button
     type='${type}'
     color='${color}'
     size='${size}'
-    href='${href}'
+    href='${live(href)}'
+    .target='${live(target)}'
+    download='${download}'
     ?active='${active}'
     ?disabled='${disabled}'
     ?loading='${loading}'
-  >${label.toUpperCase()}
+    ?submit='${submit}'
+  >
+    ${prefix ? html`<arc-icon slot='prefix' name='home'></arc-icon>` : null}
+    ${label.toUpperCase()}
+    ${suffix ? html`<arc-icon slot='suffix' name='settings'></arc-icon>` : null}
   </arc-button>
 `;
 
@@ -44,9 +59,14 @@ const defaultArgs = {
   color: 'default',
   size: 'medium',
   href: '',
+  target: '',
+  download: '',
   active: false,
   disabled: false,
   loading: false,
+  submit: false,
+  prefix: false,
+  suffix: false
 };
 
 // TYPES
@@ -55,12 +75,27 @@ export const Tile = Template.bind({});
 export const Outlined = Template.bind({});
 export const Pill = Template.bind({});
 export const Tab = Template.bind({});
+export const Link = Template.bind({});
+export const LinkNewWindow = Template.bind({});
+export const LinkDownload = Template.bind({});
+export const LinkDisabled = Template.bind({});
 
 Contained.args = { ...defaultArgs, label: BUTTON_TYPES.contained, type: BUTTON_TYPES.contained };
 Tile.args = { ...defaultArgs, label: BUTTON_TYPES.tile, type: BUTTON_TYPES.tile };
 Outlined.args = { ...defaultArgs, label: BUTTON_TYPES.outlined, type: BUTTON_TYPES.outlined };
 Pill.args = { ...defaultArgs, label: BUTTON_TYPES.pill, type: BUTTON_TYPES.pill };
 Tab.args = { ...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab };
+Link.args = { ... defaultArgs, label: 'Link', href: '/' };
+LinkNewWindow.args = { ... Link.args, label: 'New Window', target: '_blank' };
+LinkDownload.args = { ... Link.args, label: 'Download', href: arcLogo, download: 'ARC Logo' };
+LinkDisabled.args = { ... Link.args, label: 'Disabled', disabled: true };
+
+// SLOTS
+export const Prefix = Template.bind({});
+export const Suffix = Template.bind({});
+
+Prefix.args = { ...defaultArgs, label: 'Home', prefix: true };
+Suffix.args = { ...defaultArgs, label: 'Settings', suffix: true };
 
 // COLORS
 export const Default = Template.bind({});

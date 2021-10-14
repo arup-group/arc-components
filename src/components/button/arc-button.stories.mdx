@@ -44,6 +44,13 @@ It's often helpful to have a button that works like a link.
 This is possible by setting the `href` attribute, which will make the component render an `<a>` under the hood.
 This gives all the default link behavior the browser provides (e.g. CMD/CTRL/SHIFT + CLICK) and exposes the target and download attributes.
 
+<Canvas>
+  <Story name="Link" story={stories.Link} />
+  <Story name="LinkNewWindow" story={stories.LinkNewWindow} />
+  <Story name="LinkDownload" story={stories.LinkDownload} />
+  <Story name="LinkDisabled" story={stories.LinkDisabled} />
+</Canvas>
+
 ### States
 Use the `active`, `disabled` or `loading` attributes to change the state of the button.
 
@@ -54,13 +61,18 @@ Use the `active`, `disabled` or `loading` attributes to change the state of the 
 </Canvas>
 
 ### Prefix and Suffix icons
-<!-- TODO -->
+Use the `prefix` and `suffix` slots to add icons.
+
+<Canvas>
+  <Story name="Prefix" story={stories.Prefix} />
+  <Story name="Suffix" story={stories.Suffix} />
+</Canvas>
 
 ## Events
-<!-- TODO -->
+Coming soon
 
 ## Methods
-<!-- TODO -->
+Coming soon
 
 ## Slots
 

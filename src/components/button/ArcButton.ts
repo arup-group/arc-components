@@ -1,5 +1,6 @@
 import { css, unsafeCSS, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { live } from 'lit/directives/live.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { componentStyles } from '../styles/component.styles.js';
 
@@ -48,11 +49,6 @@ export class ArcButton extends LitElement {
         padding: 0;
         -webkit-appearance: none;
         white-space: nowrap;
-      }
-
-      #button:focus {
-        color: green;
-        padding: 20px !important;
       }
 
       /* Loading */
@@ -149,6 +145,13 @@ export class ArcButton extends LitElement {
   @property()
   href: string = '';
 
+  /** @type { '_blank' | '_parent' | '_self' | '_top' } */
+  @property()
+  target: string = '';
+
+  @property()
+  download: string = '';
+
   @property({ type: Boolean, reflect: true })
   active: boolean = false;
 
@@ -157,6 +160,9 @@ export class ArcButton extends LitElement {
 
   @property({ type: Boolean, reflect: true })
   loading: boolean = false;
+
+  @property({ type: Boolean, reflect: true })
+  submit: boolean = false;
 
   @query('#button')
   button!: HTMLSpanElement;
@@ -169,6 +175,7 @@ export class ArcButton extends LitElement {
   }
 
   render() {
+    const isLink = !!this.href;
     const compStyles = window.getComputedStyle(this);
     const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
     const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
@@ -208,25 +215,30 @@ export class ArcButton extends LitElement {
     `;
 
     return html`
-      ${this.href && !this.disabled
-        ? html`
-          <a id='button'
-             style=${styleMap(btnStyles)}
-             href=${this.href}
-             rel='noreferrer noopener'
-             tabindex=${this.disabled ? '-1' : '0'}
-             part='base'
-             @click=${this.handleClick}
-          >${interior}</a>`
-        : html`
-          <button id='button'
-                  style=${styleMap(btnStyles)}
-                  tabindex=${this.disabled ? '-1' : '0'}
-                  part='base'
-                  @click=${this.handleClick}
-          >${interior}
-          </button>`
-      }
+      ${isLink ? html`
+        <a
+          id='button'
+          part='base'
+          style=${styleMap(btnStyles)}
+          href='${live(this.href)}'
+          .target='${live(this.target)}'
+          .download='${live(this.download)}'
+          .rel='${live(this.target ? 'noreferrer noopener' : '')}'
+          role='button'
+          aria-disabled='${this.disabled ? 'true' : 'false'}'
+          tabindex='${this.disabled ? '-1' : '0'}'
+          @click='${this.handleClick}'
+        >${interior}</a>
+      ` : html`
+        <button
+          id='button'
+          part='base'
+          style=${styleMap(btnStyles)}
+          ?disabled=${this.disabled}
+          type=${this.submit ? "submit" : "button"}
+          @click=${this.handleClick}
+        >${interior}</button>
+      `}
     `;
   }
 }

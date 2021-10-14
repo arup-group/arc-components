@@ -12,66 +12,56 @@ export default {
   component: 'arc-button',
   argTypes: {
     type: {
-      type: { required: true },
       description: 'Set the type of the button',
       defaultValue: { summary: 'contained' },
       control: { type: 'select' },
       options: Object.keys(BUTTON_TYPES),
     },
     color: {
-      type: { required: true },
       description: 'Set the color of the button.',
       defaultValue: { summary: 'default' },
       control: { type: 'select' },
       options: Object.keys(BUTTON_COLORS),
     },
     size: {
-      type: { required: true },
       description: 'Set the size of the button',
       defaultValue: { summary: 'medium' },
       control: { type: 'select' },
       options: Object.keys(BUTTON_SIZES),
     },
     href: {
-      type: { required: true },
       description: 'When set, the underlying button will be rendered as an `<a>` with this property.',
       defaultValue: { summary: 'medium' },
       control: { type: 'text' },
       options: Object.keys(BUTTON_SIZES),
     },
     target: {
-      type: { required: false },
       description: 'Tells the browser where to open the link. Only used when href is set. ',
       defaultValue: { summary: '' },
       control: { type: 'select' },
       options: ['_blank', '_parent', '_self', '_top']
     },
     download: {
-      type: { required: false },
       description: 'Tells the browser to download the linked file as this filename. Only used when href is set. ',
       defaultValue: { summary: '' },
       control: { type: 'text' },
     },
     active: {
-      type: { required: false },
       description: 'Draws the button in an active state.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
     },
     disabled: {
-      type: { required: false },
       description: 'Draws the button in a disabled state.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
     },
     loading: {
-      type: { required: false },
       description: 'Draws the button in a loading state.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
     },
     submit: {
-      type: { required: false },
       description: 'Indicates if activating the button should submit the form. Ignored when href is set.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },

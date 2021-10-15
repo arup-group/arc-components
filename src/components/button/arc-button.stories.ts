@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import { live } from 'lit/directives/live.js';
 import './arc-button.js';
 import '../icon/arc-icon.js';
 
@@ -78,13 +77,13 @@ interface ArgTypes {
   type: string,
   color: string,
   size: string,
-  href: string,
-  target: string,
-  download: string,
   active: boolean,
   disabled: boolean,
   loading: boolean,
   submit: boolean,
+  href: string | undefined,
+  target: string | undefined,
+  download: string | undefined,
   prefix: boolean | undefined,
   suffix: boolean | undefined
 }
@@ -94,9 +93,9 @@ const Template: Story<ArgTypes> = ({ label, type, color, size, href, target, dow
     type='${type}'
     color='${color}'
     size='${size}'
-    href='${live(href)}'
-    .target='${live(target)}'
-    download='${download}'
+    .href='${href}'
+    .target='${target}'
+    .download='${download}'
     ?active='${active}'
     ?disabled='${disabled}'
     ?loading='${loading}'
@@ -113,9 +112,9 @@ const defaultArgs = {
   type: 'contained',
   color: 'default',
   size: 'medium',
-  href: '',
-  target: '',
-  download: '',
+  href: undefined,
+  target: undefined,
+  download: undefined,
   active: false,
   disabled: false,
   loading: false,

@@ -1,6 +1,6 @@
 import { css, unsafeCSS, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { live } from 'lit/directives/live.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { componentStyles } from '../styles/component.styles.js';
 
@@ -143,14 +143,14 @@ export class ArcButton extends LitElement {
   size: string = BUTTON_SIZES.medium;
 
   @property()
-  href: string = '';
+  href: string | null = null;
 
   /** @type { '_blank' | '_parent' | '_self' | '_top' } */
   @property()
-  target: string = '';
+  target: string | null = null;
 
   @property()
-  download: string = '';
+  download: string | null = null;
 
   @property({ type: Boolean, reflect: true })
   active: boolean = false;
@@ -179,7 +179,6 @@ export class ArcButton extends LitElement {
   }
 
   render() {
-    const isLink = !!this.href;
     const compStyles = window.getComputedStyle(this);
     const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
     const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
@@ -219,15 +218,15 @@ export class ArcButton extends LitElement {
     `;
 
     return html`
-      ${isLink ? html`
+      ${this.href ? html`
         <a
           id='button'
           part='base'
           style=${styleMap(btnStyles)}
-          href='${live(this.href)}'
-          .target='${live(this.target)}'
-          .download='${live(this.download)}'
-          .rel='${live(this.target ? 'noreferrer noopener' : '')}'
+          href=${this.href}
+          .target='${ifDefined(this.target)}'
+          .download='${ifDefined(this.download)}'
+          .rel='${ifDefined(this.target && 'noreferrer noopener')}'
           role='button'
           aria-disabled='${this.disabled ? 'true' : 'false'}'
           tabindex='${this.disabled ? '-1' : '0'}'

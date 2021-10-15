@@ -7,7 +7,7 @@ import '../button/arc-button.js';
 const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
 
 export default {
-  title: 'Container',
+  title: 'ArcContainer',
   component: 'arc-container',
   argTypes: {
     theme: {

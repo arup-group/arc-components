@@ -1,12 +1,13 @@
 import { Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../../../../out-tsc/src/components/container/arc-container.stories.js';
 
-<Meta title="Container" component='arc-container' />
+<Meta title="ArcContainer" component='arc-container' />
 
 # Container
 ### `<arc-container>`
 
-The Container can be used as a wrapper around web-components to provide out of the box responsiveness and theming.
+The Container is the most basic layout element and is required when using the ARC component library.
+It is used to contain, pad and style the page and provides out of the box responsiveness for all devices.
 
 <Canvas>
   <Story name="Container" story={stories.Container} />
@@ -14,14 +15,15 @@ The Container can be used as a wrapper around web-components to provide out of t
 
 ## Theming
 ### Theme Basics
-All themes are scoped to the arc-container using the arc-container[theme={name}] convention, where {name} is a lowercase, hyphen-delimited value representing the name of the theme.
+All themes are scoped to the arc-container using the arc-container[theme={name}] convention, where {name} is a lowercase,
+hyphen-delimited value representing the name of the theme.
 The included light and dark themes use arc-container[theme='light'] and arc-container[theme='dark'], respectively.
 Every selector must be scoped to the theme attribute to ensure interoperability with other themes.
 You should also scope them to :host, so they can be imported and applied to custom element shadow roots.
 
 ### Activating a theme
 To activate a theme, import it and apply the theme's name to the `<arc-container>` element.
-This example imports and activates the dark theme, or dark mode.
+This example imports and activates the dark theme that comes with the bundle.
 
 ```bash
 <html>
@@ -45,6 +47,32 @@ There is one exception to this rule — the light theme does not need to be acti
 For convenience, the light theme is scoped to :root and will be activated by default when imported.
 By default, the arc-container figures out the theme based on the users local time.
 For this to work, both light and dark theme need to be imported and included within the `<head>` tags.
+
+### Creating themes
+To create your own theme, import the provided light-theme and create a separate stylesheet that overrides the design tokens
+and adds component styles to your liking. Import your own theme after the built-in theme.
+
+```bash
+:host,
+arc-container[theme='my-own-theme'] {
+  /* your custom styles here */
+}
+```
+
+```bash
+<html>
+  <head>
+    <link rel="stylesheet" href="path/to/arc/dist/themes/dark.css">
+    <link rel="stylesheet" href="path/to/my/own/themes/myTheme.css">
+  </head>
+
+  <body>
+    <arc-container theme='my-own-theme'></arc-container>
+  </body>
+</html>
+```
+
+By customizing a built-in theme, you'll maintain a small stylesheet containing only the changed you've made.
 
 ## Properties
 <ArgsTable story="Container" />

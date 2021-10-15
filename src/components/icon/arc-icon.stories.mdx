@@ -1,0 +1,80 @@
+import { Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../../../../out-tsc/src/components/icon/arc-icon.stories.js';
+
+<Meta title="ArcIcon" component='arc-icon' />
+
+# ArcIcon
+### `<arc-icon>`
+
+Icons are symbols that can be used to represent various options within an application.
+
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+</Canvas>
+
+## Examples
+### Sizing
+Icons are sized using the --arc-font-size-{size} css variable, where {size} is a lowercase value representing the size of the font.
+There are two ways to set their size. The easiest way is to use one of the built-in theme variables as shown below:
+
+```bash
+--arc-font-size-xx-small
+--arc-font-size-x-small
+--arc-font-size-small
+--arc-font-size-medium
+--arc-font-size-large
+--arc-font-size-x-large
+--arc-font-size-xx-large
+--arc-font-size-xxx-large
+--arc-font-size-xxxx-large
+```
+
+```bash
+<arc-icon name='fire' size='xxxx-large'></arc-icon>
+```
+
+which results in the following
+
+<Canvas>
+  <Story name="VariableSize" story={stories.VariableSize} />
+</Canvas>
+
+or create your own custom css variable that is scoped to :root as shown below.
+
+```bash
+<html>
+  <head>
+    <style>
+      :root {
+        --arc-font-size-custom: 4.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <arc-icon name='fire' size='custom'></arc-icon>
+  </body>
+</html>
+```
+
+which results in the following
+
+<Canvas>
+  <Story name="CustomSize" story={stories.CustomSize} />
+</Canvas>
+
+## Properties
+<ArgsTable story="Default" />
+
+## CSS Parts
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| base         | The component's base wrapper.                             |
+
+## CSS Variables
+
+| Name                    | Description                                           |
+|-------------------------|-------------------------------------------------------|
+| --icon-color-primary    | Set the primary color of the icon                     |
+| --icon-color-secondary  | Set the secondary color of the icon (if available)    |

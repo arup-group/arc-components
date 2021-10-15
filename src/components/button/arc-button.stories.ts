@@ -8,7 +8,7 @@ import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonCon
 const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
 
 export default {
-  title: 'Buttons',
+  title: 'ArcButton',
   component: 'arc-button',
   argTypes: {
     type: {

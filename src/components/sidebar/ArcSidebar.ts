@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { componentStyles } from '../styles/component.styles.js';
 
+import '../button/arc-button.js';
 import '../icon/arc-icon.js';
 
 export class ArcSidebar extends LitElement {
@@ -94,12 +95,12 @@ export class ArcSidebar extends LitElement {
   render() {
     return html`
       ${this.open ? html`
-        <div id='sidebar'>
-          <arc-icon id='toggleClose' name='arrow-left' @click=${this._toggleOpenState}></arc-icon>
+        <div id='sidebar' part='base'>
+          <arc-icon id='toggleClose' part='toggle' name='arrow-left' @click=${this._toggleOpenState}></arc-icon>
           <slot @slotchange=${this._handleSlots}></slot>
         </div>
       ` : html`
-        <arc-button id='toggleOpen' type='tab' @click=${this._toggleOpenState}>
+        <arc-button id='toggleOpen' part='toggle' type='tab' @click=${this._toggleOpenState}>
           <arc-icon name='arrow-right'></arc-icon>
         </arc-button>
       `}

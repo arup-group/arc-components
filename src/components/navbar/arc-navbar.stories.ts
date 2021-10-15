@@ -39,13 +39,14 @@ interface Story<T> {
 interface ArgTypes {
   arup: boolean,
   logo: string,
+  subBranding: string,
   tabs: number,
   height: string,
 }
 
-const Template: Story<ArgTypes> = ({ arup, logo, tabs, height }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ arup, logo, subBranding, tabs, height }: ArgTypes) => html`
   <arc-navbar slot='nav' style='height: ${height}' arup='${arup}' logo='${logo}' tabs='${tabs}'>
-    <span slot='name'>Sub Branding</span>
+    <span slot='name'>${subBranding}</span>
     <arc-button type='tab'>Link 1</arc-button>
     <arc-button type='tab'>Link 2</arc-button>
     <arc-button type='tab'>Link 3</arc-button>
@@ -56,6 +57,7 @@ export const Default = Template.bind({});
 Default.args = {
   arup: true,
   logo: arcLogo,
+  subBranding: 'Web Components',
   tabs: 5,
   height: 'var(--arc-navbar-height)',
 };

@@ -10,7 +10,7 @@ export default {
     type: {
       type: { required: true },
       description: 'Set the type of the divider',
-      defaultValue: { summary: 'none' },
+      defaultValue: { summary: 'solid' },
       control: { type: 'select' },
       options: Object.keys(DIVIDER_TYPES),
       table: {
@@ -28,25 +28,18 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  type: string;
+  type: string,
 }
 
 const Template: Story<ArgTypes> = ({ type }: ArgTypes) => html`
-  <style>
-    .parent > *:not(arc-divider[type="none"]) {
-      background: rgb(var(--arc-background-color));
-    }
-  </style>
-  <div class='parent'>
-    <div>Some content</div>
-    <arc-divider type='${type}' style='--arc-color-default: var(--arc-black-100)'></arc-divider>
-    <div>Some more content</div>
-  </div>
+  <div>Some content</div>
+  <arc-divider type='${type}'></arc-divider>
+  <div>Some more content</div>
 `;
 
 export const Default = Template.bind({});
 Default.args = {
-  type: 'none',
+  type: DIVIDER_TYPES.solid,
 };
 
 export const Dotted = Template.bind({});
@@ -55,5 +48,3 @@ Dotted.args = { ...Default.args, type: DIVIDER_TYPES.dotted }
 export const Dashed = Template.bind({});
 Dashed.args = { ...Default.args, type: DIVIDER_TYPES.dashed }
 
-export const Solid = Template.bind({});
-Solid.args = { ...Default.args, type: DIVIDER_TYPES.solid }

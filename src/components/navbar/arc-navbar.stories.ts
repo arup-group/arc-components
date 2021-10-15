@@ -1,4 +1,5 @@
 import { html, TemplateResult } from 'lit';
+import '../container/arc-container.js';
 import './arc-navbar.js';
 import '../button/arc-button.js';
 
@@ -57,10 +58,10 @@ export default {
       },
     },
     height: {
-      name: '--height',
+      name: 'height',
       type: { required: false },
-      description: 'Set the height of navbar',
-      defaultValue: { summary: '3.5rem' },
+      description: 'Set the height of the navbar',
+      defaultValue: { summary: 'var(--arc-navbar-height)' },
       control: { type: 'text' },
       table: {
         category: 'CSS Parts',
@@ -76,14 +77,14 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  arup: boolean;
-  logo: string;
-  tabs: number;
-  height: string;
+  arup: boolean,
+  logo: string,
+  tabs: number,
+  height: string,
 }
 
 const Template: Story<ArgTypes> = ({ arup, logo, tabs, height }: ArgTypes) => html`
-  <arc-navbar style='--height: ${height}' arup='${arup}' logo='${logo}' tabs='${tabs}'>
+  <arc-navbar slot='nav' style='height: ${height}' arup='${arup}' logo='${logo}' tabs='${tabs}'>
     <span slot='name'>Sub Branding</span>
     <arc-button type='tab'>Link 1</arc-button>
     <arc-button type='tab'>Link 2</arc-button>
@@ -96,6 +97,6 @@ ArcNavbar.args = {
   arup: true,
   logo: arcLogo,
   tabs: 5,
-  height: '3.5rem',
+  height: 'var(--arc-navbar-height)',
 };
 

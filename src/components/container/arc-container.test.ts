@@ -7,38 +7,62 @@ import './arc-container.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { DateUtils } from '../../utils/date-utils.js';
+import { StyleUtils } from '../../utils/style-utils.js';
 import { UiUtils } from '../../utils/ui-utils.js';
 
 describe('ArcContainer', () => {
+  // Test the rendering of the component
   describe('rendering', () => {
     let element: ArcContainer;
     beforeEach(async () => {
-      element = await fixture(html`<arc-container></arc-container>`);
+      element = await fixture(html`
+        <arc-container></arc-container>`);
     });
 
-    it('renders slots to fill the container', () => {
-      const main = element.shadowRoot!.getElementById('main')!;
-
-      expect(main.querySelector('slot[name="nav"]')).to.exist;
-      expect(main.querySelector('slot[name="side"]')).to.exist;
-      expect(main.querySelector('slot[name="content"]')).to.exist;
-      expect(main.querySelector('slot[name="bottom"]')).to.exist;
+    // Test default properties that reflect to the DOM
+    it('renders the element with default properties in the dom', () => {
+      if (DateUtils.isNight()) {
+        expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`);
+      } else {
+        expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.light}></arc-container>`);
+      }
     });
 
+    // Test the accessibility
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
+
+  // Test the setters/getters
+  describe('setters/getters', () => {
+    it('renders the element with a custom theme property', async () => {
+      const element: ArcContainer = await fixture(html`<arc-container theme='test-theme'></arc-container>`);
+
+      expect(element.theme).to.equal('test-theme');
+      expect(element.getAttribute('theme')).to.equal('test-theme');
+    });
+
+    it('renders a theme based on the time of day', async () => {
+      const element: ArcContainer = await fixture(html`<arc-container theme='auto'></arc-container>`);
+
+      if (DateUtils.isNight()) {
+        expect(element.theme).to.equal(CONTAINER_THEMES.dark);
+      } else {
+        expect(element.theme).to.equal(CONTAINER_THEMES.light);
+      }
+    });
+  });
+
+  // Test the component responsiveness
   describe('responsiveness', () => {
     let element: ArcContainer;
     let container: HTMLElement;
     let nav: HTMLSlotElement;
     let side: HTMLSlotElement;
-    let content: HTMLSlotElement;
     let bottom: HTMLSlotElement;
     let slottedNav: Node;
     let slottedSide: Node;
-    let slottedContent: Node;
     let slottedBottom: Node;
 
     beforeEach(async () => {
@@ -46,92 +70,67 @@ describe('ArcContainer', () => {
         <arc-container>
           <arc-navbar id="nav" slot="nav">nav</arc-navbar>
           <arc-sidebar id="side" slot="side">side</arc-sidebar>
-          <arc-content id="content" slot="content">content</arc-content>
+          Some content
           <arc-bottombar id="bottom" slot="bottom">bottom</arc-bottombar>
         </arc-container>
       `);
       container = element.shadowRoot!.getElementById('container')!;
       nav = element.shadowRoot!.querySelector('slot[name="nav"]')!;
       side = element.shadowRoot!.querySelector('slot[name="side"]')!;
-      content = element.shadowRoot!.querySelector('slot[name="content"]')!;
       bottom = element.shadowRoot!.querySelector('slot[name="bottom"]')!;
       slottedNav = nav.assignedNodes()[0];
       slottedSide = side.assignedNodes()[0];
-      slottedContent = content.assignedNodes()[0];
       slottedBottom = bottom.assignedNodes()[0];
     });
     it('shows correct styling on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
       expect(UiUtils.isMobile()).to.be.false;
 
-      expect(window.getComputedStyle(<Element>slottedNav).display).to.equal(
-        'block'
-      );
-      expect(window.getComputedStyle(<Element>slottedSide).display).to.equal(
-        'block'
-      );
-      expect(window.getComputedStyle(<Element>slottedContent).display).to.equal(
-        'block'
-      );
-      expect(window.getComputedStyle(<Element>slottedBottom).display).to.equal(
-        'none'
-      );
+      expect(StyleUtils.getPropertyValue(slottedNav, 'display')).to.equal('block');
+      expect(StyleUtils.getPropertyValue(slottedSide, 'display')).to.equal('block');
+      expect(StyleUtils.getPropertyValue(slottedBottom, 'display')).to.equal('none');
     });
     it('shows correct styling on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
       expect(UiUtils.isMobile()).to.be.true;
 
-      expect(window.getComputedStyle(container).padding).to.equal('0px');
-      expect(window.getComputedStyle(<Element>slottedSide).width).to.equal(
-        '0px'
-      );
-      expect(
-        window.getComputedStyle(<Element>slottedSide).marginRight
-      ).to.equal('0px');
-      expect(window.getComputedStyle(<Element>slottedBottom).display).to.equal(
-        'block'
-      );
+      expect(StyleUtils.getPropertyValue(slottedNav, 'display')).to.equal('block');
+      expect(StyleUtils.getPropertyValue(container, 'gap')).to.equal('0px');
+      expect(StyleUtils.getPropertyValue(container, 'padding')).to.equal('0px');
+      expect(StyleUtils.getPropertyValue(slottedSide, 'display')).to.equal('none');
+      expect(StyleUtils.getPropertyValue(slottedBottom, 'display')).to.equal('block');
     });
   });
-  describe('theming', () => {
-    it('renders a dark theme', async () => {
-      const element: ArcContainer = await fixture(
-        html` <arc-container theme="${CONTAINER_THEMES.dark}"></arc-container>`
-      );
-      expect(element.theme).to.equal(CONTAINER_THEMES.dark);
+
+  // Test whether the slots can be filled and that they exist
+  describe('slots', () => {
+    let element: ArcContainer;
+    beforeEach(async () => {
+      element = await fixture(html`<arc-container></arc-container>`);
     });
 
-    it('renders a light theme', async () => {
-      const element: ArcContainer = await fixture(
-        html` <arc-container theme="${CONTAINER_THEMES.light}"></arc-container>`
-      );
-      expect(element.theme).to.equal(CONTAINER_THEMES.light);
+    it('renders default slots to fill the container', () => {
+      const main = element.shadowRoot!.getElementById('main')!;
+
+      expect(main.querySelector('slot[name="nav"]')).to.exist;
+      expect(main.querySelector('slot[name="side"]')).to.exist;
+      expect(main.querySelector('#content > slot')).to.exist;
+      expect(main.querySelector('slot[name="bottom"]')).to.exist;
+    });
+  });
+
+  // Test the css variables that can be overwritten
+  describe('css variables', () => {
+    it('uses the default css variables', async () => {
+      const element: ArcContainer = await fixture(html`<arc-container></arc-container>`);
+
+      expect(StyleUtils.getPropertyValue(element, '--bottom-height')).to.equal('');
+    });
+    it('overwrites the css variables', async () => {
+      const element: ArcContainer = await fixture(html`<arc-container style='--bottom-height:30rem'></arc-container>`);
+
+      expect(StyleUtils.getPropertyValue(element, '--bottom-height')).to.equal('30rem');
     });
 
-    it('renders a theme based on the time of day', async () => {
-      const elementFixed: ArcContainer = await fixture(
-        html` <arc-container theme="${CONTAINER_THEMES.auto}"></arc-container>`
-      );
-      const elementDefault: ArcContainer = await fixture(
-        html` <arc-container></arc-container>`
-      );
-
-      if (DateUtils.isNight()) {
-        expect(elementFixed.theme).to.equal(CONTAINER_THEMES.dark);
-        expect(elementDefault.theme).to.equal(CONTAINER_THEMES.dark);
-      } else {
-        expect(elementFixed.theme).to.equal(CONTAINER_THEMES.light);
-        expect(elementDefault.theme).to.equal(CONTAINER_THEMES.light);
-      }
-    });
-
-    it('provides the correct theme based on the time of day', () => {
-      const element: ArcContainer = new ArcContainer();
-      const night = new Date('August 25, 21 01:00');
-      const morning = new Date('August 26, 21 08:00');
-
-      expect(element.getTheme(night)).to.equal(CONTAINER_THEMES.dark);
-      expect(element.getTheme(morning)).to.equal(CONTAINER_THEMES.light);
-    });
   });
 });

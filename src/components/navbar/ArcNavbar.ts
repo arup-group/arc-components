@@ -9,42 +9,48 @@ export class ArcNavbar extends LitElement {
     componentStyles,
     css`
       :host {
-        --height: 3.5rem;
+        height: var(--arc-navbar-height);
         background: rgb(var(--arc-container-color));
       }
 
       /* Layout */
-      #main, #left, #right, #tabs {
+      #main, #left, #right {
         display: grid;
         grid-auto-flow: column;
       }
 
       #main {
-        height: var(--height);
+        height: inherit;
         width: 100%;
-        padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium)
+        padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
+        box-shadow: var(--arc-box-shadow);
       }
 
+      /* Left side */
       #left {
         justify-content: flex-start;
-        padding-right: var(--arc-spacing-medium);
       }
 
-      #left > img + #tool-name {
+      #tool-logo + #tool-name {
+        display: none;
         margin-left: var(--arc-spacing-small);
       }
 
-      #left > #tool-name {
+      #tool-name {
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
+      /* Right side */
       #right {
         justify-content: flex-end;
         color: rgb(var(--arc-color-primary));
       }
 
-      /* Navigation tabs */
+      #right > #tabs {
+        display: none;
+      }
+
       ::slotted(arc-button) {
         border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
@@ -63,14 +69,19 @@ export class ArcNavbar extends LitElement {
         align-self: center;
       }
 
-      #company-logo {
-        margin-left: var(--arc-spacing-medium);
-      }
+      /* Medium devices (tablets, 48rem and up) */
+      @media (min-width: 48rem) {
+        #right > #tabs {
+          display: grid;
+          grid-auto-flow: column;
+        }
 
-      /* Phone */
-      @media (max-width: 40rem) {
-        #tabs, #left > img + #tool-name {
-          display: none;
+        #company-logo {
+          margin-left: var(--arc-spacing-medium);
+        }
+
+        #tool-logo + #tool-name {
+          display: block;
         }
       }
     `,
@@ -81,7 +92,8 @@ export class ArcNavbar extends LitElement {
 
   @property({
     type: Boolean,
-    converter: (attrValue: string | null) => attrValue ? attrValue !== 'false' : true,
+    reflect: true,
+    converter: (attrValue: string | null) => attrValue ? attrValue !== 'false' : true
   })
   arup: boolean = true;
 

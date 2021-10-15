@@ -37,8 +37,7 @@ export default {
     target: {
       description: 'Tells the browser where to open the link. Only used when href is set. ',
       defaultValue: { summary: '' },
-      control: { type: 'select' },
-      options: ['_blank', '_parent', '_self', '_top']
+      control: { type: 'text' },
     },
     download: {
       description: 'Tells the browser to download the linked file as this filename. Only used when href is set. ',

@@ -5,7 +5,7 @@ import { ArcIcon } from './ArcIcon.js';
 import './arc-icon.js';
 
 import { ICON_SIZES } from './constants/IconConstants.js';
-import { StyleUtils } from '../../utils/style-utils.js';
+import { getPropertyValue } from '../../utils/style-utils.js';
 
 describe('ArcIcon', () => {
   // Test the rendering of the component
@@ -58,15 +58,15 @@ describe('ArcIcon', () => {
     it('uses the default css variables', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon></arc-icon>`);
 
-      expect(StyleUtils.getPropertyValue(element, '--icon-color-primary')).to.equal('');
-      expect(StyleUtils.getPropertyValue(element, '--icon-color-secondary')).to.equal('currentColor');
+      expect(getPropertyValue(element, '--icon-color-primary')).to.equal('');
+      expect(getPropertyValue(element, '--icon-color-secondary')).to.equal('currentColor');
 
     });
     it('overwrites the css variables', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon style='--icon-color-primary:red; --icon-color-secondary:green;'></arc-icon>`);
 
-      expect(StyleUtils.getPropertyValue(element, '--icon-color-primary')).to.equal('red');
-      expect(StyleUtils.getPropertyValue(element, '--icon-color-secondary')).to.equal('green');
+      expect(getPropertyValue(element, '--icon-color-primary')).to.equal('red');
+      expect(getPropertyValue(element, '--icon-color-secondary')).to.equal('green');
     })
   });
 })

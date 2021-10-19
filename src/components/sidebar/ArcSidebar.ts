@@ -39,16 +39,19 @@ export class ArcSidebar extends LitElement {
         right: var(--arc-spacing-medium);
       }
 
-      #toggleClose:hover {
-        cursor: pointer;
-      }
-
       /* Closed sidebar */
       #toggleOpen {
-        width: 1.5rem;
-        height: 3rem;
-        --btn-color: rgb(var(--arc-font-color));
-        --btn-background: rgb(var(--arc-container-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        width: var(--arc-spacing-medium);
+        height: calc(var(--arc-spacing-medium) * 2);
+        color: rgb(var(--arc-font-color));
+      }
+
+      #toggleOpen:hover, #toggleClose:hover {
+        cursor: pointer;
       }
 
       /* Background */
@@ -95,9 +98,9 @@ export class ArcSidebar extends LitElement {
           <slot @slotchange=${this._handleSlots}></slot>
         </div>
       ` : html`
-        <arc-button id='toggleOpen' type='tab' @click=${this._toggleOpenState}>
+        <button id='toggleOpen' @click=${this._toggleOpenState}>
           <arc-icon name='arrow-right'></arc-icon>
-        </arc-button>
+        </button>
       `}
     `
   }

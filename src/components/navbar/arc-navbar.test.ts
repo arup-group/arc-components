@@ -6,7 +6,7 @@ import { ArcNavbar } from './ArcNavbar.js';
 import './arc-navbar.js';
 import '../button/arc-button.js';
 
-import { StyleUtils } from '../../utils/style-utils.js';
+import { getPropertyValue } from '../../utils/style-utils.js';
 
 describe('ArcNavbar', () => {
   // Test the rendering of the component
@@ -77,22 +77,22 @@ describe('ArcNavbar', () => {
     it('shows the correct elements on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
 
-      expect(StyleUtils.getPropertyValue(toolName, 'display')).to.equal('block');
-      expect(StyleUtils.getPropertyValue(tabContainer, 'display')).to.equal('grid');
+      expect(getPropertyValue(toolName, 'display')).to.equal('block');
+      expect(getPropertyValue(tabContainer, 'display')).to.equal('grid');
     })
     it('shows the correct elements on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
 
       // If the component has no logo, display the tool name
-      expect(StyleUtils.getPropertyValue(toolName, 'display')).to.equal('block');
+      expect(getPropertyValue(toolName, 'display')).to.equal('block');
 
       // If the component has a logo, hide the tool name
       element.logo = 'myCustomLogo';
       await elementUpdated(element);
-      expect(StyleUtils.getPropertyValue(toolName, 'display')).to.equal('none');
+      expect(getPropertyValue(toolName, 'display')).to.equal('none');
 
       // Hide the tabs
-      expect(StyleUtils.getPropertyValue(tabContainer, 'display')).to.equal('none');
+      expect(getPropertyValue(tabContainer, 'display')).to.equal('none');
 
       // TODO: ARC-12 Write a test once the arc-dropdown functionality is added
     })
@@ -119,12 +119,12 @@ describe('ArcNavbar', () => {
     it('uses the default css variables', async () => {
       const element: ArcNavbar = await fixture(html`<arc-navbar></arc-navbar>`);
 
-      expect(StyleUtils.getPropertyValue(element, 'height')).to.equal('auto');
+      expect(getPropertyValue(element, 'height')).to.equal('auto');
     });
     it('overwrites the css variables', async () => {
       const element: ArcNavbar = await fixture(html`<arc-navbar style='height:30px'></arc-navbar>`);
 
-      expect(StyleUtils.getPropertyValue(element, 'height')).to.equal('30px');
+      expect(getPropertyValue(element, 'height')).to.equal('30px');
     })
 
   });

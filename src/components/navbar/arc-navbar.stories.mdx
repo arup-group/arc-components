@@ -1,0 +1,36 @@
+import { Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../../../../out-tsc/src/components/navbar/arc-navbar.stories.js';
+
+<Meta title="ArcNavbar" component='arc-navbar' />
+
+# ArcNavbar
+### `<arc-navbar>`
+
+The ArcNavbar includes support for branding and navigation and provides out of the box responsiveness for all devices.
+You can use [arc-buttons](?path=/story/arcbutton--tab) to compose the navbar.
+
+## Examples
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+</Canvas>
+
+## Properties
+<ArgsTable story="Default" />
+
+## Events
+Coming soon
+
+## Methods
+Coming soon
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The slot description.                                     |
+
+## CSS Variables
+
+| Name             | Description                                           |
+|------------------|-------------------------------------------------------|
+| height           | Set the height of the navbar                          |

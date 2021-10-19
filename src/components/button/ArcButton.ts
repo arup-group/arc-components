@@ -1,7 +1,10 @@
 import { css, unsafeCSS, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { componentStyles } from '../styles/component.styles.js';
+
+import '../icon/arc-icon.js';
 
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
 
@@ -27,6 +30,7 @@ export class ArcButton extends LitElement {
         min-width: var(--min-width);
         width: 100%;
         display: flex;
+        gap: var(--arc-spacing-small);
         align-items: center;
         justify-content: center;
         color: var(--btn-color);
@@ -47,16 +51,41 @@ export class ArcButton extends LitElement {
         white-space: nowrap;
       }
 
+      /* Loading */
+      :host([loading]) #button {
+        cursor: wait;
+      }
+
+      :host([loading]) slot {
+        visibility: hidden;
+      }
+
+      #loader {
+        position: absolute;
+      }
+
       /* Disabled */
       :host([disabled]) #button {
         opacity: 0.5;
         box-shadow: none;
-        cursor: default;
+        cursor: not-allowed;
       }
 
       /* Hover */
       :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:hover {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
+      }
+
+      /* Tab - Hover */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover {
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
+
+      /* Outlined - Hover */
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover {
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
       /* Radius */
@@ -76,19 +105,6 @@ export class ArcButton extends LitElement {
         border-radius: var(--arc-input-height-large);
       }
 
-      /* Outlined */
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
-        border: var(--arc-border-width) var(--arc-border-style) currentColor;
-        background-color: transparent;
-        box-shadow: none;
-      }
-
-      /* Outlined - Hover */
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
-      }
-
       /* Tab */
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) {
         height: 100%;
@@ -105,10 +121,11 @@ export class ArcButton extends LitElement {
         border-bottom: var(--arc-border-width) var(--arc-border-style) currentColor;
       }
 
-      /* Tab - Hover */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      /* Outlined */
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
+        border: var(--arc-border-width) var(--arc-border-style) currentColor;
+        background-color: transparent;
+        box-shadow: none;
       }
     `,
   ];
@@ -125,17 +142,41 @@ export class ArcButton extends LitElement {
   @property({ type: String, reflect: true })
   size: string = BUTTON_SIZES.medium;
 
+  @property()
+  href: string | null = null;
+
+  /** @type { '_blank' | '_parent' | '_self' | '_top' } */
+  @property()
+  target: string | null = null;
+
+  @property()
+  download: string | null = null;
+
   @property({ type: Boolean, reflect: true })
   active: boolean = false;
 
   @property({ type: Boolean, reflect: true })
   disabled: boolean = false;
 
-  @property()
-  href: string = '';
+  @property({ type: Boolean, reflect: true })
+  loading: boolean = false;
+
+  @property({ type: Boolean, reflect: true })
+  submit: boolean = false;
 
   @query('#button')
   button!: HTMLSpanElement;
+
+  click() {
+    this.button.click();
+  }
+
+  handleClick(event: Event) {
+    if (this.disabled || this.loading) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
 
   render() {
     const compStyles = window.getComputedStyle(this);
@@ -163,22 +204,42 @@ export class ArcButton extends LitElement {
     };
 
     const btnStyles = {
-      'height': `var(--arc-input-height-${this.size})`,
+      height: `var(--arc-input-height-${this.size})`,
+      padding: `0 var(--arc-spacing-${this.size})`,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
 
-    const spanStyles = {
-      'padding': `0 var(--arc-spacing-${this.size})`,
-    }
+    const interior = html`
+      <slot name='prefix'></slot>
+      <slot id='label'></slot>
+      <slot name='suffix'></slot>
+      ${this.loading ? html`<arc-icon id='loader' name='refresh' spinning></arc-icon>` : null}
+    `;
 
     return html`
-      ${this.href && !this.disabled
-        ? html`<a id='button' style=${styleMap(btnStyles)} href='${this.href}' rel='noreferrer noopener'
-                  tabindex='-1'><span style=${styleMap(spanStyles)}><slot></slot></span></a>`
-        : html`
-          <button id='button' style=${styleMap(btnStyles)} tabindex='-1'><span style=${styleMap(spanStyles)}><slot></slot></span></button>`
-      }
+      ${this.href ? html`
+        <a
+          id='button'
+          style=${styleMap(btnStyles)}
+          href=${this.href}
+          .target='${ifDefined(this.target)}'
+          .download='${ifDefined(this.download)}'
+          .rel='${ifDefined(this.target && 'noreferrer noopener')}'
+          role='button'
+          aria-disabled='${this.disabled ? 'true' : 'false'}'
+          tabindex='${this.disabled ? '-1' : '0'}'
+          @click=${this.handleClick}
+        >${interior}</a>
+      ` : html`
+        <button
+          id='button'
+          style=${styleMap(btnStyles)}
+          ?disabled=${this.disabled}
+          type=${this.submit ? "submit" : "button"}
+          @click=${this.handleClick}
+        >${interior}</button>
+      `}
     `;
   }
 }

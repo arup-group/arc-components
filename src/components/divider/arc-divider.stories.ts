@@ -4,7 +4,7 @@ import './arc-divider.js';
 import { DIVIDER_TYPES } from './constants/DividerConstants.js';
 
 export default {
-  title: 'Divider',
+  title: 'ArcDivider',
   component: 'arc-divider',
   argTypes: {
     type: {

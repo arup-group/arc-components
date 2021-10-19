@@ -3,7 +3,8 @@ import { property } from 'lit/decorators.js';
 import { componentStyles } from '../styles/component.styles.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
-import { DateUtils } from '../../utils/date-utils.js';
+
+import { isNight } from '../../utils/date-utils.js';
 
 export class ArcContainer extends LitElement {
   static tag = 'arc-container';
@@ -80,7 +81,7 @@ export class ArcContainer extends LitElement {
     }
   }
 
-  getTheme = (date?: Date) => DateUtils.isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light
+  getTheme = (date?: Date) => isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light
 
   render() {
     return html`

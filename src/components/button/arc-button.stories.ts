@@ -1,123 +1,67 @@
 import { html, TemplateResult } from 'lit';
 import './arc-button.js';
+import '../icon/arc-icon.js';
 
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
 
+const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
+
 export default {
-  title: 'Buttons',
+  title: 'ArcButton',
   component: 'arc-button',
   argTypes: {
     type: {
-      type: { required: true },
       description: 'Set the type of the button',
       defaultValue: { summary: 'contained' },
       control: { type: 'select' },
       options: Object.keys(BUTTON_TYPES),
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
     },
     color: {
-      type: { required: true },
-      description: 'Set the color of the button. This property uses the --arc-color-xxx css variable, where xxx can be any default (or custom) provided RGB value',
+      description: 'Set the color of the button.',
       defaultValue: { summary: 'default' },
       control: { type: 'select' },
       options: Object.keys(BUTTON_COLORS),
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
     },
     size: {
-      type: { required: true },
       description: 'Set the size of the button',
       defaultValue: { summary: 'medium' },
       control: { type: 'select' },
       options: Object.keys(BUTTON_SIZES),
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
+    },
+    href: {
+      description: 'When set, the underlying button will be rendered as an `<a>` with this property.',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
+    },
+    target: {
+      description: 'Tells the browser where to open the link. Only used when href is set. ',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
+    },
+    download: {
+      description: 'Tells the browser to download the linked file as this filename. Only used when href is set. ',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
     },
     active: {
-      type: { required: false },
       description: 'Draws the button in an active state.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        category: 'Properties',
-      },
     },
     disabled: {
-      type: { required: false },
       description: 'Draws the button in a disabled state.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        category: 'Properties',
-      },
     },
-    href: {
-      type: { required: false },
-      description: 'When set, the underlying button will be rendered as an `<a>` with this attribute instead of a `<button>`',
-      defaultValue: { summary: '' },
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        category: 'Properties',
-      },
+    loading: {
+      description: 'Draws the button in a loading state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
     },
-    default: {
-      name: '(default)',
-      type: { required: false },
-      description: 'The button\'s label.',
-      control: { type: null },
-      table: {
-        category: 'Slots',
-      },
-    },
-    width: {
-      name: 'width',
-      type: { required: false },
-      description: 'Set the width of the button',
-      defaultValue: { summary: 'auto' },
-      control: { type: 'text' },
-      table: {
-        category: 'CSS Parts',
-      },
-    },
-    minWidth: {
-      name: '--min-width',
-      type: { required: false },
-      description: 'Set the min width of the button',
-      defaultValue: { summary: '0' },
-      control: { type: 'text' },
-      table: {
-        category: 'CSS Parts',
-      },
-    },
-    buttonColor: {
-      name: '--btn-color',
-      type: { required: false },
-      description: 'Set the font color of the button. If none is given, it uses the color property instead',
-      defaultValue: { summary: '' },
-      control: { type: 'color' },
-      table: {
-        category: 'CSS Parts',
-      },
-    },
-    buttonBackground: {
-      name: '--btn-background',
-      type: { required: false },
-      description: 'Set the font color of the button. If none is given, it uses the color property instead',
-      defaultValue: { summary: '' },
-      control: { type: 'color' },
-      table: {
-        category: 'CSS Parts',
-      },
+    submit: {
+      description: 'Indicates if activating the button should submit the form. Ignored when href is set.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
     }
   },
 };
@@ -135,56 +79,107 @@ interface ArgTypes {
   size: string,
   active: boolean,
   disabled: boolean,
-  href: string,
-  width: string,
-  minWidth: string,
-  buttonColor: string,
-  buttonBackground: string,
+  loading: boolean,
+  submit: boolean,
+  href: string | undefined,
+  target: string | undefined,
+  download: string | undefined,
+  prefix: boolean | undefined,
+  suffix: boolean | undefined
 }
 
-const Template: Story<ArgTypes> = ({ label, type, color, size, active, disabled, href, width, minWidth, buttonColor, buttonBackground }: ArgTypes) => html`
-  <arc-button style='width: ${width}; --min-width: ${minWidth}; --btn-color: ${buttonColor}; --btn-background: ${buttonBackground}'
+const Template: Story<ArgTypes> = ({ label, type, color, size, href, target, download, active, disabled, loading, submit, prefix, suffix }: ArgTypes) => html`
+  <arc-button
     type='${type}'
     color='${color}'
     size='${size}'
-    ?active=${active}
-    ?disabled=${disabled}
-    href='${href}'
-  >${label}</arc-button>
+    .href='${href}'
+    .target='${target}'
+    .download='${download}'
+    ?active='${active}'
+    ?disabled='${disabled}'
+    ?loading='${loading}'
+    ?submit='${submit}'
+  >
+    ${prefix ? html`<arc-icon slot='prefix' name='home'></arc-icon>` : null}
+    ${label.toUpperCase()}
+    ${suffix ? html`<arc-icon slot='suffix' name='settings'></arc-icon>` : null}
+  </arc-button>
 `;
 
-export const Contained = Template.bind({});
-Contained.args = {
-  label: 'My Button!',
+const defaultArgs = {
+  label: 'Default',
   type: 'contained',
   color: 'default',
   size: 'medium',
+  href: undefined,
+  target: undefined,
+  download: undefined,
   active: false,
   disabled: false,
-  href: '',
-  width: 'auto',
-  minWidth: 'auto',
-  buttonColor: 'initial',
-  buttonBackground: 'initial',
+  loading: false,
+  submit: false,
 };
 
+// TYPES
+export const Contained = Template.bind({});
 export const Tile = Template.bind({});
-Tile.args = { ...Contained.args, type: BUTTON_TYPES.tile }
-
 export const Outlined = Template.bind({});
-Outlined.args = { ...Contained.args, type: BUTTON_TYPES.outlined }
-
 export const Pill = Template.bind({});
-Pill.args = { ...Contained.args, type: BUTTON_TYPES.pill }
-
 export const Tab = Template.bind({});
-Tab.args = { ...Contained.args, type: BUTTON_TYPES.tab }
+export const Link = Template.bind({});
+export const LinkNewWindow = Template.bind({});
+export const LinkDownload = Template.bind({});
+export const LinkDisabled = Template.bind({});
 
-export const CustomWidth = Template.bind({});
-CustomWidth.args = { ...Contained.args, width: '10rem', }
+Contained.args = { ...defaultArgs, label: BUTTON_TYPES.contained };
+Tile.args = { ...defaultArgs, label: BUTTON_TYPES.tile, type: BUTTON_TYPES.tile };
+Outlined.args = { ...defaultArgs, label: BUTTON_TYPES.outlined, type: BUTTON_TYPES.outlined };
+Pill.args = { ...defaultArgs, label: BUTTON_TYPES.pill, type: BUTTON_TYPES.pill };
+Tab.args = { ...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab };
+Link.args = { ... defaultArgs, label: 'Link', href: '/' };
+LinkNewWindow.args = { ... Link.args, label: 'New Window', target: '_blank' };
+LinkDownload.args = { ... Link.args, label: 'Download', href: arcLogo, download: 'ARC Logo' };
+LinkDisabled.args = { ... Link.args, label: 'Disabled', disabled: true };
 
-export const CustomPalette = Template.bind({});
-CustomPalette.args = { ...Contained.args, color: 'custom' }
+// SLOTS
+export const Prefix = Template.bind({});
+export const Suffix = Template.bind({});
 
-export const CustomOverwrite = Template.bind({});
-CustomOverwrite.args = { ...Contained.args, buttonColor: 'red', buttonBackground: 'green' }
+Prefix.args = { ...defaultArgs, label: 'Home', prefix: true };
+Suffix.args = { ...defaultArgs, label: 'Settings', suffix: true };
+
+// COLORS
+export const Default = Template.bind({});
+export const Primary = Template.bind({});
+export const Secondary = Template.bind({});
+export const Error = Template.bind({});
+export const Warning = Template.bind({});
+export const Info = Template.bind({});
+export const Success = Template.bind({});
+
+Default.args = { ...defaultArgs, label: BUTTON_COLORS.default, color: BUTTON_COLORS.default };
+Primary.args = { ...defaultArgs, label: BUTTON_COLORS.primary, color: BUTTON_COLORS.primary };
+Secondary.args = { ...defaultArgs, label: BUTTON_COLORS.secondary, color: BUTTON_COLORS.secondary };
+Error.args = { ...defaultArgs, label: BUTTON_COLORS.error, color: BUTTON_COLORS.error };
+Warning.args = { ...defaultArgs, label: BUTTON_COLORS.warning, color: BUTTON_COLORS.warning };
+Info.args = { ...defaultArgs, label: BUTTON_COLORS.info, color: BUTTON_COLORS.info };
+Success.args = { ...defaultArgs, label: BUTTON_COLORS.success, color: BUTTON_COLORS.success };
+
+// SIZES
+export const Small = Template.bind({});
+export const Medium = Template.bind({});
+export const Large = Template.bind({});
+
+Small.args = { ...defaultArgs, label: BUTTON_SIZES.small, size: BUTTON_SIZES.small };
+Medium.args = { ...defaultArgs, label: BUTTON_SIZES.medium, size: BUTTON_SIZES.medium };
+Large.args = { ...defaultArgs, label: BUTTON_SIZES.large, size: BUTTON_SIZES.large };
+
+// STATES
+export const Active = Template.bind({});
+export const Disabled = Template.bind({});
+export const Loading = Template.bind({});
+
+Active.args = { ...Tab.args, label: 'Active', active: true };
+Disabled.args = { ...Tab.args, label: 'Disabled', disabled: true };
+Loading.args = { ...Tab.args, label: 'Loading', loading: true };

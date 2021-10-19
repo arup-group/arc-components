@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<arc-container id='arcContainer' theme='light'>
+<arc-container id='arcContainer'>
   <arc-navbar id='arcNavbar' slot='nav' logo='./assets/arc-red.svg'>
     <arc-button id='themeSetter' type='tab'>
       <arc-icon name='brightness_low' size='large'></arc-icon>
@@ -34,8 +34,6 @@
 
 <script type='module'>
   const arcContainer = document.getElementById('arcContainer');
-  const arcNavbar = document.getElementById('arcNavbar');
-  const arcSidebar = document.getElementById('arcSidebar');
 
   // Toggle the theme
   const themeSetter = document.getElementById('themeSetter');
@@ -44,9 +42,6 @@
     arcContainer.theme = arcContainer.theme === 'light' ? 'dark' : 'light';
     themeIcon.name = arcContainer.theme === 'light' ? 'brightness_low' : 'brightness_high';
   })
-
-  arcSidebar.addEventListener('arc-show', () => console.log('Sidebar opened'));
-  arcSidebar.addEventListener('arc-hide', () => console.log('Sidebar closed'));
 </script>
 </body>
 

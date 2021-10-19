@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<arc-container id='arcContainer' theme='light'>
+<arc-container id='arcContainer'>
   <arc-navbar id='arcNavbar' slot='nav' logo='./assets/arc-red.svg'>
     <arc-button id='themeSetter' type='tab'>
       <arc-icon name='brightness_low' size='large'></arc-icon>
@@ -24,12 +24,6 @@
   <arc-sidebar id='arcSidebar' slot='side'>
     <div></div>
   </arc-sidebar>
-
-  <arc-button style='--min-width: 40rem;' type='outlined' color='primary' loading>Loading button</arc-button>
-
-  <arc-button type='outlined' color='primary'>Normal button</arc-button>
-
-  <arc-button type='outlined' color='primary' disabled>Disabled button</arc-button>
 </arc-container>
 
 <script type='module' src='./out-tsc/src/components/container/arc-container.js'></script>

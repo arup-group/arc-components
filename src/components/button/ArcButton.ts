@@ -211,9 +211,9 @@ export class ArcButton extends LitElement {
     };
 
     const interior = html`
-      <slot name='prefix' part='prefix'></slot>
-      <slot id='label' part='label'></slot>
-      <slot name='suffix' part='suffix'></slot>
+      <slot name='prefix'></slot>
+      <slot id='label'></slot>
+      <slot name='suffix'></slot>
       ${this.loading ? html`<arc-icon id='loader' name='refresh' spinning></arc-icon>` : null}
     `;
 
@@ -221,7 +221,6 @@ export class ArcButton extends LitElement {
       ${this.href ? html`
         <a
           id='button'
-          part='base'
           style=${styleMap(btnStyles)}
           href=${this.href}
           .target='${ifDefined(this.target)}'
@@ -235,7 +234,6 @@ export class ArcButton extends LitElement {
       ` : html`
         <button
           id='button'
-          part='base'
           style=${styleMap(btnStyles)}
           ?disabled=${this.disabled}
           type=${this.submit ? "submit" : "button"}

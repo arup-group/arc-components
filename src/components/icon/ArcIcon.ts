@@ -89,7 +89,7 @@ export class ArcIcon extends LitElement {
     };
 
     return html`
-      <svg part='base' class='icon ${classMap(classes)}' style=${styleMap(styles)}>
+      <svg class='icon ${classMap(classes)}' style=${styleMap(styles)}>
         <use href='${arcIcons}#arc-${this.name}' xlink:href='${arcIcons}#arc-${this.name}' />
       </svg>
     `;

@@ -2,7 +2,6 @@ import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { componentStyles } from '../styles/component.styles.js';
 
-import '../button/arc-button.js';
 import '../icon/arc-icon.js';
 
 export class ArcSidebar extends LitElement {
@@ -40,20 +39,19 @@ export class ArcSidebar extends LitElement {
         right: var(--arc-spacing-medium);
       }
 
-      #toggleClose:hover {
-        cursor: pointer;
-      }
-
       /* Closed sidebar */
       #toggleOpen {
-        width: 1.5rem;
-        height: 3rem;
-        --btn-color: rgb(var(--arc-font-color));
-        --btn-background: rgb(var(--arc-container-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        width: var(--arc-spacing-medium);
+        height: calc(var(--arc-spacing-medium) * 2);
+        color: rgb(var(--arc-font-color));
       }
 
-      arc-button::part(base) {
-        padding: 0;
+      #toggleOpen:hover, #toggleClose:hover {
+        cursor: pointer;
       }
 
       /* Background */
@@ -95,14 +93,14 @@ export class ArcSidebar extends LitElement {
   render() {
     return html`
       ${this.open ? html`
-        <div id='sidebar' part='base'>
-          <arc-icon id='toggleClose' part='toggle' name='arrow-left' @click=${this._toggleOpenState}></arc-icon>
+        <div id='sidebar'>
+          <arc-icon id='toggleClose' name='arrow-left' @click=${this._toggleOpenState}></arc-icon>
           <slot @slotchange=${this._handleSlots}></slot>
         </div>
       ` : html`
-        <arc-button id='toggleOpen' part='toggle' type='tab' @click=${this._toggleOpenState}>
+        <button id='toggleOpen' @click=${this._toggleOpenState}>
           <arc-icon name='arrow-right'></arc-icon>
-        </arc-button>
+        </button>
       `}
     `
   }

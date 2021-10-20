@@ -6,7 +6,7 @@ import { componentStyles } from '../styles/component.styles.js';
 
 import { ICON_SIZES } from './constants/IconConstants.js';
 
-const arcIcons = new URL('../../../../assets/icons.svg', import.meta.url).href;
+const arcIcons = new URL('../../../assets/icons.svg', import.meta.url).href;
 
 export class ArcIcon extends LitElement {
   static tag = 'arc-icon';

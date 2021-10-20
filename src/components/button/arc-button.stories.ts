@@ -4,7 +4,7 @@ import '../icon/arc-icon.js';
 
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
 
-const arcLogo = new URL('../../../../assets/arc-red.svg', import.meta.url).href;
+const arcLogo = new URL('../../../assets/arc-red.svg', import.meta.url).href;
 
 export default {
   title: 'ArcButton',

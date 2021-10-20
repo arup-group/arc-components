@@ -51,7 +51,7 @@ jobs:
           # aws bucket name
           aws_bucket: arup-arc-components
           # directory to upload
-          source_dir: storybook-static/
+          source_dir: /
           destination_dir: .
 
 

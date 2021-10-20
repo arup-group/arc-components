@@ -25,18 +25,15 @@ jobs:
 
       - name: Setup Yarn environment
         uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
+
+      - name: install
+        run: yarn install
 
       - name: build
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: build
+        run: yarn storybook:build
 
       - name: tests
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: test
+        run: yarn test
 
       - name: Upload to S3
         uses: shallwefootball/upload-s3-action@v1.1.3

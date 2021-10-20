@@ -1,8 +1,8 @@
 {
-  "name": "arc-test",
+  "name": "arc-webcomponent",
   "description": "Web-components related to the ARC design system",
   "license": "MIT",
-  "author": "arc-test",
+  "author": "arc-webcomponent",
   "version": "0.0.0",
   "engines": {
     "node": ">=14.15.4"

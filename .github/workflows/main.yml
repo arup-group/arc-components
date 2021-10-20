@@ -35,10 +35,38 @@ jobs:
       - name: build
         run: yarn storybook:build
 
-      - name: Upload to S3
+      - name: Upload assets to S3
         uses: shallwefootball/upload-s3-action@v1.1.3
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_bucket: arup-arc-components
-          source_dir: .
+          source_dir: assets
+          destination_dir: .
+
+      - name: Upload components to S3
+        uses: shallwefootball/upload-s3-action@v1.1.3
+        with:
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_bucket: arup-arc-components
+          source_dir: out-tsc
+          destination_dir: .
+
+      - name: Upload styles to S3
+        uses: shallwefootball/upload-s3-action@v1.1.3
+        with:
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_bucket: arup-arc-components
+          source_dir: styles
+          destination_dir: .
+
+      - name: Upload Storybook to S3
+        uses: shallwefootball/upload-s3-action@v1.1.3
+        with:
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_bucket: arup-arc-components
+          source_dir: storybook-static/
+          destination_dir: .

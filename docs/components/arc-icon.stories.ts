@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit';
-import './arc-icon.js';
+import '../../src/components/icon/arc-icon.js';
 
-import { ICON_SIZES } from './constants/IconConstants.js';
+import { ICON_SIZES } from '../../src/components/icon/constants/IconConstants.js';
 
 export default {
   title: 'ArcIcon',

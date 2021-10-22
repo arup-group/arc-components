@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 
-import { ArcDivider } from './ArcDivider.js';
+import { ArcDivider } from './arc-divider.js';
 import './arc-divider.js';
 
 import { DIVIDER_TYPES } from './constants/DividerConstants.js';

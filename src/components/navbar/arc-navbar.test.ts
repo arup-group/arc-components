@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 
-import { ArcNavbar } from './ArcNavbar.js';
+import { ArcNavbar } from './arc-navbar.js';
 import './arc-navbar.js';
 import '../button/arc-button.js';
 

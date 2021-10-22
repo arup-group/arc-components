@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 
-import { ArcContainer } from './ArcContainer.js';
+import { ArcContainer } from './arc-container.js';
 import './arc-container.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';

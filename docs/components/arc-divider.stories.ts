@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit';
-import './arc-divider.js';
+import '../../src/components/divider/arc-divider.js';
 
-import { DIVIDER_TYPES } from './constants/DividerConstants.js';
+import { DIVIDER_TYPES } from '../../src/components/divider/constants/DividerConstants.js';
 
 export default {
   title: 'ArcDivider',

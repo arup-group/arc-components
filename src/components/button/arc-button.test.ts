@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import sinon from 'sinon';
 
-import { ArcButton } from './ArcButton.js';
+import { ArcButton } from './arc-button.js';
 import './arc-button.js';
 
 import { BUTTON_TYPES, BUTTON_SIZES, BUTTON_COLORS } from './constants/ButtonConstants.js';

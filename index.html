@@ -8,41 +8,6 @@
   <base href='/'>
 
   <title>ARC</title>
-
-  <link crossorigin='anonymous' href='styles/index.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='styles/light.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='styles/dark.css' rel='stylesheet'>
 </head>
-
-<body>
-<arc-container id='arcContainer' theme='light'>
-  <arc-navbar id='arcNavbar' slot='nav' logo='assets/arc-red.svg'>
-    <arc-button id='themeSetter' type='tab'>
-      <arc-icon name='brightness_low' size='large'></arc-icon>
-    </arc-button>
-  </arc-navbar>
-  <arc-sidebar id='arcSidebar' slot='side'>
-    <div></div>
-  </arc-sidebar>
-</arc-container>
-
-<script type='module' src='out-tsc/components/container/arc-container.js'></script>
-<script type='module' src='out-tsc/components/navbar/arc-navbar.js'></script>
-<script type='module' src='out-tsc/components/sidebar/arc-sidebar.js'></script>
-<script type='module' src='out-tsc/components/button/arc-button.js'></script>
-<script type='module' src='out-tsc/components/icon/arc-icon.js'></script>
-
-<script type='module'>
-  const arcContainer = document.getElementById('arcContainer');
-
-  // Toggle the theme
-  const themeSetter = document.getElementById('themeSetter');
-  const themeIcon = themeSetter.querySelector('arc-icon');
-  themeSetter.addEventListener('click', () => {
-    arcContainer.theme = arcContainer.theme === 'light' ? 'dark' : 'light';
-    themeIcon.name = arcContainer.theme === 'light' ? 'brightness_low' : 'brightness_high';
-  })
-</script>
-</body>
-
+<body></body>
 </html>

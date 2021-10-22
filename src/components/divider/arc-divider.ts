@@ -1,3 +1,49 @@
-import { ArcDivider } from './ArcDivider.js';
+import { css, html, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import { componentStyles } from '../../styles/component.styles.js';
 
-customElements.define(ArcDivider.tag, ArcDivider);
+import { DIVIDER_TYPES } from './constants/DividerConstants.js';
+
+@customElement('arc-divider')
+export default class ArcDivider extends LitElement {
+  static styles = [
+    componentStyles,
+    css`
+      #main {
+        background: inherit;
+        padding: calc(var(--arc-spacing-normal) / 2) 0;
+      }
+
+      hr {
+        margin: 0;
+        border: 0;
+      }
+    `
+  ]
+
+  /** @type { 'dotted' | 'dashed' | 'solid' } */
+  @property({
+    type: String,
+    reflect: true,
+  })
+  type: string = DIVIDER_TYPES.solid;
+
+  render() {
+    const styles = {
+      borderTop: `var(--arc-border-width) ${this.type} rgb(var(--arc-color-default))`
+    }
+
+    return html`
+      <div id='main'>
+        <hr id='border' style='${styleMap(styles)}'>
+      </div>
+    `
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'arc-divider': ArcDivider;
+  }
+}

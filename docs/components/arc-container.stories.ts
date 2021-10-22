@@ -1,10 +1,10 @@
 import { html, TemplateResult } from 'lit';
-import './arc-container.js';
-import '../navbar/arc-navbar.js';
-import '../sidebar/arc-sidebar.js';
-import '../button/arc-button.js';
+import '../../src/components/container/arc-container.js';
+import '../../src/components/navbar/arc-navbar.js';
+import '../../src/components/sidebar/arc-sidebar.js';
+import '../../src/components/button/arc-button.js';
 
-const arcLogo = new URL('../../../assets/arc-red.svg', import.meta.url).href;
+const arcLogo = new URL('../assets/arc-red.svg', import.meta.url).href;
 
 export default {
   title: 'ArcContainer',

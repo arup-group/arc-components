@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
 
-import { ArcIcon } from './ArcIcon.js';
+import { ArcIcon } from './arc-icon.js';
 import './arc-icon.js';
 
 import { ICON_SIZES } from './constants/IconConstants.js';

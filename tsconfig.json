@@ -13,7 +13,7 @@
     "outDir": "out-tsc",
     "sourceMap": true,
     "inlineSources": true,
-    "rootDir": "./src",
+    "rootDir": "./",
     "incremental": true
   },
   "include": ["**/*.ts"]

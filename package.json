@@ -1,11 +1,27 @@
 {
   "name": "arc-webcomponent",
   "description": "Web-components related to the ARC design system",
-  "license": "MIT",
-  "author": "arc-webcomponent",
   "version": "0.0.0",
+  "author": "arc-webcomponent",
+  "license": "MIT",
+  "main": "dist/arc.js",
+  "module": "dist/arc.js",
+  "customElements": "custom-elements.json",
+  "type": "module",
   "engines": {
     "node": ">=14.15.4"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "web components",
+    "custom elements",
+    "components"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
   },
   "scripts": {
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
@@ -71,6 +87,5 @@
     "*.css": [
       "stylelint --fix"
     ]
-  },
-  "customElements": "custom-elements.json"
+  }
 }

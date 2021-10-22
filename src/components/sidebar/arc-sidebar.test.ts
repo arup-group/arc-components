@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
 
-import { ArcSidebar } from './arc-sidebar.js';
+import { ArcSidebar } from './ArcSidebar.js';
 import './arc-sidebar.js';
 
 describe('ArcSidebar', () => {

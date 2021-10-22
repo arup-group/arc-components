@@ -2,11 +2,11 @@ import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 
-import { ArcNavbar } from './arc-navbar.js';
+import { ArcNavbar } from './ArcNavbar.js';
 import './arc-navbar.js';
 import '../button/arc-button.js';
 
-import { getPropertyValue } from '../../utils/style-utils.js';
+import { getPropertyValue } from '../../utilities/style-utils.js';
 
 describe('ArcNavbar', () => {
   // Test the rendering of the component

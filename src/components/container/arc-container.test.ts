@@ -2,14 +2,14 @@ import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 
-import { ArcContainer } from './arc-container.js';
+import { ArcContainer } from './ArcContainer.js';
 import './arc-container.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
-import { isNight } from '../../utils/date-utils.js';
-import { isMobile } from '../../utils/ui-utils.js';
-import { getPropertyValue } from '../../utils/style-utils.js';
+import { isNight } from '../../utilities/date-utils.js';
+import { isMobile } from '../../utilities/ui-utils.js';
+import { getPropertyValue } from '../../utilities/style-utils.js';
 
 describe('ArcContainer', () => {
   // Test the rendering of the component

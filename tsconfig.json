@@ -1,23 +1,32 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "lib": ["es2017", "dom"],
-    "strict": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "rootDir": "./src",
+    "target": "es2017",
+    "module": "es2020",
+    "lib": ["dom", "dom.Iterable", "es2020"],
+    "declaration": true,
+
     "outDir": "./dist",
-    "sourceMap": true,
-    "inlineSources": true,
-    "incremental": true
+    "rootDir": "./src",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
-    "docs",
     "dist",
     "src/**/*.test.ts"
   ]

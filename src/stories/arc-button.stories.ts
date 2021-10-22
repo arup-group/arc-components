@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../../src/components/button/arc-button.js';
 import '../../src/components/icon/arc-icon.js';
 
-import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from '../../src/components/button/constants/ButtonConstants.js';
+import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from '../components/button/constants/ButtonConstants.js';
 
 const arcLogo = new URL('../assets/arc-red.svg', import.meta.url).href;
 

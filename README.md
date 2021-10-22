@@ -1,4 +1,4 @@
-## ARC web-components
+## arc-components
 
 ## Quickstart
 
@@ -14,18 +14,6 @@ If you see something like `vxx.xx.x` that means you are good to go.
 
 If you get an error instead, install [Node](https://nodejs.org/) following the instructions on their official website.
 
-### Yarn
-The web-component project makes use of the Yarn package manager.
-Make sure you have [Yarn](https://yarnpkg.com/) installed.
-Check this by typing the following into the terminal:
-
-```bash
-yarn -v
-```
-
-If you see something like `x.xx.xx` that means you are good to go.
-If you get an error instead, install [Yarn](https://yarnpkg.com/) following the instructions on their official website.
-
 Once you finished installing the packages, you are good to go!
 
 ## Launch
@@ -33,13 +21,13 @@ Navigate to the main directory of the project and install the required node_modu
 Do this by typing the following into the terminal:
 
 ```bash
-yarn install
+npm install
 ```
 
 Once all node_modules are installed, run the following command to start the web-dev-server
 
 ```bash
-yarn start
+npm run start
 ```
 
 ## Testing
@@ -47,10 +35,10 @@ The web-components can run unit tests with the help of [@open-wc/testing](https:
 In order to run the tests, make sure that [Node](https://nodejs.org/) is installed.
 
 ### Single run
-If you want to run one test iteration, run `yarn test`
+If you want to run one test iteration, run `npm run test`
 
 ### Debug
-if you want to debug your tests, run `yarn test:watch`.
+if you want to debug your tests, run `npm run test:watch`.
 Your test environment will be kept active and listen to changes made in .test.js files.
 
 You are given the following options in the terminal
@@ -65,15 +53,14 @@ Press `m` to start debugging in your custom browser, followed by `d` to open you
 In the browser you will see the available test files. Click on a file to start debugging.
 
 ## Scripts
-- `lint` runs the linter for your project
-- `format` runs the formatter for your project
-- `test` runs your test suite with Web Test Runner
-- `test:watch` runs your test suite with Web Test Runner while watching file changes
+- `start` runs your app for development, reloading on file changes
+- `build` builds your app and outputs it in your `dist` directory
 - `storybook` runs the web-component playground for your project
 - `storybook:build` builds the web-component playground for your project
-- `build` builds your app and outputs it in your `dist` directory
-- `start:build` runs your app after it has been built using the build command
-- `start` runs your app for development, reloading on file changes
+- `test` runs your test suite with Web Test Runner
+- `test:watch` runs your test suite with Web Test Runner while watching file changes
+- `lint` runs the linter for your project
+- `format` runs the formatter for your project
 
 ## Tooling configs
 For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.

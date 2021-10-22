@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
+  <meta name='Description' content='Web-components related to the ARC design system'>
+  <base href='/'>
+
+  <title>ARC</title>
+
+  <link crossorigin='anonymous' href='src/styles/index.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='src/styles/light.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='src/styles/dark.css' rel='stylesheet'>
+</head>
+
+<body>
+  <arc-container>
+    <arc-navbar slot='nav'>
+      <arc-button type='tab'>
+        Test Tab
+      </arc-button>
+    </arc-navbar>
+    <arc-sidebar slot='side'>
+      <div>Something in the sidebar</div>
+    </arc-sidebar>
+  </arc-container>
+
+  <script type="module">
+    import '../dist/src/components/container/arc-container.js';
+    import '../dist/src/components/navbar/arc-navbar.js';
+    import '../dist/src/components/sidebar/arc-sidebar.js';
+    import '../dist/src/components/button/arc-button.js';
+  </script>
+</body>
+</html>

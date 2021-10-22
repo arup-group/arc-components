@@ -3,7 +3,7 @@ import '../../src/components/container/arc-container.js';
 import '../../src/components/navbar/arc-navbar.js';
 import '../../src/components/button/arc-button.js';
 
-const arcLogo = new URL('../../../assets/arc-red.svg', import.meta.url).href;
+const arcLogo = new URL('../assets/arc-red.svg', import.meta.url).href;
 
 export default {
   title: 'ArcNavbar',

@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { componentStyles } from '../../styles/component.styles.js';
+import { componentStyles } from '../styles/component.styles.js';
 
 export class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';

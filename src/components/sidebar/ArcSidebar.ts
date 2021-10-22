@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { componentStyles } from '../../styles/component.styles.js';
+import { componentStyles } from '../styles/component.styles.js';
 
 import '../icon/arc-icon.js';
 

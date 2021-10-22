@@ -1,13 +1,12 @@
 import { css, html, LitElement } from 'lit';
-import { fileURLToPath } from 'url';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { componentStyles } from '../../styles/component.styles.js';
+import { componentStyles } from '../styles/component.styles.js';
 
 import { ICON_SIZES } from './constants/IconConstants.js';
 
-const arcIcons = new URL('../../../assets/icons.svg', fileURLToPath(import.meta.url)).href;
+const arcIcons = new URL('../../../src/assets/icons.svg', import.meta.url).href;
 
 export class ArcIcon extends LitElement {
   static tag = 'arc-icon';

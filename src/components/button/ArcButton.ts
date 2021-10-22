@@ -2,7 +2,7 @@ import { css, unsafeCSS, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { componentStyles } from '../../styles/component.styles.js';
+import { componentStyles } from '../styles/component.styles.js';
 
 import '../icon/arc-icon.js';
 

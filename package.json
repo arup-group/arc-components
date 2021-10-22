@@ -4,10 +4,10 @@
   "license": "MIT",
   "author": "arc-component",
   "version": "0.0.0",
-  "main": "dist/src/arc.js",
-  "module": "dist/src/arc.js",
+  "main": "dist/arc.js",
+  "module": "dist/arc.js",
   "exports": {
-    ".": "./dist/src/arc.js"
+    ".": "./dist/arc.js"
   },
   "scripts": {
     "analyze": "cem analyze --litelement",

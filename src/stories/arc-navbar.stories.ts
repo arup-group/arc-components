@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit';
-import '../../src/components/container/arc-container.js';
-import '../../src/components/navbar/arc-navbar.js';
-import '../../src/components/button/arc-button.js';
+import '../components/container/arc-container.js';
+import '../components/navbar/arc-navbar.js';
+import '../components/button/arc-button.js';
 
 const arcLogo = new URL('../assets/arc-red.svg', import.meta.url).href;
 

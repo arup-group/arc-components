@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { componentStyles } from '../styles/component.styles.js';
+import { componentStyles } from '../../styles/component.styles.js';
 
 import '../icon/arc-icon.js';
 
@@ -50,7 +50,8 @@ export class ArcSidebar extends LitElement {
         color: rgb(var(--arc-font-color));
       }
 
-      #toggleOpen:hover, #toggleClose:hover {
+      #toggleOpen:hover,
+      #toggleClose:hover {
         cursor: pointer;
       }
 
@@ -59,8 +60,8 @@ export class ArcSidebar extends LitElement {
       #toggleOpen {
         background: rgb(var(--arc-container-color));
       }
-    `
-  ]
+    `,
+  ];
 
   @property({ type: Boolean, reflect: true })
   open: boolean = true;
@@ -69,39 +70,41 @@ export class ArcSidebar extends LitElement {
   sidebar!: HTMLElement;
 
   _handleSlots = (e: any) => {
-    const childNodes = e.target.assignedElements({flatten: true});
+    const childNodes = e.target.assignedElements({ flatten: true });
 
     if (childNodes.length > 1) {
-      this.sidebar.classList.add('gap')
+      this.sidebar.classList.add('gap');
     }
-  }
+  };
 
   _toggleOpenState = () => {
     this.open = !this.open;
     this._dispatchOpenState();
-  }
+  };
 
   private _dispatchOpenState = () => {
     const options = {
       detail: { open: this.open },
       bubbles: true,
-      composed: true
-    }
+      composed: true,
+    };
     this.dispatchEvent(new CustomEvent(`${this.open ? 'arc-show' : 'arc-hide'}`, options));
-  }
+  };
 
   render() {
     return html`
-      ${this.open ? html`
-        <div id='sidebar'>
-          <arc-icon id='toggleClose' name='arrow-left' @click=${this._toggleOpenState}></arc-icon>
-          <slot @slotchange=${this._handleSlots}></slot>
-        </div>
-      ` : html`
-        <button id='toggleOpen' @click=${this._toggleOpenState}>
-          <arc-icon name='arrow-right'></arc-icon>
-        </button>
-      `}
-    `
+      ${this.open
+        ? html`
+            <div id="sidebar">
+              <arc-icon id="toggleClose" name="arrow-left" @click=${this._toggleOpenState}></arc-icon>
+              <slot @slotchange=${this._handleSlots}></slot>
+            </div>
+          `
+        : html`
+            <button id="toggleOpen" @click=${this._toggleOpenState}>
+              <arc-icon name="arrow-right"></arc-icon>
+            </button>
+          `}
+    `;
   }
 }

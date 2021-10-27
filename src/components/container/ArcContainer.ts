@@ -1,10 +1,9 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
-import { componentStyles } from '../styles/component.styles.js';
-
-import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
+import { componentStyles } from '../../styles/component.styles.js';
 
 import { isNight } from '../../utilities/date-utils.js';
+import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
 export class ArcContainer extends LitElement {
   static tag = 'arc-container';
@@ -81,18 +80,18 @@ export class ArcContainer extends LitElement {
     }
   }
 
-  getTheme = (date?: Date) => isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light
+  getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);
 
   render() {
     return html`
-      <main id='main'>
-        <slot id='nav' name='nav'></slot>
-        <div id='container'>
-          <slot name='side'></slot>
-          <div id='content'><slot></slot></div>
+      <main id="main">
+        <slot id="nav" name="nav"></slot>
+        <div id="container">
+          <slot name="side"></slot>
+          <div id="content"><slot></slot></div>
         </div>
-        <slot name='bottom'>
-          <arc-bottombar id='bottom'>DEFAULT BOTTOM BAR</arc-bottombar>
+        <slot name="bottom">
+          <arc-bottombar id="bottom">DEFAULT BOTTOM BAR</arc-bottombar>
         </slot>
       </main>
     `;

@@ -2,7 +2,7 @@ import { css, unsafeCSS, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { componentStyles } from '../styles/component.styles.js';
+import { componentStyles } from '../../styles/component.styles.js';
 
 import '../icon/arc-icon.js';
 
@@ -21,7 +21,9 @@ export class ArcButton extends LitElement {
         --min-width: 0;
       }
 
-      :host *, :host ::before, :host ::after {
+      :host *,
+      :host ::before,
+      :host ::after {
         box-sizing: inherit;
       }
 
@@ -72,7 +74,10 @@ export class ArcButton extends LitElement {
       }
 
       /* Hover */
-      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:hover {
+      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(
+              BUTTON_TYPES.outlined
+            )}']):not([disabled]))
+        #button:hover {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
@@ -186,14 +191,10 @@ export class ArcButton extends LitElement {
     const getColor = () => {
       switch (this.type) {
         case BUTTON_TYPES.outlined: {
-          return this.color === BUTTON_COLORS.default
-            ? 'rgb(var(--arc-font-color))'
-            : 'var(--btn-background)';
+          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-font-color))' : 'var(--btn-background)';
         }
         case BUTTON_TYPES.tab: {
-          return this.color === BUTTON_COLORS.default
-            ? 'rgb(var(--arc-color-primary))'
-            : 'var(--btn-background)';
+          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
         }
         default: {
           return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary
@@ -211,35 +212,40 @@ export class ArcButton extends LitElement {
     };
 
     const interior = html`
-      <slot name='prefix'></slot>
-      <slot id='label'></slot>
-      <slot name='suffix'></slot>
-      ${this.loading ? html`<arc-icon id='loader' name='refresh' spinning></arc-icon>` : null}
+      <slot name="prefix"></slot>
+      <slot id="label"></slot>
+      <slot name="suffix"></slot>
+      ${this.loading ? html`<arc-icon id="loader" name="refresh" spinning></arc-icon>` : null}
     `;
 
     return html`
-      ${this.href ? html`
-        <a
-          id='button'
-          style=${styleMap(btnStyles)}
-          href=${this.href}
-          .target='${ifDefined(this.target)}'
-          .download='${ifDefined(this.download)}'
-          .rel='${ifDefined(this.target && 'noreferrer noopener')}'
-          role='button'
-          aria-disabled='${this.disabled ? 'true' : 'false'}'
-          tabindex='${this.disabled ? '-1' : '0'}'
-          @click=${this.handleClick}
-        >${interior}</a>
-      ` : html`
-        <button
-          id='button'
-          style=${styleMap(btnStyles)}
-          ?disabled=${this.disabled}
-          type=${this.submit ? "submit" : "button"}
-          @click=${this.handleClick}
-        >${interior}</button>
-      `}
+      ${this.href
+        ? html`
+            <a
+              id="button"
+              style=${styleMap(btnStyles)}
+              href=${this.href}
+              .target="${ifDefined(this.target)}"
+              .download="${ifDefined(this.download)}"
+              .rel="${ifDefined(this.target && 'noreferrer noopener')}"
+              role="button"
+              aria-disabled="${this.disabled ? 'true' : 'false'}"
+              tabindex="${this.disabled ? '-1' : '0'}"
+              @click=${this.handleClick}
+              >${interior}</a
+            >
+          `
+        : html`
+            <button
+              id="button"
+              style=${styleMap(btnStyles)}
+              ?disabled=${this.disabled}
+              type=${this.submit ? 'submit' : 'button'}
+              @click=${this.handleClick}
+            >
+              ${interior}
+            </button>
+          `}
     `;
   }
 }

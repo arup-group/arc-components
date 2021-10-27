@@ -1,10 +1,8 @@
 import { html, TemplateResult } from 'lit';
-import '../components/button/arc-button.js';
-import '../components/icon/arc-icon.js';
+import './arc-button.js';
+import '../icon/arc-icon.js';
 
-import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from '../components/button/constants/ButtonConstants.js';
-
-const arcLogo = new URL('../assets/arc-red.svg', import.meta.url).href;
+import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './constants/ButtonConstants.js';
 
 export default {
   title: 'ArcButton',
@@ -62,7 +60,7 @@ export default {
       description: 'Indicates if activating the button should submit the form. Ignored when href is set.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
-    }
+    },
   },
 };
 
@@ -73,37 +71,50 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  label: string,
-  type: string,
-  color: string,
-  size: string,
-  active: boolean,
-  disabled: boolean,
-  loading: boolean,
-  submit: boolean,
-  href: string | undefined,
-  target: string | undefined,
-  download: string | undefined,
-  prefix: boolean | undefined,
-  suffix: boolean | undefined
+  label: string;
+  type: string;
+  color: string;
+  size: string;
+  active: boolean;
+  disabled: boolean;
+  loading: boolean;
+  submit: boolean;
+  href: string | undefined;
+  target: string | undefined;
+  download: string | undefined;
+  prefix: boolean | undefined;
+  suffix: boolean | undefined;
 }
 
-const Template: Story<ArgTypes> = ({ label, type, color, size, href, target, download, active, disabled, loading, submit, prefix, suffix }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({
+  label,
+  type,
+  color,
+  size,
+  href,
+  target,
+  download,
+  active,
+  disabled,
+  loading,
+  submit,
+  prefix,
+  suffix,
+}: ArgTypes) => html`
   <arc-button
-    type='${type}'
-    color='${color}'
-    size='${size}'
-    .href='${href}'
-    .target='${target}'
-    .download='${download}'
-    ?active='${active}'
-    ?disabled='${disabled}'
-    ?loading='${loading}'
-    ?submit='${submit}'
+    type="${type}"
+    color="${color}"
+    size="${size}"
+    .href="${href}"
+    .target="${target}"
+    .download="${download}"
+    ?active="${active}"
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+    ?submit="${submit}"
   >
-    ${prefix ? html`<arc-icon slot='prefix' name='home'></arc-icon>` : null}
-    ${label.toUpperCase()}
-    ${suffix ? html`<arc-icon slot='suffix' name='settings'></arc-icon>` : null}
+    ${prefix ? html`<arc-icon slot="prefix" name="home"></arc-icon>` : null} ${label.toUpperCase()}
+    ${suffix ? html`<arc-icon slot="suffix" name="settings"></arc-icon>` : null}
   </arc-button>
 `;
 
@@ -137,10 +148,10 @@ Tile.args = { ...defaultArgs, label: BUTTON_TYPES.tile, type: BUTTON_TYPES.tile 
 Outlined.args = { ...defaultArgs, label: BUTTON_TYPES.outlined, type: BUTTON_TYPES.outlined };
 Pill.args = { ...defaultArgs, label: BUTTON_TYPES.pill, type: BUTTON_TYPES.pill };
 Tab.args = { ...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab };
-Link.args = { ... defaultArgs, label: 'Link', href: '/' };
-LinkNewWindow.args = { ... Link.args, label: 'New Window', target: '_blank' };
-LinkDownload.args = { ... Link.args, label: 'Download', href: arcLogo, download: 'ARC Logo' };
-LinkDisabled.args = { ... Link.args, label: 'Disabled', disabled: true };
+Link.args = { ...defaultArgs, label: 'Link', href: '/' };
+LinkNewWindow.args = { ...Link.args, label: 'New Window', target: '_blank' };
+LinkDownload.args = { ...Link.args, label: 'Download', download: 'ARC Storybook' };
+LinkDisabled.args = { ...Link.args, label: 'Disabled', disabled: true };
 
 // SLOTS
 export const Prefix = Template.bind({});

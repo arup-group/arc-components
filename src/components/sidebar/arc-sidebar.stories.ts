@@ -1,8 +1,6 @@
 import { html, TemplateResult } from 'lit';
-import '../components/container/arc-container.js';
-import '../components/sidebar/arc-sidebar.js';
-
-const arcLogo = new URL('../assets/arc-red.svg', import.meta.url).href;
+import '../container/arc-container.js';
+import './arc-sidebar.js';
 
 export default {
   title: 'ArcSidebar',
@@ -27,7 +25,7 @@ export default {
       table: {
         category: 'CSS Variables',
       },
-    }
+    },
   },
   parameters: {
     actions: {
@@ -43,14 +41,14 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  gap: string,
-  width: string,
+  gap: string;
+  width: string;
 }
 
 const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`
   <arc-container>
-    <arc-navbar slot='nav' .logo='${arcLogo}'></arc-navbar>
-    <arc-sidebar slot="side" style='--gap-distance: ${gap}; --sidebar-width: ${width}'>
+    <arc-navbar slot="nav"></arc-navbar>
+    <arc-sidebar slot="side" style="--gap-distance: ${gap}; --sidebar-width: ${width}">
       <div>Side block 1</div>
       <div>Side block 2</div>
     </arc-sidebar>
@@ -62,4 +60,3 @@ Default.args = {
   gap: 'var(--arc-spacing-normal)',
   width: 'clamp(15rem, 30%, var(--arc-sidebar-width))',
 };
-

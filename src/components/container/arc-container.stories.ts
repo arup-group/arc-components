@@ -1,10 +1,8 @@
 import { html, TemplateResult } from 'lit';
-import '../components/container/arc-container.js';
-import '../components/navbar/arc-navbar.js';
-import '../components/sidebar/arc-sidebar.js';
-import '../components/button/arc-button.js';
-
-const arcLogo = new URL('../assets/arc-red.svg', import.meta.url).href;
+import './arc-container.js';
+import '../navbar/arc-navbar.js';
+import '../sidebar/arc-sidebar.js';
+import '../button/arc-button.js';
 
 export default {
   title: 'ArcContainer',
@@ -26,16 +24,16 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  theme: string,
+  theme: string;
 }
 
 const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
   <arc-container .theme=${theme}>
-    <arc-navbar slot='nav' logo='${arcLogo}'>
-      <span slot='name'>WebComponents</span>
-      <arc-button type='tab'>Link 1</arc-button>
-      <arc-button type='tab'>Link 2</arc-button>
-      <arc-button type='tab'>Link 3</arc-button>
+    <arc-navbar slot="nav">
+      <span slot="name">WebComponents</span>
+      <arc-button type="tab">Link 1</arc-button>
+      <arc-button type="tab">Link 2</arc-button>
+      <arc-button type="tab">Link 3</arc-button>
     </arc-navbar>
     <arc-sidebar slot="side">
       <div></div>

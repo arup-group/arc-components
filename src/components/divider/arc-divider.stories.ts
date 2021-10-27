@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit';
-import '../components/divider/arc-divider.js';
+import './arc-divider.js';
 
-import { DIVIDER_TYPES } from '../components/divider/constants/DividerConstants.js';
+import { DIVIDER_TYPES } from './constants/DividerConstants.js';
 
 export default {
   title: 'ArcDivider',
@@ -17,7 +17,7 @@ export default {
         type: { summary: 'string' },
         category: 'Properties',
       },
-    }
+    },
   },
 };
 
@@ -28,12 +28,12 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  type: string,
+  type: string;
 }
 
 const Template: Story<ArgTypes> = ({ type }: ArgTypes) => html`
   <div>Some content</div>
-  <arc-divider type='${type}'></arc-divider>
+  <arc-divider type="${type}"></arc-divider>
   <div>Some more content</div>
 `;
 
@@ -43,8 +43,7 @@ Default.args = {
 };
 
 export const Dotted = Template.bind({});
-Dotted.args = { ...Default.args, type: DIVIDER_TYPES.dotted }
+Dotted.args = { ...Default.args, type: DIVIDER_TYPES.dotted };
 
 export const Dashed = Template.bind({});
-Dashed.args = { ...Default.args, type: DIVIDER_TYPES.dashed }
-
+Dashed.args = { ...Default.args, type: DIVIDER_TYPES.dashed };

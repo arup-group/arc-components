@@ -1,9 +1,7 @@
 import { html, TemplateResult } from 'lit';
-import '../components/container/arc-container.js';
-import '../components/navbar/arc-navbar.js';
-import '../components/button/arc-button.js';
-
-const arcLogo = new URL('../assets/arc-red.svg', import.meta.url).href;
+import '../container/arc-container.js';
+import './arc-navbar.js';
+import '../button/arc-button.js';
 
 export default {
   title: 'ArcNavbar',
@@ -37,28 +35,25 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  arup: boolean,
-  logo: string,
-  subBranding: string,
-  tabs: number,
-  height: string,
+  arup: boolean;
+  subBranding: string;
+  tabs: number;
+  height: string;
 }
 
-const Template: Story<ArgTypes> = ({ arup, logo, subBranding, tabs, height }: ArgTypes) => html`
-  <arc-navbar slot='nav' style='height: ${height}' arup='${arup}' logo='${logo}' tabs='${tabs}'>
-    <span slot='name'>${subBranding}</span>
-    <arc-button type='tab'>Link 1</arc-button>
-    <arc-button type='tab'>Link 2</arc-button>
-    <arc-button type='tab'>Link 3</arc-button>
+const Template: Story<ArgTypes> = ({ arup, subBranding, tabs, height }: ArgTypes) => html`
+  <arc-navbar slot="nav" style="height: ${height}" arup="${arup}" tabs="${tabs}">
+    <span slot="name">${subBranding}</span>
+    <arc-button type="tab">Link 1</arc-button>
+    <arc-button type="tab">Link 2</arc-button>
+    <arc-button type="tab">Link 3</arc-button>
   </arc-navbar>
 `;
 
 export const Default = Template.bind({});
 Default.args = {
   arup: true,
-  logo: arcLogo,
   subBranding: 'Web Components',
   tabs: 5,
   height: 'var(--arc-navbar-height)',
 };
-

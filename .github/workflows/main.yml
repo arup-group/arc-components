@@ -61,7 +61,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_bucket: arup-arc-components
           source_dir: src/styles/
-          destination_dir: styles
+          destination_dir: src/styles
 
       - name: Upload Storybook to S3
         uses: shallwefootball/upload-s3-action@v1.1.3

@@ -29,8 +29,8 @@ jobs:
       - name: Install packages
         run: yarn install
 
-#      - name: Test components
-#        run: yarn test
+      - name: Test components
+        run: yarn test
 
       - name: Build
         run: yarn storybook:build

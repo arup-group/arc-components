@@ -62,18 +62,20 @@ You are given the following options in the terminal
 
 Press `m` to start debugging in your custom browser, followed by `d` to open your default browser.
 
-In the browser you will see the available test files. Click on a file to start debugging.
+In the browser you will see the available test files. Click on one of the links to start debugging that specific component or utility.
+
+Press `F12` to open the DevTools, then navigate to the Sources tab. 
+Select the component/utility to debug from within the src/components directory or src/utilities directory.
+
+That's it!
 
 ## Scripts
+- `analyze` creates a custom-elements manifest file
 - `start` runs your app for development, reloading on file changes
 - `build` builds your app and outputs it in your `dist` directory
-- `storybook` runs the web-component playground for your project
-- `storybook:build` builds the web-component playground for your project
-- `test` runs your test suite with Web Test Runner
-- `test:watch` runs your test suite with Web Test Runner while watching file changes
 - `lint` runs the linter for your project
 - `format` runs the formatter for your project
-
-## Tooling configs
-For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
-If you customize the configuration a lot, you can consider moving them to individual files.
+- `test` runs your test suite with Web Test Runner
+- `test:watch` runs your test suite with Web Test Runner while watching file changes
+- `storybook` runs the web-component playground for your project
+- `storybook:build` builds the web-component playground for your project

@@ -10,7 +10,7 @@
     ".": "./dist/arc.js"
   },
   "engines": {
-    "node": ">=14.15.4"
+    "node": ">=15.0.1"
   },
   "scripts": {
     "analyze": "cem analyze --litelement",

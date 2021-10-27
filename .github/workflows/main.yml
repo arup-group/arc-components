@@ -54,15 +54,6 @@ jobs:
           source_dir: src/assets/
           destination_dir: assets
 
-      - name: Upload components to S3
-        uses: shallwefootball/upload-s3-action@v1.1.3
-        with:
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_bucket: arup-arc-components
-          source_dir: dist/
-          destination_dir: .
-
       - name: Upload styles to S3
         uses: shallwefootball/upload-s3-action@v1.1.3
         with:

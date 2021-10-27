@@ -13,30 +13,29 @@
     "node": ">=15.0.1"
   },
   "scripts": {
-    "analyze": "cem analyze --litelement",
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && yarn run analyze -- --exclude dist",
-    "prepublish": "tsc && yarn run analyze -- --exclude dist",
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "tsc && yarn run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && yarn run analyze -- --exclude dist && build-storybook"
+    "storybook:build": "tsc && yarn run analyze -- --exclude dist && build-storybook",
+    "build": "tsc && yarn run analyze -- --exclude dist",
+    "analyze": "cem analyze --litelement",
+    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
   },
   "dependencies": {
     "@web/dev-server-esbuild": "^0.2.14",
     "lit": "^2.0.2"
   },
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.4.17",
+    "@custom-elements-manifest/analyzer": "^0.5.3",
     "@open-wc/dev-server-hmr": "^0.1.2",
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/testing": "next",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@web/dev-server": "^0.1.25",
-    "@web/dev-server-storybook": "next",
+    "@web/dev-server-storybook": "^0.3.8",
     "@web/test-runner": "next",
     "concurrently": "^5.3.0",
     "eslint": "^7.32.0",
@@ -64,5 +63,5 @@
       "stylelint --fix"
     ]
   },
-  "customElements": "custom-elements.json"
+  "customElements": "./custom-elements.json"
 }

@@ -6,7 +6,7 @@
   "version": "0.0.0",
   "main": "dist/arc.js",
   "module": "dist/arc.js",
-  "customElements": "custom-elements.json",
+  "customElements": "dist/custom-elements.json",
   "type": "module",
   "types": "dist/arc.d.ts",
   "exports": {
@@ -16,16 +16,17 @@
     "node": ">=16.13.0"
   },
   "scripts": {
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\" && yarn run make-styles",
-    "build": "yarn run format && tsc && yarn run analyze --exclude dist && yarn run make-styles",
-    "storybook": "tsc && yarn run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"  && yarn run make-styles",
-    "storybook:build": "yarn run format tsc && yarn run analyze --exclude dist && build-storybook && yarn run make-styles",
-    "test": "tsc && wtr --coverage",
-    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
+    "analyze": "cem analyze --litelement",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "make-styles": "node scripts/make-css.js --outdir dist",
-    "analyze": "cem analyze --litelement"
+    "styles": "node scripts/make-css.js --outdir dist",
+    "test": "tsc && wtr --coverage",
+    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
+    "storybook": "tsc && yarn run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
+    "storybook:build": "tsc && yarn run analyze -- --exclude dist && build-storybook",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn run analyze -- --exclude dist",
+    "start:build": "web-dev-server --root-dir dist --app-index index.html --open",
+    "start": "tsc && yarn styles && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
   },
   "dependencies": {
     "@web/dev-server-esbuild": "^0.2.14",

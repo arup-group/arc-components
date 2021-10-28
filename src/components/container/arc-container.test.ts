@@ -16,8 +16,7 @@ describe('ArcContainer', () => {
   describe('rendering', () => {
     let element: ArcContainer;
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-container></arc-container>`);
+      element = await fixture(html` <arc-container></arc-container>`);
     });
 
     // Test default properties that reflect to the DOM
@@ -38,14 +37,14 @@ describe('ArcContainer', () => {
   // Test the setters/getters
   describe('setters/getters', () => {
     it('renders the element with a custom theme property', async () => {
-      const element: ArcContainer = await fixture(html`<arc-container theme='test-theme'></arc-container>`);
+      const element: ArcContainer = await fixture(html`<arc-container theme="test-theme"></arc-container>`);
 
       expect(element.theme).to.equal('test-theme');
       expect(element.getAttribute('theme')).to.equal('test-theme');
     });
 
     it('renders a theme based on the time of day', async () => {
-      const element: ArcContainer = await fixture(html`<arc-container theme='auto'></arc-container>`);
+      const element: ArcContainer = await fixture(html`<arc-container theme="auto"></arc-container>`);
 
       if (isNight()) {
         expect(element.theme).to.equal(CONTAINER_THEMES.dark);
@@ -128,10 +127,9 @@ describe('ArcContainer', () => {
       expect(getPropertyValue(element, '--bottom-height')).to.equal('');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcContainer = await fixture(html`<arc-container style='--bottom-height:30rem'></arc-container>`);
+      const element: ArcContainer = await fixture(html`<arc-container style="--bottom-height:30rem"></arc-container>`);
 
       expect(getPropertyValue(element, '--bottom-height')).to.equal('30rem');
     });
-
   });
 });

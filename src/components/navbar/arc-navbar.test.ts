@@ -12,7 +12,7 @@ describe('ArcNavbar', () => {
   // Test the rendering of the component
   describe('rendering', () => {
     let element: ArcNavbar;
-    beforeEach(async() => {
+    beforeEach(async () => {
       element = await fixture(html`<arc-navbar></arc-navbar>`);
     });
 
@@ -30,30 +30,30 @@ describe('ArcNavbar', () => {
   // Test the setters/getters
   describe('setters/getters', () => {
     it('renders the navbar with a custom logo property', async () => {
-      const element: ArcNavbar = await fixture(html`<arc-navbar logo='myURL'></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar logo="myURL"></arc-navbar>`);
       const toolLogo = element.shadowRoot!.querySelector('#tool-logo')!;
       expect(toolLogo).to.exist;
 
       expect(element.logo).to.equal('myURL');
       expect(element.getAttribute('logo')).to.equal('myURL');
       expect(toolLogo.getAttribute('src')).to.equal('myURL');
-    })
+    });
 
     it('renders the navbar without an Arup logo', async () => {
-      const element: ArcNavbar = await fixture(html`<arc-navbar arup='false'></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar arup="false"></arc-navbar>`);
       const companyLogo = element.shadowRoot!.querySelector('#company-logo')!;
       expect(companyLogo).to.be.null;
 
       expect(element.arup).to.equal(false);
-      expect(element.hasAttribute('arup')).to.be.false
-    })
+      expect(element.hasAttribute('arup')).to.be.false;
+    });
 
     it('renders the navbar with a custom tabs property', async () => {
-      const element: ArcNavbar = await fixture(html`<arc-navbar tabs='3'></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar tabs="3"></arc-navbar>`);
 
       expect(element.tabs).to.equal(3);
       expect(element.getAttribute('tabs')).to.equal('3');
-    })
+    });
   });
 
   // Test the component responsiveness
@@ -64,22 +64,22 @@ describe('ArcNavbar', () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-        <arc-navbar tabs='2'>
-          <span slot='name'>Custom Brand</span>
-          <arc-button type='tab'>1</arc-button>
-          <arc-button type='tab'>2</arc-button>
-          <arc-button type='tab'>3</arc-button>
+        <arc-navbar tabs="2">
+          <span slot="name">Custom Brand</span>
+          <arc-button type="tab">1</arc-button>
+          <arc-button type="tab">2</arc-button>
+          <arc-button type="tab">3</arc-button>
         </arc-navbar>
-      `)
+      `);
       toolName = element.shadowRoot!.getElementById('tool-name')!;
       tabContainer = element.shadowRoot!.getElementById('tabs')!;
-    })
+    });
     it('shows the correct elements on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
 
       expect(getPropertyValue(toolName, 'display')).to.equal('block');
       expect(getPropertyValue(tabContainer, 'display')).to.equal('grid');
-    })
+    });
     it('shows the correct elements on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
 
@@ -95,13 +95,13 @@ describe('ArcNavbar', () => {
       expect(getPropertyValue(tabContainer, 'display')).to.equal('none');
 
       // TODO: ARC-12 Write a test once the arc-dropdown functionality is added
-    })
+    });
   });
 
   // Test whether the slots can be filled and that they exist
   describe('slots', () => {
     let element: ArcNavbar;
-    beforeEach(async() => {
+    beforeEach(async () => {
       element = await fixture(html`<arc-navbar></arc-navbar>`);
     });
 
@@ -111,7 +111,7 @@ describe('ArcNavbar', () => {
 
       expect(leftContainer.querySelector('slot[name="name"]')).to.exist;
       expect(rightContainer.querySelector('slot')).to.exist;
-    })
+    });
   });
 
   // Test the css variables that can be overwritten
@@ -122,10 +122,9 @@ describe('ArcNavbar', () => {
       expect(getPropertyValue(element, 'height')).to.equal('auto');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcNavbar = await fixture(html`<arc-navbar style='height:30px'></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar style="height:30px"></arc-navbar>`);
 
       expect(getPropertyValue(element, 'height')).to.equal('30px');
-    })
-
+    });
   });
-})
+});

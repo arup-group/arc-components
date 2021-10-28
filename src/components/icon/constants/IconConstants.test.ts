@@ -1,4 +1,4 @@
-import { expect } from "@open-wc/testing";
+import { expect } from '@open-wc/testing';
 
 import { ICON_SIZES } from './IconConstants.js';
 
@@ -11,5 +11,5 @@ describe('ButtonConstants', () => {
     expect(keys).to.contain('small');
     expect(keys).to.contain('medium');
     expect(keys).to.contain('large');
-  })
-})
+  });
+});

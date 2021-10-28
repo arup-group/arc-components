@@ -10,7 +10,7 @@ describe('ArcDivider', () => {
   // Test the rendering of the component
   describe('rendering', () => {
     let element: ArcDivider;
-    beforeEach(async() => {
+    beforeEach(async () => {
       element = await fixture(html`<arc-divider></arc-divider>`);
     });
 
@@ -58,4 +58,4 @@ describe('ArcDivider', () => {
   //       expect(computedStyles.getPropertyValue('--customCssVariable')).to.equal('customValue');
   //   })
   // });
-})
+});

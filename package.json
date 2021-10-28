@@ -6,7 +6,9 @@
   "version": "0.0.0",
   "main": "dist/arc.js",
   "module": "dist/arc.js",
-  "customElements": "dist/custom-elements.json",
+  "customElements": "custom-elements.json",
+  "type": "module",
+  "types": "dist/arc.d.ts",
   "exports": {
     ".": "./dist/arc.js"
   },
@@ -14,15 +16,16 @@
     "node": ">=16.13.0"
   },
   "scripts": {
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
+    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\" && yarn run make-styles",
+    "build": "yarn run format && tsc && yarn run analyze --exclude dist && yarn run make-styles",
+    "storybook": "tsc && yarn run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"  && yarn run make-styles",
+    "storybook:build": "yarn run format tsc && yarn run analyze --exclude dist && build-storybook && yarn run make-styles",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "tsc && yarn run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && yarn run analyze -- --exclude dist && build-storybook",
-    "build": "tsc && yarn run analyze -- --exclude dist",
-    "analyze": "cem analyze --litelement",
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "make-styles": "node scripts/make-css.js --outdir dist",
+    "analyze": "cem analyze --litelement"
   },
   "dependencies": {
     "@web/dev-server-esbuild": "^0.2.14",
@@ -38,15 +41,18 @@
     "@web/dev-server": "^0.1.25",
     "@web/dev-server-storybook": "^0.3.8",
     "@web/test-runner": "next",
+    "chalk": "^4.1.2",
+    "command-line-args": "^5.2.0",
     "concurrently": "^5.3.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "globby": "^12.0.2",
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
+    "mkdirp": "^1.0.4",
     "prettier": "^2.4.1",
     "sinon": "^11.1.2",
-    "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0",
+    "strip-css-comments": "^5.0.0",
     "tslib": "^2.3.1",
     "typescript": "^4.4.4"
   },
@@ -59,9 +65,6 @@
     "src/**/*.ts": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "src/**/*.css": [
-      "stylelint --fix"
     ]
   }
 }

@@ -5,8 +5,7 @@ import { CONTAINER_THEMES } from './ContainerConstants.js';
 describe('ContainerThemes', () => {
   it('should contain the basic Arc themes', () => {
     expect(CONTAINER_THEMES).to.exist;
-    const keys: Array<keyof typeof CONTAINER_THEMES> =
-      Object.keys(CONTAINER_THEMES);
+    const keys: Array<keyof typeof CONTAINER_THEMES> = Object.keys(CONTAINER_THEMES);
 
     expect(keys.length).to.be.greaterThan(0);
     expect(keys).to.contain('auto');

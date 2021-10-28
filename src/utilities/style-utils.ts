@@ -3,6 +3,4 @@ function getPropertyValue(element: any, property: string) {
   return computedStyles.getPropertyValue(property).trim();
 }
 
-export {
-  getPropertyValue
-}
+export { getPropertyValue };

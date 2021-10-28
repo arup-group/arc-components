@@ -4,12 +4,10 @@ function emit(element: any, name: string, options?: {}) {
     cancelable: false,
     composed: true,
     detail: {},
-    ...options
+    ...options,
   });
   element.dispatchEvent(event);
   return event;
 }
 
-export {
-  emit
-};
+export { emit };

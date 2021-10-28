@@ -4,6 +4,4 @@ function isNight(date?: Date) {
   return currTime >= 19 || currTime < 7;
 }
 
-export {
-  isNight
-}
+export { isNight };

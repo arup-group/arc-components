@@ -3,6 +3,8 @@ import '../container/arc-container.js';
 import './arc-navbar.js';
 import '../button/arc-button.js';
 
+import { getBasePath } from '../../utilities/base-path.js';
+
 export default {
   title: 'ArcNavbar',
   component: 'arc-navbar',
@@ -30,6 +32,7 @@ export default {
 
 interface Story<T> {
   (args: T): TemplateResult;
+
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
@@ -42,7 +45,13 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ arup, subBranding, tabs, height }: ArgTypes) => html`
-  <arc-navbar slot="nav" style="height: ${height}" arup="${arup}" tabs="${tabs}">
+  <arc-navbar
+    slot="nav"
+    logo="${getBasePath()}/assets/arc-red.svg"
+    style="height: ${height}"
+    arup="${arup}"
+    tabs="${tabs}"
+  >
     <span slot="name">${subBranding}</span>
     <arc-button type="tab">Link 1</arc-button>
     <arc-button type="tab">Link 2</arc-button>

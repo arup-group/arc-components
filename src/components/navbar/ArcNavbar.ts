@@ -2,7 +2,6 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { componentStyles } from '../../styles/component.styles.js';
 
-import { arcIcon } from './arc-icon.js';
 import { arupLogo } from './arup-logo.js';
 
 export class ArcNavbar extends LitElement {
@@ -36,8 +35,7 @@ export class ArcNavbar extends LitElement {
         justify-content: flex-start;
       }
 
-      #tool-logo + #tool-name,
-      #arc-logo + #tool-name {
+      #tool-logo + #tool-name {
         display: none;
         margin-left: var(--arc-spacing-small);
       }
@@ -67,14 +65,12 @@ export class ArcNavbar extends LitElement {
 
       /* Logo's */
       #tool-logo,
-      #arc-logo,
       #company-logo {
         height: var(--arc-brand-height);
         width: auto;
       }
 
       #tool-logo,
-      #arc-logo,
       #company-logo,
       #tool-name {
         align-self: center;
@@ -91,8 +87,7 @@ export class ArcNavbar extends LitElement {
           margin-left: var(--arc-spacing-medium);
         }
 
-        #tool-logo + #tool-name,
-        #arc-logo + #tool-name {
+        #tool-logo + #tool-name {
           display: block;
         }
       }
@@ -127,7 +122,7 @@ export class ArcNavbar extends LitElement {
     return html`
       <main id="main">
         <div id="left">
-          ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : html`${arcIcon}`}
+          ${this.logo && html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`}
           <div id="tool-name"><slot name="name"></slot></div>
         </div>
         <div id="right">

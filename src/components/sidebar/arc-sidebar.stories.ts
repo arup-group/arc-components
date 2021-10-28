@@ -2,6 +2,8 @@ import { html, TemplateResult } from 'lit';
 import '../container/arc-container.js';
 import './arc-sidebar.js';
 
+import { getBasePath } from '../../utilities/base-path.js';
+
 export default {
   title: 'ArcSidebar',
   component: 'arc-sidebar',
@@ -36,6 +38,7 @@ export default {
 
 interface Story<T> {
   (args: T): TemplateResult;
+
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
@@ -47,7 +50,7 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`
   <arc-container>
-    <arc-navbar slot="nav"></arc-navbar>
+    <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg"></arc-navbar>
     <arc-sidebar slot="side" style="--gap-distance: ${gap}; --sidebar-width: ${width}">
       <div>Side block 1</div>
       <div>Side block 2</div>

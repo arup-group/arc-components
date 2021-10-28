@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { ICON_SIZES } from './IconConstants.js';
+import { DEFAULT_PATH, ICON_SIZES } from './IconConstants.js';
 
 describe('ButtonConstants', () => {
   describe('sizes', () => {
@@ -11,5 +11,9 @@ describe('ButtonConstants', () => {
     expect(keys).to.contain('small');
     expect(keys).to.contain('medium');
     expect(keys).to.contain('large');
+  });
+  describe('path', () => {
+    expect(DEFAULT_PATH).to.exist;
+    expect(DEFAULT_PATH.includes('/assets/icons.svg')).to.be.true;
   });
 });

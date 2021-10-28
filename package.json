@@ -16,17 +16,14 @@
     "node": ">=16.13.0"
   },
   "scripts": {
-    "analyze": "cem analyze --litelement",
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "styles": "node scripts/make-css.js --outdir dist",
+    "start": "tsc && yarn styles && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "build": "tsc && yarn styles && yarn analyze",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "tsc && yarn run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && yarn run analyze -- --exclude dist && build-storybook",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn run analyze -- --exclude dist",
-    "start:build": "web-dev-server --root-dir dist --app-index index.html --open",
-    "start": "tsc && yarn styles && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "styles": "node scripts/make-css.js --outdir dist",
+    "analyze": "cem analyze --litelement --exclude dist --outdir dist"
   },
   "dependencies": {
     "@web/dev-server-esbuild": "^0.2.14",
@@ -40,7 +37,6 @@
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@web/dev-server": "^0.1.25",
-    "@web/dev-server-storybook": "^0.3.8",
     "@web/test-runner": "next",
     "chalk": "^4.1.2",
     "command-line-args": "^5.2.0",

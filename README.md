@@ -70,12 +70,11 @@ Select the component/utility to debug from within the src/components directory o
 That's it!
 
 ## Scripts
-- `analyze` creates a custom-elements manifest file
 - `start` runs your app for development, reloading on file changes
 - `build` builds your app and outputs it in your `dist` directory
-- `lint` checks whether all files use Prettier code styles
-- `format` runs the formatter for your project to set Prettier code styles to all files
 - `test` runs your test suite with Web Test Runner
 - `test:watch` runs your test suite with Web Test Runner while watching file changes
-- `storybook` runs the web-component playground for your project
-- `storybook:build` builds the web-component playground for your project
+- `format` runs the formatter for your project to set Prettier code styles to all files
+- `lint` checks whether all files use Prettier code styles
+- `styles` create .css files of the themes and outputs it in your `dist` directory
+- `analyze` creates a custom-elements manifest file

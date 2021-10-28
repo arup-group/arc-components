@@ -4,6 +4,8 @@ import '../navbar/arc-navbar.js';
 import '../sidebar/arc-sidebar.js';
 import '../button/arc-button.js';
 
+import { getBasePath } from '../../utilities/base-path.js';
+
 export default {
   title: 'ArcContainer',
   component: 'arc-container',
@@ -29,7 +31,7 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
   <arc-container .theme=${theme}>
-    <arc-navbar slot="nav">
+    <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg">
       <span slot="name">WebComponents</span>
       <arc-button type="tab">Link 1</arc-button>
       <arc-button type="tab">Link 2</arc-button>

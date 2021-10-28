@@ -15,16 +15,11 @@
 </head>
 
 <body>
-  <arc-container>
+  <arc-container theme='light'>
     <arc-navbar slot='nav'>
-      <arc-button type='tab'>
-        Test Tab
-      </arc-button>
+      <arc-button id='themeSetter' type='tab'>Change Theme</arc-button>
     </arc-navbar>
-    <arc-sidebar slot='side'>
-      <div>Something in the sidebar</div>
-    </arc-sidebar>
-    <arc-icon name='fire'></arc-icon>
+    <div>Content</div>
   </arc-container>
 
   <script type='module'>
@@ -38,6 +33,13 @@
     import '../dist/components/navbar/arc-navbar.js';
     import '../dist/components/sidebar/arc-sidebar.js';
     import '../dist/components/button/arc-button.js';
+
+    const themeSetter = document.getElementById('themeSetter');
+    const container = document.querySelector('arc-container');
+
+    themeSetter.addEventListener('click', () => {
+      container.theme = container.theme === 'dark' ? 'light' : 'dark';
+    })
   </script>
 </body>
 </html>

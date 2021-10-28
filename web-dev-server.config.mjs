@@ -4,16 +4,16 @@ import { hmrPlugin, presets } from '@open-wc/dev-server-hmr';
 const hmr = process.argv.includes('--hmr');
 
 export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
-  open: '/demo/',
+  open: '/',
   /** Use regular watch mode if HMR is not enabled. */
-  watch: !hmr,
+  watch: hmr,
   /** Resolve bare module imports */
   nodeResolve: {
     exportConditions: ['browser', 'development'],
   },
 
   /** Set appIndex to enable SPA routing */
-  appIndex: 'demo/index.html',
+  appIndex: 'index.html',
 
   plugins: [
     hmr && hmrPlugin({ exclude: ['**/*/node_modules/**/*'], presets: [presets.litElement] }),

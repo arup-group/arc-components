@@ -9,9 +9,9 @@
 
   <title>ARC</title>
 
-  <link crossorigin='anonymous' href='../dist/themes/index.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='../dist/themes/light.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='../dist/themes/dark.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='./dist/themes/index.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='./dist/themes/light.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='./dist/themes/dark.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -23,16 +23,16 @@
   </arc-container>
 
   <script type='module'>
-    import { setBasePath } from '../dist/utilities/base-path.js';
+    import { setBasePath } from './dist/utilities/base-path.js';
 
     setBasePath('/src/')
   </script>
 
   <script type="module">
-    import '../dist/components/container/arc-container.js';
-    import '../dist/components/navbar/arc-navbar.js';
-    import '../dist/components/sidebar/arc-sidebar.js';
-    import '../dist/components/button/arc-button.js';
+    import './dist/components/container/arc-container.js';
+    import './dist/components/navbar/arc-navbar.js';
+    import './dist/components/sidebar/arc-sidebar.js';
+    import './dist/components/button/arc-button.js';
 
     const themeSetter = document.getElementById('themeSetter');
     const container = document.querySelector('arc-container');

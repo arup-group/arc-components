@@ -9,9 +9,9 @@
 
   <title>ARC</title>
 
-  <link crossorigin='anonymous' href='../styles/index.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='../styles/light.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='../styles/dark.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='../src/themes/index.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='../src/themes/light.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='../src/themes/dark.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -24,8 +24,14 @@
     <arc-sidebar slot='side'>
       <div>Something in the sidebar</div>
     </arc-sidebar>
-    Demo content
+    <arc-icon name='fire'></arc-icon>
   </arc-container>
+
+  <script type='module'>
+    import { setBasePath } from '../dist/utilities/base-path.js';
+
+    setBasePath('/src/')
+  </script>
 
   <script type="module">
     import '../dist/components/container/arc-container.js';

@@ -6,6 +6,7 @@
   "version": "0.0.0",
   "main": "dist/arc.js",
   "module": "dist/arc.js",
+  "customElements": "dist/custom-elements.json",
   "exports": {
     ".": "./dist/arc.js"
   },
@@ -62,6 +63,5 @@
     "src/**/*.css": [
       "stylelint --fix"
     ]
-  },
-  "customElements": "custom-elements.json"
+  }
 }

@@ -1,3 +1,3 @@
 module.exports = {
-  stories: ['../src/stories/**/*.stories.mdx'],
+  stories: ['../docs/**/*.stories.mdx'],
 };

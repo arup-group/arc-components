@@ -60,7 +60,7 @@ jobs:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_bucket: arup-arc-components
-          source_dir: src/themes/
+          source_dir: dist/themes/
           destination_dir: themes
 
       - name: Upload Storybook to S3

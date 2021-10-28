@@ -10,7 +10,7 @@
     ".": "./dist/arc.js"
   },
   "engines": {
-    "node": ">=15.0.1"
+    "node": ">=16.13.0"
   },
   "scripts": {
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
@@ -63,5 +63,5 @@
       "stylelint --fix"
     ]
   },
-  "customElements": "./custom-elements.json"
+  "customElements": "custom-elements.json"
 }

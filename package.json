@@ -9,20 +9,33 @@
   "customElements": "dist/custom-elements.json",
   "type": "module",
   "types": "dist/arc.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": "./dist/arc.js"
   },
   "engines": {
     "node": ">=16.13.0"
   },
+  "keywords": [
+    "web components",
+    "custom elements",
+    "components"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arup-group/arc-components"
+  },
   "scripts": {
     "start": "tsc && yarn styles && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && yarn styles && yarn analyze",
+    "build": "tsc && yarn styles && yarn icons && yarn analyze",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "styles": "node scripts/make-css.js --outdir dist",
+    "icons": "node scripts/copy-icons.js --outdir dist",
     "analyze": "cem analyze --litelement --exclude dist --outdir dist"
   },
   "dependencies": {

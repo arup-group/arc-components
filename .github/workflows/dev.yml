@@ -18,6 +18,8 @@ jobs:
 
       - name: Setup environment
         uses: borales/actions-yarn@v2.3.0
+        with:
+          node-version: 'lts/*'
 
       - name: Install packages
         run: yarn install

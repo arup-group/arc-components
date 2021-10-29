@@ -1,80 +1,97 @@
-## arc-components
+# Installation
 
-## Quickstart
+You can use ARC by installing it locally.
+You can also cherry-pick individual components for faster load times.
 
-### Node
-Before you start, make sure you have [Node](https://nodejs.org/) installed.
-Check this by typing the following into the terminal:
+## Local Installation
 
-```bash
-node -v
-```
-
-If you see something like `vxx.xx.x` that means you are good to go.
-
-If you get an error instead, install [Node](https://nodejs.org/) following the instructions on their official website.
-
-### Yarn
-The web-component project makes use of the Yarn package manager.
-Make sure you have [Yarn](https://yarnpkg.com/) installed.
-Check this by typing the following into the terminal:
+You can install ARC locally with the following command.
 
 ```bash
-yarn -v
+npm install @arc-web/components
 ```
 
-If you see something like `x.xx.xx` that means you are good to go.
-If you get an error instead, install [Yarn](https://yarnpkg.com/) following the instructions on their official website.
+It's up to you to make the source files available to your app.
+One way to do this is to create a route in your app called /arc that serves static files from node_modules/@arc-web/components.
 
-Once you finished installing the packages, you are good to go!
-
-## Launch
-Navigate to the main directory of the project and install the required node_modules.
-Do this by typing the following into the terminal:
+Once you've done that, add the following tags to your page. Make sure to update href and src, so they point to the route you created.
 
 ```bash
-yarn install
+<head>
+  <link rel="stylesheet" href="/arc/dist/themes/light.css">
+  <script type="module" src="/arc/dist/arc.js"></script>
+</head>
 ```
 
-Once all node_modules are installed, run the following command to start the web-dev-server
+## Setting the Base Path
+
+Some components rely on assets and ARC needs to know where they're located.
+For convenience, ARC will try to auto-detect the correct location based on the script you've loaded it from.
+
+However, if you're cherry-picking or bundling ARC, you'll need to set the base path. You can do this one of two ways.
+
+**Option 1: the data-arc attribute**
+```bash
+/* index.html */
+<head>
+  <script src='your-own-bundle.js' data-arc='/path/to/arc/'></script>
+</head>
+```
+
+**Option 2: the setBasePath() method**
+```bash
+/* index.html */
+<body>
+  <arc-container></arc-container>
+
+  <script src="your-own-bundle.js"></script>
+  <script type="module">
+    import { setBasePath } from '/arc/dist/utilities/base-path.js';
+    setBasePath('/path/to/arc/');
+  </script>
+</body>
+```
 
 ```bash
-yarn start
+/* index.js */
+import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
+setBasePath('/path/to/arc/');
+
+# other imports etc.
 ```
 
-## Testing
-The web-components can run unit tests with the help of [@open-wc/testing](https://open-wc.org/docs/testing/helpers/).
-In order to run the tests, make sure that [Node](https://nodejs.org/) is installed.
+## Cherry Picking
 
-### Single run
-If you want to run one test iteration, run `yarn test`
+The previous approach is the easiest way to load ARC, but that isn't always efficient.
+You'll incur the full size of the library even if you only use a handful of components.
+This is convenient for prototyping, but may result in longer load times in production.
+To improve this, you can cherry pick the components you need.
 
-### Debug
-if you want to debug your tests, run `yarn test:watch`.
-Your test environment will be kept active and listen to changes made in .test.js files.
+Cherry picking can be done from your local install or directly from the CDN.
+This will limit the number of files the browser has to download and reduce the amount of bytes being transferred.
+The disadvantage is that you need to load components manually.
 
-You are given the following options in the terminal
-- Press `F` to focus on a test file.
-- Press `D` to debug in the browser.
-- Press `M` to debug manually in a custom browser.
-- Press `Q` to quit watch mode.
-- Press `Enter` to re-run all tests.
+Here's an example that loads only the container component.
+Again, if you're not using a module resolver, you'll need to adjust the path to point to the folder ARC is in.
 
-Press `m` to start debugging in your custom browser, followed by `d` to open your default browser.
+```bash
+/* index.html */
+<body>
+  <arc-container></arc-container>
 
-In the browser you will see the available test files. Click on one of the links to start debugging that specific component or utility.
+  <script type="module" data-arc="/path/to/arc">
+    import '@arc-web/components/dist/components/container/arc-container.js';
+  </script>
+</body>
+```
 
-Press `F12` to open the DevTools, then navigate to the Sources tab. 
-Select the component/utility to debug from within the src/components directory or src/utilities directory.
+```bash
+/* index.js */
+import '@arc-web/components/dist/components/container/arc-container.js';
 
-That's it!
+# <arc-container> is ready to use!
+```
 
-## Scripts
-- `start` runs your app for development, reloading on file changes
-- `build` builds your app and outputs it in your `dist` directory
-- `test` runs your test suite with Web Test Runner
-- `test:watch` runs your test suite with Web Test Runner while watching file changes
-- `format` runs the formatter for your project to set Prettier code styles to all files
-- `lint` checks whether all files use Prettier code styles
-- `styles` create .css files of the themes and outputs it in your `dist` directory
-- `analyze` creates a custom-elements manifest file
+Component modules include side effects for registration purposes. 
+Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary. 
+For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown above.

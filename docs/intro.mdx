@@ -1,0 +1,110 @@
+# Installation
+
+You can use ARC via CDN or by installing it locally. You can also cherry pick individual components for faster load times.
+
+## CDN Installation (Recommended)
+
+The easiest way to install ARC is with the CDN.
+Just add the following tags to your page to get all components and the default light theme.
+
+<Canvas>
+  <link rel="stylesheet" href="link-to-arc-repository/dist/themes/index.css">
+  <link rel="stylesheet" href="link-to-arc-repository/dist/themes/light.css">
+  <script type="module" src="link-to-arc-repository/dist/arc.js"></script>
+</Canvas>
+
+### Dark Theme
+
+If you prefer to use the dark theme instead, use this. Note the theme=['dark'] property on the <arc-container> element.
+
+<Canvas>
+  <link rel="stylesheet" href="link-to-arc-repository/dist/themes/dark.css">
+  <script type="module" src="link-to-arc-repository/dist/arc.js"></script>
+
+  <arc-container theme='dark'></arc-container>
+</Canvas>
+
+## Local Installation
+
+If you don't want to use the CDN, you can install ARC locally with the following command.
+
+npm install @arc-components/arc
+
+It's up to you to make the source files available to your app.
+One way to do this is to create a route in your app called /arc that serves static files from node_modules/@arc-components/arc.
+
+Once you've done that, add the following tags to your page. Make sure to update href and src so they point to the route you created.
+
+<Canvas>
+  <link rel="stylesheet" href="/arc/dist/themes/light.css">
+  <script type="module" src="/arc/dist/arc.js"></script>
+</Canvas>
+
+## Setting the Base Path
+
+Some components rely on assets and ARC needs to know where they're located.
+For convenience, ARC will try to auto-detect the correct location based on the script you've loaded it from.
+
+However, if you're cherry picking or bundling ARC, you'll need to set the base path. You can do this one of two ways.
+
+<!-- Option 1: the data-arc attribute -->
+<Canvas>
+  /* index.html */
+  <head>
+    <script src='your-own-bundle.js' data-arc='/path/to/arc/'></script>
+  </head>
+</Canvas>
+
+<!-- Option 2: the setBasePath() method -->
+<Canvas>
+  /* index.html */
+  <body>
+    <arc-container></arc-container>
+
+    <script src="your-own-bundle.js"></script>
+    <script type="module">
+      import { setBasePath } from '@arc-components/arc/dist/utilities/base-path.js';
+      setBasePath('/path/to/arc/');
+    </script>
+  </body>
+</Canvas>
+
+<Canvas>
+  /* index.js */
+  import { setBasePath } from '@arc-components/arc/dist/utilities/base-path.js';
+  setBasePath('/path/to/arc/');
+
+  // other imports etc.
+</Canvas>
+
+## Cherry Picking
+
+The previous approach is the easiest way to load ARC, but that isn't always efficient.
+You'll incur the full size of the library even if you only use a handful of components.
+This is convenient for prototyping, but may result in longer load times in production.
+To improve this, you can cherry pick the components you need.
+
+Cherry picking can be done from your local install or directly from the CDN.
+This will limit the number of files the browser has to download and reduce the amount of bytes being transferred.
+The disadvantage is that you need to load components manually.
+
+Here's an example that loads only the container component.
+Again, if you're not using a module resolver, you'll need to adjust the path to point to the folder ARC is in.
+
+<Canvas>
+  /* index.html */
+    <body>
+      <arc-container></arc-container>
+
+      <script type="module" data-arc="/path/to/arc/">
+        import '/path/to/arc/dist/components/container/arc-container.js';
+      </script>
+    </body>
+</Canvas>
+
+<Canvas>
+  /* componentName.js */
+  import '@arc-components/arc/dist/components/container/arc-container.js';
+
+  // <arc-container> is ready to use!
+</Canvas>

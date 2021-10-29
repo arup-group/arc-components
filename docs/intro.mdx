@@ -28,10 +28,10 @@ If you prefer to use the dark theme instead, use this. Note the theme=['dark'] p
 
 If you don't want to use the CDN, you can install ARC locally with the following command.
 
-npm install @arc-components/arc
+npm install @arc/web-components
 
 It's up to you to make the source files available to your app.
-One way to do this is to create a route in your app called /arc that serves static files from node_modules/@arc-components/arc.
+One way to do this is to create a route in your app called /arc that serves static files from node_modules/@arc/web-components.
 
 Once you've done that, add the following tags to your page. Make sure to update href and src so they point to the route you created.
 
@@ -63,7 +63,7 @@ However, if you're cherry picking or bundling ARC, you'll need to set the base p
 
     <script src="your-own-bundle.js"></script>
     <script type="module">
-      import { setBasePath } from '@arc-components/arc/dist/utilities/base-path.js';
+      import { setBasePath } from '@arc/web-components/dist/utilities/base-path.js';
       setBasePath('/path/to/arc/');
     </script>
   </body>
@@ -71,7 +71,7 @@ However, if you're cherry picking or bundling ARC, you'll need to set the base p
 
 <Canvas>
   /* index.js */
-  import { setBasePath } from '@arc-components/arc/dist/utilities/base-path.js';
+  import { setBasePath } from '@arc/web-components/dist/utilities/base-path.js';
   setBasePath('/path/to/arc/');
 
   // other imports etc.
@@ -96,15 +96,15 @@ Again, if you're not using a module resolver, you'll need to adjust the path to 
     <body>
       <arc-container></arc-container>
 
-      <script type="module" data-shoelace="/path/to/shoelace">
-        import '/path/to/arc/dist/components/container/arc-container.js';
+      <script type="module" data-arc="/path/to/arc">
+        import '@arc/web-components/dist/components/container/arc-container.js';
       </script>
     </body>
 </Canvas>
 
 <Canvas>
   /* componentName.js */
-  import '@arc-components/arc/dist/components/container/arc-container.js';
+  import '@arc/web-components/dist/components/container/arc-container.js';
 
   // <arc-container> is ready to use!
 </Canvas>

@@ -1,9 +1,9 @@
 {
-  "name": "arc-components",
+  "name": "@arc/web-components",
   "description": "Web-components built on the ARC design system",
-  "license": "MIT",
-  "author": "arc-component",
   "version": "0.0.0",
+  "author": "arc-component",
+  "license": "MIT",
   "main": "dist/arc.js",
   "module": "dist/arc.js",
   "customElements": "dist/custom-elements.json",
@@ -12,9 +12,6 @@
   "files": [
     "dist"
   ],
-  "exports": {
-    ".": "./dist/arc.js"
-  },
   "engines": {
     "node": ">=16.13.0"
   },

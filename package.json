@@ -32,7 +32,7 @@
     "storybook:build": "tsc && yarn copy && yarn analyze --exclude dist && build-storybook",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
-    "copy": "cpx \"src/assets/*.svg\" dist/assets && \"cpx src/themes/*.css\" dist/themes",
+    "copy": "cpx \"src/assets/*.svg\" dist/assets && cpx \"src/themes/*.css\" dist/themes",
     "analyze": "cem analyze --litelement --exclude dist --outdir dist"
   },
   "dependencies": {

@@ -1,11 +1,11 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { componentStyles } from '../styles/component.styles.js';
+import componentStyles from '../../styles/component.styles.js';
 
 import { DIVIDER_TYPES } from './constants/DividerConstants.js';
 
-export class ArcDivider extends LitElement {
+export default class ArcDivider extends LitElement {
   static tag = 'arc-divider';
 
   static styles = [
@@ -20,8 +20,8 @@ export class ArcDivider extends LitElement {
         margin: 0;
         border: 0;
       }
-    `
-  ]
+    `,
+  ];
 
   /** @type { 'dotted' | 'dashed' | 'solid' } */
   @property({
@@ -32,13 +32,19 @@ export class ArcDivider extends LitElement {
 
   render() {
     const styles = {
-      borderTop: `var(--arc-border-width) ${this.type} rgb(var(--arc-color-default))`
-    }
+      borderTop: `var(--arc-border-width) ${this.type} rgb(var(--arc-color-default))`,
+    };
 
     return html`
-      <div id='main'>
-        <hr id='border' style='${styleMap(styles)}'>
+      <div id="main">
+        <hr id="border" style="${styleMap(styles)}" />
       </div>
-    `
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'arc-divider': ArcDivider;
   }
 }

@@ -6,7 +6,7 @@ export const BUTTON_TYPES: { [key: string]: string } = {
   tab: 'tab',
 };
 
-export const BUTTON_COLORS : { [key: string]: string } = {
+export const BUTTON_COLORS: { [key: string]: string } = {
   default: 'default',
   primary: 'primary',
   secondary: 'secondary',
@@ -14,10 +14,10 @@ export const BUTTON_COLORS : { [key: string]: string } = {
   warning: 'warning',
   info: 'info',
   success: 'success',
-}
+};
 
-export const BUTTON_SIZES : { [key: string]: string } = {
+export const BUTTON_SIZES: { [key: string]: string } = {
   small: 'small',
   medium: 'medium',
   large: 'large',
-}
+};

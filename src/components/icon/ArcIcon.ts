@@ -2,13 +2,11 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { componentStyles } from '../styles/component.styles.js';
+import componentStyles from '../../styles/component.styles.js';
 
-import { ICON_SIZES } from './constants/IconConstants.js';
+import { DEFAULT_PATH, ICON_SIZES } from './constants/IconConstants.js';
 
-const arcIcons = new URL('../../../assets/icons.svg', import.meta.url).href;
-
-export class ArcIcon extends LitElement {
+export default class ArcIcon extends LitElement {
   static tag = 'arc-icon';
 
   static styles = [
@@ -60,7 +58,7 @@ export class ArcIcon extends LitElement {
           transform: rotate(360deg);
         }
       }
-    `
+    `,
   ];
 
   @property({ type: String, reflect: true })
@@ -79,18 +77,21 @@ export class ArcIcon extends LitElement {
 
   render() {
     const classes = {
-      'spinning': this.spinning,
-    }
+      spinning: this.spinning,
+    };
 
     const styles = {
-      'transform': this.rotation ? `rotate(${this.rotation}deg)` : null,
-      'height': `var(--arc-font-size-${this.size})`,
-      'width': `var(--arc-font-size-${this.size})`,
+      transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
+      height: `var(--arc-font-size-${this.size})`,
+      width: `var(--arc-font-size-${this.size})`,
     };
 
     return html`
-      <svg class='icon ${classMap(classes)}' style=${styleMap(styles)}>
-        <use href='${arcIcons}#arc-${this.name}' xlink:href='${arcIcons}#arc-${this.name}' />
+      <svg class="icon ${classMap(classes)}" style=${styleMap(styles)}>
+        <use
+          href="${DEFAULT_PATH}#arc-${this.name}"
+          xlink:href="${DEFAULT_PATH}#arc-${this.name}"
+        />
       </svg>
     `;
   }

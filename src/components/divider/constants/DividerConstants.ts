@@ -3,5 +3,3 @@ export const DIVIDER_TYPES: { [key: string]: string } = {
   dashed: 'dashed',
   solid: 'solid',
 };
-
-

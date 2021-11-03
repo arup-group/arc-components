@@ -1,3 +1,3 @@
-import { ArcDivider } from './ArcDivider.js';
+import ArcDivider from './ArcDivider.js';
 
 customElements.define(ArcDivider.tag, ArcDivider);

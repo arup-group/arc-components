@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 
-import { ArcDivider } from './ArcDivider.js';
+import type ArcDivider from './ArcDivider.js';
 import './arc-divider.js';
 
 import { DIVIDER_TYPES } from './constants/DividerConstants.js';
@@ -10,7 +10,7 @@ describe('ArcDivider', () => {
   // Test the rendering of the component
   describe('rendering', () => {
     let element: ArcDivider;
-    beforeEach(async() => {
+    beforeEach(async () => {
       element = await fixture(html`<arc-divider></arc-divider>`);
     });
 
@@ -28,7 +28,9 @@ describe('ArcDivider', () => {
   // Test the setters/getters
   describe('setters/getters', () => {
     it('renders the element with a custom type property', async () => {
-      const element: ArcDivider = await fixture(html`<arc-divider></arc-divider>`);
+      const element: ArcDivider = await fixture(
+        html`<arc-divider></arc-divider>`
+      );
 
       for (const dividerType of Object.keys(DIVIDER_TYPES)) {
         element.type = dividerType;
@@ -58,4 +60,4 @@ describe('ArcDivider', () => {
   //       expect(computedStyles.getPropertyValue('--customCssVariable')).to.equal('customValue');
   //   })
   // });
-})
+});

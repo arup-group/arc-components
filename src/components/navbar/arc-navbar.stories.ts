@@ -3,7 +3,7 @@ import '../container/arc-container.js';
 import './arc-navbar.js';
 import '../button/arc-button.js';
 
-const arcLogo = new URL('../../../assets/arc-red.svg', import.meta.url).href;
+import { getBasePath } from '../../utilities/base-path.js';
 
 export default {
   title: 'ArcNavbar',
@@ -23,7 +23,8 @@ export default {
     },
     tabs: {
       type: { required: false },
-      description: 'The amount of tabs allowed before collapsing into a dropdown',
+      description:
+        'The amount of tabs allowed before collapsing into a dropdown',
       defaultValue: { summary: 5 },
       control: { type: 'number' },
     },
@@ -32,33 +33,42 @@ export default {
 
 interface Story<T> {
   (args: T): TemplateResult;
+
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
 
 interface ArgTypes {
-  arup: boolean,
-  logo: string,
-  subBranding: string,
-  tabs: number,
-  height: string,
+  arup: boolean;
+  subBranding: string;
+  tabs: number;
+  height: string;
 }
 
-const Template: Story<ArgTypes> = ({ arup, logo, subBranding, tabs, height }: ArgTypes) => html`
-  <arc-navbar slot='nav' style='height: ${height}' arup='${arup}' logo='${logo}' tabs='${tabs}'>
-    <span slot='name'>${subBranding}</span>
-    <arc-button type='tab'>Link 1</arc-button>
-    <arc-button type='tab'>Link 2</arc-button>
-    <arc-button type='tab'>Link 3</arc-button>
+const Template: Story<ArgTypes> = ({
+  arup,
+  subBranding,
+  tabs,
+  height,
+}: ArgTypes) => html`
+  <arc-navbar
+    slot="nav"
+    logo="${getBasePath()}/assets/arc-red.svg"
+    style="height: ${height}"
+    arup="${arup}"
+    tabs="${tabs}"
+  >
+    <span slot="name">${subBranding}</span>
+    <arc-button type="tab">Link 1</arc-button>
+    <arc-button type="tab">Link 2</arc-button>
+    <arc-button type="tab">Link 3</arc-button>
   </arc-navbar>
 `;
 
 export const Default = Template.bind({});
 Default.args = {
   arup: true,
-  logo: arcLogo,
   subBranding: 'Web Components',
   tabs: 5,
   height: 'var(--arc-navbar-height)',
 };
-

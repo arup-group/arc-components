@@ -1,57 +1,62 @@
 {
-  "name": "arc-webcomponent",
-  "description": "Web-components related to the ARC design system",
+  "name": "@arc-web/components",
+  "description": "Web-components built on the ARC design system",
+  "version": "1.0.2",
+  "author": "arc-component",
   "license": "MIT",
-  "author": "arc-webcomponent",
-  "version": "0.0.0",
+  "main": "dist/arc.js",
+  "module": "dist/arc.js",
+  "customElements": "dist/custom-elements.json",
+  "types": "dist/arc.d.ts",
+  "files": [
+    "dist"
+  ],
   "engines": {
-    "node": ">=14.15.4"
+    "node": ">=16.13.0"
+  },
+  "keywords": [
+    "web components",
+    "custom elements",
+    "components"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arup-group/arc-components"
   },
   "scripts": {
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
+    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "build": "tsc && yarn copy && yarn analyze --exclude dist",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "tsc && yarn run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && yarn run analyze -- --exclude dist && build-storybook",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn run analyze -- --exclude dist",
-    "start:build": "web-dev-server --root-dir dist --app-index index.html --open",
-    "analyze": "cem analyze --litelement",
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
+    "storybook": "tsc && yarn copy && yarn analyze --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
+    "storybook:build": "tsc && yarn copy && yarn analyze --exclude dist && build-storybook",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
+    "copy": "cpx src/assets/icons.svg dist/assets && cpx src/themes/*.css dist/themes",
+    "analyze": "cem analyze --litelement --exclude dist --outdir dist"
   },
   "dependencies": {
-    "@web/test-runner": "^0.13.17",
-    "@web/test-runner-commands": "^0.5.11",
-    "lit": "^2.0.0-rc.3"
+    "lit": "^2.0.2"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.15.0",
     "@custom-elements-manifest/analyzer": "^0.5.3",
-    "@open-wc/building-rollup": "^1.10.0",
-    "@open-wc/dev-server-hmr": "^0.1.1",
+    "@open-wc/dev-server-hmr": "^0.1.2",
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/testing": "next",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
-    "@typescript-eslint/parser": "^4.29.3",
-    "@web/dev-server": "^0.1.22",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "@web/dev-server": "^0.1.25",
+    "@web/dev-server-esbuild": "^0.2.14",
     "@web/dev-server-storybook": "^0.3.8",
-    "@web/rollup-plugin-html": "^1.9.1",
-    "@web/rollup-plugin-import-meta-assets": "^1.0.7",
-    "babel-plugin-template-html-minifier": "^4.1.0",
+    "@web/test-runner": "next",
     "concurrently": "^6.2.1",
+    "cpx": "^1.5.0",
     "deepmerge": "^4.2.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "husky": "^7.0.2",
+    "husky": "^7.0.4",
     "lint-staged": "^11.1.2",
-    "prettier": "^2.3.2",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.56.3",
-    "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-workbox": "^6.2.0",
+    "prettier": "^2.4.1",
     "sinon": "^11.1.2",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
@@ -78,6 +83,5 @@
     "*.css": [
       "stylelint --fix"
     ]
-  },
-  "customElements": "custom-elements.json"
+  }
 }

@@ -1,4 +1,4 @@
-import { expect } from "@open-wc/testing";
+import { expect } from '@open-wc/testing';
 
 import { DIVIDER_TYPES } from './DividerConstants.js';
 
@@ -11,5 +11,5 @@ describe('DividerConstants', () => {
     expect(keys).to.contain('dotted');
     expect(keys).to.contain('dashed');
     expect(keys).to.contain('solid');
-  })
-})
+  });
+});

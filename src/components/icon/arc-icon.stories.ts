@@ -28,8 +28,8 @@ export default {
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
     },
-  }
-}
+  },
+};
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -38,29 +38,37 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  name: string,
-  size: string,
-  rotation: number,
-  spinning: boolean,
+  name: string;
+  size: string;
+  rotation: number;
+  spinning: boolean;
 }
 
-const Template: Story<ArgTypes> = ({ name, size, rotation, spinning }: ArgTypes) => html`
-  <arc-icon name='${name}' size='${size}' rotation='${rotation}' ?spinning=${spinning}></arc-icon>
+const Template: Story<ArgTypes> = ({
+  name,
+  size,
+  rotation,
+  spinning,
+}: ArgTypes) => html`
+  <arc-icon
+    name="${name}"
+    size="${size}"
+    rotation="${rotation}"
+    ?spinning=${spinning}
+  ></arc-icon>
 `;
 
 const defaultArgs = {
   name: 'fire',
   size: ICON_SIZES.large,
   rotation: 0,
-  spinning: false
+  spinning: false,
 };
 
 export const Default = Template.bind({});
 export const VariableSize = Template.bind({});
 export const CustomSize = Template.bind({});
 
-Default.args = {...defaultArgs};
-VariableSize.args = {...defaultArgs, size: 'xxxx-large'};
-CustomSize.args = {...defaultArgs, size: 'custom'};
-
-
+Default.args = { ...defaultArgs };
+VariableSize.args = { ...defaultArgs, size: 'xxxx-large' };
+CustomSize.args = { ...defaultArgs, size: 'custom' };

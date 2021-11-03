@@ -1,3 +1,3 @@
-import { ArcIcon } from './ArcIcon.js';
+import ArcIcon from './ArcIcon.js';
 
 customElements.define(ArcIcon.tag, ArcIcon);

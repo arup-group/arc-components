@@ -1,3 +1,3 @@
-import { ArcButton } from './ArcButton.js';
+import ArcButton from './ArcButton.js';
 
 customElements.define(ArcButton.tag, ArcButton);

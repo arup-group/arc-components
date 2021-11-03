@@ -9,38 +9,42 @@
 
   <title>ARC</title>
 
-  <link crossorigin='anonymous' href='styles/index.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='styles/light.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='styles/dark.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='./src/themes/index.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='./src/themes/light.css' rel='stylesheet'>
+  <link crossorigin='anonymous' href='./src/themes/dark.css' rel='stylesheet'>
 </head>
 
 <body>
-<arc-container id='arcContainer' theme='light'>
-  <arc-navbar id='arcNavbar' slot='nav' logo='assets/arc-red.svg'>
-    <arc-button id='themeSetter' type='tab'>
-      <arc-icon name='brightness_low' size='large'></arc-icon>
-    </arc-button>
+<arc-container theme='mine'>
+  <arc-navbar slot='nav' logo='./src/assets/arc-red.svg'>
+    <div slot='name'>WebComponents</div>
+    <arc-button id='themeSetter' type='tab'>Toggle Theme</arc-button>
   </arc-navbar>
-  <arc-sidebar id='arcSidebar' slot='side'>
-    <div></div>
+  <arc-sidebar slot='side'>
+    <div>Sidebar</div>
   </arc-sidebar>
+  <div>
+    <arc-button color='secondary' type='outlined'>Hello World</arc-button>
+  </div>
 </arc-container>
 
-<script type='module' src='out-tsc/components/container/arc-container.js'></script>
-<script type='module' src='out-tsc/components/navbar/arc-navbar.js'></script>
-<script type='module' src='out-tsc/components/sidebar/arc-sidebar.js'></script>
-<script type='module' src='out-tsc/components/button/arc-button.js'></script>
-<script type='module' src='out-tsc/components/icon/arc-icon.js'></script>
-
 <script type='module'>
-  const arcContainer = document.getElementById('arcContainer');
+  import { setBasePath } from './dist/utilities/base-path.js';
 
-  // Toggle the theme
+  setBasePath('/src/')
+</script>
+
+<script type="module">
+  import './dist/components/container/arc-container.js';
+  import './dist/components/navbar/arc-navbar.js';
+  import './dist/components/sidebar/arc-sidebar.js';
+  import './dist/components/button/arc-button.js';
+
   const themeSetter = document.getElementById('themeSetter');
-  const themeIcon = themeSetter.querySelector('arc-icon');
+  const container = document.querySelector('arc-container');
+
   themeSetter.addEventListener('click', () => {
-    arcContainer.theme = arcContainer.theme === 'light' ? 'dark' : 'light';
-    themeIcon.name = arcContainer.theme === 'light' ? 'brightness_low' : 'brightness_high';
+    container.theme = container.theme === 'dark' ? 'light' : 'dark';
   })
 </script>
 </body>

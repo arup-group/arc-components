@@ -8,6 +8,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "error"
@@ -28,7 +29,6 @@
         "*.spec.ts"
       ],
       "rules": {
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
         "no-unused-expressions": "off",
         "prefer-destructuring": "off"
       }

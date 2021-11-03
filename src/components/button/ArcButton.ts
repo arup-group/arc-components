@@ -4,6 +4,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import componentStyles from '../../styles/component.styles.js';
 
+import { focusVisibleSelector } from '../../utilities/focus-visible.js';
+
 import '../spinner/arc-spinner.js';
 
 import {
@@ -23,12 +25,6 @@ export default class ArcButton extends LitElement {
         cursor: pointer;
         width: auto;
         --min-width: 0;
-      }
-
-      :host *,
-      :host ::before,
-      :host ::after {
-        box-sizing: inherit;
       }
 
       #button {
@@ -77,22 +73,30 @@ export default class ArcButton extends LitElement {
         cursor: not-allowed;
       }
 
-      /* Hover */
-      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]))
-        #button:hover {
+      /* Default Hover & Focus */
+      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:hover,
+      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:focus {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
-      /* Tab - Hover */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]))
-        #button:hover {
+      #button:focus {
+        outline: none;
+      }
+
+      #button${focusVisibleSelector} {
+        box-shadow: var(--arc-focus-ring);
+      }
+
+      /* Tab - Hover & Focus */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover,
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:focus {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
-      /* Outlined - Hover */
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]))
-        #button:hover {
+      /* Outlined - Hover & Focus */
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover,
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:focus {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
@@ -106,13 +110,11 @@ export default class ArcButton extends LitElement {
         border-radius: var(--arc-input-height-small);
       }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.medium)}'])
-        #button {
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {
         border-radius: var(--arc-input-height-medium);
       }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}'])
-        #button {
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {
         border-radius: var(--arc-input-height-large);
       }
 
@@ -141,7 +143,7 @@ export default class ArcButton extends LitElement {
     `,
   ];
 
-  @query('#button') button!: HTMLButtonElement | HTMLLinkElement;
+  @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
   /** @type { 'contained' | 'tile' | 'outlined' | 'pill' | 'tab' } */
   @property({ type: String, reflect: true })
@@ -155,27 +157,19 @@ export default class ArcButton extends LitElement {
   @property({ type: String, reflect: true })
   size: string = BUTTON_SIZES.medium;
 
-  @property()
-  href: string | null = null;
+  @property() href: string;
 
-  /** @type { '_blank' | '_parent' | '_self' | '_top' } */
-  @property()
-  target: string | null = null;
+  @property() target: '_blank' | '_parent' | '_self' | '_top';
 
-  @property()
-  download: string | null = null;
+  @property() download: string;
 
-  @property({ type: Boolean, reflect: true })
-  active: boolean = false;
+  @property({ type: Boolean, reflect: true }) active = false;
 
-  @property({ type: Boolean, reflect: true })
-  disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
-  @property({ type: Boolean, reflect: true })
-  loading: boolean = false;
+  @property({ type: Boolean, reflect: true }) loading = false;
 
-  @property({ type: Boolean, reflect: true })
-  submit: boolean = false;
+  @property({ type: Boolean, reflect: true }) submit = false;
 
   /** Simulates a click on the button. */
   click() {
@@ -230,42 +224,38 @@ export default class ArcButton extends LitElement {
       <slot name="prefix"></slot>
       <slot id="label"></slot>
       <slot name="suffix"></slot>
-      ${this.loading
-        ? html`<arc-spinner
-            id="loader"
-            style="--stroke-color: ${getColor()}"
-          ></arc-spinner>`
-        : null}
+      ${this.loading ? html`<arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
     `;
 
     return html`
       ${this.href
         ? html`
-            <a
-              id="button"
-              style=${styleMap(btnStyles)}
-              href=${this.href}
-              .target="${ifDefined(this.target)}"
-              .download="${ifDefined(this.download)}"
-              .rel="${ifDefined(this.target && 'noreferrer noopener')}"
-              role="button"
-              aria-disabled="${this.disabled ? 'true' : 'false'}"
-              tabindex="${this.disabled ? '-1' : '0'}"
-              @click=${this.handleClick}
-              >${interior}</a
-            >
-          `
+          <a
+            id="button"
+            style=${styleMap(btnStyles)}
+            href=${ifDefined(this.href)}
+            target=${ifDefined(this.target)}
+            download=${ifDefined(this.download)}
+            rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
+            role="button"
+            aria-disabled=${this.disabled ? 'true' : 'false'}
+            tabindex=${this.disabled ? '-1' : '0'}
+            @click=${this.handleClick}
+            >${interior}</a
+          >
+        `
         : html`
-            <button
-              id="button"
-              style=${styleMap(btnStyles)}
-              ?disabled=${this.disabled}
-              type=${this.submit ? 'submit' : 'button'}
-              @click=${this.handleClick}
-            >
-              ${interior}
-            </button>
-          `}
+          <button
+            id="button"
+            style=${styleMap(btnStyles)}
+            ?disabled=${this.disabled}
+            type=${this.submit ? 'submit' : 'button'}
+            @click=${this.handleClick}
+          >
+            ${interior}
+          </button>
+        `
+      }
     `;
   }
 }

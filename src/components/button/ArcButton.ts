@@ -1,18 +1,12 @@
-import { css, unsafeCSS, html, LitElement } from 'lit';
+import { css, html, LitElement, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { focusVisibleSelector } from '../../utilities/focus-visible.js';
+import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES, } from './constants/ButtonConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 
-import { focusVisibleSelector } from '../../utilities/focus-visible.js';
-
 import '../spinner/arc-spinner.js';
-
-import {
-  BUTTON_TYPES,
-  BUTTON_COLORS,
-  BUTTON_SIZES,
-} from './constants/ButtonConstants.js';
 
 export default class ArcButton extends LitElement {
   static tag = 'arc-button';
@@ -22,90 +16,39 @@ export default class ArcButton extends LitElement {
     css`
       :host {
         display: inline-block;
-        cursor: pointer;
         width: auto;
+        cursor: pointer;
         --min-width: 0;
       }
 
       #button {
-        min-height: 100%;
-        min-width: var(--min-width);
-        width: 100%;
-        display: flex;
-        gap: var(--arc-spacing-small);
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: var(--btn-color);
-        background-color: var(--btn-background);
+        width: 100%;
+        min-width: var(--min-width);
+        min-height: 100%;
         border: none;
         border-radius: var(--arc-border-radius-medium);
-        box-shadow: var(--arc-input-box-shadow);
         font-family: var(--arc-font-button);
         font-size: var(--arc-font-size-small);
         font-weight: var(--arc-font-weight-semibold);
-        cursor: inherit;
+        line-height: normal;
         text-decoration: none;
         user-select: none;
-        line-height: normal;
-        outline: none;
-        padding: 0;
-        -webkit-appearance: none;
         white-space: nowrap;
-      }
-
-      /* Loading */
-      :host([loading]) #button {
-        cursor: wait;
-      }
-
-      :host([loading]) slot {
-        visibility: hidden;
-      }
-
-      #loader {
-        position: absolute !important;
-      }
-
-      /* Disabled */
-      :host([disabled]) #button {
-        opacity: 0.5;
-        box-shadow: none;
-        cursor: not-allowed;
-      }
-
-      /* Default Hover & Focus */
-      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:hover,
-      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled])) #button:focus {
-        background-image: linear-gradient(var(--arc-hover-dark) 0 0);
-      }
-
-      #button:focus {
+        vertical-align: middle;
+        padding: 0;
+        cursor: inherit;
+        color: var(--btn-color);
+        background-color: var(--btn-background);
+        gap: var(--arc-spacing-small);
+        box-shadow: var(--arc-input-box-shadow);
         outline: none;
+        -webkit-appearance: none;
       }
 
-      #button${focusVisibleSelector} {
-        box-shadow: var(--arc-focus-ring);
-      }
-
-      /* Tab - Hover & Focus */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:hover,
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])) #button:focus {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
-      }
-
-      /* Outlined - Hover & Focus */
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:hover,
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled])) #button:focus {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
-      }
-
-      /* Radius */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {
-        border-radius: 0;
-      }
-
+      /* Pill */
       :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {
         border-radius: var(--arc-input-height-small);
       }
@@ -116,6 +59,11 @@ export default class ArcButton extends LitElement {
 
       :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {
         border-radius: var(--arc-input-height-large);
+      }
+
+      /* Tile */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {
+        border-radius: 0;
       }
 
       /* Tab */
@@ -140,26 +88,68 @@ export default class ArcButton extends LitElement {
         background-color: transparent;
         box-shadow: none;
       }
+
+      /* Default - Hover & Focus */
+      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button:hover,
+      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button${focusVisibleSelector} {
+        background-image: linear-gradient(var(--arc-hover-dark) 0 0);
+      }
+
+      /* Tab & Outlined - Hover & Focus */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button:hover,
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button:hover,
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button${focusVisibleSelector},
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button${focusVisibleSelector} {
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
+      }
+
+      /* Default - Active */
+      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button:active {
+        background-image: linear-gradient(var(--arc-hover-darker) 0 0);
+      }
+
+      /* Tab & Outlined - Active */
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button:active,
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button:active {
+        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
+
+      /* Disabled */
+      :host([disabled]) #button {
+        opacity: 0.5;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+
+      /* Loading */
+      :host([loading]) #prefix,
+      :host([loading]) #label,
+      :host([loading]) #suffix {
+        visibility: hidden;
+      }
+
+      #loader {
+        position: absolute;
+      }
     `,
   ];
 
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
   /** @type { 'contained' | 'tile' | 'outlined' | 'pill' | 'tab' } */
-  @property({ type: String, reflect: true })
-  type: string = BUTTON_TYPES.contained;
+  @property({ type: String, reflect: true }) type = BUTTON_TYPES.contained;
 
   /** @type { 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' } */
-  @property({ type: String, reflect: true })
-  color: string = BUTTON_COLORS.default;
+  @property({ type: String, reflect: true }) color = BUTTON_COLORS.default;
 
   /** @type { 'small' | 'medium' | 'large' } */
-  @property({ type: String, reflect: true })
-  size: string = BUTTON_SIZES.medium;
+  @property({ type: String, reflect: true }) size = BUTTON_SIZES.medium;
+
+  /** @type { '_blank' | '_parent' | '_self' | '_top' } */
+  @property() target: '_blank' | '_parent' | '_self' | '_top';
 
   @property() href: string;
-
-  @property() target: '_blank' | '_parent' | '_self' | '_top';
 
   @property() download: string;
 
@@ -221,9 +211,9 @@ export default class ArcButton extends LitElement {
     };
 
     const interior = html`
-      <slot name="prefix"></slot>
+      <slot id='prefix' name="prefix"></slot>
       <slot id="label"></slot>
-      <slot name="suffix"></slot>
+      <slot id='suffix' name="suffix"></slot>
       ${this.loading ? html`<arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
     `;
 

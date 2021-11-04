@@ -1,9 +1,10 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
-
 import { isNight } from '../../utilities/date-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
+
+import '../icon-button/arc-icon-button.js';
 
 export default class ArcContainer extends LitElement {
   static tag = 'arc-container';
@@ -39,11 +40,13 @@ export default class ArcContainer extends LitElement {
         background: rgb(var(--arc-container-color));
       }
 
-      ::slotted(arc-bottombar),
-      #bottom {
-        display: block;
-        height: var(--bottom-height);
-        background: rgb(var(--arc-container-color));
+      arc-bottombar,
+      ::slotted(arc-bottombar) {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        min-height: var(--bottom-height);
+        background: rgb(var(--arc-background-color));
       }
 
       /* Medium devices (tablets, 48rem and up) */
@@ -66,11 +69,7 @@ export default class ArcContainer extends LitElement {
   ];
 
   /** @type { 'auto' | 'dark' | 'light' } */
-  @property({
-    type: String,
-    reflect: true,
-  })
-  theme: string = 'auto';
+  @property({ type: String, reflect: true }) theme = 'auto';
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
@@ -80,8 +79,7 @@ export default class ArcContainer extends LitElement {
     }
   }
 
-  getTheme = (date?: Date) =>
-    isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
+  getTheme = (date?: Date) => isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
 
   render() {
     return html`
@@ -92,7 +90,11 @@ export default class ArcContainer extends LitElement {
           <div id="content"><slot></slot></div>
         </div>
         <slot name="bottom">
-          <arc-bottombar id="bottom">DEFAULT BOTTOM BAR</arc-bottombar>
+          <arc-bottombar id="bottom">
+            <arc-icon-button name='home' label='Go home'>Home</arc-icon-button>
+            <arc-icon-button name='equalizer' label='Options'>Options</arc-icon-button>
+            <arc-icon-button name='link' label='Target'>Target</arc-icon-button>
+          </arc-bottombar>
         </slot>
       </main>
     `;

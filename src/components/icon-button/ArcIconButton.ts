@@ -13,15 +13,22 @@ export default class ArcIconButton extends LitElement {
     css`
       :host {
         display: inline-block;
+        width: auto;
+        cursor: pointer;
+        --min-width: 0;
       }
 
       #button {
-        flex: 0 0 auto;
-        display: flex;
+        display: inline-flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-width: var(--min-width);
+        min-height: 100%;
         background: none;
         border: none;
-        border-radius: var(--arc-border-radius-medium);
+        border-radius: 0;
         font-size: inherit;
         color: rgb(var(--arc-font-color));
         padding: var(--arc-spacing-small);
@@ -30,30 +37,26 @@ export default class ArcIconButton extends LitElement {
         -webkit-appearance: none;
       }
 
+      #action {
+        font-size: var(--arc-font-size-xx-small);
+      }
+
+      /* Hover & Focus */
+      #button:hover:not(:host([disabled])),
+      #button${focusVisibleSelector}:not(:host([disabled])) {
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
+      }
+
+      /* Active */
+      #button:active:not(:host([disabled])) {
+        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
+
       /* Disabled */
       :host([disabled]) #button {
         opacity: 0.5;
         cursor: not-allowed;
-      }
-
-      /* Hover & Focus */
-      :host(:not([disabled])) #button:hover,
-      :host(:not([disabled])) #button:focus {
-        color: rgb(var(--arc-color-primary));
-      }
-
-      /* Mouse-hold */
-      #button:active:not(:host[disabled]) {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
-      }
-
-      #button:focus {
-        outline: none;
-      }
-
-      #button${focusVisibleSelector} {
-        box-shadow: var(--arc-focus-ring);
       }
     `,
   ];
@@ -72,17 +75,10 @@ export default class ArcIconButton extends LitElement {
 
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  /** Simulates a click on the button. */
-  click() {
-    this.button.click();
-  }
-
   render() {
     const interior = html`
-      <arc-icon
-        name=${ifDefined(this.name)}
-        aria-hidden='true'
-      ></arc-icon>
+      <arc-icon name=${ifDefined(this.name)} aria-hidden='true'></arc-icon>
+      <slot id='action'></slot>
     `;
 
     return html`
@@ -90,6 +86,7 @@ export default class ArcIconButton extends LitElement {
         ? html`
           <a
             id='button'
+            part='base'
             href=${ifDefined(this.href)}
             target=${ifDefined(this.target)}
             download=${ifDefined(this.download)}
@@ -104,6 +101,7 @@ export default class ArcIconButton extends LitElement {
         : html`
           <button
             id='button'
+            part='base'
             ?disabled=${this.disabled}
             type='button'
             aria-label=${this.label}

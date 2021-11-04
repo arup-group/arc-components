@@ -2,8 +2,7 @@
 Given a slot, this function iterates over all of its assigned element and text nodes and returns the concatenated
 HTML as a string. This is useful because we can't use slot.innerHTML as an alternative.
  */
-
-export function getInnerHTML(slot: HTMLSlotElement): string {
+function getInnerHTML(slot: HTMLSlotElement): string {
   const nodes = slot.assignedNodes({ flatten: true });
   let html = '';
 
@@ -24,7 +23,7 @@ export function getInnerHTML(slot: HTMLSlotElement): string {
 Given a slot, this function iterates over all of its assigned text nodes and returns the concatenated text as a
 string. This is useful because we can't use slot.textContent as an alternative.
  */
-export function getTextContent(slot: HTMLSlotElement): string {
+function getTextContent(slot: HTMLSlotElement): string {
   const nodes = slot ? slot.assignedNodes({ flatten: true }) : [];
   let text = '';
 
@@ -41,7 +40,7 @@ export function getTextContent(slot: HTMLSlotElement): string {
 Determines whether an element has a slot. If name is specified, the function will look for a corresponding named
 slot, otherwise it will look for a "default" slot (e.g. a non-empty text node or an element with no slot attribute).
  */
-export function hasSlot(el: HTMLElement, name?: string) {
+function hasSlot(el: HTMLElement, name?: string) {
   /* Look for a named slot */
   if (name) {
     return el.querySelector(`:scope > [slot="${name}"]`) !== null;
@@ -63,3 +62,5 @@ export function hasSlot(el: HTMLElement, name?: string) {
     return false;
   });
 }
+
+export { getInnerHTML, getTextContent, hasSlot };

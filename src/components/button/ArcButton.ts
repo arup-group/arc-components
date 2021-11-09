@@ -79,7 +79,7 @@ export default class ArcButton extends LitElement {
 
       /* Tab - Active */
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])[active]) #button {
-        border-bottom: var(--arc-border-width) var(--arc-border-style) currentColor;
+        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
       }
 
       /* Outlined */
@@ -104,12 +104,12 @@ export default class ArcButton extends LitElement {
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
 
-      /* Default - Active */
+      /* Default - Mouse down */
       :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button:active {
         background-image: linear-gradient(var(--arc-hover-darker) 0 0);
       }
 
-      /* Tab & Outlined - Active */
+      /* Tab & Outlined - Mouse down */
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button:active,
       :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
@@ -131,6 +131,11 @@ export default class ArcButton extends LitElement {
 
       #loader {
         position: absolute;
+      }
+      
+      /* Prevent click events from firing when a user clicks on a slot */
+      slot {
+        pointer-events:none
       }
     `,
   ];

@@ -81,13 +81,7 @@ export default class ArcContainer extends LitElement {
 
   getTheme = (date?: Date) => isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
 
-  switchTheme = () => {
-    this.theme = this.theme === CONTAINER_THEMES.dark ? CONTAINER_THEMES.light : CONTAINER_THEMES.dark;
-  }
-
   render() {
-    const getThemeIcon = () => this.theme === CONTAINER_THEMES.dark ? 'brightness_low' : 'brightness_high';
-
     return html`
       <main id='main'>
         <slot id='nav' name='nav'></slot>
@@ -98,7 +92,8 @@ export default class ArcContainer extends LitElement {
         <slot name='bottom'>
           <arc-bottombar>
             <arc-icon-button name='home' href='/' label='Go home'>Home</arc-icon-button>
-            <arc-icon-button name=${getThemeIcon()} label='Switch theme' @click=${this.switchTheme}>Toggle theme</arc-icon-button>
+            <arc-icon-button name='settings' label='Edit settings'>Settings</arc-icon-button>
+            <arc-icon-button name='accessibility' label='Accessibility control'>Accessibility</arc-icon-button>
           </arc-bottombar>
         </slot>
       </main>

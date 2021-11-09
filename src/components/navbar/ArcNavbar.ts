@@ -48,20 +48,19 @@ export default class ArcNavbar extends LitElement {
       /* Right side */
       #right {
         justify-content: flex-end;
-        color: rgb(var(--arc-color-primary));
       }
 
-      #right > #tabs {
+      #tabs {
         display: none;
       }
-
+      
       ::slotted(arc-button) {
         border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
         border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
       
       ::slotted(arc-icon-button) {
-        padding: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
+        margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
       }
 
       /* Logo's */
@@ -77,6 +76,7 @@ export default class ArcNavbar extends LitElement {
       }
 
       #company-logo {
+        color: rgb(var(--arc-color-primary));
         display: flex;
         align-items: center;
         justify-content: center;

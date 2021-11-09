@@ -3,8 +3,9 @@ import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import componentStyles from '../../styles/component.styles.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
-
 import { focusVisibleSelector } from '../../utilities/focus-visible.js';
+
+import '../spinner/arc-spinner.js';
 
 export default class ArcIconButton extends LitElement {
   static tag = 'arc-icon-button';
@@ -13,17 +14,23 @@ export default class ArcIconButton extends LitElement {
     componentStyles,
     css`
       :host {
-        display: inline-flex;
+        display: inline-block;
         width: auto;
         cursor: pointer;
         --min-width: 0;
       }
       
-      #button {
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
+      #iconWrapper {
+        display: flex;
         justify-content: center;
+        align-items: center;
+      }
+      
+      #button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: 100%;
         min-width: var(--min-width);
         min-height: 100%;
@@ -62,15 +69,33 @@ export default class ArcIconButton extends LitElement {
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
 
-      /* Active */
+      /* Mouse down */
       :host(:not([disabled])) #button:active #icon {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
+
+      /* Active */
+      :host(:not([disabled])[active]) #button {
+        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
       }
 
       /* Disabled */
       :host([disabled]) #button {
         opacity: 0.5;
         cursor: not-allowed;
+      }
+
+      /* Loading */
+      :host([loading]) #icon {
+        visibility: hidden;
+      }
+
+      #loader {
+        position: absolute;
+      }
+      
+      #iconWrapper, #icon, #action {
+        pointer-events:none
       }
     `,
   ];
@@ -81,19 +106,35 @@ export default class ArcIconButton extends LitElement {
 
   @property() name: string;
 
-  @property() href: string;
-
   @property() target: '_blank' | '_parent' | '_self' | '_top';
+
+  @property() href: string;
 
   @property() download: string;
 
   @property() label = '';
 
+  @property({ type: Boolean, reflect: true }) active = false;
+
   @property({ type: Boolean, reflect: true }) disabled = false;
+
+  @property({ type: Boolean, reflect: true }) loading = false;
 
   connectedCallback() {
     super.connectedCallback();
     this.handleSlotChange();
+  }
+
+  /** Simulates a click on the button. */
+  click() {
+    this.button.click();
+  }
+
+  handleClick(event: MouseEvent) {
+    if (this.disabled || this.loading) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 
   handleSlotChange() {
@@ -102,40 +143,39 @@ export default class ArcIconButton extends LitElement {
 
   render() {
     const interior = html`
-      <arc-icon id='icon' name=${ifDefined(this.name)} aria-hidden='true'></arc-icon>
+      <span id='iconWrapper'>
+        <arc-icon id='icon' name=${ifDefined(this.name)} aria-hidden='true'></arc-icon>
+        ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : null}
+      </span>
       ${this.hasLabel ? html`<span id='action'><slot @slotchange=${this.handleSlotChange}></slot></span>` : null}
     `;
 
-    return html`
-      ${this.href
-        ? html`
-          <a
-            id='button'
-            part='base'
-            href=${ifDefined(this.href)}
-            target=${ifDefined(this.target)}
-            download=${ifDefined(this.download)}
-            rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
-            role='button'
-            aria-disabled='${this.disabled ? 'true' : 'false'}'
-            aria-label=${this.label}
-            tabindex=${this.disabled ? '-1' : '0'}
-            >${interior}
-          </a>
-        `
-        : html`
-          <button
-            id='button'
-            part='base'
-            ?disabled=${this.disabled}
-            type='button'
-            aria-label=${this.label}
-          >
-            ${interior}
-          </button>
-        `
-      }
-    `;
+    return this.href
+      ? html`
+        <a
+          id='button'
+          href=${ifDefined(this.href)}
+          target=${ifDefined(this.target)}
+          download=${ifDefined(this.download)}
+          rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
+          role='button'
+          aria-disabled=${this.disabled ? 'true' : 'false'}
+          aria-label=${this.label}
+          @click=${this.handleClick}
+          >${interior}
+        </a>
+      `
+      : html`
+        <button
+          id='button'
+          ?disabled=${this.disabled}
+          type='button'
+          aria-label=${this.label}
+          @click=${this.handleClick}
+        >
+          ${interior}
+        </button>
+      `;
   }
 }
 

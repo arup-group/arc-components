@@ -56,26 +56,30 @@ export default class ArcNavbar extends LitElement {
       }
 
       ::slotted(arc-button) {
-        border-left: var(--arc-border-width) var(--arc-border-style)
-          rgb(var(--arc-color-default));
+        border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+        border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
-
-      ::slotted(arc-button:last-child) {
-        border-right: var(--arc-border-width) var(--arc-border-style)
-          rgb(var(--arc-color-default));
+      
+      ::slotted(arc-icon-button) {
+        padding: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
       }
 
       /* Logo's */
       #tool-logo,
-      #company-logo {
+      #company-logo > svg {
         height: var(--arc-brand-height);
         width: auto;
       }
 
       #tool-logo,
-      #company-logo,
       #tool-name {
         align-self: center;
+      }
+
+      #company-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       /* Medium devices (tablets, 48rem and up) */
@@ -85,12 +89,12 @@ export default class ArcNavbar extends LitElement {
           grid-auto-flow: column;
         }
 
-        #company-logo {
-          margin-left: var(--arc-spacing-medium);
-        }
-
         #tool-logo + #tool-name {
           display: block;
+        }
+
+        #company-logo {
+          padding-left: var(--arc-spacing-medium);
         }
       }
     `,
@@ -118,6 +122,7 @@ export default class ArcNavbar extends LitElement {
 
     if (arcTabs.length > this.tabs) {
       // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
+      console.warn(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
     }
   };
 
@@ -133,7 +138,7 @@ export default class ArcNavbar extends LitElement {
           <div id="tabs">
             <slot @slotchange=${this.handleTabChange}></slot>
           </div>
-          ${this.arup ? html`${arupLogo}` : html``}
+          ${this.arup ? html`<span id='company-logo'>${arupLogo}</span>` : null}
         </div>
       </main>
     `;

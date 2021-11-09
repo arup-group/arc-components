@@ -1,7 +1,8 @@
 import { css, html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import componentStyles from '../../styles/component.styles.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
 
 import { focusVisibleSelector } from '../../utilities/focus-visible.js';
 
@@ -12,12 +13,12 @@ export default class ArcIconButton extends LitElement {
     componentStyles,
     css`
       :host {
-        display: inline-block;
+        display: inline-flex;
         width: auto;
         cursor: pointer;
         --min-width: 0;
       }
-
+      
       #button {
         display: inline-flex;
         flex-direction: column;
@@ -26,30 +27,43 @@ export default class ArcIconButton extends LitElement {
         width: 100%;
         min-width: var(--min-width);
         min-height: 100%;
-        background: none;
         border: none;
-        border-radius: 0;
-        font-size: inherit;
-        color: rgb(var(--arc-font-color));
-        padding: var(--arc-spacing-small);
-        cursor: pointer;
-        transition: var(--arc-transition-medium) color;
+        font-family: var(--arc-font-button);
+        font-size: var(--arc-font-size-small);
+        font-weight: var(--arc-font-weight-semibold);
+        line-height: normal;
+        text-decoration: none;
+        user-select: none;
+        white-space: nowrap;
+        vertical-align: middle;
+        padding: 0;
+        cursor: inherit;
+        color: inherit;
+        background: none;
+        outline: none;
         -webkit-appearance: none;
+      }
+      
+      #icon {
+        padding: var(--arc-spacing-small);
+        border-radius: 50%;
       }
 
       #action {
+        margin-top: -.2rem;
+        padding-bottom: var(--arc-spacing-small);
         font-size: var(--arc-font-size-xx-small);
       }
 
       /* Hover & Focus */
-      #button:hover:not(:host([disabled])),
-      #button${focusVisibleSelector}:not(:host([disabled])) {
+      :host(:not([disabled])) #button:hover #icon,
+      :host(:not([disabled])) #button${focusVisibleSelector} #icon {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
 
       /* Active */
-      #button:active:not(:host([disabled])) {
+      :host(:not([disabled])) #button:active #icon {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
@@ -63,6 +77,8 @@ export default class ArcIconButton extends LitElement {
 
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
+  @state() private hasLabel = false;
+
   @property() name: string;
 
   @property() href: string;
@@ -75,10 +91,19 @@ export default class ArcIconButton extends LitElement {
 
   @property({ type: Boolean, reflect: true }) disabled = false;
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.handleSlotChange();
+  }
+
+  handleSlotChange() {
+    this.hasLabel = hasSlot(this);
+  }
+
   render() {
     const interior = html`
-      <arc-icon name=${ifDefined(this.name)} aria-hidden='true'></arc-icon>
-      <slot id='action'></slot>
+      <arc-icon id='icon' name=${ifDefined(this.name)} aria-hidden='true'></arc-icon>
+      ${this.hasLabel ? html`<span id='action'><slot @slotchange=${this.handleSlotChange}></slot></span>` : null}
     `;
 
     return html`
@@ -95,8 +120,8 @@ export default class ArcIconButton extends LitElement {
             aria-disabled='${this.disabled ? 'true' : 'false'}'
             aria-label=${this.label}
             tabindex=${this.disabled ? '-1' : '0'}
-            >${interior}</a
-          >
+            >${interior}
+          </a>
         `
         : html`
           <button

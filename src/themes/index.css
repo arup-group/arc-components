@@ -141,6 +141,7 @@
   --arc-focus-ring: var(--arc-focus-ring-width) rgb(var(--arc-focus-ring-color) / var(--arc-focus-ring-alpha));
 
   /* Padding / Margin */
+  --arc-spacing-x-small: 0.5rem;
   --arc-spacing-small: 0.75rem;
   --arc-spacing-normal: 1rem;
   --arc-spacing-medium: 1.5rem;

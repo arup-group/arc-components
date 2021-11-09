@@ -15,18 +15,19 @@
 </head>
 
 <body>
-<arc-container theme='light'>
+<arc-container theme='auto'>
   <arc-navbar slot='nav' logo='./src/assets/arc-red.svg'>
     <div slot='name'>WebComponents</div>
-    <arc-button id='themeSetter' type='tab'>Toggle Theme</arc-button>
+    <arc-icon-button name='home' href='/'></arc-icon-button>
+    <arc-icon-button name='settings'></arc-icon-button>
+    <arc-icon-button id='themeSetter' name='brightness_low'></arc-icon-button>
+    <arc-button type='tab'>Jasper Wieringa</arc-button>
   </arc-navbar>
   <arc-sidebar slot='side'>
     <div>Sidebar</div>
   </arc-sidebar>
   <div>
-    <p>
-      Click <arc-icon-button name='home' label='Go home'></arc-icon-button> to watch some more
-    </p>
+    <arc-button type='outlined'>Hey there</arc-button>
   </div>
 </arc-container>
 
@@ -48,6 +49,7 @@
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';
+    themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
   })
 </script>
 </body>

@@ -176,8 +176,7 @@ export default class ArcButton extends LitElement {
   render() {
     const compStyles = window.getComputedStyle(this);
     const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
-    const userDefinedBackground = () =>
-      compStyles.getPropertyValue('--btn-background');
+    const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
 
     const getColor = () => {
       switch (this.type) {

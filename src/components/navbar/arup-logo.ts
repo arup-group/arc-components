@@ -2,7 +2,6 @@ import { html } from 'lit';
 
 export const arupLogo = html`
   <svg
-    id="company-logo"
     width="512"
     height="159"
     viewBox="0 0 512 159"

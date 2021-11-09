@@ -60,8 +60,8 @@ export default class ArcContainer extends LitElement {
           display: block;
         }
 
-        ::slotted(arc-bottombar),
-        #bottom {
+        arc-bottombar,
+        ::slotted(arc-bottombar) {
           display: none;
         }
       }
@@ -69,7 +69,7 @@ export default class ArcContainer extends LitElement {
   ];
 
   /** @type { 'auto' | 'dark' | 'light' } */
-  @property({ type: String, reflect: true }) theme = 'auto';
+  @property({ type: String, reflect: true }) theme = CONTAINER_THEMES.auto;
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
@@ -81,19 +81,24 @@ export default class ArcContainer extends LitElement {
 
   getTheme = (date?: Date) => isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
 
+  switchTheme = () => {
+    this.theme = this.theme === CONTAINER_THEMES.dark ? CONTAINER_THEMES.light : CONTAINER_THEMES.dark;
+  }
+
   render() {
+    const getThemeIcon = () => this.theme === CONTAINER_THEMES.dark ? 'brightness_low' : 'brightness_high';
+
     return html`
-      <main id="main">
-        <slot id="nav" name="nav"></slot>
-        <div id="container">
-          <slot name="side"></slot>
-          <div id="content"><slot></slot></div>
+      <main id='main'>
+        <slot id='nav' name='nav'></slot>
+        <div id='container'>
+          <slot name='side'></slot>
+          <div id='content'><slot></slot></div>
         </div>
-        <slot name="bottom">
-          <arc-bottombar id="bottom">
-            <arc-icon-button name='home' label='Go home'>Home</arc-icon-button>
-            <arc-icon-button name='equalizer' label='Options'>Options</arc-icon-button>
-            <arc-icon-button name='link' label='Target'>Target</arc-icon-button>
+        <slot name='bottom'>
+          <arc-bottombar>
+            <arc-icon-button name='home' href='/' label='Go home'>Home</arc-icon-button>
+            <arc-icon-button name=${getThemeIcon()} label='Switch theme' @click=${this.switchTheme}>Toggle theme</arc-icon-button>
           </arc-bottombar>
         </slot>
       </main>

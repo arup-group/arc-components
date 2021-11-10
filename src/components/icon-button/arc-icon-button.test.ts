@@ -1,27 +1,22 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import sinon from 'sinon';
-import { getPropertyValue } from '../../utilities/style-utils.js';
 import { slotExists } from '../../utilities/dom-utils.js';
 
-import type ArcButton from './ArcButton.js';
-import './arc-button.js';
+import type ArcIconButton from './ArcIconButton.js';
+import './arc-icon-button.js';
 
-import { BUTTON_TYPES, BUTTON_SIZES, BUTTON_COLORS } from './constants/ButtonConstants.js';
-
-describe('ArcButton', () => {
+describe('ArcIconButton', () => {
   // Test the rendering of the component
   describe('rendering', () => {
-    let element: ArcButton;
+    let element: ArcIconButton;
     beforeEach(async () => {
-      element = await fixture(html`<arc-button>Test</arc-button>`);
+      element = await fixture(html`<arc-icon-button label='Some label'></arc-icon-button>`);
     });
 
     // Test default properties that reflect to the DOM
-    it('renders the button with default properties in the dom', () => {
-      expect(element).dom.to.equal(
-        `<arc-button type='${BUTTON_TYPES.contained}' color='${BUTTON_COLORS.default}' size='${BUTTON_SIZES.medium}'>Test</arc-button>`
-      );
+    it('renders the element with default properties in the dom', () => {
+      expect(element).dom.to.equal(`<arc-icon-button label='Some label'></arc-icon-button>`);
     });
 
     // Test the type of the button
@@ -38,41 +33,30 @@ describe('ArcButton', () => {
 
   // Test the setters/getters
   describe('setters/getters', () => {
-    it('renders the button with a custom color, type and size property', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button>Test</arc-button>`
+    it('renders the element with a custom name property', async () => {
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button name='heart'></arc-icon-button>`
       );
 
-      for (const buttonColor of Object.keys(BUTTON_COLORS)) {
-        element.color = buttonColor;
-        for (const buttonType of Object.keys(BUTTON_TYPES)) {
-          element.type = buttonType;
-          for (const buttonSize of Object.keys(BUTTON_SIZES)) {
-            element.size = buttonSize;
-
-            await elementUpdated(element); // eslint-disable-line no-await-in-loop
-            expect(element.color).to.equal(buttonColor);
-            expect(element.getAttribute('color')).to.equal(buttonColor);
-            expect(element.type).to.equal(buttonType);
-            expect(element.getAttribute('type')).to.equal(buttonType);
-            expect(element.size).to.equal(buttonSize);
-            expect(element.getAttribute('size')).to.equal(buttonSize);
-          }
-        }
-      }
+      expect(element.name).to.equal('heart');
+      expect(element.getAttribute('name')).to.equal('heart');
     });
 
-    it('renders the button as a submit button', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button submit>Submit</arc-button>);`
+    it('renders the element with a custom label property', async () => {
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button label='Test label'></arc-icon-button>`
       );
-      const buttonTarget = element.shadowRoot!.querySelector('button')!;
-      expect(buttonTarget.getAttribute('type')).to.equal('submit');
+
+      const buttonTarget = element.shadowRoot!.querySelector('button');
+
+      expect(buttonTarget!.getAttribute('aria-label')).to.equal('Test label');
+      expect(element.label).to.equal('Test label');
+      expect(element.getAttribute('label')).to.equal('Test label');
     });
 
     it('renders the button as an anchor', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button href="/">Test</arc-button>`
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button href="/" label='Test label'>Test</arc-icon-button>`
       );
       const buttonTarget = element.shadowRoot!.querySelector('button');
       const anchorTarget = element.shadowRoot!.querySelector('a');
@@ -81,6 +65,7 @@ describe('ArcButton', () => {
       expect(anchorTarget).to.exist;
 
       expect(anchorTarget!.getAttribute('href')).to.equal('/');
+      expect(anchorTarget!.getAttribute('aria-label')).to.equal('Test label');
       expect(anchorTarget!.hasAttribute('target')).to.be.false;
       expect(anchorTarget!.hasAttribute('rel')).to.be.false;
 
@@ -89,8 +74,8 @@ describe('ArcButton', () => {
     });
 
     it('renders the anchor with a target attribute', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button href="/" target="_blank">Test</arc-button>`
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button href='/' target='_blank'>Test</arc-icon-button>`,
       );
       const anchorTarget = element.shadowRoot!.querySelector('a')!;
 
@@ -102,8 +87,8 @@ describe('ArcButton', () => {
     });
 
     it('renders the anchor with a download attribute', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button href="/" download="Filename">Test</arc-button>`
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button href='/' download="Filename">Test</arc-icon-button>`,
       );
       const anchorTarget = element.shadowRoot!.querySelector('a')!;
 
@@ -116,13 +101,13 @@ describe('ArcButton', () => {
 
   // Test different component states (active, disabled, loading etc.)
   describe('states', () => {
-    let element: ArcButton;
+    let element: ArcIconButton;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-button></arc-button>`);
+      element = await fixture(html`<arc-icon-button></arc-icon-button>`);
     });
 
-    it('renders the button in an active state', async () => {
+    it('renders the component in an active state', async () => {
       expect(element.active).to.be.false;
       expect(element.hasAttribute('active')).to.be.false;
 
@@ -167,7 +152,7 @@ describe('ArcButton', () => {
       expect(element.hasAttribute('disabled')).to.be.true;
     });
 
-    it('renders the button in a loading state', async () => {
+    it('renders the component in a loading state', async () => {
       expect(element.loading).to.be.false;
       expect(element.hasAttribute('loading')).to.be.false;
 
@@ -181,7 +166,7 @@ describe('ArcButton', () => {
 
   // Test the events (click, focus, blur etc.)
   describe('events', () => {
-    let element: ArcButton;
+    let element: ArcIconButton;
     let clickSpy: any;
     let isClicked: boolean;
 
@@ -191,14 +176,14 @@ describe('ArcButton', () => {
 
     beforeEach(async () => {
       isClicked = false;
-      element = await fixture(html`<arc-button></arc-button>`);
+      element = await fixture(html`<arc-icon-button></arc-icon-button>`);
       clickSpy = sinon.spy(element, 'click');
       element.addEventListener('click', updateClicked);
-    });
+    })
 
     afterEach(() => {
       element.removeEventListener('click', updateClicked);
-    });
+    })
 
     it('simulates a click on the button', async () => {
       element.click();
@@ -233,48 +218,19 @@ describe('ArcButton', () => {
 
   // Test whether the slots can be filled and that they exist
   describe('slots', () => {
-    let element: ArcButton;
-    let buttonTarget: HTMLElement;
+    // Prevent padding issues when used inline within a <p> tag for example
+    it('prevents rendering a slot to when no content is given', async () => {
+      const element: ArcIconButton = await fixture(html`<arc-icon-button></arc-icon-button>`);
+      const buttonTarget: HTMLElement = element.shadowRoot!.getElementById('button')!;
 
-    beforeEach(async () => {
-      element = await fixture(html`<arc-button></arc-button>`);
-      buttonTarget = element.shadowRoot!.getElementById('button')!;
+      expect(slotExists(buttonTarget)).to.be.false;
     });
 
     it('renders a slot to fill the button with a label', async () => {
+      const element: ArcIconButton = await fixture(html`<arc-icon-button>Test</arc-icon-button>`);
+      const buttonTarget: HTMLElement = element.shadowRoot!.getElementById('button')!;
+
       expect(slotExists(buttonTarget)).to.be.true;
-    });
-
-    it('renders a slot to fill the button with a prefix', async () => {
-      expect(slotExists(buttonTarget, 'prefix')).to.be.true;
-    });
-
-    it('renders a slot to fill the button with a suffix', async () => {
-      expect(slotExists(buttonTarget, 'suffix')).to.be.true;
-    });
-  });
-
-  // Test the css variables that can be overwritten
-  describe('css variables', () => {
-    it('uses the default css variables', async () => {
-      const element: ArcButton = await fixture(
-        html` <arc-button>Test</arc-button>`
-      );
-
-      expect(getPropertyValue(element, '--min-width')).to.equal('0');
-      expect(getPropertyValue(element, '--btn-color')).to.equal('');
-      expect(getPropertyValue(element, '--btn-background')).to.equal('');
-    });
-    it('overwrites the css variables', async () => {
-      const element: ArcButton = await fixture(html` <arc-button
-        style="width: 200px; --min-width: 150px; --btn-color: red; --btn-background: green;"
-        >Test
-      </arc-button>`);
-
-      expect(getPropertyValue(element, 'width')).to.equal('200px');
-      expect(getPropertyValue(element, '--min-width')).to.equal('150px');
-      expect(getPropertyValue(element, '--btn-color')).to.equal('red');
-      expect(getPropertyValue(element, '--btn-background')).to.equal('green');
-    });
+    })
   });
 });

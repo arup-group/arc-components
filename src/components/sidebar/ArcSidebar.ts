@@ -94,23 +94,19 @@ export default class ArcSidebar extends LitElement {
   };
 
   render() {
-    return html`
-      ${this.open
-        ? html`
-            <div id="sidebar">
-              <arc-icon
-                id="toggleClose"
-                name="arrow-left"
-                @click=${this._toggleOpenState}
-              ></arc-icon>
-              <slot @slotchange=${this._handleSlots}></slot>
-            </div>
-          `
-        : html`
-            <button id="toggleOpen" @click=${this._toggleOpenState}>
-              <arc-icon name="arrow-right"></arc-icon>
-            </button>
-          `}
+    return this.open ? html`
+      <div id="sidebar">
+        <arc-icon
+          id="toggleClose"
+          name="arrow-left"
+          @click=${this._toggleOpenState}
+        ></arc-icon>
+        <slot @slotchange=${this._handleSlots}></slot>
+      </div>
+    ` : html`
+      <button id="toggleOpen" @click=${this._toggleOpenState}>
+        <arc-icon name="arrow-right"></arc-icon>
+      </button>
     `;
   }
 }

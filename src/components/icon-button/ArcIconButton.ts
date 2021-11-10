@@ -15,9 +15,7 @@ export default class ArcIconButton extends LitElement {
     css`
       :host {
         display: inline-block;
-        width: auto;
         cursor: pointer;
-        --min-width: 0;
       }
       
       #iconWrapper {
@@ -32,7 +30,6 @@ export default class ArcIconButton extends LitElement {
         justify-content: center;
         align-items: center;
         width: 100%;
-        min-width: var(--min-width);
         min-height: 100%;
         border: none;
         font-family: var(--arc-font-button);
@@ -93,7 +90,8 @@ export default class ArcIconButton extends LitElement {
       #loader {
         position: absolute;
       }
-      
+
+      /* Prevent click events from firing on slots */
       #iconWrapper, #icon, #action {
         pointer-events:none
       }
@@ -112,6 +110,10 @@ export default class ArcIconButton extends LitElement {
 
   @property() download: string;
 
+  /**
+   * A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should
+   * always include a label that describes what the icon button does.
+   */
   @property() label = '';
 
   @property({ type: Boolean, reflect: true }) active = false;
@@ -143,8 +145,8 @@ export default class ArcIconButton extends LitElement {
 
   render() {
     const interior = html`
-      <span id='iconWrapper'>
-        <arc-icon id='icon' name=${ifDefined(this.name)} aria-hidden='true'></arc-icon>
+      <span id='iconWrapper' aria-hidden='true'>
+        <arc-icon id='icon' name=${ifDefined(this.name)}></arc-icon>
         ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : null}
       </span>
       ${this.hasLabel ? html`<span id='action'><slot @slotchange=${this.handleSlotChange}></slot></span>` : null}
@@ -161,6 +163,7 @@ export default class ArcIconButton extends LitElement {
           role='button'
           aria-disabled=${this.disabled ? 'true' : 'false'}
           aria-label=${this.label}
+          tabindex=${this.disabled ? '-1' : '0'}
           @click=${this.handleClick}
           >${interior}
         </a>

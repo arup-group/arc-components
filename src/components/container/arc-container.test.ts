@@ -1,15 +1,15 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
+import { isNight } from '../../utilities/date-utils.js';
+import { isMobile } from '../../utilities/ui-utils.js';
+import { getPropertyValue } from '../../utilities/style-utils.js';
+import { slotExists } from '../../utilities/dom-utils.js';
 
 import ArcContainer from './ArcContainer.js';
 import './arc-container.js';
 
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
-
-import { isNight } from '../../utilities/date-utils.js';
-import { isMobile } from '../../utilities/ui-utils.js';
-import { getPropertyValue } from '../../utilities/style-utils.js';
 
 describe('ArcContainer', () => {
   // Test the rendering of the component
@@ -120,10 +120,10 @@ describe('ArcContainer', () => {
     it('renders default slots to fill the container', () => {
       const main = element.shadowRoot!.getElementById('main')!;
 
-      expect(main.querySelector('slot[name="nav"]')).to.exist;
-      expect(main.querySelector('slot[name="side"]')).to.exist;
-      expect(main.querySelector('#content > slot')).to.exist;
-      expect(main.querySelector('slot[name="bottom"]')).to.exist;
+      expect(slotExists(main)).to.be.true; // Default content slot
+      expect(slotExists(main, 'nav')).to.be.true;
+      expect(slotExists(main, 'side')).to.be.true;
+      expect(slotExists(main, 'bottom')).to.be.true;
     });
   });
 

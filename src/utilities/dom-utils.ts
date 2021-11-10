@@ -24,7 +24,7 @@ Given a slot, this function iterates over all of its assigned text nodes and ret
 string. This is useful because we can't use slot.textContent as an alternative.
  */
 function getTextContent(slot: HTMLSlotElement): string {
-  const nodes = slot ? slot.assignedNodes({ flatten: true }) : [];
+  const nodes = slot.assignedNodes({ flatten: true });
   let text = '';
 
   [...nodes].forEach(node => {

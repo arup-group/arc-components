@@ -147,7 +147,7 @@ export default class ArcIconButton extends LitElement {
   render() {
     const interior = html`
       <span id='iconWrapper' aria-hidden='true'>
-        <arc-icon id='icon' name=${ifDefined(this.name)}></arc-icon>
+        <arc-icon id='icon' part='icon' name=${ifDefined(this.name)}></arc-icon>
         ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : null}
       </span>
       ${this.hasLabel ? html`<span id='action'><slot @slotchange=${this.handleSlotChange}></slot></span>` : null}

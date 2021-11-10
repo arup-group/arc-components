@@ -51,9 +51,9 @@ const Template: Story<ArgTypes> = ({
   spinning,
 }: ArgTypes) => html`
   <arc-icon
-    name="${name}"
-    size="${size}"
-    rotation="${rotation}"
+    .name="${name}"
+    .size="${size}"
+    .rotation="${rotation}"
     ?spinning=${spinning}
   ></arc-icon>
 `;

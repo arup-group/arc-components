@@ -15,6 +15,7 @@ export default class ArcIconButton extends LitElement {
       :host {
         display: inline-block;
         cursor: pointer;
+        --icon-color: rgb(var(--arc-font-color));
       }
       
       #iconWrapper {
@@ -32,7 +33,7 @@ export default class ArcIconButton extends LitElement {
         min-height: 100%;
         border: none;
         font-family: var(--arc-font-button);
-        font-size: var(--arc-font-size-small);
+        font-size: inherit;
         font-weight: var(--arc-font-weight-semibold);
         line-height: normal;
         text-decoration: none;
@@ -41,7 +42,7 @@ export default class ArcIconButton extends LitElement {
         vertical-align: middle;
         padding: 0;
         cursor: inherit;
-        color: inherit;
+        color: var(--icon-color);
         background: none;
         outline: none;
         -webkit-appearance: none;
@@ -53,9 +54,9 @@ export default class ArcIconButton extends LitElement {
       }
 
       #action {
+        font-size: var(--arc-font-size-xx-small);
         margin-top: -.2rem;
         padding-bottom: var(--arc-spacing-small);
-        font-size: var(--arc-font-size-xx-small);
       }
 
       /* Hover */

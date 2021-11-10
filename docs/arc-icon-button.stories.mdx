@@ -1,42 +1,21 @@
 import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
-import * as stories from '../dist/components/button/arc-button.stories.js';
+import * as stories from '../dist/components/icon-button/arc-icon-button.stories.js';
 
-<Meta title="ArcButton" component='arc-button' />
+<Meta title="ArcIconButton" component='arc-icon-button' />
 
-# Button
-### `<arc-button>`
+# Icon Button
+### `<arc-icon-button>`
 
-The ArcButton represents actions that are available to the user.
+The ArcIconButton is a simple, icon-only button that can be used for actions and in toolbars.
+For a full list of icons that come bundled with Arc, refer to the #link input here.
 
 ## Examples
-### Types
-Use the `type` attribute to set the button's type.
-<Canvas>
-  <Story name="Contained" story={stories.Contained} />
-  <Story name="Tile" story={stories.Tile} />
-  <Story name="Outlined" story={stories.Outlined} />
-  <Story name="Pill" story={stories.Pill} />
-  <Story name="Tab" story={stories.Tab} />
-</Canvas>
-
 ### Colors
-Use the `color` attribute to set the button's color.
+Icon buttons are designed to have a uniform appearance, so their color is not inherited.
+However, you can still customize them by styling the css variables.
 <Canvas>
   <Story name="Default" story={stories.Default} />
-  <Story name="Primary" story={stories.Primary} />
-  <Story name="Secondary" story={stories.Secondary} />
-  <Story name="Error" story={stories.Error} />
-  <Story name="Warning" story={stories.Warning} />
-  <Story name="Info" story={stories.Info} />
-  <Story name="Success" story={stories.Success} />
-</Canvas>
-
-### Sizes
-Use the `size` attribute to set the button's size
-<Canvas>
-  <Story name="Small" story={stories.Small} />
-  <Story name="Medium" story={stories.Medium} />
-  <Story name="Large" story={stories.Large} />
+  <Story name="CustomColor" story={stories.CustomColor} />
 </Canvas>
 
 ### Link button
@@ -60,16 +39,8 @@ Use the `active`, `disabled` or `loading` attributes to change the state of the 
   <Story name="Loading" story={stories.Loading} />
 </Canvas>
 
-### Prefix and Suffix icons
-Use the `prefix` and `suffix` slots to add icons.
-
-<Canvas>
-  <Story name="Prefix" story={stories.Prefix} />
-  <Story name="Suffix" story={stories.Suffix} />
-</Canvas>
-
 ## Properties
-<ArgsTable story="Contained" />
+<ArgsTable story="Default" />
 
 ## Events
 Coming soon
@@ -85,17 +56,12 @@ Coming soon
 | Name         | Description                                               |
 |--------------|-----------------------------------------------------------|
 | (default)    | The button's label.                                       |
-| prefix       | Used to prepend an icon or similar element to the button. |
-| suffix       | Used to append an icon or similar element to the button.  |
 
 ## CSS Variables
 
 | Name             | Description                                           |
 |------------------|-------------------------------------------------------|
-| width            | Set the width of the button.                          |
-| --min-width      | Set the min width of the button.                      |
-| --btn-color      | Overwrite the font color of the button.               |
-| --btn-background | Overwrite the background color of the button          |
+| --icon-color     | Overwrite the color of the icon.                      |
 
 ## Dependencies
 

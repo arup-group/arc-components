@@ -2,7 +2,6 @@ import { css, html, LitElement, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { focusVisibleSelector } from '../../utilities/focus-visible.js';
 import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES, } from './constants/ButtonConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 
@@ -91,15 +90,15 @@ export default class ArcButton extends LitElement {
 
       /* Default - Hover & Focus */
       :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button:hover,
-      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button${focusVisibleSelector} {
+      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button:focus-visible {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
       /* Tab & Outlined - Hover & Focus */
       :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button:hover,
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button:focus-visible,
       :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button:hover,
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button${focusVisibleSelector},
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button${focusVisibleSelector} {
+      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button:focus-visible {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }

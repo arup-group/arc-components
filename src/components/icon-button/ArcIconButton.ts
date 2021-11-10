@@ -3,7 +3,6 @@ import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import componentStyles from '../../styles/component.styles.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
-import { focusVisibleSelector } from '../../utilities/focus-visible.js';
 
 import '../spinner/arc-spinner.js';
 
@@ -59,15 +58,16 @@ export default class ArcIconButton extends LitElement {
         font-size: var(--arc-font-size-xx-small);
       }
 
-      /* Hover & Focus */
-      :host(:not([disabled])) #button:hover #icon,
-      :host(:not([disabled])) #button${focusVisibleSelector} #icon {
+      /* Hover */
+      :host(:not([disabled])) #button:hover #icon {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
-
-      /* Mouse down */
-      :host(:not([disabled])) #button:active #icon {
+      
+      /* Focus & Mouse down */
+      :host(:not([disabled])) #button:active #icon,
+      :host(:not([disabled])) #button:focus-visible #icon {
+        background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 

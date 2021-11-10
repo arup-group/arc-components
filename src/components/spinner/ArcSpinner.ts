@@ -8,7 +8,7 @@ export default class ArcSpinner extends LitElement {
     componentStyles,
     css`
       :host {
-        --stroke-color: rgb(var(--arc-color-primary));
+        --stroke-color: rgb(var(--arc-font-color));
         --track-width: 2px;
 
         display: inline-flex;
@@ -33,7 +33,7 @@ export default class ArcSpinner extends LitElement {
       }
 
       .spinner__track {
-        stroke: rgb(var(--arc-grey-050) / 20%);
+        stroke: rgba(var(--arc-grey-050), 0.3););
         transform-origin: 0 0;
       }
 

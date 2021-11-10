@@ -20,13 +20,15 @@
     <div slot='name'>WebComponents</div>
     <arc-icon-button name='home' href='/'></arc-icon-button>
     <arc-icon-button name='settings'></arc-icon-button>
-<!--    <arc-icon-button id='themeSetter' name='brightness_low'></arc-icon-button>-->
+    <arc-icon-button id='themeSetter' name='brightness_low'></arc-icon-button>
     <arc-button type='tab'>Jasper Wieringa</arc-button>
   </arc-navbar>
   <arc-sidebar slot='side'>
     <div>Sidebar</div>
   </arc-sidebar>
-  <div></div>
+  <div>
+    <arc-spinner style='font-size: 3rem'></arc-spinner>
+  </div>
 </arc-container>
 
 <script type='module'>
@@ -41,6 +43,14 @@
   import './dist/components/sidebar/arc-sidebar.js';
   import './dist/components/button/arc-button.js';
   import './dist/components/icon-button/arc-icon-button.js';
+
+  const themeSetter = document.getElementById('themeSetter');
+  const container = document.querySelector('arc-container');
+
+  themeSetter.addEventListener('click', () => {
+    container.theme = container.theme === 'dark' ? 'light' : 'dark';
+    themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
+  })
 </script>
 </body>
 

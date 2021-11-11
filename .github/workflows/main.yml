@@ -48,7 +48,6 @@ jobs:
           AWS_S3_BUCKET: arup-arc-components
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          PATH_TO_DELETE: .
 
       - name: Upload assets to S3
         uses: shallwefootball/upload-s3-action@v1.1.3

@@ -12,6 +12,7 @@ export default class ArcNavbar extends LitElement {
     css`
       :host {
         height: var(--arc-navbar-height);
+        min-height: var(--arc-navbar-height);
         background: rgb(var(--arc-container-color));
       }
 
@@ -119,8 +120,8 @@ export default class ArcNavbar extends LitElement {
   handleTabChange = (e: any) => {
     const isButton = (element: any) => element.tagName === 'ARC-BUTTON';
 
-    const childNodes = e.target.assignedElements({ flatten: true });
-    const arcTabs = childNodes.filter(isButton);
+    const nodes = e.target.assignedElements({ flatten: true });
+    const arcTabs = nodes.filter(isButton);
 
     if (arcTabs.length > this.tabs) {
       // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count

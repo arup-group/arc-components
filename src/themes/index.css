@@ -99,7 +99,7 @@
   /* Container elements */
   --arc-navbar-height: 3.5rem;
   --arc-sidebar-width: 23rem;
-  --arc-bottom-height: var(--arc-navbar-height);
+  --arc-bottom-height: 4.5rem;
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;

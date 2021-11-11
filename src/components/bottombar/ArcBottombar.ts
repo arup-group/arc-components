@@ -1,0 +1,55 @@
+import { css, html, LitElement } from 'lit';
+import { state } from 'lit/decorators.js';
+import componentStyles from '../../styles/component.styles.js';
+
+export default class ArcBottombar extends LitElement {
+  static tag = 'arc-bottombar';
+
+  static styles = [
+    componentStyles,
+    css`
+      :host {
+        height: var(--arc-bottom-height);
+        min-height: var(--arc-bottom-height);
+        display: inline-block;
+      }
+
+      #main {
+        height: inherit;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+      }
+    `,
+  ];
+
+  @state() tabs: number = 5;
+
+  handleTabChange = (e: any) => {
+    const isButton = (element: any) => element.tagName === 'ARC-ICON-BUTTON';
+
+    const nodes = e.target.assignedElements({ flatten: true });
+    const arcTabs = nodes.filter(isButton);
+
+    if (arcTabs.length > this.tabs) {
+      // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
+      console.warn(
+        `Please limit your tab count to a maximum of ${this.tabs} tabs`
+      );
+    }
+  };
+
+  render() {
+    return html`
+      <main id="main">
+        <slot @slotchange=${this.handleTabChange}></slot>
+      </main>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'arc-bottombar': ArcBottombar;
+  }
+}

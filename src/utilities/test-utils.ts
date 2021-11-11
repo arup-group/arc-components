@@ -1,5 +1,5 @@
 /*
-Determines whether a web-components has a slot.
+Determines whether a web-component has a slot.
 If name is specified, the function will look for a specific named slot,
 otherwise it will look for a default slot.
  */

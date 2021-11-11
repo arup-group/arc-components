@@ -2,7 +2,11 @@ import { css, html, LitElement, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES, } from './constants/ButtonConstants.js';
+import {
+  BUTTON_TYPES,
+  BUTTON_COLORS,
+  BUTTON_SIZES,
+} from './constants/ButtonConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 
 import '../spinner/arc-spinner.js';
@@ -48,15 +52,24 @@ export default class ArcButton extends LitElement {
       }
 
       /* Pill */
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.small)}']) #button {
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(
+            BUTTON_SIZES.small
+          )}'])
+        #button {
         border-radius: var(--arc-input-height-small);
       }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.medium)}']) #button {
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(
+            BUTTON_SIZES.medium
+          )}'])
+        #button {
         border-radius: var(--arc-input-height-medium);
       }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(BUTTON_SIZES.large)}']) #button {
+      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(
+            BUTTON_SIZES.large
+          )}'])
+        #button {
         border-radius: var(--arc-input-height-large);
       }
 
@@ -77,8 +90,10 @@ export default class ArcButton extends LitElement {
       }
 
       /* Tab - Active */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])[active]) #button {
-        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
+      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])[active])
+        #button {
+        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
+          currentColor;
       }
 
       /* Outlined */
@@ -89,28 +104,61 @@ export default class ArcButton extends LitElement {
       }
 
       /* Default - Hover & Focus */
-      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button:hover,
-      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button:focus-visible {
+      :host(:not([type='${unsafeCSS(
+              BUTTON_TYPES.tab
+            )}']):not([type='${unsafeCSS(
+              BUTTON_TYPES.outlined
+            )}']):not([disabled]):not([loading]))
+        #button:hover,
+      :host(:not([type='${unsafeCSS(
+              BUTTON_TYPES.tab
+            )}']):not([type='${unsafeCSS(
+              BUTTON_TYPES.outlined
+            )}']):not([disabled]):not([loading]))
+        #button:focus-visible {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
       /* Tab & Outlined - Hover & Focus */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button:hover,
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button:focus-visible,
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button:hover,
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button:focus-visible {
+      :host([type='${unsafeCSS(
+            BUTTON_TYPES.tab
+          )}']:not([disabled]):not([loading]))
+        #button:hover,
+      :host([type='${unsafeCSS(
+            BUTTON_TYPES.tab
+          )}']:not([disabled]):not([loading]))
+        #button:focus-visible,
+      :host([type='${unsafeCSS(
+            BUTTON_TYPES.outlined
+          )}']:not([disabled]):not([loading]))
+        #button:hover,
+      :host([type='${unsafeCSS(
+            BUTTON_TYPES.outlined
+          )}']:not([disabled]):not([loading]))
+        #button:focus-visible {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
 
       /* Default - Mouse down */
-      :host(:not([type='${unsafeCSS(BUTTON_TYPES.tab)}']):not([type='${unsafeCSS(BUTTON_TYPES.outlined)}']):not([disabled]):not([loading])) #button:active {
+      :host(:not([type='${unsafeCSS(
+              BUTTON_TYPES.tab
+            )}']):not([type='${unsafeCSS(
+              BUTTON_TYPES.outlined
+            )}']):not([disabled]):not([loading]))
+        #button:active {
         background-image: linear-gradient(var(--arc-hover-darker) 0 0);
       }
 
       /* Tab & Outlined - Mouse down */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled]):not([loading])) #button:active,
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']:not([disabled]):not([loading])) #button:active {
+      :host([type='${unsafeCSS(
+            BUTTON_TYPES.tab
+          )}']:not([disabled]):not([loading]))
+        #button:active,
+      :host([type='${unsafeCSS(
+            BUTTON_TYPES.outlined
+          )}']:not([disabled]):not([loading]))
+        #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
@@ -131,10 +179,10 @@ export default class ArcButton extends LitElement {
       #loader {
         position: absolute;
       }
-      
+
       /* Prevent click events from firing when a user clicks on a slot */
       slot {
-        pointer-events:none
+        pointer-events: none;
       }
     `,
   ];
@@ -180,7 +228,8 @@ export default class ArcButton extends LitElement {
   render() {
     const compStyles = window.getComputedStyle(this);
     const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
-    const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
+    const userDefinedBackground = () =>
+      compStyles.getPropertyValue('--btn-background');
 
     const getColor = () => {
       switch (this.type) {
@@ -214,41 +263,45 @@ export default class ArcButton extends LitElement {
     };
 
     const interior = html`
-      <slot id='prefix' name="prefix"></slot>
+      <slot id="prefix" name="prefix"></slot>
       <slot id="label"></slot>
-      <slot id='suffix' name="suffix"></slot>
-      ${this.loading ? html`<arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
+      <slot id="suffix" name="suffix"></slot>
+      ${this.loading
+        ? html`<arc-spinner
+            id="loader"
+            style="--stroke-color: ${getColor()}"
+          ></arc-spinner>`
+        : null}
     `;
 
     return html`
       ${this.href
         ? html`
-          <a
-            id="button"
-            style=${styleMap(btnStyles)}
-            href=${ifDefined(this.href)}
-            target=${ifDefined(this.target)}
-            download=${ifDefined(this.download)}
-            rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
-            role="button"
-            aria-disabled=${this.disabled ? 'true' : 'false'}
-            tabindex=${this.disabled ? '-1' : '0'}
-            @click=${this.handleClick}
-            >${interior}</a
-          >
-        `
+            <a
+              id="button"
+              style=${styleMap(btnStyles)}
+              href=${ifDefined(this.href)}
+              target=${ifDefined(this.target)}
+              download=${ifDefined(this.download)}
+              rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
+              role="button"
+              aria-disabled=${this.disabled ? 'true' : 'false'}
+              tabindex=${this.disabled ? '-1' : '0'}
+              @click=${this.handleClick}
+              >${interior}</a
+            >
+          `
         : html`
-          <button
-            id="button"
-            style=${styleMap(btnStyles)}
-            ?disabled=${this.disabled}
-            type=${this.submit ? 'submit' : 'button'}
-            @click=${this.handleClick}
-          >
-            ${interior}
-          </button>
-        `
-      }
+            <button
+              id="button"
+              style=${styleMap(btnStyles)}
+              ?disabled=${this.disabled}
+              type=${this.submit ? 'submit' : 'button'}
+              @click=${this.handleClick}
+            >
+              ${interior}
+            </button>
+          `}
     `;
   }
 }

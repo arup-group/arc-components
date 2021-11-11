@@ -48,7 +48,7 @@ export default {
       description: 'Draws the button in a loading state.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
-    }
+    },
   },
 };
 
@@ -71,17 +71,28 @@ interface ArgTypes {
   download: string | undefined;
 }
 
-const Template: Story<ArgTypes> = ({ name, label, content, color, href, target, download, active, disabled, loading }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({
+  name,
+  label,
+  content,
+  color,
+  href,
+  target,
+  download,
+  active,
+  disabled,
+  loading,
+}: ArgTypes) => html`
   <arc-icon-button
-    .name='${name}'
-    .label='${label}'
-    .href='${href}'
-    .target='${target}'
-    .download='${download}'
-    ?active='${active}'
-    ?disabled='${disabled}'
-    ?loading='${loading}'
-    style='--icon-color: ${color || "inherit"}'
+    .name="${name}"
+    .label="${label}"
+    .href="${href}"
+    .target="${target}"
+    .download="${download}"
+    ?active="${active}"
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+    style="--icon-color: ${color || 'inherit'}"
   >
     ${content}
   </arc-icon-button>
@@ -97,7 +108,7 @@ const defaultArgs = {
   download: undefined,
   active: false,
   disabled: false,
-  loading: false
+  loading: false,
 };
 
 // TYPES
@@ -111,15 +122,45 @@ export const LinkDisabled = Template.bind({});
 Default.args = { ...defaultArgs };
 CustomColor.args = { ...defaultArgs, content: 'Custom color', color: 'red' };
 Link.args = { ...defaultArgs, name: 'link', content: 'Link', href: '/' };
-LinkNewWindow.args = { ...Link.args, name: 'link', content: 'New window', target: '_blank' };
-LinkDownload.args = { ...Link.args, name: 'link', content: 'Download', download: 'ARC Storybook', };
-LinkDisabled.args = { ...Link.args, name: 'link', content: 'Disabled', disabled: true };
+LinkNewWindow.args = {
+  ...Link.args,
+  name: 'link',
+  content: 'New window',
+  target: '_blank',
+};
+LinkDownload.args = {
+  ...Link.args,
+  name: 'link',
+  content: 'Download',
+  download: 'ARC Storybook',
+};
+LinkDisabled.args = {
+  ...Link.args,
+  name: 'link',
+  content: 'Disabled',
+  disabled: true,
+};
 
 // STATES
 export const Active = Template.bind({});
 export const Disabled = Template.bind({});
 export const Loading = Template.bind({});
 
-Active.args = { ...defaultArgs, label: 'Icon button', content: 'Active', active: true };
-Disabled.args = { ...defaultArgs, label: 'Icon button', content: 'Disabled', disabled: true };
-Loading.args = { ...defaultArgs, label: 'Icon button', content: 'Loading', loading: true };
+Active.args = {
+  ...defaultArgs,
+  label: 'Icon button',
+  content: 'Active',
+  active: true,
+};
+Disabled.args = {
+  ...defaultArgs,
+  label: 'Icon button',
+  content: 'Disabled',
+  disabled: true,
+};
+Loading.args = {
+  ...defaultArgs,
+  label: 'Icon button',
+  content: 'Loading',
+  loading: true,
+};

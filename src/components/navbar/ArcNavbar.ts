@@ -53,12 +53,14 @@ export default class ArcNavbar extends LitElement {
       #tabs {
         display: none;
       }
-      
+
       ::slotted(arc-button) {
-        border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-        border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+        border-left: var(--arc-border-width) var(--arc-border-style)
+          rgb(var(--arc-color-default));
+        border-right: var(--arc-border-width) var(--arc-border-style)
+          rgb(var(--arc-color-default));
       }
-      
+
       ::slotted(arc-icon-button) {
         margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
       }
@@ -122,7 +124,9 @@ export default class ArcNavbar extends LitElement {
 
     if (arcTabs.length > this.tabs) {
       // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
-      console.warn(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
+      console.warn(
+        `Please limit your tab count to a maximum of ${this.tabs} tabs`
+      );
     }
   };
 
@@ -138,7 +142,7 @@ export default class ArcNavbar extends LitElement {
           <div id="tabs">
             <slot @slotchange=${this.handleTabChange}></slot>
           </div>
-          ${this.arup ? html`<span id='company-logo'>${arupLogo}</span>` : null}
+          ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : null}
         </div>
       </main>
     `;

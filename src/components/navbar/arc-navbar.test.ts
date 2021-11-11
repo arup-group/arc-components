@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { slotExists } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../utilities/test-utils.js';
 
 import type ArcNavbar from './ArcNavbar.js';
 import './arc-navbar.js';
@@ -117,8 +117,8 @@ describe('ArcNavbar', () => {
       const leftContainer = element.shadowRoot!.getElementById('left')!;
       const rightContainer = element.shadowRoot!.getElementById('right')!;
 
-      expect(slotExists(leftContainer, 'name')).to.be.true;
-      expect(slotExists(rightContainer)).to.be.true;
+      expect(hasSlot(leftContainer, 'name')).to.be.true;
+      expect(hasSlot(rightContainer)).to.be.true;
     });
   });
 

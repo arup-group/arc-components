@@ -38,9 +38,10 @@ export default class ArcSidebar extends LitElement {
         top: var(--arc-spacing-x-small);
         right: var(--arc-spacing-x-small);
       }
-      
+
       #toggleOpen::part(icon) {
-        padding: var(--arc-spacing-normal) 0.25rem var(--arc-spacing-normal) 0.25rem;
+        padding: var(--arc-spacing-normal) 0.25rem var(--arc-spacing-normal)
+          0.25rem;
         border-radius: 0;
       }
 
@@ -83,14 +84,26 @@ export default class ArcSidebar extends LitElement {
   };
 
   render() {
-    return this.open ? html`
-      <div id="sidebar">
-        <arc-icon-button id="toggleClose" name="arrow-left" label='Close sidebar' @click=${this._toggleOpenState}></arc-icon-button>
-        <slot @slotchange=${this._handleSlots}></slot>
-      </div>
-    ` : html`
-      <arc-icon-button id="toggleOpen" name="arrow-right" label='Open sidebar' @click=${this._toggleOpenState}></arc-icon-button>
-    `;
+    return this.open
+      ? html`
+          <div id="sidebar">
+            <arc-icon-button
+              id="toggleClose"
+              name="arrow-left"
+              label="Close sidebar"
+              @click=${this._toggleOpenState}
+            ></arc-icon-button>
+            <slot @slotchange=${this._handleSlots}></slot>
+          </div>
+        `
+      : html`
+          <arc-icon-button
+            id="toggleOpen"
+            name="arrow-right"
+            label="Open sidebar"
+            @click=${this._toggleOpenState}
+          ></arc-icon-button>
+        `;
   }
 }
 

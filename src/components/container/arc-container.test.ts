@@ -4,7 +4,7 @@ import { setViewport } from '@web/test-runner-commands';
 import { isNight } from '../../utilities/date-utils.js';
 import { isMobile } from '../../utilities/ui-utils.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { slotExists } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../utilities/test-utils.js';
 
 import ArcContainer from './ArcContainer.js';
 import './arc-container.js';
@@ -120,10 +120,10 @@ describe('ArcContainer', () => {
     it('renders default slots to fill the container', () => {
       const main = element.shadowRoot!.getElementById('main')!;
 
-      expect(slotExists(main)).to.be.true; // Default content slot
-      expect(slotExists(main, 'nav')).to.be.true;
-      expect(slotExists(main, 'side')).to.be.true;
-      expect(slotExists(main, 'bottom')).to.be.true;
+      expect(hasSlot(main)).to.be.true; // Default content slot
+      expect(hasSlot(main, 'nav')).to.be.true;
+      expect(hasSlot(main, 'side')).to.be.true;
+      expect(hasSlot(main, 'bottom')).to.be.true;
     });
   });
 

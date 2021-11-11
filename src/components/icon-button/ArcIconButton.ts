@@ -17,13 +17,13 @@ export default class ArcIconButton extends LitElement {
         cursor: pointer;
         --icon-color: rgb(var(--arc-font-color));
       }
-      
+
       #iconWrapper {
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      
+
       #button {
         display: flex;
         flex-direction: column;
@@ -47,7 +47,7 @@ export default class ArcIconButton extends LitElement {
         outline: none;
         -webkit-appearance: none;
       }
-      
+
       #icon {
         padding: var(--arc-spacing-small);
         border-radius: 50%;
@@ -55,7 +55,7 @@ export default class ArcIconButton extends LitElement {
 
       #action {
         font-size: var(--arc-font-size-xx-small);
-        margin-top: -.2rem;
+        margin-top: -0.2rem;
         padding-bottom: var(--arc-spacing-small);
       }
 
@@ -64,7 +64,7 @@ export default class ArcIconButton extends LitElement {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
-      
+
       /* Focus & Mouse down */
       :host(:not([disabled])) #button:active #icon,
       :host(:not([disabled])) #button:focus-visible #icon {
@@ -74,7 +74,8 @@ export default class ArcIconButton extends LitElement {
 
       /* Active */
       :host(:not([disabled])[active]) #button {
-        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
+        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
+          currentColor;
       }
 
       /* Disabled */
@@ -93,8 +94,10 @@ export default class ArcIconButton extends LitElement {
       }
 
       /* Prevent click events from firing on slots */
-      #iconWrapper, #icon, #action {
-        pointer-events:none
+      #iconWrapper,
+      #icon,
+      #action {
+        pointer-events: none;
       }
     `,
   ];
@@ -146,40 +149,44 @@ export default class ArcIconButton extends LitElement {
 
   render() {
     const interior = html`
-      <span id='iconWrapper' aria-hidden='true'>
-        <arc-icon id='icon' part='icon' name=${ifDefined(this.name)}></arc-icon>
+      <span id="iconWrapper" aria-hidden="true">
+        <arc-icon id="icon" part="icon" name=${ifDefined(this.name)}></arc-icon>
         ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : null}
       </span>
-      ${this.hasLabel ? html`<span id='action'><slot @slotchange=${this.handleSlotChange}></slot></span>` : null}
+      ${this.hasLabel
+        ? html`<span id="action"
+            ><slot @slotchange=${this.handleSlotChange}></slot
+          ></span>`
+        : null}
     `;
 
     return this.href
       ? html`
-        <a
-          id='button'
-          href=${ifDefined(this.href)}
-          target=${ifDefined(this.target)}
-          download=${ifDefined(this.download)}
-          rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
-          role='button'
-          aria-disabled=${this.disabled ? 'true' : 'false'}
-          aria-label=${this.label}
-          tabindex=${this.disabled ? '-1' : '0'}
-          @click=${this.handleClick}
-          >${interior}
-        </a>
-      `
+          <a
+            id="button"
+            href=${ifDefined(this.href)}
+            target=${ifDefined(this.target)}
+            download=${ifDefined(this.download)}
+            rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
+            role="button"
+            aria-disabled=${this.disabled ? 'true' : 'false'}
+            aria-label=${this.label}
+            tabindex=${this.disabled ? '-1' : '0'}
+            @click=${this.handleClick}
+            >${interior}
+          </a>
+        `
       : html`
-        <button
-          id='button'
-          ?disabled=${this.disabled}
-          type='button'
-          aria-label=${this.label}
-          @click=${this.handleClick}
-        >
-          ${interior}
-        </button>
-      `;
+          <button
+            id="button"
+            ?disabled=${this.disabled}
+            type="button"
+            aria-label=${this.label}
+            @click=${this.handleClick}
+          >
+            ${interior}
+          </button>
+        `;
   }
 }
 

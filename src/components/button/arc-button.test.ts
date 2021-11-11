@@ -1,13 +1,17 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated } from '@open-wc/testing';
+import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import sinon from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { slotExists } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../utilities/test-utils.js';
 
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
 
-import { BUTTON_TYPES, BUTTON_SIZES, BUTTON_COLORS } from './constants/ButtonConstants.js';
+import {
+  BUTTON_COLORS,
+  BUTTON_SIZES,
+  BUTTON_TYPES,
+} from './constants/ButtonConstants.js';
 
 describe('ArcButton', () => {
   // Test the rendering of the component
@@ -242,15 +246,15 @@ describe('ArcButton', () => {
     });
 
     it('renders a slot to fill the button with a label', async () => {
-      expect(slotExists(buttonTarget)).to.be.true;
+      expect(hasSlot(buttonTarget)).to.be.true;
     });
 
     it('renders a slot to fill the button with a prefix', async () => {
-      expect(slotExists(buttonTarget, 'prefix')).to.be.true;
+      expect(hasSlot(buttonTarget, 'prefix')).to.be.true;
     });
 
     it('renders a slot to fill the button with a suffix', async () => {
-      expect(slotExists(buttonTarget, 'suffix')).to.be.true;
+      expect(hasSlot(buttonTarget, 'suffix')).to.be.true;
     });
   });
 

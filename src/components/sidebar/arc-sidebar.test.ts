@@ -1,6 +1,6 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated } from '@open-wc/testing';
-import { slotExists } from '../../utilities/dom-utils.js';
+import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { hasSlot } from '../../utilities/test-utils.js';
 
 import type ArcSidebar from './ArcSidebar.js';
 import './arc-sidebar.js';
@@ -68,10 +68,13 @@ describe('ArcSidebar', () => {
   // Test whether the slots can be filled and that they exist
   describe('slots', () => {
     it('renders a slot to fill the sidebar', async () => {
-      const element: ArcSidebar = await fixture(html`<arc-sidebar></arc-sidebar>`);
-      const target: HTMLElement = element.shadowRoot!.getElementById('sidebar')!;
+      const element: ArcSidebar = await fixture(
+        html`<arc-sidebar></arc-sidebar>`
+      );
+      const target: HTMLElement =
+        element.shadowRoot!.getElementById('sidebar')!;
 
-      expect(slotExists(target)).to.be.true;
+      expect(hasSlot(target)).to.be.true;
     });
 
     it('should automatically add a gap between added slots', async () => {

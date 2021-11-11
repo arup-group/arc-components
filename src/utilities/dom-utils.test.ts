@@ -48,7 +48,7 @@ describe('getInnerHTML', async () => {
     });
     component.appendChild(newEl);
     expect(getInnerHTML(filledSlot)).to.equal(
-      `<div slot='one'>Hello World</div>`
+      `<div slot="one">Hello World</div>`
     );
   });
 });

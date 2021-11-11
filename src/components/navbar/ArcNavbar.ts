@@ -12,7 +12,6 @@ export default class ArcNavbar extends LitElement {
     css`
       :host {
         height: var(--arc-navbar-height);
-        min-height: var(--arc-navbar-height);
         background: rgb(var(--arc-container-color));
       }
 

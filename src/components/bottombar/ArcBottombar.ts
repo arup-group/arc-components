@@ -10,8 +10,7 @@ export default class ArcBottombar extends LitElement {
     css`
       :host {
         height: var(--arc-bottom-height);
-        min-height: var(--arc-bottom-height);
-        display: inline-block;
+        background: rgb(var(--arc-background-color));
       }
 
       #main {

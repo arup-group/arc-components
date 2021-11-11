@@ -118,7 +118,7 @@ describe('ArcContainer', () => {
       expect(getPropertyValue(container, 'gap')).to.equal('0px');
       expect(getPropertyValue(container, 'padding')).to.equal('0px');
       expect(getPropertyValue(slottedSide, 'display')).to.equal('none');
-      expect(getPropertyValue(slottedBottom, 'display')).to.equal('grid');
+      expect(getPropertyValue(slottedBottom, 'display')).to.equal('block');
     });
   });
 

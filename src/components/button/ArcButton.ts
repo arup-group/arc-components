@@ -1,11 +1,11 @@
-import { css, html, LitElement, unsafeCSS } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import {
-  BUTTON_TYPES,
   BUTTON_COLORS,
   BUTTON_SIZES,
+  BUTTON_TYPES,
 } from './constants/ButtonConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 
@@ -52,117 +52,88 @@ export default class ArcButton extends LitElement {
       }
 
       /* Pill */
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(
-            BUTTON_SIZES.small
-          )}'])
-        #button {
+
+      :host([type='pill'][size='small']) #button {
         border-radius: var(--arc-input-height-small);
       }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(
-            BUTTON_SIZES.medium
-          )}'])
-        #button {
+      :host([type='pill'][size='medium']) #button {
         border-radius: var(--arc-input-height-medium);
       }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.pill)}'][size='${unsafeCSS(
-            BUTTON_SIZES.large
-          )}'])
-        #button {
+      :host([type='pill'][size='large']) #button {
         border-radius: var(--arc-input-height-large);
       }
 
       /* Tile */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tile)}']) #button {
+
+      :host([type='tile']) #button {
         border-radius: 0;
       }
 
       /* Tab */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) {
+
+      :host([type='tab']) {
         height: 100%;
       }
 
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']) #button {
+      :host([type='tab']) #button {
         background: none;
         border-radius: 0;
         box-shadow: none;
       }
 
       /* Tab - Active */
-      :host([type='${unsafeCSS(BUTTON_TYPES.tab)}']:not([disabled])[active])
-        #button {
+
+      :host([type='tab']:not([disabled])[active]) #button {
         border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
           currentColor;
       }
 
       /* Outlined */
-      :host([type='${unsafeCSS(BUTTON_TYPES.outlined)}']) #button {
+
+      :host([type='outlined']) #button {
         border: var(--arc-border-width) var(--arc-border-style) currentColor;
         background-color: transparent;
         box-shadow: none;
       }
 
       /* Default - Hover & Focus */
-      :host(:not([type='${unsafeCSS(
-              BUTTON_TYPES.tab
-            )}']):not([type='${unsafeCSS(
-              BUTTON_TYPES.outlined
-            )}']):not([disabled]):not([loading]))
+
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
         #button:hover,
-      :host(:not([type='${unsafeCSS(
-              BUTTON_TYPES.tab
-            )}']):not([type='${unsafeCSS(
-              BUTTON_TYPES.outlined
-            )}']):not([disabled]):not([loading]))
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
         #button:focus-visible {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
       /* Tab & Outlined - Hover & Focus */
-      :host([type='${unsafeCSS(
-            BUTTON_TYPES.tab
-          )}']:not([disabled]):not([loading]))
-        #button:hover,
-      :host([type='${unsafeCSS(
-            BUTTON_TYPES.tab
-          )}']:not([disabled]):not([loading]))
-        #button:focus-visible,
-      :host([type='${unsafeCSS(
-            BUTTON_TYPES.outlined
-          )}']:not([disabled]):not([loading]))
-        #button:hover,
-      :host([type='${unsafeCSS(
-            BUTTON_TYPES.outlined
-          )}']:not([disabled]):not([loading]))
+
+      :host([type='tab']:not([disabled]):not([loading])) #button:hover,
+      :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
+      :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
+      :host([type='outlined']:not([disabled]):not([loading]))
         #button:focus-visible {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
 
       /* Default - Mouse down */
-      :host(:not([type='${unsafeCSS(
-              BUTTON_TYPES.tab
-            )}']):not([type='${unsafeCSS(
-              BUTTON_TYPES.outlined
-            )}']):not([disabled]):not([loading]))
+
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
         #button:active {
         background-image: linear-gradient(var(--arc-hover-darker) 0 0);
       }
 
       /* Tab & Outlined - Mouse down */
-      :host([type='${unsafeCSS(
-            BUTTON_TYPES.tab
-          )}']:not([disabled]):not([loading]))
-        #button:active,
-      :host([type='${unsafeCSS(
-            BUTTON_TYPES.outlined
-          )}']:not([disabled]):not([loading]))
-        #button:active {
+
+      :host([type='tab']:not([disabled]):not([loading])) #button:active,
+      :host([type='outlined']:not([disabled]):not([loading])) #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
       /* Disabled */
+
       :host([disabled]) #button {
         opacity: 0.5;
         box-shadow: none;
@@ -170,6 +141,7 @@ export default class ArcButton extends LitElement {
       }
 
       /* Loading */
+
       :host([loading]) #prefix,
       :host([loading]) #label,
       :host([loading]) #suffix {
@@ -181,6 +153,7 @@ export default class ArcButton extends LitElement {
       }
 
       /* Prevent click events from firing when a user clicks on a slot */
+
       slot {
         pointer-events: none;
       }
@@ -267,7 +240,7 @@ export default class ArcButton extends LitElement {
       <slot id="label"></slot>
       <slot id="suffix" name="suffix"></slot>
       ${this.loading
-        ? html`<arc-spinner
+        ? html` <arc-spinner
             id="loader"
             style="--stroke-color: ${getColor()}"
           ></arc-spinner>`
@@ -280,14 +253,16 @@ export default class ArcButton extends LitElement {
             <a
               id="button"
               style=${styleMap(btnStyles)}
-              href=${ifDefined(this.href)}
-              target=${ifDefined(this.target)}
-              download=${ifDefined(this.download)}
-              rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
+              href="${ifDefined(this.href)}"
+              target="${ifDefined(this.target)}"
+              download="${ifDefined(this.download)}"
+              rel="${ifDefined(
+                this.target ? 'noreferrer noopener' : undefined
+              )}"
               role="button"
-              aria-disabled=${this.disabled ? 'true' : 'false'}
-              tabindex=${this.disabled ? '-1' : '0'}
-              @click=${this.handleClick}
+              aria-disabled="${this.disabled ? 'true' : 'false'}"
+              tabindex="${this.disabled ? '-1' : '0'}"
+              @click="${this.handleClick}"
               >${interior}</a
             >
           `
@@ -295,9 +270,9 @@ export default class ArcButton extends LitElement {
             <button
               id="button"
               style=${styleMap(btnStyles)}
-              ?disabled=${this.disabled}
-              type=${this.submit ? 'submit' : 'button'}
-              @click=${this.handleClick}
+              ?disabled="${this.disabled}"
+              type="${this.submit ? 'submit' : 'button'}"
+              @click="${this.handleClick}"
             >
               ${interior}
             </button>

@@ -62,6 +62,18 @@ describe('ArcContainer', () => {
     });
   });
 
+  // Test specific methods
+  describe('methods', () => {
+    it('returns the correct theme when a specific date is given', async () => {
+      const element: ArcContainer = new ArcContainer();
+      const dayTime: Date = new Date('January 15, 2021 15:00:00');
+      const nightTime: Date = new Date('January 15, 2021 03:00:00');
+
+      expect(element.getTheme(dayTime)).to.equal(CONTAINER_THEMES.light);
+      expect(element.getTheme(nightTime)).to.equal(CONTAINER_THEMES.dark);
+    });
+  });
+
   // Test the component responsiveness
   describe('responsiveness', () => {
     let element: ArcContainer;

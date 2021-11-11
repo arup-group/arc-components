@@ -13,7 +13,7 @@
     "declaration": true                       /* Generates corresponding '.d.ts' file. */,
     "incremental": true,
     "outDir": "./dist"                        /* Redirect output structure to the directory. */,
-    "rootDir": "./src"                        /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "rootDir": "./src"                        /* Specify the root directory of input files. Used to control the output directory structure with --outDir. */,
     "noImplicitAny": true                     /* Raise error on expressions and declarations with an implied 'any' type. */,
     "strictNullChecks": true                  /* Enable strict null checks. */,
 

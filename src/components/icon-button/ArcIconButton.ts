@@ -4,6 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import componentStyles from '../../styles/component.styles.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
 
+import '../icon/arc-icon.js';
 import '../spinner/arc-spinner.js';
 
 export default class ArcIconButton extends LitElement {

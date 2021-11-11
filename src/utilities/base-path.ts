@@ -1,14 +1,16 @@
 let basePath = '';
 
 /* Sets the library's base path to the specified directory. */
-export function setBasePath(path: string) {
+function setBasePath(path: string) {
   basePath = path;
 }
 
 /* Gets the library's base path. */
-export function getBasePath() {
+function getBasePath() {
   return basePath.replace(/\/$/, '');
 }
+
+export { setBasePath, getBasePath };
 
 /*
 The base path is used to load assets such as icons and images, so it needs to be set for components to work properly.
@@ -21,7 +23,9 @@ can be a local folder or it can point to a CORS-enabled endpoint such as a CDN.
 
 Alternatively, you can set the base path manually using the exported setBasePath() function.
 */
-const scripts = [...document.getElementsByTagName('script')] as HTMLScriptElement[];
+const scripts = [
+  ...document.getElementsByTagName('script'),
+] as HTMLScriptElement[];
 const configScript = scripts.find(script => script.hasAttribute('data-arc'));
 
 /* c8 ignore next */

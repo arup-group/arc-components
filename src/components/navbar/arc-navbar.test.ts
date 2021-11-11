@@ -1,12 +1,12 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
+import { getPropertyValue } from '../../utilities/style-utils.js';
+import { hasSlot } from '../../utilities/test-utils.js';
 
 import type ArcNavbar from './ArcNavbar.js';
 import './arc-navbar.js';
 import '../button/arc-button.js';
-
-import { getPropertyValue } from '../../utilities/style-utils.js';
 
 describe('ArcNavbar', () => {
   // Test the rendering of the component
@@ -117,8 +117,8 @@ describe('ArcNavbar', () => {
       const leftContainer = element.shadowRoot!.getElementById('left')!;
       const rightContainer = element.shadowRoot!.getElementById('right')!;
 
-      expect(leftContainer.querySelector('slot[name="name"]')).to.exist;
-      expect(rightContainer.querySelector('slot')).to.exist;
+      expect(hasSlot(leftContainer, 'name')).to.be.true;
+      expect(hasSlot(rightContainer)).to.be.true;
     });
   });
 

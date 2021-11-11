@@ -1,9 +1,12 @@
 :host,
 arc-container[theme="dark"] {
-  --arc-font-color: var(--arc-white-000);
-  --arc-input-color: var(--arc-grey-100);
+  /* Base */
+  --arc-font-color: var(--arc-grey-000);
+  --arc-input-color: var(--arc-grey-000);
   --arc-background-color: var(--arc-grey-090);
   --arc-container-color: var(--arc-grey-100);
+
+  /* Palette */
   --arc-color-default: var(--arc-background-color);
   --arc-color-primary: var(--arc-font-color);
   --arc-color-secondary: var(--arc-white-000);
@@ -11,5 +14,8 @@ arc-container[theme="dark"] {
   --arc-color-warning: var(--arc-orange-030);
   --arc-color-info: var(--arc-blue-030);
   --arc-color-success: var(--arc-green-030);
-  --arc-hover-light: rgba(var(--arc-black-100), 0.8);
+
+  /* Hover */
+  --arc-hover-lighter: rgba(var(--arc-black-100), 0.8);
+  --arc-hover-light: rgba(var(--arc-black-100), 0.85);
 }

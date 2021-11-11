@@ -61,19 +61,15 @@ export default class ArcIcon extends LitElement {
     `,
   ];
 
-  @property({ type: String, reflect: true })
-  name: string = 'fire';
+  @property({ type: String, reflect: true }) name = 'fire';
 
   /** @type { 'small' | 'medium' | 'large' } */
-  @property({ type: String, reflect: true })
-  size: string = ICON_SIZES.medium;
+  @property({ type: String, reflect: true }) size = ICON_SIZES.medium;
 
   /** @type { 0 | 90 | 180 | 270 } */
-  @property({ type: Number })
-  rotation: number = 0;
+  @property({ type: Number }) rotation = 0;
 
-  @property({ type: Boolean, reflect: true })
-  spinning: boolean = false;
+  @property({ type: Boolean, reflect: true }) spinning = false;
 
   render() {
     const classes = {

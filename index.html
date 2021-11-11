@@ -15,17 +15,19 @@
 </head>
 
 <body>
-<arc-container theme='mine'>
+<arc-container theme='light'>
   <arc-navbar slot='nav' logo='./src/assets/arc-red.svg'>
     <div slot='name'>WebComponents</div>
-    <arc-button id='themeSetter' type='tab'>Toggle Theme</arc-button>
+    <arc-icon-button name='home' href='/'></arc-icon-button>
+    <arc-icon-button name='settings'></arc-icon-button>
+    <arc-icon-button id='themeSetter' name='brightness_low'></arc-icon-button>
+    <arc-button type='tab'>Jasper Wieringa</arc-button>
   </arc-navbar>
   <arc-sidebar slot='side'>
     <div>Sidebar</div>
   </arc-sidebar>
-  <div>
-    <arc-button color='secondary' type='outlined'>Hello World</arc-button>
-  </div>
+  <arc-icon-button name='settings' style='font-size: 2rem;'>Something</arc-icon-button>
+  <arc-button>Hello</arc-button>
 </arc-container>
 
 <script type='module'>
@@ -39,12 +41,14 @@
   import './dist/components/navbar/arc-navbar.js';
   import './dist/components/sidebar/arc-sidebar.js';
   import './dist/components/button/arc-button.js';
+  import './dist/components/icon-button/arc-icon-button.js';
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';
+    themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
   })
 </script>
 </body>

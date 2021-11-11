@@ -1,4 +1,5 @@
 :root {
+  /* Colors */
   --arc-white-000: 255, 255, 255;
   --arc-grey-000: 250, 250, 250;
   --arc-grey-010: 239, 239, 239;
@@ -89,9 +90,18 @@
   --arc-pink-080: 145, 89, 99;
   --arc-pink-090: 119, 28, 81;
   --arc-pink-100: 110, 23, 78;
+
+  /* Font Family */
   --arc-font-headline: "Times New Roman";
   --arc-font-body: "Roboto Light";
   --arc-font-button: "Roboto", "sans-serif";
+
+  /* Container elements */
+  --arc-navbar-height: 3.5rem;
+  --arc-sidebar-width: 23rem;
+  --arc-bottom-height: var(--arc-navbar-height);
+
+  /* Font Size */
   --arc-font-size-xx-small: 0.625rem;
   --arc-font-size-x-small: 0.75rem;
   --arc-font-size-small: 0.875rem;
@@ -101,32 +111,43 @@
   --arc-font-size-xx-large: 2.25rem;
   --arc-font-size-xxx-large: 3rem;
   --arc-font-size-xxxx-large: 4.5rem;
+
+  /* Font Weight */
   --arc-font-weight-light: 300;
   --arc-font-weight-normal: 400;
   --arc-font-weight-semibold: 500;
   --arc-font-weight-bold: 700;
+
+  /* Line height */
   --arc-line-height-dense: 1.4;
   --arc-line-height-normal: 1.8;
   --arc-line-height-loose: 2.2;
+
+  /* Letter spacing */
   --arc-letter-spacing-dense: -0.015rem;
   --arc-letter-spacing-normal: normal;
   --arc-letter-spacing-loose: 0.075rem;
+
+  /* Input */
   --arc-input-height-small: 1.875rem;
   --arc-input-height-medium: 2rem;
   --arc-input-height-large: 3.125rem;
-  --arc-input-box-shadow:
-    0 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  --arc-input-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+  /* Focus rings */
+  --arc-focus-ring-color: var(--arc-red-060);
   --arc-focus-ring-width: 3px;
   --arc-focus-ring-alpha: 40%;
-  --arc-navbar-height: 3.5rem;
-  --arc-sidebar-width: 23rem;
-  --arc-bottom-height: var(--arc-navbar-height);
+  --arc-focus-ring: var(--arc-focus-ring-width) rgb(var(--arc-focus-ring-color) / var(--arc-focus-ring-alpha));
+
+  /* Padding / Margin */
+  --arc-spacing-x-small: 0.5rem;
   --arc-spacing-small: 0.75rem;
   --arc-spacing-normal: 1rem;
   --arc-spacing-medium: 1.5rem;
   --arc-spacing-large: 1.75rem;
+
+  /* Border */
   --arc-border-width: 1px;
   --arc-border-style: solid;
   --arc-border-radius-small: 0.125rem;
@@ -134,11 +155,15 @@
   --arc-border-radius-large: 0.5rem;
   --arc-border-radius-x-large: 1rem;
   --arc-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
+
+  /* Transition */
   --arc-transition-x-slow: 1000ms;
   --arc-transition-slow: 500ms;
   --arc-transition-medium: 250ms;
   --arc-transition-fast: 150ms;
   --arc-transition-x-fast: 50ms;
+
+  /* Branding */
   --arc-brand-height: 1.25rem;
 }
 

@@ -1,9 +1,10 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
-
 import { isNight } from '../../utilities/date-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
+
+import '../icon-button/arc-icon-button.js';
 
 export default class ArcContainer extends LitElement {
   static tag = 'arc-container';
@@ -39,17 +40,19 @@ export default class ArcContainer extends LitElement {
         background: rgb(var(--arc-container-color));
       }
 
-      ::slotted(arc-bottombar),
-      #bottom {
-        display: block;
-        height: var(--bottom-height);
-        background: rgb(var(--arc-container-color));
+      arc-bottombar,
+      ::slotted(arc-bottombar) {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        min-height: var(--bottom-height);
+        background: rgb(var(--arc-background-color));
       }
 
       /* Medium devices (tablets, 48rem and up) */
       @media (min-width: 48rem) {
         #container {
-          gap: var(--arc-spacing-normal);
+          gap: var(--arc-spacing-small);
           padding: var(--arc-spacing-normal) var(--arc-spacing-medium);
         }
 
@@ -57,8 +60,8 @@ export default class ArcContainer extends LitElement {
           display: block;
         }
 
-        ::slotted(arc-bottombar),
-        #bottom {
+        arc-bottombar,
+        ::slotted(arc-bottombar) {
           display: none;
         }
       }
@@ -66,11 +69,7 @@ export default class ArcContainer extends LitElement {
   ];
 
   /** @type { 'auto' | 'dark' | 'light' } */
-  @property({
-    type: String,
-    reflect: true,
-  })
-  theme: string = 'auto';
+  @property({ type: String, reflect: true }) theme = CONTAINER_THEMES.auto;
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {
@@ -92,7 +91,17 @@ export default class ArcContainer extends LitElement {
           <div id="content"><slot></slot></div>
         </div>
         <slot name="bottom">
-          <arc-bottombar id="bottom">DEFAULT BOTTOM BAR</arc-bottombar>
+          <arc-bottombar>
+            <arc-icon-button name="home" href="/" label="Go home"
+              >Home</arc-icon-button
+            >
+            <arc-icon-button name="settings" label="Edit settings"
+              >Settings</arc-icon-button
+            >
+            <arc-icon-button name="accessibility" label="Accessibility control"
+              >Accessibility</arc-icon-button
+            >
+          </arc-bottombar>
         </slot>
       </main>
     `;

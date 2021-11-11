@@ -1,18 +1,19 @@
 import { html, LitElement } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
 
-import { getInnerHTML, getTextContent, hasSlot, slotExists } from './dom-utils.js';
+import { getInnerHTML, getTextContent, hasSlot } from './dom-utils.js';
 
 class testComponent extends LitElement {
   static tag = 'test-component';
 
   render() {
     return html`
-      <slot id='empty'></slot>
-      <slot id='filled' name='one'></slot>
-    `
+      <slot id="empty"></slot>
+      <slot id="filled" name="one"></slot>
+    `;
   }
 }
+
 customElements.define(testComponent.tag, testComponent);
 
 describe('getInnerHTML', async () => {
@@ -21,10 +22,14 @@ describe('getInnerHTML', async () => {
   let filledSlot: HTMLSlotElement;
 
   beforeEach(async () => {
-    component = await fixture(html`<test-component></test-component>`)
-    emptySlot = component.shadowRoot!.getElementById('empty')! as HTMLSlotElement;
-    filledSlot = component.shadowRoot!.getElementById('filled')! as HTMLSlotElement;
-  })
+    component = await fixture(html` <test-component></test-component>`);
+    emptySlot = component.shadowRoot!.getElementById(
+      'empty'
+    )! as HTMLSlotElement;
+    filledSlot = component.shadowRoot!.getElementById(
+      'filled'
+    )! as HTMLSlotElement;
+  });
 
   it('returns an empty string', async () => {
     expect(getInnerHTML(emptySlot)).to.equal('');
@@ -39,12 +44,14 @@ describe('getInnerHTML', async () => {
   it('returns the innerHTML of an element node', async () => {
     const newEl = Object.assign(document.createElement('div'), {
       slot: 'one',
-      innerHTML: 'Hello World'
-    })
+      innerHTML: 'Hello World',
+    });
     component.appendChild(newEl);
-    expect(getInnerHTML(filledSlot)).to.equal(`<div slot="one">Hello World</div>`);
+    expect(getInnerHTML(filledSlot)).to.equal(
+      `<div slot='one'>Hello World</div>`
+    );
   });
-})
+});
 
 describe('getTextContent', async () => {
   let component: testComponent;
@@ -52,10 +59,14 @@ describe('getTextContent', async () => {
   let filledSlot: HTMLSlotElement;
 
   beforeEach(async () => {
-    component = await fixture(html`<test-component></test-component>`)
-    emptySlot = component.shadowRoot!.getElementById('empty')! as HTMLSlotElement;
-    filledSlot = component.shadowRoot!.getElementById('filled')! as HTMLSlotElement;
-  })
+    component = await fixture(html` <test-component></test-component>`);
+    emptySlot = component.shadowRoot!.getElementById(
+      'empty'
+    )! as HTMLSlotElement;
+    filledSlot = component.shadowRoot!.getElementById(
+      'filled'
+    )! as HTMLSlotElement;
+  });
 
   it('returns an empty string', async () => {
     expect(getTextContent(emptySlot)).to.equal('');
@@ -70,8 +81,8 @@ describe('getTextContent', async () => {
   it('returns an empty string when an element node is given', async () => {
     const newEl = Object.assign(document.createElement('div'), {
       slot: 'one',
-      innerHTML: 'Hello World'
-    })
+      innerHTML: 'Hello World',
+    });
     component.appendChild(newEl);
     expect(getTextContent(filledSlot)).to.equal('');
   });
@@ -98,7 +109,7 @@ describe('hasSlot', () => {
   });
 
   it('has slotted text', async () => {
-    const element: HTMLElement = await fixture(html`<div>Test</div>`);
+    const element: HTMLElement = await fixture(html` <div>Test</div>`);
     expect(hasSlot(element)).to.be.true;
   });
 
@@ -109,30 +120,5 @@ describe('hasSlot', () => {
       </div>
     `);
     expect(hasSlot(element)).to.be.true;
-  });
-});
-
-describe('slotExists', async () => {
-  it('has a named slot', async () => {
-    const element: HTMLElement = await fixture(html`
-      <div>
-        <slot name='one'></slot>
-      </div>
-    `);
-    expect(slotExists(element, 'one')).to.be.true;
-  });
-  it('has an unnamed slot', async () => {
-    const element: HTMLElement = await fixture(html`
-      <div>
-        <slot></slot>
-      </div>
-    `);
-    expect(slotExists(element)).to.be.true;
-  });
-  it('has no slots', async () => {
-    const element: HTMLElement = await fixture(html`
-      <div></div>
-    `);
-    expect(slotExists(element)).to.be.false;
   });
 });

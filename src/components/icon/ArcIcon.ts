@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
 import componentStyles from '../../styles/component.styles.js';
-
 import { DEFAULT_PATH, ICON_SIZES } from './constants/IconConstants.js';
 
 export default class ArcIcon extends LitElement {

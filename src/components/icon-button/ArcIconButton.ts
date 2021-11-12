@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import componentStyles from '../../styles/component.styles.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
@@ -57,7 +58,6 @@ export default class ArcIconButton extends LitElement {
       #action {
         font-size: var(--arc-font-size-xx-small);
         margin-top: -0.2rem;
-        padding-bottom: var(--arc-spacing-small);
       }
 
       /* Hover */
@@ -149,6 +149,10 @@ export default class ArcIconButton extends LitElement {
   }
 
   render() {
+    const btnStyles = {
+      padding: this.hasLabel ? '0 0 var(--arc-spacing-small) 0' : null,
+    };
+
     const interior = html`
       <span id="iconWrapper" aria-hidden="true">
         <arc-icon id="icon" part="icon" name=${ifDefined(this.name)}></arc-icon>
@@ -165,6 +169,7 @@ export default class ArcIconButton extends LitElement {
       ? html`
           <a
             id="button"
+            style=${styleMap(btnStyles)}
             href=${ifDefined(this.href)}
             target=${ifDefined(this.target)}
             download=${ifDefined(this.download)}
@@ -180,6 +185,7 @@ export default class ArcIconButton extends LitElement {
       : html`
           <button
             id="button"
+            style=${styleMap(btnStyles)}
             ?disabled=${this.disabled}
             type="button"
             aria-label=${this.label}

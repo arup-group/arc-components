@@ -6,19 +6,6 @@ import '../button/arc-button.js';
 
 import { getBasePath } from '../../utilities/base-path.js';
 
-export default {
-  title: 'ArcContainer',
-  component: 'arc-container',
-  argTypes: {
-    theme: {
-      description: 'Set the theme for the container',
-      defaultValue: { summary: 'auto' },
-      control: { type: 'select' },
-      options: ['auto', 'dark', 'light'],
-    },
-  },
-};
-
 interface Story<T> {
   (args: T): TemplateResult;
   args?: Partial<T>;
@@ -30,7 +17,7 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
-  <arc-container .theme=${theme}>
+  <arc-container theme="${theme}">
     <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg">
       <span slot="name">WebComponents</span>
       <arc-button type="tab">Link 1</arc-button>

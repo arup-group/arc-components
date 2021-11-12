@@ -4,6 +4,7 @@ import componentStyles from '../../styles/component.styles.js';
 import { isNight } from '../../utilities/date-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
+import '../bottombar/arc-bottombar.js';
 import '../icon-button/arc-icon-button.js';
 
 export default class ArcContainer extends LitElement {
@@ -12,10 +13,6 @@ export default class ArcContainer extends LitElement {
   static styles = [
     componentStyles,
     css`
-      :host {
-        --bottom-height: var(--arc-bottom-height);
-      }
-
       #main {
         min-height: 100vh;
         display: flex;
@@ -42,11 +39,7 @@ export default class ArcContainer extends LitElement {
 
       arc-bottombar,
       ::slotted(arc-bottombar) {
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: 1fr;
-        min-height: var(--bottom-height);
-        background: rgb(var(--arc-background-color));
+        display: block;
       }
 
       /* Medium devices (tablets, 48rem and up) */
@@ -94,12 +87,6 @@ export default class ArcContainer extends LitElement {
           <arc-bottombar>
             <arc-icon-button name="home" href="/" label="Go home"
               >Home</arc-icon-button
-            >
-            <arc-icon-button name="settings" label="Edit settings"
-              >Settings</arc-icon-button
-            >
-            <arc-icon-button name="accessibility" label="Accessibility control"
-              >Accessibility</arc-icon-button
             >
           </arc-bottombar>
         </slot>

@@ -1,7 +1,52 @@
 import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../dist/components/icon/arc-icon.stories.js';
+import { ICON_SIZES, ICON_TYPES } from '../dist/components/icon/constants/IconConstants.js';
 
-<Meta title="ArcIcon" component='arc-icon' />
+<Meta
+title='ArcIcon'
+component='arc-icon'
+argTypes={{
+    name: {
+      description: 'Set the type of the icon.',
+      defaultValue: { summary: 'fire' },
+      control: { type: 'select' },
+      options: Object.values(ICON_TYPES),
+    },
+    size: {
+      description: 'Set the size of the icon.',
+      defaultValue: { summary: 'medium' },
+      control: { type: 'select' },
+      options: Object.values(ICON_SIZES),
+    },
+    rotation: {
+      description: 'Set the rotation of the icon.',
+      defaultValue: { summary: '0' },
+      control: { type: 'number' },
+    },
+    spinning: {
+      description: 'Draws the icons in a spinning state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    colorPrimary: {
+        name: '--icon-color-primary',
+        type: { required: false },
+        description: 'Set the primary color of the icon.',
+        control: { type: 'color' },
+        table: {
+            category: 'CSS Variables',
+        },
+    },
+    colorSecondary: {
+        name: '--icon-color-secondary',
+        type: { required: false },
+        description: 'Set the secondary color of the icon (if supported).',
+        control: { type: 'color' },
+        table: {
+            category: 'CSS Variables',
+        },
+    },
+}} />
 
 # ArcIcon
 ### `<arc-icon>`
@@ -9,10 +54,20 @@ import * as stories from '../dist/components/icon/arc-icon.stories.js';
 The ArcIcon is a symbol that can be used to represent various options within an application.
 
 <Canvas>
-  <Story name="Default" story={stories.Default} />
+  <Story name='Default' story={stories.Default} />
 </Canvas>
 
 ## Examples
+### Colors
+Icons are designed to have a uniform appearance, so their color is not inherited.
+However, you can still customize them by styling the css variables.
+<Canvas>
+  <Story name='RedColor' story={stories.RedColor} />
+  <Story name='GreenColor' story={stories.GreenColor} />
+  <Story name='BlueColor' story={stories.BlueColor} />
+  <Story name='PurpleColor' story={stories.PurpleColor} />
+</Canvas>
+
 ### Sizing
 Icons are sized using the --arc-font-size-{size} css variable, where {size} is a lowercase value representing the size of the font.
 There are two ways to set their size. The easiest way is to use one of the built-in theme variables as shown below:
@@ -36,7 +91,7 @@ There are two ways to set their size. The easiest way is to use one of the built
 which results in the following
 
 <Canvas>
-  <Story name="VariableSize" story={stories.VariableSize} />
+  <Story name='VariableSize' story={stories.VariableSize} />
 </Canvas>
 
 or create your own custom css variable that is scoped to :root as shown below.
@@ -60,15 +115,8 @@ or create your own custom css variable that is scoped to :root as shown below.
 which results in the following
 
 <Canvas>
-  <Story name="CustomSize" story={stories.CustomSize} />
+  <Story name='CustomSize' story={stories.CustomSize} />
 </Canvas>
 
 ## Properties
-<ArgsTable story="Default" />
-
-## CSS Variables
-
-| Name                    | Description                                           |
-|-------------------------|-------------------------------------------------------|
-| --icon-color-primary    | Set the primary color of the icon                     |
-| --icon-color-secondary  | Set the secondary color of the icon (if available)    |
+<ArgsTable story='Default' />

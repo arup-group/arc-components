@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
 import { setViewport } from '@web/test-runner-commands';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/test-utils.js';
@@ -13,7 +14,7 @@ describe('ArcNavbar', () => {
   describe('rendering', () => {
     let element: ArcNavbar;
     beforeEach(async () => {
-      element = await fixture(html`<arc-navbar></arc-navbar>`);
+      element = await fixture(html` <arc-navbar></arc-navbar>`);
     });
 
     // Test default properties that reflect to the DOM
@@ -33,7 +34,7 @@ describe('ArcNavbar', () => {
   describe('setters/getters', () => {
     it('renders the navbar with a custom logo property', async () => {
       const element: ArcNavbar = await fixture(
-        html`<arc-navbar logo="myURL"></arc-navbar>`
+        html` <arc-navbar logo="myURL"></arc-navbar>`
       );
       const toolLogo = element.shadowRoot!.querySelector('#tool-logo')!;
       expect(toolLogo).to.exist;
@@ -45,7 +46,7 @@ describe('ArcNavbar', () => {
 
     it('renders the navbar without an Arup logo', async () => {
       const element: ArcNavbar = await fixture(
-        html`<arc-navbar arup="false"></arc-navbar>`
+        html` <arc-navbar arup="false"></arc-navbar>`
       );
       const companyLogo = element.shadowRoot!.querySelector('#company-logo')!;
       expect(companyLogo).to.be.null;
@@ -56,7 +57,7 @@ describe('ArcNavbar', () => {
 
     it('renders the navbar with a custom tabs property', async () => {
       const element: ArcNavbar = await fixture(
-        html`<arc-navbar tabs="3"></arc-navbar>`
+        html` <arc-navbar tabs="3"></arc-navbar>`
       );
 
       expect(element.tabs).to.equal(3);
@@ -69,25 +70,29 @@ describe('ArcNavbar', () => {
     let element: ArcNavbar;
     let toolName: HTMLElement;
     let tabContainer: HTMLElement;
+    let logSpy: SinonSpy;
+    const tabCount = 2;
 
     beforeEach(async () => {
       element = await fixture(html`
-        <arc-navbar tabs="2">
+        <arc-navbar tabs="${tabCount}">
           <span slot="name">Custom Brand</span>
           <arc-button type="tab">1</arc-button>
           <arc-button type="tab">2</arc-button>
-          <arc-button type="tab">3</arc-button>
         </arc-navbar>
       `);
       toolName = element.shadowRoot!.getElementById('tool-name')!;
       tabContainer = element.shadowRoot!.getElementById('tabs')!;
+      logSpy = sinon.spy(element, 'log');
     });
+
     it('shows the correct elements on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
 
       expect(getPropertyValue(toolName, 'display')).to.equal('block');
       expect(getPropertyValue(tabContainer, 'display')).to.equal('grid');
     });
+
     it('shows the correct elements on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
 
@@ -101,8 +106,20 @@ describe('ArcNavbar', () => {
 
       // Hide the tabs
       expect(getPropertyValue(tabContainer, 'display')).to.equal('none');
+    });
 
-      // TODO: ARC-12 Write a test once the arc-dropdown functionality is added
+    // TODO: ARC-12 Replace this test once the arc-dropdown functionality is added
+    it('logs "Please limit your tab count to a maximum of X tabs"', async () => {
+      // Add a third button to trigger the alert
+      element.appendChild(document.createElement('arc-button'));
+      await elementUpdated(element);
+
+      expect(logSpy.callCount).to.equal(1);
+      expect(
+        logSpy.calledWith(
+          `Please limit your tab count to a maximum of ${tabCount} tabs`
+        )
+      ).to.be.true;
     });
   });
 
@@ -110,7 +127,7 @@ describe('ArcNavbar', () => {
   describe('slots', () => {
     let element: ArcNavbar;
     beforeEach(async () => {
-      element = await fixture(html`<arc-navbar></arc-navbar>`);
+      element = await fixture(html` <arc-navbar></arc-navbar>`);
     });
 
     it('renders slots to fill the navbar', () => {
@@ -125,13 +142,15 @@ describe('ArcNavbar', () => {
   // Test the css variables that can be overwritten
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcNavbar = await fixture(html`<arc-navbar></arc-navbar>`);
+      const element: ArcNavbar = await fixture(
+        html` <arc-navbar></arc-navbar>`
+      );
 
       expect(getPropertyValue(element, 'height')).to.equal('auto');
     });
     it('overwrites the css variables', async () => {
       const element: ArcNavbar = await fixture(
-        html`<arc-navbar style="height:30px"></arc-navbar>`
+        html` <arc-navbar style="height:30px"></arc-navbar>`
       );
 
       expect(getPropertyValue(element, 'height')).to.equal('30px');

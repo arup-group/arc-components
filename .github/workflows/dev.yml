@@ -1,4 +1,4 @@
-name: DEV
+name: dev
 
 # Controls when the workflow will run
 on:

@@ -14,6 +14,8 @@ interface ArgTypes {
   size: string;
   rotation: number;
   spinning: boolean;
+  colorPrimary: string | undefined;
+  colorSecondary: string | undefined;
 }
 
 const Template: Story<ArgTypes> = ({
@@ -21,8 +23,12 @@ const Template: Story<ArgTypes> = ({
   size,
   rotation,
   spinning,
+  colorPrimary,
+  colorSecondary,
 }: ArgTypes) => html`
   <arc-icon
+    style="--icon-color-primary:${colorPrimary ||
+    'inherit'}; --icon-color-secondary:${colorSecondary || 'inherit'};"
     name="${name}"
     size="${size}"
     rotation="${rotation}"
@@ -35,12 +41,22 @@ const defaultArgs = {
   size: ICON_SIZES.large,
   rotation: 0,
   spinning: false,
+  colorPrimary: undefined,
 };
 
+// TYPES
 export const Default = Template.bind({});
 export const VariableSize = Template.bind({});
+export const RedColor = Template.bind({});
+export const GreenColor = Template.bind({});
+export const BlueColor = Template.bind({});
+export const PurpleColor = Template.bind({});
 export const CustomSize = Template.bind({});
 
 Default.args = { ...defaultArgs };
 VariableSize.args = { ...defaultArgs, size: 'xxxx-large' };
+RedColor.args = { ...defaultArgs, colorPrimary: 'red' };
+GreenColor.args = { ...defaultArgs, colorPrimary: 'green' };
+BlueColor.args = { ...defaultArgs, colorPrimary: 'blue' };
+PurpleColor.args = { ...defaultArgs, colorPrimary: 'purple' };
 CustomSize.args = { ...defaultArgs, size: 'custom' };

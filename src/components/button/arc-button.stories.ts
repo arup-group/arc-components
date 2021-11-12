@@ -19,13 +19,17 @@ interface ArgTypes {
   type: string;
   color: string;
   size: string;
+  href: string | undefined;
+  target: string | undefined;
+  download: string | undefined;
   active: boolean;
   disabled: boolean;
   loading: boolean;
   submit: boolean;
-  href: string | undefined;
-  target: string | undefined;
-  download: string | undefined;
+  width: string;
+  minWidth: string;
+  btnColor: string | undefined;
+  btnBackground: string | undefined;
   prefix: boolean | undefined;
   suffix: boolean | undefined;
 }
@@ -35,17 +39,22 @@ const Template: Story<ArgTypes> = ({
   type,
   color,
   size,
+  href,
+  target,
+  download,
   active,
   disabled,
   loading,
   submit,
-  href,
-  target,
-  download,
+  width,
+  minWidth,
+  btnColor,
+  btnBackground,
   prefix,
   suffix,
 }: ArgTypes) => html`
   <arc-button
+    style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
     type="${type}"
     color="${color}"
     size="${size}"
@@ -75,6 +84,10 @@ const defaultArgs = {
   disabled: false,
   loading: false,
   submit: false,
+  width: undefined,
+  minWidth: undefined,
+  btnColor: undefined,
+  btnBackground: undefined,
 };
 
 // TYPES

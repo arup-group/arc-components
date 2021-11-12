@@ -28,6 +28,24 @@ argTypes={{
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
     },
+    colorPrimary: {
+        name: '--icon-color-primary',
+        type: { required: false },
+        description: 'Set the primary color of the icon.',
+        control: { type: 'color' },
+        table: {
+            category: 'CSS Variables',
+        },
+    },
+    colorSecondary: {
+        name: '--icon-color-secondary',
+        type: { required: false },
+        description: 'Set the secondary color of the icon (if supported).',
+        control: { type: 'color' },
+        table: {
+            category: 'CSS Variables',
+        },
+    },
 }} />
 
 # ArcIcon
@@ -40,6 +58,16 @@ The ArcIcon is a symbol that can be used to represent various options within an 
 </Canvas>
 
 ## Examples
+### Colors
+Icons are designed to have a uniform appearance, so their color is not inherited.
+However, you can still customize them by styling the css variables.
+<Canvas>
+  <Story name='RedColor' story={stories.RedColor} />
+  <Story name='GreenColor' story={stories.GreenColor} />
+  <Story name='BlueColor' story={stories.BlueColor} />
+  <Story name='PurpleColor' story={stories.PurpleColor} />
+</Canvas>
+
 ### Sizing
 Icons are sized using the --arc-font-size-{size} css variable, where {size} is a lowercase value representing the size of the font.
 There are two ways to set their size. The easiest way is to use one of the built-in theme variables as shown below:
@@ -92,10 +120,3 @@ which results in the following
 
 ## Properties
 <ArgsTable story='Default' />
-
-## CSS Variables
-
-| Name                    | Description                                           |
-|-------------------------|-------------------------------------------------------|
-| --icon-color-primary    | Set the primary color of the icon.                    |
-| --icon-color-secondary  | Set the secondary color of the icon (if available).   |

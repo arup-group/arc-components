@@ -1,7 +1,58 @@
 import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../dist/components/icon-button/arc-icon-button.stories.js';
+import { ICON_TYPES } from '../dist/components/icon/constants/IconConstants.js';
 
-<Meta title="ArcIconButton" component='arc-icon-button' />
+<Meta
+title='ArcIconButton'
+component='arc-icon-button'
+argTypes={{
+    name: {
+      description: 'Set the type of the icon.',
+      defaultValue: { summary: 'fire' },
+      control: { type: 'select' },
+      options: Object.values(ICON_TYPES),
+    },
+    label: {
+      description: 'A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should always include a label that describes what the icon button does.',
+      control: { type: 'text' },
+    },
+    href: {
+      description: 'When set, the underlying button will be rendered as an `<a>` with this property.',
+      control: { type: 'text' },
+    },
+    target: {
+      description: 'Tells the browser where to open the link. Only used when href is set.',
+      control: { type: 'text' },
+    },
+    download: {
+      description: 'Tells the browser to download the linked file as this filename. Only used when href is set.',
+      control: { type: 'text' },
+    },
+    active: {
+      description: 'Draws the button in an active state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    disabled: {
+      description: 'Draws the button in a disabled state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    loading: {
+      description: 'Draws the button in a loading state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    iconColor: {
+        name: '--icon-color',
+        type: { required: false },
+        description: 'Overwrite the color of the icon.',
+        control: { type: 'color' },
+        table: {
+            category: 'CSS Variables',
+        },
+    },
+}} />
 
 # Icon Button
 ### `<arc-icon-button>`
@@ -57,14 +108,8 @@ Coming soon
 |--------------|-----------------------------------------------------------|
 | (default)    | The button's label.                                       |
 
-## CSS Variables
-
-| Name             | Description                                           |
-|------------------|-------------------------------------------------------|
-| --icon-color     | Overwrite the color of the icon.                      |
-
 ## Dependencies
 
 This component imports the following dependencies.
-* `<arc-icon>`
-* `<arc-spinner>`
+* [arc-icon](?path=/story/arcicon--default)
+* [arc-spinner](?path=/story/arcspinner--default) (coming soon)

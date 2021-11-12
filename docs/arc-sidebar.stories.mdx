@@ -1,7 +1,36 @@
 import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../dist/components/sidebar/arc-sidebar.stories.js';
 
-<Meta title='ArcSidebar' component='arc-sidebar' />
+<Meta
+title='ArcSidebar'
+component='arc-sidebar'
+argTypes={{
+   gap: {
+     name: '--gap-distance',
+     type: { required: false },
+     description: 'Set the distance between sidebar elements',
+     defaultValue: { summary: 'var(--arc-spacing-normal)' },
+     control: { type: 'text' },
+     table: {
+       category: 'CSS Variables',
+     },
+   },
+   width: {
+     name: '--sidebar-width',
+     type: { required: false },
+     description: 'Set the width of the sidebar',
+     defaultValue: { summary: 'clamp(15rem, 30%, var(--arc-sidebar-width))' },
+     control: { type: 'text' },
+     table: {
+       category: 'CSS Variables',
+     },
+   },
+}}
+parameters={{
+    actions: {
+      handles: ['arc-show', 'arc-hide'],
+    },
+}} />
 
 # ArcSidebar
 ### `<arc-sidebar>`
@@ -18,7 +47,11 @@ You can use multiple [arc-menus](?path=/story/arcmenu--default) to compose the s
 <ArgsTable story='Default' />
 
 ## Events
-Coming soon
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| arc-show     | Emitted when the sidebar opens.                           |
+| arc-hide     | Emitted when the sidebar closes.                          |
 
 ## Methods
 Coming soon
@@ -29,14 +62,7 @@ Coming soon
 |--------------|-----------------------------------------------------------|
 | (default)    | The sidebar's content.                                    |
 
-## CSS Variables
-
-| Name             | Description                                           |
-|------------------|-------------------------------------------------------|
-| --gap-distance   | Set the distance between sidebar elements.            |
-| --sidebar-width  | Set the width of the sidebar.                         |
-
 ## Dependencies
 
 This component imports the following dependencies.
-* `<arc-icon-button>`
+* [arc-icon-button](?path=/story/arciconbutton--default)

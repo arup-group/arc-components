@@ -16,7 +16,7 @@ argTypes={{
       description: 'Set the size of the icon.',
       defaultValue: { summary: 'medium' },
       control: { type: 'select' },
-      options: Object.keys(ICON_SIZES),
+      options: Object.values(ICON_SIZES),
     },
     rotation: {
       description: 'Set the rotation of the icon.',
@@ -36,7 +36,7 @@ argTypes={{
 The ArcIcon is a symbol that can be used to represent various options within an application.
 
 <Canvas>
-  <Story name="Default" story={stories.Default} />
+  <Story name='Default' story={stories.Default} />
 </Canvas>
 
 ## Examples
@@ -63,7 +63,7 @@ There are two ways to set their size. The easiest way is to use one of the built
 which results in the following
 
 <Canvas>
-  <Story name="VariableSize" story={stories.VariableSize} />
+  <Story name='VariableSize' story={stories.VariableSize} />
 </Canvas>
 
 or create your own custom css variable that is scoped to :root as shown below.
@@ -87,11 +87,11 @@ or create your own custom css variable that is scoped to :root as shown below.
 which results in the following
 
 <Canvas>
-  <Story name="CustomSize" story={stories.CustomSize} />
+  <Story name='CustomSize' story={stories.CustomSize} />
 </Canvas>
 
 ## Properties
-<ArgsTable story="Default" />
+<ArgsTable story='Default' />
 
 ## CSS Variables
 

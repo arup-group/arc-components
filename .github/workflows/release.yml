@@ -1,4 +1,4 @@
-name: Publish NPM
+name: publish
 
 on:
   release:
@@ -35,11 +35,7 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Configure publishing to NPMJS public registry
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          npm config set scope "@arc-web"
-          npm publish --dry-run --access public --@arc-web:registry=https://registry.npmjs.org/
+      - name: Publish
+        run: npm publish --access public
         env:
-          CI: true
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

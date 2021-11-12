@@ -1,35 +1,7 @@
 import { html, TemplateResult } from 'lit';
 import './arc-icon.js';
 
-import { ICON_SIZES } from './constants/IconConstants.js';
-
-export default {
-  title: 'ArcIcon',
-  component: 'arc-icon',
-  argTypes: {
-    name: {
-      description: 'Set the type of the icon',
-      defaultValue: { summary: 'fire' },
-      control: { type: 'text' },
-    },
-    size: {
-      description: 'Set the size of the icon',
-      defaultValue: { summary: 'medium' },
-      control: { type: 'select' },
-      options: Object.keys(ICON_SIZES),
-    },
-    rotation: {
-      description: 'Set the rotation of the icon',
-      defaultValue: { summary: '0' },
-      control: { type: 'number' },
-    },
-    spinning: {
-      description: 'Draws the icons in a spinning state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-    },
-  },
-};
+import { ICON_SIZES, ICON_TYPES } from './constants/IconConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -59,7 +31,7 @@ const Template: Story<ArgTypes> = ({
 `;
 
 const defaultArgs = {
-  name: 'fire',
+  name: ICON_TYPES.fire,
   size: ICON_SIZES.large,
   rotation: 0,
   spinning: false,

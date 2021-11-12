@@ -3,74 +3,10 @@ import './arc-button.js';
 import '../icon/arc-icon.js';
 
 import {
-  BUTTON_TYPES,
   BUTTON_COLORS,
   BUTTON_SIZES,
+  BUTTON_TYPES,
 } from './constants/ButtonConstants.js';
-
-export default {
-  title: 'ArcButton',
-  component: 'arc-button',
-  argTypes: {
-    type: {
-      description: 'Set the type of the button',
-      defaultValue: { summary: 'contained' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_TYPES),
-    },
-    color: {
-      description: 'Set the color of the button.',
-      defaultValue: { summary: 'default' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_COLORS),
-    },
-    size: {
-      description: 'Set the size of the button',
-      defaultValue: { summary: 'medium' },
-      control: { type: 'select' },
-      options: Object.keys(BUTTON_SIZES),
-    },
-    href: {
-      description:
-        'When set, the underlying button will be rendered as an `<a>` with this property.',
-      defaultValue: { summary: '' },
-      control: { type: 'text' },
-    },
-    target: {
-      description:
-        'Tells the browser where to open the link. Only used when href is set. ',
-      defaultValue: { summary: '' },
-      control: { type: 'text' },
-    },
-    download: {
-      description:
-        'Tells the browser to download the linked file as this filename. Only used when href is set. ',
-      defaultValue: { summary: '' },
-      control: { type: 'text' },
-    },
-    active: {
-      description: 'Draws the button in an active state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-    },
-    disabled: {
-      description: 'Draws the button in a disabled state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-    },
-    loading: {
-      description: 'Draws the button in a loading state.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-    },
-    submit: {
-      description:
-        'Indicates if activating the button should submit the form. Ignored when href is set.',
-      defaultValue: { summary: 'false' },
-      control: { type: 'boolean' },
-    },
-  },
-};
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -99,13 +35,13 @@ const Template: Story<ArgTypes> = ({
   type,
   color,
   size,
-  href,
-  target,
-  download,
   active,
   disabled,
   loading,
   submit,
+  href,
+  target,
+  download,
   prefix,
   suffix,
 }: ArgTypes) => html`
@@ -122,7 +58,7 @@ const Template: Story<ArgTypes> = ({
     ?submit="${submit}"
   >
     ${prefix ? html`<arc-icon slot="prefix" name="home"></arc-icon>` : null}
-    ${label.toUpperCase()}
+    ${label.charAt(0).toUpperCase() + label.slice(1)}
     ${suffix ? html`<arc-icon slot="suffix" name="settings"></arc-icon>` : null}
   </arc-button>
 `;

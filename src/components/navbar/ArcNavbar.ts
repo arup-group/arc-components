@@ -124,11 +124,11 @@ export default class ArcNavbar extends LitElement {
 
     if (arcTabs.length > this.tabs) {
       // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
-      console.warn(
-        `Please limit your tab count to a maximum of ${this.tabs} tabs`
-      );
+      this.log(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
     }
   };
+
+  log = (msg: string) => console.log(msg);
 
   render() {
     return html`

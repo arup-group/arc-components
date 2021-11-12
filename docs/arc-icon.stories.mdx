@@ -1,7 +1,34 @@
 import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../dist/components/icon/arc-icon.stories.js';
+import { ICON_SIZES, ICON_TYPES } from '../dist/components/icon/constants/IconConstants.js';
 
-<Meta title="ArcIcon" component='arc-icon' />
+<Meta
+title='ArcIcon'
+component='arc-icon'
+argTypes={{
+    name: {
+      description: 'Set the type of the icon.',
+      defaultValue: { summary: 'fire' },
+      control: { type: 'select' },
+      options: Object.values(ICON_TYPES),
+    },
+    size: {
+      description: 'Set the size of the icon.',
+      defaultValue: { summary: 'medium' },
+      control: { type: 'select' },
+      options: Object.keys(ICON_SIZES),
+    },
+    rotation: {
+      description: 'Set the rotation of the icon.',
+      defaultValue: { summary: '0' },
+      control: { type: 'number' },
+    },
+    spinning: {
+      description: 'Draws the icons in a spinning state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+}} />
 
 # ArcIcon
 ### `<arc-icon>`
@@ -70,5 +97,5 @@ which results in the following
 
 | Name                    | Description                                           |
 |-------------------------|-------------------------------------------------------|
-| --icon-color-primary    | Set the primary color of the icon                     |
-| --icon-color-secondary  | Set the secondary color of the icon (if available)    |
+| --icon-color-primary    | Set the primary color of the icon.                    |
+| --icon-color-secondary  | Set the secondary color of the icon (if available).   |

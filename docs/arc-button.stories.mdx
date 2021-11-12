@@ -1,7 +1,74 @@
 import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../dist/components/button/arc-button.stories.js';
 
-<Meta title="ArcButton" component='arc-button' />
+import {
+  BUTTON_COLORS,
+  BUTTON_SIZES,
+  BUTTON_TYPES,
+} from '../dist/components/button/constants/ButtonConstants.js';
+
+<Meta
+title='ArcButton'
+component='arc-button'
+argTypes={{
+    type: {
+      description: 'Set the type of the button.',
+      defaultValue: { summary: 'contained' },
+      control: { type: 'select' },
+      options: Object.keys(BUTTON_TYPES),
+    },
+    color: {
+      description: 'Set the color of the button.',
+      defaultValue: { summary: 'default' },
+      control: { type: 'select' },
+      options: Object.keys(BUTTON_COLORS),
+    },
+    size: {
+      description: 'Set the size of the button.',
+      defaultValue: { summary: 'medium' },
+      control: { type: 'select' },
+      options: Object.keys(BUTTON_SIZES),
+    },
+    href: {
+      description:
+        'When set, the underlying button will be rendered as an `<a>` with this property.',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
+    },
+    target: {
+      description:
+        'Tells the browser where to open the link. Only used when href is set.',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
+    },
+    download: {
+      description:
+        'Tells the browser to download the linked file as this filename. Only used when href is set.',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
+    },
+    active: {
+      description: 'Draws the button in an active state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    disabled: {
+      description: 'Draws the button in a disabled state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    loading: {
+      description: 'Draws the button in a loading state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    submit: {
+      description:
+        'Indicates if activating the button should submit the form. Ignored when href is set.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+}} />
 
 # Button
 ### `<arc-button>`
@@ -95,7 +162,7 @@ Coming soon
 | width            | Set the width of the button.                          |
 | --min-width      | Set the min width of the button.                      |
 | --btn-color      | Overwrite the font color of the button.               |
-| --btn-background | Overwrite the background color of the button          |
+| --btn-background | Overwrite the background color of the button.         |
 
 ## Dependencies
 

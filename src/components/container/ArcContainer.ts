@@ -14,7 +14,7 @@ export default class ArcContainer extends LitElement {
     componentStyles,
     css`
       #main {
-        min-height: 100vh;
+        height: 100%;
         display: flex;
         flex-direction: column;
         background: rgb(var(--arc-background-color));
@@ -24,6 +24,7 @@ export default class ArcContainer extends LitElement {
       #container {
         flex: 1 1 100%;
         display: flex;
+        overflow: hidden;
         gap: 0;
         padding: 0;
       }
@@ -34,6 +35,7 @@ export default class ArcContainer extends LitElement {
 
       #content {
         flex: 1 1 100%;
+        overflow: auto;
         background: rgb(var(--arc-container-color));
       }
 

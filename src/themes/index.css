@@ -167,6 +167,11 @@
   --arc-brand-height: 1.25rem;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: var(--arc-font-body);

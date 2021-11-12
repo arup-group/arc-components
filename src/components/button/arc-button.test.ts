@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
-import sinon from 'sinon';
+import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/test-utils.js';
 
@@ -186,7 +186,7 @@ describe('ArcButton', () => {
   // Test the events (click, focus, blur etc.)
   describe('events', () => {
     let element: ArcButton;
-    let clickSpy: any;
+    let clickSpy: SinonSpy;
     let isClicked: boolean;
 
     function updateClicked() {
@@ -201,6 +201,7 @@ describe('ArcButton', () => {
     });
 
     afterEach(() => {
+      sinon.restore();
       element.removeEventListener('click', updateClicked);
     });
 

@@ -4,38 +4,6 @@ import './arc-sidebar.js';
 
 import { getBasePath } from '../../utilities/base-path.js';
 
-export default {
-  title: 'ArcSidebar',
-  component: 'arc-sidebar',
-  argTypes: {
-    gap: {
-      name: '--gap-distance',
-      type: { required: false },
-      description: 'Set the distance between sidebar elements',
-      defaultValue: { summary: 'var(--arc-spacing-normal)' },
-      control: { type: 'text' },
-      table: {
-        category: 'CSS Variables',
-      },
-    },
-    width: {
-      name: '--sidebar-width',
-      type: { required: false },
-      description: 'Set the width of the sidebar',
-      defaultValue: { summary: 'clamp(15rem, 30%, var(--arc-sidebar-width))' },
-      control: { type: 'text' },
-      table: {
-        category: 'CSS Variables',
-      },
-    },
-  },
-  parameters: {
-    actions: {
-      handles: ['arc-show', 'arc-hide'],
-    },
-  },
-};
-
 interface Story<T> {
   (args: T): TemplateResult;
 

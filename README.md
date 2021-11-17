@@ -112,7 +112,39 @@ setBasePath('/path/to/arc/assets/');
 ```
 
 ### React
+```bash
+/* index.js */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App';
 
+import '@arc-web/components/dist/themes/index.css';
+import '@arc-web/components/dist/themes/light.css';
+import '@arc-web/components/dist/themes/dark.css';
+
+import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
+setBasePath('/');
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App theme={'dark'} />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+
+```bash
+/* App.js */
+import '@arc-web/components/dist/components/container/arc-container.js';
+
+function App(props) {
+    return (
+        <arc-container theme={props.theme}></arc-container>
+    );
+}
+
+export default App;
+```
 
 ### Vue
 ```bash

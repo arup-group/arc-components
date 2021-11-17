@@ -75,9 +75,9 @@ The disadvantage is that you need to load components manually.
 ```bash
 /* index.html */
 <body>
-  <arc-container></arc-container>
+  <arc-container theme="dark"></arc-container>
 
-  <script type="module" data-arc="/path/to/arc/">
+  <script type="module" data-arc="/path/to/arc/assets/">
     import '@arc-web/components/dist/themes/index.css';
     import '@arc-web/components/dist/themes/light.css';
     import '@arc-web/components/dist/themes/dark.css';
@@ -91,7 +91,7 @@ The disadvantage is that you need to load components manually.
 ```bash
 /* index.html / base.html */
 <body>
-  <arc-container></arc-container>
+  <arc-container theme="dark"></arc-container>
   
   <script type="module" src="index.js"></script>
   <script type="module">
@@ -108,10 +108,11 @@ import '@arc-web/components/dist/themes/dark.css';
 
 // This setBasePath method is required to load static assets such as icons
 import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
-setBasePath('/');
+setBasePath('/path/to/arc/assets/');
 ```
 
 ### React
+
 
 ### Vue
 ```bash
@@ -128,7 +129,7 @@ import '@arc-web/components/dist/themes/light.css';
 import '@arc-web/components/dist/themes/dark.css';
 
 import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
-setBasePath('/');
+setBasePath('/path/to/arc/assets/');
 
 export default {
   name: 'Index',
@@ -142,22 +143,11 @@ export default {
 ```bash
 /* App.vue */
 <template>
-  <arc-container :theme="theme">
-    <arc-navbar slot="nav">
-      <arc-button type="tab">Tab One</arc-button>
-    </arc-navbar>
-    <arc-sidebar slot="side">
-      <div>Sidebar content</div>
-    </arc-sidebar>
-    Default content
-  </arc-container>
+  <arc-container :theme="theme"></arc-container>
 </template>
 
 <script>
 import '@arc-web/components/dist/components/container/arc-container.js';
-import '@arc-web/components/dist/components/navbar/arc-navbar.js';
-import '@arc-web/components/dist/components/sidebar/arc-sidebar.js';
-import '@arc-web/components/dist/components/button/arc-button.js';
 
 export default {
   name: 'Arc',

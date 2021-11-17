@@ -73,7 +73,7 @@ The disadvantage is that you need to load components manually.
 
 ### No framework
 ```bash
-/* index.html */
+# index.html
 <body>
   <arc-container theme="dark"></arc-container>
 
@@ -89,7 +89,7 @@ The disadvantage is that you need to load components manually.
 
 ### Django / Parcel
 ```bash
-/* index.html / base.html */
+# index.html / base.html
 <body>
   <arc-container theme="dark"></arc-container>
   
@@ -101,19 +101,19 @@ The disadvantage is that you need to load components manually.
 ```
 
 ```bash
-/* index.js */
+# index.js
 import '@arc-web/components/dist/themes/index.css';
 import '@arc-web/components/dist/themes/light.css';
 import '@arc-web/components/dist/themes/dark.css';
 
-// This setBasePath method is required to load static assets such as icons
+# Set the base path to the folder you copied ARC's assets to
 import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
 setBasePath('/path/to/arc/assets/');
 ```
 
 ### React
 ```bash
-/* index.js */
+# index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
@@ -122,6 +122,7 @@ import '@arc-web/components/dist/themes/index.css';
 import '@arc-web/components/dist/themes/light.css';
 import '@arc-web/components/dist/themes/dark.css';
 
+# Set the base path to the folder you copied ARC's assets to
 import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
 setBasePath('/');
 
@@ -134,7 +135,7 @@ ReactDOM.render(
 ```
 
 ```bash
-/* App.js */
+# App.js
 import '@arc-web/components/dist/components/container/arc-container.js';
 
 function App(props) {
@@ -148,7 +149,7 @@ export default App;
 
 ### Vue
 ```bash
-/* Index.vue */
+# Index.vue
 <template>
   <App theme="dark"/>
 </template>
@@ -160,6 +161,7 @@ import '@arc-web/components/dist/themes/index.css';
 import '@arc-web/components/dist/themes/light.css';
 import '@arc-web/components/dist/themes/dark.css';
 
+# Set the base path to the folder you copied ARC's assets to
 import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
 setBasePath('/path/to/arc/assets/');
 
@@ -173,7 +175,7 @@ export default {
 ```
 
 ```bash
-/* App.vue */
+# App.vue
 <template>
   <arc-container :theme="theme"></arc-container>
 </template>
@@ -190,16 +192,89 @@ export default {
 </script> 
 ```
 
-### Angular
-
+> **Note**: To allow using web-components in Vue `v2.6.0+`, a specific rule needs to be added to the eslintConfig.
+When using the `vue create app-name` command in the terminal, this information can be found in the package.json.
 
 ```bash
-/* index.js */
+# package.json
+"eslintConfig": {
+  ...other,
+  "rules": {
+    "vue/no-deprecated-slot-attribute": "off" # Allows the use of the slot attribute
+  }
+} 
+```
+
+### Angular
+```bash
+# main.ts
+...other imports
+
+# Set the base path to the folder you copied ARC's assets to
+import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
+setBasePath('/');
+
+if (environment.production) {
+  enableProdMode();
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
+```
+
+```bash
+#styles.css
+@import '~@arc-web/components/dist/themes/index.css';
+@import '~@arc-web/components/dist/themes/light.css';
+@import '~@arc-web/components/dist/themes/dark.css';
+```
+
+```bash
+#app.components.ts
+import { Component } from '@angular/core';
+
 import '@arc-web/components/dist/components/container/arc-container.js';
 
-# <arc-container> is ready to use!
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  title = 'arc-angular-test';
+}
+```
+
+```bash
+#app.component.html
+<arc-container theme="dark"></arc-container>
+```
+
+> **Note**: To allow using web-components in Angular, a specific rule needs to be added to the '@NgModule.schemas' of the component.
+When using the `ng new app-name` command in the terminal, this information can be found in the app.modules.ts.
+
+```bash
+# app.module.ts
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ] # Allows the use of web-components
+})
+export class AppModule { }
 ```
 
 Component modules include side effects for registration purposes. 
 Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary. 
-For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown above.
+For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown in the examples above.

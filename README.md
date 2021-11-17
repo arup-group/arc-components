@@ -71,19 +71,44 @@ Cherry picking can be done from your local install or directly from the CDN.
 This will limit the number of files the browser has to download and reduce the amount of bytes being transferred.
 The disadvantage is that you need to load components manually.
 
-### Django / Parcel / No framework
-Here's an example that loads only the container component.
-Again, if you're not using a module resolver, you'll need to adjust the path to point to the folder ARC is in.
+### No framework
+```bash
+/* index.html */
+<body>
+  <arc-container></arc-container>
 
+  <script type="module" data-arc="/path/to/arc/">
+    import '@arc-web/components/dist/themes/index.css';
+    import '@arc-web/components/dist/themes/light.css';
+    import '@arc-web/components/dist/themes/dark.css';
+    
+    import '@arc-web/components/dist/components/container/arc-container.js';
+  </script>
+</body>
+```
+
+### Django / Parcel
 ```bash
 /* index.html / base.html */
 <body>
   <arc-container></arc-container>
-
-  <script type="module" data-arc="/path/to/arc">
+  
+  <script type="module" src="index.js"></script>
+  <script type="module">
     import '@arc-web/components/dist/components/container/arc-container.js';
   </script>
 </body>
+```
+
+```bash
+/* index.js */
+import '@arc-web/components/dist/themes/index.css';
+import '@arc-web/components/dist/themes/light.css';
+import '@arc-web/components/dist/themes/dark.css';
+
+// This setBasePath method is required to load static assets such as icons
+import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
+setBasePath('/');
 ```
 
 ### React

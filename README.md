@@ -71,11 +71,12 @@ Cherry picking can be done from your local install or directly from the CDN.
 This will limit the number of files the browser has to download and reduce the amount of bytes being transferred.
 The disadvantage is that you need to load components manually.
 
+### Django / Parcel / No framework
 Here's an example that loads only the container component.
 Again, if you're not using a module resolver, you'll need to adjust the path to point to the folder ARC is in.
 
 ```bash
-/* index.html */
+/* index.html / base.html */
 <body>
   <arc-container></arc-container>
 
@@ -84,6 +85,66 @@ Again, if you're not using a module resolver, you'll need to adjust the path to 
   </script>
 </body>
 ```
+
+### React
+
+### Vue
+```bash
+/* Index.vue */
+<template>
+  <App theme="dark"/>
+</template>
+
+<script>
+import App from './components/App.vue'
+
+import '@arc-web/components/dist/themes/index.css';
+import '@arc-web/components/dist/themes/light.css';
+import '@arc-web/components/dist/themes/dark.css';
+
+import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
+setBasePath('/');
+
+export default {
+  name: 'Index',
+  components: {
+    App
+  }
+}
+</script>
+```
+
+```bash
+/* App.vue */
+<template>
+  <arc-container :theme="theme">
+    <arc-navbar slot="nav">
+      <arc-button type="tab">Tab One</arc-button>
+    </arc-navbar>
+    <arc-sidebar slot="side">
+      <div>Sidebar content</div>
+    </arc-sidebar>
+    Default content
+  </arc-container>
+</template>
+
+<script>
+import '@arc-web/components/dist/components/container/arc-container.js';
+import '@arc-web/components/dist/components/navbar/arc-navbar.js';
+import '@arc-web/components/dist/components/sidebar/arc-sidebar.js';
+import '@arc-web/components/dist/components/button/arc-button.js';
+
+export default {
+  name: 'Arc',
+  props: {
+    theme: String
+  }
+}
+</script> 
+```
+
+### Angular
+
 
 ```bash
 /* index.js */

@@ -30,6 +30,7 @@ const Template: Story<ArgTypes> = ({
 }: ArgTypes) => html`
   <arc-navbar
     slot="nav"
+    home="/"
     logo="${logo}"
     style="height: ${height}"
     arup="${arup}"

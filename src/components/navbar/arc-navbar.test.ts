@@ -14,13 +14,13 @@ describe('ArcNavbar', () => {
   describe('rendering', () => {
     let element: ArcNavbar;
     beforeEach(async () => {
-      element = await fixture(html` <arc-navbar></arc-navbar>`);
+      element = await fixture(html`<arc-navbar></arc-navbar>`);
     });
 
     // Test default properties that reflect to the DOM
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(
-        `<arc-navbar arup='' tabs='5'></arc-navbar>`
+        `<arc-navbar arup='' home='/' tabs='5'></arc-navbar>`
       );
     });
 
@@ -32,6 +32,17 @@ describe('ArcNavbar', () => {
 
   // Test the setters/getters
   describe('setters/getters', () => {
+    it('renders the navbar with a custom home property', async () => {
+      const element: ArcNavbar = await fixture(
+        html` <arc-navbar home="myURL"></arc-navbar>`
+      );
+      const logoWrapper = element.shadowRoot!.querySelector('#logoWrapper')!;
+
+      expect(element.home).to.equal('myURL');
+      expect(element.getAttribute('home')).to.equal('myURL');
+      expect(logoWrapper.getAttribute('href')).to.equal('myURL');
+    });
+
     it('renders the navbar with a custom logo property', async () => {
       const element: ArcNavbar = await fixture(
         html` <arc-navbar logo="myURL"></arc-navbar>`

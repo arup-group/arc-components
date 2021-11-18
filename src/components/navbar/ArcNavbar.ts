@@ -33,6 +33,13 @@ export default class ArcNavbar extends LitElement {
       /* Left side */
       #left {
         justify-content: flex-start;
+        align-items: center;
+      }
+
+      #logoWrapper {
+        display: inline-flex;
+        text-decoration: none;
+        color: inherit;
       }
 
       #tool-logo + #tool-name {
@@ -102,8 +109,9 @@ export default class ArcNavbar extends LitElement {
     `,
   ];
 
-  @property({ type: String })
-  logo: string = '';
+  @property() logo: string;
+
+  @property({ reflect: true }) home: string = '/';
 
   @property({
     type: Boolean,
@@ -134,9 +142,19 @@ export default class ArcNavbar extends LitElement {
     return html`
       <main id="main">
         <div id="left">
-          ${this.logo &&
-          html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`}
-          <div id="tool-name"><slot name="name"></slot></div>
+          <a
+            id="logoWrapper"
+            href="${this.home}"
+            rel="noreferrer noopener"
+            role="button"
+            aria-label="tool logo"
+          >
+            ${this.logo &&
+            html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`}
+            <span id="tool-name">
+              <slot name="name"></slot>
+            </span>
+          </a>
         </div>
         <div id="right">
           <div id="tabs">

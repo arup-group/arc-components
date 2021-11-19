@@ -91,15 +91,15 @@
   --arc-pink-090: 119, 28, 81;
   --arc-pink-100: 110, 23, 78;
 
-  /* Font Family */
-  --arc-font-headline: "Times New Roman";
-  --arc-font-body: "Roboto Light";
-  --arc-font-button: "Roboto", "sans-serif";
-
   /* Container elements */
   --arc-navbar-height: 3.5rem;
   --arc-sidebar-width: 23rem;
   --arc-bottom-height: 4.5rem;
+
+  /* Font Family */
+  --arc-font-headline: "Times New Roman";
+  --arc-font-body: "Roboto Light";
+  --arc-font-button: "Roboto", "sans-serif";
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;
@@ -128,17 +128,22 @@
   --arc-letter-spacing-normal: normal;
   --arc-letter-spacing-loose: 0.075rem;
 
+  /* Box shadow values */
+  --arc-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 14%);
+  --arc-box-shadow-1: 0 3px 1px -2px rgba(0, 0, 0, 20%);
+  --arc-box-shadow-2: 0 2px 2px 0 rgba(0, 0, 0, 14%);
+  --arc-input-box-shadow: var(--arc-box-shadow), var(--arc-box-shadow-1), var(--arc-box-shadow-2);
+
   /* Input */
   --arc-input-height-small: 1.875rem;
   --arc-input-height-medium: 2rem;
   --arc-input-height-large: 3.125rem;
-  --arc-input-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 
   /* Focus rings */
   --arc-focus-ring-color: var(--arc-red-060);
   --arc-focus-ring-width: 3px;
   --arc-focus-ring-alpha: 40%;
-  --arc-focus-ring: var(--arc-focus-ring-width) rgb(var(--arc-focus-ring-color) / var(--arc-focus-ring-alpha));
+  --arc-focus-ring: var(--arc-focus-ring-width) rgb(var(--arc-focus-ring-color), var(--arc-focus-ring-alpha));
 
   /* Padding / Margin */
   --arc-spacing-x-small: 0.5rem;
@@ -154,7 +159,6 @@
   --arc-border-radius-medium: 0.25rem;
   --arc-border-radius-large: 0.5rem;
   --arc-border-radius-x-large: 1rem;
-  --arc-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
 
   /* Transition */
   --arc-transition-x-slow: 1000ms;

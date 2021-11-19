@@ -62,15 +62,13 @@ export default class ArcIconButton extends LitElement {
 
       /* Hover */
       :host(:not([disabled])) #button:hover #icon {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
+        background: rgba(var(--arc-font-color), 10%);
       }
 
       /* Focus & Mouse down */
       :host(:not([disabled])) #button:active #icon,
       :host(:not([disabled])) #button:focus-visible #icon {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
+        background: rgba(var(--arc-font-color), 30%);
       }
 
       /* Active */

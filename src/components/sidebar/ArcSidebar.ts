@@ -24,19 +24,27 @@ export default class ArcSidebar extends LitElement {
       }
 
       /* Open sidebar */
-      #sidebar {
+      #sidebar,
+      #content {
         height: 100%;
-        display: grid;
+        display: flex;
+        flex-direction: column;
       }
 
-      #sidebar.gap {
+      #title {
+        height: 3.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--arc-spacing-medium);
+      }
+
+      #content ::slotted(*) {
+        flex: 1 1 100%;
+      }
+
+      #content.gap {
         gap: var(--gap-distance);
-      }
-
-      #toggleClose {
-        position: absolute;
-        top: var(--arc-spacing-x-small);
-        right: var(--arc-spacing-x-small);
       }
 
       #toggleOpen::part(icon) {
@@ -47,23 +55,26 @@ export default class ArcSidebar extends LitElement {
 
       /* Background */
       ::slotted(*),
+      #title,
       #toggleOpen {
         background: rgb(var(--arc-container-color));
       }
     `,
   ];
 
+  @query('#content')
+  content!: HTMLElement;
+
   @property({ type: Boolean, reflect: true })
   open: boolean = true;
 
-  @query('#sidebar')
-  sidebar!: HTMLElement;
+  @property() title: string;
 
   _handleSlots = (e: any) => {
     const childNodes = e.target.assignedElements({ flatten: true });
 
     if (childNodes.length > 1) {
-      this.sidebar.classList.add('gap');
+      this.content.classList.add('gap');
     }
   };
 
@@ -87,13 +98,18 @@ export default class ArcSidebar extends LitElement {
     return this.open
       ? html`
           <div id="sidebar">
-            <arc-icon-button
-              id="toggleClose"
-              name="arrow-left"
-              label="Close sidebar"
-              @click=${this._toggleOpenState}
-            ></arc-icon-button>
-            <slot @slotchange=${this._handleSlots}></slot>
+            <div id="title">
+              <span>${this.title}</span>
+              <arc-icon-button
+                id="toggleClose"
+                name="arrow-left"
+                label="Close sidebar"
+                @click=${this._toggleOpenState}
+              ></arc-icon-button>
+            </div>
+            <div id="content">
+              <slot @slotchange=${this._handleSlots}></slot>
+            </div>
           </div>
         `
       : html`

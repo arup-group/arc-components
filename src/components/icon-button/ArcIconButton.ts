@@ -35,9 +35,6 @@ export default class ArcIconButton extends LitElement {
         min-height: 100%;
         border: none;
         font-family: var(--arc-font-button);
-        font-size: inherit;
-        font-weight: var(--arc-font-weight-semibold);
-        line-height: normal;
         text-decoration: none;
         user-select: none;
         white-space: nowrap;

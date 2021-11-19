@@ -5,6 +5,11 @@ import * as stories from '../dist/components/sidebar/arc-sidebar.stories.js';
 title='ArcSidebar'
 component='arc-sidebar'
 argTypes={{
+   title: {
+     description: 'Set a title for the sidebar.',
+     defaultValue: { summary: '' },
+     control: { type: 'text' }
+   },
    gap: {
      name: '--gap-distance',
      type: { required: false },

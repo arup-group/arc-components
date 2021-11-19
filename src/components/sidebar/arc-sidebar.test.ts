@@ -63,6 +63,16 @@ describe('ArcSidebar', () => {
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
     });
+    it('renders the sidebar with a custom title property', async () => {
+      const title = element.shadowRoot!.getElementById('title')!;
+      const titleText = title.querySelector('span')!;
+
+      element.title = 'Test title';
+
+      await elementUpdated(element);
+      expect(element.title).to.equal('Test title');
+      expect(titleText).dom.to.equal(`<span>Test title</span>`);
+    });
   });
 
   // Test whether the slots can be filled and that they exist
@@ -71,10 +81,10 @@ describe('ArcSidebar', () => {
       const element: ArcSidebar = await fixture(
         html`<arc-sidebar></arc-sidebar>`
       );
-      const target: HTMLElement =
-        element.shadowRoot!.getElementById('sidebar')!;
+      const content: HTMLElement =
+        element.shadowRoot!.getElementById('content')!;
 
-      expect(hasSlot(target)).to.be.true;
+      expect(hasSlot(content)).to.be.true;
     });
 
     it('should automatically add a gap between added slots', async () => {
@@ -84,8 +94,8 @@ describe('ArcSidebar', () => {
           <div>Test container</div>
         </arc-sidebar>
       `);
-      const sidebar = element.shadowRoot!.getElementById('sidebar')!;
-      const containerStyles = window.getComputedStyle(sidebar);
+      const content = element.shadowRoot!.getElementById('content')!;
+      const containerStyles = window.getComputedStyle(content);
       expect(containerStyles.getPropertyValue('column-gap')).to.equal('30px');
     });
   });

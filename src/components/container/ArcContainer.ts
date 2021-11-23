@@ -79,7 +79,7 @@ export default class ArcContainer extends LitElement {
 
   render() {
     return html`
-      <main id="main">
+      <div id="main">
         <slot id="nav" name="nav"></slot>
         <div id="container">
           <slot name="side"></slot>
@@ -92,7 +92,7 @@ export default class ArcContainer extends LitElement {
             >
           </arc-bottombar>
         </slot>
-      </main>
+      </div>
     `;
   }
 }

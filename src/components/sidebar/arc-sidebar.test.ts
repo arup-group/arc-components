@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { elementUpdated, expect, fixture, oneEvent } from '@open-wc/testing';
 import { hasSlot } from '../../utilities/test-utils.js';
 
 import type ArcSidebar from './ArcSidebar.js';
@@ -7,13 +7,13 @@ import './arc-sidebar.js';
 
 describe('ArcSidebar', () => {
   // Test the rendering of the component
-  // Test properties that reflect to the DOM
   describe('rendering', () => {
     let element: ArcSidebar;
     beforeEach(async () => {
       element = await fixture(html`<arc-sidebar></arc-sidebar>`);
     });
 
+    // Test properties that reflect to the DOM
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(`<arc-sidebar open=''></arc-sidebar>`);
     });
@@ -72,6 +72,35 @@ describe('ArcSidebar', () => {
       await elementUpdated(element);
       expect(element.title).to.equal('Test title');
       expect(titleText).dom.to.equal(`<span>Test title</span>`);
+    });
+  });
+
+  // Test the events (click, focus, blur etc.)
+  describe('events', () => {
+    let element: ArcSidebar;
+
+    beforeEach(async () => {
+      element = await fixture(html` <arc-sidebar></arc-sidebar> `);
+    });
+
+    it('triggers the arc-show event', async () => {
+      // Close the sidebar before testing the arc-show event
+      element.open = false;
+      await elementUpdated(element);
+
+      const clickButton = () =>
+        element.shadowRoot!.querySelector('arc-icon-button')!.click();
+      setTimeout(clickButton);
+      const { detail } = await oneEvent(element, 'arc-show');
+      expect(detail.open).to.be.true;
+    });
+
+    it('triggers the arc-hide event', async () => {
+      const clickButton = () =>
+        element.shadowRoot!.querySelector('arc-icon-button')!.click();
+      setTimeout(clickButton);
+      const { detail } = await oneEvent(element, 'arc-hide');
+      expect(detail.open).to.be.false;
     });
   });
 

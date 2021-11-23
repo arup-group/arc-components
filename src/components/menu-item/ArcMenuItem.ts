@@ -25,26 +25,6 @@ export default class ArcMenuItem extends LitElement {
         cursor: pointer;
       }
 
-      /* Hover */
-      :host(:not([disabled])) #main:hover {
-        outline: none;
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
-      }
-
-      /* Focus & Mouse down */
-      :host(:not([disabled])) #main:active,
-      :host(:not([disabled])) #main:focus-visible {
-        background-image: linear-gradient(var(--arc-hover-light) 0 0);
-      }
-
-      /* Disabled */
-      :host([disabled]) #main {
-        opacity: 0.5;
-        outline: none;
-        cursor: not-allowed;
-      }
-
       #prefix,
       #label,
       #suffix {
@@ -63,6 +43,27 @@ export default class ArcMenuItem extends LitElement {
 
       #suffix ::slotted(*) {
         margin-left: var(--arc-spacing-x-small);
+      }
+
+      /* Hover & Focus */
+      :host(:not([disabled]):hover) #main,
+      :host(:not([disabled]):focus) #main,
+      :host(:not([disabled]):focus-visible) #main {
+        outline: none;
+        background-color: currentColor;
+        background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
+      }
+
+      /* Mouse down */
+      :host(:not([disabled]):active) #main {
+        background: rgba(var(--arc-font-color), 10%);
+      }
+
+      /* Disabled */
+      :host([disabled]) #main {
+        opacity: 0.5;
+        outline: none;
+        cursor: not-allowed;
       }
     `,
   ];
@@ -84,7 +85,7 @@ export default class ArcMenuItem extends LitElement {
 
   render() {
     return html`
-      <main id="main">
+      <div id="main">
         <span id="prefix">
           <slot name="prefix"></slot>
         </span>
@@ -94,7 +95,7 @@ export default class ArcMenuItem extends LitElement {
         <span id="suffix">
           <slot name="suffix"></slot>
         </span>
-      </main>
+      </div>
     `;
   }
 }

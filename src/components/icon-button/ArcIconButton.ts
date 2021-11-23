@@ -57,14 +57,15 @@ export default class ArcIconButton extends LitElement {
         margin-top: -0.2rem;
       }
 
-      /* Hover */
-      :host(:not([disabled])) #button:hover #icon {
+      /* Hover & Focus */
+      :host(:not([disabled]):hover) #icon,
+      :host(:not([disabled]):focus) #icon,
+      :host(:not([disabled]):focus-visible) #icon {
         background: rgba(var(--arc-font-color), 10%);
       }
 
-      /* Focus & Mouse down */
-      :host(:not([disabled])) #button:active #icon,
-      :host(:not([disabled])) #button:focus-visible #icon {
+      /* Mouse down */
+      :host(:not([disabled]):active) #icon {
         background: rgba(var(--arc-font-color), 30%);
       }
 

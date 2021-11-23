@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
+import { emit } from '../../utilities/event-utils.js';
 
 import '../icon-button/arc-icon-button.js';
 
@@ -78,7 +79,7 @@ export default class ArcSidebar extends LitElement {
 
   @property() title: string;
 
-  _handleSlots = (e: any) => {
+  handleSlots = (e: any) => {
     const childNodes = e.target.assignedElements({ flatten: true });
 
     if (childNodes.length > 1) {
@@ -86,20 +87,11 @@ export default class ArcSidebar extends LitElement {
     }
   };
 
-  _toggleOpenState = () => {
+  toggleOpenState = () => {
     this.open = !this.open;
-    this._dispatchOpenState();
-  };
-
-  private _dispatchOpenState = () => {
-    const options = {
+    emit(this, `${this.open ? 'arc-show' : 'arc-hide'}`, {
       detail: { open: this.open },
-      bubbles: true,
-      composed: true,
-    };
-    this.dispatchEvent(
-      new CustomEvent(`${this.open ? 'arc-show' : 'arc-hide'}`, options)
-    );
+    });
   };
 
   render() {
@@ -112,11 +104,11 @@ export default class ArcSidebar extends LitElement {
                 id="toggleClose"
                 name="arrow-left"
                 label="Close sidebar"
-                @click=${this._toggleOpenState}
+                @click=${this.toggleOpenState}
               ></arc-icon-button>
             </div>
             <div id="content">
-              <slot @slotchange=${this._handleSlots}></slot>
+              <slot @slotchange=${this.handleSlots}></slot>
             </div>
           </div>
         `
@@ -125,7 +117,7 @@ export default class ArcSidebar extends LitElement {
             id="toggleOpen"
             name="arrow-right"
             label="Open sidebar"
-            @click=${this._toggleOpenState}
+            @click=${this.toggleOpenState}
           ></arc-icon-button>
         `;
   }

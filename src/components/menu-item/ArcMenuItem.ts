@@ -18,7 +18,6 @@ export default class ArcMenuItem extends LitElement {
         display: flex;
         align-items: stretch;
         text-align: left;
-        color: rgb(var(--arc-color-neutral-700));
         padding: var(--arc-spacing-small) var(--arc-spacing-medium);
         transition: var(--arc-transition-fast) fill;
         user-select: none;

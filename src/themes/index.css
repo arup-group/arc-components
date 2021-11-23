@@ -184,3 +184,7 @@ body {
   letter-spacing: var(--arc-letter-spacing-normal);
   line-height: var(--arc-line-height-normal);
 }
+
+* {
+  box-sizing: border-box;
+}

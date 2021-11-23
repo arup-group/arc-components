@@ -15,9 +15,10 @@ interface WatchOptions {
 export function watch(propName: string, options?: WatchOptions) {
   return (protoOrDescriptor: any, name: string): any => {
     const { update } = protoOrDescriptor;
-
-    // eslint-disable-next-line no-param-reassign
-    options = { waitUntilFirstUpdate: false, ...options } as WatchOptions;
+    const watchOptions = {
+      waitUntilFirstUpdate: false,
+      ...options,
+    } as WatchOptions;
 
     // eslint-disable-next-line no-param-reassign
     protoOrDescriptor.update = function (changedProps: Map<string, any>) {
@@ -26,7 +27,7 @@ export function watch(propName: string, options?: WatchOptions) {
         const newValue = this[propName];
 
         if (oldValue !== newValue) {
-          if (!options?.waitUntilFirstUpdate || this.hasUpdated) {
+          if (!watchOptions?.waitUntilFirstUpdate || this.hasUpdated) {
             this[name].call(this, oldValue, newValue);
           }
         }

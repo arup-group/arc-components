@@ -21,6 +21,7 @@ export default class ArcSidebar extends LitElement {
       :host([open]) {
         transform: translateX(0);
         width: var(--sidebar-width);
+        overflow: auto;
       }
 
       /* Open sidebar */
@@ -32,14 +33,21 @@ export default class ArcSidebar extends LitElement {
       }
 
       #title {
-        height: 3.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: var(--arc-spacing-medium);
+        padding: var(--arc-spacing-small);
+        padding-left: var(--arc-spacing-medium);
+      }
+
+      #title span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       #content ::slotted(*) {
+        font-size: var(--arc-font-size-x-small);
         flex: 1 1 100%;
       }
 

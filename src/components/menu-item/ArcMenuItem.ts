@@ -46,10 +46,12 @@ export default class ArcMenuItem extends LitElement {
       }
 
       /* Hover & Focus */
+      :host(:focus) {
+        outline: none;
+      }
       :host(:not([disabled]):hover) #main,
       :host(:not([disabled]):focus) #main,
       :host(:not([disabled]):focus-visible) #main {
-        outline: none;
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }

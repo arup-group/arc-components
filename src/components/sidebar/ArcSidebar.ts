@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import componentStyles from '../../styles/component.styles.js';
 import { emit } from '../../utilities/event-utils.js';
+import componentStyles from '../../styles/component.styles.js';
 
 import '../icon-button/arc-icon-button.js';
 
@@ -72,7 +72,7 @@ export default class ArcSidebar extends LitElement {
   ];
 
   @query('#content')
-  content!: HTMLElement;
+  content: HTMLElement;
 
   @property({ type: Boolean, reflect: true })
   open: boolean = true;

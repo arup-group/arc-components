@@ -6,14 +6,14 @@ import type ArcSidebar from './ArcSidebar.js';
 import './arc-sidebar.js';
 
 describe('ArcSidebar', () => {
-  // Test the rendering of the component
+  /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcSidebar;
     beforeEach(async () => {
       element = await fixture(html`<arc-sidebar></arc-sidebar>`);
     });
 
-    // Test properties that reflect to the DOM
+    /* Test properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(`<arc-sidebar open=''></arc-sidebar>`);
     });
@@ -23,7 +23,7 @@ describe('ArcSidebar', () => {
     });
   });
 
-  // Test different component states (active, disabled, loading etc.)
+  /* Test different component states (active, disabled, loading etc.) */
   describe('states', () => {
     let element: ArcSidebar;
     beforeEach(async () => {
@@ -33,19 +33,19 @@ describe('ArcSidebar', () => {
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
 
-      // Close
+      /* Close */
       element.open = false;
       await elementUpdated(element);
       expect(element.hasAttribute('open')).to.be.false;
 
-      // Open
+      /* Open */
       element.open = true;
       await elementUpdated(element);
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
     });
     it('toggle the open state with the toggle button', async () => {
-      // By default the sidebar is set in the open state
+      /* By default the sidebar is set in the open state */
       const toggleClose = element.shadowRoot!.getElementById('toggleClose')!;
       expect(toggleClose).to.exist;
       toggleClose.click();
@@ -54,7 +54,7 @@ describe('ArcSidebar', () => {
       expect(element.open).to.be.false;
       expect(element.hasAttribute('open')).to.be.false;
 
-      // When the open state === false, the toggleOpen should be displayed
+      /* When the open state === false, the toggleOpen should be displayed */
       const toggleOpen = element.shadowRoot!.getElementById('toggleOpen')!;
       expect(toggleOpen).to.exist;
       toggleOpen.click();
@@ -75,7 +75,7 @@ describe('ArcSidebar', () => {
     });
   });
 
-  // Test the events (click, focus, blur etc.)
+  /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcSidebar;
 
@@ -84,7 +84,7 @@ describe('ArcSidebar', () => {
     });
 
     it('triggers the arc-show event', async () => {
-      // Close the sidebar before testing the arc-show event
+      /* Close the sidebar before testing the arc-show event */
       element.open = false;
       await elementUpdated(element);
 
@@ -104,7 +104,7 @@ describe('ArcSidebar', () => {
     });
   });
 
-  // Test whether the slots can be filled and that they exist
+  /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     it('renders a slot to fill the sidebar', async () => {
       const element: ArcSidebar = await fixture(
@@ -129,7 +129,7 @@ describe('ArcSidebar', () => {
     });
   });
 
-  // Test the css variables that can be overwritten
+  /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcSidebar = await fixture(

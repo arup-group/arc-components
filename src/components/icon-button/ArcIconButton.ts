@@ -111,10 +111,10 @@ export default class ArcIconButton extends LitElement {
 
   @property() download: string;
 
-  /**
-   * A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should
-   * always include a label that describes what the icon button does.
-   */
+  /*
+  A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should
+  always include a label that describes what the icon button does.
+  */
   @property() label = '';
 
   @property({ type: Boolean, reflect: true }) active = false;
@@ -128,7 +128,7 @@ export default class ArcIconButton extends LitElement {
     this.handleSlotChange();
   }
 
-  /** Simulates a click on the button. */
+  /* Simulates a click on the button. */
   click() {
     this.button.click();
   }

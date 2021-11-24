@@ -48,7 +48,6 @@ export default class ArcSidebar extends LitElement {
       }
 
       #content ::slotted(*) {
-        font-size: var(--arc-font-size-x-small);
         flex: 1 1 100%;
       }
 

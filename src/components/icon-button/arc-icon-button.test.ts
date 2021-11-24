@@ -7,7 +7,7 @@ import type ArcIconButton from './ArcIconButton.js';
 import './arc-icon-button.js';
 
 describe('ArcIconButton', () => {
-  // Test the rendering of the component
+  /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcIconButton;
     beforeEach(async () => {
@@ -16,26 +16,26 @@ describe('ArcIconButton', () => {
       );
     });
 
-    // Test default properties that reflect to the DOM
+    /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(
         `<arc-icon-button label='Some label'></arc-icon-button>`
       );
     });
 
-    // Test the type of the button
+    /* Test the type of the button */
     it('renders the button as a default button', () => {
       const buttonTarget = element.shadowRoot!.querySelector('button')!;
       expect(buttonTarget.getAttribute('type')).to.equal('button');
     });
 
-    // Test the accessibility
+    /* Test the accessibility */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
 
-  // Test the setters/getters
+  /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom name property', async () => {
       const element: ArcIconButton = await fixture(
@@ -107,7 +107,7 @@ describe('ArcIconButton', () => {
     });
   });
 
-  // Test different component states (active, disabled, loading etc.)
+  /* Test different component states (active, disabled, loading etc.) */
   describe('states', () => {
     let element: ArcIconButton;
 
@@ -172,7 +172,7 @@ describe('ArcIconButton', () => {
     });
   });
 
-  // Test the events (click, focus, blur etc.)
+  /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcIconButton;
     let clickSpy: SinonSpy;
@@ -225,9 +225,9 @@ describe('ArcIconButton', () => {
     });
   });
 
-  // Test whether the slots can be filled and that they exist
+  /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
-    // Prevent padding issues when used inline within a <p> tag for example
+    /* Prevent padding issues when used inline within a <p> tag for example */
     it('prevents rendering a slot to when no content is given', async () => {
       const element: ArcIconButton = await fixture(
         html`<arc-icon-button></arc-icon-button>`

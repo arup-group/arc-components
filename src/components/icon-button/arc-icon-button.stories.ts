@@ -60,7 +60,7 @@ const defaultArgs = {
   iconColor: undefined,
 };
 
-// TYPES
+/* TYPES */
 export const Default = Template.bind({});
 export const CustomColor = Template.bind({});
 export const Link = Template.bind({});
@@ -94,7 +94,7 @@ LinkDisabled.args = {
   disabled: true,
 };
 
-// STATES
+/* STATES */
 export const Active = Template.bind({});
 export const Disabled = Template.bind({});
 export const Loading = Template.bind({});

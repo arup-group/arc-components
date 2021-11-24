@@ -179,7 +179,7 @@ body {
 body {
   margin: 0;
   font-family: var(--arc-font-body);
-  font-size: var(--arc-font-size-medium);
+  font-size: var(--arc-font-size-small);
   font-weight: var(--arc-font-weight-normal);
   letter-spacing: var(--arc-letter-spacing-normal);
   line-height: var(--arc-line-height-normal);

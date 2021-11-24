@@ -6,7 +6,7 @@ import type ArcMenuItem from './ArcMenuItem.js';
 import './arc-menu-item.js';
 
 describe('ArcMenuItem', () => {
-  // Test the rendering of the component
+  /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcMenuItem;
 
@@ -20,7 +20,7 @@ describe('ArcMenuItem', () => {
       `);
     });
 
-    // Test default properties that reflect to the DOM
+    /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(`
         <div role='menu'>
@@ -29,13 +29,13 @@ describe('ArcMenuItem', () => {
       `);
     });
 
-    // Test the accessibility
+    /* Test the accessibility */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
 
-  // Test the setters/getters
+  /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom value property', async () => {
       const element: ArcMenuItem = await fixture(
@@ -47,7 +47,7 @@ describe('ArcMenuItem', () => {
     });
   });
 
-  // Test different component states (active, disabled, loading etc.)
+  /* Test different component states (active, disabled, loading etc.) */
   describe('states', () => {
     let element: ArcMenuItem;
 
@@ -68,7 +68,7 @@ describe('ArcMenuItem', () => {
     });
   });
 
-  // Test whether the slots can be filled and that they exist
+  /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     let element: ArcMenuItem;
     beforeEach(async () => {
@@ -78,10 +78,10 @@ describe('ArcMenuItem', () => {
     it('renders default slots to fill the component', () => {
       const main = element.shadowRoot!.getElementById('main')!;
 
-      // An empty slot is available
+      /* An empty slot is available */
       expect(hasSlot(main)).to.be.true;
 
-      // A specific (named) slot is available
+      /* A specific (named) slot is available */
       expect(hasSlot(main, 'prefix')).to.be.true;
       expect(hasSlot(main, 'suffix')).to.be.true;
     });

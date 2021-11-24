@@ -131,7 +131,7 @@ export default class ArcNavbar extends LitElement {
     const arcTabs = nodes.filter(isButton);
 
     if (arcTabs.length > this.tabs) {
-      // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
+      /* TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count */
       this.log(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
     }
   };

@@ -90,7 +90,7 @@ const defaultArgs = {
   btnBackground: undefined,
 };
 
-// TYPES
+/* TYPES */
 export const Contained = Template.bind({});
 export const Tile = Template.bind({});
 export const Outlined = Template.bind({});
@@ -127,14 +127,14 @@ LinkDownload.args = {
 };
 LinkDisabled.args = { ...Link.args, label: 'Disabled', disabled: true };
 
-// SLOTS
+/* SLOTS */
 export const Prefix = Template.bind({});
 export const Suffix = Template.bind({});
 
 Prefix.args = { ...defaultArgs, label: 'Home', prefix: true };
 Suffix.args = { ...defaultArgs, label: 'Settings', suffix: true };
 
-// COLORS
+/* COLORS */
 export const Default = Template.bind({});
 export const Primary = Template.bind({});
 export const Secondary = Template.bind({});
@@ -179,7 +179,7 @@ Success.args = {
   color: BUTTON_COLORS.success,
 };
 
-// SIZES
+/* SIZES */
 export const Small = Template.bind({});
 export const Medium = Template.bind({});
 export const Large = Template.bind({});
@@ -200,7 +200,7 @@ Large.args = {
   size: BUTTON_SIZES.large,
 };
 
-// STATES
+/* STATES */
 export const Active = Template.bind({});
 export const Disabled = Template.bind({});
 export const Loading = Template.bind({});

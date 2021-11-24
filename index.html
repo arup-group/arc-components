@@ -40,17 +40,13 @@
     </arc-menu>
   </arc-sidebar>
   <div style="padding: var(--arc-spacing-medium);">
-    <arc-menu id="myMenu">
+    <arc-menu>
       <arc-menu-item value="1">One</arc-menu-item>
       <arc-menu-item value="2" disabled>Two</arc-menu-item>
       <arc-menu-item value="3">Three</arc-menu-item>
       <arc-menu-item value="4" disabled>Three</arc-menu-item>
       <arc-menu-item value="5">Three</arc-menu-item>
     </arc-menu>
-
-    <arc-button type="outlined" color="info">1</arc-button>
-    <arc-button type="pill" color="error">2</arc-button>
-    <arc-button color="primary">3</arc-button>
   </div>
 </arc-container>
 
@@ -71,16 +67,14 @@
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
-  const menu = document.getElementById('myMenu');
+  const menus = document.querySelectorAll('arc-menu');
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';
     themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
   });
 
-  menu.addEventListener('arc-select', e => {
-    console.log(e);
-  })
+  menus.forEach(menu => menu.addEventListener('arc-select', e => console.log(e.detail.item)))
 
 </script>
 </body>

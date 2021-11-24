@@ -93,36 +93,32 @@ export default class ArcButton extends LitElement {
       }
 
       /* Default - Hover & Focus */
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]):hover)
-        #button,
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]):focus)
-        #button,
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]):focus-visible)
-        #button {
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
+        #button:hover,
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
+        #button:focus-visible {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
       /* Tab & Outlined - Hover & Focus */
-      :host([type='tab']:not([disabled]):not([loading]):hover) #button,
-      :host([type='tab']:not([disabled]):not([loading]):focus) #button,
-      :host([type='tab']:not([disabled]):not([loading]):focus-visible) #button,
-      :host([type='outlined']:not([disabled]):not([loading]):hover) #button,
-      :host([type='outlined']:not([disabled]):not([loading]):focus) #button,
-      :host([type='outlined']:not([disabled]):not([loading]):focus-visible)
-        #button {
+      :host([type='tab']:not([disabled]):not([loading])) #button:hover,
+      :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
+      :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
+      :host([type='outlined']:not([disabled]):not([loading]))
+        #button:focus-visible {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
 
       /* Default - Mouse down */
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]):active)
-        #button {
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
+        #button:active {
         background-image: linear-gradient(var(--arc-hover-darker) 0 0);
       }
 
       /* Tab & Outlined - Mouse down */
-      :host([type='tab']:not([disabled]):not([loading]):active) #button,
-      :host([type='outlined']:not([disabled]):not([loading]):active) #button {
+      :host([type='tab']:not([disabled]):not([loading])) #button:active,
+      :host([type='outlined']:not([disabled]):not([loading])) #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 

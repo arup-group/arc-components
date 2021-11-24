@@ -9,7 +9,14 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 export default class ArcMenu extends LitElement {
   static tag = 'arc-menu';
 
-  static styles = [componentStyles, css``];
+  static styles = [
+    componentStyles,
+    css`
+      :host {
+        display: block;
+      }
+    `,
+  ];
 
   @query('#menu') menu: HTMLElement;
 

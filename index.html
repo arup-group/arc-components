@@ -46,8 +46,13 @@
 
 <script type="module">
   import { setBasePath } from './dist/utilities/base-path.js';
+  import { noFOUC } from './dist/utilities/style-utils.js';
 
-  setBasePath('/src/');
+  // Set the base path of the ARC assets
+  setBasePath('/src/')
+
+  // Fix the flash-of-unstyled-content
+  noFOUC();
 </script>
 
 <script type="module">
@@ -69,7 +74,6 @@
   });
 
   menus.forEach(menu => menu.addEventListener('arc-select', e => console.log(e.detail.item)))
-
 </script>
 </body>
 

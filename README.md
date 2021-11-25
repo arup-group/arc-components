@@ -46,7 +46,7 @@ However, if you're cherry-picking or bundling ARC, you'll need to set the base p
 
   <script src="your-own-bundle.js"></script>
   <script type="module">
-    import { setBasePath } from '/arc/dist/utilities/base-path.js';
+    import { setBasePath } from '@arc-web/components/dist//utilities/base-path.js';
     setBasePath('/path/to/arc/');
   </script>
 </body>
@@ -278,3 +278,27 @@ export class AppModule { }
 Component modules include side effects for registration purposes. 
 Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary. 
 For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown in the examples above.
+
+## Flash of unstyled content (FOUC)
+When you are not using a Framework, a flash of unstyled content (FOUC) might occur in your application.
+This is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet,
+due to the web browser engine rendering the page before all information is retrieved.
+This problem can be resolved by using the built-in `noFOUC` utility method as shown below.
+
+```bash
+/* index.html */
+<body>
+  <arc-container></arc-container>
+
+  <script type="module">
+    import { noFOUC } from '@arc-web/components/dist/utilities/style-utils.js';
+    noFOUC();
+  </script>
+</body>
+```
+
+```bash
+/* index.js */
+import { noFOUC } from '@arc-web/components/dist/utilities/style-utils.js';
+noFOUC();
+```

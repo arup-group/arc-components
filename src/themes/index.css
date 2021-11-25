@@ -188,3 +188,8 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* Classname used to fix the flash-of-unstyled-content (FOUC) */
+.no-fouc {
+  display: none;
+}

@@ -12,3 +12,4 @@ export { default as ArcSpinner } from './components/spinner/ArcSpinner.js';
 
 /* Utilities */
 export * from './utilities/base-path.js';
+export { noFOUC } from './utilities/style-utils.js';

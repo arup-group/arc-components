@@ -36,6 +36,7 @@ export default class ArcMenu extends LitElement {
         if (el.getAttribute('role') !== 'menuitem') {
           return false;
         }
+        // Are disabled items included? return true, else false
         return !(!includeDisabled && (el as ArcMenuItem).disabled);
       }
     ) as ArcMenuItem[];

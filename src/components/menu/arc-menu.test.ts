@@ -1,10 +1,11 @@
 import { html } from 'lit';
-import { expect, fixture } from '@open-wc/testing';
+import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import sinon from 'sinon';
 
 import { hasSlot } from '../../utilities/test-utils.js';
 
 import type ArcMenu from './ArcMenu.js';
+import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
@@ -33,9 +34,9 @@ describe('ArcMenu', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <arc-menu>
-          <arc-menu-item disabled>Menu item 1</arc-menu-item>
-          <arc-menu-item>Menu item 2</arc-menu-item>
-          <arc-menu-item>Menu item 3</arc-menu-item>
+          <arc-menu-item disabled>Alpha</arc-menu-item>
+          <arc-menu-item>Bravo</arc-menu-item>
+          <arc-menu-item>Charlie</arc-menu-item>
           <div>Not a menu item</div>
         </arc-menu>
       `);
@@ -51,9 +52,48 @@ describe('ArcMenu', () => {
       );
     });
 
-    it('retrieves the current item', () => {});
+    it('retrieves the current menu item', () => {
+      const firstActiveMenuItem = element.children[1];
+      expect(element.getCurrentItem()).to.equal(firstActiveMenuItem);
+    });
 
-    it('sets the current item', () => {});
+    it('sets the current menu item', () => {
+      const selectedItem = element.children[2];
+
+      /*
+      The setCurrentItem method sets a tabindex of [0] to the given (not disabled) item
+      it sets a tabindex of [-1] on all other items that have a role="menuitem" property
+      */
+      element.setCurrentItem(selectedItem as ArcMenuItem);
+
+      [...element.getAllItems({ includeDisabled: false })].forEach(item => {
+        if (item === selectedItem) {
+          expect(item.getAttribute('tabindex')).to.equal('0');
+        } else {
+          expect(item.getAttribute('tabindex')).to.equal('-1');
+        }
+      });
+    });
+
+    it('retrieves a menu item based on a keyboard input', async () => {
+      const selectedItem = element.children[1];
+
+      /* Provide the input of the letter C which should trigger the third item in the menu */
+      element.typeToSelect('C');
+      await elementUpdated(selectedItem);
+
+      /* The selectedItem loses focus, thus getting a tabindex of -1 */
+      expect(selectedItem.getAttribute('tabindex')).to.equal('-1');
+
+      /* Provide the input of the letter B after an interval which should then trigger the second item in the menu */
+      setTimeout(async () => {
+        element.typeToSelect('B');
+        await elementUpdated(selectedItem);
+
+        /* The selectedItem gains focus, thus getting a tabindex of 0 */
+        expect(selectedItem.getAttribute('tabindex')).to.equal('0');
+      }, 1000);
+    });
   });
 
   /* Test the events (click, focus, blur etc.) */

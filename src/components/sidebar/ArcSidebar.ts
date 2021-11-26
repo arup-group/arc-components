@@ -39,6 +39,7 @@ export default class ArcSidebar extends LitElement {
         align-items: center;
         padding: var(--arc-spacing-small);
         padding-left: var(--arc-spacing-medium);
+        user-select: none;
       }
 
       #title span {

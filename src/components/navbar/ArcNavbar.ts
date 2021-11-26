@@ -28,6 +28,7 @@ export default class ArcNavbar extends LitElement {
         width: 100%;
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
         box-shadow: var(--arc-box-shadow);
+        user-select: none;
       }
 
       /* Left side */

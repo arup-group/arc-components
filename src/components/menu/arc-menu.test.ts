@@ -58,12 +58,8 @@ describe('ArcMenu', () => {
     });
 
     it('sets the current menu item', () => {
+      /* Set focus to a specific menu item */
       const selectedItem = element.children[2];
-
-      /*
-      The setCurrentItem method sets a tabindex of [0] to the given (not disabled) item
-      it sets a tabindex of [-1] on all other items that have a role="menuitem" property
-      */
       element.setCurrentItem(selectedItem as ArcMenuItem);
 
       [...element.getAllItems({ includeDisabled: false })].forEach(item => {
@@ -84,6 +80,9 @@ describe('ArcMenu', () => {
 
       /* The selectedItem loses focus, thus getting a tabindex of -1 */
       expect(selectedItem.getAttribute('tabindex')).to.equal('-1');
+
+      /* The n */
+      expect(element.getCurrentItem()!.getAttribute('tabindex')).to.equal('0');
 
       /* Provide the input of the letter B after an interval which should then trigger the second item in the menu */
       setTimeout(async () => {

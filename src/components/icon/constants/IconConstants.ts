@@ -25,7 +25,7 @@ export const ICON_TYPES: { [key: string]: string } = {
   bell: 'bell',
   brightnessHigh: 'brightness_high',
   brightnessLow: 'brightness_low',
-  calender: 'calender',
+  calendar: 'calendar',
   check: 'check',
   close: 'close',
   cloudDownload: 'cloud-download',

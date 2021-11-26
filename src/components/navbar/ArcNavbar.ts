@@ -28,6 +28,7 @@ export default class ArcNavbar extends LitElement {
         width: 100%;
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
         box-shadow: var(--arc-box-shadow);
+        user-select: none;
       }
 
       /* Left side */
@@ -131,16 +132,17 @@ export default class ArcNavbar extends LitElement {
     const arcTabs = nodes.filter(isButton);
 
     if (arcTabs.length > this.tabs) {
-      // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
+      /* TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count */
       this.log(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
     }
   };
 
+  // eslint-disable-next-line no-console
   log = (msg: string) => console.log(msg);
 
   render() {
     return html`
-      <main id="main">
+      <div id="main">
         <div id="left">
           <a
             id="logoWrapper"
@@ -162,7 +164,7 @@ export default class ArcNavbar extends LitElement {
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : null}
         </div>
-      </main>
+      </div>
     `;
   }
 }

@@ -8,32 +8,32 @@ import './arc-spinner.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 
 describe('ArcSpinner', () => {
-  // Test the rendering of the component
+  /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcSpinner;
     beforeEach(async () => {
       element = await fixture(html`<arc-spinner></arc-spinner>`);
     });
 
-    // Test default properties that reflect to the DOM
+    /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(`<arc-spinner></arc-spinner>`);
     });
 
-    // Test the accessibility
+    /* Test the accessibility */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
 
     it('should defer updates to screen reader users via aria-live="polite".', async () => {
-      // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
+      /* https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions */
       const svg = element.shadowRoot?.querySelector('svg');
       await expect(svg).have.attribute('aria-busy', 'true');
       await expect(svg).have.attribute('aria-live', 'polite');
     });
   });
 
-  // Test the events (click, focus, blur etc.)
+  /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcSpinner;
     let clickSpy: any;
@@ -61,7 +61,7 @@ describe('ArcSpinner', () => {
     });
   });
 
-  // Test the css variables that can be overwritten
+  /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcSpinner = await fixture(

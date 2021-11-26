@@ -14,33 +14,33 @@ import {
 } from './constants/ButtonConstants.js';
 
 describe('ArcButton', () => {
-  // Test the rendering of the component
+  /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcButton;
     beforeEach(async () => {
       element = await fixture(html`<arc-button>Test</arc-button>`);
     });
 
-    // Test default properties that reflect to the DOM
+    /* Test default properties that reflect to the DOM */
     it('renders the button with default properties in the dom', () => {
       expect(element).dom.to.equal(
         `<arc-button type='${BUTTON_TYPES.contained}' color='${BUTTON_COLORS.default}' size='${BUTTON_SIZES.medium}'>Test</arc-button>`
       );
     });
 
-    // Test the type of the button
+    /* Test the type of the button */
     it('renders the button as a default button', () => {
       const buttonTarget = element.shadowRoot!.querySelector('button')!;
       expect(buttonTarget.getAttribute('type')).to.equal('button');
     });
 
-    // Test the accessibility
+    /* Test the accessibility */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
 
-  // Test the setters/getters
+  /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the button with a custom color, type and size property', async () => {
       const element: ArcButton = await fixture(
@@ -54,7 +54,7 @@ describe('ArcButton', () => {
           for (const buttonSize of Object.keys(BUTTON_SIZES)) {
             element.size = buttonSize;
 
-            await elementUpdated(element); // eslint-disable-line no-await-in-loop
+            await elementUpdated(element);
             expect(element.color).to.equal(buttonColor);
             expect(element.getAttribute('color')).to.equal(buttonColor);
             expect(element.type).to.equal(buttonType);
@@ -118,7 +118,7 @@ describe('ArcButton', () => {
     });
   });
 
-  // Test different component states (active, disabled, loading etc.)
+  /* Test different component states (active, disabled, loading etc.) */
   describe('states', () => {
     let element: ArcButton;
 
@@ -183,7 +183,7 @@ describe('ArcButton', () => {
     });
   });
 
-  // Test the events (click, focus, blur etc.)
+  /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcButton;
     let clickSpy: SinonSpy;
@@ -236,7 +236,7 @@ describe('ArcButton', () => {
     });
   });
 
-  // Test whether the slots can be filled and that they exist
+  /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     let element: ArcButton;
     let buttonTarget: HTMLElement;
@@ -259,7 +259,7 @@ describe('ArcButton', () => {
     });
   });
 
-  // Test the css variables that can be overwritten
+  /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcButton = await fixture(

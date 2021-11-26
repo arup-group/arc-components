@@ -44,7 +44,7 @@ const defaultArgs = {
   colorPrimary: undefined,
 };
 
-// TYPES
+/* TYPES */
 export const Default = Template.bind({});
 export const VariableSize = Template.bind({});
 export const RedColor = Template.bind({});

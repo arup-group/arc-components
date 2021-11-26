@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { emit } from '../../utilities/event-utils.js';
 import componentStyles from '../../styles/component.styles.js';
 
 import '../icon-button/arc-icon-button.js';
@@ -21,22 +22,38 @@ export default class ArcSidebar extends LitElement {
       :host([open]) {
         transform: translateX(0);
         width: var(--sidebar-width);
+        overflow: auto;
       }
 
       /* Open sidebar */
-      #sidebar {
+      #sidebar,
+      #content {
         height: 100%;
-        display: grid;
+        display: flex;
+        flex-direction: column;
       }
 
-      #sidebar.gap {
+      #title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--arc-spacing-small);
+        padding-left: var(--arc-spacing-medium);
+        user-select: none;
+      }
+
+      #title span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      #content ::slotted(*) {
+        flex: 1 1 100%;
+      }
+
+      #content.gap {
         gap: var(--gap-distance);
-      }
-
-      #toggleClose {
-        position: absolute;
-        top: var(--arc-spacing-x-small);
-        right: var(--arc-spacing-x-small);
       }
 
       #toggleOpen::part(icon) {
@@ -47,53 +64,52 @@ export default class ArcSidebar extends LitElement {
 
       /* Background */
       ::slotted(*),
+      #title,
       #toggleOpen {
         background: rgb(var(--arc-container-color));
       }
     `,
   ];
 
+  @query('#content')
+  content: HTMLElement;
+
   @property({ type: Boolean, reflect: true })
   open: boolean = true;
 
-  @query('#sidebar')
-  sidebar!: HTMLElement;
+  @property() title: string;
 
-  _handleSlots = (e: any) => {
+  handleSlots = (e: any) => {
     const childNodes = e.target.assignedElements({ flatten: true });
 
     if (childNodes.length > 1) {
-      this.sidebar.classList.add('gap');
+      this.content.classList.add('gap');
     }
   };
 
-  _toggleOpenState = () => {
+  toggleOpenState = () => {
     this.open = !this.open;
-    this._dispatchOpenState();
-  };
-
-  private _dispatchOpenState = () => {
-    const options = {
+    emit(this, `${this.open ? 'arc-show' : 'arc-hide'}`, {
       detail: { open: this.open },
-      bubbles: true,
-      composed: true,
-    };
-    this.dispatchEvent(
-      new CustomEvent(`${this.open ? 'arc-show' : 'arc-hide'}`, options)
-    );
+    });
   };
 
   render() {
     return this.open
       ? html`
           <div id="sidebar">
-            <arc-icon-button
-              id="toggleClose"
-              name="arrow-left"
-              label="Close sidebar"
-              @click=${this._toggleOpenState}
-            ></arc-icon-button>
-            <slot @slotchange=${this._handleSlots}></slot>
+            <div id="title">
+              <span>${this.title}</span>
+              <arc-icon-button
+                id="toggleClose"
+                name="arrow-left"
+                label="Close sidebar"
+                @click=${this.toggleOpenState}
+              ></arc-icon-button>
+            </div>
+            <div id="content">
+              <slot @slotchange=${this.handleSlots}></slot>
+            </div>
           </div>
         `
       : html`
@@ -101,7 +117,7 @@ export default class ArcSidebar extends LitElement {
             id="toggleOpen"
             name="arrow-right"
             label="Open sidebar"
-            @click=${this._toggleOpenState}
+            @click=${this.toggleOpenState}
           ></arc-icon-button>
         `;
   }

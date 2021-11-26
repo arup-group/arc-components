@@ -35,9 +35,6 @@ export default class ArcIconButton extends LitElement {
         min-height: 100%;
         border: none;
         font-family: var(--arc-font-button);
-        font-size: inherit;
-        font-weight: var(--arc-font-weight-semibold);
-        line-height: normal;
         text-decoration: none;
         user-select: none;
         white-space: nowrap;
@@ -60,14 +57,14 @@ export default class ArcIconButton extends LitElement {
         margin-top: -0.2rem;
       }
 
-      /* Hover */
-      :host(:not([disabled])) #button:hover #icon {
+      /* Hover & Focus */
+      :host(:not([disabled])) #button:hover #icon,
+      :host(:not([disabled])) #button:focus-visible #icon {
         background: rgba(var(--arc-font-color), 10%);
       }
 
-      /* Focus & Mouse down */
-      :host(:not([disabled])) #button:active #icon,
-      :host(:not([disabled])) #button:focus-visible #icon {
+      /* Mouse down */
+      :host(:not([disabled])) #button:active #icon {
         background: rgba(var(--arc-font-color), 30%);
       }
 
@@ -113,10 +110,10 @@ export default class ArcIconButton extends LitElement {
 
   @property() download: string;
 
-  /**
-   * A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should
-   * always include a label that describes what the icon button does.
-   */
+  /*
+  A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should
+  always include a label that describes what the icon button does.
+  */
   @property() label = '';
 
   @property({ type: Boolean, reflect: true }) active = false;
@@ -130,7 +127,7 @@ export default class ArcIconButton extends LitElement {
     this.handleSlotChange();
   }
 
-  /** Simulates a click on the button. */
+  /* Simulates a click on the button. */
   click() {
     this.button.click();
   }

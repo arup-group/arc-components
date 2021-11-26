@@ -156,14 +156,6 @@ export default class ArcMenu extends LitElement {
     this.typeToSelect(event.key);
   }
 
-  handleMouseDown(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-
-    if (target.getAttribute('role') === 'menuitem') {
-      this.setCurrentItem(target as ArcMenuItem);
-    }
-  }
-
   handleSlotChange() {
     const items = this.getAllItems({ includeDisabled: false });
 
@@ -180,7 +172,6 @@ export default class ArcMenu extends LitElement {
         role="menu"
         @click=${this.handleClick}
         @keydown=${this.handleKeyDown}
-        @mousedown=${this.handleMouseDown}
       >
         <slot @slotchange=${this.handleSlotChange}></slot>
       </div>

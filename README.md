@@ -280,10 +280,12 @@ Because of this, importing directly from @arc-web/components may result in a lar
 For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown in the examples above.
 
 ## Flash of unstyled content (FOUC)
-When you are not using a Framework, a flash of unstyled content (FOUC) might occur in your application.
-This is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet,
+A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet, 
 due to the web browser engine rendering the page before all information is retrieved.
-This problem can be resolved by using the built-in `noFOUC` utility method as shown below.
+The page corrects itself as soon as the style rules are loaded and applied; however, 
+the shift may be distracting or even seem unprofessional.
+These problems can be resolved by using the built-in `noFOUC()` utility function as shown below.
+This will only display the content once the document.readyState is equal to 'complete'.
 
 ```bash
 /* index.html */

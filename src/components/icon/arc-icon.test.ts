@@ -44,9 +44,7 @@ describe('ArcIcon', () => {
       for (const iconSize of Object.keys(ICON_SIZES)) {
         element.size = iconSize;
 
-        await elementUpdated(
-          element
-        ); /* eslint-disable-line no-await-in-loop */
+        await elementUpdated(element);
         expect(element.size).to.equal(iconSize);
         expect(element.getAttribute('size')).to.equal(iconSize);
       }

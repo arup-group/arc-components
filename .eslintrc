@@ -30,7 +30,8 @@
       ],
       "rules": {
         "no-unused-expressions": "off",
-        "prefer-destructuring": "off"
+        "prefer-destructuring": "off",
+        "no-await-in-loop": "off"
       }
     }
   ]

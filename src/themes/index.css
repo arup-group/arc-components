@@ -173,14 +173,14 @@
 
 @font-face {
   font-family: "Roboto Light";
-  src: url("./fonts/Roboto-Light.ttf");
+  src: url("../fonts/Roboto-Light.ttf");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Roboto Medium";
-  src: url("./fonts/Roboto-Medium.ttf");
+  src: url("../fonts/Roboto-Medium.ttf");
   font-weight: 500;
   font-style: normal;
 }

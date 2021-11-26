@@ -18,6 +18,7 @@ function noFOUC() {
     document.documentElement.classList.remove('no-fouc');
   }
 
+  /* c8 ignore next 5 */
   document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
       document.documentElement.classList.remove('no-fouc');

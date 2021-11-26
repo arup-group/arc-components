@@ -37,6 +37,7 @@ export default class ArcBottombar extends LitElement {
     }
   };
 
+  // eslint-disable-next-line no-console
   log = (msg: string) => console.log(msg);
 
   render() {

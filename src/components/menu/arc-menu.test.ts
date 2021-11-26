@@ -1,7 +1,5 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
-import sinon from 'sinon';
-
+import { expect, fixture, oneEvent } from '@open-wc/testing';
 import { hasSlot } from '../../utilities/test-utils.js';
 
 import type ArcMenu from './ArcMenu.js';
@@ -10,6 +8,11 @@ import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
 describe('ArcMenu', () => {
+  /* Retrieve the tabindex of a menu item */
+  function getIndex(el: ArcMenuItem) {
+    return el.getAttribute('tabindex');
+  }
+
   /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcMenu;
@@ -37,6 +40,7 @@ describe('ArcMenu', () => {
           <arc-menu-item disabled>Alpha</arc-menu-item>
           <arc-menu-item>Bravo</arc-menu-item>
           <arc-menu-item>Charlie</arc-menu-item>
+          <arc-menu-item>ABCharlie</arc-menu-item>
           <div>Not a menu item</div>
         </arc-menu>
       `);
@@ -44,11 +48,11 @@ describe('ArcMenu', () => {
 
     it('retrieves menu items', () => {
       /* By default, disabled menu items are included */
-      expect(element.getAllItems().length).to.equal(3);
+      expect(element.getAllItems().length).to.equal(4);
 
       /* Exclude disabled items */
       expect(element.getAllItems({ includeDisabled: false }).length).to.equal(
-        2
+        3
       );
     });
 
@@ -58,68 +62,213 @@ describe('ArcMenu', () => {
     });
 
     it('sets the current menu item', () => {
-      /* Set focus to a specific menu item */
-      const selectedItem = element.children[2];
-      element.setCurrentItem(selectedItem as ArcMenuItem);
+      const allActiveItems: ArcMenuItem[] = element.getAllItems({
+        includeDisabled: false,
+      });
 
-      [...element.getAllItems({ includeDisabled: false })].forEach(item => {
+      /* Set focus to a specific menu item */
+      const selectedItem = element.children[2] as ArcMenuItem;
+      element.setCurrentItem(selectedItem);
+
+      [...allActiveItems].forEach(item => {
         if (item === selectedItem) {
-          expect(item.getAttribute('tabindex')).to.equal('0');
+          expect(getIndex(item)).to.equal('0');
         } else {
-          expect(item.getAttribute('tabindex')).to.equal('-1');
+          expect(getIndex(item)).to.equal('-1');
         }
       });
     });
 
-    it('retrieves a menu item based on a keyboard input', async () => {
-      const selectedItem = element.children[1];
+    it('sets the first (not disabled) menu item when clicking on a disabled menu item', () => {
+      const allItems: ArcMenuItem[] = element.getAllItems();
+      const allActiveItems: ArcMenuItem[] = element.getAllItems({
+        includeDisabled: false,
+      });
+      const disabledItem = element.children[0] as ArcMenuItem;
+      element.setCurrentItem(disabledItem);
 
-      /* Provide the input of the letter C which should trigger the third item in the menu */
-      element.typeToSelect('C');
-      await elementUpdated(selectedItem);
-
-      /* The selectedItem loses focus, thus getting a tabindex of -1 */
-      expect(selectedItem.getAttribute('tabindex')).to.equal('-1');
-
-      /* The n */
-      expect(element.getCurrentItem()!.getAttribute('tabindex')).to.equal('0');
-
-      /* Provide the input of the letter B after an interval which should then trigger the second item in the menu */
-      setTimeout(async () => {
-        element.typeToSelect('B');
-        await elementUpdated(selectedItem);
-
-        /* The selectedItem gains focus, thus getting a tabindex of 0 */
-        expect(selectedItem.getAttribute('tabindex')).to.equal('0');
-      }, 1000);
+      /* Selecting a disabled menu-item should active the first (not disabled) menu item */
+      [...allItems].forEach(item => {
+        if (item === disabledItem) {
+          expect(item.hasAttribute('tabindex')).to.be.false;
+        } else if (item === allActiveItems[0]) {
+          expect(getIndex(item)).to.equal('0');
+        } else {
+          expect(getIndex(item)).to.equal('-1');
+        }
+      });
     });
+
+    it('retrieves a menu item based on keyboard input', async () => {
+      const allActiveItems: ArcMenuItem[] = element.getAllItems({
+        includeDisabled: false,
+      });
+
+      /* Method to await the built-in typeToSelectTimeout */
+      function typeToSelectTimeout() {
+        return new Promise(resolve => setTimeout(resolve, 750));
+      }
+
+      element.typeToSelect('C');
+      expect(getIndex(allActiveItems[0])).to.equal('-1');
+      expect(element.getCurrentItem()).to.equal(allActiveItems[1]);
+
+      await typeToSelectTimeout();
+
+      element.typeToSelect('B');
+      expect(getIndex(allActiveItems[0])).to.equal('0');
+      expect(element.getCurrentItem()).to.equal(allActiveItems[0]);
+
+      await typeToSelectTimeout();
+
+      /* Provide multiple characters at once to trigger a specific menu item */
+      element.typeToSelect('ABC');
+      expect(getIndex(allActiveItems[2])).to.equal('0');
+      expect(element.getCurrentItem()).to.equal(allActiveItems[2]);
+    });
+
+    it('sets ');
   });
 
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcMenu;
-    let clickSpy: any;
-    let isClicked: boolean;
-
-    function updateClicked() {
-      isClicked = true;
-    }
+    let menuItem: ArcMenuItem;
 
     beforeEach(async () => {
-      isClicked = false;
-      element = await fixture(html`<arc-menu></arc-menu>`);
-      clickSpy = sinon.spy(element, 'click');
-      element.addEventListener('click', updateClicked);
+      element = await fixture(html`
+        <arc-menu>
+          <arc-menu-item value="item_one">Item one</arc-menu-item>
+          <arc-menu-item value="item_two">Item two</arc-menu-item>
+          <arc-menu-item value="item_three" disabled>Item three</arc-menu-item>
+          <arc-menu-item value="item_four"> Item four</arc-menu-item>
+        </arc-menu>
+      `);
+      menuItem = element.children[0] as ArcMenuItem;
     });
 
-    afterEach(() => {
-      element.removeEventListener('click', updateClicked);
+    it('triggers the arc-select event', async () => {
+      const clickEvent = () => menuItem.click();
+      setTimeout(clickEvent);
+      const { detail } = await oneEvent(element, 'arc-select');
+      expect(detail.item).to.equal(menuItem);
     });
 
-    it('simulates a click on the button', async () => {
-      element.click();
-      expect(clickSpy.callCount).to.equal(1);
-      expect(isClicked).to.be.true;
+    it('selects (clicks) a menu item with the Enter key', async () => {
+      const keyboardEvent = new KeyboardEvent('keypress', {
+        key: 'Enter',
+      });
+      const fireEvent = () => element.handleKeyDown(keyboardEvent);
+      setTimeout(fireEvent);
+      const { detail } = await oneEvent(element, 'arc-select');
+      expect(detail.item).to.equal(menuItem);
+    });
+
+    /*
+    Test that nothing happens when the space is being pressed
+    This ensures that the typeToSelect method also works on items that contain spaces
+    */
+    it('prevents default behaviour when the space is pressed', async () => {
+      const selectedItem = element.children[0] as ArcMenuItem;
+      const keyboardEvent = new KeyboardEvent('keypress', {
+        key: ' ',
+      });
+      const fireEvent = () => element.handleKeyDown(keyboardEvent);
+      let eventFired: boolean = false;
+
+      function updateEvent() {
+        eventFired = true;
+      }
+
+      /* Add a listener to the arc-select event */
+      element.addEventListener('arc-select', updateEvent);
+
+      /* By default the first (not disabled) item has a tabindex of 0 */
+      expect(getIndex(selectedItem)).to.equal('0');
+
+      /* Fire the keyboard event, this should prevent making a selection */
+      setTimeout(fireEvent);
+      expect(eventFired).to.be.false;
+      expect(getIndex(selectedItem)).to.equal('0');
+
+      /* Remove the listener on the arc-select event */
+      element.removeEventListener('arc-select', updateEvent);
+    });
+
+    it('moves the selection down or up', () => {
+      const firstChild = element.children[0] as ArcMenuItem;
+      const secondChild = element.children[1] as ArcMenuItem;
+      const lastChild = element.children[3] as ArcMenuItem;
+
+      const downEvent = new KeyboardEvent('keypress', {
+        key: 'ArrowDown',
+      });
+      const upEvent = new KeyboardEvent('keypress', {
+        key: 'ArrowUp',
+      });
+      const homeEvent = new KeyboardEvent('keypress', {
+        key: 'Home',
+      });
+      const endEvent = new KeyboardEvent('keypress', {
+        key: 'End',
+      });
+
+      /* By default the first (not disabled) item has a tabindex of 0 */
+      expect(getIndex(firstChild)).to.equal('0');
+
+      element.handleKeyDown(downEvent);
+
+      /* The second (not disabled) item gets the focus */
+      expect(getIndex(firstChild)).to.equal('-1');
+      expect(getIndex(secondChild)).to.equal('0');
+
+      element.handleKeyDown(upEvent);
+
+      /* The second (not disabled) item gets the focus */
+      expect(getIndex(firstChild)).to.equal('0');
+      expect(getIndex(secondChild)).to.equal('-1');
+
+      element.handleKeyDown(endEvent);
+
+      /* The last (not disabled) items gets the focus */
+      expect(getIndex(firstChild)).to.equal('-1');
+      expect(getIndex(lastChild)).to.equal('0');
+
+      element.handleKeyDown(downEvent);
+
+      /* The last (not disabled) item keeps focus as there are no menu items to go to */
+      expect(getIndex(lastChild)).to.equal('0');
+
+      element.handleKeyDown(homeEvent);
+
+      /* The first (not disabled) item gets the focus */
+      expect(getIndex(firstChild)).to.equal('0');
+      expect(getIndex(lastChild)).to.equal('-1');
+
+      element.handleKeyDown(upEvent);
+
+      /* The first (not disabled) item keeps focus as there are no menu items to go to */
+      expect(getIndex(firstChild)).to.equal('0');
+    });
+
+    it('does not move the selection down or up when all menu items are disabled', async () => {
+      const tempElement: ArcMenu = await fixture(html`
+        <arc-menu>
+          <arc-menu-item value="item_one" disabled>Item one</arc-menu-item>
+          <arc-menu-item value="item_two" disabled>Item three</arc-menu-item>
+        </arc-menu>
+      `);
+      const menuItems = tempElement.children;
+
+      const downEvent = new KeyboardEvent('keypress', {
+        key: 'ArrowDown',
+      });
+
+      tempElement.handleKeyDown(downEvent);
+
+      [...menuItems].forEach(item => {
+        expect(getIndex(item as ArcMenuItem)).to.equal(null);
+      });
     });
   });
 

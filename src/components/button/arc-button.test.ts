@@ -54,9 +54,7 @@ describe('ArcButton', () => {
           for (const buttonSize of Object.keys(BUTTON_SIZES)) {
             element.size = buttonSize;
 
-            await elementUpdated(
-              element
-            ); /* eslint-disable-line no-await-in-loop */
+            await elementUpdated(element);
             expect(element.color).to.equal(buttonColor);
             expect(element.getAttribute('color')).to.equal(buttonColor);
             expect(element.type).to.equal(buttonType);

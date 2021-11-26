@@ -98,8 +98,8 @@
 
   /* Font Family */
   --arc-font-headline: "Times New Roman";
-  --arc-font-body: "Roboto Light";
-  --arc-font-button: "Roboto", "sans-serif";
+  --arc-font-body: "Roboto Light", sans-serif;
+  --arc-font-button: "Roboto Medium", sans-serif;
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;
@@ -171,16 +171,39 @@
   --arc-brand-height: 1.25rem;
 }
 
-html,
-body {
-  height: 100%;
+@font-face {
+  font-family: "Roboto Light";
+  src: url("../fonts/Roboto-Light.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto Medium";
+  src: url("../fonts/Roboto-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
 }
 
 body {
   margin: 0;
   font-family: var(--arc-font-body);
-  font-size: var(--arc-font-size-medium);
+  font-size: var(--arc-font-size-small);
   font-weight: var(--arc-font-weight-normal);
   letter-spacing: var(--arc-letter-spacing-normal);
   line-height: var(--arc-line-height-normal);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Classname used to fix flash-of-unstyled-content (FOUC) */
+.no-fouc {
+  display: none;
 }

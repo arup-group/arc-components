@@ -47,7 +47,7 @@ export default class ArcContainer extends LitElement {
       /* Medium devices (tablets, 48rem and up) */
       @media (min-width: 48rem) {
         #container {
-          gap: var(--arc-spacing-small);
+          gap: var(--arc-spacing-normal);
           padding: var(--arc-spacing-normal) var(--arc-spacing-medium);
         }
 
@@ -79,7 +79,7 @@ export default class ArcContainer extends LitElement {
 
   render() {
     return html`
-      <main id="main">
+      <div id="main">
         <slot id="nav" name="nav"></slot>
         <div id="container">
           <slot name="side"></slot>
@@ -92,7 +92,7 @@ export default class ArcContainer extends LitElement {
             >
           </arc-bottombar>
         </slot>
-      </main>
+      </div>
     `;
   }
 }

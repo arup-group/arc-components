@@ -34,9 +34,8 @@ export default class ArcButton extends LitElement {
         border: none;
         border-radius: var(--arc-border-radius-medium);
         font-family: var(--arc-font-button);
-        font-size: var(--arc-font-size-small);
+        font-size: inherit;
         font-weight: var(--arc-font-weight-semibold);
-        line-height: normal;
         text-decoration: none;
         user-select: none;
         white-space: nowrap;
@@ -52,7 +51,6 @@ export default class ArcButton extends LitElement {
       }
 
       /* Pill */
-
       :host([type='pill'][size='small']) #button {
         border-radius: var(--arc-input-height-small);
       }
@@ -66,13 +64,11 @@ export default class ArcButton extends LitElement {
       }
 
       /* Tile */
-
       :host([type='tile']) #button {
         border-radius: 0;
       }
 
       /* Tab */
-
       :host([type='tab']) {
         height: 100%;
       }
@@ -84,14 +80,12 @@ export default class ArcButton extends LitElement {
       }
 
       /* Tab - Active */
-
       :host([type='tab']:not([disabled])[active]) #button {
         border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
           currentColor;
       }
 
       /* Outlined */
-
       :host([type='outlined']) #button {
         border: var(--arc-border-width) var(--arc-border-style) currentColor;
         background-color: transparent;
@@ -99,7 +93,6 @@ export default class ArcButton extends LitElement {
       }
 
       /* Default - Hover & Focus */
-
       :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
         #button:hover,
       :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
@@ -108,7 +101,6 @@ export default class ArcButton extends LitElement {
       }
 
       /* Tab & Outlined - Hover & Focus */
-
       :host([type='tab']:not([disabled]):not([loading])) #button:hover,
       :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
       :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
@@ -119,21 +111,18 @@ export default class ArcButton extends LitElement {
       }
 
       /* Default - Mouse down */
-
       :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
         #button:active {
         background-image: linear-gradient(var(--arc-hover-darker) 0 0);
       }
 
       /* Tab & Outlined - Mouse down */
-
       :host([type='tab']:not([disabled]):not([loading])) #button:active,
       :host([type='outlined']:not([disabled]):not([loading])) #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
       /* Disabled */
-
       :host([disabled]) #button {
         opacity: 0.5;
         box-shadow: none;
@@ -141,7 +130,6 @@ export default class ArcButton extends LitElement {
       }
 
       /* Loading */
-
       :host([loading]) #prefix,
       :host([loading]) #label,
       :host([loading]) #suffix {
@@ -153,7 +141,6 @@ export default class ArcButton extends LitElement {
       }
 
       /* Prevent click events from firing when a user clicks on a slot */
-
       slot {
         pointer-events: none;
       }

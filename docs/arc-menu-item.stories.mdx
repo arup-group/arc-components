@@ -1,0 +1,53 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../dist/components/menu-item/arc-menu-item.stories.js';
+
+<Meta
+title='ArcMenuItem'
+component='arc-menu-item'
+argTypes={{
+    value: {
+      description: 'A unique value to store in the menu item. This can be used as a way to identify menu items when selected.',
+      defaultValue: { summary: '' }
+    },
+    disabled: {
+      description: 'Draws the menu item in a disabled state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    }
+}} />
+
+# MenuItem
+### `<arc-menu-item>`
+
+The MenuItem provides an option for the user to select.
+Use this component together with the [arc-menu](?path=/story/arcmenu--default) component to compose an interactive menu.
+
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+</Canvas>
+
+## Examples
+### Disabled
+Use the `disabled` attribute to disable the menu item so it cannot be selected.
+
+<Canvas>
+  <Story name="Disabled" story={stories.Disabled} />
+</Canvas>
+
+### Prefix & Suffix
+Add content to the start and/or end of the menu item by using the `prefix` or `suffix` slots.
+
+<Canvas>
+  <Story name="PrefixSuffix" story={stories.PrefixSuffix} />
+</Canvas>
+
+## Properties
+<ArgsTable story="Default" />
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The menu item's label.                                    |
+| prefix       | Used to prepend an icon or similar to the menu item.      |
+| suffix       | Used to append an icon or similar to the menu item.       |

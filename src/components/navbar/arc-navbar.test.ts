@@ -10,27 +10,27 @@ import './arc-navbar.js';
 import '../button/arc-button.js';
 
 describe('ArcNavbar', () => {
-  // Test the rendering of the component
+  /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcNavbar;
     beforeEach(async () => {
       element = await fixture(html`<arc-navbar></arc-navbar>`);
     });
 
-    // Test default properties that reflect to the DOM
+    /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(
         `<arc-navbar arup='' home='/' tabs='5'></arc-navbar>`
       );
     });
 
-    // Test the accessibility
+    /* Test the accessibility */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
 
-  // Test the setters/getters
+  /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the navbar with a custom home property', async () => {
       const element: ArcNavbar = await fixture(
@@ -76,7 +76,7 @@ describe('ArcNavbar', () => {
     });
   });
 
-  // Test the component responsiveness
+  /* Test the component responsiveness */
   describe('responsiveness', () => {
     let element: ArcNavbar;
     let toolName: HTMLElement;
@@ -107,21 +107,21 @@ describe('ArcNavbar', () => {
     it('shows the correct elements on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
 
-      // If the component has no logo, display the tool name
+      /* If the component has no logo, display the tool name */
       expect(getPropertyValue(toolName, 'display')).to.equal('block');
 
-      // If the component has a logo, hide the tool name
+      /* If the component has a logo, hide the tool name */
       element.logo = 'myCustomLogo';
       await elementUpdated(element);
       expect(getPropertyValue(toolName, 'display')).to.equal('none');
 
-      // Hide the tabs
+      /* Hide the tabs */
       expect(getPropertyValue(tabContainer, 'display')).to.equal('none');
     });
 
-    // TODO: ARC-12 Replace this test once the arc-dropdown functionality is added
+    /* TODO: ARC-12 Replace this test once the arc-dropdown functionality is added */
     it('logs "Please limit your tab count to a maximum of X tabs"', async () => {
-      // Add a third button to trigger the alert
+      /* Add a third button to trigger the alert */
       element.appendChild(document.createElement('arc-button'));
       await elementUpdated(element);
 
@@ -134,7 +134,7 @@ describe('ArcNavbar', () => {
     });
   });
 
-  // Test whether the slots can be filled and that they exist
+  /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     let element: ArcNavbar;
     beforeEach(async () => {
@@ -150,7 +150,7 @@ describe('ArcNavbar', () => {
     });
   });
 
-  // Test the css variables that can be overwritten
+  /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcNavbar = await fixture(

@@ -14,9 +14,10 @@ interface Story<T> {
 interface ArgTypes {
   gap: string;
   width: string;
+  title: string;
 }
 
-const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
   <arc-container>
     <arc-navbar
       slot="nav"
@@ -25,6 +26,7 @@ const Template: Story<ArgTypes> = ({ gap, width }: ArgTypes) => html`
     <arc-sidebar
       slot="side"
       style="--gap-distance: ${gap}; --sidebar-width: ${width}"
+      title="${title}"
     >
       <div>Side block 1</div>
       <div>Side block 2</div>
@@ -36,4 +38,5 @@ export const Default = Template.bind({});
 Default.args = {
   gap: 'var(--arc-spacing-normal)',
   width: 'clamp(15rem, 30%, var(--arc-sidebar-width))',
+  title: 'Select an option',
 };

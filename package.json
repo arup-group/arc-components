@@ -25,14 +25,14 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && yarn copy && yarn analyze --exclude dist",
+    "build": "tsc && yarn copy && yarn lint && yarn analyze --exclude dist",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "tsc && yarn copy && yarn analyze --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && yarn copy && yarn analyze --exclude dist && build-storybook",
+    "storybook:build": "tsc && yarn copy && yarn lint && yarn analyze --exclude dist && build-storybook",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
-    "copy": "cpx \"src/assets/*.svg\" dist/assets && cpx \"src/themes/*.css\" dist/themes",
+    "copy": "cpx \"src/assets/*.svg\" dist/assets && cpx \"src/themes/*.css\" dist/themes && cpx \"src/fonts/*.ttf\" dist/fonts",
     "analyze": "cem analyze --litelement --exclude dist --outdir dist"
   },
   "dependencies": {

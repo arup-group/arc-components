@@ -9,25 +9,25 @@ import './arc-bottombar.js';
 import '../icon-button/arc-icon-button.js';
 
 describe('ArcBottombar', () => {
-  // Test the rendering of the component
+  /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcBottombar;
     beforeEach(async () => {
       element = await fixture(html` <arc-bottombar></arc-bottombar>`);
     });
 
-    // Test default properties that reflect to the DOM
+    /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(`<arc-bottombar></arc-bottombar>`);
     });
 
-    // Test the accessibility
+    /* Test the accessibility */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
 
-  // Test the component responsiveness
+  /* Test the component responsiveness */
   describe('responsiveness', () => {
     let element: ArcBottombar;
     let logSpy: SinonSpy;
@@ -45,9 +45,9 @@ describe('ArcBottombar', () => {
       logSpy = sinon.spy(element, 'log');
     });
 
-    // TODO: ARC-12 Replace this test once the arc-dropdown functionality is added
+    /* TODO: ARC-12 Replace this test once the arc-dropdown functionality is added */
     it('logs "Please limit your tab count to a maximum of 5 tabs"', async () => {
-      // Add a sixth icon-button to trigger the alert
+      /* Add a sixth icon-button to trigger the alert */
       element.appendChild(document.createElement('arc-icon-button'));
       await elementUpdated(element);
 
@@ -58,7 +58,7 @@ describe('ArcBottombar', () => {
     });
   });
 
-  // Test whether the slots can be filled and that they exist
+  /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     let element: ArcBottombar;
     beforeEach(async () => {
@@ -72,7 +72,7 @@ describe('ArcBottombar', () => {
     });
   });
 
-  // Test the css variables that can be overwritten
+  /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcBottombar = await fixture(

@@ -12,14 +12,14 @@ import './arc-container.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
 describe('ArcContainer', () => {
-  // Test the rendering of the component
+  /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcContainer;
     beforeEach(async () => {
       element = await fixture(html` <arc-container></arc-container>`);
     });
 
-    // Test default properties that reflect to the DOM
+    /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       if (isNight()) {
         expect(element).dom.to.equal(
@@ -32,13 +32,13 @@ describe('ArcContainer', () => {
       }
     });
 
-    // Test the accessibility
+    /* Test the accessibility */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
 
-  // Test the setters/getters
+  /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom theme property', async () => {
       const element: ArcContainer = await fixture(
@@ -62,7 +62,7 @@ describe('ArcContainer', () => {
     });
   });
 
-  // Test specific methods
+  /* Test specific methods */
   describe('methods', () => {
     it('returns the correct theme when a specific date is given', async () => {
       const element: ArcContainer = new ArcContainer();
@@ -74,7 +74,7 @@ describe('ArcContainer', () => {
     });
   });
 
-  // Test the component responsiveness
+  /* Test the component responsiveness */
   describe('responsiveness', () => {
     let element: ArcContainer;
     let container: HTMLElement;
@@ -122,7 +122,7 @@ describe('ArcContainer', () => {
     });
   });
 
-  // Test whether the slots can be filled and that they exist
+  /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     let element: ArcContainer;
     beforeEach(async () => {
@@ -132,14 +132,14 @@ describe('ArcContainer', () => {
     it('renders default slots to fill the container', () => {
       const main = element.shadowRoot!.getElementById('main')!;
 
-      expect(hasSlot(main)).to.be.true; // Default content slot
+      expect(hasSlot(main)).to.be.true; /* Default content slot */
       expect(hasSlot(main, 'nav')).to.be.true;
       expect(hasSlot(main, 'side')).to.be.true;
       expect(hasSlot(main, 'bottom')).to.be.true;
     });
   });
 
-  // Test the css variables that can be overwritten
+  /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcContainer = await fixture(

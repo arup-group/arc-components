@@ -1,50 +1,58 @@
 <!doctype html>
-<html lang='en'>
+<html lang="en">
 
 <head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
-  <meta name='Description' content='Web-components related to the ARC design system'>
-  <base href='/'>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Web-components related to the ARC design system">
+  <base href="/">
 
   <title>ARC</title>
 
-  <link crossorigin='anonymous' href='./src/themes/index.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='./src/themes/light.css' rel='stylesheet'>
-  <link crossorigin='anonymous' href='./src/themes/dark.css' rel='stylesheet'>
+  <link crossorigin="anonymous" href="./src/themes/index.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="./src/themes/light.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="./src/themes/dark.css" rel="stylesheet">
 </head>
 
 <body>
-<arc-container theme='light'>
-  <arc-navbar slot='nav' logo='./src/assets/arc-red.svg'>
-    <span slot='name'>WebComponents</span>
-    <arc-icon-button name='home' href='/' style='--icon-color: red;'></arc-icon-button>
-    <arc-icon-button name='settings'></arc-icon-button>
-    <arc-icon-button id='themeSetter' name='brightness_low'></arc-icon-button>
-    <arc-button type='tab'>Jasper Wieringa</arc-button>
+<arc-container theme="light">
+  <arc-navbar slot="nav" logo="./src/assets/arc-red.svg">
+    <span slot="name">WebComponents</span>
+    <arc-icon-button name="home" href="/"></arc-icon-button>
+    <arc-icon-button name="settings"></arc-icon-button>
+    <arc-icon-button id="themeSetter" name="brightness_low"></arc-icon-button>
+    <arc-button type="tab">Jasper Wieringa</arc-button>
   </arc-navbar>
-  <arc-sidebar slot='side'>
-    <div>Sidebar</div>
+  <arc-sidebar slot="side" title="Select a section">
+    <arc-menu>
+      <arc-menu-item>
+        <arc-icon slot="suffix" name="home"></arc-icon>
+        Home
+      </arc-menu-item>
+      <arc-menu-item>
+        <arc-icon slot="suffix" name="settings"></arc-icon>
+        Settings
+      </arc-menu-item>
+      <arc-menu-item>
+        <arc-icon slot="suffix" name="accessibility"></arc-icon>
+        Accessibility
+      </arc-menu-item>
+    </arc-menu>
   </arc-sidebar>
-  <div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Libero id faucibus nisl tincidunt. Scelerisque eu ultrices vitae auctor eu augue. Nunc scelerisque viverra mauris in aliquam sem fringilla. Mauris a diam maecenas sed enim ut. At volutpat diam ut venenatis tellus in. Ornare arcu odio ut sem nulla. Odio eu feugiat pretium nibh ipsum consequat nisl vel. Dui faucibus in ornare quam viverra orci sagittis eu. Nisl suscipit adipiscing bibendum est ultricies integer quis. Egestas sed sed risus pretium quam. Enim sed faucibus turpis in eu mi.
-
-    Justo eget magna fermentum iaculis eu. Amet porttitor eget dolor morbi non arcu risus. Laoreet suspendisse interdum consectetur libero id faucibus nisl. Faucibus ornare suspendisse sed nisi lacus sed. Ut eu sem integer vitae. Amet aliquam id diam maecenas ultricies mi eget mauris pharetra. Tortor aliquam nulla facilisi cras fermentum. Amet cursus sit amet dictum sit amet justo donec enim. Magna eget est lorem ipsum dolor sit amet. Dolor magna eget est lorem ipsum dolor. Bibendum enim facilisis gravida neque convallis a cras semper. Urna condimentum mattis pellentesque id nibh. Adipiscing diam donec adipiscing tristique risus nec. Ut consequat semper viverra nam. Amet facilisis magna etiam tempor orci. Turpis tincidunt id aliquet risus feugiat in ante metus. A scelerisque purus semper eget duis at tellus at.
-
-    Tellus molestie nunc non blandit. Non nisi est sit amet. Scelerisque eu ultrices vitae auctor eu augue. Magna fringilla urna porttitor rhoncus dolor purus non. Nulla pharetra diam sit amet. Cursus eget nunc scelerisque viverra mauris in. Nulla posuere sollicitudin aliquam ultrices sagittis. Faucibus nisl tincidunt eget nullam non. Pellentesque habitant morbi tristique senectus et. In ornare quam viverra orci. Id venenatis a condimentum vitae sapien pellentesque habitant morbi. Volutpat blandit aliquam etiam erat velit. Non blandit massa enim nec dui nunc mattis. Neque sodales ut etiam sit amet nisl purus in. Dolor purus non enim praesent. Viverra vitae congue eu consequat ac felis donec. Turpis egestas sed tempus urna et pharetra pharetra. Varius morbi enim nunc faucibus a pellentesque. Ut aliquam purus sit amet luctus venenatis lectus magna. Tellus in hac habitasse platea.
-
-    Nisl nisi scelerisque eu ultrices vitae auctor eu augue ut. Non diam phasellus vestibulum lorem sed. Pellentesque id nibh tortor id aliquet lectus. Sagittis purus sit amet volutpat consequat mauris nunc. Egestas erat imperdiet sed euismod nisi porta lorem mollis aliquam. Integer malesuada nunc vel risus. Est velit egestas dui id ornare arcu. Adipiscing commodo elit at imperdiet dui. Elit at imperdiet dui accumsan sit amet nulla. Pulvinar etiam non quam lacus. Duis tristique sollicitudin nibh sit amet.
-
-    Enim tortor at auctor urna nunc. Dignissim suspendisse in est ante. Velit ut tortor pretium viverra suspendisse potenti nullam. Tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero. Suscipit tellus mauris a diam maecenas sed. Lacus vestibulum sed arcu non. Nunc lobortis mattis aliquam faucibus. Non consectetur a erat nam at. Ultrices neque ornare aenean euismod. Sagittis purus sit amet volutpat consequat. A pellentesque sit amet porttitor eget dolor morbi non arcu. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. Iaculis nunc sed augue lacus viverra vitae congue eu. Bibendum est ultricies integer quis auctor elit sed.
-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Libero id faucibus nisl tincidunt. Scelerisque eu ultrices vitae auctor eu augue. Nunc scelerisque viverra mauris in aliquam sem fringilla. Mauris a diam maecenas sed enim ut. At volutpat diam ut venenatis tellus in. Ornare arcu odio ut sem nulla. Odio eu feugiat pretium nibh ipsum consequat nisl vel. Dui faucibus in ornare quam viverra orci sagittis eu. Nisl suscipit adipiscing bibendum est ultricies integer quis. Egestas sed sed risus pretium quam. Enim sed faucibus turpis in eu mi.
+  <div style="padding: var(--arc-spacing-medium); height: 100%;">
+    <arc-button type="outlined" color="secondary">Hello</arc-button>
   </div>
 </arc-container>
 
-<script type='module'>
+<script type="module">
   import { setBasePath } from './dist/utilities/base-path.js';
+  import { noFOUC } from './dist/utilities/style-utils.js';
 
+  // Set the base path of the ARC assets
   setBasePath('/src/')
+
+  // Fix the flash-of-unstyled-content
+  noFOUC();
 </script>
 
 <script type="module">
@@ -53,14 +61,19 @@
   import './dist/components/sidebar/arc-sidebar.js';
   import './dist/components/button/arc-button.js';
   import './dist/components/icon-button/arc-icon-button.js';
+  import './dist/components/menu/arc-menu.js';
+  import './dist/components/menu-item/arc-menu-item.js';
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
+  const menus = document.querySelectorAll('arc-menu');
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';
     themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
-  })
+  });
+
+  menus.forEach(menu => menu.addEventListener('arc-select', e => console.log(e.detail.item)))
 </script>
 </body>
 

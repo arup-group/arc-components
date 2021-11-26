@@ -8,4 +8,22 @@ function getPropertyValue(element: any, property: string) {
   return computedStyles.getPropertyValue(property).trim();
 }
 
-export { getPropertyValue };
+/*
+Calling this method will resolve the flash-of-unstyled-content (FOUC)
+*/
+function noFOUC() {
+  document.documentElement.className = 'no-fouc';
+
+  if (document.readyState === 'complete') {
+    document.documentElement.classList.remove('no-fouc');
+  }
+
+  /* c8 ignore next 5 */
+  document.onreadystatechange = () => {
+    if (document.readyState === 'complete') {
+      document.documentElement.classList.remove('no-fouc');
+    }
+  };
+}
+
+export { getPropertyValue, noFOUC };

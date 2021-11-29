@@ -17,9 +17,9 @@
 Add the following code to your page.
 
 ```bash
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.0/dist/themes/index.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.0/dist/themes/light.css">
-<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.0/dist/arc.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/themes/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/themes/light.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/arc.js">
 ```
 
 Now you have access to all the ARC components.

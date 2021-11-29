@@ -1,3 +1,32 @@
+# Table of contents
+1. Quick start
+2. Installation
+   1. Local installation
+   2. Cherry Picking
+      1. No framework
+      2. Django / Parcel
+      3. React
+      4. Vue
+      5. Angular
+3. Useful utilities
+   1. BasePath
+   2. FOUC
+
+# Quick start
+
+Add the following code to your page.
+
+```bash
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.0/dist/themes/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.0/dist/themes/light.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.0/dist/arc.js">
+```
+
+Now you have access to all the ARC components.
+
+> **Note**: This will load all the ARC components, but you should probably only load the ones you're actually using.
+> To learn how, or for other ways to install ARC, continue reading below.
+
 # Installation
 
 You can use ARC by installing it locally.
@@ -21,43 +50,6 @@ Once you've done that, add the following tags to your page. Make sure to update 
   <link rel="stylesheet" href="/arc/dist/themes/light.css">
   <script type="module" src="/arc/dist/arc.js"></script>
 </head>
-```
-
-## Setting the Base Path
-
-Some components rely on assets and ARC needs to know where they're located.
-For convenience, ARC will try to auto-detect the correct location based on the script you've loaded it from.
-
-However, if you're cherry-picking or bundling ARC, you'll need to set the base path. You can do this one of two ways.
-
-**Option 1: the data-arc attribute**
-```bash
-/* index.html */
-<head>
-  <script src='your-own-bundle.js' data-arc='/path/to/arc/'></script>
-</head>
-```
-
-**Option 2: the setBasePath() method**
-```bash
-/* index.html */
-<body>
-  <arc-container></arc-container>
-
-  <script src="your-own-bundle.js"></script>
-  <script type="module">
-    import { setBasePath } from '@arc-web/components/dist//utilities/base-path.js';
-    setBasePath('/path/to/arc/');
-  </script>
-</body>
-```
-
-```bash
-/* index.js */
-import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
-setBasePath('/path/to/arc/');
-
-# other imports etc.
 ```
 
 ## Cherry Picking
@@ -278,6 +270,44 @@ export class AppModule { }
 Component modules include side effects for registration purposes. 
 Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary. 
 For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown in the examples above.
+
+# Useful utilities
+## Setting the Base Path
+
+Some components rely on assets and ARC needs to know where they're located.
+For convenience, ARC will try to auto-detect the correct location based on the script you've loaded it from.
+
+However, if you're cherry-picking or bundling ARC, you'll need to set the base path. You can do this one of two ways.
+
+**Option 1: the data-arc attribute**
+```bash
+/* index.html */
+<head>
+  <script src='your-own-bundle.js' data-arc='/path/to/arc/'></script>
+</head>
+```
+
+**Option 2: the setBasePath() method**
+```bash
+/* index.html */
+<body>
+  <arc-container></arc-container>
+
+  <script src="your-own-bundle.js"></script>
+  <script type="module">
+    import { setBasePath } from '@arc-web/components/dist//utilities/base-path.js';
+    setBasePath('/path/to/arc/');
+  </script>
+</body>
+```
+
+```bash
+/* index.js */
+import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
+setBasePath('/path/to/arc/');
+
+# other imports etc.
+```
 
 ## Flash of unstyled content (FOUC)
 A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet, 

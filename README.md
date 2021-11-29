@@ -25,7 +25,7 @@ Add the following code to your page.
 Now you have access to all the ARC components.
 
 > **Note**: This will load all the ARC components, but you should probably only load the ones you're actually using.
-> To learn how, or for other ways to install ARC, continue reading below.
+> Continue reading to learn how to cherry-pick ARC components and for other ways to install ARC.
 
 # Installation
 

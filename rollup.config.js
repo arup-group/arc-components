@@ -5,7 +5,7 @@ import { terser } from 'rollup-plugin-terser';
 export default {
   input: './dist/arc.js',
   output: {
-    entryFileNames: 'arc.js',
+    entryFileNames: 'index.js',
     chunkFileNames: '[hash].js',
     assetFileNames: '[hash][extname]',
     format: 'es',

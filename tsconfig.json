@@ -41,6 +41,7 @@
   ],
   "exclude": [
     "dist",
+    "src/**/*.stories.ts",
     "src/**/*.test.ts"
   ]
 }

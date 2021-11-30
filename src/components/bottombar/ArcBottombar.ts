@@ -25,8 +25,7 @@ export default class ArcBottombar extends LitElement {
   @state() tabs: number = 5;
 
   handleTabChange = (e: any) => {
-    const isIconButton = (element: any) =>
-      element.tagName === 'ARC-ICON-BUTTON';
+    const isIconButton = (element: any) => element.tagName === 'ARC-ICON-BUTTON';
 
     const nodes = e.target.assignedElements({ flatten: true });
     const arcTabs = nodes.filter(isIconButton);

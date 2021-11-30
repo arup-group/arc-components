@@ -1,0 +1,60 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/stories/arc-spinner.stories.js';
+
+<Meta
+title='ArcSpinner'
+component=''
+argTypes={{
+    color: {
+        name: '--stroke-color',
+        type: { required: false },
+        description: 'Set the color of the loader.',
+        defaultValue: { summary: 'var(--arc-font-color)' },
+        control: { type: 'color' },
+        table: {
+            category: 'CSS Variables',
+        },
+    },
+    width: {
+        name: '--track-width',
+        type: { required: false },
+        description: 'Set the thickness of the track.',
+        defaultValue: { summary: '2px' },
+        control: { type: 'text' },
+        table: {
+            category: 'CSS Variables',
+        },
+    },
+}}
+/>
+
+# ArcSpinner
+### `<arc-spinner>`
+
+The ArcSpinner is used to show the progress of an indeterminate operation.
+
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+</Canvas>
+
+## Examples
+### Colors
+The spinner's colors can be changed by setting the --stroke-color custom property.
+<Canvas>
+  <Story name='RedColor' story={stories.RedColor} />
+  <Story name='GreenColor' story={stories.GreenColor} />
+  <Story name='BlueColor' story={stories.BlueColor} />
+  <Story name='PurpleColor' story={stories.PurpleColor} />
+</Canvas>
+
+### Sizing
+Spinners are sized based on the current font size.
+To change their size, set the font-size property on the spinner itself or on a parent element.
+<Canvas>
+  <Story name='Small' story={stories.Small} />
+  <Story name='XXLarge' story={stories.XXLarge} />
+  <Story name='XXXXLarge' story={stories.XXXXLarge} />
+</Canvas>
+
+## Properties
+<ArgsTable story='Default' />

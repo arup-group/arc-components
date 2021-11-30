@@ -2,11 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import {
-  BUTTON_COLORS,
-  BUTTON_SIZES,
-  BUTTON_TYPES,
-} from './constants/ButtonConstants.js';
+import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 
 import '../spinner/arc-spinner.js';
@@ -81,8 +77,7 @@ export default class ArcButton extends LitElement {
 
       /* Tab - Active */
       :host([type='tab']:not([disabled])[active]) #button {
-        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
-          currentColor;
+        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
       }
 
       /* Outlined */
@@ -93,10 +88,8 @@ export default class ArcButton extends LitElement {
       }
 
       /* Default - Hover & Focus */
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
-        #button:hover,
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
-        #button:focus-visible {
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:hover,
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:focus-visible {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
@@ -104,15 +97,13 @@ export default class ArcButton extends LitElement {
       :host([type='tab']:not([disabled]):not([loading])) #button:hover,
       :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
       :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
-      :host([type='outlined']:not([disabled]):not([loading]))
-        #button:focus-visible {
+      :host([type='outlined']:not([disabled]):not([loading])) #button:focus-visible {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
 
       /* Default - Mouse down */
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading]))
-        #button:active {
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:active {
         background-image: linear-gradient(var(--arc-hover-darker) 0 0);
       }
 
@@ -188,24 +179,18 @@ export default class ArcButton extends LitElement {
   render() {
     const compStyles = window.getComputedStyle(this);
     const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
-    const userDefinedBackground = () =>
-      compStyles.getPropertyValue('--btn-background');
+    const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
 
     const getColor = () => {
       switch (this.type) {
         case BUTTON_TYPES.outlined: {
-          return this.color === BUTTON_COLORS.default
-            ? 'rgb(var(--arc-font-color))'
-            : 'var(--btn-background)';
+          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-font-color))' : 'var(--btn-background)';
         }
         case BUTTON_TYPES.tab: {
-          return this.color === BUTTON_COLORS.default
-            ? 'rgb(var(--arc-color-primary))'
-            : 'var(--btn-background)';
+          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
         }
         default: {
-          return this.color === BUTTON_COLORS.primary ||
-            this.color === BUTTON_COLORS.secondary
+          return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary
             ? 'rgb(var(--arc-container-color))'
             : 'rgb(var(--arc-input-color))';
         }
@@ -216,22 +201,14 @@ export default class ArcButton extends LitElement {
       height: `var(--arc-input-height-${this.size})`,
       padding: `0 var(--arc-spacing-${this.size})`,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
-      '--btn-background':
-        userDefinedBackground().length > 0
-          ? null
-          : `rgb(var(--arc-color-${this.color}))`,
+      '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
 
     const interior = html`
       <slot id="prefix" name="prefix"></slot>
       <slot id="label"></slot>
       <slot id="suffix" name="suffix"></slot>
-      ${this.loading
-        ? html` <arc-spinner
-            id="loader"
-            style="--stroke-color: ${getColor()}"
-          ></arc-spinner>`
-        : null}
+      ${this.loading ? html` <arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
     `;
 
     return html`
@@ -243,9 +220,7 @@ export default class ArcButton extends LitElement {
               href="${ifDefined(this.href)}"
               target="${ifDefined(this.target)}"
               download="${ifDefined(this.download)}"
-              rel="${ifDefined(
-                this.target ? 'noreferrer noopener' : undefined
-              )}"
+              rel="${ifDefined(this.target ? 'noreferrer noopener' : undefined)}"
               role="button"
               aria-disabled="${this.disabled ? 'true' : 'false'}"
               tabindex="${this.disabled ? '-1' : '0'}"

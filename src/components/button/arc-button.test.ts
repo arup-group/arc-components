@@ -7,11 +7,7 @@ import { hasSlot } from '../../utilities/test-utils.js';
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
 
-import {
-  BUTTON_COLORS,
-  BUTTON_SIZES,
-  BUTTON_TYPES,
-} from './constants/ButtonConstants.js';
+import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 
 describe('ArcButton', () => {
   /* Test the rendering of the component */
@@ -43,9 +39,7 @@ describe('ArcButton', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the button with a custom color, type and size property', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button>Test</arc-button>`
-      );
+      const element: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
 
       for (const buttonColor of Object.keys(BUTTON_COLORS)) {
         element.color = buttonColor;
@@ -67,17 +61,13 @@ describe('ArcButton', () => {
     });
 
     it('renders the button as a submit button', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button submit>Submit</arc-button>);`
-      );
+      const element: ArcButton = await fixture(html`<arc-button submit>Submit</arc-button>);`);
       const buttonTarget = element.shadowRoot!.querySelector('button')!;
       expect(buttonTarget.getAttribute('type')).to.equal('submit');
     });
 
     it('renders the button as an anchor', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button href="/">Test</arc-button>`
-      );
+      const element: ArcButton = await fixture(html`<arc-button href="/">Test</arc-button>`);
       const buttonTarget = element.shadowRoot!.querySelector('button');
       const anchorTarget = element.shadowRoot!.querySelector('a');
 
@@ -93,9 +83,7 @@ describe('ArcButton', () => {
     });
 
     it('renders the anchor with a target attribute', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button href="/" target="_blank">Test</arc-button>`
-      );
+      const element: ArcButton = await fixture(html`<arc-button href="/" target="_blank">Test</arc-button>`);
       const anchorTarget = element.shadowRoot!.querySelector('a')!;
 
       expect(anchorTarget.getAttribute('target')).to.equal('_blank');
@@ -106,9 +94,7 @@ describe('ArcButton', () => {
     });
 
     it('renders the anchor with a download attribute', async () => {
-      const element: ArcButton = await fixture(
-        html`<arc-button href="/" download="Filename">Test</arc-button>`
-      );
+      const element: ArcButton = await fixture(html`<arc-button href="/" download="Filename">Test</arc-button>`);
       const anchorTarget = element.shadowRoot!.querySelector('a')!;
 
       expect(anchorTarget.getAttribute('download')).to.equal('Filename');
@@ -262,9 +248,7 @@ describe('ArcButton', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcButton = await fixture(
-        html` <arc-button>Test</arc-button>`
-      );
+      const element: ArcButton = await fixture(html` <arc-button>Test</arc-button>`);
 
       expect(getPropertyValue(element, '--min-width')).to.equal('0');
       expect(getPropertyValue(element, '--btn-color')).to.equal('');

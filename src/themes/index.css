@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
+
 :root {
   /* Colors */
   --arc-white-000: 255, 255, 255;
@@ -99,7 +101,7 @@
   /* Font Family */
   --arc-font-headline: "Times New Roman";
   --arc-font-body: "Roboto Light", sans-serif;
-  --arc-font-button: "Roboto Medium", sans-serif;
+  --arc-font-button: "Roboto Regular", sans-serif;
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;
@@ -169,20 +171,6 @@
 
   /* Branding */
   --arc-brand-height: 1.25rem;
-}
-
-@font-face {
-  font-family: "Roboto Light";
-  src: url("../fonts/Roboto-Light.ttf");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto Medium";
-  src: url("../fonts/Roboto-Medium.ttf");
-  font-weight: 500;
-  font-style: normal;
 }
 
 body {

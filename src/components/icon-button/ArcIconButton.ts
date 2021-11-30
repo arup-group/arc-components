@@ -70,8 +70,7 @@ export default class ArcIconButton extends LitElement {
 
       /* Active */
       :host(:not([disabled])[active]) #button {
-        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
-          currentColor;
+        border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
       }
 
       /* Disabled */
@@ -153,11 +152,7 @@ export default class ArcIconButton extends LitElement {
         <arc-icon id="icon" part="icon" name=${ifDefined(this.name)}></arc-icon>
         ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : null}
       </span>
-      ${this.hasLabel
-        ? html`<span id="action"
-            ><slot @slotchange=${this.handleSlotChange}></slot
-          ></span>`
-        : null}
+      ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : null}
     `;
 
     return this.href

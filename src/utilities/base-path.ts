@@ -23,9 +23,7 @@ can be a local folder or it can point to a CORS-enabled endpoint such as a CDN.
 
 Alternatively, you can set the base path manually using the exported setBasePath() function.
 */
-const scripts = [
-  ...document.getElementsByTagName('script'),
-] as HTMLScriptElement[];
+const scripts = [...document.getElementsByTagName('script')] as HTMLScriptElement[];
 const configScript = scripts.find(script => script.hasAttribute('data-arc'));
 
 /* c8 ignore next */

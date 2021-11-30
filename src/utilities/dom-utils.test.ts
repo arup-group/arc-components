@@ -23,12 +23,8 @@ describe('getInnerHTML', async () => {
 
   beforeEach(async () => {
     component = await fixture(html` <test-component></test-component>`);
-    emptySlot = component.shadowRoot!.getElementById(
-      'empty'
-    )! as HTMLSlotElement;
-    filledSlot = component.shadowRoot!.getElementById(
-      'filled'
-    )! as HTMLSlotElement;
+    emptySlot = component.shadowRoot!.getElementById('empty')! as HTMLSlotElement;
+    filledSlot = component.shadowRoot!.getElementById('filled')! as HTMLSlotElement;
   });
 
   it('returns an empty string', async () => {
@@ -47,9 +43,7 @@ describe('getInnerHTML', async () => {
       innerHTML: 'Hello World',
     });
     component.appendChild(newEl);
-    expect(getInnerHTML(filledSlot)).to.equal(
-      `<div slot="one">Hello World</div>`
-    );
+    expect(getInnerHTML(filledSlot)).to.equal(`<div slot="one">Hello World</div>`);
   });
 });
 
@@ -60,12 +54,8 @@ describe('getTextContent', async () => {
 
   beforeEach(async () => {
     component = await fixture(html` <test-component></test-component>`);
-    emptySlot = component.shadowRoot!.getElementById(
-      'empty'
-    )! as HTMLSlotElement;
-    filledSlot = component.shadowRoot!.getElementById(
-      'filled'
-    )! as HTMLSlotElement;
+    emptySlot = component.shadowRoot!.getElementById('empty')! as HTMLSlotElement;
+    filledSlot = component.shadowRoot!.getElementById('filled')! as HTMLSlotElement;
   });
 
   it('returns an empty string', async () => {

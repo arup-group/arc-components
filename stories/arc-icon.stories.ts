@@ -1,10 +1,7 @@
 import { html, TemplateResult } from 'lit';
 import '../src/components/icon/arc-icon.js';
 
-import {
-  ICON_SIZES,
-  ICON_TYPES,
-} from '../src/components/icon/constants/IconConstants.js';
+import { ICON_SIZES, ICON_TYPES } from '../src/components/icon/constants/IconConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -21,17 +18,9 @@ interface ArgTypes {
   colorSecondary: string | undefined;
 }
 
-const Template: Story<ArgTypes> = ({
-  name,
-  size,
-  rotation,
-  spinning,
-  colorPrimary,
-  colorSecondary,
-}: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ name, size, rotation, spinning, colorPrimary, colorSecondary }: ArgTypes) => html`
   <arc-icon
-    style="--icon-color-primary:${colorPrimary ||
-    'inherit'}; --icon-color-secondary:${colorSecondary || 'inherit'};"
+    style="--icon-color-primary:${colorPrimary || 'inherit'}; --icon-color-secondary:${colorSecondary || 'inherit'};"
     name="${name}"
     size="${size}"
     rotation="${rotation}"

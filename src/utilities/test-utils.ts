@@ -10,9 +10,7 @@ function hasSlot(el: HTMLElement, name?: string) {
   }
 
   /* Look for a default slot */
-  return [...el.querySelectorAll('slot')].some(
-    node => !node.hasAttribute('name')
-  );
+  return [...el.querySelectorAll('slot')].some(node => !node.hasAttribute('name'));
 }
 
 export { hasSlot };

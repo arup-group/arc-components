@@ -1,13 +1,12 @@
 {
   "name": "@arc-web/components",
   "description": "Web-components built on the ARC design system",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "author": "arc-component",
   "license": "MIT",
   "main": "dist/arc.js",
   "module": "dist/arc.js",
-  "customElements": "custom-elements.json",
-  "types": "dist/arc.d.ts",
+  "customElements": "dist/custom-elements.json",
   "files": [
     "dist"
   ],
@@ -25,15 +24,15 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze --exclude dist",
+    "build": "yarn format && rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "tsc && yarn copy-dev && yarn analyze --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && yarn analyze --exclude dist && build-storybook",
+    "storybook": "tsc && yarn copy-dev && yarn analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
+    "storybook:build": "yarn build && build-storybook",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
     "copy": "cpx \"src/themes/*.css\" dist/themes && cpx \"src/fonts/*.woff\" dist/fonts",
-    "analyze": "cem analyze --litelement"
+    "analyze": "cem analyze --litelement --exclude dist --outdir dist"
   },
   "dependencies": {
     "lit": "^2.0.2"

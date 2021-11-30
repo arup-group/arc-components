@@ -4,15 +4,11 @@ import { getPropertyValue, noFOUC } from './style-utils.js';
 
 describe('getPropertyValue', () => {
   it('returns the correct property value', async () => {
-    const element: HTMLElement = await fixture(
-      html`<div style="width:50px;"></div>`
-    );
+    const element: HTMLElement = await fixture(html`<div style="width:50px;"></div>`);
     expect(getPropertyValue(element, 'width')).to.equal('50px');
   });
   it('returns the correct property value with spaces', async () => {
-    const element: HTMLElement = await fixture(
-      html`<div style="width:      50px;"></div>`
-    );
+    const element: HTMLElement = await fixture(html`<div style="width:      50px;"></div>`);
     expect(getPropertyValue(element, 'width')).to.equal('50px');
   });
 });

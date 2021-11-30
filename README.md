@@ -17,9 +17,9 @@
 Add the following code to your page.
 
 ```bash
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/themes/index.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/themes/light.css">
-<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/arc.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/themes/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/themes/light.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/arc.js"></script>
 ```
 
 Now you have access to all the ARC components.
@@ -63,23 +63,7 @@ Cherry picking can be done from your local install or directly from the CDN.
 This will limit the number of files the browser has to download and reduce the amount of bytes being transferred.
 The disadvantage is that you need to load components manually.
 
-### No framework
-```bash
-# index.html
-<body>
-  <arc-container theme="dark"></arc-container>
-
-  <script type="module" data-arc="/path/to/arc/assets/">
-    import '@arc-web/components/dist/themes/index.css';
-    import '@arc-web/components/dist/themes/light.css';
-    import '@arc-web/components/dist/themes/dark.css';
-    
-    import '@arc-web/components/dist/components/container/arc-container.js';
-  </script>
-</body>
-```
-
-### Django / Parcel
+### Anything that uses a bundler like Webpack / Rollup / Parcel / etc.
 ```bash
 # index.html / base.html
 <body>

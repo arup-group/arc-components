@@ -1,0 +1,73 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/stories/arc-sidebar.stories.js';
+
+<Meta
+title='ArcSidebar'
+component='arc-sidebar'
+argTypes={{
+   title: {
+     description: 'Set a title for the sidebar.',
+     defaultValue: { summary: '' },
+     control: { type: 'text' }
+   },
+   gap: {
+     name: '--gap-distance',
+     type: { required: false },
+     description: 'Set the distance between sidebar elements',
+     defaultValue: { summary: 'var(--arc-spacing-normal)' },
+     control: { type: 'text' },
+     table: {
+       category: 'CSS Variables',
+     },
+   },
+   width: {
+     name: '--sidebar-width',
+     type: { required: false },
+     description: 'Set the width of the sidebar',
+     defaultValue: { summary: 'clamp(15rem, 30%, var(--arc-sidebar-width))' },
+     control: { type: 'text' },
+     table: {
+       category: 'CSS Variables',
+     },
+   },
+}}
+parameters={{
+    actions: {
+      handles: ['arc-show', 'arc-hide'],
+    },
+}} />
+
+# ArcSidebar
+### `<arc-sidebar>`
+
+The ArcSidebar component is used to contain and pad navigation menus.
+You can use multiple [arc-menus](?path=/story/arcmenu--default) to compose the sidebar.
+
+## Examples
+<Canvas>
+  <Story name='Default' story={stories.Default} />
+</Canvas>
+
+## Properties
+<ArgsTable story='Default' />
+
+## Events
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| arc-show     | Emitted when the sidebar opens.                           |
+| arc-hide     | Emitted when the sidebar closes.                          |
+
+## Methods
+Coming soon
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The sidebar's content.                                    |
+
+## Dependencies
+
+This component imports the following dependencies.
+* [arc-icon-button](?path=/story/arciconbutton--default)

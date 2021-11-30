@@ -1,0 +1,69 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/stories/arc-navbar.stories.js';
+
+<Meta
+title='ArcNavbar'
+component='arc-navbar'
+argTypes={{
+   arup: {
+     type: { required: false },
+     description: 'Show/hide the Arup logo.',
+     defaultValue: { summary: 'true' },
+     control: { type: 'boolean' },
+   },
+   home: {
+     type: { required: false },
+     description: 'Set the home url',
+     defaultValue: { summary: '/' },
+     control: { type: 'string' },
+   },
+   logo: {
+     type: { required: false },
+     description: 'The url for the logo of the application.',
+     defaultValue: { summary: 'undefined' },
+     control: { type: 'text' },
+   },
+   tabs: {
+     type: { required: false },
+     description: 'The amount of tabs allowed before collapsing into a dropdown.',
+     defaultValue: { summary: 5 },
+     control: { type: 'number' },
+   },
+   height: {
+    name: 'height',
+    type: { required: false },
+    description: 'Set the height of the navbar.',
+    defaultValue: { summary: 'var(--arc-navbar-height)' },
+    control: { type: 'text' },
+    table: {
+    category: 'CSS Variables',
+    },
+   },
+}} />
+
+# ArcNavbar
+### `<arc-navbar>`
+
+The `<arc-navbar>` component includes support for branding and navigation and provides out of the box responsiveness for all devices.
+Use [arc-buttons](?path=/story/arcbutton--tab) or [arc-icon-buttons](?path=/story/arciconbutton--default) to compose the navbar.
+
+## Examples
+<Canvas>
+  <Story name='Default' story={stories.Default} />
+</Canvas>
+
+## Properties
+<ArgsTable story='Default' />
+
+## Events
+Coming soon
+
+## Methods
+Coming soon
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | This slot is used to add tabs to the navbar.              |
+| name         | This slot is used to add a tool name or sub branding.     |

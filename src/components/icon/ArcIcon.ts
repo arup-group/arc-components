@@ -3,7 +3,9 @@ import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
 import componentStyles from '../../styles/component.styles.js';
-import { DEFAULT_PATH, ICON_SIZES } from './constants/IconConstants.js';
+import { ICON_SIZES } from './constants/IconConstants.js';
+
+const icons = new URL('./icons.svg', import.meta.url).href;
 
 export default class ArcIcon extends LitElement {
   static tag = 'arc-icon';
@@ -84,8 +86,8 @@ export default class ArcIcon extends LitElement {
     return html`
       <svg class="icon ${classMap(classes)}" style=${styleMap(styles)}>
         <use
-          href="${DEFAULT_PATH}#arc-${this.name}"
-          xlink:href="${DEFAULT_PATH}#arc-${this.name}"
+          href="${icons}#arc-${this.name}"
+          xlink:href="${icons}#arc-${this.name}"
         />
       </svg>
     `;

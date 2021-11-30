@@ -1,16 +1,16 @@
 # Table of contents
 1. Quick start
 2. Installation
-   1. Local installation
-   2. Cherry Picking
-      1. No framework
-      2. Django / Parcel
-      3. React
-      4. Vue
-      5. Angular
+  1. Local installation
+  2. Cherry Picking
+    1. No framework
+    2. Django / Parcel
+    3. React
+    4. Vue
+    5. Angular
 3. Useful utilities
-   1. BasePath
-   2. FOUC
+  1. BasePath
+  2. FOUC
 
 # Quick start
 
@@ -267,8 +267,8 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-Component modules include side effects for registration purposes. 
-Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary. 
+Component modules include side effects for registration purposes.
+Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary.
 For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown in the examples above.
 
 # Useful utilities
@@ -310,9 +310,9 @@ setBasePath('/path/to/arc/');
 ```
 
 ## Flash of unstyled content (FOUC)
-A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet, 
+A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet,
 due to the web browser engine rendering the page before all information is retrieved.
-The page corrects itself as soon as the style rules are loaded and applied; however, 
+The page corrects itself as soon as the style rules are loaded and applied; however,
 the shift may be distracting or even seem unprofessional.
 These problems can be resolved by using the built-in `noFOUC()` utility function as shown below.
 This will only display the content once the document.readyState is equal to 'complete'.

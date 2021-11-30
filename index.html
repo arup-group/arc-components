@@ -19,13 +19,20 @@
       <arc-button type='tab'>Tab one</arc-button>
     </arc-navbar>
     <arc-sidebar slot='side' title='Make a selection'>
-      <arc-menu>
-        <arc-menu-item>Hello there!</arc-menu-item>
-      </arc-menu>
+      <div>Hi</div>
     </arc-sidebar>
   </arc-container>
-<!--  <script type='module' src='./out-tsc/src/arc.js'></script>-->
-  <script type='module' src='./dist/arc.js'></script>
 </body>
 
+<script type='module'>
+  import { setBasePath } from './out-tsc/src/utilities/base-path.js';
+
+  setBasePath('./src/');
+</script>
+<script type='module'>
+  import './out-tsc/src/components/container/arc-container.js';
+  import './out-tsc/src/components/navbar/arc-navbar.js';
+  import './out-tsc/src/components/sidebar/arc-sidebar.js';
+  import './out-tsc/src/components/button/arc-button.js';
+</script>
 </html>

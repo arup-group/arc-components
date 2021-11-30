@@ -4,6 +4,8 @@ import '../src/components/navbar/arc-navbar.js';
 import '../src/components/button/arc-button.js';
 import '../src/components/icon-button/arc-icon-button.js';
 
+import { getBasePath } from '../src/utilities/base-path.js';
+
 interface Story<T> {
   (args: T): TemplateResult;
 
@@ -43,7 +45,7 @@ const Template: Story<ArgTypes> = ({
 export const Default = Template.bind({});
 Default.args = {
   arup: true,
-  logo: `../src/assets/arc-red.svg`,
+  logo: `${getBasePath()}/assets/arc-red.svg`,
   name: 'Web Components',
   tabs: 5,
   height: 'var(--arc-navbar-height)',

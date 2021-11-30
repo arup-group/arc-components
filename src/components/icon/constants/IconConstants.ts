@@ -1,3 +1,5 @@
+import { getBasePath } from '../../../utilities/base-path.js';
+
 export const ICON_SIZES: { [key: string]: string } = {
   xxSmall: 'xx-small',
   xSmall: 'x-small',
@@ -77,3 +79,5 @@ export const ICON_TYPES: { [key: string]: string } = {
   volumeTwo: 'volume-2',
   x: 'x',
 };
+
+export const DEFAULT_PATH: string = `${getBasePath()}/assets/icons.svg`;

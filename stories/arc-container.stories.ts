@@ -4,6 +4,8 @@ import '../src/components/navbar/arc-navbar.js';
 import '../src/components/sidebar/arc-sidebar.js';
 import '../src/components/button/arc-button.js';
 
+import { getBasePath } from '../src/utilities/base-path.js';
+
 interface Story<T> {
   (args: T): TemplateResult;
   args?: Partial<T>;
@@ -16,7 +18,7 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
   <arc-container theme="${theme}">
-    <arc-navbar slot="nav" logo="../src/assets/arc-red.svg">
+    <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg">
       <span slot="name">WebComponents</span>
       <arc-button type="tab">Link 1</arc-button>
       <arc-button type="tab">Link 2</arc-button>

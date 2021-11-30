@@ -12,7 +12,7 @@
     ],
     "declaration": true                       /* Generates corresponding '.d.ts' file. */,
     "incremental": true,
-    "outDir": "./out-tsc"                     /* Redirect output structure to the directory. */,
+    "outDir": "./out-tsc"                        /* Redirect output structure to the directory. */,
     "rootDir": "./"                        /* Specify the root directory of input files. Used to control the output directory structure with --outDir. */,
     "noImplicitAny": true                     /* Raise error on expressions and declarations with an implied 'any' type. */,
     "strictNullChecks": true                  /* Enable strict null checks. */,
@@ -39,6 +39,7 @@
   "include": ["**/*.ts"],
   "exclude": [
     "out-tsc",
+    "dist",
     "src/**/*.test.ts"
   ]
 }

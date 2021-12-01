@@ -6,33 +6,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="Description" content="Web-components related to the ARC design system">
   <base href="/">
+
   <title>ARC</title>
 
-  <link rel='stylesheet' href='./src/themes/index.css'>
-  <link rel='stylesheet' href='./src/themes/light.css'>
-  <link rel='stylesheet' href='./src/themes/dark.css'>
+  <link crossorigin="anonymous" href='themes/index.css' rel="stylesheet">
+  <link crossorigin="anonymous" href='themes/light.css' rel="stylesheet">
+  <link crossorigin="anonymous" href='themes/dark.css' rel="stylesheet">
 </head>
 
 <body>
-  <arc-container theme="dark">
-    <arc-navbar slot='nav'>
-      <arc-button type='tab'>Tab one</arc-button>
-    </arc-navbar>
-    <arc-sidebar slot='side' title='Make a selection'>
-      <div>Hi</div>
-    </arc-sidebar>
-  </arc-container>
+<arc-container theme="light">
+  <arc-navbar slot="nav" logo="/assets/arc-red.svg">
+    <span slot="name">WebComponents</span>
+    <arc-icon-button name="home" href="/"></arc-icon-button>
+    <arc-icon-button name="settings"></arc-icon-button>
+    <arc-icon-button id="themeSetter" name="brightness_low"></arc-icon-button>
+    <arc-button type="tab">Jasper Wieringa</arc-button>
+  </arc-navbar>
+  <arc-sidebar slot="side" title="Select a section">
+    <arc-menu>
+      <arc-menu-item>
+        <arc-icon slot="suffix" name="home"></arc-icon>
+        Home
+      </arc-menu-item>
+      <arc-menu-item>
+        <arc-icon slot="suffix" name="settings"></arc-icon>
+        Settings
+      </arc-menu-item>
+      <arc-menu-item>
+        <arc-icon slot="suffix" name="accessibility"></arc-icon>
+        Accessibility
+      </arc-menu-item>
+    </arc-menu>
+  </arc-sidebar>
+  <div style="padding: var(--arc-spacing-medium); height: 100%;">
+    <arc-button type="outlined" color="secondary">Hello</arc-button>
+  </div>
+</arc-container>
+
+
+<script type='module'>
+  import { noFOUC } from './dist/utilities/style-utils.js';
+
+  noFOUC();
+
+  const themeSetter = document.getElementById('themeSetter');
+  const container = document.querySelector('arc-container');
+  const menus = document.querySelectorAll('arc-menu');
+
+  themeSetter.addEventListener('click', () => {
+    container.theme = container.theme === 'dark' ? 'light' : 'dark';
+    themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
+  });
+
+  menus.forEach(menu => menu.addEventListener('arc-select', e => console.log(e.detail.item)))
+</script>
+
+<script type="module" src='./dist/index.js'></script>
 </body>
 
-<script type='module'>
-  import { setBasePath } from './out-tsc/src/utilities/base-path.js';
-
-  setBasePath('./src/');
-</script>
-<script type='module'>
-  import './out-tsc/src/components/container/arc-container.js';
-  import './out-tsc/src/components/navbar/arc-navbar.js';
-  import './out-tsc/src/components/sidebar/arc-sidebar.js';
-  import './out-tsc/src/components/button/arc-button.js';
-</script>
 </html>

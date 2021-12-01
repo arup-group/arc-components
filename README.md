@@ -1,16 +1,16 @@
 # Table of contents
 1. Quick start
 2. Installation
-  1. Local installation
-  2. Cherry Picking
-    1. No framework
-    2. Django / Parcel
-    3. React
-    4. Vue
-    5. Angular
+   1. Local installation
+   2. Cherry Picking
+      1. No framework
+      2. Django / Parcel
+      3. React
+      4. Vue
+      5. Angular
 3. Useful utilities
-  1. BasePath
-  2. FOUC
+   1. BasePath
+   2. FOUC
 
 # Quick start
 
@@ -63,7 +63,23 @@ Cherry picking can be done from your local install or directly from the CDN.
 This will limit the number of files the browser has to download and reduce the amount of bytes being transferred.
 The disadvantage is that you need to load components manually.
 
-### Anything that uses a bundler like Webpack / Rollup / Parcel / etc.
+### No framework
+```bash
+# index.html
+<body>
+  <arc-container theme="dark"></arc-container>
+
+  <script type="module" data-arc="/path/to/arc/assets/">
+    import '@arc-web/components/dist/themes/index.css';
+    import '@arc-web/components/dist/themes/light.css';
+    import '@arc-web/components/dist/themes/dark.css';
+    
+    import '@arc-web/components/dist/components/container/arc-container.js';
+  </script>
+</body>
+```
+
+### Anything that uses a bundler such as Webpack / Parcel / Rollup etc.
 ```bash
 # index.html / base.html
 <body>
@@ -251,8 +267,8 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-Component modules include side effects for registration purposes.
-Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary.
+Component modules include side effects for registration purposes. 
+Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary. 
 For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown in the examples above.
 
 # Useful utilities
@@ -267,7 +283,7 @@ However, if you're cherry-picking or bundling ARC, you'll need to set the base p
 ```bash
 /* index.html */
 <head>
-  <script src='your-own-bundle.js' data-arc='/path/to/arc/'></script>
+  <script type="module" src="your-own-bundle.js" data-arc="/path/to/arc/"></script>
 </head>
 ```
 
@@ -278,15 +294,11 @@ However, if you're cherry-picking or bundling ARC, you'll need to set the base p
   <arc-container></arc-container>
 
   <script src="your-own-bundle.js"></script>
-  <script type="module">
-    import { setBasePath } from '@arc-web/components/dist//utilities/base-path.js';
-    setBasePath('/path/to/arc/');
-  </script>
 </body>
 ```
 
 ```bash
-/* index.js */
+/* your-own-bundle.js */
 import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
 setBasePath('/path/to/arc/');
 
@@ -294,9 +306,9 @@ setBasePath('/path/to/arc/');
 ```
 
 ## Flash of unstyled content (FOUC)
-A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet,
+A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet, 
 due to the web browser engine rendering the page before all information is retrieved.
-The page corrects itself as soon as the style rules are loaded and applied; however,
+The page corrects itself as soon as the style rules are loaded and applied; however, 
 the shift may be distracting or even seem unprofessional.
 These problems can be resolved by using the built-in `noFOUC()` utility function as shown below.
 This will only display the content once the document.readyState is equal to 'complete'.
@@ -305,16 +317,13 @@ This will only display the content once the document.readyState is equal to 'com
 /* index.html */
 <body>
   <arc-container></arc-container>
-
-  <script type="module">
-    import { noFOUC } from '@arc-web/components/dist/utilities/style-utils.js';
-    noFOUC();
-  </script>
+  
+  <script src="your-own-bundle.js"></script>
 </body>
 ```
 
 ```bash
-/* index.js */
+/* your-own-bundle.js */
 import { noFOUC } from '@arc-web/components/dist/utilities/style-utils.js';
 noFOUC();
 ```

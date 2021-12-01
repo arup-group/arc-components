@@ -55,8 +55,8 @@ jobs:
           aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source_dir: assets/
-          destination_dir: .
+          source_dir: assets
+          destination_dir: assets
 
       - name: Upload themes to S3
         uses: shallwefootball/upload-s3-action@v1.1.3
@@ -64,8 +64,8 @@ jobs:
           aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source_dir: themes/
-          destination_dir: .
+          source_dir: themes
+          destination_dir: themes
 
       - name: Upload Storybook to S3
         uses: shallwefootball/upload-s3-action@v1.1.3

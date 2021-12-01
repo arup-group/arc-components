@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit';
-import '../src/components/menu/arc-menu.js';
+import './arc-menu.js';
 
 interface Story {
   (): TemplateResult;

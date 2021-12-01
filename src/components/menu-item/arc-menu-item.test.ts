@@ -38,9 +38,7 @@ describe('ArcMenuItem', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom value property', async () => {
-      const element: ArcMenuItem = await fixture(
-        html`<arc-menu-item value="testProp"></arc-menu-item>`
-      );
+      const element: ArcMenuItem = await fixture(html`<arc-menu-item value="testProp"></arc-menu-item>`);
 
       expect(element.value).to.equal('testProp');
       expect(element.getAttribute('value')).to.equal('testProp');

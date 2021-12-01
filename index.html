@@ -9,14 +9,14 @@
 
   <title>ARC</title>
 
-  <link crossorigin="anonymous" href="./src/themes/index.css" rel="stylesheet">
-  <link crossorigin="anonymous" href="./src/themes/light.css" rel="stylesheet">
-  <link crossorigin="anonymous" href="./src/themes/dark.css" rel="stylesheet">
+  <link crossorigin="anonymous" href='themes/index.css' rel="stylesheet">
+  <link crossorigin="anonymous" href='themes/light.css' rel="stylesheet">
+  <link crossorigin="anonymous" href='themes/dark.css' rel="stylesheet">
 </head>
 
 <body>
 <arc-container theme="light">
-  <arc-navbar slot="nav" logo="./src/assets/arc-red.svg">
+  <arc-navbar slot="nav" logo="/assets/arc-red.svg">
     <span slot="name">WebComponents</span>
     <arc-icon-button name="home" href="/"></arc-icon-button>
     <arc-icon-button name="settings"></arc-icon-button>
@@ -44,25 +44,11 @@
   </div>
 </arc-container>
 
-<script type="module">
-  import { setBasePath } from './dist/utilities/base-path.js';
+
+<script type='module'>
   import { noFOUC } from './dist/utilities/style-utils.js';
 
-  // Set the base path of the ARC assets
-  setBasePath('/src/')
-
-  // Fix the flash-of-unstyled-content
   noFOUC();
-</script>
-
-<script type="module">
-  import './dist/components/container/arc-container.js';
-  import './dist/components/navbar/arc-navbar.js';
-  import './dist/components/sidebar/arc-sidebar.js';
-  import './dist/components/button/arc-button.js';
-  import './dist/components/icon-button/arc-icon-button.js';
-  import './dist/components/menu/arc-menu.js';
-  import './dist/components/menu-item/arc-menu-item.js';
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
@@ -75,6 +61,8 @@
 
   menus.forEach(menu => menu.addEventListener('arc-select', e => console.log(e.detail.item)))
 </script>
+
+<script type="module" src='./dist/index.js'></script>
 </body>
 
 </html>

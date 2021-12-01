@@ -52,9 +52,7 @@ describe('ArcBottombar', () => {
       await elementUpdated(element);
 
       expect(logSpy.callCount).to.equal(1);
-      expect(
-        logSpy.calledWith('Please limit your tab count to a maximum of 5 tabs')
-      ).to.be.true;
+      expect(logSpy.calledWith('Please limit your tab count to a maximum of 5 tabs')).to.be.true;
     });
   });
 
@@ -75,16 +73,12 @@ describe('ArcBottombar', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcBottombar = await fixture(
-        html` <arc-bottombar></arc-bottombar>`
-      );
+      const element: ArcBottombar = await fixture(html` <arc-bottombar></arc-bottombar>`);
 
       expect(getPropertyValue(element, 'height')).to.equal('auto');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcBottombar = await fixture(
-        html` <arc-bottombar style="height:30px"></arc-bottombar>`
-      );
+      const element: ArcBottombar = await fixture(html` <arc-bottombar style="height:30px"></arc-bottombar>`);
 
       expect(getPropertyValue(element, 'height')).to.equal('30px');
     });

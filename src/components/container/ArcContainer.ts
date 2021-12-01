@@ -74,8 +74,7 @@ export default class ArcContainer extends LitElement {
     }
   }
 
-  getTheme = (date?: Date) =>
-    isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
+  getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);
 
   render() {
     return html`
@@ -87,9 +86,7 @@ export default class ArcContainer extends LitElement {
         </div>
         <slot name="bottom">
           <arc-bottombar>
-            <arc-icon-button name="home" href="/" label="Go home"
-              >Home</arc-icon-button
-            >
+            <arc-icon-button name="home" href="/" label="Go home">Home</arc-icon-button>
           </arc-bottombar>
         </slot>
       </div>

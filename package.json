@@ -1,13 +1,13 @@
 {
   "name": "@arc-web/components",
   "description": "Web-components built on the ARC design system",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "author": "arc-component",
   "license": "MIT",
-  "main": "dist/arc.js",
-  "module": "dist/arc.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "customElements": "dist/custom-elements.json",
-  "types": "dist/arc.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -25,30 +25,35 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && yarn copy && yarn lint && yarn analyze --exclude dist",
-    "test": "tsc && wtr --coverage",
-    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "tsc && yarn copy && yarn analyze --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && yarn copy && yarn lint && yarn analyze --exclude dist && build-storybook",
+    "build": "format && rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze",
+    "test": "wtr --coverage",
+    "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
+    "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
+    "storybook:build": "format && tsc && build-storybook",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
-    "copy": "cpx \"src/assets/*.svg\" dist/assets && cpx \"src/themes/*.css\" dist/themes && cpx \"src/fonts/*.ttf\" dist/fonts",
     "analyze": "cem analyze --litelement --exclude dist --outdir dist"
   },
   "dependencies": {
     "lit": "^2.0.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
     "@custom-elements-manifest/analyzer": "^0.5.3",
+    "@open-wc/building-rollup": "^2.0.1",
     "@open-wc/dev-server-hmr": "^0.1.2",
     "@open-wc/eslint-config": "^7.0.0",
     "@open-wc/testing": "next",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-node-resolve": "^13.0.6",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@web/dev-server": "^0.1.28",
-    "@web/dev-server-esbuild": "^0.2.14",
+    "@web/dev-server-esbuild": "^0.2.16",
     "@web/dev-server-storybook": "next",
+    "@web/rollup-plugin-html": "^1.10.1",
     "@web/test-runner": "next",
+    "babel-plugin-template-html-minifier": "^4.1.0",
     "concurrently": "^6.2.1",
     "cpx": "^1.5.0",
     "deepmerge": "^4.2.2",
@@ -57,18 +62,15 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.0.2",
     "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.60.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-terser": "^7.0.2",
     "sinon": "^12.0.1",
     "stylelint": "^14.1.0",
     "stylelint-config-standard": "^24.0.0",
     "tslib": "^2.3.1",
     "typescript": "^4.3.5"
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": true,
-    "singleQuote": true,
-    "arrowParens": "avoid"
   },
   "husky": {
     "hooks": {

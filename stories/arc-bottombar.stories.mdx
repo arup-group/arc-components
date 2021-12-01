@@ -1,0 +1,55 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/stories/arc-bottombar.stories.js';
+
+<Meta
+title='ArcBottombar'
+component='arc-bottombar'
+argTypes={{
+    height: {
+        name: 'height',
+        type: { required: false },
+        description: 'Set the height of the bottom bar.',
+        defaultValue: { summary: 'var(--arc-bottom-height)' },
+        control: { type: 'text' },
+        table: {
+            category: 'CSS Variables',
+        },
+    },
+}} />
+
+# ArcBottombar
+### `<arc-bottombar>`
+
+The `<arc-bottombar>` component includes support for navigation and provides out of the box responsiveness for all devices.
+Use [arc-icon-buttons](?path=/story/arciconbutton--default) to compose the bottom bar.
+On mobile devices, this component will be displayed within the [arc-container](?path=/story/arccontainer--container) component automatically,
+to ensure a functional and layout-friendly application at any time.
+
+### When to use:
+* Top-level destinations that need to be accessible from anywhere in the app
+* Three to five destinations
+* Mobile or tablet only
+
+### When not to use:
+* Single tasks, such as viewing a single email
+* User preferences or settings
+
+## Examples
+<Canvas>
+  <Story name='Default' story={stories.Default} />
+</Canvas>
+
+## Properties
+<ArgsTable story='Default' />
+
+## Events
+Coming soon
+
+## Methods
+Coming soon
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | This slot is used to add icon-buttons to the bottom bar.  |

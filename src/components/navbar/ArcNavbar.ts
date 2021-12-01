@@ -63,10 +63,8 @@ export default class ArcNavbar extends LitElement {
       }
 
       ::slotted(arc-button) {
-        border-left: var(--arc-border-width) var(--arc-border-style)
-          rgb(var(--arc-color-default));
-        border-right: var(--arc-border-width) var(--arc-border-style)
-          rgb(var(--arc-color-default));
+        border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+        border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
 
       ::slotted(arc-icon-button) {
@@ -117,8 +115,7 @@ export default class ArcNavbar extends LitElement {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (attrValue: string | null) =>
-      attrValue ? attrValue !== 'false' : true,
+    converter: (attrValue: string | null) => (attrValue ? attrValue !== 'false' : true),
   })
   arup: boolean = true;
 
@@ -144,15 +141,8 @@ export default class ArcNavbar extends LitElement {
     return html`
       <div id="main">
         <div id="left">
-          <a
-            id="logoWrapper"
-            href="${this.home}"
-            rel="noreferrer noopener"
-            role="button"
-            aria-label="tool logo"
-          >
-            ${this.logo &&
-            html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`}
+          <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
+            ${this.logo && html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`}
             <span id="tool-name">
               <slot name="name"></slot>
             </span>

@@ -57,8 +57,7 @@ export default class ArcSidebar extends LitElement {
       }
 
       #toggleOpen::part(icon) {
-        padding: var(--arc-spacing-normal) 0.25rem var(--arc-spacing-normal)
-          0.25rem;
+        padding: var(--arc-spacing-normal) 0.25rem var(--arc-spacing-normal) 0.25rem;
         border-radius: 0;
       }
 

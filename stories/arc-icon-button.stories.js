@@ -1,0 +1,81 @@
+import { html } from 'lit';
+import '../src/components/icon-button/arc-icon-button.js';
+const Template = ({ content, name, label, href, target, download, active, disabled, loading, iconColor, }) => html `
+  <arc-icon-button
+    style="--icon-color:${iconColor || 'inherit'}"
+    name="${name}"
+    label="${label}"
+    .href="${href}"
+    .target="${target}"
+    .download="${download}"
+    ?active="${active}"
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    ${content}
+  </arc-icon-button>
+`;
+const defaultArgs = {
+    content: 'Default',
+    name: 'fire',
+    label: 'Icon button',
+    href: undefined,
+    target: undefined,
+    download: undefined,
+    active: false,
+    disabled: false,
+    loading: false,
+    iconColor: undefined,
+};
+export const Default = Template.bind({});
+export const CustomColor = Template.bind({});
+export const Link = Template.bind({});
+export const LinkNewWindow = Template.bind({});
+export const LinkDownload = Template.bind({});
+export const LinkDisabled = Template.bind({});
+Default.args = { ...defaultArgs };
+CustomColor.args = {
+    ...defaultArgs,
+    content: 'Custom color',
+    iconColor: 'red',
+};
+Link.args = { ...defaultArgs, name: 'link', content: 'Link', href: '/' };
+LinkNewWindow.args = {
+    ...Link.args,
+    name: 'link',
+    content: 'New window',
+    target: '_blank',
+};
+LinkDownload.args = {
+    ...Link.args,
+    name: 'link',
+    content: 'Download',
+    download: 'ARC Storybook',
+};
+LinkDisabled.args = {
+    ...Link.args,
+    name: 'link',
+    content: 'Disabled',
+    disabled: true,
+};
+export const Active = Template.bind({});
+export const Disabled = Template.bind({});
+export const Loading = Template.bind({});
+Active.args = {
+    ...defaultArgs,
+    label: 'Icon button',
+    content: 'Active',
+    active: true,
+};
+Disabled.args = {
+    ...defaultArgs,
+    label: 'Icon button',
+    content: 'Disabled',
+    disabled: true,
+};
+Loading.args = {
+    ...defaultArgs,
+    label: 'Icon button',
+    content: 'Loading',
+    loading: true,
+};

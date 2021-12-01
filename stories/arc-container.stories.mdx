@@ -1,0 +1,108 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/stories/arc-container.stories.js';
+
+<Meta
+title='ArcContainer'
+component='arc-container'
+argTypes={{
+    theme: {
+      description: 'Set the theme for the container',
+      defaultValue: { summary: 'auto' },
+      control: { type: 'select' },
+      options: ['auto', 'dark', 'light'],
+    },
+}} />
+
+# Container
+### `<arc-container>`
+
+The ArcContainer is the most basic layout element and is required when using the ARC component library.
+It is used to contain, pad and style the page and provides out of the box responsiveness for all devices.
+You can use the [arc-navbar](?path=/story/arcnavbar--default), [arc-sidebar](?path=/story/arcsidebar--default) and [arc-bottombar](?path=/story/arcbottombar--default) components and add them to the respective slots to compose the default container.
+By default, the container will display an [arc-bottombar](?path=/story/arcbottombar--default) component on mobile devices to ensure a functional and layout-friendly application.
+
+<Canvas>
+  <Story name='Container' story={stories.Container} />
+</Canvas>
+
+## Theming
+### Theme Basics
+All themes are scoped to the arc-container using the arc-container[theme={name}] convention, where {name} is a lowercase,
+hyphen-delimited value representing the name of the theme.
+The included light and dark themes use arc-container[theme='light'] and arc-container[theme='dark'], respectively.
+Every selector must be scoped to the theme attribute to ensure interoperability with other themes.
+You should also scope them to :host, so they can be imported and applied to custom element shadow roots.
+
+### Activating a theme
+To activate a theme, import it and apply the theme's name to the `<arc-container>` element.
+This example imports and activates the dark theme that comes with the bundle.
+
+```bash
+<html>
+  <head>
+    <link rel="stylesheet" href="path/to/arc/dist/styles/dark.css">
+  </head>
+
+  <body>
+    <arc-container theme="dark"></arc-container>
+  </body>
+</html>
+```
+
+which results in the following
+
+<Canvas>
+  <Story name='DarkContainer' story={stories.DarkContainer} />
+</Canvas>
+
+There is one exception to this rule — the light theme does not need to be activated.
+For convenience, the light theme is scoped to :root and will be activated by default when imported.
+By default, the arc-container figures out the theme based on the users local time.
+For this to work, both light and dark theme need to be imported and included within the `<head>` tags.
+
+### Creating themes
+To create your own theme, import the provided light-theme and create a separate stylesheet that overrides the design tokens
+and adds component styles to your liking. Import your own theme after the built-in theme.
+
+```bash
+:host,
+arc-container[theme="my-own-theme"] {
+  /* your custom styles here */
+}
+```
+
+```bash
+<html>
+  <head>
+    <link rel="stylesheet" href="path/to/arc/dist/styles/dark.css">
+    <link rel="stylesheet" href="path/to/my/own/themes/myTheme.css">
+  </head>
+
+  <body>
+    <arc-container theme="my-own-theme"></arc-container>
+  </body>
+</html>
+```
+
+By customizing a built-in theme, you'll maintain a small stylesheet containing only the changed you've made.
+
+## Properties
+<ArgsTable story='Container' />
+
+## Events
+Coming soon
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The container's content.                                  |
+| nav          | The container's navbar.                                   |
+| side         | The container's sidebar.                                  |
+| bottom       | The container's bottom bar.                               |
+
+## Dependencies
+
+This component imports the following dependencies.
+* [arc-bottombar](?path=/story/arcbottombar--default)
+* [arc-icon-button](?path=/story/arciconbutton--default)

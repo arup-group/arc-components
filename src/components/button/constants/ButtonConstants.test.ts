@@ -1,10 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import {
-  BUTTON_TYPES,
-  BUTTON_COLORS,
-  BUTTON_SIZES,
-} from './ButtonConstants.js';
+import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './ButtonConstants.js';
 
 describe('ButtonConstants', () => {
   describe('types', () => {

@@ -17,15 +17,15 @@
 Add the following code to your page.
 
 ```bash
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/themes/index.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/themes/light.css">
-<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.2.1/dist/arc.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/themes/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/themes/light.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/arc.js"></script>
 ```
 
 Now you have access to all the ARC components.
 
 > **Note**: This will load all the ARC components, but you should probably only load the ones you're actually using.
-> To learn how, or for other ways to install ARC, continue reading below.
+> Continue reading to learn how to cherry-pick ARC components and for other ways to install ARC.
 
 # Installation
 
@@ -79,7 +79,7 @@ The disadvantage is that you need to load components manually.
 </body>
 ```
 
-### Django / Parcel
+### Anything that uses a bundler such as Webpack / Parcel / Rollup etc.
 ```bash
 # index.html / base.html
 <body>
@@ -283,7 +283,7 @@ However, if you're cherry-picking or bundling ARC, you'll need to set the base p
 ```bash
 /* index.html */
 <head>
-  <script src='your-own-bundle.js' data-arc='/path/to/arc/'></script>
+  <script type="module" src="your-own-bundle.js" data-arc="/path/to/arc/"></script>
 </head>
 ```
 
@@ -294,15 +294,11 @@ However, if you're cherry-picking or bundling ARC, you'll need to set the base p
   <arc-container></arc-container>
 
   <script src="your-own-bundle.js"></script>
-  <script type="module">
-    import { setBasePath } from '@arc-web/components/dist//utilities/base-path.js';
-    setBasePath('/path/to/arc/');
-  </script>
 </body>
 ```
 
 ```bash
-/* index.js */
+/* your-own-bundle.js */
 import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
 setBasePath('/path/to/arc/');
 
@@ -321,16 +317,13 @@ This will only display the content once the document.readyState is equal to 'com
 /* index.html */
 <body>
   <arc-container></arc-container>
-
-  <script type="module">
-    import { noFOUC } from '@arc-web/components/dist/utilities/style-utils.js';
-    noFOUC();
-  </script>
+  
+  <script src="your-own-bundle.js"></script>
 </body>
 ```
 
 ```bash
-/* index.js */
+/* your-own-bundle.js */
 import { noFOUC } from '@arc-web/components/dist/utilities/style-utils.js';
 noFOUC();
 ```

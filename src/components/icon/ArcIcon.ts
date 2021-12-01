@@ -83,10 +83,7 @@ export default class ArcIcon extends LitElement {
 
     return html`
       <svg class="icon ${classMap(classes)}" style=${styleMap(styles)}>
-        <use
-          href="${DEFAULT_PATH}#arc-${this.name}"
-          xlink:href="${DEFAULT_PATH}#arc-${this.name}"
-        />
+        <use href="${DEFAULT_PATH}#arc-${this.name}" xlink:href="${DEFAULT_PATH}#arc-${this.name}" />
       </svg>
     `;
   }

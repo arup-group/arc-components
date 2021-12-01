@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit';
-import './arc-spinner.js';
+import '../src/components/spinner/arc-spinner.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit';
-import '../container/arc-container.js';
-import './arc-bottombar.js';
-import '../icon-button/arc-icon-button.js';
+import '../src/components/container/arc-container.js';
+import '../src/components/bottombar/arc-bottombar.js';
+import '../src/components/icon-button/arc-icon-button.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

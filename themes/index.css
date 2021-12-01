@@ -101,7 +101,7 @@
   /* Font Family */
   --arc-font-headline: "Times New Roman";
   --arc-font-body: "Roboto Light", sans-serif;
-  --arc-font-button: "Roboto Medium", sans-serif;
+  --arc-font-button: "Roboto Regular", sans-serif;
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;

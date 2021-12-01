@@ -1,0 +1,27 @@
+import '../src/components/button/arc-button.js';
+import '../src/components/icon/arc-icon.js';
+
+export declare const Contained: any;
+export declare const Tile: any;
+export declare const Outlined: any;
+export declare const Pill: any;
+export declare const Tab: any;
+export declare const Link: any;
+export declare const LinkNewWindow: any;
+export declare const LinkDownload: any;
+export declare const LinkDisabled: any;
+export declare const Prefix: any;
+export declare const Suffix: any;
+export declare const Default: any;
+export declare const Primary: any;
+export declare const Secondary: any;
+export declare const Error: any;
+export declare const Warning: any;
+export declare const Info: any;
+export declare const Success: any;
+export declare const Small: any;
+export declare const Medium: any;
+export declare const Large: any;
+export declare const Active: any;
+export declare const Disabled: any;
+export declare const Loading: any;

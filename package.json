@@ -25,11 +25,11 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "format && rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze",
+    "build": "yarn format && rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "format && tsc && build-storybook",
+    "storybook:build": "yarn format && tsc && build-storybook",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
     "analyze": "cem analyze --litelement --exclude dist --outdir dist"
@@ -55,7 +55,6 @@
     "@web/test-runner": "next",
     "babel-plugin-template-html-minifier": "^4.1.0",
     "concurrently": "^6.2.1",
-    "cpx": "^1.5.0",
     "deepmerge": "^4.2.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",

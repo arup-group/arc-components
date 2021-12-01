@@ -46,7 +46,7 @@
 
 
 <script type='module'>
-  import { noFOUC } from './dist/utilities/style-utils.js';
+  import { noFOUC } from './out-tsc/src/utilities/style-utils.js';
   noFOUC();
 
   const themeSetter = document.getElementById('themeSetter');
@@ -61,7 +61,7 @@
   menus.forEach(menu => menu.addEventListener('arc-select', e => console.log(e.detail.item)))
 </script>
 
-<script type="module" src='./dist/arc.js' data-arc='./src/'></script>
+<script type="module" src='./out-tsc/src/index.js' data-arc='./src/'></script>
 </body>
 
 </html>

@@ -1,11 +1,12 @@
 import nodeResolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
+import copy from 'rollup-plugin-copy'
 
 export default {
-  input: './dist/arc.js',
+  input: './out-tsc/index.js',
   output: {
-    entryFileNames: 'index.js',
+    entryFileNames: 'arc.js',
     chunkFileNames: '[hash].js',
     assetFileNames: '[hash][extname]',
     format: 'es',
@@ -53,6 +54,12 @@ export default {
           },
         ],
       ],
+    }),
+    copy({
+      targets: [
+        { src: 'src/assets/icons.svg', dest: 'dist/assets/' },
+        { src: 'src/themes', dest: 'dist' },
+      ]
     })
   ],
 };

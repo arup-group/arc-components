@@ -1,12 +1,12 @@
 import { html, TemplateResult } from 'lit';
-import './arc-button.js';
-import '../icon/arc-icon.js';
+import '../src/components/button/arc-button.js';
+import '../src/components/icon/arc-icon.js';
 
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
   BUTTON_TYPES,
-} from './constants/ButtonConstants.js';
+} from '../src/components/button/constants/ButtonConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

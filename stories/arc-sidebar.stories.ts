@@ -1,8 +1,8 @@
 import { html, TemplateResult } from 'lit';
-import '../container/arc-container.js';
-import './arc-sidebar.js';
+import '../src/components/container/arc-container.js';
+import '../src/components/sidebar/arc-sidebar.js';
 
-import { getBasePath } from '../../utilities/base-path.js';
+import { getBasePath } from '../src/utilities/base-path.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -25,7 +25,7 @@ const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
     ></arc-navbar>
     <arc-sidebar
       slot="side"
-      style="--gap-distance: ${gap}; --sidebar-width: ${width}"
+      style="--gap-srcance: ${gap}; --sidebar-width: ${width}"
       title="${title}"
     >
       <div>Side block 1</div>

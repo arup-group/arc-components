@@ -21,24 +21,12 @@ interface ArgTypes {
   height: string;
 }
 
-const Template: Story<ArgTypes> = ({
-                                     arup,
-                                     logo,
-                                     name,
-                                     tabs,
-                                     height
-                                   }: ArgTypes) => html`
-  <arc-navbar
-    slot='nav'
-    home='/'
-    logo='${logo}'
-    style='height: ${height}'
-    arup='${arup}'
-    tabs='${tabs}'
-  >${name ? html`<span slot='name'>${name}</span>` : null}
-    <arc-icon-button name='home' label='Back to home'></arc-icon-button>
-    <arc-icon-button name='settings' label='Change settings'></arc-icon-button>
-    <arc-button type='tab'>username@arup.com</arc-button>
+const Template: Story<ArgTypes> = ({ arup, logo, name, tabs, height }: ArgTypes) => html`
+  <arc-navbar slot="nav" home="/" logo="${logo}" style="height: ${height}" arup="${arup}" tabs="${tabs}"
+    >${name ? html`<span slot="name">${name}</span>` : null}
+    <arc-icon-button name="home" label="Back to home"></arc-icon-button>
+    <arc-icon-button name="settings" label="Change settings"></arc-icon-button>
+    <arc-button type="tab">username@arup.com</arc-button>
   </arc-navbar>
 `;
 
@@ -48,5 +36,5 @@ Default.args = {
   logo: `${getBasePath()}/assets/arc-red.svg`,
   name: 'Web Components',
   tabs: 5,
-  height: 'var(--arc-navbar-height)'
+  height: 'var(--arc-navbar-height)',
 };

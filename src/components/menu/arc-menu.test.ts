@@ -51,9 +51,7 @@ describe('ArcMenu', () => {
       expect(element.getAllItems().length).to.equal(4);
 
       /* Exclude disabled items */
-      expect(element.getAllItems({ includeDisabled: false }).length).to.equal(
-        3
-      );
+      expect(element.getAllItems({ includeDisabled: false }).length).to.equal(3);
     });
 
     it('retrieves the current menu item', () => {

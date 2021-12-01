@@ -26,20 +26,16 @@ export default class ArcMenu extends LitElement {
 
   private typeToSelectTimeout: any;
 
-  getAllItems(
-    options: { includeDisabled: boolean } = { includeDisabled: true }
-  ) {
+  getAllItems(options: { includeDisabled: boolean } = { includeDisabled: true }) {
     const { includeDisabled } = options;
 
-    return [...this.defaultSlot.assignedElements({ flatten: true })].filter(
-      (el: HTMLElement) => {
-        if (el.getAttribute('role') !== 'menuitem') {
-          return false;
-        }
-        // Are disabled items included? return true, else false
-        return !(!includeDisabled && (el as ArcMenuItem).disabled);
+    return [...this.defaultSlot.assignedElements({ flatten: true })].filter((el: HTMLElement) => {
+      if (el.getAttribute('role') !== 'menuitem') {
+        return false;
       }
-    ) as ArcMenuItem[];
+      // Are disabled items included? return true, else false
+      return !(!includeDisabled && (el as ArcMenuItem).disabled);
+    }) as ArcMenuItem[];
   }
 
   /*
@@ -47,9 +43,7 @@ export default class ArcMenu extends LitElement {
   The menu item may or may not have focus, but for keyboard interaction purposes it's considered the "active" item.
   */
   getCurrentItem() {
-    return this.getAllItems({ includeDisabled: false }).find(
-      i => i.getAttribute('tabindex') === '0'
-    );
+    return this.getAllItems({ includeDisabled: false }).find(i => i.getAttribute('tabindex') === '0');
   }
 
   /*
@@ -62,9 +56,7 @@ export default class ArcMenu extends LitElement {
     const activeItem = item.disabled ? items[0] : item;
 
     /* Update tab indexes */
-    items.forEach(i =>
-      i.setAttribute('tabindex', i === activeItem ? '0' : '-1')
-    );
+    items.forEach(i => i.setAttribute('tabindex', i === activeItem ? '0' : '-1'));
   }
 
   /*
@@ -85,14 +77,9 @@ export default class ArcMenu extends LitElement {
     this.typeToSelectString += key.toLowerCase();
 
     for (const item of items) {
-      const slot = item.shadowRoot!.querySelector(
-        'slot:not([name])'
-      ) as HTMLSlotElement;
+      const slot = item.shadowRoot!.querySelector('slot:not([name])') as HTMLSlotElement;
       const label = getTextContent(slot).toLowerCase().trim();
-      if (
-        label.substring(0, this.typeToSelectString.length) ===
-        this.typeToSelectString
-      ) {
+      if (label.substring(0, this.typeToSelectString.length) === this.typeToSelectString) {
         this.setCurrentItem(item);
 
         /* Set focus here to force the browser to show :focus-visible styles */
@@ -167,12 +154,7 @@ export default class ArcMenu extends LitElement {
 
   render() {
     return html`
-      <div
-        id="main"
-        role="menu"
-        @click=${this.handleClick}
-        @keydown=${this.handleKeyDown}
-      >
+      <div id="main" role="menu" @click=${this.handleClick} @keydown=${this.handleKeyDown}>
         <slot @slotchange=${this.handleSlotChange}></slot>
       </div>
     `;

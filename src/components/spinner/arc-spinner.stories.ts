@@ -14,9 +14,7 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ color, width, size }: ArgTypes) => html`
-  <arc-spinner
-    style="--stroke-color: ${color}; --track-width: ${width}; font-size:${size}"
-  ></arc-spinner>
+  <arc-spinner style="--stroke-color: ${color}; --track-width: ${width}; font-size:${size}"></arc-spinner>
 `;
 
 const defaultArgs = {

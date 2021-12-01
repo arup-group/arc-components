@@ -14,15 +14,10 @@ interface ArgTypes {
   suffix: boolean;
 }
 
-const Template: Story<ArgTypes> = ({
-                                     disabled,
-                                     prefix,
-                                     suffix,
-                                   }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ disabled, prefix, suffix }: ArgTypes) => html`
   <div role="menu" style="width: 15rem;">
     <arc-menu-item ?disabled="${disabled}">
-      ${prefix ? html`<arc-icon name="home" slot="prefix"></arc-icon>` : ''}
-      Label
+      ${prefix ? html`<arc-icon name="home" slot="prefix"></arc-icon>` : ''} Label
       ${suffix ? html`<arc-icon name="settings" slot="suffix"></arc-icon>` : ''}
     </arc-menu-item>
   </div>

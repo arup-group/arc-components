@@ -21,15 +21,8 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
   <arc-container>
-    <arc-navbar
-      slot="nav"
-      logo="${getBasePath()}/assets/arc-red.svg"
-    ></arc-navbar>
-    <arc-sidebar
-      slot="side"
-      style="--gap-distance: ${gap}; --sidebar-width: ${width}"
-      title="${title}"
-    >
+    <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg"></arc-navbar>
+    <arc-sidebar slot="side" style="--gap-distance: ${gap}; --sidebar-width: ${width}" title="${title}">
       <arc-menu>
         <arc-menu-item value="home">
           <arc-icon name="home" slot="prefix"></arc-icon>

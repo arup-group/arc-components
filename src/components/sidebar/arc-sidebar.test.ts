@@ -88,16 +88,14 @@ describe('ArcSidebar', () => {
       element.open = false;
       await elementUpdated(element);
 
-      const clickButton = () =>
-        element.shadowRoot!.querySelector('arc-icon-button')!.click();
+      const clickButton = () => element.shadowRoot!.querySelector('arc-icon-button')!.click();
       setTimeout(clickButton);
       const { detail } = await oneEvent(element, 'arc-show');
       expect(detail.open).to.be.true;
     });
 
     it('triggers the arc-hide event', async () => {
-      const clickButton = () =>
-        element.shadowRoot!.querySelector('arc-icon-button')!.click();
+      const clickButton = () => element.shadowRoot!.querySelector('arc-icon-button')!.click();
       setTimeout(clickButton);
       const { detail } = await oneEvent(element, 'arc-hide');
       expect(detail.open).to.be.false;
@@ -107,11 +105,8 @@ describe('ArcSidebar', () => {
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     it('renders a slot to fill the sidebar', async () => {
-      const element: ArcSidebar = await fixture(
-        html`<arc-sidebar></arc-sidebar>`
-      );
-      const content: HTMLElement =
-        element.shadowRoot!.getElementById('content')!;
+      const element: ArcSidebar = await fixture(html`<arc-sidebar></arc-sidebar>`);
+      const content: HTMLElement = element.shadowRoot!.getElementById('content')!;
 
       expect(hasSlot(content)).to.be.true;
     });
@@ -132,9 +127,7 @@ describe('ArcSidebar', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcSidebar = await fixture(
-        html`<arc-sidebar></arc-sidebar>`
-      );
+      const element: ArcSidebar = await fixture(html`<arc-sidebar></arc-sidebar>`);
       const elementStyles = window.getComputedStyle(element);
 
       expect(elementStyles.getPropertyValue('--gap-distance')).to.equal('');

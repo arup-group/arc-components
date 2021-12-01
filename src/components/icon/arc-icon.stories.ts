@@ -18,17 +18,9 @@ interface ArgTypes {
   colorSecondary: string | undefined;
 }
 
-const Template: Story<ArgTypes> = ({
-  name,
-  size,
-  rotation,
-  spinning,
-  colorPrimary,
-  colorSecondary,
-}: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ name, size, rotation, spinning, colorPrimary, colorSecondary }: ArgTypes) => html`
   <arc-icon
-    style="--icon-color-primary:${colorPrimary ||
-    'inherit'}; --icon-color-secondary:${colorSecondary || 'inherit'};"
+    style="--icon-color-primary:${colorPrimary || 'inherit'}; --icon-color-secondary:${colorSecondary || 'inherit'};"
     name="${name}"
     size="${size}"
     rotation="${rotation}"

@@ -11,16 +11,12 @@ describe('ArcIconButton', () => {
   describe('rendering', () => {
     let element: ArcIconButton;
     beforeEach(async () => {
-      element = await fixture(
-        html`<arc-icon-button label="Some label"></arc-icon-button>`
-      );
+      element = await fixture(html`<arc-icon-button label="Some label"></arc-icon-button>`);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(
-        `<arc-icon-button label='Some label'></arc-icon-button>`
-      );
+      expect(element).dom.to.equal(`<arc-icon-button label='Some label'></arc-icon-button>`);
     });
 
     /* Test the type of the button */
@@ -38,18 +34,14 @@ describe('ArcIconButton', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom name property', async () => {
-      const element: ArcIconButton = await fixture(
-        html`<arc-icon-button name="heart"></arc-icon-button>`
-      );
+      const element: ArcIconButton = await fixture(html`<arc-icon-button name="heart"></arc-icon-button>`);
 
       expect(element.name).to.equal('heart');
       expect(element.getAttribute('name')).to.equal('heart');
     });
 
     it('renders the element with a custom label property', async () => {
-      const element: ArcIconButton = await fixture(
-        html`<arc-icon-button label="Test label"></arc-icon-button>`
-      );
+      const element: ArcIconButton = await fixture(html`<arc-icon-button label="Test label"></arc-icon-button>`);
 
       const buttonTarget = element.shadowRoot!.querySelector('button');
 
@@ -60,9 +52,7 @@ describe('ArcIconButton', () => {
 
     it('renders the button as an anchor', async () => {
       const element: ArcIconButton = await fixture(
-        html`<arc-icon-button href="/" label="Test label"
-          >Test</arc-icon-button
-        >`
+        html`<arc-icon-button href="/" label="Test label">Test</arc-icon-button>`
       );
       const buttonTarget = element.shadowRoot!.querySelector('button');
       const anchorTarget = element.shadowRoot!.querySelector('a');
@@ -94,9 +84,7 @@ describe('ArcIconButton', () => {
 
     it('renders the anchor with a download attribute', async () => {
       const element: ArcIconButton = await fixture(
-        html`<arc-icon-button href="/" download="Filename"
-          >Test</arc-icon-button
-        >`
+        html`<arc-icon-button href="/" download="Filename">Test</arc-icon-button>`
       );
       const anchorTarget = element.shadowRoot!.querySelector('a')!;
 
@@ -229,21 +217,15 @@ describe('ArcIconButton', () => {
   describe('slots', () => {
     /* Prevent padding issues when used inline within a <p> tag for example */
     it('prevents rendering a slot to when no content is given', async () => {
-      const element: ArcIconButton = await fixture(
-        html`<arc-icon-button></arc-icon-button>`
-      );
-      const buttonTarget: HTMLElement =
-        element.shadowRoot!.getElementById('button')!;
+      const element: ArcIconButton = await fixture(html`<arc-icon-button></arc-icon-button>`);
+      const buttonTarget: HTMLElement = element.shadowRoot!.getElementById('button')!;
 
       expect(hasSlot(buttonTarget)).to.be.false;
     });
 
     it('renders a slot to fill the button with a label', async () => {
-      const element: ArcIconButton = await fixture(
-        html`<arc-icon-button>Test</arc-icon-button>`
-      );
-      const buttonTarget: HTMLElement =
-        element.shadowRoot!.getElementById('button')!;
+      const element: ArcIconButton = await fixture(html`<arc-icon-button>Test</arc-icon-button>`);
+      const buttonTarget: HTMLElement = element.shadowRoot!.getElementById('button')!;
 
       expect(hasSlot(buttonTarget)).to.be.true;
     });

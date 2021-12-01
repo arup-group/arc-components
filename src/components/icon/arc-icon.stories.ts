@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit';
-import '../src/components/icon/arc-icon.js';
+import './arc-icon.js';
 
-import { ICON_SIZES, ICON_TYPES } from '../src/components/icon/constants/IconConstants.js';
+import { ICON_SIZES, ICON_TYPES } from './constants/IconConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

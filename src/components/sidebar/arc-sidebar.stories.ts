@@ -1,10 +1,10 @@
 import { html, TemplateResult } from 'lit';
-import '../src/components/container/arc-container.js';
-import '../src/components/sidebar/arc-sidebar.js';
-import '../src/components/menu/arc-menu.js';
-import '../src/components/menu-item/arc-menu-item.js';
+import '../container/arc-container.js';
+import './arc-sidebar.js';
+import '../menu/arc-menu.js';
+import '../menu-item/arc-menu-item.js';
 
-import { getBasePath } from '../src/utilities/base-path.js';
+import { getBasePath } from '../../utilities/base-path.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

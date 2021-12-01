@@ -4,7 +4,7 @@ import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 
 export default {
-  input: './out-tsc/src/index.js',
+  input: './dist/index.js',
   output: {
     entryFileNames: 'arc.js',
     chunkFileNames: '[hash].js',
@@ -58,10 +58,9 @@ export default {
     copy({
       targets: [
         {
-          src: ['out-tsc/src/components', 'out-tsc/src/styles', 'out-tsc/src/utilities', 'out-tsc/src/index.js', 'out-tsc/src/index.d.ts', 'src/themes'],
+          src: ['assets', 'themes'],
           dest: 'dist'
-        },
-        { src: 'src/assets/icons.svg', dest: 'dist/assets' }
+        }
       ]
     })
   ]

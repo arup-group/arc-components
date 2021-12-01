@@ -9,8 +9,8 @@
     ],
     "declaration": true,
     "incremental": true,
-    "outDir": "./out-tsc",
-    "rootDir": "./",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "noImplicitAny": true,
     "strictNullChecks": true,
 
@@ -29,10 +29,10 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
-    "out-tsc",
+    "dist",
     "node_modules",
     "src/**/*.test.ts"
   ]

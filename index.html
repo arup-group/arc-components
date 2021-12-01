@@ -9,14 +9,14 @@
 
   <title>ARC</title>
 
-  <link crossorigin="anonymous" href="./src/themes/index.css" rel="stylesheet">
-  <link crossorigin="anonymous" href="./src/themes/light.css" rel="stylesheet">
-  <link crossorigin="anonymous" href="./src/themes/dark.css" rel="stylesheet">
+  <link crossorigin="anonymous" href='themes/index.css' rel="stylesheet">
+  <link crossorigin="anonymous" href='themes/light.css' rel="stylesheet">
+  <link crossorigin="anonymous" href='themes/dark.css' rel="stylesheet">
 </head>
 
 <body>
 <arc-container theme="light">
-  <arc-navbar slot="nav" logo="./src/assets/arc-red.svg">
+  <arc-navbar slot="nav" logo="/assets/arc-red.svg">
     <span slot="name">WebComponents</span>
     <arc-icon-button name="home" href="/"></arc-icon-button>
     <arc-icon-button name="settings"></arc-icon-button>
@@ -46,7 +46,7 @@
 
 
 <script type='module'>
-  import { noFOUC } from './out-tsc/src/utilities/style-utils.js';
+  import { noFOUC } from './dist/utilities/style-utils.js';
   noFOUC();
 
   const themeSetter = document.getElementById('themeSetter');
@@ -61,7 +61,7 @@
   menus.forEach(menu => menu.addEventListener('arc-select', e => console.log(e.detail.item)))
 </script>
 
-<script type="module" src='./out-tsc/src/index.js' data-arc='./src/'></script>
+<script type="module" src='./dist/index.js'></script>
 </body>
 
 </html>

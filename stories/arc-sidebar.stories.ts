@@ -1,6 +1,8 @@
 import { html, TemplateResult } from 'lit';
 import '../src/components/container/arc-container.js';
 import '../src/components/sidebar/arc-sidebar.js';
+import '../src/components/menu/arc-menu.js';
+import '../src/components/menu-item/arc-menu-item.js';
 
 import { getBasePath } from '../src/utilities/base-path.js';
 
@@ -25,11 +27,25 @@ const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
     ></arc-navbar>
     <arc-sidebar
       slot="side"
-      style="--gap-srcance: ${gap}; --sidebar-width: ${width}"
+      style="--gap-distance: ${gap}; --sidebar-width: ${width}"
       title="${title}"
     >
-      <div>Side block 1</div>
-      <div>Side block 2</div>
+      <arc-menu>
+        <arc-menu-item value="home">
+          <arc-icon name="home" slot="prefix"></arc-icon>
+          Home
+        </arc-menu-item>
+        <arc-menu-item value="messages">
+          <arc-icon name="speech" slot="prefix"></arc-icon>
+          Messages
+        </arc-menu-item>
+      </arc-menu>
+      <arc-menu>
+        <arc-menu-item value="settings">
+          <arc-icon name="settings" slot="prefix"></arc-icon>
+          Settings
+        </arc-menu-item>
+      </arc-menu>
     </arc-sidebar>
   </arc-container>
 `;

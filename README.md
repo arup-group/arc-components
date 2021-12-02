@@ -17,9 +17,9 @@
 Add the following code to your page.
 
 ```bash
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/themes/index.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/themes/light.css">
-<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/arc.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.1/dist/themes/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.1/dist/themes/light.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.1/dist/arc.js"></script>
 ```
 
 Now you have access to all the ARC components.
@@ -57,29 +57,13 @@ Once you've done that, add the following tags to your page. Make sure to update 
 The previous approach is the easiest way to load ARC, but that isn't always efficient.
 You'll incur the full size of the library even if you only use a handful of components.
 This is convenient for prototyping, but may result in longer load times in production.
-To improve this, you can cherry pick the components you need.
+To improve this, you can cherry-pick the components you need.
 
-Cherry picking can be done from your local install or directly from the CDN.
+Cherry-picking can be done from your local install or directly from the CDN.
 This will limit the number of files the browser has to download and reduce the amount of bytes being transferred.
 The disadvantage is that you need to load components manually.
 
-### No framework
-```bash
-# index.html
-<body>
-  <arc-container theme="dark"></arc-container>
-
-  <script type="module" data-arc="/path/to/arc/assets/">
-    import '@arc-web/components/dist/themes/index.css';
-    import '@arc-web/components/dist/themes/light.css';
-    import '@arc-web/components/dist/themes/dark.css';
-    
-    import '@arc-web/components/dist/components/container/arc-container.js';
-  </script>
-</body>
-```
-
-### Anything that uses a bundler such as Webpack / Parcel / Rollup etc.
+### Any application that uses a bundler such as Webpack / Parcel / Rollup etc.
 ```bash
 # index.html / base.html
 <body>

@@ -1,7 +1,7 @@
 {
   "name": "@arc-web/components",
   "description": "Web-components built on the ARC design system",
-  "version": "1.3.1",
+  "version": "1.3.0",
   "author": "arc-component",
   "license": "MIT",
   "main": "dist/index.js",
@@ -35,7 +35,6 @@
     "analyze": "cem analyze --litelement --exclude dist --outdir dist"
   },
   "dependencies": {
-    "@web/rollup-plugin-import-meta-assets": "^1.0.7",
     "lit": "^2.0.2"
   },
   "devDependencies": {

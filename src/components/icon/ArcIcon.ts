@@ -3,8 +3,7 @@ import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
 import componentStyles from '../../styles/component.styles.js';
-import { ICON_SIZES } from './constants/IconConstants.js';
-import { getBasePath } from '../../utilities/base-path.js';
+import { DEFAULT_PATH, ICON_SIZES } from './constants/IconConstants.js';
 
 export default class ArcIcon extends LitElement {
   static tag = 'arc-icon';
@@ -72,10 +71,6 @@ export default class ArcIcon extends LitElement {
   @property({ type: Boolean, reflect: true }) spinning = false;
 
   render() {
-    const iconSprite = getBasePath()
-      ? `${getBasePath()}/assets/icons.svg`
-      : new URL('../../../assets/icons.svg', import.meta.url).href;
-
     const classes = {
       spinning: this.spinning,
     };
@@ -88,7 +83,7 @@ export default class ArcIcon extends LitElement {
 
     return html`
       <svg class="icon ${classMap(classes)}" style=${styleMap(styles)}>
-        <use href="${iconSprite}#arc-${this.name}" xlink:href="${iconSprite}#arc-${this.name}" />
+        <use href="${DEFAULT_PATH}#arc-${this.name}" xlink:href="${DEFAULT_PATH}#arc-${this.name}" />
       </svg>
     `;
   }

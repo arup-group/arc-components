@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
-import { hasSlot } from '../../utilities/test-utils.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcIconButton from './ArcIconButton.js';
 import './arc-icon-button.js';

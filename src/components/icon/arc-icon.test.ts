@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { getPropertyValue } from '../../utilities/style-utils.js';
 
 import type ArcIcon from './ArcIcon.js';
 import './arc-icon.js';
 
 import { ICON_SIZES } from './constants/IconConstants.js';
-import { getPropertyValue } from '../../utilities/style-utils.js';
 
 describe('ArcIcon', () => {
   /* Test the rendering of the component */

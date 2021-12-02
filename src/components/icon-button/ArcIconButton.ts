@@ -2,8 +2,8 @@ import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { hasSlot } from '../../internal/slot.js';
 import componentStyles from '../../styles/component.styles.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
 
 import '../icon/arc-icon.js';
 import '../spinner/arc-spinner.js';

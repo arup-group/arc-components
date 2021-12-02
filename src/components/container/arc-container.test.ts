@@ -1,10 +1,10 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
-import { isNight } from '../../utilities/date-utils.js';
+import { isNight } from '../../internal/theme.js';
 import { isMobile } from '../../utilities/ui-utils.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/test-utils.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
 
 import ArcContainer from './ArcContainer.js';
 import './arc-container.js';

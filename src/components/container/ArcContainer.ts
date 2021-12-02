@@ -1,7 +1,7 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
+import { isNight } from '../../internal/theme.js';
 import componentStyles from '../../styles/component.styles.js';
-import { isNight } from '../../utilities/date-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
 import '../bottombar/arc-bottombar.js';

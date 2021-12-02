@@ -1,5 +1,6 @@
 import nodeResolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
+import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 
@@ -19,6 +20,8 @@ export default {
     nodeResolve(),
     /** Minify JS */
     terser(),
+    /** Bundle assets references via import.meta.url */
+    importMetaAssets(),
     /** Compile JS to a lower language target */
     babel({
       babelHelpers: 'bundled',

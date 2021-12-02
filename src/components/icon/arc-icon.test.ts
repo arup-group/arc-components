@@ -6,6 +6,7 @@ import './arc-icon.js';
 
 import { ICON_SIZES } from './constants/IconConstants.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
+import { setBasePath } from '../../utilities/base-path.js';
 
 describe('ArcIcon', () => {
   /* Test the rendering of the component */
@@ -68,6 +69,18 @@ describe('ArcIcon', () => {
 
       expect(getPropertyValue(element, '--icon-color-primary')).to.equal('red');
       expect(getPropertyValue(element, '--icon-color-secondary')).to.equal('green');
+    });
+  });
+
+  describe('resolveUrl', () => {
+    beforeEach(() => {
+      setBasePath('/some_url/');
+    });
+    it('resolves the url of the iconSprite when a basePath is set', async () => {
+      const element = await fixture(html`<arc-icon name="home"></arc-icon>`);
+      const use = element.shadowRoot!.querySelector('use')!;
+
+      expect(use.getAttribute('href')).to.equal('/some_url/assets/icons.svg#arc-home');
     });
   });
 });

@@ -13,6 +13,7 @@ export default class ArcNavbar extends LitElement {
       :host {
         height: var(--arc-navbar-height);
         background: rgb(var(--arc-container-color));
+        --logo-height: var(--arc-brand-height);
       }
 
       /* Layout */
@@ -72,7 +73,11 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Logo's */
-      #tool-logo,
+      #tool-logo {
+        height: var(--logo-height);
+        width: auto;
+      }
+
       #company-logo > svg {
         height: var(--arc-brand-height);
         width: auto;

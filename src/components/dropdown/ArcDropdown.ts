@@ -1,33 +1,71 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { Instance as PopperInstance, createPopper } from '@popperjs/core/dist/esm';
-import { animateTo, stopAnimations } from '../../internal/animate';
-import { emit, waitForEvent } from '../../internal/event.js';
+import { Instance as PopperInstance, createPopper } from '@popperjs/core';
+import { animateTo, stopAnimations } from '../../internal/animate.js';
+import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import { scrollIntoView } from '../../internal/scroll';
-import { getTabbableBoundary } from '../../internal/tabbable';
-import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry';
+import { scrollIntoView } from '../../internal/scroll.js';
+import { getTabbableBoundary } from '../../internal/tabbable.js';
+import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry.js';
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import componentStyles from '../../styles/component.styles.js';
-
-let id = 0;
 
 export default class ArcDropdown extends LitElement {
   static tag = 'arc-dropdown';
 
   static styles = [
     componentStyles,
-    css``,
+    css`
+      :host {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      #main {
+        position: relative;
+      }
+
+      #trigger {
+        display: block;
+      }
+
+      #positioner {
+        position: absolute;
+        z-index: var(--arc-z-index-dropdown);
+      }
+
+      #panel {
+        max-height: 75vh;
+        background-color: rgb(var(--arc-panel-background-color));
+        overflow: auto;
+        overscroll-behavior: none;
+        pointer-events: none;
+      }
+
+      #positioner[data-popper-placement^='top'] #panel {
+        transform-origin: bottom;
+      }
+
+      #positioner[data-popper-placement^='bottom'] #panel {
+        transform-origin: top;
+      }
+
+      #positioner[data-popper-placement^='left'] #panel {
+        transform-origin: right;
+      }
+
+      #positioner[data-popper-placement^='right'] #panel {
+        transform-origin: left;
+      }
+    `,
   ];
 
-  @query('.dropdown__trigger') trigger: HTMLElement;
+  @query('#trigger') trigger: HTMLElement;
 
-  @query('.dropdown__panel') panel: HTMLElement;
+  @query('#panel') panel: HTMLElement;
 
-  @query('.dropdown__positioner') positioner: HTMLElement;
-
-  private componentId = `dropdown-${++id}`;
+  @query('#positioner') positioner: HTMLElement;
 
   private popover: PopperInstance;
 
@@ -175,7 +213,6 @@ export default class ArcDropdown extends LitElement {
     const path = event.composedPath() as Array<EventTarget>;
     if (!path.includes(this.containingElement)) {
       this.hide();
-      return;
     }
   }
 
@@ -222,7 +259,11 @@ export default class ArcDropdown extends LitElement {
   }
 
   handleTriggerClick() {
-    this.open ? this.hide() : this.show();
+    if (this.open) {
+      this.hide();
+    } else {
+      this.show();
+    }
   }
 
   handleTriggerKeyDown(event: KeyboardEvent) {
@@ -245,7 +286,9 @@ export default class ArcDropdown extends LitElement {
     */
     if ([' ', 'Enter'].includes(event.key)) {
       event.preventDefault();
-      this.open ? this.hide() : this.show();
+
+      this.handleTriggerClick();
+
       return;
     }
 
@@ -264,7 +307,6 @@ export default class ArcDropdown extends LitElement {
 
       /* Focus on a menu item */
       if (event.key === 'ArrowDown' && firstMenuItem) {
-        const menu = this.getMenu();
         menu.setCurrentItem(firstMenuItem);
         firstMenuItem.focus();
         return;
@@ -281,12 +323,11 @@ export default class ArcDropdown extends LitElement {
     const ignoredKeys = ['Tab', 'Shift', 'Meta', 'Ctrl', 'Alt'];
     if (this.open && menu && !ignoredKeys.includes(event.key)) {
       menu.typeToSelect(event.key);
-      return;
     }
   }
 
-  handleTriggerKeyUp(event: KeyboardEvent) {
-    /* Prevent space from triggering a click event in Firefox */
+  /* Prevent space from triggering a click event in Firefox */
+  handleTriggerKeyUp = (event: KeyboardEvent) => {
     if (event.key === ' ') {
       event.preventDefault();
     }
@@ -324,7 +365,6 @@ export default class ArcDropdown extends LitElement {
     }
 
     this.open = true;
-    return waitForEvent(this, 'arc-after-show');
   }
 
   /** Hides the dropdown panel */
@@ -334,12 +374,11 @@ export default class ArcDropdown extends LitElement {
     }
 
     this.open = false;
-    return waitForEvent(this, 'arc-after-hide');
   }
 
   /*
-  Instructs the dropdown menu to reposition. Useful when the position or size of the trigger changes when the menu
-  is activated.
+  Instructs the dropdown menu to reposition.
+  Useful when the position or size of the trigger changes when the menu is activated.
   */
   reposition() {
     if (!this.open) {
@@ -366,7 +405,7 @@ export default class ArcDropdown extends LitElement {
       document.addEventListener('mousedown', this.handleDocumentMouseDown);
 
       await stopAnimations(this);
-      this.popover.update();
+      await this.popover.update();
       this.panel.hidden = false;
       const { keyframes, options } = getAnimation(this, 'dropdown.show');
       await animateTo(this.panel, keyframes, options);
@@ -391,17 +430,8 @@ export default class ArcDropdown extends LitElement {
 
   render() {
     return html`
-      <div
-        part="base"
-        id=${this.componentId}
-        class=${classMap({
-      dropdown: true,
-      'dropdown--open': this.open
-    })}
-      >
-        <span
-          part="trigger"
-          class="dropdown__trigger"
+      <div id='main'>
+        <span id='trigger'
           @click=${this.handleTriggerClick}
           @keydown=${this.handleTriggerKeyDown}
           @keyup=${this.handleTriggerKeyUp}
@@ -411,13 +441,11 @@ export default class ArcDropdown extends LitElement {
 
         <!-- Position the panel with a wrapper since the popover makes use of translate. This lets us add animations
         on the panel without interfering with the position. -->
-        <div class="dropdown__positioner">
-          <div
-            part="panel"
-            class="dropdown__panel"
+        <div id='positioner'>
+          <div id='panel'
             role="menu"
             aria-hidden=${this.open ? 'false' : 'true'}
-            aria-labelledby=${this.componentId}
+            aria-labelledby='trigger'
           >
             <slot></slot>
           </div>

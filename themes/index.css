@@ -169,6 +169,9 @@
   --arc-transition-fast: 150ms;
   --arc-transition-x-fast: 50ms;
 
+  /* Z-indexes */
+  --arc-z-index-dropdown: 900;
+
   /* Branding */
   --arc-brand-height: 1.25rem;
 }

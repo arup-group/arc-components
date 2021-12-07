@@ -4,7 +4,6 @@ import { Instance as PopperInstance, createPopper, Placement } from '@popperjs/c
 import { animateTo, stopAnimations } from '../../internal/animate.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import { scrollIntoView } from '../../internal/scroll.js';
 import { getTabbableBoundary } from '../../internal/tabbable.js';
 import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry.js';
 import type ArcMenu from '../menu/ArcMenu.js';
@@ -102,7 +101,6 @@ export default class ArcDropdown extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.handleMenuItemActivate = this.handleMenuItemActivate.bind(this);
     this.handlePanelSelect = this.handlePanelSelect.bind(this);
     this.handleDocumentKeyDown = this.handleDocumentKeyDown.bind(this);
     this.handleDocumentMouseDown = this.handleDocumentMouseDown.bind(this);
@@ -175,11 +173,7 @@ export default class ArcDropdown extends LitElement {
         return;
       }
 
-      /*
-      Tabbing outside of the containing element closes the panel
-      If the dropdown is used within a shadow DOM, we need to obtain the activeElement within that shadowRoot
-      otherwise `document.activeElement` will only return the name of the parent shadow DOM element.
-      */
+      /* Tabbing outside of the containing element closes the panel */
       setTimeout(() => {
         const activeElement =
           this.containingElement.getRootNode() instanceof ShadowRoot
@@ -193,23 +187,18 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
+  /* Close when clicking outside of the containing element */
   handleDocumentMouseDown(event: MouseEvent) {
-    /* Close when clicking outside of the containing element */
     const path = event.composedPath() as Array<EventTarget>;
     if (!path.includes(this.containingElement)) {
       this.hide();
     }
   }
 
-  handleMenuItemActivate(event: CustomEvent) {
-    const item = event.target as ArcMenuItem;
-    scrollIntoView(item, this.panel);
-  }
-
+  /* Hide the dropdown when a menu item is selected */
   handlePanelSelect(event: CustomEvent) {
     const target = event.target as HTMLElement;
 
-    /* Hide the dropdown when a menu item is selected */
     if (!this.stayOpenOnSelect && target.tagName.toLowerCase() === 'arc-menu') {
       this.hide();
       this.focusOnTrigger();
@@ -344,7 +333,7 @@ export default class ArcDropdown extends LitElement {
   }
 
   /* Shows the dropdown panel. */
-  async show() {
+  show() {
     if (this.open) {
       return;
     }
@@ -353,7 +342,7 @@ export default class ArcDropdown extends LitElement {
   }
 
   /* Hides the dropdown panel */
-  async hide() {
+  hide() {
     if (!this.open) {
       return;
     }
@@ -381,8 +370,6 @@ export default class ArcDropdown extends LitElement {
     if (this.open) {
       /* Show */
       emit(this, 'arc-show');
-      this.panel.addEventListener('arc-activate', this.handleMenuItemActivate);
-      this.panel.addEventListener('arc-select', this.handlePanelSelect);
       document.addEventListener('keydown', this.handleDocumentKeyDown);
       document.addEventListener('mousedown', this.handleDocumentMouseDown);
 
@@ -396,8 +383,6 @@ export default class ArcDropdown extends LitElement {
     } else {
       /* Hide */
       emit(this, 'arc-hide');
-      this.panel.removeEventListener('arc-activate', this.handleMenuItemActivate);
-      this.panel.removeEventListener('arc-select', this.handlePanelSelect);
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
       document.removeEventListener('mousedown', this.handleDocumentMouseDown);
 
@@ -428,6 +413,7 @@ export default class ArcDropdown extends LitElement {
             role="menu"
             aria-hidden=${this.open ? 'false' : 'true'}
             aria-labelledby='main'
+            @arc-select=${this.handlePanelSelect}
           >
             <slot></slot>
           </div>

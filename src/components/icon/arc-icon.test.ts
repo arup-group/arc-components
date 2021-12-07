@@ -37,7 +37,7 @@ describe('ArcIcon', () => {
     it('renders the element with a custom size property', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon></arc-icon>`);
 
-      for (const iconSize of Object.keys(ICON_SIZES)) {
+      for (const iconSize of Object.values(ICON_SIZES)) {
         element.size = iconSize;
 
         await elementUpdated(element);

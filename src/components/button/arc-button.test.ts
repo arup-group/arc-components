@@ -41,11 +41,11 @@ describe('ArcButton', () => {
     it('renders the button with a custom color, type and size property', async () => {
       const element: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
 
-      for (const buttonColor of Object.keys(BUTTON_COLORS)) {
+      for (const buttonColor of Object.values(BUTTON_COLORS)) {
         element.color = buttonColor;
-        for (const buttonType of Object.keys(BUTTON_TYPES)) {
+        for (const buttonType of Object.values(BUTTON_TYPES)) {
           element.type = buttonType;
-          for (const buttonSize of Object.keys(BUTTON_SIZES)) {
+          for (const buttonSize of Object.values(BUTTON_SIZES)) {
             element.size = buttonSize;
 
             await elementUpdated(element);

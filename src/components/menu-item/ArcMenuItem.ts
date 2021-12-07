@@ -39,6 +39,14 @@ export default class ArcMenuItem extends LitElement {
 
       #label {
         flex: 1 1 auto;
+        max-width: 30ch;
+        overflow: hidden;
+      }
+
+      #label * {
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis " ...";
       }
 
       #suffix ::slotted(*) {

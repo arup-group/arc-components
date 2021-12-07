@@ -39,6 +39,7 @@ export default class ArcNavbar extends LitElement {
       }
 
       #logoWrapper {
+        height: 100%;
         display: inline-flex;
         text-decoration: none;
         color: inherit;
@@ -50,6 +51,8 @@ export default class ArcNavbar extends LitElement {
       }
 
       #tool-name {
+        height: 100%;
+        align-items: center;
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -103,7 +106,7 @@ export default class ArcNavbar extends LitElement {
         }
 
         #tool-logo + #tool-name {
-          display: block;
+          display: inline-flex;
         }
 
         #company-logo {

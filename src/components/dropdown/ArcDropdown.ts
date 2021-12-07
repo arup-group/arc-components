@@ -36,11 +36,17 @@ export default class ArcDropdown extends LitElement {
       }
 
       #panel {
-        max-height: 75vh;
-        background-color: rgb(var(--arc-panel-background-color));
+        max-height: var(--arc-panel-height);
+        min-width: var(--arc-panel-width);
+        background-color: rgb(var(--arc-container-color));
+        box-shadow: var(--arc-box-shadow);
         overflow: auto;
         overscroll-behavior: none;
         pointer-events: none;
+      }
+
+      :host([open]) #panel {
+        pointer-events: all;
       }
 
       #positioner[data-popper-placement^='top'] #panel {
@@ -445,7 +451,7 @@ export default class ArcDropdown extends LitElement {
           <div id='panel'
             role="menu"
             aria-hidden=${this.open ? 'false' : 'true'}
-            aria-labelledby='trigger'
+            aria-labelledby='main'
           >
             <slot></slot>
           </div>

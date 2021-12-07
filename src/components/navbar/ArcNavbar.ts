@@ -116,9 +116,9 @@ export default class ArcNavbar extends LitElement {
     `,
   ];
 
-  @property() logo: string;
+  @property({ type: String }) logo: string;
 
-  @property({ reflect: true }) home: string = '/';
+  @property({ type: String, reflect: true }) home: string = '/';
 
   @property({
     type: Boolean,

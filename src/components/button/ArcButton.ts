@@ -3,7 +3,15 @@ import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import componentStyles from '../../styles/component.styles.js';
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
+import {
+  BUTTON_COLORS,
+  BUTTON_SIZES,
+  BUTTON_TYPES,
+  ButtonType,
+  ButtonColor,
+  ButtonSize,
+  ButtonTarget
+} from './constants/ButtonConstants.js';
 
 import '../spinner/arc-spinner.js';
 
@@ -140,29 +148,25 @@ export default class ArcButton extends LitElement {
 
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
-  /** @type { 'contained' | 'tile' | 'outlined' | 'pill' | 'tab' } */
-  @property({ type: String, reflect: true }) type = BUTTON_TYPES.contained;
+  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.contained;
 
-  /** @type { 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' } */
-  @property({ type: String, reflect: true }) color = BUTTON_COLORS.default;
+  @property({ type: String, reflect: true }) color: ButtonColor = BUTTON_COLORS.default;
 
-  /** @type { 'small' | 'medium' | 'large' } */
-  @property({ type: String, reflect: true }) size = BUTTON_SIZES.medium;
+  @property({ type: String, reflect: true }) size: ButtonSize = BUTTON_SIZES.medium;
 
-  /** @type { '_blank' | '_parent' | '_self' | '_top' } */
-  @property() target: '_blank' | '_parent' | '_self' | '_top';
+  @property() target: ButtonTarget;
 
   @property() href: string;
 
   @property() download: string;
 
-  @property({ type: Boolean, reflect: true }) active = false;
+  @property({ type: Boolean, reflect: true }) active: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) loading = false;
+  @property({ type: Boolean, reflect: true }) loading: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) submit = false;
+  @property({ type: Boolean, reflect: true }) submit: boolean = false;
 
   /** Simulates a click on the button. */
   click() {

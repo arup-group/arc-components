@@ -76,7 +76,7 @@ export default class ArcSidebar extends LitElement {
   @property({ type: Boolean, reflect: true })
   open: boolean = true;
 
-  @property() title: string;
+  @property({ type: String }) title: string;
 
   handleSlots = (e: any) => {
     const childNodes = e.target.assignedElements({ flatten: true });

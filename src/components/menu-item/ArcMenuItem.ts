@@ -76,7 +76,7 @@ export default class ArcMenuItem extends LitElement {
   @property() value = '';
 
   /* Draws the menu item in a disabled state. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   firstUpdated() {
     this.setAttribute('role', 'menuitem');

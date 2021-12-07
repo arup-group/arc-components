@@ -4,6 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { hasSlot } from '../../internal/slot.js';
 import componentStyles from '../../styles/component.styles.js';
+import { ButtonTarget } from '../button/constants/ButtonConstants.js';
 
 import '../icon/arc-icon.js';
 import '../spinner/arc-spinner.js';
@@ -101,25 +102,25 @@ export default class ArcIconButton extends LitElement {
 
   @state() private hasLabel = false;
 
-  @property() name: string;
+  @property({ type: String }) name: string;
 
-  @property() target: '_blank' | '_parent' | '_self' | '_top';
+  @property({ type: String }) target: ButtonTarget;
 
-  @property() href: string;
+  @property({ type: String }) href: string;
 
-  @property() download: string;
+  @property({ type: String }) download: string;
 
   /*
   A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should
   always include a label that describes what the icon button does.
   */
-  @property() label = '';
+  @property({ type: String }) label: string = '';
 
-  @property({ type: Boolean, reflect: true }) active = false;
+  @property({ type: Boolean, reflect: true }) active: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) loading = false;
+  @property({ type: Boolean, reflect: true }) loading: boolean = false;
 
   connectedCallback() {
     super.connectedCallback();

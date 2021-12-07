@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
 import componentStyles from '../../styles/component.styles.js';
-import { ICON_SIZES } from './constants/IconConstants.js';
+import { ICON_SIZES, ICON_TYPES, IconSize } from './constants/IconConstants.js';
 import { getBasePath } from '../../utilities/base-path.js';
 
 export default class ArcIcon extends LitElement {
@@ -61,15 +61,13 @@ export default class ArcIcon extends LitElement {
     `,
   ];
 
-  @property({ type: String, reflect: true }) name = 'fire';
+  @property({ type: String, reflect: true }) name: string = ICON_TYPES.fire;
 
-  /** @type { 'small' | 'medium' | 'large' } */
-  @property({ type: String, reflect: true }) size = ICON_SIZES.medium;
+  @property({ type: String, reflect: true }) size: IconSize = ICON_SIZES.medium;
 
-  /** @type { 0 | 90 | 180 | 270 } */
-  @property({ type: Number }) rotation = 0;
+  @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
 
-  @property({ type: Boolean, reflect: true }) spinning = false;
+  @property({ type: Boolean, reflect: true }) spinning: boolean = false;
 
   render() {
     const DEFAULT_PATH: string = `${getBasePath()}/assets/icons.svg`;

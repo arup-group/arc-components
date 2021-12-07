@@ -1,4 +1,6 @@
-export const ICON_SIZES: { [key: string]: string } = {
+export declare type IconSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large' | 'xxx-large' | 'xxxx-large';
+
+export const ICON_SIZES: { [key: string]: IconSize } = {
   xxSmall: 'xx-small',
   xSmall: 'x-small',
   small: 'small',

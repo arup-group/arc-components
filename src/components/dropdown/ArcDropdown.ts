@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { Instance as PopperInstance, createPopper } from '@popperjs/core';
+import { Instance as PopperInstance, createPopper, Placement } from '@popperjs/core';
 import { animateTo, stopAnimations } from '../../internal/animate.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
@@ -10,6 +10,7 @@ import { setDefaultAnimation, getAnimation } from '../../utilities/animation-reg
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import componentStyles from '../../styles/component.styles.js';
+import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 
 export default class ArcDropdown extends LitElement {
   static tag = 'arc-dropdown';
@@ -76,50 +77,28 @@ export default class ArcDropdown extends LitElement {
   private popover: PopperInstance;
 
   /* Indicates whether or not the dropdown is open. You can use this in lieu of the show/hide methods. */
-  @property({ type: Boolean, reflect: true }) open = false;
+  @property({ type: Boolean, reflect: true }) open: boolean = false;
 
-  /*
-  The preferred placement of the dropdown panel.
-  Note that the actual placement may vary as needed to keep the panel inside of the viewport.
-   */
-  @property() placement:
-    | 'top'
-    | 'top-start'
-    | 'top-end'
-    | 'bottom'
-    | 'bottom-start'
-    | 'bottom-end'
-    | 'right'
-    | 'right-start'
-    | 'right-end'
-    | 'left'
-    | 'left-start'
-    | 'left-end' = 'bottom-start';
+  /* The preferred placement of the dropdown panel. */
+  @property({ type: String } ) placement: Placement = DROPDOWN_PLACEMENTS.bottomStart;
 
   /* Disables the dropdown so the panel will not open. */
-  @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean }) disabled: boolean = false;
 
-  /*
-  By default, the dropdown is closed when an item is selected.
-  This attribute will keep it open instead.
-  Useful for controls that allow multiple selections.
-  */
-  @property({ attribute: 'stay-open-on-select', type: Boolean, reflect: true }) stayOpenOnSelect = false;
+  /* By default, the dropdown is closed when an item is selected. */
+  @property({ attribute: 'stay-open-on-select', type: Boolean, reflect: true }) stayOpenOnSelect: boolean = false;
 
   /* The dropdown will close when the user interacts outside of this element (e.g. clicking). */
   @property({ attribute: false }) containingElement: HTMLElement;
 
   /* The distance in pixels from which to offset the panel away from its trigger. */
-  @property({ type: Number }) distance = 0;
+  @property({ type: Number }) distance: number = 0;
 
   /* The distance in pixels from which to offset the panel along its trigger. */
-  @property({ type: Number }) skidding = 0;
+  @property({ type: Number }) skidding: number = 0;
 
-  /*
-  Enable this option to prevent the panel from being clipped when the component is placed inside a container with
-  `overflow: auto|scroll`.
-  */
-  @property({ type: Boolean }) hoist = false;
+  /* Enable this option to prevent the panel from being clipped when the component is placed inside a container with overflow: auto|scroll`. */
+  @property({ type: Boolean }) hoist: boolean = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -364,7 +343,7 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
-  /** Shows the dropdown panel. */
+  /* Shows the dropdown panel. */
   async show() {
     if (this.open) {
       return;
@@ -373,7 +352,7 @@ export default class ArcDropdown extends LitElement {
     this.open = true;
   }
 
-  /** Hides the dropdown panel */
+  /* Hides the dropdown panel */
   async hide() {
     if (!this.open) {
       return;
@@ -382,10 +361,7 @@ export default class ArcDropdown extends LitElement {
     this.open = false;
   }
 
-  /*
-  Instructs the dropdown menu to reposition.
-  Useful when the position or size of the trigger changes when the menu is activated.
-  */
+  /* Instructs the dropdown menu to reposition. */
   reposition() {
     if (!this.open) {
       return;

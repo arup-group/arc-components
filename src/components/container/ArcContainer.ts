@@ -2,7 +2,7 @@ import { css, html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import { isNight } from '../../internal/theme.js';
 import componentStyles from '../../styles/component.styles.js';
-import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
+import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 
 import '../bottombar/arc-bottombar.js';
 import '../icon-button/arc-icon-button.js';
@@ -63,8 +63,7 @@ export default class ArcContainer extends LitElement {
     `,
   ];
 
-  /** @type { 'auto' | 'dark' | 'light' } */
-  @property({ type: String, reflect: true }) theme = CONTAINER_THEMES.auto;
+  @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('theme')) {

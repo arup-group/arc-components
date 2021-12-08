@@ -52,4 +52,4 @@ function getAnimation(el: Element, animationName: string) {
   };
 }
 
-export { ensureAnimation, setDefaultAnimation, setAnimation, getAnimation };
+export { setDefaultAnimation, setAnimation, getAnimation };

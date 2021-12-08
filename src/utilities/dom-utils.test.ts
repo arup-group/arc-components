@@ -3,7 +3,7 @@ import { expect, fixture } from '@open-wc/testing';
 
 import { hasSlot } from './dom-utils.js';
 
-describe('slotExists', async () => {
+describe('hasSlot', async () => {
   it('has a named slot', async () => {
     const element: HTMLElement = await fixture(html`
       <div>

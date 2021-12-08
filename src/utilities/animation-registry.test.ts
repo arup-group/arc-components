@@ -35,6 +35,7 @@ describe('AnimationRegistry', () => {
 
   it('registers a default animation for all components', () => {
     setDefaultAnimation('animation.show', defaultAnimation);
+
     expect(getAnimation(element, 'animation.show')).to.equal(defaultAnimation);
     expect(getAnimation(elementTwo, 'animation.show')).to.equal(defaultAnimation);
   });
@@ -46,13 +47,19 @@ describe('AnimationRegistry', () => {
     expect(getAnimation(elementTwo, 'animation.show')).to.equal(defaultAnimation);
   });
 
-  it('returns an empty animation when none is provided', () => {
-    const animation = getAnimation(element, '');
-    const { keyframes, options } = animation;
+  it('returns an empty animation when a non-existing or faulty animation is given', () => {
+    // Faulty animation as null does not match the type `ElementAnimation`
+    setDefaultAnimation('faulty.animation', null);
 
-    expect(keyframes.length).to.equal(0);
-    expect(Object.keys(options as Object).length).to.equal(1);
-    expect(Object.keys(options as Object)[0]).to.equal('duration');
-    expect(Object.values(options as Object)[0]).to.equal(0);
+    const emptyAnimation = getAnimation(element, '');
+    const faultyAnimation = getAnimation(element, 'faulty.animation');
+
+    expect(emptyAnimation.keyframes.length).to.equal(0);
+    expect(faultyAnimation.keyframes.length).to.equal(0);
+
+    expect(Object.keys(emptyAnimation.options as Object)[0]).to.equal('duration');
+    expect(Object.keys(faultyAnimation.options as Object)[0]).to.equal('duration');
+    expect(Object.values(emptyAnimation.options as Object)[0]).to.equal(0);
+    expect(Object.values(faultyAnimation.options as Object)[0]).to.equal(0);
   })
 });

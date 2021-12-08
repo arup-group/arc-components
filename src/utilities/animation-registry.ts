@@ -11,7 +11,10 @@ const defaultAnimationRegistry = new Map<String, ElementAnimation>();
 const customAnimationRegistry = new WeakMap<Element, ElementAnimationMap>();
 
 function ensureAnimation(animation: ElementAnimation | null) {
-  return animation ?? { keyframes: [], options: { duration: 0 } };
+  if (!animation) {
+    return { keyframes: [], options: { duration: 0 } }
+  }
+  return animation;
 }
 
 /*
@@ -46,10 +49,7 @@ function getAnimation(el: Element, animationName: string) {
   }
 
   /* Fall back to an empty animation */
-  return {
-    keyframes: [],
-    options: { duration: 0 }
-  };
+  return { keyframes: [], options: { duration: 0 } };
 }
 
 export { setDefaultAnimation, setAnimation, getAnimation };

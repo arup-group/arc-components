@@ -1,11 +1,11 @@
 import { html, LitElement } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import { expect, fixture } from '@open-wc/testing';
 
 import { getInnerHTML, getTextContent, hasSlot } from './slot.js';
 
+@customElement('test-component')
 class testComponent extends LitElement {
-  static tag = 'test-component';
-
   render() {
     return html`
       <slot id="empty"></slot>
@@ -14,9 +14,7 @@ class testComponent extends LitElement {
   }
 }
 
-customElements.define(testComponent.tag, testComponent);
-
-describe('getInnerHTML', async () => {
+describe('getSlotContent', async () => {
   let component: testComponent;
   let emptySlot: HTMLSlotElement;
   let filledSlot: HTMLSlotElement;
@@ -44,18 +42,6 @@ describe('getInnerHTML', async () => {
     });
     component.appendChild(newEl);
     expect(getInnerHTML(filledSlot)).to.equal(`<div slot="one">Hello World</div>`);
-  });
-});
-
-describe('getTextContent', async () => {
-  let component: testComponent;
-  let emptySlot: HTMLSlotElement;
-  let filledSlot: HTMLSlotElement;
-
-  beforeEach(async () => {
-    component = await fixture(html` <test-component></test-component>`);
-    emptySlot = component.shadowRoot!.getElementById('empty')! as HTMLSlotElement;
-    filledSlot = component.shadowRoot!.getElementById('filled')! as HTMLSlotElement;
   });
 
   it('returns an empty string', async () => {

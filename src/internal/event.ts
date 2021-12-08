@@ -1,5 +1,5 @@
 /* Emits a custom event with more convenient defaults. */
-export function emit(el: HTMLElement, name: string, options?: CustomEventInit) {
+function emit(el: HTMLElement, name: string, options?: CustomEventInit) {
   const event = new CustomEvent(name, {
     bubbles: true,
     cancelable: false,
@@ -10,3 +10,5 @@ export function emit(el: HTMLElement, name: string, options?: CustomEventInit) {
   el.dispatchEvent(event);
   return event;
 }
+
+export { emit }

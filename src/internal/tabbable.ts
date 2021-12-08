@@ -55,7 +55,7 @@ function isTabbable(el: HTMLElement) {
 Returns the first and last bounding elements that are tabbable. This is more performant than checking every single
 element because it short-circuits after finding the first and last ones.
 */
-export function getTabbableBoundary(root: HTMLElement | ShadowRoot) {
+function getTabbableBoundary(root: HTMLElement | ShadowRoot) {
   const allElements: HTMLElement[] = [];
 
   function walk(el: HTMLElement | ShadowRoot) {
@@ -79,3 +79,5 @@ export function getTabbableBoundary(root: HTMLElement | ShadowRoot) {
 
   return { start, end };
 }
+
+export { getTabbableBoundary }

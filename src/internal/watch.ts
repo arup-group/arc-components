@@ -29,7 +29,7 @@ interface WatchOptions {
   waitUntilFirstUpdate?: boolean;
 }
 
-export function watch(propName: string, options?: WatchOptions) {
+function watch(propName: string, options?: WatchOptions) {
   return (protoOrDescriptor: any, name: string): any => {
     const { update } = protoOrDescriptor;
     const watchOptions = {
@@ -54,3 +54,5 @@ export function watch(propName: string, options?: WatchOptions) {
     };
   };
 }
+
+export { watch };

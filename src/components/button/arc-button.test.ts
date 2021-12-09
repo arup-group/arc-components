@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
@@ -173,28 +173,22 @@ describe('ArcButton', () => {
   describe('events', () => {
     let element: ArcButton;
     let clickSpy: SinonSpy;
-    let isClicked: boolean;
-
-    function updateClicked() {
-      isClicked = true;
-    }
 
     beforeEach(async () => {
-      isClicked = false;
       element = await fixture(html`<arc-button></arc-button>`);
-      clickSpy = sinon.spy(element, 'click');
-      element.addEventListener('click', updateClicked);
+      clickSpy = sinon.spy();
+      element.addEventListener('click', clickSpy);
     });
 
     afterEach(() => {
-      sinon.restore();
-      element.removeEventListener('click', updateClicked);
-    });
+      element.removeEventListener('click', clickSpy);
+    })
 
     it('simulates a click on the button', async () => {
       element.click();
-      expect(clickSpy.callCount).to.equal(1);
-      expect(isClicked).to.be.true;
+
+      await waitUntil(() => clickSpy.calledOnce);
+      expect(clickSpy).to.have.been.calledOnce;
     });
 
     it('suppresses a click on the button while in a disabled or loading state', async () => {
@@ -202,23 +196,8 @@ describe('ArcButton', () => {
       await elementUpdated(element);
 
       element.click();
-      expect(clickSpy.callCount).to.equal(1);
-      expect(isClicked).to.be.false;
 
-      element.disabled = false;
-      element.loading = true;
-      await elementUpdated(element);
-
-      element.click();
-      expect(clickSpy.callCount).to.equal(2);
-      expect(isClicked).to.be.false;
-
-      element.loading = false;
-      await elementUpdated(element);
-
-      element.click();
-      expect(clickSpy.callCount).to.equal(3);
-      expect(isClicked).to.be.true;
+      expect(clickSpy).to.have.not.been.called;
     });
   });
 

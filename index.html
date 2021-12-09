@@ -52,7 +52,7 @@
     </arc-menu>
   </arc-sidebar>
   <div style="padding: var(--arc-spacing-medium); height: 100%;">
-    <arc-dropdown>
+    <arc-dropdown distance='5' skidding='5' hoist>
       <arc-button slot='trigger'>Trigger me</arc-button>
       <arc-menu>
         <arc-menu-item>1</arc-menu-item>
@@ -70,6 +70,14 @@
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
+  const dropdown = document.getElementById('bla');
+  dropdown.addEventListener('arc-show', () => {
+    console.log('About to show');
+  })
+
+  dropdown.addEventListener('arc-after-show', () => {
+    console.log('I got shown');
+  })
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';

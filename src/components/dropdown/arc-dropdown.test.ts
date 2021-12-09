@@ -1,6 +1,6 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated } from '@open-wc/testing';
-import sinon from 'sinon';
+import { expect, fixture, elementUpdated, waitUntil} from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcDropdown from './ArcDropdown.js';
@@ -57,34 +57,8 @@ describe('ArcDropdown', () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-        <arc-dropdown>
-          <arc-button slot='trigger'>Toggle</arc-button>
-          <arc-menu>
-            <arc-menu-item>Item 1</arc-menu-item>
-            <arc-menu-item>Item 2</arc-menu-item>
-            <arc-menu-item>Item 3</arc-menu-item>
-          </arc-menu>
-        </arc-dropdown>
+        <arc-dropdown></arc-dropdown>
       `);
-    });
-
-    it('renders the component in an open state', async () => {
-      const panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
-
-      element.addEventListener('arc-after-show', () => {
-        console.log('I do something after I am visible');
-        expect(panel.hidden).to.be.false;
-      })
-
-      expect(element.open).to.be.false;
-      expect(element.hasAttribute('open')).to.be.false;
-      expect(panel.hidden).to.be.true;
-
-      element.open = true;
-      await elementUpdated(element);
-
-      expect(element.open).to.be.true;
-      expect(element.hasAttribute('open')).to.be.true;
     });
 
     it('renders the component in a disabled state', async () => {
@@ -111,48 +85,107 @@ describe('ArcDropdown', () => {
   });
 
   /* Test the events (click, focus, blur etc.) */
-  // describe('events', () => {
-  //   let element: ArcDropdown;
-  //   let clickSpy: any;
-  //   let isClicked: boolean;
-  //
-  //   function updateClicked() {
-  //     isClicked = true;
-  //   }
-  //
-  //   beforeEach(async () => {
-  //     isClicked = false;
-  //     element = await fixture(html`<arc-dropdown></arc-dropdown>`);
-  //     clickSpy = sinon.spy(element, 'click');
-  //     element.addEventListener('click', updateClicked);
-  //   })
-  //
-  //   afterEach(() => {
-  //     element.removeEventListener('click', updateClicked);
-  //   })
-  //
-  //   it('simulates a click on the button', async () => {
-  //     element.click();
-  //     expect(clickSpy.callCount).to.equal(1);
-  //     expect(isClicked).to.be.true;
-  //   });
-  // });
+  describe('events', () => {
+    let element: ArcDropdown;
+    let panel: HTMLElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`<arc-dropdown></arc-dropdown>`);
+      panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
+    });
+
+    afterEach(() => {
+      element.open = false;
+    })
+
+    it('should emit arc-show and arc-after-show when calling show()', async () => {
+      const showHandler: SinonSpy = sinon.spy();
+      const afterShowHandler: SinonSpy = sinon.spy();
+
+      element.addEventListener('arc-show', showHandler);
+      element.addEventListener('arc-after-show', afterShowHandler);
+      element.show();
+
+      await waitUntil(() => showHandler.calledOnce);
+      await waitUntil(() => afterShowHandler.calledOnce);
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(panel.hidden).to.be.false;
+    });
+
+    it('should emit arc-hide and arc-after-hide when calling hide()', async () => {
+      const hideHandler: SinonSpy = sinon.spy();
+      const afterHideHandler: SinonSpy = sinon.spy();
+
+      // First open the menu before calling the hide event
+      element.open = true;
+      await elementUpdated(element);
+
+      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener('arc-after-hide', afterHideHandler);
+      element.hide();
+
+      await waitUntil(() => hideHandler.calledOnce);
+      await waitUntil(() => afterHideHandler.calledOnce);
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(panel.hidden).to.be.true;
+    })
+
+    it('should emit arc-show and arc-after-show when setting open = true', async () => {
+      const showHandler: SinonSpy = sinon.spy();
+      const afterShowHandler: SinonSpy = sinon.spy();
+
+      element.addEventListener('arc-show', showHandler);
+      element.addEventListener('arc-after-show', afterShowHandler);
+      element.open = true;
+
+      await waitUntil(() => showHandler.calledOnce);
+      await waitUntil(() => afterShowHandler.calledOnce);
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(panel.hidden).to.be.false;
+    });
+
+    it('should emit arc-hide and arc-after-hide when setting open = false', async () => {
+      const hideHandler: SinonSpy = sinon.spy();
+      const afterHideHandler: SinonSpy = sinon.spy();
+
+      // First open the menu before calling the hide event
+      element.open = true;
+      await elementUpdated(element);
+
+      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener('arc-after-hide', afterHideHandler);
+      element.open = false;
+
+      await waitUntil(() => hideHandler.calledOnce);
+      await waitUntil(() => afterHideHandler.calledOnce);
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(panel.hidden).to.be.true;
+    })
+  });
 
   /* Test whether the slots can be filled and that they exist */
-  // describe('slots', () => {
-  //   let element: ArcDropdown;
-  //   beforeEach(async () => {
-  //     element = await fixture(html`<arc-dropdown></arc-dropdown>`);
-  //   });
-  //
-  //   it('renders default slots to fill the component', () => {
-  //     const main = element.shadowRoot!.getElementById('main')!;
-  //
-  //     /* An empty slot is available */
-  //     expect(hasSlot(main)).to.be.true;
-  //
-  //     /* A specific (named) slot is available */
-  //     expect(hasSlot(main, 'trigger')).to.be.true;
-  //   });
-  // });
+  describe('slots', () => {
+    let element: ArcDropdown;
+    beforeEach(async () => {
+      element = await fixture(html`<arc-dropdown></arc-dropdown>`);
+    });
+
+    it('renders default slots to fill the component', () => {
+      const main = element.shadowRoot!.getElementById('main')!;
+
+      /* An empty slot is available */
+      expect(hasSlot(main)).to.be.true;
+
+      /* A specific (named) slot is available */
+      expect(hasSlot(main, 'trigger')).to.be.true;
+    });
+  });
 });

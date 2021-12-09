@@ -208,8 +208,7 @@ export default class ArcDropdown extends LitElement {
   }
 
   focusOnTrigger() {
-    const slot = this.trigger.querySelector('slot')!;
-    const trigger = slot.assignedElements({ flatten: true })[0] as any;
+    const trigger = this.triggerSlot.assignedElements({ flatten: true })[0] as any;
     if (trigger && typeof trigger.focus === 'function') {
       trigger.focus();
     }

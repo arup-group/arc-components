@@ -173,6 +173,16 @@ export default class ArcButton extends LitElement {
     this.button.click();
   }
 
+  /** Sets focus on the button. */
+  focus(options?: FocusOptions) {
+    this.button.focus(options);
+  }
+
+  /** Removes focus from the button. */
+  blur() {
+    this.button.blur();
+  }
+
   handleClick(event: MouseEvent) {
     if (this.disabled || this.loading) {
       event.preventDefault();

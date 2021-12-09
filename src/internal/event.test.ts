@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import { expect, fixture, oneEvent } from '@open-wc/testing';
-import { emit } from './event.js';
+import { emit, waitForEvent } from './event.js';
 
 @customElement('event-test')
 class EventTest extends LitElement {
@@ -47,4 +47,15 @@ describe('event', () => {
     expect(composed).to.be.false;
     expect(detail).to.be.true;
   })
-})
+
+  it('should emit after another event is done', async () => {
+    let isCalled = false;
+
+    setTimeout(() => element.fireEvent());
+    await waitForEvent(element, 'event-test').then(() => {
+      isCalled = true;
+    });
+
+    expect(isCalled).to.be.true;
+  })
+});

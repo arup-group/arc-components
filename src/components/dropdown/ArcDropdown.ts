@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { Instance as PopperInstance, createPopper, Placement } from '@popperjs/core';
 import { startAnimations, stopAnimations } from '../../internal/animate.js';
-import { emit } from '../../internal/event.js';
+import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { getTabbableBoundary } from '../../internal/tabbable.js';
 import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry.js';
@@ -86,12 +86,6 @@ export default class ArcDropdown extends LitElement {
   /* Disables the dropdown so the panel will not open. */
   @property({ type: Boolean }) disabled: boolean = false;
 
-  /* By default, the dropdown is closed when an item is selected. */
-  @property({ attribute: 'stay-open-on-select', type: Boolean, reflect: true }) stayOpenOnSelect: boolean = false;
-
-  /* The dropdown will close when the user interacts outside of this element (e.g. clicking). */
-  @property({ attribute: false }) containingElement: HTMLElement;
-
   /* The distance in pixels from which to offset the panel away from its trigger. */
   @property({ type: Number }) distance: number = 0;
 
@@ -170,10 +164,6 @@ export default class ArcDropdown extends LitElement {
     this.handleDocumentKeyDown = this.handleDocumentKeyDown.bind(this);
     this.handleDocumentMouseDown = this.handleDocumentMouseDown.bind(this);
 
-    if (!this.containingElement) {
-      this.containingElement = this;
-    }
-
     /* Define the accessible trigger after render */
     this.updateComplete.then(() => {
       this.popover = createPopper(this.trigger, this.positioner, {
@@ -240,11 +230,11 @@ export default class ArcDropdown extends LitElement {
       /* Tabbing outside of the containing element closes the panel */
       setTimeout(() => {
         const activeElement =
-          this.containingElement.getRootNode() instanceof ShadowRoot
+          this.getRootNode() instanceof ShadowRoot
             ? document.activeElement?.shadowRoot?.activeElement
             : document.activeElement;
 
-        if (activeElement?.closest(this.containingElement.tagName.toLowerCase()) !== this.containingElement) {
+        if (activeElement?.closest(this.tagName.toLowerCase()) !== this) {
           this.hide();
         }
       });
@@ -254,7 +244,7 @@ export default class ArcDropdown extends LitElement {
   /* Close when clicking outside of the containing element */
   handleDocumentMouseDown(event: MouseEvent) {
     const path = event.composedPath() as Array<EventTarget>;
-    if (!path.includes(this.containingElement)) {
+    if (!path.includes(this)) {
       this.hide();
     }
   }
@@ -263,7 +253,7 @@ export default class ArcDropdown extends LitElement {
   handlePanelSelect(event: CustomEvent) {
     const target = event.target as HTMLElement;
 
-    if (!this.stayOpenOnSelect && target.tagName.toLowerCase() === 'arc-menu') {
+    if (target.tagName.toLowerCase() === 'arc-menu') {
       this.hide();
       this.focusOnTrigger();
     }
@@ -363,21 +353,23 @@ export default class ArcDropdown extends LitElement {
   }
 
   /* Shows the dropdown panel. */
-  show() {
+  async show() {
     if (this.open) {
       return;
     }
 
     this.open = true;
+    await waitForEvent(this, 'arc-after-show');
   }
 
   /* Hides the dropdown panel */
-  hide() {
+  async hide() {
     if (!this.open) {
       return;
     }
 
     this.open = false;
+    await waitForEvent(this, 'arc-after-hide');
   }
 
   /* Instructs the dropdown menu to reposition. */

@@ -11,4 +11,21 @@ function emit(el: HTMLElement, name: string, options?: CustomEventInit) {
   return event;
 }
 
-export { emit }
+/*
+Waits for a specific event to be emitted from an element.
+Ignores events that bubble up from child elements.
+*/
+function waitForEvent(el: HTMLElement, eventName: string) {
+  return new Promise<void>(resolve => {
+    function done(event: Event) {
+      if (event.target === el) {
+        el.removeEventListener(eventName, done);
+        resolve();
+      }
+    }
+
+    el.addEventListener(eventName, done);
+  });
+}
+
+export { emit, waitForEvent }

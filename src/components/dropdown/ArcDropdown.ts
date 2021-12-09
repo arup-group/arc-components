@@ -101,6 +101,69 @@ export default class ArcDropdown extends LitElement {
   /* Enable this option to prevent the panel from being clipped when the component is placed inside a container with overflow: auto|scroll`. */
   @property({ type: Boolean }) hoist: boolean = false;
 
+  @watch('open', { waitUntilFirstUpdate: true })
+  async handleOpenChange() {
+    if (this.disabled) {
+      return;
+    }
+
+    this.updateAccessibleTrigger();
+
+    if (this.open) {
+      /* Show */
+      emit(this, 'arc-show');
+      document.addEventListener('keydown', this.handleDocumentKeyDown);
+      document.addEventListener('mousedown', this.handleDocumentMouseDown);
+
+      await stopAnimations(this);
+      await this.popover.update();
+      this.panel.hidden = false;
+      const { keyframes, options } = getAnimation(this, 'dropdown.show');
+      await startAnimations(this.panel, keyframes, options);
+
+      emit(this, 'arc-after-show');
+    } else {
+      /* Hide */
+      emit(this, 'arc-hide');
+      document.removeEventListener('keydown', this.handleDocumentKeyDown);
+      document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+
+      await stopAnimations(this);
+      const { keyframes, options } = getAnimation(this, 'dropdown.hide');
+      await startAnimations(this.panel, keyframes, options);
+      this.panel.hidden = true;
+
+      emit(this, 'arc-after-hide');
+    }
+  }
+
+  @watch('distance')
+  @watch('hoist')
+  @watch('placement')
+  @watch('skidding')
+  handlePopoverOptionsChange() {
+    if (this.popover) {
+      this.popover.setOptions({
+        placement: this.placement,
+        strategy: this.hoist ? 'fixed' : 'absolute',
+        modifiers: [
+          {
+            name: 'flip',
+            options: {
+              boundary: 'viewport'
+            }
+          },
+          {
+            name: 'offset',
+            options: {
+              offset: [this.skidding, this.distance]
+            }
+          }
+        ]
+      });
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.handlePanelSelect = this.handlePanelSelect.bind(this);
@@ -204,33 +267,6 @@ export default class ArcDropdown extends LitElement {
     if (!this.stayOpenOnSelect && target.tagName.toLowerCase() === 'arc-menu') {
       this.hide();
       this.focusOnTrigger();
-    }
-  }
-
-  @watch('distance')
-  @watch('hoist')
-  @watch('placement')
-  @watch('skidding')
-  handlePopoverOptionsChange() {
-    if (this.popover) {
-      this.popover.setOptions({
-        placement: this.placement,
-        strategy: this.hoist ? 'fixed' : 'absolute',
-        modifiers: [
-          {
-            name: 'flip',
-            options: {
-              boundary: 'viewport'
-            }
-          },
-          {
-            name: 'offset',
-            options: {
-              offset: [this.skidding, this.distance]
-            }
-          }
-        ]
-      });
     }
   }
 
@@ -352,42 +388,6 @@ export default class ArcDropdown extends LitElement {
     }
 
     this.popover.update();
-  }
-
-  @watch('open', { waitUntilFirstUpdate: true })
-  async handleOpenChange() {
-    if (this.disabled) {
-      return;
-    }
-
-    this.updateAccessibleTrigger();
-
-    if (this.open) {
-      /* Show */
-      emit(this, 'arc-show');
-      document.addEventListener('keydown', this.handleDocumentKeyDown);
-      document.addEventListener('mousedown', this.handleDocumentMouseDown);
-
-      await stopAnimations(this);
-      await this.popover.update();
-      this.panel.hidden = false;
-      const { keyframes, options } = getAnimation(this, 'dropdown.show');
-      await startAnimations(this.panel, keyframes, options);
-
-      emit(this, 'arc-after-show');
-    } else {
-      /* Hide */
-      emit(this, 'arc-hide');
-      document.removeEventListener('keydown', this.handleDocumentKeyDown);
-      document.removeEventListener('mousedown', this.handleDocumentMouseDown);
-
-      await stopAnimations(this);
-      const { keyframes, options } = getAnimation(this, 'dropdown.hide');
-      await startAnimations(this.panel, keyframes, options);
-      this.panel.hidden = true;
-
-      emit(this, 'arc-after-hide');
-    }
   }
 
   render() {

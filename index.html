@@ -70,14 +70,6 @@
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
-  const dropdown = document.getElementById('bla');
-  dropdown.addEventListener('arc-show', () => {
-    console.log('About to show');
-  })
-
-  dropdown.addEventListener('arc-after-show', () => {
-    console.log('I got shown');
-  })
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';

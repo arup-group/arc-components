@@ -124,8 +124,6 @@ describe('ArcMenu', () => {
       expect(getIndex(allActiveItems[2])).to.equal('0');
       expect(element.getCurrentItem()).to.equal(allActiveItems[2]);
     });
-
-    it('sets ');
   });
 
   /* Test the events (click, focus, blur etc.) */

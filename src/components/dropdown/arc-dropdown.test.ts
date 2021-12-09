@@ -4,7 +4,11 @@ import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcDropdown from './ArcDropdown.js';
+import type ArcButton from '../button/ArcButton.js';
 import './arc-dropdown.js';
+import '../menu/arc-menu.js';
+import '../menu-item/arc-menu-item.js';
+import '../button/arc-button.js';
 
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 
@@ -45,12 +49,6 @@ describe('ArcDropdown', () => {
     })
   });
 
-  /* Test specific methods */
-  // describe('methods', () => {
-  //   const element: ArcDropdown = new ArcDropdown();
-  //   // Write the tests for the specific method of element here
-  // });
-
   /* Test different component states (active, disabled, loading etc.) */
   describe('states', () => {
     let element: ArcDropdown;
@@ -60,6 +58,17 @@ describe('ArcDropdown', () => {
         <arc-dropdown></arc-dropdown>
       `);
     });
+
+    it('renders the component in an open state', async () => {
+      expect(element.open).to.be.false;
+      expect(element.hasAttribute('open')).to.be.false;
+
+      element.open = true;
+      await elementUpdated(element);
+
+      expect(element.open).to.be.true;
+      expect(element.hasAttribute('open')).to.be.true;
+    })
 
     it('renders the component in a disabled state', async () => {
       expect(element.disabled).to.be.false;
@@ -82,21 +91,38 @@ describe('ArcDropdown', () => {
       expect(element.hoist).to.be.true;
       expect(element.hasAttribute('hoist')).to.be.true;
     })
+
+    it('renders the underlying popover in a hoist state', async () => {
+      const hoistedElement: ArcDropdown = await fixture(html`<arc-dropdown hoist></arc-dropdown>`)
+      expect(hoistedElement.hoist).to.be.true;
+      expect(hoistedElement.hasAttribute('hoist')).to.be.true;
+    })
   });
 
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcDropdown;
     let panel: HTMLElement;
+    let button: HTMLElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-dropdown></arc-dropdown>`);
+      element = await fixture(html`
+        <arc-dropdown>
+          <arc-button slot='trigger'>Trigger</arc-button>
+          <arc-menu>
+            <arc-menu-item>Item 1</arc-menu-item>
+            <arc-menu-item>Item 2</arc-menu-item>
+            <arc-menu-item>Item 3</arc-menu-item>
+          </arc-menu>
+        </arc-dropdown>
+      `)
+      button = element.children[0] as ArcButton;
       panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
     });
 
     afterEach(() => {
       element.open = false;
-    })
+    });
 
     it('should emit arc-show and arc-after-show when calling show()', async () => {
       const showHandler: SinonSpy = sinon.spy();
@@ -168,6 +194,42 @@ describe('ArcDropdown', () => {
       expect(hideHandler).to.have.been.calledOnce;
       expect(afterHideHandler).to.have.been.calledOnce;
       expect(panel.hidden).to.be.true;
+    })
+
+    it('should prevent the menu to be displayed when the dropdown is disabled', async () => {
+      const showHandler: SinonSpy = sinon.spy();
+      const afterShowHandler: SinonSpy = sinon.spy();
+
+      element.disabled = true;
+      await elementUpdated(element);
+
+      element.addEventListener('arc-show', showHandler);
+      element.addEventListener('arc-after-show', afterShowHandler);
+
+      element.open = true;
+
+      expect(showHandler).to.not.have.been.calledOnce;
+      expect(afterShowHandler).to.not.have.been.calledOnce;
+      expect(panel.hidden).to.be.true;
+    });
+
+    it('closes the menu when escape is pressed', async () => {
+      const isOpen = () => button.getAttribute('aria-expanded') === 'true';
+
+      expect(isOpen()).to.be.false;
+
+      await element.show();
+
+      expect(isOpen()).to.be.true;
+
+      const escapeEvent = new KeyboardEvent('keypress', {
+        key: 'Escape',
+      });
+
+      element.handleDocumentKeyDown(escapeEvent);
+      await elementUpdated(element);
+
+      expect(isOpen()).to.be.false;
     })
   });
 

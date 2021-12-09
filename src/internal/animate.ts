@@ -1,7 +1,7 @@
 import { prefersReducedMotion } from '../utilities/ui-utils.js';
 
 /* Animates an element using keyframes. Returns a promise that resolves after the animation completes or gets canceled. */
-function animateTo(el: HTMLElement, keyframes: Keyframe[], options?: KeyframeAnimationOptions) {
+function startAnimations(el: HTMLElement, keyframes: Keyframe[], options?: KeyframeAnimationOptions) {
   return new Promise( resolve => {
     if (options?.duration === Infinity) {
       throw new Error('Promise-based animations must be finite.');
@@ -30,4 +30,4 @@ function stopAnimations(el: HTMLElement) {
   );
 }
 
-export { animateTo, stopAnimations };
+export { startAnimations, stopAnimations };

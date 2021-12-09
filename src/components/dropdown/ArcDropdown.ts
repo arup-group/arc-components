@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { Instance as PopperInstance, createPopper, Placement } from '@popperjs/core';
-import { animateTo, stopAnimations } from '../../internal/animate.js';
+import { startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { getTabbableBoundary } from '../../internal/tabbable.js';
@@ -69,6 +69,8 @@ export default class ArcDropdown extends LitElement {
 
   @query('#trigger') trigger: HTMLElement;
 
+  @query('#triggerSlot') triggerSlot: HTMLSlotElement;
+
   @query('#panel') panel: HTMLElement;
 
   @query('#positioner') positioner: HTMLElement;
@@ -109,7 +111,7 @@ export default class ArcDropdown extends LitElement {
       this.containingElement = this;
     }
 
-    /* Create the popover after render */
+    /* Define the accessible trigger after render */
     this.updateComplete.then(() => {
       this.popover = createPopper(this.trigger, this.positioner, {
         placement: this.placement,
@@ -307,22 +309,15 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
-  handleTriggerSlotChange() {
-    this.updateAccessibleTrigger();
-  }
-
-  /*
-  Slotted triggers can be arbitrary content, but we need to link them to the dropdown panel with `aria-haspopup` and
-  `aria-expanded`. These must be applied to the "accessible trigger" (the tabbable portion of the trigger element
-  that gets slotted in) so screen readers will understand them. The accessible trigger could be the slotted element,
-  a child of the slotted element, or an element in the slotted element's shadow root.
+  /* Link the trigger to the dropdown panel with `aria-haspopup` and `aria-expanded`.
+  These must be applied to the "accessible trigger" so screen readers will understand them.
+  The accessible trigger could be the slotted element, a child of the slotted element, or an element in the slotted element's shadow root.
   For example, the accessible trigger of an <arc-button> is a <button> located inside its shadow root.
   To determine this, we assume the first tabbable element in the trigger slot is the "accessible trigger."
   */
   updateAccessibleTrigger() {
     if (this.trigger) {
-      const slot = this.trigger.querySelector('slot') as HTMLSlotElement;
-      const assignedElements = slot.assignedElements({ flatten: true }) as HTMLElement[];
+      const assignedElements = this.triggerSlot.assignedElements({ flatten: true }) as HTMLElement[];
       const accessibleTrigger = assignedElements.find(el => getTabbableBoundary(el).start);
 
       if (accessibleTrigger) {
@@ -377,7 +372,7 @@ export default class ArcDropdown extends LitElement {
       await this.popover.update();
       this.panel.hidden = false;
       const { keyframes, options } = getAnimation(this, 'dropdown.show');
-      await animateTo(this.panel, keyframes, options);
+      await startAnimations(this.panel, keyframes, options);
 
       emit(this, 'arc-after-show');
     } else {
@@ -388,7 +383,7 @@ export default class ArcDropdown extends LitElement {
 
       await stopAnimations(this);
       const { keyframes, options } = getAnimation(this, 'dropdown.hide');
-      await animateTo(this.panel, keyframes, options);
+      await startAnimations(this.panel, keyframes, options);
       this.panel.hidden = true;
 
       emit(this, 'arc-after-hide');
@@ -403,7 +398,7 @@ export default class ArcDropdown extends LitElement {
           @keydown=${this.handleTriggerKeyDown}
           @keyup=${this.handleTriggerKeyUp}
         >
-          <slot name="trigger" @slotchange=${this.handleTriggerSlotChange}></slot>
+          <slot id='triggerSlot' name="trigger" @slotchange=${this.updateAccessibleTrigger}></slot>
         </span>
 
         <!-- Position the panel with a wrapper since the popover makes use of translate. This lets us add animations

@@ -6636,6 +6636,11 @@ systemjs@^6.8.1, systemjs@^6.8.3:
   resolved "https://registry.yarnpkg.com/systemjs/-/systemjs-6.11.0.tgz#8df8e74fc05822e6c40170aa409b9ca64833315f"
   integrity sha512-7YPIY44j+BoY+E6cGBSw0oCU8SNTTIHKZgftcBdwWkDzs/M86Fdlr21FrzAyph7Zo8r3CFGscyFe4rrBtixrBg==
 
+tabbable@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.2.1.tgz#e3fda7367ddbb172dcda9f871c0fdb36d1c4cd9c"
+  integrity sha512-40pEZ2mhjaZzK0BnI+QGNjJO8UYx9pP5v7BGe17SORTO0OEuuaAwQTkAp8whcZvqon44wKFOikD+Al11K3JICQ==
+
 table-layout@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/table-layout/-/table-layout-1.0.2.tgz#c4038a1853b0136d63365a734b6931cf4fad4a04"

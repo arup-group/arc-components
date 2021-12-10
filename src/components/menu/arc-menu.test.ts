@@ -7,6 +7,8 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
+import { homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent } from '../../utilities/test-utils.js';
+
 describe('ArcMenu', () => {
   /* Retrieve the tabindex of a menu item */
   function getIndex(el: ArcMenuItem) {
@@ -151,10 +153,7 @@ describe('ArcMenu', () => {
     });
 
     it('selects (clicks) a menu item with the Enter key', async () => {
-      const keyboardEvent = new KeyboardEvent('keypress', {
-        key: 'Enter',
-      });
-      const fireEvent = () => element.handleKeyDown(keyboardEvent);
+      const fireEvent = () => element.handleKeyDown(enterEvent);
       setTimeout(fireEvent);
       const { detail } = await oneEvent(element, 'arc-select');
       expect(detail.item).to.equal(menuItem);
@@ -166,10 +165,7 @@ describe('ArcMenu', () => {
     */
     it('prevents default behaviour when the space is pressed', async () => {
       const selectedItem = element.children[0] as ArcMenuItem;
-      const keyboardEvent = new KeyboardEvent('keypress', {
-        key: ' ',
-      });
-      const fireEvent = () => element.handleKeyDown(keyboardEvent);
+      const fireEvent = () => element.handleKeyDown(spaceEvent);
       let eventFired: boolean = false;
 
       function updateEvent() {
@@ -195,19 +191,6 @@ describe('ArcMenu', () => {
       const firstChild = element.children[0] as ArcMenuItem;
       const secondChild = element.children[1] as ArcMenuItem;
       const lastChild = element.children[3] as ArcMenuItem;
-
-      const downEvent = new KeyboardEvent('keypress', {
-        key: 'ArrowDown',
-      });
-      const upEvent = new KeyboardEvent('keypress', {
-        key: 'ArrowUp',
-      });
-      const homeEvent = new KeyboardEvent('keypress', {
-        key: 'Home',
-      });
-      const endEvent = new KeyboardEvent('keypress', {
-        key: 'End',
-      });
 
       /* By default the first (not disabled) item has a tabindex of 0 */
       expect(getIndex(firstChild)).to.equal('0');
@@ -255,10 +238,6 @@ describe('ArcMenu', () => {
         </arc-menu>
       `);
       const menuItems = tempElement.children;
-
-      const downEvent = new KeyboardEvent('keypress', {
-        key: 'ArrowDown',
-      });
 
       tempElement.handleKeyDown(downEvent);
 

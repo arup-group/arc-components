@@ -4,6 +4,7 @@ import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcDropdown from './ArcDropdown.js';
+import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcButton from '../button/ArcButton.js';
 import './arc-dropdown.js';
 import '../menu/arc-menu.js';
@@ -11,6 +12,7 @@ import '../menu-item/arc-menu-item.js';
 import '../button/arc-button.js';
 
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
+import { downEvent, escEvent, tabEvent } from '../../utilities/test-utils.js';
 
 describe('ArcDropdown', () => {
   /* Test the rendering of the component */
@@ -102,8 +104,10 @@ describe('ArcDropdown', () => {
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcDropdown;
+    let trigger: HTMLElement;
+    let menu: ArcMenu;
     let panel: HTMLElement;
-    let button: HTMLElement;
+    let isOpen: Function;
 
     beforeEach(async () => {
       element = await fixture(html`
@@ -116,8 +120,10 @@ describe('ArcDropdown', () => {
           </arc-menu>
         </arc-dropdown>
       `)
-      button = element.children[0] as ArcButton;
+      trigger = element.children[0] as ArcButton;
+      menu = element.children[1] as ArcMenu;
       panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
+      isOpen = () => trigger.getAttribute('aria-expanded') === 'true';
     });
 
     afterEach(() => {
@@ -210,26 +216,55 @@ describe('ArcDropdown', () => {
 
       expect(showHandler).to.not.have.been.calledOnce;
       expect(afterShowHandler).to.not.have.been.calledOnce;
+      expect(isOpen()).to.be.false;
       expect(panel.hidden).to.be.true;
     });
 
-    it('closes the menu when escape is pressed', async () => {
-      const isOpen = () => button.getAttribute('aria-expanded') === 'true';
+    it('puts the focus on the trigger when calling focusOnTrigger()', async () => {
+      expect(document.activeElement === trigger).to.be.false;
+      element.focusOnTrigger();
+      expect(document.activeElement === trigger).to.be.true;
+    })
 
+    it('closes the menu when escape is pressed', async () => {
+      // Ensure that the menu is closed
       expect(isOpen()).to.be.false;
 
+      // Open the menu
       await element.show();
-
       expect(isOpen()).to.be.true;
 
-      const escapeEvent = new KeyboardEvent('keypress', {
-        key: 'Escape',
-      });
-
-      element.handleDocumentKeyDown(escapeEvent);
+      // Close the menu with the Escape keypress
+      element.handleDocumentKeyDown(escEvent);
       await elementUpdated(element);
 
+      // Ensure that the menu is closed and the trigger is focused
       expect(isOpen()).to.be.false;
+      expect(document.activeElement === trigger).to.be.true;
+    })
+
+    it('closes the menu when tabbing inside an open menu', async () => {
+      const hideHandler: SinonSpy = sinon.spy();
+      element.addEventListener('arc-hide', hideHandler);
+
+      // Open the menu
+      await element.show();
+      expect(isOpen()).to.be.true;
+
+      // Press tab to enter the menu
+      element.handleDocumentKeyDown(tabEvent);
+
+      // Navigate to the next menu-item
+      menu.handleKeyDown(downEvent);
+
+      // Press tab again to close the menu and focus the trigger
+      element.handleDocumentKeyDown(tabEvent);
+
+      await waitUntil(() => hideHandler.calledOnce);
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(isOpen()).to.be.false;
+      expect(document.activeElement === trigger).to.be.true;
     })
   });
 

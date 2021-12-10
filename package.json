@@ -4,10 +4,10 @@
   "version": "1.4.0",
   "author": "arc-component",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/arc.js",
+  "module": "dist/arc.js",
   "customElements": "dist/custom-elements.json",
-  "types": "dist/index.d.ts",
+  "types": "dist/arc.d.ts",
   "files": [
     "dist"
   ],

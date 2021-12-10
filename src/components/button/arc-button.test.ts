@@ -186,18 +186,32 @@ describe('ArcButton', () => {
 
     it('simulates a click on the button', async () => {
       element.click();
-
       await waitUntil(() => clickSpy.calledOnce);
       expect(clickSpy).to.have.been.calledOnce;
     });
 
-    it('suppresses a click on the button while in a disabled or loading state', async () => {
+    it('suppresses a click on the button while in a disabled state', async () => {
       element.disabled = true;
       await elementUpdated(element);
 
       element.click();
-
       expect(clickSpy).to.have.not.been.called;
+    });
+
+    it('suppresses a click on the button while in a loading state', async () => {
+      element.loading = true;
+      await elementUpdated(element);
+
+      element.click();
+      expect(clickSpy).to.have.not.been.called;
+    })
+
+    it('sets and removes focus from the button', async () => {
+      expect(document.activeElement === element).to.be.false;
+      element.focus();
+      expect(document.activeElement === element).to.be.true;
+      element.blur();
+      expect(document.activeElement === element).to.be.false;
     });
   });
 

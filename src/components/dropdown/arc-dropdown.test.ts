@@ -58,7 +58,51 @@ describe('ArcDropdown', () => {
 
       expect(element.skidding).to.equal(5);
       expect(element.getAttribute('skidding')).to.equal('5');
-    })
+    });
+
+    it('updates the popover strategy with hoist', async () => {
+      const element: ArcDropdown = await fixture(html`
+        <arc-dropdown hoist>
+          <arc-button>Dropdown</arc-button>
+          <arc-menu>
+            <arc-menu-item>Item 1</arc-menu-item>
+            <arc-menu-item>Item 2</arc-menu-item>
+            <arc-menu-item>Item 3</arc-menu-item>
+          </arc-menu>
+        </arc-dropdown>
+      `)
+
+      /* First open the menu */
+      await element.show();
+
+      /* Trigger the popover update with the placement property */
+      element.placement = DROPDOWN_PLACEMENTS.right;
+      await elementUpdated(element);
+
+      expect(element.placement).to.equal(DROPDOWN_PLACEMENTS.right);
+    });
+
+    it('updates the popover strategy without hoist', async () => {
+      const element: ArcDropdown = await fixture(html`
+        <arc-dropdown>
+          <arc-button>Dropdown</arc-button>
+          <arc-menu>
+            <arc-menu-item>Item 1</arc-menu-item>
+            <arc-menu-item>Item 2</arc-menu-item>
+            <arc-menu-item>Item 3</arc-menu-item>
+          </arc-menu>
+        </arc-dropdown>
+      `)
+
+      /* First open the menu */
+      await element.show();
+
+      /* Trigger the popover update with the placement property */
+      element.placement = DROPDOWN_PLACEMENTS.right;
+      await elementUpdated(element);
+
+      expect(element.placement).to.equal(DROPDOWN_PLACEMENTS.right);
+    });
   });
 
   /* Test different component states (active, disabled, loading etc.) */

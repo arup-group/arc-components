@@ -131,6 +131,33 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
+  @watch('distance')
+  @watch('hoist')
+  @watch('placement')
+  @watch('skidding')
+  handlePopoverOptionsChange() {
+    if (this.popover) {
+      this.popover.setOptions({
+        placement: this.placement,
+        strategy: this.hoist ? 'fixed' : 'absolute',
+        modifiers: [
+          {
+            name: 'flip',
+            options: {
+              boundary: 'viewport'
+            }
+          },
+          {
+            name: 'offset',
+            options: {
+              offset: [this.skidding, this.distance]
+            }
+          }
+        ]
+      });
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.handlePanelSelect = this.handlePanelSelect.bind(this);

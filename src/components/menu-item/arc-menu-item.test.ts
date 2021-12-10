@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
-import { hasSlot } from '../../utilities/test-utils.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcMenuItem from './ArcMenuItem.js';
 import './arc-menu-item.js';

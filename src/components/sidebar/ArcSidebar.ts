@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { emit } from '../../utilities/event-utils.js';
+import { emit } from '../../internal/event.js';
 import componentStyles from '../../styles/component.styles.js';
 
 import '../icon-button/arc-icon-button.js';
@@ -76,7 +76,7 @@ export default class ArcSidebar extends LitElement {
   @property({ type: Boolean, reflect: true })
   open: boolean = true;
 
-  @property() title: string;
+  @property({ type: String }) title: string;
 
   handleSlots = (e: any) => {
     const childNodes = e.target.assignedElements({ flatten: true });

@@ -36,8 +36,18 @@ argTypes={{
     defaultValue: { summary: 'var(--arc-navbar-height)' },
     control: { type: 'text' },
     table: {
-    category: 'CSS Variables',
+      category: 'CSS Variables',
     },
+    logoHeight: {
+      name: '--logo-height',
+      type: { required: false },
+      description: 'Set the height of the tool logo.',
+      defaultValue: { summary: 'var(--arc-brand-height)' },
+      control: { type: 'text' },
+      table: {
+        category: 'CSS Variables',
+      },
+    }
    },
 }} />
 

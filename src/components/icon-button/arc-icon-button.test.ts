@@ -1,7 +1,7 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { elementUpdated, expect, fixture, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
-import { hasSlot } from '../../utilities/test-utils.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcIconButton from './ArcIconButton.js';
 import './arc-icon-button.js';
@@ -164,52 +164,41 @@ describe('ArcIconButton', () => {
   describe('events', () => {
     let element: ArcIconButton;
     let clickSpy: SinonSpy;
-    let isClicked: boolean;
-
-    function updateClicked() {
-      isClicked = true;
-    }
 
     beforeEach(async () => {
-      isClicked = false;
       element = await fixture(html`<arc-icon-button></arc-icon-button>`);
-      clickSpy = sinon.spy(element, 'click');
-      element.addEventListener('click', updateClicked);
-    });
-
-    afterEach(() => {
-      sinon.restore();
-      element.removeEventListener('click', updateClicked);
+      clickSpy = sinon.spy();
+      element.addEventListener('click', clickSpy);
     });
 
     it('simulates a click on the button', async () => {
       element.click();
-      expect(clickSpy.callCount).to.equal(1);
-      expect(isClicked).to.be.true;
+      await waitUntil(() => clickSpy.calledOnce);
+      expect(clickSpy).to.have.been.calledOnce;
     });
 
-    it('suppresses a click on the button while in a disabled or loading state', async () => {
+    it('suppresses a click on the icon-button while in a disabled state', async () => {
       element.disabled = true;
       await elementUpdated(element);
 
       element.click();
-      expect(clickSpy.callCount).to.equal(1);
-      expect(isClicked).to.be.false;
+      expect(clickSpy).to.have.not.been.called;
+    });
 
-      element.disabled = false;
+    it('suppresses a click on the icon-button while in a loading state', async () => {
       element.loading = true;
       await elementUpdated(element);
 
       element.click();
-      expect(clickSpy.callCount).to.equal(2);
-      expect(isClicked).to.be.false;
+      expect(clickSpy).to.have.not.been.called;
+    })
 
-      element.loading = false;
-      await elementUpdated(element);
-
-      element.click();
-      expect(clickSpy.callCount).to.equal(3);
-      expect(isClicked).to.be.true;
+    it('sets and removes focus from the icon-button', async () => {
+      expect(document.activeElement === element).to.be.false;
+      element.focus();
+      expect(document.activeElement === element).to.be.true;
+      element.blur();
+      expect(document.activeElement === element).to.be.false;
     });
   });
 

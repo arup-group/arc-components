@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { getPropertyValue } from '../../utilities/style-utils.js';
 
 import type ArcIcon from './ArcIcon.js';
 import './arc-icon.js';
 
 import { ICON_SIZES } from './constants/IconConstants.js';
-import { getPropertyValue } from '../../utilities/style-utils.js';
 
 describe('ArcIcon', () => {
   /* Test the rendering of the component */
@@ -37,7 +37,7 @@ describe('ArcIcon', () => {
     it('renders the element with a custom size property', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon></arc-icon>`);
 
-      for (const iconSize of Object.keys(ICON_SIZES)) {
+      for (const iconSize of Object.values(ICON_SIZES)) {
         element.size = iconSize;
 
         await elementUpdated(element);

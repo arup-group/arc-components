@@ -1,8 +1,8 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/test-utils.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
@@ -41,11 +41,11 @@ describe('ArcButton', () => {
     it('renders the button with a custom color, type and size property', async () => {
       const element: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
 
-      for (const buttonColor of Object.keys(BUTTON_COLORS)) {
+      for (const buttonColor of Object.values(BUTTON_COLORS)) {
         element.color = buttonColor;
-        for (const buttonType of Object.keys(BUTTON_TYPES)) {
+        for (const buttonType of Object.values(BUTTON_TYPES)) {
           element.type = buttonType;
-          for (const buttonSize of Object.keys(BUTTON_SIZES)) {
+          for (const buttonSize of Object.values(BUTTON_SIZES)) {
             element.size = buttonSize;
 
             await elementUpdated(element);
@@ -173,52 +173,45 @@ describe('ArcButton', () => {
   describe('events', () => {
     let element: ArcButton;
     let clickSpy: SinonSpy;
-    let isClicked: boolean;
-
-    function updateClicked() {
-      isClicked = true;
-    }
 
     beforeEach(async () => {
-      isClicked = false;
       element = await fixture(html`<arc-button></arc-button>`);
-      clickSpy = sinon.spy(element, 'click');
-      element.addEventListener('click', updateClicked);
+      clickSpy = sinon.spy();
+      element.addEventListener('click', clickSpy);
     });
 
     afterEach(() => {
-      sinon.restore();
-      element.removeEventListener('click', updateClicked);
-    });
+      element.removeEventListener('click', clickSpy);
+    })
 
     it('simulates a click on the button', async () => {
       element.click();
-      expect(clickSpy.callCount).to.equal(1);
-      expect(isClicked).to.be.true;
+      await waitUntil(() => clickSpy.calledOnce);
+      expect(clickSpy).to.have.been.calledOnce;
     });
 
-    it('suppresses a click on the button while in a disabled or loading state', async () => {
+    it('suppresses a click on the button while in a disabled state', async () => {
       element.disabled = true;
       await elementUpdated(element);
 
       element.click();
-      expect(clickSpy.callCount).to.equal(1);
-      expect(isClicked).to.be.false;
+      expect(clickSpy).to.have.not.been.called;
+    });
 
-      element.disabled = false;
+    it('suppresses a click on the button while in a loading state', async () => {
       element.loading = true;
       await elementUpdated(element);
 
       element.click();
-      expect(clickSpy.callCount).to.equal(2);
-      expect(isClicked).to.be.false;
+      expect(clickSpy).to.have.not.been.called;
+    })
 
-      element.loading = false;
-      await elementUpdated(element);
-
-      element.click();
-      expect(clickSpy.callCount).to.equal(3);
-      expect(isClicked).to.be.true;
+    it('sets and removes focus from the button', async () => {
+      expect(document.activeElement === element).to.be.false;
+      element.focus();
+      expect(document.activeElement === element).to.be.true;
+      element.blur();
+      expect(document.activeElement === element).to.be.false;
     });
   });
 

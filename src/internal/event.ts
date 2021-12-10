@@ -28,4 +28,4 @@ function waitForEvent(el: HTMLElement, eventName: string) {
   });
 }
 
-export { emit, waitForEvent }
+export { emit, waitForEvent };

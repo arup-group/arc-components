@@ -18,5 +18,5 @@ describe('isMobile', () => {
 describe('prefersReducedMotion', () => {
   it('returns false by default', () => {
     expect(prefersReducedMotion()).to.be.false;
-  })
-})
+  });
+});

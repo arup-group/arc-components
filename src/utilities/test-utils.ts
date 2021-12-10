@@ -1,5 +1,5 @@
 function createKeyEvent(key: string) {
-  return new KeyboardEvent('keypress', { key })
+  return new KeyboardEvent('keypress', { key });
 }
 
 const escEvent = createKeyEvent('Escape');
@@ -16,7 +16,20 @@ const leftEvent = createKeyEvent('ArrowLeft');
 const mouseEvent = new MouseEvent('click', {
   bubbles: true,
   cancelable: true,
-  view: window
-})
+  view: window,
+});
 
-export { createKeyEvent, escEvent, tabEvent, homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent, rightEvent, leftEvent, mouseEvent };
+export {
+  createKeyEvent,
+  escEvent,
+  tabEvent,
+  homeEvent,
+  endEvent,
+  enterEvent,
+  spaceEvent,
+  upEvent,
+  downEvent,
+  rightEvent,
+  leftEvent,
+  mouseEvent,
+};

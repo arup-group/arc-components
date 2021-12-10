@@ -11,8 +11,8 @@ class EventTest extends LitElement {
     this.done = true;
     emit(this, 'event-test', {
       detail: this.done,
-      ...options
-    })
+      ...options,
+    });
   }
 }
 
@@ -21,7 +21,7 @@ describe('event', () => {
 
   beforeEach(async () => {
     element = await fixture(html`<event-test></event-test>`);
-  })
+  });
 
   it('should emit a custom event', async () => {
     setTimeout(() => element.fireEvent());
@@ -33,11 +33,13 @@ describe('event', () => {
   });
 
   it('should allow for option overwrites', async () => {
-    setTimeout(() => element.fireEvent({
-      bubbles: false,
-      cancelable: true,
-      composed: false
-    }));
+    setTimeout(() =>
+      element.fireEvent({
+        bubbles: false,
+        cancelable: true,
+        composed: false,
+      })
+    );
 
     const { bubbles, cancelable, composed, detail } = await oneEvent(element, 'event-test');
 
@@ -46,7 +48,7 @@ describe('event', () => {
     expect(cancelable).to.be.true;
     expect(composed).to.be.false;
     expect(detail).to.be.true;
-  })
+  });
 
   it('should emit after another event is done', async () => {
     let isCalled = false;
@@ -57,5 +59,5 @@ describe('event', () => {
     });
 
     expect(isCalled).to.be.true;
-  })
+  });
 });

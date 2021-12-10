@@ -13,4 +13,4 @@ export const DROPDOWN_PLACEMENTS: { [key: string]: Placement } = {
   left: 'left',
   leftStart: 'left-start',
   leftEnd: 'left-end',
-}
+};

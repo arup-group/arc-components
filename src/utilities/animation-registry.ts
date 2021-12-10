@@ -12,7 +12,7 @@ const customAnimationRegistry = new WeakMap<Element, ElementAnimationMap>();
 
 function ensureAnimation(animation: ElementAnimation | null) {
   if (!animation) {
-    return { keyframes: [], options: { duration: 0 } }
+    return { keyframes: [], options: { duration: 0 } };
   }
   return animation;
 }
@@ -27,10 +27,7 @@ function setDefaultAnimation(animationName: string, animation: ElementAnimation 
 
 /* Sets a custom animation for the specified element. */
 function setAnimation(el: Element, animationName: string, animation: ElementAnimation | null) {
-  customAnimationRegistry.set(
-    el,
-    { ...customAnimationRegistry.get(el), [animationName]: ensureAnimation(animation)}
-  );
+  customAnimationRegistry.set(el, { ...customAnimationRegistry.get(el), [animationName]: ensureAnimation(animation) });
 }
 
 /* Gets an element's animation. Falls back to the default if no animation is found. */

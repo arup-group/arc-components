@@ -10,7 +10,7 @@ import {
   ButtonType,
   ButtonColor,
   ButtonSize,
-  ButtonTarget
+  ButtonTarget,
 } from './constants/ButtonConstants.js';
 
 import '../spinner/arc-spinner.js';

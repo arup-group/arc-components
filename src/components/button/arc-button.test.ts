@@ -182,7 +182,7 @@ describe('ArcButton', () => {
 
     afterEach(() => {
       element.removeEventListener('click', clickSpy);
-    })
+    });
 
     it('simulates a click on the button', async () => {
       element.click();
@@ -204,7 +204,7 @@ describe('ArcButton', () => {
 
       element.click();
       expect(clickSpy).to.have.not.been.called;
-    })
+    });
 
     it('sets and removes focus from the button', async () => {
       expect(document.activeElement === element).to.be.false;

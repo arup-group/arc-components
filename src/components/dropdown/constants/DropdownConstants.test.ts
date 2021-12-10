@@ -20,5 +20,5 @@ describe('DropdownConstants', () => {
     expect(keys).to.contain('left');
     expect(keys).to.contain('leftStart');
     expect(keys).to.contain('leftEnd');
-  })
-})
+  });
+});

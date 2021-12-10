@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated, waitUntil} from '@open-wc/testing';
+import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../utilities/dom-utils.js';
 
@@ -21,7 +21,7 @@ import {
   mouseEvent,
   spaceEvent,
   enterEvent,
-  upEvent
+  upEvent,
 } from '../../utilities/test-utils.js';
 
 describe('ArcDropdown', () => {
@@ -29,9 +29,7 @@ describe('ArcDropdown', () => {
   describe('rendering', () => {
     let element: ArcDropdown;
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-dropdown></arc-dropdown>
-      `);
+      element = await fixture(html` <arc-dropdown></arc-dropdown> `);
     });
 
     /* Test default properties that reflect to the DOM */
@@ -48,7 +46,9 @@ describe('ArcDropdown', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom placement, distance and skidding property', async () => {
-      const element: ArcDropdown = await fixture(html`<arc-dropdown placement=${DROPDOWN_PLACEMENTS.top} distance='5' skidding='5'></arc-dropdown>`);
+      const element: ArcDropdown = await fixture(
+        html`<arc-dropdown placement=${DROPDOWN_PLACEMENTS.top} distance="5" skidding="5"></arc-dropdown>`
+      );
 
       expect(element.placement).to.equal(DROPDOWN_PLACEMENTS.top);
       expect(element.getAttribute('placement')).to.equal(DROPDOWN_PLACEMENTS.top);
@@ -70,7 +70,7 @@ describe('ArcDropdown', () => {
             <arc-menu-item>Item 3</arc-menu-item>
           </arc-menu>
         </arc-dropdown>
-      `)
+      `);
 
       /* First open the menu */
       await element.show();
@@ -92,7 +92,7 @@ describe('ArcDropdown', () => {
             <arc-menu-item>Item 3</arc-menu-item>
           </arc-menu>
         </arc-dropdown>
-      `)
+      `);
 
       /* First open the menu */
       await element.show();
@@ -110,9 +110,7 @@ describe('ArcDropdown', () => {
     let element: ArcDropdown;
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-dropdown></arc-dropdown>
-      `);
+      element = await fixture(html` <arc-dropdown></arc-dropdown> `);
     });
 
     it('renders the component in an open state', async () => {
@@ -124,7 +122,7 @@ describe('ArcDropdown', () => {
 
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
-    })
+    });
 
     it('renders the component in a disabled state', async () => {
       expect(element.disabled).to.be.false;
@@ -146,37 +144,37 @@ describe('ArcDropdown', () => {
 
       expect(element.hoist).to.be.true;
       expect(element.hasAttribute('hoist')).to.be.true;
-    })
+    });
 
     it('renders the underlying popover in a hoist state', async () => {
-      const hoistedElement: ArcDropdown = await fixture(html`<arc-dropdown hoist></arc-dropdown>`)
+      const hoistedElement: ArcDropdown = await fixture(html`<arc-dropdown hoist></arc-dropdown>`);
       expect(hoistedElement.hoist).to.be.true;
       expect(hoistedElement.hasAttribute('hoist')).to.be.true;
-    })
+    });
   });
 
   /* Test specific methods */
   describe('methods', async () => {
     let element: ArcDropdown;
 
-    beforeEach( async() => {
+    beforeEach(async () => {
       element = await fixture(html`
         <arc-dropdown>
-          <arc-button slot='trigger'>Trigger</arc-button>
+          <arc-button slot="trigger">Trigger</arc-button>
           <arc-menu></arc-menu>
         </arc-dropdown>
-      `)
-    })
+      `);
+    });
 
     it('should focus the trigger', () => {
       expect(document.activeElement === element.children[0]).to.be.false;
-      element.focusOnTrigger()
+      element.focusOnTrigger();
       expect(document.activeElement === element.children[0]).to.be.true;
-    })
+    });
 
     it('should return the menu', () => {
       expect(element.getMenu()).to.equal(element.children[1]);
-    })
+    });
   });
 
   /* Test the events (click, focus, blur etc.) */
@@ -195,14 +193,14 @@ describe('ArcDropdown', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <arc-dropdown>
-          <arc-button slot='trigger'>Trigger</arc-button>
+          <arc-button slot="trigger">Trigger</arc-button>
           <arc-menu>
             <arc-menu-item>Item 1</arc-menu-item>
             <arc-menu-item>Item 2</arc-menu-item>
             <arc-menu-item>Item 3</arc-menu-item>
           </arc-menu>
         </arc-dropdown>
-      `)
+      `);
       trigger = element.children[0] as ArcButton;
       menu = element.children[1] as ArcMenu;
       panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
@@ -245,7 +243,7 @@ describe('ArcDropdown', () => {
       expect(hideHandler).to.have.been.calledOnce;
       expect(afterHideHandler).to.have.been.calledOnce;
       expect(panel.hidden).to.be.true;
-    })
+    });
 
     it('should emit arc-show and arc-after-show when setting open = true', async () => {
       element.addEventListener('arc-show', showHandler);
@@ -275,7 +273,7 @@ describe('ArcDropdown', () => {
       expect(hideHandler).to.have.been.calledOnce;
       expect(afterHideHandler).to.have.been.calledOnce;
       expect(panel.hidden).to.be.true;
-    })
+    });
 
     it('should prevent emitting the arc-show and arc-after-show when the menu is already open', async () => {
       element.addEventListener('arc-show', showHandler);
@@ -289,7 +287,7 @@ describe('ArcDropdown', () => {
 
       expect(showHandler).to.have.been.calledOnce;
       expect(afterShowHandler).to.have.been.calledOnce;
-    })
+    });
 
     it('should prevent the menu to be displayed when the dropdown is disabled', async () => {
       element.disabled = true;
@@ -328,7 +326,7 @@ describe('ArcDropdown', () => {
       expect(hideHandler).to.have.been.calledTwice;
       expect(isOpen()).to.be.false;
       expect(document.activeElement === trigger).to.be.true;
-    })
+    });
 
     it('closes the menu when tabbing inside an open menu', async () => {
       element.addEventListener('arc-hide', hideHandler);
@@ -351,7 +349,7 @@ describe('ArcDropdown', () => {
       expect(hideHandler).to.have.been.calledOnce;
       expect(isOpen()).to.be.false;
       expect(document.activeElement === trigger).to.be.true;
-    })
+    });
 
     it('closes the menu when clicking on a menu item', async () => {
       element.addEventListener('arc-hide', hideHandler);
@@ -367,7 +365,7 @@ describe('ArcDropdown', () => {
 
       expect(hideHandler).to.have.been.calledOnce;
       expect(isOpen()).to.be.false;
-    })
+    });
 
     it('closes the menu when clicking outside of the element', async () => {
       element.addEventListener('arc-hide', hideHandler);
@@ -383,7 +381,7 @@ describe('ArcDropdown', () => {
 
       expect(hideHandler).to.have.been.calledOnce;
       expect(isOpen()).to.be.false;
-    })
+    });
 
     it('toggles the menu when the space bar or enter is pressed', async () => {
       element.addEventListener('arc-show', showHandler);
@@ -410,7 +408,7 @@ describe('ArcDropdown', () => {
       element.handleTriggerKeyDown(enterEvent);
       await waitUntil(() => hideHandler.calledOnce);
       expect(isOpen()).to.be.false;
-    })
+    });
 
     it('focuses the first menu item when ArrowDown is pressed', async () => {
       element.addEventListener('arc-show', showHandler);
@@ -436,20 +434,20 @@ describe('ArcDropdown', () => {
       /* Navigate to the last menu item */
       element.handleTriggerKeyDown(upEvent);
       expect(menu.children[2].getAttribute('tabindex')).to.equal('0');
-    })
+    });
 
     it('does not trigger typeToSelect when the menu is closed', async () => {
       /* The active item does not change */
       expect(menu.children[0].getAttribute('tabindex')).to.equal('0');
       element.handleTriggerKeyDown(createKeyEvent('Item 3'));
       expect(menu.children[0].getAttribute('tabindex')).to.equal('0');
-    })
+    });
 
     it('does not trigger typeToSelect when there is no menu', async () => {
       menu.remove();
       element.handleTriggerKeyDown(createKeyEvent('Item 3'));
       expect('nothing').to.equal('nothing');
-    })
+    });
 
     it('triggers typeToSelect to the menu', async () => {
       /* Open the menu */

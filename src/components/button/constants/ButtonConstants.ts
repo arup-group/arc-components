@@ -1,7 +1,7 @@
-export declare type ButtonType = "contained" | "tile" | "outlined" | "pill" | "tab";
-export declare type ButtonColor = "default" | "primary" | "secondary" | "error" | "warning" | "info" | "success";
-export declare type ButtonSize = "small" | "medium" | "large";
-export declare type ButtonTarget = "_blank" | "_parent" | "_self" | "_top";
+export declare type ButtonType = 'contained' | 'tile' | 'outlined' | 'pill' | 'tab';
+export declare type ButtonColor = 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
+export declare type ButtonSize = 'small' | 'medium' | 'large';
+export declare type ButtonTarget = '_blank' | '_parent' | '_self' | '_top';
 
 export const BUTTON_TYPES: { [key: string]: ButtonType } = {
   contained: 'contained',

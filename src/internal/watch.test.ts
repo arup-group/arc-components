@@ -10,34 +10,40 @@ class WatchTest extends LitElement {
 
   @watch('test')
   propChangeOne = (oldVal: string, newVal: string) => {
-    this.dispatchEvent(new CustomEvent('watch-changed', {
-      detail: [oldVal, newVal]
-    }));
-  }
+    this.dispatchEvent(
+      new CustomEvent('watch-changed', {
+        detail: [oldVal, newVal],
+      })
+    );
+  };
 
-  @watch('test', {waitUntilFirstUpdate: true})
+  @watch('test', { waitUntilFirstUpdate: true })
   propChangeTwo = (oldVal: string, newVal: string) => {
-    this.dispatchEvent(new CustomEvent('watch-waited', {
-      detail: [oldVal, newVal]
-    }));
-  }
+    this.dispatchEvent(
+      new CustomEvent('watch-waited', {
+        detail: [oldVal, newVal],
+      })
+    );
+  };
 
   @watch('test')
   propChangeThree = (oldVal: string, newVal: string) => {
-    if(this.hasUpdated) {
-      this.dispatchEvent(new CustomEvent('watch-waited-two', {
-        detail: [oldVal, newVal]
-      }));
+    if (this.hasUpdated) {
+      this.dispatchEvent(
+        new CustomEvent('watch-waited-two', {
+          detail: [oldVal, newVal],
+        })
+      );
     }
-  }
+  };
 }
 
 describe('watch', () => {
   let element: WatchTest;
 
   beforeEach(async () => {
-    element = await fixture(html`<watch-test test='A'></watch-test>`);
-  })
+    element = await fixture(html`<watch-test test="A"></watch-test>`);
+  });
 
   it('should wait for an update to change', async () => {
     const changeHandler = sinon.spy();
@@ -61,4 +67,4 @@ describe('watch', () => {
     expect(waitHandlerWithOptions).to.have.been.calledOnce;
     expect(waitHandler).to.have.been.calledOnce;
   });
-})
+});

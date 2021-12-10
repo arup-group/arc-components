@@ -191,7 +191,7 @@ describe('ArcIconButton', () => {
 
       element.click();
       expect(clickSpy).to.have.not.been.called;
-    })
+    });
 
     it('sets and removes focus from the icon-button', async () => {
       expect(document.activeElement === element).to.be.false;

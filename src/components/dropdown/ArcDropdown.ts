@@ -78,7 +78,7 @@ export default class ArcDropdown extends LitElement {
   private popover: PopperInstance;
 
   /* The preferred placement of the dropdown panel. */
-  @property({ type: String } ) placement: Placement = DROPDOWN_PLACEMENTS.bottomStart;
+  @property({ type: String }) placement: Placement = DROPDOWN_PLACEMENTS.bottomStart;
 
   /* The distance in pixels from which to offset the panel away from its trigger. */
   @property({ type: Number }) distance: number = 0;
@@ -144,16 +144,16 @@ export default class ArcDropdown extends LitElement {
           {
             name: 'flip',
             options: {
-              boundary: 'viewport'
-            }
+              boundary: 'viewport',
+            },
           },
           {
             name: 'offset',
             options: {
-              offset: [this.skidding, this.distance]
-            }
-          }
-        ]
+              offset: [this.skidding, this.distance],
+            },
+          },
+        ],
       });
     }
   }
@@ -173,16 +173,16 @@ export default class ArcDropdown extends LitElement {
           {
             name: 'flip',
             options: {
-              boundary: 'viewport'
-            }
+              boundary: 'viewport',
+            },
           },
           {
             name: 'offset',
             options: {
-              offset: [this.skidding, this.distance]
-            }
-          }
-        ]
+              offset: [this.skidding, this.distance],
+            },
+          },
+        ],
       });
     });
   }
@@ -301,7 +301,7 @@ export default class ArcDropdown extends LitElement {
     if (event.key === ' ') {
       event.preventDefault();
     }
-  }
+  };
 
   /* Hide the dropdown when a menu item is selected */
   handlePanelSelect(event: CustomEvent) {
@@ -361,22 +361,24 @@ export default class ArcDropdown extends LitElement {
 
   render() {
     return html`
-      <div id='main'>
-        <span id='trigger'
+      <div id="main">
+        <span
+          id="trigger"
           @click=${this.handleTriggerClick}
           @keydown=${this.handleTriggerKeyDown}
           @keyup=${this.handleTriggerKeyUp}
         >
-          <slot id='triggerSlot' name="trigger" @slotchange=${this.updateAccessibleTrigger}></slot>
+          <slot id="triggerSlot" name="trigger" @slotchange=${this.updateAccessibleTrigger}></slot>
         </span>
 
         <!-- Position the panel with a wrapper since the popover makes use of translate. This lets us add animations
         on the panel without interfering with the position. -->
-        <div id='positioner'>
-          <div id='panel'
+        <div id="positioner">
+          <div
+            id="panel"
             role="menu"
             aria-hidden=${this.open ? 'false' : 'true'}
-            aria-labelledby='main'
+            aria-labelledby="main"
             @arc-select=${this.handlePanelSelect}
           >
             <slot></slot>
@@ -390,17 +392,17 @@ export default class ArcDropdown extends LitElement {
 setDefaultAnimation('dropdown.show', {
   keyframes: [
     { opacity: 0, transform: 'scale(0.9)' },
-    { opacity: 1, transform: 'scale(1)' }
+    { opacity: 1, transform: 'scale(1)' },
   ],
-  options: { duration: 150, easing: 'ease' }
+  options: { duration: 150, easing: 'ease' },
 });
 
 setDefaultAnimation('dropdown.hide', {
   keyframes: [
     { opacity: 1, transform: 'scale(1)' },
-    { opacity: 0, transform: 'scale(0.9)' }
+    { opacity: 0, transform: 'scale(0.9)' },
   ],
-  options: { duration: 150, easing: 'ease' }
+  options: { duration: 150, easing: 'ease' },
 });
 
 declare global {

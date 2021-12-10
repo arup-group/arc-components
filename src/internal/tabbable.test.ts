@@ -10,11 +10,11 @@ import { getTabbableBoundary } from './tabbable.js';
 class TabTest extends LitElement {
   render() {
     return html`
-      <button id='button'>Tabbable</button>
+      <button id="button">Tabbable</button>
       <span>Not tabbable</span>
-      <a id='anchor' href='/'>Tabbable</a>
+      <a id="anchor" href="/">Tabbable</a>
       <a>Not tabbable</a>
-    `
+    `;
   }
 }
 
@@ -24,12 +24,12 @@ describe('getTabbableBoundary', () => {
     const button = element.shadowRoot?.getElementById('button');
     const anchor = element.shadowRoot?.getElementById('anchor');
 
-    const boundary = getTabbableBoundary(element)
+    const boundary = getTabbableBoundary(element);
     const { start, end } = boundary;
 
     expect(start).to.equal(button);
     expect(end).to.equal(anchor);
-  })
+  });
 
   it('should return null for the first and last tabbable items', () => {
     const tabTestTwo = document.createElement('div');
@@ -40,5 +40,5 @@ describe('getTabbableBoundary', () => {
 
     expect(start).to.be.null;
     expect(end).to.be.null;
-  })
-})
+  });
+});

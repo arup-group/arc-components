@@ -29,4 +29,4 @@ function getTabbableBoundary(root: HTMLElement | ShadowRoot) {
   return { start, end };
 }
 
-export { getTabbableBoundary }
+export { getTabbableBoundary };

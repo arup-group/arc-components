@@ -18,20 +18,12 @@ class TabTest extends LitElement {
   }
 }
 
-@customElement('tab-testtwo')
-class TabTestTwo extends LitElement {
-  render() {
-    return html`<div>Not tabbable</div>`
-  }
-}
+describe('getTabbableBoundary', () => {
+  it('should return the first and last tabbable items', async () => {
+    const element: TabTest = await fixture(html`<tab-test>Not Tabbable</tab-test>`);
+    const button = element.shadowRoot?.getElementById('button');
+    const anchor = element.shadowRoot?.getElementById('anchor');
 
-describe('getTabbableBoundary', async () => {
-  const element: TabTest = await fixture(html`<tab-test>Not Tabbable</tab-test>`);
-  const elementTwo: TabTestTwo = await fixture(html`<tab-testtwo>Not Tabbable</tab-testtwo>`);
-  const button = element.shadowRoot?.getElementById('button');
-  const anchor = element.shadowRoot?.getElementById('anchor');
-
-  it('should return the first and last tabbable items', () => {
     const boundary = getTabbableBoundary(element)
     const { start, end } = boundary;
 
@@ -40,7 +32,10 @@ describe('getTabbableBoundary', async () => {
   })
 
   it('should return null for the first and last tabbable items', () => {
-    const boundary = getTabbableBoundary(elementTwo);
+    const tabTestTwo = document.createElement('div');
+    tabTestTwo.innerHTML = `Not tabbable`;
+
+    const boundary = getTabbableBoundary(tabTestTwo);
     const { start, end } = boundary;
 
     expect(start).to.be.null;

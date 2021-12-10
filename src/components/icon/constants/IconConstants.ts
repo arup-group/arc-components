@@ -1,6 +1,6 @@
-import { getBasePath } from '../../../utilities/base-path.js';
+export declare type IconSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large' | 'xxx-large' | 'xxxx-large';
 
-export const ICON_SIZES: { [key: string]: string } = {
+export const ICON_SIZES: { [key: string]: IconSize } = {
   xxSmall: 'xx-small',
   xSmall: 'x-small',
   small: 'small',
@@ -79,5 +79,3 @@ export const ICON_TYPES: { [key: string]: string } = {
   volumeTwo: 'volume-2',
   x: 'x',
 };
-
-export const DEFAULT_PATH: string = `${getBasePath()}/assets/icons.svg`;

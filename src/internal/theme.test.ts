@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { isNight } from './date-utils.js';
+import { isNight } from './theme.js';
 
 describe('isNight', () => {
   it('should return true', () => {

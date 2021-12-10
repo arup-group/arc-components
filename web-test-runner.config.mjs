@@ -1,15 +1,24 @@
 import { esbuildPlugin } from '@web/dev-server-esbuild';
+import { fromRollup } from '@web/dev-server-rollup';
+import rollupReplace from '@rollup/plugin-replace';
+
 const filteredLogs = ['Running in dev mode', 'lit-html is in dev mode'];
+const replace = fromRollup(rollupReplace);
 
 export default /** @type {import('@web/test-runner').TestRunnerConfig} */ ({
   /** Test files to run */
   files: 'src/**/*.test.ts',
-  plugins: [esbuildPlugin({ ts: true })],
 
   /** Resolve bare module imports */
   nodeResolve: {
     exportConditions: ['browser', 'development'],
   },
+  plugins: [
+    esbuildPlugin({ ts: true }),
+    replace({
+      'process.env.NODE_ENV': '"development"',
+    })
+  ],
 
   /** Filter out lit dev mode logs */
   filterBrowserLogs(log) {

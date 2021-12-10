@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 
-import { isMobile } from './ui-utils.js';
+import { isMobile, prefersReducedMotion } from './ui-utils.js';
 
 describe('isMobile', () => {
   it('returns true if width < 48rem', async () => {
@@ -14,3 +14,9 @@ describe('isMobile', () => {
     expect(isMobile()).to.be.false;
   });
 });
+
+describe('prefersReducedMotion', () => {
+  it('returns false by default', () => {
+    expect(prefersReducedMotion()).to.be.false;
+  })
+})

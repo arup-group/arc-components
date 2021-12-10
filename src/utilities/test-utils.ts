@@ -1,16 +1,22 @@
-/*
-Determines whether a web-component has a slot.
-If name is specified, the function will look for a specific named slot,
-otherwise it will look for a default slot.
- */
-function hasSlot(el: HTMLElement, name?: string) {
-  /* Look for a named slot */
-  if (name) {
-    return el.querySelector(`slot[name='${name}']`) !== null;
-  }
-
-  /* Look for a default slot */
-  return [...el.querySelectorAll('slot')].some(node => !node.hasAttribute('name'));
+function createKeyEvent(key: string) {
+  return new KeyboardEvent('keypress', { key })
 }
 
-export { hasSlot };
+const escEvent = createKeyEvent('Escape');
+const tabEvent = createKeyEvent('Tab');
+const homeEvent = createKeyEvent('Home');
+const endEvent = createKeyEvent('End');
+const enterEvent = createKeyEvent('Enter');
+const spaceEvent = createKeyEvent(' ');
+const upEvent = createKeyEvent('ArrowUp');
+const downEvent = createKeyEvent('ArrowDown');
+const rightEvent = createKeyEvent('ArrowRight');
+const leftEvent = createKeyEvent('ArrowLeft');
+
+const mouseEvent = new MouseEvent('click', {
+  bubbles: true,
+  cancelable: true,
+  view: window
+})
+
+export { createKeyEvent, escEvent, tabEvent, homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent, rightEvent, leftEvent, mouseEvent };

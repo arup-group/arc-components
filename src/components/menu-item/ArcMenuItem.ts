@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { watch } from '../../utilities/watch.js';
+import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 
 export default class ArcMenuItem extends LitElement {
@@ -39,6 +39,14 @@ export default class ArcMenuItem extends LitElement {
 
       #label {
         flex: 1 1 auto;
+        max-width: 30ch;
+        overflow: hidden;
+      }
+
+      #label * {
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis " ...";
       }
 
       #suffix ::slotted(*) {
@@ -68,7 +76,7 @@ export default class ArcMenuItem extends LitElement {
   @property() value = '';
 
   /* Draws the menu item in a disabled state. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   firstUpdated() {
     this.setAttribute('role', 'menuitem');

@@ -1,8 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { query } from 'lit/decorators.js';
+import { emit } from '../../internal/event.js';
+import { getTextContent } from '../../internal/slot.js';
 import componentStyles from '../../styles/component.styles.js';
-import { emit } from '../../utilities/event-utils.js';
-import { getTextContent } from '../../utilities/dom-utils.js';
 
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 

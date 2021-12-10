@@ -13,6 +13,7 @@ export default class ArcNavbar extends LitElement {
       :host {
         height: var(--arc-navbar-height);
         background: rgb(var(--arc-container-color));
+        --logo-height: var(--arc-brand-height);
       }
 
       /* Layout */
@@ -38,6 +39,7 @@ export default class ArcNavbar extends LitElement {
       }
 
       #logoWrapper {
+        height: 100%;
         display: inline-flex;
         text-decoration: none;
         color: inherit;
@@ -49,6 +51,8 @@ export default class ArcNavbar extends LitElement {
       }
 
       #tool-name {
+        height: 100%;
+        align-items: center;
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -72,7 +76,11 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Logo's */
-      #tool-logo,
+      #tool-logo {
+        height: var(--logo-height);
+        width: auto;
+      }
+
       #company-logo > svg {
         height: var(--arc-brand-height);
         width: auto;
@@ -98,7 +106,7 @@ export default class ArcNavbar extends LitElement {
         }
 
         #tool-logo + #tool-name {
-          display: block;
+          display: inline-flex;
         }
 
         #company-logo {
@@ -108,9 +116,9 @@ export default class ArcNavbar extends LitElement {
     `,
   ];
 
-  @property() logo: string;
+  @property({ type: String }) logo: string;
 
-  @property({ reflect: true }) home: string = '/';
+  @property({ type: String, reflect: true }) home: string = '/';
 
   @property({
     type: Boolean,

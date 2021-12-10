@@ -15,12 +15,24 @@
 </head>
 
 <body>
-<arc-container theme="light">
+<arc-container>
   <arc-navbar slot="nav" logo="/assets/arc-red.svg">
     <span slot="name">WebComponents</span>
     <arc-icon-button name="home" href="/"></arc-icon-button>
-    <arc-icon-button name="settings"></arc-icon-button>
     <arc-icon-button id="themeSetter" name="brightness_low"></arc-icon-button>
+    <arc-dropdown>
+      <arc-icon-button name='settings' slot='trigger'></arc-icon-button>
+      <arc-menu>
+        <arc-menu-item>
+          <arc-icon slot='prefix' name='accessibility'></arc-icon>
+          Accessibility
+        </arc-menu-item>
+        <arc-menu-item>Menu item two</arc-menu-item>
+        <arc-menu-item disabled>Menu item three</arc-menu-item>
+        <arc-menu-item>Menu item four super long messages because I simple can you know?</arc-menu-item>
+        <arc-menu-item>Menu item four</arc-menu-item>
+      </arc-menu>
+    </arc-dropdown>
     <arc-button type="tab">Jasper Wieringa</arc-button>
   </arc-navbar>
   <arc-sidebar slot="side" title="Select a section">
@@ -39,11 +51,17 @@
       </arc-menu-item>
     </arc-menu>
   </arc-sidebar>
-  <div style="padding: var(--arc-spacing-medium); height: 100%;">
-    <arc-button type="outlined" color="secondary">Hello</arc-button>
+  <div style="padding: var(--arc-spacing-medium); height: 100px; overflow: hidden;">
+    <arc-dropdown distance='5' skidding='5'>
+      <arc-button slot='trigger'>Trigger me</arc-button>
+      <arc-menu>
+        <arc-menu-item>1</arc-menu-item>
+        <arc-menu-item>2</arc-menu-item>
+        <arc-menu-item>3</arc-menu-item>
+      </arc-menu>
+    </arc-dropdown>
   </div>
 </arc-container>
-
 
 <script type='module'>
   import { noFOUC } from './dist/utilities/style-utils.js';
@@ -52,14 +70,11 @@
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
-  const menus = document.querySelectorAll('arc-menu');
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';
     themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
   });
-
-  menus.forEach(menu => menu.addEventListener('arc-select', e => console.log(e.detail.item)))
 </script>
 
 <script type="module" src='./dist/index.js'></script>

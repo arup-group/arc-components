@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js && npm run analyze",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",

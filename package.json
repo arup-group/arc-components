@@ -4,10 +4,10 @@
   "version": "1.4.0",
   "author": "arc-component",
   "license": "MIT",
-  "main": "dist/arc.js",
-  "module": "dist/arc.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "customElements": "dist/custom-elements.json",
-  "types": "dist/arc.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && rimraf dist && rollup -c rollup.config.js && yarn analyze",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",

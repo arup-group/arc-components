@@ -197,20 +197,7 @@ export default class ArcDropdown extends LitElement {
         event.preventDefault();
         this.hide();
         this.focusOnTrigger();
-        return;
       }
-
-      /* Tabbing outside of the containing element closes the panel */
-      setTimeout(() => {
-        const activeElement =
-          this.getRootNode() instanceof ShadowRoot
-            ? document.activeElement?.shadowRoot?.activeElement
-            : document.activeElement;
-
-        if (activeElement?.closest(this.tagName.toLowerCase()) !== this) {
-          this.hide();
-        }
-      });
     }
   }
 
@@ -219,24 +206,6 @@ export default class ArcDropdown extends LitElement {
     const path = event.composedPath() as Array<EventTarget>;
     if (!path.includes(this)) {
       this.hide();
-    }
-  }
-
-  /* Hide the dropdown when a menu item is selected */
-  handlePanelSelect(event: CustomEvent) {
-    const target = event.target as HTMLElement;
-
-    if (target.tagName.toLowerCase() === 'arc-menu') {
-      this.hide();
-      this.focusOnTrigger();
-    }
-  }
-
-  handleTriggerClick() {
-    if (this.open) {
-      this.hide();
-    } else {
-      this.show();
     }
   }
 
@@ -304,6 +273,24 @@ export default class ArcDropdown extends LitElement {
   handleTriggerKeyUp = (event: KeyboardEvent) => {
     if (event.key === ' ') {
       event.preventDefault();
+    }
+  }
+
+  /* Hide the dropdown when a menu item is selected */
+  handlePanelSelect(event: CustomEvent) {
+    const target = event.target as HTMLElement;
+
+    if (target.tagName.toLowerCase() === 'arc-menu') {
+      this.hide();
+      this.focusOnTrigger();
+    }
+  }
+
+  handleTriggerClick() {
+    if (this.open) {
+      this.hide();
+    } else {
+      this.show();
     }
   }
 

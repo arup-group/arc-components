@@ -3,8 +3,12 @@ import './components/accessibility/arc-accessibility.js';
 import './components/bottombar/arc-bottombar.js';
 import './components/button/arc-button.js';
 import './components/container/arc-container.js';
+<<<<<<< HEAD
 import './components/drawer/arc-drawer.js';
 import './components/container/arc-card.js';
+=======
+import './components/card/arc-card.js';
+>>>>>>> 931c296 (style card)
 import './components/dropdown/arc-dropdown.js';
 import './components/icon/arc-icon.js';
 import './components/icon-button/arc-icon-button.js';

@@ -95,6 +95,8 @@
   --arc-navbar-height: 3.5rem;
   --arc-sidebar-width: 23rem;
   --arc-bottom-height: 4.5rem;
+  --arc-card-height: 25rem;
+  --arc-card-width: 20rem;
 
   /* Font Family */
   --arc-font-headline: "Times New Roman";

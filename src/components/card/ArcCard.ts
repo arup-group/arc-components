@@ -1,7 +1,5 @@
 import { css, html, LitElement } from 'lit';
 // import { property } from 'lit/decorators.js';
-// import { isNight } from '../../internal/theme.js';
-// import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 
 export default class ArcCard extends LitElement {
@@ -71,7 +69,7 @@ export default class ArcCard extends LitElement {
         <header id="heading" part="heading">
             <slot name="heading"></slot>
         </header>
-        <div id="content" part="content">
+        <div id="content" part="content" role="document">
             <slot name="content"></slot>
         </div>
         <footer id="actions" part="actions">

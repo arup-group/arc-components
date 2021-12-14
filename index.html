@@ -51,8 +51,8 @@
       </arc-menu-item>
     </arc-menu>
   </arc-sidebar>
-  <div style="padding: var(--arc-spacing-medium); height: 100px; overflow: hidden;">
-    <arc-dropdown distance='5' skidding='5'>
+  <div style="padding: var(--arc-spacing-medium);">
+    <arc-dropdown>
       <arc-button slot='trigger'>Trigger me</arc-button>
       <arc-menu>
         <arc-menu-item>1</arc-menu-item>
@@ -64,9 +64,11 @@
 </arc-container>
 
 <script type='module'>
-  import { noFOUC } from './dist/utilities/style-utils.js';
+  import { noFOUC } from './out-tsc/utilities/style-utils.js';
+  import { setBasePath } from "./out-tsc/utilities/base-path.js";
 
   noFOUC();
+  setBasePath('/');
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
@@ -77,7 +79,7 @@
   });
 </script>
 
-<script type="module" src='./dist/index.js'></script>
+<script type="module" src='./out-tsc/arc.js'></script>
 </body>
 
 </html>

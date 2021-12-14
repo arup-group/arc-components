@@ -5,7 +5,7 @@ import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 
 export default {
-  input: './dist/arc.js',
+  input: './out-tsc/arc.js',
   output: {
     entryFileNames: 'arc.js',
     chunkFileNames: '[hash].js',
@@ -61,11 +61,10 @@ export default {
     }),
     copy({
       targets: [
-        {
-          src: ['assets', 'themes'],
-          dest: 'dist'
-        }
-      ]
+        { src: ['assets', 'themes'], dest: 'dist' },
+        { src: ['out-tsc/arc.d.ts', 'out-tsc/components/**/!(*.stories).{js,d.ts}', 'out-tsc/internal', 'out-tsc/styles', 'out-tsc/utilities'], dest: 'dist'}
+      ],
+      flatten: false
     })
   ]
 };

@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "dist/arc.js",
   "module": "dist/arc.js",
-  "customElements": "dist/custom-elements.json",
+  "customElements": "custom-elements.json",
   "types": "dist/arc.d.ts",
   "files": [
     "dist"
@@ -25,14 +25,14 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze --outdir dist",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "yarn format && tsc && build-storybook",
+    "storybook": "tsc && yarn analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
+    "storybook:build": "tsc && yarn analyze && build-storybook",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
-    "analyze": "cem analyze --litelement --exclude dist --outdir dist"
+    "analyze": "cem analyze --litelement --exclude dist"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.0",

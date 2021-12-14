@@ -9,7 +9,7 @@
     ],
     "declaration": true,
     "incremental": false,
-    "outDir": "./dist",
+    "outDir": "./out-tsc",
     "rootDir": "./src",
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -32,6 +32,7 @@
     "src/**/*.ts"
   ],
   "exclude": [
+    "out-tsc",
     "dist",
     "node_modules",
     "src/**/*.test.ts"

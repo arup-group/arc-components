@@ -1,6 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import './arc-menu-item.js';
-import '../icon/arc-icon.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

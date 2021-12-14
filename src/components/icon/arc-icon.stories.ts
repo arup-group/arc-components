@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import './arc-icon.js';
 
 import { ICON_SIZES, ICON_TYPES } from './constants/IconConstants.js';
 

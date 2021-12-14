@@ -1,8 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import '../container/arc-container.js';
-import './arc-sidebar.js';
-import '../menu/arc-menu.js';
-import '../menu-item/arc-menu-item.js';
 
 import { getBasePath } from '../../utilities/base-path.js';
 

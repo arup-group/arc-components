@@ -1,6 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import './arc-button.js';
-import '../icon/arc-icon.js';
 
 import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 

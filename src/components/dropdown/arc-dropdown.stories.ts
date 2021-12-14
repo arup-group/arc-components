@@ -1,11 +1,6 @@
 import { html, TemplateResult } from 'lit';
 import { Placement } from '@popperjs/core';
 
-import './arc-dropdown.js';
-import '../button/arc-button.js';
-import '../menu/arc-menu.js';
-import '../menu-item/arc-menu-item.js';
-
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 
 interface Story<T> {

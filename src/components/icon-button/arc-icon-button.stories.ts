@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import './arc-icon-button.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

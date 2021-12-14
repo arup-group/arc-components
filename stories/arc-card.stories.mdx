@@ -1,0 +1,19 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../dist/components/card/arc-card.stories.js';
+
+<Meta
+title='ArcCard'
+component='arc-card'
+/>
+
+# Container
+### `<arc-card>`
+
+The ArcContainer is the most basic layout element and is required when using the ARC component library.
+It is used to contain, pad and style the page and provides out of the box responsiveness for all devices.
+You can use the [arc-navbar](?path=/story/arcnavbar--default), [arc-sidebar](?path=/story/arcsidebar--default) and [arc-bottombar](?path=/story/arcbottombar--default) components and add them to the respective slots to compose the default container.
+By default, the container will display an [arc-bottombar](?path=/story/arcbottombar--default) component on mobile devices to ensure a functional and layout-friendly application.
+
+<Canvas>
+  <Story name='card' story={stories.Card} />
+</Canvas>

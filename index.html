@@ -65,8 +65,10 @@
 
 <script type='module'>
   import { noFOUC } from './out-tsc/utilities/style-utils.js';
+  import { setBasePath } from "./out-tsc/utilities/base-path.js";
 
   noFOUC();
+  setBasePath('/');
 
   const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');

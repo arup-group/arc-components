@@ -110,7 +110,7 @@ export default class ArcNavbar extends LitElement {
     `,
   ];
 
-  @query('#tabs') right: HTMLElement;
+  @query('#tabs > slot') tabSlot: HTMLSlotElement;
 
   @property({ type: String }) logo: string;
 
@@ -126,19 +126,22 @@ export default class ArcNavbar extends LitElement {
   @property({ type: Number, reflect: true })
   tabs: number = 5;
 
-  handleTabChange = (e: any) => {
-    const isButton = (element: any) => element.tagName === 'ARC-BUTTON' || element.tagName === 'ARC-ICON-BUTTON';
+  getAllTabs() {
+    return [...this.tabSlot.assignedElements({ flatten: true })].filter((el: HTMLElement) => {
+      const tagName = el.tagName.toLowerCase();
+      return tagName === 'arc-button' || tagName === 'arc-icon-button';
+    })
+  }
 
-    const nodes = e.target.assignedElements({ flatten: true });
-    const arcTabs = nodes.filter(isButton);
+  handleTabChange = () => {
+    const tabs = this.getAllTabs();
 
-    if (arcTabs.length > this.tabs) {
-      this.log(arcTabs);
+    if (tabs.length > this.tabs) {
+      [...tabs].forEach(tab => {
+        tab.remove();
+      })
     }
   };
-
-  // eslint-disable-next-line no-console
-  log = (msg: string) => console.log(msg);
 
   render() {
     return html`

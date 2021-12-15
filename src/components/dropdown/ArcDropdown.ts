@@ -110,7 +110,7 @@ export default class ArcDropdown extends LitElement {
       document.addEventListener('mousedown', this.handleDocumentMouseDown);
 
       await stopAnimations(this);
-      await this.popover.update();
+      this.popover.update();
       this.panel.hidden = false;
       const { keyframes, options } = getAnimation(this, 'dropdown.show');
       await startAnimations(this.panel, keyframes, options);

@@ -133,7 +133,7 @@ export default class ArcNavbar extends LitElement {
     const arcTabs = nodes.filter(isButton);
 
     if (arcTabs.length > this.tabs) {
-      console.log(arcTabs);
+      this.log(arcTabs);
     }
   };
 

@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
+import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 
 import { arupLogo } from './arup-logo.js';
 
@@ -20,7 +21,8 @@ export default class ArcNavbar extends LitElement {
       #main,
       #left,
       #right {
-        display: flex;
+        display: grid;
+        grid-auto-flow: column;
       }
 
       #main {
@@ -33,11 +35,6 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Left side */
-      #left {
-        justify-content: flex-start;
-        align-items: center;
-      }
-
       #logoWrapper {
         height: 100%;
         display: inline-flex;
@@ -58,10 +55,6 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Right side */
-      #right {
-        justify-content: flex-end;
-      }
-
       #tabs {
         display: none;
       }
@@ -98,11 +91,12 @@ export default class ArcNavbar extends LitElement {
         justify-content: center;
       }
 
-      /* Medium devices (tablets, 48rem and up) */
-      @media (min-width: 48rem) {
+      /* Medium devices and up */
+      @media (min-width: ${mobileBreakpoint}rem) {
         #right > #tabs {
           display: grid;
           grid-auto-flow: column;
+          overflow: hidden;
         }
 
         #tool-logo + #tool-name {
@@ -115,6 +109,8 @@ export default class ArcNavbar extends LitElement {
       }
     `,
   ];
+
+  @query('#tabs') right: HTMLElement;
 
   @property({ type: String }) logo: string;
 
@@ -131,14 +127,13 @@ export default class ArcNavbar extends LitElement {
   tabs: number = 5;
 
   handleTabChange = (e: any) => {
-    const isButton = (element: any) => element.tagName === 'ARC-BUTTON';
+    const isButton = (element: any) => element.tagName === 'ARC-BUTTON' || element.tagName === 'ARC-ICON-BUTTON';
 
     const nodes = e.target.assignedElements({ flatten: true });
     const arcTabs = nodes.filter(isButton);
 
     if (arcTabs.length > this.tabs) {
-      /* TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count */
-      this.log(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
+      console.log(arcTabs);
     }
   };
 

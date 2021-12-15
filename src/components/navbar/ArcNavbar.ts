@@ -20,11 +20,11 @@ export default class ArcNavbar extends LitElement {
       #main,
       #left,
       #right {
-        display: grid;
-        grid-auto-flow: column;
+        display: flex;
       }
 
       #main {
+        justify-content: space-between;
         height: inherit;
         width: 100%;
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);

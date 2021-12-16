@@ -139,28 +139,26 @@ export default class ArcNavbar extends LitElement {
     const { textContent, target, href, download, disabled } = el;
 
     return {
-      name: (el as ArcIconButton).name,
-      label: (el as ArcIconButton).label,
-      textContent: textContent,
-      target: target,
-      href: href,
-      download: download,
-      disabled: disabled
+      name: (el as ArcIconButton).name || null,
+      label: (el as ArcIconButton).label || null,
+      textContent,
+      target: target || null,
+      href: href || null,
+      download: download || null,
+      disabled: disabled || false
     }
   }
 
   createMenuItem(el: ArcButton | ArcIconButton) {
     const props = this.retrieveMenuProps(el);
-    const value = props.textContent || props.label || props.name || 'Unknown value';
 
     console.log(props);
 
+    const value = props.textContent || props.label || props.name || 'Unknown value';
+
     /* Remove the tab from the slot */
     return Object.assign(document.createElement('arc-menu-item'), {
-      innerHTML: html`
-<!--        /*TODO: Continue from here*/-->
-<!--        $-{props.}->
-      `,
+      innerHTML: html``,
       value,
       disabled: props.disabled
     });

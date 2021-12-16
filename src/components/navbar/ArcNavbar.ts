@@ -1,7 +1,8 @@
 import { css, html, LitElement, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, state, query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import { watch } from '../../internal/watch.js';
 
 import type ArcButton from '../button/ArcButton.js';
 import type ArcIconButton from '../icon-button/ArcIconButton.js';
@@ -117,10 +118,11 @@ export default class ArcNavbar extends LitElement {
     `,
   ];
 
-  /* Array that holds all slotted arc-button and arc-icon-button components */
-  private navTabs: (ArcButton | ArcIconButton)[] = [];
+  @query('#tabSlot') tabSlot: HTMLSlotElement;
 
   @state() showDropdown: boolean = false;
+
+  @state() navTabs: (ArcButton | ArcIconButton)[] = [];
 
   @property({ type: String }) logo: string;
 
@@ -135,29 +137,33 @@ export default class ArcNavbar extends LitElement {
   })
   arup: boolean = true;
 
-  /* Keep track of slotted button or icon-button components */
+  @watch('tabs', { waitUntilFirstUpdate: true })
+  handleTabCountChange() {
+    this.updateTemplate();
+  }
+
   handleTabChange(e: any) {
     const nodes = e.target.assignedElements({ flatten: true });
-    const navButtons: (ArcButton | ArcIconButton)[] = nodes.filter((el: Element) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
 
-    /* If the tab limit is exceeded */
-    if (navButtons.length > this.tabs) {
-      navButtons.forEach(tab => {
-        /* Store a reference to the original component to allow click events */
-        this.navTabs.push(tab);
+    /* Store a reference to the button and icon-button components for later use */
+    this.navTabs = nodes.filter((el: Element) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
 
-        /* Remove the original component from the navbar */
-        tab.remove();
-      })
-
-      /* Show the dropdown menu */
-      this.showDropdown = true;
-    }
+    this.updateTemplate();
   };
+
+  updateTemplate() {
+    this.showDropdown = this.navTabs.length > this.tabs;
+
+    /* Show or hide the button and icon-button components */
+    [...this.navTabs].forEach(tab => {
+      /* eslint-disable-next-line no-param-reassign */
+      tab.style.display = this.showDropdown ? 'none' : 'initial';
+    })
+  }
 
   render() {
     /*
-    Fallback template that displays all button and icon-button components inside a dropdown menu
+    Template that displays all button and icon-button components inside a dropdown menu
     Properties are derived from the button and icon-button components
     */
     const menuInterior = html`

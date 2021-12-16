@@ -5,6 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { hasSlot } from '../../internal/slot.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
+import { IconType } from '../icon/constants/IconConstants.js';
 
 import '../icon/arc-icon.js';
 import '../spinner/arc-spinner.js';
@@ -102,7 +103,7 @@ export default class ArcIconButton extends LitElement {
 
   @state() private hasLabel = false;
 
-  @property({ type: String }) name: string;
+  @property({ type: String }) name: IconType;
 
   @property({ type: String }) target: ButtonTarget;
 

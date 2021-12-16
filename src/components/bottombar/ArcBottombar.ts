@@ -24,13 +24,17 @@ export default class ArcBottombar extends LitElement {
 
   @state() tabs: number = 5;
 
+  @state() tabCount: number;
+
   handleTabChange = (e: any) => {
-    const isIconButton = (element: any) => element.tagName === 'ARC-ICON-BUTTON';
+    const isTab = (element: any) => element.tagName === 'ARC-ICON-BUTTON';
 
     const nodes = e.target.assignedElements({ flatten: true });
-    const arcTabs = nodes.filter(isIconButton);
+    const navTabs = nodes.filter(isTab);
 
-    if (arcTabs.length > this.tabs) {
+    this.tabCount = navTabs.length;
+
+    if (this.tabCount > this.tabs) {
       // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
       this.log(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
     }

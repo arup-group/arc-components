@@ -1,15 +1,15 @@
-import { css, html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { css, html, LitElement, nothing } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 
-import type ArcMenu from '../menu/ArcMenu.js';
-import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import type ArcButton from '../button/ArcButton.js';
 import type ArcIconButton from '../icon-button/ArcIconButton.js';
-
 import '../dropdown/arc-dropdown.js';
+import '../menu/arc-menu.js';
+import '../menu-item/arc-menu-item.js';
 import '../icon-button/arc-icon-button.js';
+
 import { arupLogo } from './arup-logo.js';
 
 export default class ArcNavbar extends LitElement {
@@ -117,13 +117,16 @@ export default class ArcNavbar extends LitElement {
     `,
   ];
 
-  @query('#tabs > slot') tabSlot: HTMLSlotElement;
+  /* Array that holds all slotted arc-button and arc-icon-button components */
+  private navTabs: (ArcButton | ArcIconButton)[] = [];
 
-  @query('#burgerMenu') menu: ArcMenu;
+  @state() showDropdown: boolean = false;
 
   @property({ type: String }) logo: string;
 
   @property({ type: String, reflect: true }) home: string = '/';
+
+  @property({ type: Number, reflect: true }) tabs: number = 5;
 
   @property({
     type: Boolean,
@@ -132,68 +135,47 @@ export default class ArcNavbar extends LitElement {
   })
   arup: boolean = true;
 
-  @property({ type: Number, reflect: true })
-  tabs: number = 5;
+  /* Keep track of slotted button or icon-button components */
+  handleTabChange(e: any) {
+    const nodes = e.target.assignedElements({ flatten: true });
+    const navButtons: (ArcButton | ArcIconButton)[] = nodes.filter((el: Element) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
 
-  retrieveMenuProps = (el: ArcButton | ArcIconButton) => {
-    const { textContent, target, href, download, disabled } = el;
+    /* If the tab limit is exceeded */
+    if (navButtons.length > this.tabs) {
+      navButtons.forEach(tab => {
+        /* Store a reference to the original component to allow click events */
+        this.navTabs.push(tab);
 
-    return {
-      name: (el as ArcIconButton).name || null,
-      label: (el as ArcIconButton).label || null,
-      textContent,
-      target: target || null,
-      href: href || null,
-      download: download || null,
-      disabled: disabled || false
-    }
-  }
-
-  createMenuItem(el: ArcButton | ArcIconButton) {
-    const props = this.retrieveMenuProps(el);
-
-    console.log(props);
-
-    const value = props.textContent || props.label || props.name || 'Unknown value';
-
-    /* Remove the tab from the slot */
-    return Object.assign(document.createElement('arc-menu-item'), {
-      innerHTML: html``,
-      value,
-      disabled: props.disabled
-    });
-  }
-
-  getAllTabs() {
-    const children = this.tabSlot.assignedElements({ flatten: true });
-    return [...children].filter((el: HTMLElement) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
-  }
-
-  handleTabChange = () => {
-    const tabs = this.getAllTabs();
-
-    /* If the tab count is exceeded, create a dropdown burger menu */
-    if (tabs.length > this.tabs) {
-      [...tabs].forEach(tab => {
-        /* Remove the original tab from the navbar */
+        /* Remove the original component from the navbar */
         tab.remove();
-
-        /* Create an equivalent menu-item for each button or icon-button */
-        const menuItem: ArcMenuItem = this.createMenuItem(tab as ArcButton | ArcIconButton);
-        this.menu.appendChild(menuItem);
       })
 
-      /* Show the burger menu */
-      this.menu.hidden = false;
+      /* Show the dropdown menu */
+      this.showDropdown = true;
     }
   };
 
   render() {
+    /*
+    Fallback template that displays all button and icon-button components inside a dropdown menu
+    Properties are derived from the button and icon-button components
+    */
+    const menuInterior = html`
+      ${this.navTabs.map(tab => html`
+        <arc-menu-item ?disabled='${tab.disabled}' @click='${() => tab.click()}'>
+          ${(tab as ArcIconButton).name ? html`
+            <arc-icon name='${(tab as ArcIconButton).name}' slot='prefix'></arc-icon>
+          ` : nothing}
+          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
+        </arc-menu-item>
+      `)}
+    `;
+
     return html`
       <div id="main">
         <div id="left">
           <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
-            ${this.logo && html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`}
+            ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
             <span id="tool-name">
               <slot name="name"></slot>
             </span>
@@ -201,12 +183,15 @@ export default class ArcNavbar extends LitElement {
         </div>
         <div id="right">
           <div id="tabs">
-            <slot @slotchange=${this.handleTabChange}></slot>
-            <arc-dropdown id='burgerMenu' hidden hoist>
-              <arc-icon-button name='menu' slot='trigger'></arc-icon-button>
-            </arc-dropdown>
+            <slot id='tabSlot' @slotchange=${this.handleTabChange}></slot>
+            ${this.showDropdown ? html`
+              <arc-dropdown hoist>
+                <arc-icon-button slot='trigger' name='menu'></arc-icon-button>
+                <arc-menu>${menuInterior}</arc-menu>
+              </arc-dropdown>
+            ` : nothing}
           </div>
-          ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : null}
+          ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
         </div>
       </div>
     `;

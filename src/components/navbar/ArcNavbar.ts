@@ -3,6 +3,13 @@ import { property, query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 
+import type ArcMenu from '../menu/ArcMenu.js';
+import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
+import type ArcButton from '../button/ArcButton.js';
+import type ArcIconButton from '../icon-button/ArcIconButton.js';
+
+import '../dropdown/arc-dropdown.js';
+import '../icon-button/arc-icon-button.js';
 import { arupLogo } from './arup-logo.js';
 
 export default class ArcNavbar extends LitElement {
@@ -112,6 +119,8 @@ export default class ArcNavbar extends LitElement {
 
   @query('#tabs > slot') tabSlot: HTMLSlotElement;
 
+  @query('#burgerMenu') menu: ArcMenu;
+
   @property({ type: String }) logo: string;
 
   @property({ type: String, reflect: true }) home: string = '/';
@@ -126,20 +135,58 @@ export default class ArcNavbar extends LitElement {
   @property({ type: Number, reflect: true })
   tabs: number = 5;
 
+  retrieveMenuProps = (el: ArcButton | ArcIconButton) => {
+    const { textContent, target, href, download, disabled } = el;
+
+    return {
+      name: (el as ArcIconButton).name,
+      label: (el as ArcIconButton).label,
+      textContent: textContent,
+      target: target,
+      href: href,
+      download: download,
+      disabled: disabled
+    }
+  }
+
+  createMenuItem(el: ArcButton | ArcIconButton) {
+    const props = this.retrieveMenuProps(el);
+    const value = props.textContent || props.label || props.name || 'Unknown value';
+
+    console.log(props);
+
+    /* Remove the tab from the slot */
+    return Object.assign(document.createElement('arc-menu-item'), {
+      innerHTML: html`
+<!--        /*TODO: Continue from here*/-->
+<!--        $-{props.}->
+      `,
+      value,
+      disabled: props.disabled
+    });
+  }
+
   getAllTabs() {
-    return [...this.tabSlot.assignedElements({ flatten: true })].filter((el: HTMLElement) => {
-      const tagName = el.tagName.toLowerCase();
-      return tagName === 'arc-button' || tagName === 'arc-icon-button';
-    })
+    const children = this.tabSlot.assignedElements({ flatten: true });
+    return [...children].filter((el: HTMLElement) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
   }
 
   handleTabChange = () => {
     const tabs = this.getAllTabs();
 
+    /* If the tab count is exceeded, create a dropdown burger menu */
     if (tabs.length > this.tabs) {
       [...tabs].forEach(tab => {
+        /* Remove the original tab from the navbar */
         tab.remove();
+
+        /* Create an equivalent menu-item for each button or icon-button */
+        const menuItem: ArcMenuItem = this.createMenuItem(tab as ArcButton | ArcIconButton);
+        this.menu.appendChild(menuItem);
       })
+
+      /* Show the burger menu */
+      this.menu.hidden = false;
     }
   };
 
@@ -157,6 +204,9 @@ export default class ArcNavbar extends LitElement {
         <div id="right">
           <div id="tabs">
             <slot @slotchange=${this.handleTabChange}></slot>
+            <arc-dropdown id='burgerMenu' hidden hoist>
+              <arc-icon-button name='menu' slot='trigger'></arc-icon-button>
+            </arc-dropdown>
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : null}
         </div>

@@ -1,16 +1,19 @@
 import { Placement } from '@popperjs/core';
 
-export const DROPDOWN_PLACEMENTS: { [key: string]: Placement } = {
-  top: 'top',
-  topStart: 'top-start',
-  topEnd: 'top-end',
-  bottom: 'bottom',
-  bottomStart: 'bottom-start',
-  bottomEnd: 'bottom-end',
-  right: 'right',
-  rightStart: 'right-start',
-  rightEnd: 'right-end',
-  left: 'left',
-  leftStart: 'left-start',
-  leftEnd: 'left-end',
+export const DROPDOWN_PLACEMENTS: { [key in Placement]: Placement } = {
+  'auto-start': 'auto-start',
+  'auto-end': 'auto-end',
+  'auto': 'auto',
+  'top': 'top',
+  'top-start': 'top-start',
+  'top-end': 'top-end',
+  'bottom': 'bottom',
+  'bottom-start': 'bottom-start',
+  'bottom-end': 'bottom-end',
+  'right': 'right',
+  'right-start': 'right-start',
+  'right-end': 'right-end',
+  'left': 'left',
+  'left-start': 'left-start',
+  'left-end': 'left-end',
 };

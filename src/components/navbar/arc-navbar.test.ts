@@ -71,11 +71,8 @@ describe('ArcNavbar', () => {
     let toolName: HTMLElement;
     let tabContainer: HTMLElement;
 
-    /*
-    Function to check if all slotted button and icon-button components are hidden
-    and if all other components are untouched.
-    */
-    function isHidden() {
+    /* Function that returns hidden and untouched elements when the slotted button and icon-button components exceed the tab limit */
+    function retrieveElements() {
       return {
         hiddenTabs: [...element.children].filter(el => (el as HTMLElement).style.display === 'none'),
         untouchedElements: [...element.children].filter(el => (el as HTMLElement).style.display === '')
@@ -132,8 +129,8 @@ describe('ArcNavbar', () => {
       expect(element.showDropdown).to.be.true;
 
       /* Validate the hidden tabs and untouched elements */
-      expect(isHidden().hiddenTabs.length).to.equal(7);
-      expect(isHidden().untouchedElements.length).to.equal(3);
+      expect(retrieveElements().hiddenTabs.length).to.equal(7);
+      expect(retrieveElements().untouchedElements.length).to.equal(3);
 
       /* A dropdown menu exists */
       const dropdown = tabContainer.querySelector('arc-dropdown');
@@ -146,8 +143,8 @@ describe('ArcNavbar', () => {
       await elementUpdated(element);
 
       /* Validate the hidden tabs and untouched elements */
-      expect(isHidden().hiddenTabs.length).to.equal(8);
-      expect(isHidden().untouchedElements.length).to.equal(3);
+      expect(retrieveElements().hiddenTabs.length).to.equal(8);
+      expect(retrieveElements().untouchedElements.length).to.equal(3);
 
       /* A dropdown menu exists */
       const dropdown = tabContainer.querySelector('arc-dropdown');

@@ -124,9 +124,9 @@ export default class ArcNavbar extends LitElement {
 
   @state() navTabs: (ArcButton | ArcIconButton)[] = [];
 
-  @property({ type: String }) logo: string;
-
   @property({ type: String, reflect: true }) home: string = '/';
+
+  @property({ type: String }) logo: string;
 
   @property({ type: Number, reflect: true }) tabs: number = 5;
 

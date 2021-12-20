@@ -22,12 +22,16 @@ export default class ArcDropdown extends LitElement {
         align-items: center;
       }
 
+      #main, #trigger {
+        height: 100%;
+      }
+
       #main {
         position: relative;
       }
 
       #trigger {
-        display: block;
+        display: flex;
       }
 
       #positioner {

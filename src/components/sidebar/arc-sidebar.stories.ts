@@ -4,15 +4,14 @@ import { getBasePath } from '../../utilities/base-path.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
-
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
 
 interface ArgTypes {
-  gap: string;
-  width: string;
-  title: string;
+  gap?: string;
+  width?: string;
+  title?: string;
 }
 
 const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`

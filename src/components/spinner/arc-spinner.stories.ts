@@ -7,16 +7,16 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  color: string;
-  width: string;
-  size: string;
+  color?: string;
+  width?: string;
+  size?: string;
 }
 
 const Template: Story<ArgTypes> = ({ color, width, size }: ArgTypes) => html`
   <arc-spinner style="--stroke-color: ${color}; --track-width: ${width}; font-size:${size}"></arc-spinner>
 `;
 
-const defaultArgs = {
+const defaultArgs: ArgTypes = {
   color: 'rgb(var(--arc-font-color))',
   width: '2px',
   size: 'var(--arc-font-size-medium)',

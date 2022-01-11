@@ -1,6 +1,6 @@
 import { html, TemplateResult } from 'lit';
 
-import { ICON_SIZES, ICON_TYPES } from './constants/IconConstants.js';
+import { ICON_SIZES, ICON_TYPES, IconSize, IconType } from './constants/IconConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -9,12 +9,12 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  name: string;
-  size: string;
-  rotation: number;
-  spinning: boolean;
-  colorPrimary: string | undefined;
-  colorSecondary: string | undefined;
+  name: IconType;
+  size?: IconSize;
+  rotation?: number;
+  spinning?: boolean;
+  colorPrimary?: string;
+  colorSecondary?: string;
 }
 
 const Template: Story<ArgTypes> = ({ name, size, rotation, spinning, colorPrimary, colorSecondary }: ArgTypes) => html`
@@ -27,7 +27,7 @@ const Template: Story<ArgTypes> = ({ name, size, rotation, spinning, colorPrimar
   ></arc-icon>
 `;
 
-const defaultArgs = {
+const defaultArgs: ArgTypes = {
   name: ICON_TYPES.fire,
   size: ICON_SIZES.large,
   rotation: 0,
@@ -45,7 +45,7 @@ export const PurpleColor = Template.bind({});
 export const CustomSize = Template.bind({});
 
 Default.args = { ...defaultArgs };
-VariableSize.args = { ...defaultArgs, size: 'xxxx-large' };
+VariableSize.args = { ...defaultArgs, size: ICON_SIZES['xxx-large'] };
 RedColor.args = { ...defaultArgs, colorPrimary: 'red' };
 GreenColor.args = { ...defaultArgs, colorPrimary: 'green' };
 BlueColor.args = { ...defaultArgs, colorPrimary: 'blue' };

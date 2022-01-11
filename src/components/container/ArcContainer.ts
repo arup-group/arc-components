@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
+import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 
 import '../bottombar/arc-bottombar.js';
@@ -45,8 +46,8 @@ export default class ArcContainer extends LitElement {
         display: block;
       }
 
-      /* Medium devices (tablets, 48rem and up) */
-      @media (min-width: 48rem) {
+      /* Medium devices and up */
+      @media (min-width: ${mobileBreakpoint}rem) {
         #container {
           gap: var(--arc-spacing-normal);
           padding: var(--arc-spacing-normal) var(--arc-spacing-medium);

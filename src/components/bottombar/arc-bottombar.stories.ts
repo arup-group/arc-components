@@ -7,7 +7,7 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  height: string;
+  height?: string;
 }
 
 const Template: Story<ArgTypes> = ({ height }: ArgTypes) => html`

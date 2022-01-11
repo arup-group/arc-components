@@ -1,4 +1,5 @@
 import { html, TemplateResult } from 'lit';
+import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 
 import { getBasePath } from '../../utilities/base-path.js';
 
@@ -9,7 +10,7 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  theme: string;
+  theme?: ContainerTheme;
 }
 
 const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
@@ -29,5 +30,5 @@ const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
 export const Container = Template.bind({});
 export const DarkContainer = Template.bind({});
 
-Container.args = { theme: 'auto' };
-DarkContainer.args = { theme: 'dark' };
+Container.args = { theme: CONTAINER_THEMES.auto };
+DarkContainer.args = { theme: CONTAINER_THEMES.dark };

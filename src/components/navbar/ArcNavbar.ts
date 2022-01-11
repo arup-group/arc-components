@@ -34,7 +34,6 @@ export default class ArcNavbar extends LitElement {
       }
 
       #main {
-        justify-content: space-between;
         height: inherit;
         width: 100%;
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
@@ -43,6 +42,11 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Left side */
+      #left {
+        justify-content: flex-start;
+        align-items: center;
+      }
+
       #logoWrapper {
         height: 100%;
         display: inline-flex;
@@ -63,6 +67,10 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Right side */
+      #right {
+        justify-content: flex-end;
+      }
+
       #tabs {
         display: none;
       }

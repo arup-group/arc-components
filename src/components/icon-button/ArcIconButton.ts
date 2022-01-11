@@ -17,7 +17,7 @@ export default class ArcIconButton extends LitElement {
     componentStyles,
     css`
       :host {
-        display: inline-block;
+        display: inline-flex;
         cursor: pointer;
         --icon-color: rgb(var(--arc-font-color));
       }

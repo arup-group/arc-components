@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
-
 :root {
   /* Colors */
   --arc-white-000: 255, 255, 255;
@@ -100,8 +98,8 @@
 
   /* Font Family */
   --arc-font-headline: "Times New Roman";
-  --arc-font-body: "Roboto Light", sans-serif;
-  --arc-font-button: "Roboto Regular", sans-serif;
+  --arc-font-body: "Arial", sans-serif;
+  --arc-font-button: "Arial", sans-serif;
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;

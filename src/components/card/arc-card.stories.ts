@@ -16,8 +16,11 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = () => html`
 <div style="display: flex; gap: 20px;">
-    <arc-card>
-        <h4 slot="heading">Heading</h2>
+    <arc-card 
+      imageUrl="https://via.placeholder.com/600.png/09f/fff"
+      imageAlt="Placeholder image"
+    >
+        <div slot="heading">Heading</div>
         <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
         <arc-button slot="actions" type="pill">Preview</arc-button>
         <arc-button slot="actions" type="pill">Export</arc-button>
@@ -25,7 +28,7 @@ const Template: Story<ArgTypes> = () => html`
     </arc-card>
 
     <arc-card>
-        <h4 slot="heading">Heading</h2>
+        <div slot="heading">Heading</div>
         <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
         <arc-button slot="actions" type="pill">Preview</arc-button>
         <arc-button slot="actions" type="pill">Export</arc-button>
@@ -33,7 +36,7 @@ const Template: Story<ArgTypes> = () => html`
     </arc-card>
 
     <arc-card>
-        <h4 slot="heading">Heading</h2>
+        <div slot="heading">Heading</div>
         <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
         <arc-button slot="actions" type="pill">Preview</arc-button>
         <arc-button slot="actions" type="pill">Export</arc-button>

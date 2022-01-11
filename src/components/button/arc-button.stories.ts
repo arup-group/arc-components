@@ -1,6 +1,6 @@
 import { html, TemplateResult } from 'lit';
 
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
+import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES, ButtonColor, ButtonSize, ButtonType, ButtonTarget } from './constants/ButtonConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -10,22 +10,22 @@ interface Story<T> {
 
 interface ArgTypes {
   label: string;
-  type: string;
-  color: string;
-  size: string;
-  href: string | undefined;
-  target: string | undefined;
-  download: string | undefined;
-  active: boolean;
-  disabled: boolean;
-  loading: boolean;
-  submit: boolean;
-  width: string;
-  minWidth: string;
-  btnColor: string | undefined;
-  btnBackground: string | undefined;
-  prefix: boolean | undefined;
-  suffix: boolean | undefined;
+  type?: ButtonType;
+  color?: ButtonColor;
+  size?: ButtonSize;
+  href?: string;
+  target?: ButtonTarget;
+  download?: string;
+  active?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  submit?: boolean;
+  width?: string;
+  minWidth?: string;
+  btnColor?: string;
+  btnBackground?: string;
+  prefix?: boolean;
+  suffix?: boolean;
 }
 
 const Template: Story<ArgTypes> = ({
@@ -66,7 +66,7 @@ const Template: Story<ArgTypes> = ({
   </arc-button>
 `;
 
-const defaultArgs = {
+const defaultArgs: ArgTypes = {
   label: 'Default',
   type: 'contained',
   color: 'default',

@@ -7,9 +7,9 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  disabled: boolean;
-  prefix: boolean;
-  suffix: boolean;
+  disabled?: boolean;
+  prefix?: boolean;
+  suffix?: boolean;
 }
 
 const Template: Story<ArgTypes> = ({ disabled, prefix, suffix }: ArgTypes) => html`
@@ -47,7 +47,7 @@ const PrefixSuffixTemplate: Story<ArgTypes> = () => html`
   </div>
 `;
 
-const defaultArgs = {
+const defaultArgs: ArgTypes = {
   disabled: false,
 };
 

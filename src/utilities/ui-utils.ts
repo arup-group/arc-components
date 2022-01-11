@@ -1,6 +1,9 @@
+/* rem breakpoint for mobile devices */
+export const mobileBreakpoint: number = 49;
+
 /* Determines whether the user is on a mobile-like device */
 function isMobile() {
-  return window.matchMedia('(max-width: 48rem)').matches;
+  return window.matchMedia(`(max-width: ${mobileBreakpoint}rem)`).matches;
 }
 
 /* Tells if the user has enabled the "reduced motion" setting in their browser or OS. */

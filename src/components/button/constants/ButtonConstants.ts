@@ -1,28 +1,28 @@
-export declare type ButtonType = 'contained' | 'tile' | 'outlined' | 'pill' | 'tab';
 export declare type ButtonColor = 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
 export declare type ButtonSize = 'small' | 'medium' | 'large';
 export declare type ButtonTarget = '_blank' | '_parent' | '_self' | '_top';
+export declare type ButtonType = 'contained' | 'tile' | 'outlined' | 'pill' | 'tab';
 
-export const BUTTON_TYPES: { [key: string]: ButtonType } = {
-  contained: 'contained',
-  tile: 'tile',
-  outlined: 'outlined',
-  pill: 'pill',
-  tab: 'tab',
-};
-
-export const BUTTON_COLORS: { [key: string]: ButtonColor } = {
+export const BUTTON_COLORS: { [key in ButtonColor]: ButtonColor } = {
   default: 'default',
   primary: 'primary',
   secondary: 'secondary',
   error: 'error',
   warning: 'warning',
   info: 'info',
-  success: 'success',
+  success: 'success'
 };
 
-export const BUTTON_SIZES: { [key: string]: ButtonSize } = {
+export const BUTTON_SIZES: { [key in ButtonSize]: ButtonSize } = {
   small: 'small',
   medium: 'medium',
-  large: 'large',
+  large: 'large'
+};
+
+export const BUTTON_TYPES: { [key in ButtonType]: ButtonType } = {
+  contained: 'contained',
+  tile: 'tile',
+  outlined: 'outlined',
+  pill: 'pill',
+  tab: 'tab'
 };

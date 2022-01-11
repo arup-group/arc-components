@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
-import sinon, { SinonSpy } from 'sinon';
 import { setViewport } from '@web/test-runner-commands';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
@@ -71,20 +70,34 @@ describe('ArcNavbar', () => {
     let element: ArcNavbar;
     let toolName: HTMLElement;
     let tabContainer: HTMLElement;
-    let logSpy: SinonSpy;
-    const tabCount = 2;
+
+    /* Function that returns hidden and untouched elements when the slotted button and icon-button components exceed the tab limit */
+    function retrieveElements() {
+      return {
+        hiddenTabs: [...element.children].filter(el => (el as HTMLElement).style.display === 'none'),
+        untouchedElements: [...element.children].filter(el => (el as HTMLElement).style.display === '')
+      };
+    }
 
     beforeEach(async () => {
       element = await fixture(html`
-        <arc-navbar tabs="${tabCount}">
+        <arc-navbar tabs="7">
           <span slot="name">Custom Brand</span>
+          <div>Some div</div>
+          <arc-dropdown>
+            <arc-button slot='trigger'>Dropdown</arc-button>
+          </arc-dropdown>
           <arc-button type="tab">1</arc-button>
-          <arc-button type="tab">2</arc-button>
+          <arc-button type="tab" disabled>2</arc-button>
+          <arc-button type="tab"></arc-button>
+          <arc-icon-button>Home</arc-icon-button>
+          <arc-icon-button label='Home'></arc-icon-button>
+          <arc-icon-button name='home'></arc-icon-button>
+          <arc-icon-button></arc-icon-button>
         </arc-navbar>
       `);
       toolName = element.shadowRoot!.getElementById('tool-name')!;
       tabContainer = element.shadowRoot!.getElementById('tabs')!;
-      logSpy = sinon.spy(element, 'log');
     });
 
     it('shows the correct elements on a desktop', async () => {
@@ -109,15 +122,52 @@ describe('ArcNavbar', () => {
       expect(getPropertyValue(tabContainer, 'display')).to.equal('none');
     });
 
-    /* TODO: ARC-12 Replace this test once the arc-dropdown functionality is added */
-    it('logs "Please limit your tab count to a maximum of X tabs"', async () => {
-      /* Add a third button to trigger the alert */
+    it('shows the correct elements when the tab count changes', async () => {
+      /* Lower the tab count to exceed the tab limit */
+      element.tabs = 1;
+      await elementUpdated(element);
+      expect(element.showDropdown).to.be.true;
+
+      /* Validate the hidden tabs and untouched elements */
+      expect(retrieveElements().hiddenTabs.length).to.equal(7);
+      expect(retrieveElements().untouchedElements.length).to.equal(3);
+
+      /* A dropdown menu exists */
+      const dropdown = tabContainer.querySelector('arc-dropdown');
+      expect(dropdown).to.exist;
+    });
+
+    it('shows the correct elements when slots change', async () => {
+      /* Add a new child component to exceed the tab limit */
       element.appendChild(document.createElement('arc-button'));
       await elementUpdated(element);
 
-      expect(logSpy.callCount).to.equal(1);
-      expect(logSpy.calledWith(`Please limit your tab count to a maximum of ${tabCount} tabs`)).to.be.true;
-    });
+      /* Validate the hidden tabs and untouched elements */
+      expect(retrieveElements().hiddenTabs.length).to.equal(8);
+      expect(retrieveElements().untouchedElements.length).to.equal(3);
+
+      /* A dropdown menu exists */
+      const dropdown = tabContainer.querySelector('arc-dropdown');
+      expect(dropdown).to.exist;
+    })
+
+    it('retrieves the correct properties from the slotted button and icon-button components', async () => {
+      element.tabs = 1;
+      await elementUpdated(element);
+
+      const dropdown = tabContainer.querySelector('arc-dropdown')!;
+      const menu = dropdown.querySelector('arc-menu')!;
+
+      /* Validate the properties of the menu-items with the button or icon-button components */
+      expect(menu.children[0].textContent?.includes(`${element.children[3].textContent}`)).to.be.true;
+      expect(menu.children[1].textContent?.includes(`${element.children[4].textContent}`)).to.be.true;
+      expect(menu.children[1].hasAttribute('disabled')).to.equal(element.children[4].hasAttribute('disabled'));
+      expect(menu.children[2].textContent?.includes('Invalid label')).to.be.true;
+      expect(menu.children[3].textContent?.includes(`${element.children[6].textContent}`)).to.be.true;
+      expect(menu.children[4].textContent?.includes(`${element.children[7].getAttribute('label')}`)).to.be.true;
+      expect(menu.children[5].textContent?.includes(`${element.children[8].getAttribute('name')}`)).to.be.true;
+      expect(menu.children[6].textContent?.includes('Invalid label')).to.be.true;
+    })
   });
 
   /* Test whether the slots can be filled and that they exist */

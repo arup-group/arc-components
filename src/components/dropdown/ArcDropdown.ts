@@ -23,15 +23,11 @@ export default class ArcDropdown extends LitElement {
       }
 
       #main, #trigger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
         height: 100%;
-      }
-
-      #main {
-        position: relative;
-      }
-
-      #trigger {
-        display: flex;
       }
 
       #positioner {
@@ -82,7 +78,7 @@ export default class ArcDropdown extends LitElement {
   private popover: PopperInstance;
 
   /* The preferred placement of the dropdown panel. */
-  @property({ type: String }) placement: Placement = DROPDOWN_PLACEMENTS.bottomStart;
+  @property({ type: String }) placement: Placement = DROPDOWN_PLACEMENTS['bottom-start'];
 
   /* The distance in pixels from which to offset the panel away from its trigger. */
   @property({ type: Number }) distance: number = 0;
@@ -114,7 +110,7 @@ export default class ArcDropdown extends LitElement {
       document.addEventListener('mousedown', this.handleDocumentMouseDown);
 
       await stopAnimations(this);
-      await this.popover.update();
+      this.popover.update();
       this.panel.hidden = false;
       const { keyframes, options } = getAnimation(this, 'dropdown.show');
       await startAnimations(this.panel, keyframes, options);
@@ -210,7 +206,7 @@ export default class ArcDropdown extends LitElement {
 
   getMenu() {
     const slot = this.panel.querySelector('slot')!;
-    return slot.assignedElements({ flatten: true }).filter(el => el.tagName.toLowerCase() === 'arc-menu')[0] as ArcMenu;
+    return slot.assignedElements({ flatten: true }).filter(el => el.tagName === 'ARC-MENU')[0] as ArcMenu;
   }
 
   handleDocumentKeyDown(event: KeyboardEvent) {
@@ -224,7 +220,7 @@ export default class ArcDropdown extends LitElement {
     /* Handle tabbing */
     if (event.key === 'Tab') {
       /* Tabbing within an open menu should close the dropdown and refocus the trigger */
-      if (this.open && document.activeElement?.tagName.toLowerCase() === 'arc-menu-item') {
+      if (this.open && document.activeElement?.tagName === 'ARC-MENU-ITEM') {
         event.preventDefault();
         this.hide();
         this.focusOnTrigger();
@@ -311,7 +307,7 @@ export default class ArcDropdown extends LitElement {
   handlePanelSelect(event: CustomEvent) {
     const target = event.target as HTMLElement;
 
-    if (target.tagName.toLowerCase() === 'arc-menu') {
+    if (target.tagName === 'ARC-MENU') {
       this.hide();
       this.focusOnTrigger();
     }

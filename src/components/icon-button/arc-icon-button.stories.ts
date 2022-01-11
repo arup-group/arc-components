@@ -1,4 +1,5 @@
 import { html, TemplateResult } from 'lit';
+import { ICON_TYPES, IconType } from '../icon/constants/IconConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -7,16 +8,16 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  content: string;
-  name: string;
-  label: string;
-  href: string | undefined;
-  target: string | undefined;
-  download: string | undefined;
-  active: boolean;
-  disabled: boolean;
-  loading: boolean;
-  iconColor: string | undefined;
+  content?: string;
+  name: IconType;
+  label?: string;
+  href?: string;
+  target?: string;
+  download?: string;
+  active?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  iconColor?: string;
 }
 
 const Template: Story<ArgTypes> = ({
@@ -46,9 +47,9 @@ const Template: Story<ArgTypes> = ({
   </arc-icon-button>
 `;
 
-const defaultArgs = {
+const defaultArgs: ArgTypes = {
   content: 'Default',
-  name: 'fire',
+  name: ICON_TYPES.fire,
   label: 'Icon button',
   href: undefined,
   target: undefined,
@@ -73,22 +74,22 @@ CustomColor.args = {
   content: 'Custom color',
   iconColor: 'red',
 };
-Link.args = { ...defaultArgs, name: 'link', content: 'Link', href: '/' };
+Link.args = { ...defaultArgs, name: ICON_TYPES.link, content: 'Link', href: '/' };
 LinkNewWindow.args = {
   ...Link.args,
-  name: 'link',
+  name: ICON_TYPES.link,
   content: 'New window',
   target: '_blank',
 };
 LinkDownload.args = {
   ...Link.args,
-  name: 'link',
+  name: ICON_TYPES.link,
   content: 'Download',
   download: 'ARC Storybook',
 };
 LinkDisabled.args = {
   ...Link.args,
-  name: 'link',
+  name: ICON_TYPES.link,
   content: 'Disabled',
   disabled: true,
 };

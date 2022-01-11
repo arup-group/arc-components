@@ -4,13 +4,13 @@ import { setViewport } from '@web/test-runner-commands';
 import { isMobile, prefersReducedMotion } from './ui-utils.js';
 
 describe('isMobile', () => {
-  it('returns true if width < 48rem', async () => {
-    await setViewport({ width: 360, height: 640 });
+  it('returns true if width < 49rem', async () => {
+    await setViewport({ width: 783, height: 640 });
     expect(isMobile()).to.be.true;
   });
 
-  it('returns false if width > 48rem', async () => {
-    await setViewport({ width: 1200, height: 640 });
+  it('returns false if width > 49rem', async () => {
+    await setViewport({ width: 785, height: 640 });
     expect(isMobile()).to.be.false;
   });
 });

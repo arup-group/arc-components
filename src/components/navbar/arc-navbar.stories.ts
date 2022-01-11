@@ -4,24 +4,25 @@ import { getBasePath } from '../../utilities/base-path.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
-
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
 
 interface ArgTypes {
-  arup: boolean;
-  logo: string;
-  name: string;
-  tabs: number;
-  height: string;
+  arup?: boolean;
+  logo?: string;
+  name?: string;
+  tabs?: number;
+  height?: string;
 }
 
 const Template: Story<ArgTypes> = ({ arup, logo, name, tabs, height }: ArgTypes) => html`
-  <arc-navbar slot="nav" home="/" logo="${logo}" style="height: ${height}" arup="${arup}" tabs="${tabs}"
+  <arc-navbar slot="nav" home="/" logo="${logo}" arup="${arup}" .tabs=${tabs} style="height: ${height}"
     >${name ? html`<span slot="name">${name}</span>` : null}
-    <arc-icon-button name="home" label="Back to home"></arc-icon-button>
-    <arc-icon-button name="settings" label="Change settings"></arc-icon-button>
+    <arc-button type="tab">Menu</arc-button>
+    <arc-button type="tab">User</arc-button>
+    <arc-button type="tab">Map</arc-button>
+    <arc-button type="tab">Other</arc-button>
     <arc-button type="tab">username@arup.com</arc-button>
   </arc-navbar>
 `;

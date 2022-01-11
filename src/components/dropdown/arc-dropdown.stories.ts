@@ -11,11 +11,11 @@ interface Story<T> {
 
 interface ArgTypes {
   placement: Placement;
-  distance: number;
-  skidding: number;
-  open: boolean;
-  disabled: boolean;
-  hoist: boolean;
+  distance?: number;
+  skidding?: number;
+  open?: boolean;
+  disabled?: boolean;
+  hoist?: boolean;
 }
 
 const Template: Story<ArgTypes> = ({ placement, distance, skidding, open, disabled, hoist }: ArgTypes) => html`
@@ -36,8 +36,8 @@ const Template: Story<ArgTypes> = ({ placement, distance, skidding, open, disabl
   </arc-dropdown>
 `;
 
-const defaultArgs = {
-  placement: DROPDOWN_PLACEMENTS.bottomStart,
+const defaultArgs: ArgTypes = {
+  placement: DROPDOWN_PLACEMENTS['bottom-start'],
   distance: 0,
   skidding: 0,
   open: false,
@@ -54,7 +54,7 @@ export const Position = Template.bind({});
 export const Distance = Template.bind({});
 export const Skidding = Template.bind({});
 
-Position.args = { ...defaultArgs, placement: DROPDOWN_PLACEMENTS.topStart };
+Position.args = { ...defaultArgs, placement: DROPDOWN_PLACEMENTS['top-start'] };
 Distance.args = { ...defaultArgs, distance: 20 };
 Skidding.args = { ...defaultArgs, skidding: 20 };
 

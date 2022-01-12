@@ -20,24 +20,7 @@
     <span slot="name">WebComponents</span>
     <arc-icon-button name="home" label='Home' href="/"></arc-icon-button>
     <arc-icon-button id="themeSetter" label='Toggle theme' name="brightness_low"></arc-icon-button>
-    <arc-icon-button></arc-icon-button>
-    <arc-dropdown hoist>
-      <arc-icon-button name='settings' slot='trigger'></arc-icon-button>
-      <arc-menu>
-        <arc-menu-item>
-          <arc-icon slot='prefix' name='accessibility'></arc-icon>
-          Accessibility
-        </arc-menu-item>
-        <arc-menu-item>Menu item two</arc-menu-item>
-        <arc-menu-item disabled>Menu item three</arc-menu-item>
-        <arc-menu-item>Menu item four super long messages because I simply can you know?</arc-menu-item>
-        <arc-menu-item>Menu item four</arc-menu-item>
-      </arc-menu>
-    </arc-dropdown>
-    <arc-button type="tab">Menu</arc-button>
-    <arc-button type="tab">User</arc-button>
-    <arc-button type="tab">Map</arc-button>
-    <arc-button type="tab">Other</arc-button>
+    <arc-icon-button name='accessibility' id='toggleAccessibility'></arc-icon-button>
   </arc-navbar>
   <arc-sidebar slot="side" title="Select a section">
     <arc-menu>
@@ -56,57 +39,15 @@
     </arc-menu>
   </arc-sidebar>
   <div style="padding: var(--arc-spacing-medium);">
-    <arc-dropdown>
-      <button slot='trigger'>Click me!</button>
-      <arc-menu>
-        <arc-menu-item>Menu item one</arc-menu-item>
-        <arc-menu-item>Menu item two</arc-menu-item>
-        <arc-menu-item>Menu item three</arc-menu-item>
-      </arc-menu>
-    </arc-dropdown>
-    <arc-dropdown>
-      <arc-button slot='trigger'>Click me!</arc-button>
-      <arc-menu>
-        <arc-menu-item>Menu item one</arc-menu-item>
-        <arc-menu-item>Menu item two</arc-menu-item>
-        <arc-menu-item>Menu item three</arc-menu-item>
-      </arc-menu>
-    </arc-dropdown>
-    <arc-dropdown>
-      <arc-icon-button name='settings' slot='trigger'>Something</arc-icon-button>
-      <arc-menu>
-        <arc-menu-item>Menu item one</arc-menu-item>
-        <arc-menu-item>Menu item two</arc-menu-item>
-        <arc-menu-item>Menu item three</arc-menu-item>
-      </arc-menu>
-    </arc-dropdown>
+    <h1>Hello World!</h1>
 
-    <arc-accessibility>
-      <arc-slider>Change fontsize</arc-slider>
-      <arc-toggle>Toggle theme</arc-toggle>
-      <arc-toggle>Toggle colorblind</arc-toggle>
-    </arc-accessibility>
-
+    <arc-drawer label="Accessibility">
+      Something here
+    </arc-drawer>
 
   </div>
   <arc-bottombar slot='bottom'>
-    <arc-icon-button>Hi</arc-icon-button>
-    <arc-icon-button>Hello</arc-icon-button>
-    <arc-icon-button>Bye</arc-icon-button>
-
-    <arc-dropdown placement='bottom-start' hoist>
-      <arc-icon-button name='settings' slot='trigger'>Settings</arc-icon-button>
-      <arc-menu>
-        <arc-menu-item>
-          <arc-icon slot='prefix' name='accessibility'></arc-icon>
-          Accessibility
-        </arc-menu-item>
-        <arc-menu-item>Menu item two</arc-menu-item>
-        <arc-menu-item disabled>Menu item three</arc-menu-item>
-        <arc-menu-item>Menu item four super long messages because I simply can you know?</arc-menu-item>
-        <arc-menu-item>Menu item four</arc-menu-item>
-      </arc-menu>
-    </arc-dropdown>
+    <arc-icon-button name='home'>Home</arc-icon-button>
   </arc-bottombar>
 </arc-container>
 
@@ -117,13 +58,17 @@
   noFOUC();
   setBasePath('/');
 
-  const themeSetter = document.getElementById('themeSetter');
   const container = document.querySelector('arc-container');
+  const accessibility = document.querySelector('arc-drawer');
+  const themeSetter = document.getElementById('themeSetter');
+  const toggleAccessibility = document.getElementById('toggleAccessibility');
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';
     themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
   });
+
+  toggleAccessibility.addEventListener('click', () => accessibility.show());
 </script>
 
 <script type="module" src='./out-tsc/arc.js'></script>

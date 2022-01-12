@@ -133,7 +133,7 @@
   --arc-panel-height: 75vh;
 
   /* Overlay */
-  --arc-overlay-opacity: rgba(var(--arc-black-100), 0.3);
+  --arc-overlay-opacity: rgba(var(--arc-black-100), 0.4);
   --arc-overlay-gradient: linear-gradient(var(--arc-overlay-opacity) 0 0);
 
   /* Box shadow values */

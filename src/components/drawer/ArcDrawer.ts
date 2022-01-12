@@ -138,6 +138,10 @@ export default class ArcDrawer extends LitElement {
         background-image: var(--arc-overlay-gradient);
         pointer-events: all;
       }
+
+      :host([contained]) #overlay {
+        position: absolute;
+      }
     `,
   ];
 

@@ -157,19 +157,19 @@ export default class ArcDrawer extends LitElement {
 
   private originalTrigger: HTMLElement | null;
 
-  /* The direction from which the drawer will open */
-  @property({ reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
-
-  /** Indicates whether or not the drawer is open. You can use this in lieu of the show/hide methods. */
+  /** Indicates whether or not the drawer is open. You can use this instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
-
-  @property({ reflect: true }) label: string;
 
   /*
   Setting this property will allow the drawer to slide out of the parent element.
   The parent element will require `position: relative` for this to work.
   */
   @property({ type: Boolean, reflect: true }) contained = false;
+
+  /* The direction from which the drawer will open */
+  @property({ reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
+
+  @property({ reflect: true }) label: string;
 
   connectedCallback() {
     super.connectedCallback();

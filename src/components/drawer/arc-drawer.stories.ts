@@ -1,0 +1,51 @@
+import { html, TemplateResult } from 'lit';
+
+import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
+
+interface Story<T> {
+  (args: T): TemplateResult;
+  args?: Partial<T>;
+  argTypes?: Record<string, unknown>;
+}
+
+interface ArgTypes {
+  open: boolean,
+  contained: boolean,
+  placement: DrawerPlacements,
+  label: string | undefined,
+  size: string
+}
+
+const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
+  <div style='position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)'>
+    <arc-drawer
+      style='--size:${size}'
+      ?open="${open}"
+      ?contained="${contained}"
+      placement="${placement}"
+      label="${label}"
+    >Drawer body</arc-drawer>
+  </div>
+`;
+
+const defaultArgs = {
+  open: true,
+  contained: true,
+  placement: DRAWER_PLACEMENTS.end,
+  label: 'Drawer',
+  size: '25rem'
+};
+
+/* TYPES */
+export const Default = Template.bind({});
+export const Top = Template.bind({});
+export const End = Template.bind({});
+export const Bottom = Template.bind({});
+export const Start = Template.bind({});
+
+Default.args = { ...defaultArgs };
+Top.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.top, label: 'Drawer top' };
+End.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.end, label: 'Drawer end' };
+Bottom.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.bottom, label: 'Drawer bottom' };
+Start.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.start, label: 'Drawer start' };
+

@@ -218,8 +218,8 @@ describe('ArcDropdown', () => {
     it('should emit arc-show and arc-after-show when calling show()', async () => {
       element.addEventListener('arc-show', showHandler);
       element.addEventListener('arc-after-show', afterShowHandler);
-      await element.show();
 
+      await element.show();
       await waitUntil(() => showHandler.calledOnce);
       await waitUntil(() => afterShowHandler.calledOnce);
 
@@ -229,14 +229,12 @@ describe('ArcDropdown', () => {
     });
 
     it('should emit arc-hide and arc-after-hide when calling hide()', async () => {
-      /* First open the menu before calling the hide event */
-      element.open = true;
-      await elementUpdated(element);
+      await element.show();
 
       element.addEventListener('arc-hide', hideHandler);
       element.addEventListener('arc-after-hide', afterHideHandler);
-      await element.hide();
 
+      await element.hide();
       await waitUntil(() => hideHandler.calledOnce);
       await waitUntil(() => afterHideHandler.calledOnce);
 
@@ -248,8 +246,8 @@ describe('ArcDropdown', () => {
     it('should emit arc-show and arc-after-show when setting open = true', async () => {
       element.addEventListener('arc-show', showHandler);
       element.addEventListener('arc-after-show', afterShowHandler);
-      element.open = true;
 
+      element.open = true;
       await waitUntil(() => showHandler.calledOnce);
       await waitUntil(() => afterShowHandler.calledOnce);
 
@@ -259,14 +257,13 @@ describe('ArcDropdown', () => {
     });
 
     it('should emit arc-hide and arc-after-hide when setting open = false', async () => {
-      /* First open the menu before calling the hide event */
       element.open = true;
       await elementUpdated(element);
 
       element.addEventListener('arc-hide', hideHandler);
       element.addEventListener('arc-after-hide', afterHideHandler);
-      element.open = false;
 
+      element.open = false;
       await waitUntil(() => hideHandler.calledOnce);
       await waitUntil(() => afterHideHandler.calledOnce);
 

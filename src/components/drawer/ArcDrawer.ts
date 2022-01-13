@@ -387,6 +387,12 @@ setDefaultAnimation('drawer.hideStart', {
   options: { duration: 250, easing: 'ease' }
 });
 
+/* Deny close */
+setDefaultAnimation('drawer.denyClose', {
+  keyframes: [{ transform: 'scale(1)' }, { transform: 'scale(1.01)' }, { transform: 'scale(1)' }],
+  options: { duration: 250 }
+});
+
 /* Overlay */
 setDefaultAnimation('drawer.overlay.show', {
   keyframes: [{ opacity: 0 }, { opacity: 1 }],

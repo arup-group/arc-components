@@ -85,6 +85,7 @@ describe('ArcDrawer', () => {
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcDrawer;
+    let elementTwo: ArcDrawer;
     let input: HTMLElement;
     let overlay: HTMLElement;
     let panel: HTMLElement;
@@ -101,9 +102,9 @@ describe('ArcDrawer', () => {
     const afterHideHandler: SinonSpy = sinon.spy();
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-drawer><input /></arc-drawer>
-      `);
+      element = await fixture(html`<arc-drawer id='one'><input /></arc-drawer>`);
+      elementTwo = await fixture(html`<arc-drawer id='two'><input /></arc-drawer>`);
+
       input = element.querySelector('input') as HTMLElement;
       overlay = element.shadowRoot?.getElementById('overlay') as HTMLElement;
       panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
@@ -218,6 +219,14 @@ describe('ArcDrawer', () => {
       expect(isOpen()).to.be.true;
     });
 
+    it('should set focus to the last opened drawer', async () => {
+      /* Open both dialogs */
+      await element.show();
+      await elementTwo.show();
+
+      expect(document.activeElement === elementTwo).to.be.true;
+    })
+
     it('should allow initial focus to be set', async () => {
       element.addEventListener('arc-initial-focus', initialFocusHandler);
 
@@ -242,9 +251,6 @@ describe('ArcDrawer', () => {
       expect(isOpen()).to.be.false;
     });
   });
-
-  /* Test the component responsiveness */
-  describe('responsiveness', () => {});
 
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {

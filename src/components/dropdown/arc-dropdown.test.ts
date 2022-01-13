@@ -2,6 +2,16 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import {
+  createKeyEvent,
+  downEvent,
+  escEvent,
+  tabEvent,
+  mouseEvent,
+  spaceEvent,
+  enterEvent,
+  upEvent,
+} from '../../utilities/test-utils.js';
 
 import type ArcDropdown from './ArcDropdown.js';
 import type ArcMenu from '../menu/ArcMenu.js';
@@ -13,16 +23,6 @@ import '../menu-item/arc-menu-item.js';
 import '../button/arc-button.js';
 
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
-import {
-  createKeyEvent,
-  downEvent,
-  escEvent,
-  tabEvent,
-  mouseEvent,
-  spaceEvent,
-  enterEvent,
-  upEvent,
-} from '../../utilities/test-utils.js';
 
 describe('ArcDropdown', () => {
   /* Test the rendering of the component */

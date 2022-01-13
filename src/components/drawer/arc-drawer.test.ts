@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import { escEvent } from '../../utilities/test-utils.js';
 
 import { getPropertyValue } from '../../utilities/style-utils.js';
 
@@ -38,6 +39,16 @@ describe('ArcDrawer', () => {
       expect(element.label).to.equal('Test label');
       expect(element.getAttribute('label')).to.equal('Test label');
     });
+
+    it('activates the drawer when the open state is set', async () => {
+      const element: ArcDrawer = await fixture(html`<arc-drawer open></arc-drawer>`);
+      const panel = element.shadowRoot?.getElementById('panel');
+      const isOpen = () => panel?.getAttribute('aria-hidden') === 'false';
+
+      expect(element.open).to.be.true;
+      expect(element.hasAttribute('open')).to.be.true;
+      expect(isOpen()).to.be.true;
+    })
   });
 
   /* Test different component states (active, disabled, loading etc.) */
@@ -96,7 +107,7 @@ describe('ArcDrawer', () => {
       input = element.querySelector('input') as HTMLElement;
       overlay = element.shadowRoot?.getElementById('overlay') as HTMLElement;
       panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
-      isOpen = () => panel.getAttribute('aria-expanded') === 'true';
+      isOpen = () => panel.getAttribute('aria-hidden') === 'false';
     });
 
     afterEach(() => {
@@ -170,6 +181,33 @@ describe('ArcDrawer', () => {
       expect(isOpen()).to.be.false;
     });
 
+    it('should prevent emitting the arc-show and arc-after-show when the drawer is already open', async () => {
+      element.addEventListener('arc-show', showHandler);
+      element.addEventListener('arc-after-show', afterShowHandler);
+
+      await element.show();
+      expect(isOpen()).to.be.true;
+
+      await element.show();
+      expect(isOpen()).to.be.true;
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+    });
+
+    it('should prevent emitting the arc-hide and arc-after-hide when the drawer is not open', async () => {
+      await element.show();
+
+      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener('arc-after-hide', afterHideHandler);
+
+      await element.hide();
+      await element.hide();
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
+    })
+
     it('should not close when arc-request-close is prevented', async () => {
       await element.show();
 
@@ -190,29 +228,19 @@ describe('ArcDrawer', () => {
       expect(document.activeElement).to.equal(input);
     });
 
-    // it('closes the menu when escape is pressed', async () => {
-    //   element.addEventListener('arc-hide', hideHandler);
-    //
-    //   /* Open the menu */
-    //   await element.show();
-    //   expect(isOpen()).to.be.true;
-    //
-    //   /* Close the menu with the Escape keypress on the document */
-    //   element.handleDocumentKeyDown(escEvent);
-    //   await waitUntil(() => hideHandler.calledOnce);
-    //
-    //   /* Open the menu again */
-    //   await element.show();
-    //   expect(isOpen()).to.be.true;
-    //
-    //   /* Close the menu with the Escape keypress on the menu */
-    //   element.handleTriggerKeyDown(escEvent);
-    //   await waitUntil(() => hideHandler.calledTwice);
-    //
-    //   expect(hideHandler).to.have.been.calledTwice;
-    //   expect(isOpen()).to.be.false;
-    //   expect(document.activeElement === trigger).to.be.true;
-    // });
+    it('closes the menu when escape is pressed', async () => {
+      await element.show();
+
+      element.addEventListener('arc-hide', hideHandler);
+
+      /* Close the menu with the Escape keypress on the overlay */
+      element.handleKeyDown(escEvent);
+      await waitUntil(() => hideHandler.calledOnce);
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(element.open).to.be.false;
+      expect(isOpen()).to.be.false;
+    });
   });
 
   /* Test the component responsiveness */

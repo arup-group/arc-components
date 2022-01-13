@@ -3,41 +3,47 @@ import { expect, fixture} from '@open-wc/testing';
 
 import { lockBodyScrolling, unlockBodyScrolling } from './scroll.js';
 
-describe('scroll', async () => {
-  const htmlElement: HTMLElement = await fixture(html` <div>Test element</div>`);
-  const htmlElementTwo: HTMLElement = await fixture(html` <div>Test element two</div>`);
+describe('scroll', () => {
+  let elementOne: HTMLElement;
+  let elementTwo: HTMLElement;
+
+  beforeEach(async () => {
+    elementOne = await fixture(html`<div>Test element</div>`);
+    elementTwo = await fixture(html`<div>Test element two</div>`);
+  });
 
   afterEach(() => {
-    document.body.classList.remove('arc-scroll-lock');
+    unlockBodyScrolling(elementOne);
+    unlockBodyScrolling(elementTwo);
   })
 
-  it('should lock the body from scrolling', () => {
+  it('should lock the body from scrolling', async () => {
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.false;
-    lockBodyScrolling(htmlElement);
+    await lockBodyScrolling(elementOne);
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.true;
   });
 
-  it('should unlock the body from scrolling', () => {
-    lockBodyScrolling(htmlElement);
+  it('should unlock the body from scrolling', async() => {
+    await lockBodyScrolling(elementOne);
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.true;
-    unlockBodyScrolling(htmlElement);
+    await unlockBodyScrolling(elementOne);
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.false;
   });
 
-  it('should unlock when the set of stored locked elements equals 0', () => {
+  it('should unlock when the set of stored locked elements equals 0', async () => {
     /* Add two elements to the set */
-    lockBodyScrolling(htmlElement);
-    lockBodyScrolling(htmlElementTwo);
+    await lockBodyScrolling(elementOne);
+    await lockBodyScrolling(elementTwo);
 
     /* The body is being locked */
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.true;
 
     /* Remove only one element from the set */
-    unlockBodyScrolling(htmlElement);
+    await unlockBodyScrolling(elementOne);
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.true;
 
     /* Remove the last element from the set, which should unlock the body */
-    unlockBodyScrolling(htmlElementTwo);
+    await unlockBodyScrolling(elementTwo);
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.false;
   });
 })

@@ -21,14 +21,7 @@
     <arc-icon-button name="home" label='Home' href="/"></arc-icon-button>
     <arc-icon-button id="themeSetter" label='Toggle theme' name="brightness_low"></arc-icon-button>
     <arc-icon-button name='accessibility' id='toggleAccessibility'></arc-icon-button>
-    <arc-dropdown hoist>
-      <arc-icon-button slot='trigger' name='menu'></arc-icon-button>
-      <arc-menu>
-        <arc-menu-item>Item 1</arc-menu-item>
-        <arc-menu-item>Item 2</arc-menu-item>
-        <arc-menu-item>Item 3</arc-menu-item>
-      </arc-menu>
-    </arc-dropdown>
+    <arc-sso client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
   </arc-navbar>
   <arc-sidebar slot="side" title="Select a section">
     <arc-menu>
@@ -48,8 +41,6 @@
   </arc-sidebar>
   <div style="height: 100%; padding: var(--arc-spacing-medium); position:relative">
     <h1>Hello World!</h1>
-
-    <arc-sso client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
 
     <arc-drawer label="ARC drawer">
       <div style="height: 150vh;">

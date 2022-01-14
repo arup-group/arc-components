@@ -12,17 +12,26 @@ export default class ArcSSO extends LitElement {
 
   static styles = [
     componentStyles,
-    css``,
+    css`
+      :host {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      #main, #userMenu {
+        height: 100%;
+      }
+    `,
   ];
 
   @state()
   private _isAuthenticated: boolean;
 
   @state()
-  private msalConfig: Configuration;
+  private _msalConfig: Configuration;
 
   @state()
-  private msalInstance: PublicClientApplication;
+  private _msalInstance: PublicClientApplication;
 
   @property({ attribute: 'client-id', type: String }) clientId: string;
 
@@ -50,7 +59,7 @@ export default class ArcSSO extends LitElement {
     super.connectedCallback();
 
     /* The default Azure MSAL configuration */
-    this.msalConfig = {
+    this._msalConfig = {
       auth: {
         clientId: this.clientId || '',
         authority: `https://login.microsoftonline.com/${this.tenantId ? this.tenantId : 'common/'}`
@@ -62,7 +71,7 @@ export default class ArcSSO extends LitElement {
     }
 
     /* The MSAL instance */
-    this.msalInstance = new Msal.PublicClientApplication(this.msalConfig)
+    this._msalInstance = new Msal.PublicClientApplication(this._msalConfig)
 
     /* Additional scopes (permissions) */
     if (this.scopes && this.scopes.length > 0) {
@@ -76,7 +85,7 @@ export default class ArcSSO extends LitElement {
 
   /* Request the Login dialog response */
   private async getLoginPopupResponse() {
-    await this.msalInstance.loginPopup();
+    await this._msalInstance.loginPopup();
   }
 
   /* Acquire the Azure token and store them in the localStorage */
@@ -85,7 +94,7 @@ export default class ArcSSO extends LitElement {
       account: accountInfo,
       scopes: this.loginRequest.scopes,
     }
-    const { accessToken, idToken } = await this.msalInstance.acquireTokenSilent(tokenRequest);
+    const { accessToken, idToken } = await this._msalInstance.acquireTokenSilent(tokenRequest);
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('idToken', idToken);
   };
@@ -105,12 +114,12 @@ export default class ArcSSO extends LitElement {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('idToken');
     localStorage.removeItem('expiration');
-    await this.msalInstance.logoutRedirect();
+    await this._msalInstance.logoutRedirect();
   }
 
   /* Retrieve the account */
   getAccount() {
-    return this.msalInstance.getAllAccounts()[0];
+    return this._msalInstance.getAllAccounts()[0];
   }
 
   /* Method to check whether the user is authenticated */
@@ -135,17 +144,20 @@ export default class ArcSSO extends LitElement {
 
     return html`
       <div id='main'>
-        ${account ? html`
-          <p>${account.homeAccountId}</p>
-          <p>${account.environment}</p>
-          <p>${account.tenantId}</p>
-          <p>${account.username}</p>
-          <p>${account.localAccountId}</p>
-          <p>${account.name}</p>
-          <p>${account.idTokenClaims}</p>
-        ` : nothing}
-        <slot name="trigger">
-          <arc-button slot="trigger" @click=${this._isAuthenticated ? this.logout : this.login}>${this._isAuthenticated ? 'Logout' : 'Login'}</arc-button>
+        <slot name="logout">
+          ${this._isAuthenticated && account ? html`
+            <arc-dropdown id="userMenu" hoist>
+              <arc-button slot="trigger" type="tab">${account.username}</arc-button>
+              <arc-menu>
+                <arc-menu-item @click=${this.logout}>Logout</arc-menu-item>
+              </arc-menu>
+            </arc-dropdown>
+          ` : nothing}
+        </slot>
+        <slot name="login">
+          ${!this._isAuthenticated ? html`
+            <arc-button type="tab" @click=${this.login}>Login</arc-button>
+          ` : nothing}
         </slot>
       </div>
     `;

@@ -9,6 +9,7 @@ function startAnimations(el: HTMLElement, keyframes: Keyframe[], options?: Keyfr
 
     const animation = el.animate(keyframes, {
       ...options,
+      /* c8 ignore next */
       duration: prefersReducedMotion() ? 0 : options!.duration,
     });
 

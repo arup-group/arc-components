@@ -7,6 +7,11 @@ import { Configuration } from "@azure/msal-browser/dist/config/Configuration";
 import { SilentRequest } from "@azure/msal-browser/dist/request/SilentRequest";
 import componentStyles from '../../styles/component.styles.js';
 
+import '../dropdown/arc-dropdown.js';
+import '../button/arc-button.js';
+import '../menu/arc-menu.js';
+import '../menu-item/arc-menu-item.js';
+
 export default class ArcSSO extends LitElement {
   static tag = 'arc-sso';
 

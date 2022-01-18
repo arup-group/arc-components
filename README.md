@@ -14,12 +14,12 @@
 
 # Quick start
 
-Add the following code to your page.
+Add the following code to your page, where @x.x.x stands for the version of @arc-web/components.
 
 ```bash
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/themes/index.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/themes/light.css">
-<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@1.3.0/dist/arc.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@x.x.x/dist/themes/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@x.x.x/dist/themes/light.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@x.x.x/dist/arc.js"></script>
 ```
 
 Now you have access to all the ARC components.

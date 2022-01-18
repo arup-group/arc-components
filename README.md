@@ -7,7 +7,8 @@
       2. React
       3. Vue
       4. Angular
-3. Useful utilities
+3. TypeScript 
+4. Useful utilities
    1. BasePath
    2. FOUC
 
@@ -253,6 +254,30 @@ export class AppModule { }
 Component modules include side effects for registration purposes. 
 Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary. 
 For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown in the examples above.
+
+# TypeScript
+
+TypeScript cannot type check the ARC component templates due to it not knowing how to find the CustomElement class reference for the associated tag. 
+You can add the tag(s) to the JSX.IntrinsicElements global interface, which will associate the tag to the class reference.
+Create the following file in the main directory of your project.
+
+```bash
+# declarations.d.ts
+import * as React from 'react';
+import type ArcContainer from "@arc-web/components";
+
+type CustomElement<T> = Partial<T & DOMAttributes<T> & { children: any }>;
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "arc-container": CustomElement<ArcContainer>;
+    }
+  }
+}
+```
+Add each component into the interface like shown above.
+More on this can be found on https://coryrylan.com/blog/how-to-use-web-components-with-typescript-and-react
 
 # Useful utilities
 ## Setting the Base Path

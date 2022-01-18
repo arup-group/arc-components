@@ -4,10 +4,9 @@
    1. Local installation
    2. Cherry Picking
       1. No framework
-      2. Django / Parcel
-      3. React
-      4. Vue
-      5. Angular
+      2. React
+      3. Vue
+      4. Angular
 3. Useful utilities
    1. BasePath
    2. FOUC

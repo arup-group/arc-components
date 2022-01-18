@@ -68,9 +68,9 @@ const Template: Story<ArgTypes> = ({
 
 const defaultArgs: ArgTypes = {
   label: 'Default',
-  type: 'contained',
+  type: BUTTON_TYPES.contained,
   color: 'default',
-  size: 'medium',
+  size: BUTTON_SIZES.medium,
   href: undefined,
   target: undefined,
   download: undefined,

@@ -1,0 +1,118 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/components/drawer/arc-drawer.stories.js';
+import { DRAWER_PLACEMENTS } from '../out-tsc/components/drawer/constants/DrawerConstants.js';
+
+<Meta
+title='ArcDrawer'
+component='arc-drawer'
+argTypes={{
+    open: {
+      description: 'Indicates whether or not the dropdown is open.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    contained: {
+      description: 'By default, the drawer slides out of its containing block (usually the viewport). To make the drawer slide out of its parent element, set this prop and add position: relative to the parent.',
+      defaultValue: { summary: 'false'},
+      control: { type: 'boolean' },
+    },
+    placement: {
+      description: 'The preferred placement of the dropdown panel. Note that the actual placement may vary as needed to keep the panel inside of the viewport.',
+      defaultValue: { summary: DRAWER_PLACEMENTS.end },
+      control: { type: 'select' },
+      options: Object.values(DRAWER_PLACEMENTS),
+    },
+    label: {
+      description: 'Set a label for the drawer.',
+      defaultValue: { summary: '' },
+      control: { type: 'text' }
+    },
+    size: {
+      name: '--size',
+      type: { required: false },
+      description: 'The preferred size of the drawer. This will be applied to either the width or height depending on its placement.',
+      defaultValue: { summary: '25rem' },
+      control: { type: 'text' },
+      table: {
+        category: 'CSS Variables',
+      },
+    },
+}}
+parameters={{
+  actions: {
+    handles: ['arc-show', 'arc-after-show', 'arc-hide', 'arc-after-hide', 'arc-initial-focus', 'arc-request-close']
+  },
+}} />
+
+# Drawer
+### `<arc-drawer>`
+
+The Drawer is used to expose additional options and information.
+By design, a drawer's height will never exceed 100% of its container.
+As such, drawers will not scroll with the page to ensure the header and footer are always accessible to the user.
+
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+</Canvas>
+
+## Examples
+### Placement
+The direction from which the drawer will open can be set with the `placement` attribute.
+<Canvas>
+  <Story name="Top" story={stories.Top} />
+</Canvas>
+
+<Canvas>
+  <Story name="End" story={stories.End} />
+</Canvas>
+
+<Canvas>
+  <Story name="Bottom" story={stories.Bottom} />
+</Canvas>
+
+<Canvas>
+  <Story name="Start" story={stories.Start} />
+</Canvas>
+
+### Preventing the drawer from closing
+By default, drawers will close when the user clicks the close button, clicks the overlay, or presses the `Escape` key.
+In most cases, the default behavior is the best behavior in terms of UX.
+However, there are situations where this may be undesirable, such as when data loss will occur.
+To keep the drawer open in such cases, you can cancel the `arc-request-close` event.
+When canceled, the drawer will remain open and pulse briefly to draw the user's attention to it.
+<Canvas>
+  <Story name="Closing" story={stories.Closing} />
+</Canvas>
+
+## Properties
+<ArgsTable story="Top" />
+
+## Events
+
+| Name              | Description                                                       |
+|-------------------|-------------------------------------------------------------------|
+| arc-show          | Emitted when the drawer opens.                                    |
+| arc-after-show    | Emitted after the drawer opens and all animations are complete.   |
+| arc-hide          | Emitted when the drawer closes.                                   |
+| arc-after-hide    | Emitted after the drawer closes and all animations are complete.  |
+| arc-initial-focus | Emitted when the drawer opens and the panel gains focus. Calling event.preventDefault() will prevent focus and allow you to set it on a different element in the drawer, such as an input or button.|
+| arc-request-close | Emitted when the user attempts to close the drawer by clicking the close button, clicking the overlay, or pressing the escape key. Calling event.preventDefault() will prevent the drawer from closing. Avoid using this unless closing the drawer will result in destructive behavior such as data loss.|
+
+## Methods
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| show         | Shows the drawer.                                         |
+| hide         | Hides the drawer.                                         |
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The drawer's content.                                     |
+| footer       | The drawer's footer.                                      |
+
+## Dependencies
+
+This component imports the following dependencies.
+* [icon-button](?path=/story/arciconbutton--default)

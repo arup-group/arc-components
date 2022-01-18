@@ -86,7 +86,7 @@ export default class ArcDropdown extends LitElement {
   /* The distance in pixels from which to offset the panel along its trigger. */
   @property({ type: Number }) skidding: number = 0;
 
-  /* Indicates whether or not the dropdown is open. You can use this in lieu of the show/hide methods. */
+  /* Indicates whether or not the dropdown is open. You can use this instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open: boolean = false;
 
   /* Disables the dropdown so the panel will not open. */

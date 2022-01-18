@@ -2,6 +2,7 @@
 import './components/bottombar/arc-bottombar.js';
 import './components/button/arc-button.js';
 import './components/container/arc-container.js';
+import './components/drawer/arc-drawer.js';
 import './components/dropdown/arc-dropdown.js';
 import './components/icon/arc-icon.js';
 import './components/icon-button/arc-icon-button.js';
@@ -21,6 +22,7 @@ export * from './utilities/ui-utils.js';
 export { default as ArcBottombar } from './components/bottombar/ArcBottombar.js';
 export { default as ArcButton } from './components/button/ArcButton.js';
 export { default as ArcContainer } from './components/container/ArcContainer.js';
+export { default as ArcDrawer } from './components/drawer/ArcDrawer.js';
 export { default as ArcDropdown } from './components/dropdown/ArcDropdown.js';
 export { default as ArcIcon } from './components/icon/ArcIcon.js';
 export { default as ArcIconButton } from './components/icon-button/ArcIconButton.js';

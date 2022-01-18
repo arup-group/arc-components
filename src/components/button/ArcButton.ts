@@ -73,10 +73,6 @@ export default class ArcButton extends LitElement {
       }
 
       /* Tab */
-      :host([type='tab']) {
-        height: 100%;
-      }
-
       :host([type='tab']) #button {
         background: none;
         border-radius: 0;

@@ -21,7 +21,8 @@
     <arc-icon-button name="home" label='Home' href="/"></arc-icon-button>
     <arc-icon-button id="themeSetter" label='Toggle theme' name="brightness_low"></arc-icon-button>
     <arc-icon-button name='accessibility' id='toggleAccessibility'></arc-icon-button>
-    <arc-sso client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
+    <arc-button type='tab'>My tab</arc-button>
+    <arc-button>My button</arc-button>
   </arc-navbar>
   <arc-sidebar slot="side" title="Select a section">
     <arc-menu>
@@ -41,6 +42,10 @@
   </arc-sidebar>
   <div style="height: 100%; padding: var(--arc-spacing-medium); position:relative">
     <h1>Hello World!</h1>
+
+    <arc-sso client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
+    <arc-button type='tab'>My tab</arc-button>
+    <arc-button>My button</arc-button>
 
     <arc-drawer label="ARC drawer">
       <div style="height: 150vh;">
@@ -67,6 +72,7 @@
   const drawer = document.querySelector('arc-drawer');
   const themeSetter = document.getElementById('themeSetter');
   const toggleAccessibility = document.getElementById('toggleAccessibility');
+  const arcSSO = document.querySelector('arc-sso');
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';
@@ -78,6 +84,13 @@
   /* Prevent closing the drawer */
   drawer.addEventListener('arc-request-close', (e) => {
     e.preventDefault();
+  })
+
+  arcSSO.addEventListener('arc-auth', e => {
+    const { authenticated, account } = e.detail;
+
+    console.log(`You are ${authenticated ? '' : 'not'} logged in`);
+    console.log('This is your account', account);
   })
 
 </script>

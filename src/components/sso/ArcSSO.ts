@@ -5,6 +5,8 @@ import { isAfter } from 'date-fns';
 import { InteractionType, PublicClientApplication, AccountInfo } from "@azure/msal-browser";
 import { Configuration } from "@azure/msal-browser/dist/config/Configuration";
 import { SilentRequest } from "@azure/msal-browser/dist/request/SilentRequest";
+import { emit } from '../../internal/event.js';
+import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 
 import '../dropdown/arc-dropdown.js';
@@ -33,9 +35,6 @@ export default class ArcSSO extends LitElement {
   private _isAuthenticated: boolean;
 
   @state()
-  private _msalConfig: Configuration;
-
-  @state()
   private _msalInstance: PublicClientApplication;
 
   @property({ attribute: 'client-id', type: String }) clientId: string;
@@ -45,6 +44,19 @@ export default class ArcSSO extends LitElement {
   @property({ type: InteractionType }) interaction: InteractionType.Popup;
 
   @property() scopes: [];
+
+  @watch('_isAuthenticated')
+  async handleAuthChange() {
+    const options = {
+      detail: {
+        authenticated: this._isAuthenticated,
+        account: this.getAccount(),
+      },
+      bubbles: true,
+      composed: true,
+    }
+    emit(this, 'arc-auth', options)
+  }
 
   /*
   openid - By using this permission, an app can receive a unique identifier for the user in the form of the sub claim.
@@ -56,15 +68,29 @@ export default class ArcSSO extends LitElement {
   It gives the app access to a large amount of information about the user.
   The information it can access includes, but isn't limited to, the user's given name, surname, preferred username, and object ID.
   */
-  private loginRequest  = {
+  private loginRequest = {
     scopes: ['openid', 'profile']
   }
 
   connectedCallback() {
     super.connectedCallback();
 
-    /* The default Azure MSAL configuration */
-    this._msalConfig = {
+    this._initMsal();
+
+    /* Additional scopes (permissions) */
+    if (this.scopes && this.scopes.length > 0) {
+      [...this.scopes].forEach(scope => this.loginRequest.scopes.push(scope));
+    }
+
+    this._isAuthenticated = this.isAuthenticated();
+  }
+
+  /*
+  Initialize the MSAL authentication context.
+  https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-js-initializing-client-applications
+  */
+  private _initMsal() {
+    const msalConfig: Configuration = {
       auth: {
         clientId: this.clientId || '',
         authority: `https://login.microsoftonline.com/${this.tenantId ? this.tenantId : 'common/'}`
@@ -76,25 +102,16 @@ export default class ArcSSO extends LitElement {
     }
 
     /* The MSAL instance */
-    this._msalInstance = new Msal.PublicClientApplication(this._msalConfig)
-
-    /* Additional scopes (permissions) */
-    if (this.scopes && this.scopes.length > 0) {
-      [...this.scopes].forEach(scope => this.loginRequest.scopes.push(scope));
-    }
-  }
-
-  firstUpdated() {
-    this._isAuthenticated = this.isAuthenticated();
+    this._msalInstance = new Msal.PublicClientApplication(msalConfig)
   }
 
   /* Request the Login dialog response */
-  private async getLoginPopupResponse() {
+  private async _getLoginPopupResponse() {
     await this._msalInstance.loginPopup();
   }
 
   /* Acquire the Azure token and store them in the localStorage */
-  private async acquireTokenSilentAndSetLocal(accountInfo: AccountInfo) {
+  private async _acquireTokenSilentAndSetLocal(accountInfo: AccountInfo) {
     const tokenRequest: SilentRequest = {
       account: accountInfo,
       scopes: this.loginRequest.scopes,
@@ -105,12 +122,12 @@ export default class ArcSSO extends LitElement {
   };
 
   async login() {
-    await this.getLoginPopupResponse();
+    await this._getLoginPopupResponse();
 
     const accountInfo = this.getAccount();
 
     if (accountInfo) {
-      await this.acquireTokenSilentAndSetLocal(accountInfo);
+      await this._acquireTokenSilentAndSetLocal(accountInfo);
       this._isAuthenticated = this.isAuthenticated();
     }
   }
@@ -150,7 +167,7 @@ export default class ArcSSO extends LitElement {
     return html`
       <div id='main'>
         <slot name="logout">
-          ${this._isAuthenticated && account ? html`
+          ${this._isAuthenticated ? html`
             <arc-dropdown id="userMenu" hoist>
               <arc-button slot="trigger" type="tab">${account.username}</arc-button>
               <arc-menu>

@@ -9,93 +9,67 @@
 
   <title>ARC</title>
 
-  <link crossorigin="anonymous" href='themes/index.css' rel="stylesheet">
-  <link crossorigin="anonymous" href='themes/light.css' rel="stylesheet">
-  <link crossorigin="anonymous" href='themes/dark.css' rel="stylesheet">
+  <link crossorigin="anonymous" href="themes/index.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="themes/light.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="themes/dark.css" rel="stylesheet">
 </head>
 
 <body>
-<arc-container theme='mytheme'>
+<arc-container>
   <arc-navbar slot="nav" logo="/assets/arc-red.svg">
-    <span slot="name">WebComponents</span>
-    <arc-icon-button name="home" label='Home' href="/"></arc-icon-button>
-    <arc-icon-button id="themeSetter" label='Toggle theme' name="brightness_low"></arc-icon-button>
-    <arc-icon-button name='accessibility' id='toggleAccessibility'></arc-icon-button>
-    <arc-button type='tab'>My tab</arc-button>
-    <arc-button>My button</arc-button>
+    <arc-icon-button id="themeSetter" label="Toggle theme" name="brightness_low"></arc-icon-button>
+    <arc-icon-button id="toggleAccessibility" label="Toggle accessibility" name="accessibility"></arc-icon-button>
+    <arc-sso client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea" redirect-uri="http://localhost:8000/"></arc-sso>
   </arc-navbar>
-  <arc-sidebar slot="side" title="Select a section">
+  <arc-sidebar slot="side" title="Make a selection">
     <arc-menu>
-      <arc-menu-item>
-        <arc-icon slot="suffix" name="home"></arc-icon>
-        Home
-      </arc-menu-item>
-      <arc-menu-item>
-        <arc-icon slot="suffix" name="settings"></arc-icon>
-        Settings
-      </arc-menu-item>
-      <arc-menu-item>
-        <arc-icon slot="suffix" name="accessibility"></arc-icon>
-        Accessibility
-      </arc-menu-item>
+      <arc-menu-item>Menu item 1</arc-menu-item>
+      <arc-menu-item>Menu item 2</arc-menu-item>
+      <arc-menu-item>Menu item 3</arc-menu-item>
+      <arc-menu-item>Menu item 4</arc-menu-item>
     </arc-menu>
   </arc-sidebar>
   <div style="height: 100%; padding: var(--arc-spacing-medium); position:relative">
-    <h1>Hello World!</h1>
-
-    <arc-sso client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
-    <arc-button type='tab'>My tab</arc-button>
-    <arc-button>My button</arc-button>
+    <h1 id="loginDemo">Hello World!</h1>
 
     <arc-drawer label="ARC drawer">
-      <div style="height: 150vh;">
-        <p>Scroll locking is active, scroll down and give it a try!</p>
-      </div>
-      <div slot='footer'>
-        <arc-button color='primary' onClick='document.querySelector("arc-drawer").hide()'>Save and close</arc-button>
-      </div>
+      <p>Accessibility in progress ✍️</p>
     </arc-drawer>
   </div>
-  <arc-bottombar slot='bottom'>
-    <arc-icon-button name='home'>Home</arc-icon-button>
-  </arc-bottombar>
 </arc-container>
 
-<script type='module'>
+<script type="module">
   import { noFOUC } from './out-tsc/utilities/style-utils.js';
   import { setBasePath } from "./out-tsc/utilities/base-path.js";
 
   noFOUC();
   setBasePath('/');
+</script>
 
+<script type="module" src='./out-tsc/arc.js'></script>
+
+<script type="module">
   const container = document.querySelector('arc-container');
   const drawer = document.querySelector('arc-drawer');
   const themeSetter = document.getElementById('themeSetter');
   const toggleAccessibility = document.getElementById('toggleAccessibility');
   const arcSSO = document.querySelector('arc-sso');
 
+  /* Toggle the theme */
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'dark' ? 'light' : 'dark';
     themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
   });
 
+  /* Show the accessibility panel */
   toggleAccessibility.addEventListener('click', () => drawer.show());
 
-  /* Prevent closing the drawer */
-  drawer.addEventListener('arc-request-close', (e) => {
-    e.preventDefault();
-  })
-
+  /* Update the title when the authentication state changes */
   arcSSO.addEventListener('arc-auth', e => {
+    const loginDemo = document.getElementById('loginDemo');
     const { authenticated, account } = e.detail;
-
-    console.log(`You are ${authenticated ? '' : 'not'} logged in`);
-    console.log('This is your account', account);
+    loginDemo.innerHTML = authenticated ? `Hello ${account.name}` : 'You are not logged in.';
   })
-
 </script>
-
-<script type="module" src='./out-tsc/arc.js'></script>
 </body>
-
 </html>

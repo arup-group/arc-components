@@ -18,7 +18,7 @@ const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri, scopes }: 
     @arc-auth=${(e: CustomEvent) => {
       const { authenticated, account } = e.detail;
       const content = document.getElementById('myContent');
-      content!.innerHTML = `${authenticated ? `Hey ${account.name}, you are logged in!` : 'You are not logged in.'}`;
+      content!.innerHTML = `${authenticated ? `Welcome ${account.name}!` : 'You are not logged in.'}`;
     }}>
     <arc-navbar slot='nav'>
       ${clientId && !tenantId ? html`

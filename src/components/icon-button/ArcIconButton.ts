@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -162,9 +162,9 @@ export default class ArcIconButton extends LitElement {
     const interior = html`
       <span id="iconWrapper" aria-hidden="true">
         <arc-icon id="icon" part="icon" name=${ifDefined(this.name)}></arc-icon>
-        ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : null}
+        ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : nothing}
       </span>
-      ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : null}
+      ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : nothing}
     `;
 
     return this.href

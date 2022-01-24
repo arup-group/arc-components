@@ -22,11 +22,11 @@ export default class ArcSSO extends LitElement {
     css`
       :host {
         display: inline-flex;
-        align-items: center;
+        width: auto;
       }
 
-      #main, #userMenu {
-        height: 100%;
+      #main {
+        display: inline-flex;
       }
     `,
   ];

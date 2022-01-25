@@ -1,5 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../out-tsc/components/container/arc-container.stories.js';
+import { CONTAINER_THEMES } from '../out-tsc/components/container/constants/ContainerConstants.js';
 
 <Meta
 title='ArcContainer'
@@ -9,8 +10,13 @@ argTypes={{
       description: 'Set the theme for the container',
       defaultValue: { summary: 'auto' },
       control: { type: 'select' },
-      options: ['auto', 'dark', 'light'],
+      options: Object.keys(CONTAINER_THEMES),
     },
+    fullscreen: {
+      description: 'Set the container to fullscreen mode',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    }
 }} />
 
 # Container

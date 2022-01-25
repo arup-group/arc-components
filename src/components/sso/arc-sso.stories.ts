@@ -21,28 +21,15 @@ const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri, scopes }: 
       content!.innerHTML = `${authenticated ? `Welcome ${account.name}!` : 'You are not logged in.'}`;
     }}>
     <arc-navbar slot='nav'>
-      ${clientId && !tenantId ? html`
-        <arc-sso
-          client-id="${clientId}"
-          scopes="${scopes}"
-          redirect-uri="${redirectUri}"
-        >
-          <arc-button slot='login' type='outlined' color='success' onClick='this.parentElement.signIn()'>SignIn</arc-button>
-          <arc-button slot='logout' type='outlined' color='error' onClick='localStorage.clear(); location.reload();'>SignOut</arc-button>
-        </arc-sso>
-      ` : (clientId && tenantId ? html`
-        <arc-sso
-          client-id="${clientId}"
-          tenant-id="${tenantId}"
-          redirect-uri="${redirectUri}"
-          scopes="${scopes}"
-        >
-          <arc-button slot='login' type='tab' color='success' onClick='this.parentElement.signIn()'>SignIn</arc-button>
-          <arc-button slot='logout' type='tab' color='error' onClick='localStorage.clear(); location.reload();'>SignOut</arc-button>
-        </arc-sso>
-      ` : html`
-        <arc-button type='tab' color='error' disabled>Client-id missing</arc-button>
-      `)}
+      <arc-sso
+        .client-id="${clientId}"
+        .tenant-id="${tenantId}"
+        .redirect-uri="${redirectUri}"
+        scopes="${scopes}"
+      >
+        <arc-button slot='login' type='tab' color='success' onClick='this.parentElement.signIn()'>SignIn</arc-button>
+        <arc-button slot='logout' type='tab' color='error' onClick='localStorage.clear(); location.reload();'>SignOut</arc-button>
+      </arc-sso>
     </arc-navbar>
     <div id='myContent'></div>
   </arc-container>

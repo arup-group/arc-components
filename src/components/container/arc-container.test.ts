@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { expect, fixture } from '@open-wc/testing';
+import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { isNight } from '../../internal/theme.js';
 import { isMobile } from '../../utilities/ui-utils.js';
@@ -52,6 +52,27 @@ describe('ArcContainer', () => {
         expect(element.theme).to.equal(CONTAINER_THEMES.light);
       }
     });
+
+    it('removes the gap and padding properties when the fullscreen property is set', async () => {
+      const element: ArcContainer = await fixture(html`<arc-container fullscreen></arc-container>`);
+      const container = element.shadowRoot!.getElementById('container');
+
+      expect(element.fullscreen).to.equal(true);
+      expect(element.hasAttribute('fullscreen')).to.be.true;
+      expect(getPropertyValue(container, 'gap')).to.equal('0px');
+      expect(getPropertyValue(container, 'padding')).to.equal('0px');
+    });
+
+    it('removes the gap and padding properties when the fullscreen property is set', async () => {
+      const element: ArcContainer = await fixture(html`<arc-container></arc-container>`);
+      const container = element.shadowRoot!.getElementById('container');
+
+      element.fullscreen = true;
+      await elementUpdated(element);
+
+      expect(getPropertyValue(container, 'gap')).to.equal('0px');
+      expect(getPropertyValue(container, 'padding')).to.equal('0px');
+    })
   });
 
   /* Test specific methods */

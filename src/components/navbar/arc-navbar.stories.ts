@@ -23,7 +23,7 @@ const Template: Story<ArgTypes> = ({ arup, logo, name, tabs, height }: ArgTypes)
     <arc-button type="tab">User</arc-button>
     <arc-button type="tab">Map</arc-button>
     <arc-button type="tab">Other</arc-button>
-    <arc-button type="tab">username@arup.com</arc-button>
+    <arc-button slot="user" type="tab">username@arup.com</arc-button>
   </arc-navbar>
 `;
 

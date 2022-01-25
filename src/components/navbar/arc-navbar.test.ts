@@ -70,6 +70,8 @@ describe('ArcNavbar', () => {
     let element: ArcNavbar;
     let toolName: HTMLElement;
     let tabContainer: HTMLElement;
+    let tabSlot: HTMLElement;
+    let userSlot: HTMLElement;
 
     /* Function that returns hidden and untouched elements when the slotted button and icon-button components exceed the tab limit */
     function retrieveElements() {
@@ -98,13 +100,16 @@ describe('ArcNavbar', () => {
       `);
       toolName = element.shadowRoot!.getElementById('tool-name')!;
       tabContainer = element.shadowRoot!.getElementById('tabs')!;
+      tabSlot = element.shadowRoot!.getElementById('tabSlot')!;
+      userSlot = element.shadowRoot!.getElementById('userSlot')!;
     });
 
     it('shows the correct elements on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
 
       expect(getPropertyValue(toolName, 'display')).to.equal('block');
-      expect(getPropertyValue(tabContainer, 'display')).to.equal('grid');
+      expect(getPropertyValue(tabSlot, 'display')).to.equal('contents');
+      expect(getPropertyValue(userSlot, 'display')).to.equal('contents');
     });
 
     it('shows the correct elements on a phone', async () => {
@@ -119,7 +124,8 @@ describe('ArcNavbar', () => {
       expect(getPropertyValue(toolName, 'display')).to.equal('none');
 
       /* Hide the tabs */
-      expect(getPropertyValue(tabContainer, 'display')).to.equal('none');
+      expect(getPropertyValue(tabSlot, 'display')).to.equal('none');
+      expect(getPropertyValue(userSlot, 'display')).to.equal('none');
     });
 
     it('shows the correct elements when the tab count changes', async () => {
@@ -183,6 +189,7 @@ describe('ArcNavbar', () => {
 
       expect(hasSlot(leftContainer, 'name')).to.be.true;
       expect(hasSlot(rightContainer)).to.be.true;
+      expect(hasSlot(rightContainer, 'user')).to.be.true;
     });
   });
 

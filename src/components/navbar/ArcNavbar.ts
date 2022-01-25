@@ -72,7 +72,13 @@ export default class ArcNavbar extends LitElement {
         justify-content: flex-end;
       }
 
-      .tabs {
+      #tabs {
+        display: grid;
+        grid-auto-flow: column;
+        overflow: hidden;
+      }
+
+      #tabSlot, #userSlot {
         display: none;
       }
 
@@ -111,10 +117,8 @@ export default class ArcNavbar extends LitElement {
 
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #right > .tabs {
-          display: grid;
-          grid-auto-flow: column;
-          overflow: hidden;
+        #tabSlot, #userSlot {
+          display: contents
         }
 
         #tool-logo + #tool-name {
@@ -198,14 +202,16 @@ export default class ArcNavbar extends LitElement {
           </a>
         </div>
         <div id="right">
-          <slot id='tabSlot' class='tabs' @slotchange=${this.handleTabChange}></slot>
-          ${this.showDropdown ? html`
-            <arc-dropdown hoist>
-              <arc-icon-button slot='trigger' name='menu'></arc-icon-button>
-              <arc-menu>${menuInterior}</arc-menu>
-            </arc-dropdown>
-          ` : nothing}
-          <slot name='user' class='tabs'></slot>
+          <div id='tabs'>
+            <slot id='tabSlot' @slotchange=${this.handleTabChange}></slot>
+            ${this.showDropdown ? html`
+              <arc-dropdown hoist>
+                <arc-icon-button slot='trigger' name='menu'></arc-icon-button>
+                <arc-menu>${menuInterior}</arc-menu>
+              </arc-dropdown>
+            ` : nothing}
+            <slot id='userSlot' name='user'></slot>
+          </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
         </div>
       </div>

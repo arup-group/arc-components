@@ -13,7 +13,7 @@ interface ArgTypes {
   scopes?: string
 }
 
-const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri, scopes }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes) => html`
   <arc-container
     @arc-auth=${(e: CustomEvent) => {
       const { authenticated, account } = e.detail;
@@ -21,15 +21,25 @@ const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri, scopes }: 
       content!.innerHTML = `${authenticated ? `Welcome ${account.name}!` : 'You are not logged in.'}`;
     }}>
     <arc-navbar slot='nav'>
-      <arc-sso
-        .client-id="${clientId}"
-        .tenant-id="${tenantId}"
-        .redirect-uri="${redirectUri}"
-        scopes="${scopes}"
-      >
-        <arc-button slot='login' type='tab' color='success' onClick='this.parentElement.signIn()'>SignIn</arc-button>
-        <arc-button slot='logout' type='tab' color='error' onClick='localStorage.clear(); location.reload();'>SignOut</arc-button>
-      </arc-sso>
+      ${clientId ? html`
+        ${redirectUri ? html`
+          ${tenantId ? html`
+            <arc-sso slot='user' client-id="${clientId}" tenant-id="${tenantId}" redirect-uri="${redirectUri}">
+              <arc-button slot='login' type='tab' color='success' onClick='this.parentElement.signIn()'>SignIn</arc-button>
+              <arc-button slot='logout' type='tab' color='error' onClick='localStorage.clear(); location.reload();'>SignOut</arc-button>
+            </arc-sso>
+          ` : html`
+            <arc-sso slot='user' client-id="${clientId}" redirect-uri="${redirectUri}">
+              <arc-button slot='login' type='tab' color='success' onClick='this.parentElement.signIn()'>SignIn</arc-button>
+              <arc-button slot='logout' type='tab' color='error' onClick='localStorage.clear(); location.reload();'>SignOut</arc-button>
+            </arc-sso>
+          `}
+        ` : html`
+          <arc-button type='tab' disabled>Redirect-uri missing</arc-button>
+        `}
+      ` : html`
+        <arc-button type='tab' disabled>Client-id missing</arc-button>
+      `}
     </arc-navbar>
     <div id='myContent'></div>
   </arc-container>

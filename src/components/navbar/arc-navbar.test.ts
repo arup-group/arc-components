@@ -108,8 +108,8 @@ describe('ArcNavbar', () => {
       await setViewport({ width: 1200, height: 640 });
 
       expect(getPropertyValue(toolName, 'display')).to.equal('block');
-      expect(getPropertyValue(tabSlot, 'display')).to.equal('contents');
-      expect(getPropertyValue(userSlot, 'display')).to.equal('contents');
+      expect(getPropertyValue(tabSlot, 'display')).to.equal('block');
+      expect(getPropertyValue(userSlot, 'display')).to.equal('block');
     });
 
     it('shows the correct elements on a phone', async () => {

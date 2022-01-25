@@ -29,9 +29,12 @@ export default class ArcNavbar extends LitElement {
       /* Layout */
       #main,
       #left,
-      #right {
+      #logoWrapper,
+      #right,
+      #tabs {
         display: grid;
         grid-auto-flow: column;
+        overflow: hidden;
       }
 
       #main {
@@ -49,33 +52,27 @@ export default class ArcNavbar extends LitElement {
       }
 
       #logoWrapper {
-        height: 100%;
-        display: inline-flex;
+        align-items: center;
         text-decoration: none;
         color: inherit;
       }
 
+      #tool-name {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      /* Hide the tool-name when there is a tool-logo */
       #tool-logo + #tool-name {
         display: none;
         margin-left: var(--arc-spacing-small);
       }
 
-      #tool-name {
-        height: 100%;
-        align-items: center;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
       /* Right side */
       #right {
         justify-content: flex-end;
-      }
-
-      #tabs {
-        display: grid;
-        grid-auto-flow: column;
-        overflow: hidden;
       }
 
       #tabSlot, #userSlot {
@@ -102,27 +99,17 @@ export default class ArcNavbar extends LitElement {
         width: auto;
       }
 
-      #tool-logo,
-      #tool-name {
-        align-self: center;
-      }
-
       #company-logo {
         color: rgb(var(--arc-color-primary));
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-left: var(--arc-spacing-small);
       }
 
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #tabSlot, #userSlot {
-          display: contents
-        }
-
-        #tool-logo + #tool-name {
-          display: inline-flex;
+        #tabSlot, #userSlot, #tool-logo + #tool-name {
+          display: block;
         }
 
         #company-logo {
@@ -182,11 +169,11 @@ export default class ArcNavbar extends LitElement {
     */
     const menuInterior = html`
       ${this.navTabs.map(tab => html`
-        <arc-menu-item ?disabled='${tab.disabled}' @click='${() => tab.click()}'>
+        <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
           ${(tab as ArcIconButton).name ? html`
-            <arc-icon name='${(tab as ArcIconButton).name}' slot='prefix'></arc-icon>
+            <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon>
           ` : nothing}
-          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
+          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || "Invalid label"}
         </arc-menu-item>
       `)}
     `;
@@ -196,21 +183,21 @@ export default class ArcNavbar extends LitElement {
         <div id="left">
           <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
             ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
-            <span id="tool-name">
+            <div id="tool-name">
               <slot name="name"></slot>
-            </span>
+            </div>
           </a>
         </div>
         <div id="right">
-          <div id='tabs'>
-            <slot id='tabSlot' @slotchange=${this.handleTabChange}></slot>
+          <div id="tabs">
+            <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
             ${this.showDropdown ? html`
               <arc-dropdown hoist>
-                <arc-icon-button slot='trigger' name='menu'></arc-icon-button>
+                <arc-icon-button slot="trigger" name="menu"></arc-icon-button>
                 <arc-menu>${menuInterior}</arc-menu>
               </arc-dropdown>
             ` : nothing}
-            <slot id='userSlot' name='user'></slot>
+            <slot id="userSlot" name="user"></slot>
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
         </div>

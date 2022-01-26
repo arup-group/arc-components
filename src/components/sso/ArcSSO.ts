@@ -3,14 +3,16 @@ import { property, state } from 'lit/decorators.js';
 import * as Msal from '@azure/msal-browser';
 import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
 import { Configuration } from '@azure/msal-browser/dist/config/Configuration';
-import { isAfter } from 'date-fns';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
+import { isExpired } from '../../internal/auth.js';
 import componentStyles from '../../styles/component.styles.js';
+import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 
 import '../dropdown/arc-dropdown.js';
 import '../button/arc-button.js';
+import '../icon-button/arc-icon-button.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
@@ -27,6 +29,23 @@ export default class ArcSSO extends LitElement {
 
       #main {
         display: inline-flex;
+      }
+
+      #userMenu .fullscreen {
+        display: none;
+      }
+
+      /* Medium devices and up */
+      @media (min-width: ${mobileBreakpoint}rem) {
+        #userMenu .mobile {
+          display: none;
+        }
+
+        #userMenu .fullscreen {
+          display: initial;
+          border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+          border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+        }
       }
     `,
   ];
@@ -114,16 +133,14 @@ export default class ArcSSO extends LitElement {
     return new Msal.PublicClientApplication(msalConfig)
   }
 
-  /* c8 ignore next 11 */
-  /* Method to check whether the user is authenticated */
+  /* Check whether the user is authenticated */
+  /* c8 ignore next 8 */
   private _isAuthenticated() {
-    const accountInfo = this.getAccount();
-
-    if (!accountInfo) {
+    if (!this.getAccount()) {
       return false;
     }
 
-    return !this.isExpired(accountInfo);
+    return !isExpired(this.getAccount());
   }
 
   /* c8 ignore next 7 */
@@ -134,12 +151,11 @@ export default class ArcSSO extends LitElement {
     this._isAuth = this._isAuthenticated();
   }
 
-  /* c8 ignore next 6 */
+  /* c8 ignore next 5 */
   async signOut() {
-    const logoutRequest = {
+    await this._msalInstance.logoutRedirect({
       account: this.getAccount()
-    };
-    await this._msalInstance.logoutRedirect(logoutRequest);
+    });
   }
 
   /* Retrieve the signed in account */
@@ -147,29 +163,34 @@ export default class ArcSSO extends LitElement {
     return this._msalInstance.getAllAccounts()[0] as AccountInfo;
   }
 
-  /* Check whether the token of the signed in account is expired */
-  isExpired = (accountInfo: AccountInfo) => {
-    const expiration: number = (accountInfo.idTokenClaims as any).exp;
-    const expiryDate = expiration ? new Date(expiration * 1000) : new Date(0);
-
-    return !isAfter(expiryDate, new Date());
-  }
-
-  /* c8 ignore next 19 */
+  /* c8 ignore next 34 */
   render() {
+    const account = this.getAccount();
+    const interior = html`
+      ${account && account.name ? html`
+        <arc-icon-button class='mobile' slot="trigger" name="user" label=${account.name}></arc-icon-button>
+        <arc-button class='fullscreen' slot="trigger" type="tab">
+          ${account.name}
+          <arc-icon slot="suffix" name="user"></arc-icon>
+        </arc-button>
+      ` : html`
+        <arc-icon-button slot="trigger" name="user" label="User"></arc-icon-button>
+      `}
+    `;
+
     return html`
-      <div id='main'>
-        ${this._isAuth ? html`
+      <div id="main">
+        ${account ? html`
           <slot name="logout">
             <arc-dropdown id="userMenu" hoist>
-              <arc-button slot="trigger" type="tab">${this.getAccount().username}</arc-button>
+              ${interior}
               <arc-menu>
                 <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
               </arc-menu>
             </arc-dropdown>
           </slot>
         ` : nothing}
-        ${!this._isAuth? html`
+        ${!account ? html`
           <slot name="login">
             <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
           </slot>

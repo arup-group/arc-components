@@ -18,7 +18,7 @@ describe('ArcNavbar', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-navbar arup='' home='/' tabs='5'></arc-navbar>`);
+      expect(element).dom.to.equal(`<arc-navbar arup='' tabs='5'></arc-navbar>`);
     });
 
     /* Test the accessibility */
@@ -36,6 +36,13 @@ describe('ArcNavbar', () => {
       expect(element.home).to.equal('myURL');
       expect(element.getAttribute('home')).to.equal('myURL');
       expect(logoWrapper.getAttribute('href')).to.equal('myURL');
+    });
+
+    it('renders the logoWrapper as a div when no home property is set', async () => {
+      const element: ArcNavbar = await fixture(html` <arc-navbar></arc-navbar>`);
+      const logoWrapper = element.shadowRoot!.querySelector('#logoWrapper')!;
+
+      expect(logoWrapper.tagName).to.equal('DIV');
     });
 
     it('renders the navbar with a custom logo property', async () => {
@@ -71,7 +78,6 @@ describe('ArcNavbar', () => {
     let toolName: HTMLElement;
     let tabContainer: HTMLElement;
     let tabSlot: HTMLElement;
-    let userSlot: HTMLElement;
 
     /* Function that returns hidden and untouched elements when the slotted button and icon-button components exceed the tab limit */
     function retrieveElements() {
@@ -101,7 +107,6 @@ describe('ArcNavbar', () => {
       toolName = element.shadowRoot!.getElementById('tool-name')!;
       tabContainer = element.shadowRoot!.getElementById('tabs')!;
       tabSlot = element.shadowRoot!.getElementById('tabSlot')!;
-      userSlot = element.shadowRoot!.getElementById('userSlot')!;
     });
 
     it('shows the correct elements on a desktop', async () => {
@@ -109,7 +114,6 @@ describe('ArcNavbar', () => {
 
       expect(getPropertyValue(toolName, 'display')).to.equal('flex');
       expect(getPropertyValue(tabSlot, 'display')).to.equal('flex');
-      expect(getPropertyValue(userSlot, 'display')).to.equal('flex');
     });
 
     it('shows the correct elements on a phone', async () => {
@@ -125,7 +129,6 @@ describe('ArcNavbar', () => {
 
       /* Hide the tabs */
       expect(getPropertyValue(tabSlot, 'display')).to.equal('none');
-      expect(getPropertyValue(userSlot, 'display')).to.equal('none');
     });
 
     it('shows the correct elements when the tab count changes', async () => {

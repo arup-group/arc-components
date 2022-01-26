@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
-import { AccountInfo } from '@azure/msal-browser';
 import { hasSlot } from '../../utilities/dom-utils.js';
 
 import ArcSSO from './ArcSSO.js';
@@ -46,37 +45,6 @@ describe('ArcSSO', () => {
       expect(element.scopes[2]).to.equal('three');
 
       expect(element.getAttribute('scopes')).to.equal('one,two, three');
-    });
-  });
-
-  /* Test specific methods */
-  describe('methods', () => {
-    const element: ArcSSO = new ArcSSO();
-    const accountInfo: AccountInfo = {
-      "homeAccountId": "test",
-      "environment": "login.windows.net",
-      "tenantId": "test",
-      "username": "Test.User@test.com",
-      "localAccountId": "test",
-      "name": "Test User",
-      "idTokenClaims": {
-        "exp": 0,
-      }
-    }
-
-    it('isExpired should return true when the date is set to the beginning of the epoch', () => {
-      (accountInfo.idTokenClaims as any).exp = Number(new Date(0));
-      expect(element.isExpired(accountInfo)).to.be.true;
-    });
-
-    it('isExpired should return true when no expiration is given', () => {
-      (accountInfo.idTokenClaims as any).exp = null;
-      expect(element.isExpired(accountInfo)).to.be.true;
-    })
-
-    it('isExpired should return false', () => {
-      (accountInfo.idTokenClaims as any).exp = Number(new Date());
-      expect(element.isExpired(accountInfo)).to.be.false;
     });
   });
 

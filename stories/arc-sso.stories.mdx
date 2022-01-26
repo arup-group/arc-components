@@ -2,7 +2,7 @@ import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-do
 import * as stories from '../out-tsc/components/sso/arc-sso.stories.js';
 
 <Meta
-title='ArcSSO'
+title='ArcSSO [Experimental]'
 component='arc-sso'
 argTypes={{
     clientId: {
@@ -35,7 +35,7 @@ parameters={{
   },
 }} />
 
-# SSO
+# SSO [Experimental]
 ### `<arc-sso>`
 
 The ArcSSO is used to authenticate users using Azure AD work and school accounts (AAD),
@@ -109,5 +109,6 @@ You can also listen to the `arc-auth` event, which gets triggered whenever the i
 This component imports the following dependencies.
 * [arc-dropdown](?path=/story/arcdropdown--default)
 * [arc-button](?path=/story/arcbutton--default)
+* [arc-icon-button](?path=/story/arciconbutton--default)
 * [arc-menu](?path=/story/arcmenu--default)
 * [arc-menu-item](?path=/story/arcmenuitem--default)

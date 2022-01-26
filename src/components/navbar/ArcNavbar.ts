@@ -85,11 +85,11 @@ export default class ArcNavbar extends LitElement {
         gap: var(--arc-spacing-small);
       }
 
-      #tabSlot, #userSlot {
+      #tabSlot {
         display: none;
       }
 
-      ::slotted(arc-button), ::slotted(arc-sso) {
+      ::slotted(arc-button) {
         border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
         border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
@@ -111,7 +111,7 @@ export default class ArcNavbar extends LitElement {
 
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #tabSlot, #userSlot, #tool-logo + #tool-name {
+        #tabSlot, #tool-logo + #tool-name {
           display: flex;
         }
       }
@@ -124,7 +124,7 @@ export default class ArcNavbar extends LitElement {
 
   @state() navTabs: (ArcButton | ArcIconButton)[] = [];
 
-  @property({ type: String, reflect: true }) home: string = '/';
+  @property({ type: String, reflect: true }) home: string;
 
   @property({ type: String }) logo: string;
 
@@ -177,13 +177,23 @@ export default class ArcNavbar extends LitElement {
       `)}
     `;
 
+    const logoInterior = html`
+      ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
+      <slot id="tool-name" name="name"></slot>
+    `
+
     return html`
       <div id="main">
         <div id="left">
-          <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
-            ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
-            <slot id="tool-name" name="name"></slot>
-          </a>
+          ${this.home ? html`
+            <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
+              ${logoInterior}
+            </a>
+          ` : html`
+            <div id='logoWrapper'>
+              ${logoInterior}
+            </div>
+          `}
         </div>
         <div id="right">
           <div id="tabs">
@@ -194,7 +204,7 @@ export default class ArcNavbar extends LitElement {
                 <arc-menu>${menuInterior}</arc-menu>
               </arc-dropdown>
             ` : nothing}
-            <slot id="userSlot" name="user"></slot>
+            <slot name="user"></slot>
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
         </div>

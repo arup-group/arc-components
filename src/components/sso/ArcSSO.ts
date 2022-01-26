@@ -180,7 +180,7 @@ export default class ArcSSO extends LitElement {
 
     return html`
       <div id="main">
-        ${account ? html`
+        ${this._isAuth ? html`
           <slot name="logout">
             <arc-dropdown id="userMenu" hoist>
               ${interior}
@@ -190,7 +190,7 @@ export default class ArcSSO extends LitElement {
             </arc-dropdown>
           </slot>
         ` : nothing}
-        ${!account ? html`
+        ${!this._isAuth ? html`
           <slot name="login">
             <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
           </slot>

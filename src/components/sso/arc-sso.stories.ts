@@ -43,10 +43,6 @@ const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes
     </arc-navbar>
     <div id='myContent'></div>
   </arc-container>
-
-
-  <div style='padding: var(--arc-spacing-medium)'>
-  </div>
 `;
 
 const defaultArgs: ArgTypes = {

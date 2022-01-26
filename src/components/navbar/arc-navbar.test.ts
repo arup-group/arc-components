@@ -107,16 +107,16 @@ describe('ArcNavbar', () => {
     it('shows the correct elements on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
 
-      expect(getPropertyValue(toolName, 'display')).to.equal('block');
-      expect(getPropertyValue(tabSlot, 'display')).to.equal('block');
-      expect(getPropertyValue(userSlot, 'display')).to.equal('block');
+      expect(getPropertyValue(toolName, 'display')).to.equal('flex');
+      expect(getPropertyValue(tabSlot, 'display')).to.equal('flex');
+      expect(getPropertyValue(userSlot, 'display')).to.equal('flex');
     });
 
     it('shows the correct elements on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
 
       /* If the component has no logo, display the tool name */
-      expect(getPropertyValue(toolName, 'display')).to.equal('block');
+      expect(getPropertyValue(toolName, 'display')).to.equal('flex');
 
       /* If the component has a logo, hide the tool name */
       element.logo = 'myCustomLogo';

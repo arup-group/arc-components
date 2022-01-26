@@ -48,17 +48,27 @@ export default class ArcNavbar extends LitElement {
       /* Left side */
       #left {
         justify-content: flex-start;
-        align-items: center;
       }
 
       #logoWrapper {
         align-items: center;
+        gap: var(--arc-spacing-small);
         text-decoration: none;
         color: inherit;
       }
 
+      #tool-logo {
+        height: var(--logo-height);
+        width: auto;
+      }
+
+      /* Show the tool-name when there is no tool-logo */
       #tool-name {
-        display: block;
+        display: flex;
+        overflow: hidden;
+      }
+
+      #tool-name::slotted(*) {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -67,12 +77,12 @@ export default class ArcNavbar extends LitElement {
       /* Hide the tool-name when there is a tool-logo */
       #tool-logo + #tool-name {
         display: none;
-        margin-left: var(--arc-spacing-small);
       }
 
       /* Right side */
       #right {
         justify-content: flex-end;
+        gap: var(--arc-spacing-small);
       }
 
       #tabSlot, #userSlot {
@@ -88,10 +98,10 @@ export default class ArcNavbar extends LitElement {
         margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
       }
 
-      /* Logo's */
-      #tool-logo {
-        height: var(--logo-height);
-        width: auto;
+      #company-logo {
+        color: rgb(var(--arc-color-primary));
+        display: flex;
+        align-items: center;
       }
 
       #company-logo > svg {
@@ -99,21 +109,10 @@ export default class ArcNavbar extends LitElement {
         width: auto;
       }
 
-      #company-logo {
-        color: rgb(var(--arc-color-primary));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
         #tabSlot, #userSlot, #tool-logo + #tool-name {
-          display: block;
-        }
-
-        #company-logo {
-          padding-left: var(--arc-spacing-medium);
+          display: flex;
         }
       }
     `,
@@ -183,9 +182,7 @@ export default class ArcNavbar extends LitElement {
         <div id="left">
           <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
             ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
-            <div id="tool-name">
-              <slot name="name"></slot>
-            </div>
+            <slot id="tool-name" name="name"></slot>
           </a>
         </div>
         <div id="right">

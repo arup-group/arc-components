@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { uppercaseFirstLetter, stringToArray } from './string.js';
+import { uppercaseFirstLetter, stringToInitials, stringToArray } from './string.js';
 
 describe('string', () => {
   describe('uppercaseFirstLetter', () => {
@@ -8,6 +8,25 @@ describe('string', () => {
 
       expect(uppercaseFirstLetter(string)).to.equal('My string');
     });
+  });
+
+  describe('stringToInitials', () => {
+    it('should return the initials with only a first name', () => {
+      const string = 'Test';
+      expect(stringToInitials(string)).to.equal('T');
+    });
+    it('should return the initials with a first -and last name', () => {
+      const string = 'Test User';
+      expect(stringToInitials(string)).to.equal('TU');
+    });
+    it('should return the initials when one (or many) middle names are present', () => {
+      const string = 'Test Middle Name User';
+      expect(stringToInitials(string)).to.equal('TU');
+    })
+    it('should return an empty string when an empty string is given', () => {
+      const string = '';
+      expect(stringToInitials(string)).to.equal('');
+    })
   });
 
   describe('stringToArray', () => {

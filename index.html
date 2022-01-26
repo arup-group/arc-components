@@ -17,11 +17,8 @@
 <body>
 <arc-container>
   <arc-navbar slot="nav" logo="/assets/arc-red.svg">
-    <arc-icon-button label="Toggle theme" name="brightness_low"></arc-icon-button>
-    <arc-button type='tab'>Hello World</arc-button>
-    <arc-button type='tab'>Another tab</arc-button>
-<!--    <arc-sso slot='user' client-id="1c9f600f-c214-4c21-89d9-ca3b8bba8735" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea" redirect-uri="http://localhost:8000/"></arc-sso>-->
-    <div slot='name'>My App</div>
+    <arc-icon-button id='themeSetter' label="Toggle theme" name="brightness_low"></arc-icon-button>
+    <span slot='name'>WebComponents</span>
   </arc-navbar>
 </arc-container>
 
@@ -38,7 +35,14 @@
   import './out-tsc/components/navbar/arc-navbar.js';
   import './out-tsc/components/button/arc-button.js';
   import './out-tsc/components/icon-button/arc-icon-button.js';
-  // import './out-tsc/components/sso/arc-sso.js';
+
+  const container = document.querySelector('arc-container');
+  const themeSetter = document.getElementById('themeSetter');
+  const accessibility = document.getElementById('accessibility');
+
+  themeSetter.addEventListener('click', () => {
+    container.theme = container.theme === 'light' ? 'dark' : 'light';
+  })
 </script>
 </body>
 </html>

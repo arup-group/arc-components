@@ -3,10 +3,10 @@ import { property, state } from 'lit/decorators.js';
 import * as Msal from '@azure/msal-browser';
 import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
 import { Configuration } from '@azure/msal-browser/dist/config/Configuration';
+import { isAfter } from 'date-fns';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
-import { isExpired } from '../../internal/auth.js';
 import componentStyles from '../../styles/component.styles.js';
 
 import '../dropdown/arc-dropdown.js';
@@ -123,7 +123,7 @@ export default class ArcSSO extends LitElement {
       return false;
     }
 
-    return !isExpired(accountInfo);
+    return !this.isExpired(accountInfo);
   }
 
   /* c8 ignore next 7 */
@@ -145,6 +145,14 @@ export default class ArcSSO extends LitElement {
   /* Retrieve the signed in account */
   getAccount() {
     return this._msalInstance.getAllAccounts()[0] as AccountInfo;
+  }
+
+  /* Check whether the token of the signed in account is expired */
+  isExpired = (accountInfo: AccountInfo) => {
+    const expiration: number = (accountInfo.idTokenClaims as any).exp;
+    const expiryDate = expiration ? new Date(expiration * 1000) : new Date(0);
+
+    return !isAfter(expiryDate, new Date());
   }
 
   /* c8 ignore next 19 */

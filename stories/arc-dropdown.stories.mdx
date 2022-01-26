@@ -8,7 +8,7 @@ component='arc-dropdown'
 argTypes={{
     placement: {
       description: 'The preferred placement of the dropdown panel. Note that the actual placement may vary as needed to keep the panel inside of the viewport.',
-      defaultValue: { summary: DROPDOWN_PLACEMENTS.bottomStart },
+      defaultValue: { summary: DROPDOWN_PLACEMENTS['bottom-start'] },
       control: { type: 'select' },
       options: Object.values(DROPDOWN_PLACEMENTS),
     },
@@ -47,7 +47,7 @@ parameters={{
 # Dropdown
 ### `<arc-dropdown>`
 
-The Dropdown is used to expose additional content that 'drops down' in a panel.
+The ArcDropdown is used to expose additional content that 'drops down' in a panel.
 Dropdowns consist of a trigger and a panel. By default, activating the trigger will expose the panel and interacting outside of the panel will close it.
 
 Dropdowns are designed to work well with [arc-menu](?path=/story/arcmenu--default) to provide a list of options to the user.

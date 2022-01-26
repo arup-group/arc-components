@@ -11,10 +11,11 @@ interface Story<T> {
 
 interface ArgTypes {
   theme?: ContainerTheme;
+  fullscreen?: boolean
 }
 
-const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
-  <arc-container theme="${theme}">
+const Template: Story<ArgTypes> = ({ theme, fullscreen }: ArgTypes) => html`
+  <arc-container theme="${theme}" ?fullscreen="${fullscreen}">
     <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg">
       <span slot="name">WebComponents</span>
       <arc-button type="tab">Link 1</arc-button>
@@ -27,8 +28,13 @@ const Template: Story<ArgTypes> = ({ theme }: ArgTypes) => html`
   </arc-container>
 `;
 
+const defaultArgs: ArgTypes = {
+  theme: CONTAINER_THEMES.auto,
+  fullscreen: false
+}
+
 export const Container = Template.bind({});
 export const DarkContainer = Template.bind({});
 
-Container.args = { theme: CONTAINER_THEMES.auto };
-DarkContainer.args = { theme: CONTAINER_THEMES.dark };
+Container.args = { ...defaultArgs };
+DarkContainer.args = { ...defaultArgs, theme: CONTAINER_THEMES.dark };

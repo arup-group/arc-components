@@ -287,7 +287,7 @@ export default class ArcDrawer extends LitElement {
   render() {
     return html`
       <div id='main' @keydown=${this.handleKeyDown}>
-        <div id='overlay' @click=${this.requestClose} tabindex='-1'></div>
+        <div id='overlay' @click=${this.requestClose} role="presentation" tabindex='-1'></div>
         <div id='panel'
              role='dialog'
              aria-modal='true'

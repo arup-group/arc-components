@@ -9,100 +9,42 @@
 
   <title>ARC</title>
 
-  <link crossorigin="anonymous" href='themes/index.css' rel="stylesheet">
-  <link crossorigin="anonymous" href='themes/light.css' rel="stylesheet">
-  <link crossorigin="anonymous" href='themes/dark.css' rel="stylesheet">
+  <link crossorigin="anonymous" href="themes/index.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="themes/light.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="themes/dark.css" rel="stylesheet">
 </head>
 
 <body>
-<arc-container theme='mytheme'>
-  <arc-navbar slot="nav" logo="/assets/arc-red.svg">
-    <span slot="name">WebComponents</span>
-    <arc-icon-button name="home" label='Home' href="/"></arc-icon-button>
-    <arc-icon-button id="themeSetter" label='Toggle theme' name="brightness_low"></arc-icon-button>
-    <arc-icon-button name='accessibility' id='toggleAccessibility'></arc-icon-button>
-    <arc-dropdown hoist>
-      <arc-icon-button slot='trigger' name='menu'></arc-icon-button>
-      <arc-menu>
-        <arc-menu-item>Item 1</arc-menu-item>
-        <arc-menu-item>Item 2</arc-menu-item>
-        <arc-menu-item>Item 3</arc-menu-item>
-      </arc-menu>
-    </arc-dropdown>
+<arc-container>
+  <arc-navbar slot='nav' logo="/assets/arc-red.svg">
+    <arc-icon-button id='themeSetter' label="Toggle theme" name="brightness_low"></arc-icon-button>
+    <span slot='name'>Web-components</span>
+<!--    <arc-sso slot='user' client-id="1c9f600f-c214-4c21-89d9-ca3b8bba8735" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea" redirect-uri="http://localhost:8000/"></arc-sso>-->
   </arc-navbar>
-  <arc-sidebar slot="side" title="Select a section">
-    <arc-menu>
-      <arc-menu-item>
-        <arc-icon slot="suffix" name="home"></arc-icon>
-        Home
-      </arc-menu-item>
-      <arc-menu-item>
-        <arc-icon slot="suffix" name="settings"></arc-icon>
-        Settings
-      </arc-menu-item>
-      <arc-menu-item>
-        <arc-icon slot="suffix" name="accessibility"></arc-icon>
-        Accessibility
-      </arc-menu-item>
-    </arc-menu>
-  </arc-sidebar>
-  <div style="height: 100%; padding: var(--arc-spacing-medium); position:relative">
-    <h1>Hello World!</h1>
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus in hendrerit gravida rutrum quisque non. Tristique senectus et netus et. Enim diam vulputate ut pharetra sit. Cursus eget nunc scelerisque viverra mauris. Nunc consequat interdum varius sit amet mattis vulputate enim nulla. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Sed libero enim sed faucibus turpis in. Sem fringilla ut morbi tincidunt augue interdum velit euismod. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Risus nullam eget felis eget nunc lobortis mattis. Suspendisse in est ante in nibh. Facilisis volutpat est velit egestas dui id ornare arcu. Et malesuada fames ac turpis egestas maecenas. Cursus in hac habitasse platea dictumst quisque sagittis.
-      Elementum tempus egestas sed sed. Sit amet justo donec enim diam vulputate ut pharetra. Sodales neque sodales ut etiam sit amet nisl. Porttitor leo a diam sollicitudin tempor id eu. Et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet. Elit at imperdiet dui accumsan sit. Neque volutpat ac tincidunt vitae semper quis lectus. Cursus metus aliquam eleifend mi in. Donec enim diam vulputate ut. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant. Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Lacinia quis vel eros donec ac odio tempor orci dapibus. Magna fermentum iaculis eu non diam phasellus. Fringilla phasellus faucibus scelerisque eleifend.
-      Dictum non consectetur a erat nam at lectus urna. Aenean pharetra magna ac placerat vestibulum lectus. Duis tristique sollicitudin nibh sit amet commodo. Integer vitae justo eget magna fermentum iaculis. Quis vel eros donec ac odio. Nunc vel risus commodo viverra maecenas accumsan lacus. Arcu vitae elementum curabitur vitae nunc sed velit. Egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices. Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi. Quam nulla porttitor massa id. Amet volutpat consequat mauris nunc. Faucibus ornare suspendisse sed nisi. Facilisis sed odio morbi quis commodo odio aenean. Gravida neque convallis a cras semper. Aliquam purus sit amet luctus venenatis lectus magna. At elementum eu facilisis sed odio morbi quis commodo.
-      Facilisi cras fermentum odio eu feugiat pretium nibh ipsum. A iaculis at erat pellentesque. Est placerat in egestas erat imperdiet sed. Id neque aliquam vestibulum morbi blandit. In hac habitasse platea dictumst quisque sagittis purus sit. Eget duis at tellus at urna condimentum mattis. Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet. Vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor. At risus viverra adipiscing at. Suspendisse sed nisi lacus sed viverra tellus in hac. At auctor urna nunc id cursus. Posuere sollicitudin aliquam ultrices sagittis orci a. Tristique senectus et netus et malesuada fames.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus in hendrerit gravida rutrum quisque non. Tristique senectus et netus et. Enim diam vulputate ut pharetra sit. Cursus eget nunc scelerisque viverra mauris. Nunc consequat interdum varius sit amet mattis vulputate enim nulla. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Sed libero enim sed faucibus turpis in. Sem fringilla ut morbi tincidunt augue interdum velit euismod. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Risus nullam eget felis eget nunc lobortis mattis. Suspendisse in est ante in nibh. Facilisis volutpat est velit egestas dui id ornare arcu. Et malesuada fames ac turpis egestas maecenas. Cursus in hac habitasse platea dictumst quisque sagittis.
-      Elementum tempus egestas sed sed. Sit amet justo donec enim diam vulputate ut pharetra. Sodales neque sodales ut etiam sit amet nisl. Porttitor leo a diam sollicitudin tempor id eu. Et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet. Elit at imperdiet dui accumsan sit. Neque volutpat ac tincidunt vitae semper quis lectus. Cursus metus aliquam eleifend mi in. Donec enim diam vulputate ut. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant. Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Lacinia quis vel eros donec ac odio tempor orci dapibus. Magna fermentum iaculis eu non diam phasellus. Fringilla phasellus faucibus scelerisque eleifend.
-      Dictum non consectetur a erat nam at lectus urna. Aenean pharetra magna ac placerat vestibulum lectus. Duis tristique sollicitudin nibh sit amet commodo. Integer vitae justo eget magna fermentum iaculis. Quis vel eros donec ac odio. Nunc vel risus commodo viverra maecenas accumsan lacus. Arcu vitae elementum curabitur vitae nunc sed velit. Egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices. Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi. Quam nulla porttitor massa id. Amet volutpat consequat mauris nunc. Faucibus ornare suspendisse sed nisi. Facilisis sed odio morbi quis commodo odio aenean. Gravida neque convallis a cras semper. Aliquam purus sit amet luctus venenatis lectus magna. At elementum eu facilisis sed odio morbi quis commodo.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus in hendrerit gravida rutrum quisque non. Tristique senectus et netus et. Enim diam vulputate ut pharetra sit. Cursus eget nunc scelerisque viverra mauris. Nunc consequat interdum varius sit amet mattis vulputate enim nulla. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Sed libero enim sed faucibus turpis in. Sem fringilla ut morbi tincidunt augue interdum velit euismod. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Risus nullam eget felis eget nunc lobortis mattis. Suspendisse in est ante in nibh. Facilisis volutpat est velit egestas dui id ornare arcu. Et malesuada fames ac turpis egestas maecenas. Cursus in hac habitasse platea dictumst quisque sagittis.
-      Elementum tempus egestas sed sed. Sit amet justo donec enim diam vulputate ut pharetra. Sodales neque sodales ut etiam sit amet nisl. Porttitor leo a diam sollicitudin tempor id eu. Et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet. Elit at imperdiet dui accumsan sit. Neque volutpat ac tincidunt vitae semper quis lectus. Cursus metus aliquam eleifend mi in. Donec enim diam vulputate ut. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant. Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Lacinia quis vel eros donec ac odio tempor orci dapibus. Magna fermentum iaculis eu non diam phasellus. Fringilla phasellus faucibus scelerisque eleifend.
-      Dictum non consectetur a erat nam at lectus urna. Aenean pharetra magna ac placerat vestibulum lectus. Duis tristique sollicitudin nibh sit amet commodo. Integer vitae justo eget magna fermentum iaculis. Quis vel eros donec ac odio. Nunc vel risus commodo viverra maecenas accumsan lacus. Arcu vitae elementum curabitur vitae nunc sed velit. Egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices. Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi. Quam nulla porttitor massa id. Amet volutpat consequat mauris nunc. Faucibus ornare suspendisse sed nisi. Facilisis sed odio morbi quis commodo odio aenean. Gravida neque convallis a cras semper. Aliquam purus sit amet luctus venenatis lectus magna. At elementum eu facilisis sed odio morbi quis commodo.
-    </p>
-
-    <arc-drawer label="ARC drawer">
-      <div style="height: 150vh;">
-        <p>Scroll locking is active, scroll down and give it a try!</p>
-      </div>
-      <div slot='footer'>
-        <arc-button color='primary' onClick='document.querySelector("arc-drawer").hide()'>Save and close</arc-button>
-      </div>
-    </arc-drawer>
-  </div>
-  <arc-bottombar slot='bottom'>
-    <arc-icon-button name='home'>Home</arc-icon-button>
-  </arc-bottombar>
 </arc-container>
 
-<script type='module'>
+<script type="module">
   import { noFOUC } from './out-tsc/utilities/style-utils.js';
   import { setBasePath } from "./out-tsc/utilities/base-path.js";
 
   noFOUC();
   setBasePath('/');
-
-  const container = document.querySelector('arc-container');
-  const drawer = document.querySelector('arc-drawer');
-  const themeSetter = document.getElementById('themeSetter');
-  const toggleAccessibility = document.getElementById('toggleAccessibility');
-
-  themeSetter.addEventListener('click', () => {
-    container.theme = container.theme === 'dark' ? 'light' : 'dark';
-    themeSetter.name = container.theme === 'dark' ? 'brightness_low' : 'brightness_high';
-  });
-
-  toggleAccessibility.addEventListener('click', () => drawer.show());
-
-  /* Prevent closing the drawer */
-  drawer.addEventListener('arc-request-close', (e) => {
-    e.preventDefault();
-  })
-
 </script>
 
-<script type="module" src='./out-tsc/arc.js'></script>
-</body>
+<script type="module">
+  import './out-tsc/components/container/arc-container.js';
+  import './out-tsc/components/navbar/arc-navbar.js';
+  import './out-tsc/components/button/arc-button.js';
+  import './out-tsc/components/icon-button/arc-icon-button.js';
+  // import './out-tsc/components/sso/arc-sso.js';
 
+  const container = document.querySelector('arc-container');
+  const themeSetter = document.getElementById('themeSetter');
+  const accessibility = document.getElementById('accessibility');
+
+  themeSetter.addEventListener('click', () => {
+    container.theme = container.theme === 'light' ? 'dark' : 'light';
+  })
+</script>
+</body>
 </html>

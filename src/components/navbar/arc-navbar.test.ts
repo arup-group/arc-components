@@ -18,7 +18,7 @@ describe('ArcNavbar', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-navbar arup='' home='/' tabs='5'></arc-navbar>`);
+      expect(element).dom.to.equal(`<arc-navbar arup='' tabs='5'></arc-navbar>`);
     });
 
     /* Test the accessibility */
@@ -36,6 +36,13 @@ describe('ArcNavbar', () => {
       expect(element.home).to.equal('myURL');
       expect(element.getAttribute('home')).to.equal('myURL');
       expect(logoWrapper.getAttribute('href')).to.equal('myURL');
+    });
+
+    it('renders the logoWrapper as a div when no home property is set', async () => {
+      const element: ArcNavbar = await fixture(html` <arc-navbar></arc-navbar>`);
+      const logoWrapper = element.shadowRoot!.querySelector('#logoWrapper')!;
+
+      expect(logoWrapper.tagName).to.equal('DIV');
     });
 
     it('renders the navbar with a custom logo property', async () => {
@@ -70,6 +77,7 @@ describe('ArcNavbar', () => {
     let element: ArcNavbar;
     let toolName: HTMLElement;
     let tabContainer: HTMLElement;
+    let tabSlot: HTMLElement;
 
     /* Function that returns hidden and untouched elements when the slotted button and icon-button components exceed the tab limit */
     function retrieveElements() {
@@ -98,20 +106,21 @@ describe('ArcNavbar', () => {
       `);
       toolName = element.shadowRoot!.getElementById('tool-name')!;
       tabContainer = element.shadowRoot!.getElementById('tabs')!;
+      tabSlot = element.shadowRoot!.getElementById('tabSlot')!;
     });
 
     it('shows the correct elements on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
 
-      expect(getPropertyValue(toolName, 'display')).to.equal('block');
-      expect(getPropertyValue(tabContainer, 'display')).to.equal('grid');
+      expect(getPropertyValue(toolName, 'display')).to.equal('flex');
+      expect(getPropertyValue(tabSlot, 'display')).to.equal('flex');
     });
 
     it('shows the correct elements on a phone', async () => {
       await setViewport({ width: 360, height: 640 });
 
       /* If the component has no logo, display the tool name */
-      expect(getPropertyValue(toolName, 'display')).to.equal('block');
+      expect(getPropertyValue(toolName, 'display')).to.equal('flex');
 
       /* If the component has a logo, hide the tool name */
       element.logo = 'myCustomLogo';
@@ -119,7 +128,7 @@ describe('ArcNavbar', () => {
       expect(getPropertyValue(toolName, 'display')).to.equal('none');
 
       /* Hide the tabs */
-      expect(getPropertyValue(tabContainer, 'display')).to.equal('none');
+      expect(getPropertyValue(tabSlot, 'display')).to.equal('none');
     });
 
     it('shows the correct elements when the tab count changes', async () => {
@@ -183,6 +192,7 @@ describe('ArcNavbar', () => {
 
       expect(hasSlot(leftContainer, 'name')).to.be.true;
       expect(hasSlot(rightContainer)).to.be.true;
+      expect(hasSlot(rightContainer, 'user')).to.be.true;
     });
   });
 

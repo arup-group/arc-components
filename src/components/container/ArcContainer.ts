@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -48,7 +49,7 @@ export default class ArcContainer extends LitElement {
 
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #container {
+        #container:not(.fullscreen) {
           gap: var(--arc-spacing-normal);
           padding: var(--arc-spacing-normal) var(--arc-spacing-medium);
         }
@@ -67,6 +68,8 @@ export default class ArcContainer extends LitElement {
 
   @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
 
+  @property({ type: Boolean }) fullscreen: boolean = false;
+
   @watch('theme')
   handleThemeChange() {
     if (CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto) {
@@ -80,7 +83,7 @@ export default class ArcContainer extends LitElement {
     return html`
       <div id="main">
         <slot id="nav" name="nav"></slot>
-        <div id="container">
+        <div id="container" class=${classMap({ 'fullscreen': this.fullscreen })}>
           <slot name="side"></slot>
           <div id="content"><slot></slot></div>
         </div>

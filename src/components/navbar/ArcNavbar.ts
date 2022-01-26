@@ -22,15 +22,19 @@ export default class ArcNavbar extends LitElement {
       :host {
         height: var(--arc-navbar-height);
         background: rgb(var(--arc-container-color));
+        z-index: 1;
         --logo-height: var(--arc-brand-height);
       }
 
       /* Layout */
       #main,
       #left,
-      #right {
+      #logoWrapper,
+      #right,
+      #tabs {
         display: grid;
         grid-auto-flow: column;
+        overflow: hidden;
       }
 
       #main {
@@ -44,34 +48,44 @@ export default class ArcNavbar extends LitElement {
       /* Left side */
       #left {
         justify-content: flex-start;
-        align-items: center;
       }
 
       #logoWrapper {
-        height: 100%;
-        display: inline-flex;
+        align-items: center;
+        gap: var(--arc-spacing-small);
         text-decoration: none;
         color: inherit;
       }
 
-      #tool-logo + #tool-name {
-        display: none;
-        margin-left: var(--arc-spacing-small);
+      #tool-logo {
+        height: var(--logo-height);
+        width: auto;
       }
 
+      /* Show the tool-name when there is no tool-logo */
       #tool-name {
-        height: 100%;
-        align-items: center;
+        display: flex;
         overflow: hidden;
+      }
+
+      #tool-name::slotted(*) {
+        overflow: hidden;
+        white-space: nowrap;
         text-overflow: ellipsis;
+      }
+
+      /* Hide the tool-name when there is a tool-logo */
+      #tool-logo + #tool-name {
+        display: none;
       }
 
       /* Right side */
       #right {
         justify-content: flex-end;
+        gap: var(--arc-spacing-small);
       }
 
-      #tabs {
+      #tabSlot {
         display: none;
       }
 
@@ -84,10 +98,10 @@ export default class ArcNavbar extends LitElement {
         margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
       }
 
-      /* Logo's */
-      #tool-logo {
-        height: var(--logo-height);
-        width: auto;
+      #company-logo {
+        color: rgb(var(--arc-color-primary));
+        display: flex;
+        align-items: center;
       }
 
       #company-logo > svg {
@@ -95,32 +109,10 @@ export default class ArcNavbar extends LitElement {
         width: auto;
       }
 
-      #tool-logo,
-      #tool-name {
-        align-self: center;
-      }
-
-      #company-logo {
-        color: rgb(var(--arc-color-primary));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #right > #tabs {
-          display: grid;
-          grid-auto-flow: column;
-          overflow: hidden;
-        }
-
-        #tool-logo + #tool-name {
-          display: inline-flex;
-        }
-
-        #company-logo {
-          padding-left: var(--arc-spacing-medium);
+        #tabSlot, #tool-logo + #tool-name {
+          display: flex;
         }
       }
     `,
@@ -132,7 +124,7 @@ export default class ArcNavbar extends LitElement {
 
   @state() navTabs: (ArcButton | ArcIconButton)[] = [];
 
-  @property({ type: String, reflect: true }) home: string = '/';
+  @property({ type: String, reflect: true }) home: string;
 
   @property({ type: String }) logo: string;
 
@@ -176,34 +168,43 @@ export default class ArcNavbar extends LitElement {
     */
     const menuInterior = html`
       ${this.navTabs.map(tab => html`
-        <arc-menu-item ?disabled='${tab.disabled}' @click='${() => tab.click()}'>
+        <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
           ${(tab as ArcIconButton).name ? html`
-            <arc-icon name='${(tab as ArcIconButton).name}' slot='prefix'></arc-icon>
+            <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon>
           ` : nothing}
-          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
+          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || "Invalid label"}
         </arc-menu-item>
       `)}
     `;
 
+    const logoInterior = html`
+      ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
+      <slot id="tool-name" name="name"></slot>
+    `
+
     return html`
       <div id="main">
         <div id="left">
-          <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
-            ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
-            <span id="tool-name">
-              <slot name="name"></slot>
-            </span>
-          </a>
+          ${this.home ? html`
+            <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
+              ${logoInterior}
+            </a>
+          ` : html`
+            <div id='logoWrapper'>
+              ${logoInterior}
+            </div>
+          `}
         </div>
         <div id="right">
           <div id="tabs">
-            <slot id='tabSlot' @slotchange=${this.handleTabChange}></slot>
+            <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
             ${this.showDropdown ? html`
               <arc-dropdown hoist>
-                <arc-icon-button slot='trigger' name='menu'></arc-icon-button>
+                <arc-icon-button slot="trigger" name="menu"></arc-icon-button>
                 <arc-menu>${menuInterior}</arc-menu>
               </arc-dropdown>
             ` : nothing}
+            <slot name="user"></slot>
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
         </div>

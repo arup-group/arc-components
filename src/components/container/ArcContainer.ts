@@ -79,10 +79,14 @@ export default class ArcContainer extends LitElement {
 
   getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);
 
+  showAccessibility = () => {
+    console.log('Show accessibility');
+  }
+
   render() {
     return html`
       <div id="main">
-        <slot id="nav" name="nav"></slot>
+        <slot id="nav" name="nav" @arc-show-accessibility="${this.showAccessibility}"></slot>
         <div id="container" class=${classMap({ 'fullscreen': this.fullscreen })}>
           <slot name="side"></slot>
           <div id="content"><slot></slot></div>

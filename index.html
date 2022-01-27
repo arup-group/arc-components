@@ -39,12 +39,6 @@
   // import './out-tsc/components/sso/arc-sso.js';
 
   const container = document.querySelector('arc-container');
-
-  const navBar = document.querySelector('arc-navbar');
-  navBar.addEventListener('arc-show-accessibility', () => {
-    console.log('The navbar wants to open the accessibility panel')
-  });
-
   const themeSetter = document.getElementById('themeSetter');
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'light' ? 'dark' : 'light';

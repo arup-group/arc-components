@@ -88,10 +88,10 @@ describe('ArcNavbar', () => {
       showHandler.resetHistory();
     });
 
-    it('should emit arc-show-accessibility when calling showAccessibility()', async () => {
+    it('should emit arc-show-accessibility when calling emitAccessibility()', async () => {
       element.addEventListener(ARC_EVENTS.showAccessibility, showHandler);
 
-      await element.showAccessibility();
+      await element.emitAccessibility();
       await waitUntil(() => showHandler.calledOnce);
       expect(showHandler).to.have.been.calledOnce;
     });

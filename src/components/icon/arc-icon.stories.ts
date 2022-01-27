@@ -1,6 +1,6 @@
 import { html, TemplateResult } from 'lit';
-
-import { ICON_SIZES, ICON_TYPES, IconSize, IconType } from './constants/IconConstants.js';
+import { ICON_TYPES, IconType } from './constants/IconConstants.js';
+import { FONT_SIZES, FontSize } from '../../internal/constants/fontConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -10,7 +10,7 @@ interface Story<T> {
 
 interface ArgTypes {
   name: IconType;
-  size?: IconSize;
+  size?: FontSize;
   rotation?: number;
   spinning?: boolean;
   colorPrimary?: string;
@@ -29,7 +29,7 @@ const Template: Story<ArgTypes> = ({ name, size, rotation, spinning, colorPrimar
 
 const defaultArgs: ArgTypes = {
   name: ICON_TYPES.fire,
-  size: ICON_SIZES.large,
+  size: FONT_SIZES.large,
   rotation: 0,
   spinning: false,
   colorPrimary: undefined,
@@ -45,7 +45,7 @@ export const PurpleColor = Template.bind({});
 export const CustomSize = Template.bind({});
 
 Default.args = { ...defaultArgs };
-VariableSize.args = { ...defaultArgs, size: ICON_SIZES['xxx-large'] };
+VariableSize.args = { ...defaultArgs, size: FONT_SIZES['xxx-large'] };
 RedColor.args = { ...defaultArgs, colorPrimary: 'red' };
 GreenColor.args = { ...defaultArgs, colorPrimary: 'green' };
 BlueColor.args = { ...defaultArgs, colorPrimary: 'blue' };

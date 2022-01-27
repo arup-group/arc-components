@@ -3,11 +3,10 @@ import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
-
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 
 describe('ArcButton', () => {
   /* Test the rendering of the component */

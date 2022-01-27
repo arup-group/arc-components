@@ -1,7 +1,6 @@
 import { html, TemplateResult } from 'lit';
-import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
-
 import { getBasePath } from '../../utilities/base-path.js';
+import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

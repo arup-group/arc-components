@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit';
-
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 
 interface Story<T> {

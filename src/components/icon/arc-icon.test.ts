@@ -1,11 +1,10 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import { getPropertyValue } from '../../utilities/style-utils.js';
+import { ICON_SIZES, ICON_TYPES } from './constants/IconConstants.js';
 
 import type ArcIcon from './ArcIcon.js';
 import './arc-icon.js';
-
-import { ICON_SIZES } from './constants/IconConstants.js';
 
 describe('ArcIcon', () => {
   /* Test the rendering of the component */
@@ -17,7 +16,7 @@ describe('ArcIcon', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-icon name='fire' size=${ICON_SIZES.medium}></arc-icon>`);
+      expect(element).dom.to.equal(`<arc-icon name=${ICON_TYPES.fire} size=${ICON_SIZES.medium}></arc-icon>`);
     });
 
     /* Test the accessibility */

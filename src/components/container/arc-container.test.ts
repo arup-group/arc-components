@@ -1,15 +1,16 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated } from '@open-wc/testing';
+import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
 import { setViewport } from '@web/test-runner-commands';
 import { isNight } from '../../internal/theme.js';
 import { isMobile } from '../../utilities/ui-utils.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import ArcContainer from './ArcContainer.js';
 import './arc-container.js';
-
-import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
 describe('ArcContainer', () => {
   /* Test the rendering of the component */
@@ -77,8 +78,9 @@ describe('ArcContainer', () => {
 
   /* Test specific methods */
   describe('methods', () => {
+    const element: ArcContainer = new ArcContainer();
+
     it('returns the correct theme when a specific date is given', async () => {
-      const element: ArcContainer = new ArcContainer();
       const dayTime: Date = new Date('January 15, 2021 15:00:00');
       const nightTime: Date = new Date('January 15, 2021 03:00:00');
 
@@ -86,6 +88,35 @@ describe('ArcContainer', () => {
       expect(element.getTheme(nightTime)).to.equal(CONTAINER_THEMES.dark);
     });
   });
+
+  /* Test the events (click, focus, blur etc.) */
+  describe('events', () => {
+    let element: ArcContainer;
+
+    const showHandler: SinonSpy = sinon.spy();
+    const afterShowHandler: SinonSpy = sinon.spy();
+
+    beforeEach(async () => {
+      element = await fixture(html`<arc-container></arc-container>`)
+    });
+
+    afterEach(() => {
+      showHandler.resetHistory();
+      afterShowHandler.resetHistory();
+    });
+
+    it('should emit arc-show and arc-after-show when calling showAccessibility', async () => {
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      await element.showAccessibility();
+      await waitUntil(() => showHandler.calledOnce);
+      await waitUntil(() => afterShowHandler.calledOnce);
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+    });
+  })
 
   /* Test the component responsiveness */
   describe('responsiveness', () => {

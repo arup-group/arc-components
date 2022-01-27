@@ -59,7 +59,7 @@ export default class ArcAccessibility extends LitElement {
   textTemplate = () => html`
     <div class='menu-label'>
       <span>Text Size</span>
-      <arc-icon name=${ICON_TYPES['open-book']}></arc-icon>
+      <arc-icon name=${ICON_TYPES['book-open']}></arc-icon>
     </div>
     <arc-menu-item>Regular</arc-menu-item>
     <arc-menu-item>Large</arc-menu-item>

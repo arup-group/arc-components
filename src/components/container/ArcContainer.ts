@@ -85,7 +85,7 @@ export default class ArcContainer extends LitElement {
   getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);
 
   /* Trigger the show event of the arc-accessibility component */
-  showAccessibility = () => {
+  showAccessibility() {
     this.accessibility.show();
   }
 

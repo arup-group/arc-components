@@ -34,7 +34,7 @@ describe('ButtonConstants', () => {
       expect(keys).to.contain('eye'); // Used in the accessibility panel
       expect(keys).to.contain('fire'); // Used as default icon
       expect(keys).to.contain('menu'); // Used in the navbar
-      expect(keys).to.contain('open-book'); // Used in the accessibility panel
+      expect(keys).to.contain('book-open'); // Used in the accessibility panel
       expect(keys).to.contain('x'); // Used in the accessibility panel
     })
   });

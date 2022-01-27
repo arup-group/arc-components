@@ -3,16 +3,24 @@ import { query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 import { waitForEvent } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { CONTAINER_THEMES } from '../container/constants/ContainerConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
 import '../drawer/arc-drawer.js';
+import '../icon/arc-icon.js';
 
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
 
   static styles = [
     componentStyles,
-    css``,
+    css`
+      .menu-label {
+        display: flex;
+        align-items: center;
+        gap: var(--arc-spacing-small);
+      }
+    `,
   ];
 
   @query('#drawer') drawer: ArcDrawer;
@@ -37,18 +45,39 @@ export default class ArcAccessibility extends LitElement {
     await waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
+  colourTemplate = () => html`
+    <div class='menu-label'>
+      <span>Colour Mode</span>
+      <arc-icon></arc-icon>
+    </div>
+    ${Object.keys(CONTAINER_THEMES).map(key => html`
+      <arc-menu-item>${key}</arc-menu-item>
+    `)}
+  `
+
+  textTemplate = () => html`
+    <div class='menu-label'>
+      <span>Text Size</span>
+      <arc-icon></arc-icon>
+    </div>
+    <arc-menu-item>Regular</arc-menu-item>
+    <arc-menu-item>Large</arc-menu-item>
+    <arc-menu-item>Extra Large</arc-menu-item>
+  `
+
+  textDisplayTemplate = () => html`
+    display
+  `
+
   render() {
     return html`
       <div id='main'>
         <arc-drawer id='drawer' label='Accessibility Controls (A)'>
-          <div>Colour Mode</div>
-          <div>Text Size</div>
-          <div>Text Display Options</div>
-          <div>Keyboard Navigation Guide</div>
-          <div>Screen Reader Compatibility Guide</div>
-          <div>Arup Accessibility Statement</div>
-          <div>Support & Contact</div>
-          <div>Restore all defaults</div>
+          <arc-menu>
+            ${this.colourTemplate()}
+            ${this.textTemplate()}
+            ${this.textDisplayTemplate()}
+          </arc-menu>
         </arc-drawer>
       </div>
     `;

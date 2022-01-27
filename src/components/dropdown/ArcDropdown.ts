@@ -6,11 +6,12 @@ import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { getTabbableBoundary } from '../../internal/tabbable.js';
 import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry.js';
-import type ArcMenu from '../menu/ArcMenu.js';
-import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+
+import type ArcMenu from '../menu/ArcMenu.js';
+import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
 export default class ArcDropdown extends LitElement {
   static tag = 'arc-dropdown';

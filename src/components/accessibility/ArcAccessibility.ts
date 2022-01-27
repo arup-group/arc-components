@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { query } from 'lit/decorators.js';
-import componentStyles from '../../styles/component.styles.js';
 import { waitForEvent } from '../../internal/event.js';
+import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { CONTAINER_THEMES } from '../container/constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';

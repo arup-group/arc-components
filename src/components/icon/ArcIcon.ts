@@ -2,10 +2,10 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
-import componentStyles from '../../styles/component.styles.js';
-import { ICON_SIZES, ICON_TYPES, IconSize } from './constants/IconConstants.js';
-import { FONT_SIZES, FontSize } from '../../internal/constants/fontConstants';
 import { getBasePath } from '../../utilities/base-path.js';
+import componentStyles from '../../styles/component.styles.js';
+import { ICON_TYPES } from './constants/IconConstants.js';
+import { FONT_SIZES, FontSize } from '../../internal/constants/fontConstants.js';
 
 export default class ArcIcon extends LitElement {
   static tag = 'arc-icon';
@@ -64,7 +64,7 @@ export default class ArcIcon extends LitElement {
 
   @property({ type: String, reflect: true }) name: string = ICON_TYPES.fire;
 
-  @property({ type: String, reflect: true }) size: IconSize = ICON_SIZES.medium;
+  @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;
 
   @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
 

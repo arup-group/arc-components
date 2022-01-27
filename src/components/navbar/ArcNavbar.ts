@@ -2,9 +2,9 @@ import { css, html, LitElement, nothing } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { emit } from '../../internal/event.js';
-import componentStyles from '../../styles/component.styles.js';
-import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import { watch } from '../../internal/watch.js';
+import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 

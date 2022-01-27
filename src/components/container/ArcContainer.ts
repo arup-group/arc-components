@@ -3,8 +3,8 @@ import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import componentStyles from '../../styles/component.styles.js';
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 

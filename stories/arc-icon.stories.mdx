@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../out-tsc/components/icon/arc-icon.stories.js';
-import { ICON_SIZES, ICON_TYPES } from '../out-tsc/components/icon/constants/IconConstants.js';
+import { ICON_TYPES } from '../out-tsc/components/icon/constants/IconConstants.js';
+import { FONT_SIZES } from '../out-tsc/internal/constants/fontConstants.js';
 
 <Meta
 title='ArcIcon'
@@ -16,7 +17,7 @@ argTypes={{
       description: 'Set the size of the icon.',
       defaultValue: { summary: 'medium' },
       control: { type: 'select' },
-      options: Object.values(ICON_SIZES),
+      options: Object.values(FONT_SIZES),
     },
     rotation: {
       description: 'Set the rotation of the icon.',

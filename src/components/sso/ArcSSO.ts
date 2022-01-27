@@ -9,7 +9,7 @@ import { stringToArray } from '../../internal/string.js';
 import { isExpired } from '../../internal/auth.js';
 import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
-import { ARC_EVENTS } from '../../internal/eventConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import '../dropdown/arc-dropdown.js';
 import '../button/arc-button.js';

@@ -5,7 +5,7 @@ import { emit } from '../../internal/event.js';
 import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import { watch } from '../../internal/watch.js';
-import { ARC_EVENTS } from '../../internal/eventConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcButton from '../button/ArcButton.js';
 import type ArcIconButton from '../icon-button/ArcIconButton.js';

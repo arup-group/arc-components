@@ -10,7 +10,7 @@ import { setDefaultAnimation, getAnimation } from '../../utilities/animation-reg
 import Modal from '../../internal/modal.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
-import { ARC_EVENTS } from '../../internal/eventConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 

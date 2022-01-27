@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
@@ -7,6 +7,8 @@ import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 
+import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
+import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import '../icon-button/arc-icon-button.js';
 
@@ -66,6 +68,8 @@ export default class ArcContainer extends LitElement {
     `,
   ];
 
+  @query('#accessibility') accessibility: ArcAccessibility;
+
   @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
 
   @property({ type: Boolean }) fullscreen: boolean = false;
@@ -79,8 +83,9 @@ export default class ArcContainer extends LitElement {
 
   getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);
 
+  /* Trigger the show event of the arc-accessibility component */
   showAccessibility = () => {
-    console.log('Show accessibility');
+    this.accessibility.show();
   }
 
   render() {
@@ -91,6 +96,7 @@ export default class ArcContainer extends LitElement {
           <slot name="side"></slot>
           <div id="content"><slot></slot></div>
         </div>
+        <arc-accessibility id='accessibility'></arc-accessibility>
         <slot name="bottom">
           <arc-bottombar>
             <arc-icon-button name="home" href="/" label="Go home">Home</arc-icon-button>

@@ -199,7 +199,7 @@ export default class ArcDrawer extends LitElement {
     }
 
     this.open = true;
-    await waitForEvent(this, 'arc-after-show');
+    await waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
   /** Hides the drawer */
@@ -209,7 +209,7 @@ export default class ArcDrawer extends LitElement {
     }
 
     this.open = false;
-    await waitForEvent(this, 'arc-after-hide');
+    await waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
   private requestClose() {

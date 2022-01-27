@@ -10,6 +10,7 @@ import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
+import { ARC_EVENTS } from '../../internal/eventConstants.js';
 
 export default class ArcDropdown extends LitElement {
   static tag = 'arc-dropdown';
@@ -105,7 +106,7 @@ export default class ArcDropdown extends LitElement {
 
     if (this.open) {
       /* Show */
-      emit(this, 'arc-show');
+      emit(this, ARC_EVENTS.show);
       document.addEventListener('keydown', this.handleDocumentKeyDown);
       document.addEventListener('mousedown', this.handleDocumentMouseDown);
 
@@ -115,10 +116,10 @@ export default class ArcDropdown extends LitElement {
       const { keyframes, options } = getAnimation(this, 'dropdown.show');
       await startAnimations(this.panel, keyframes, options);
 
-      emit(this, 'arc-after-show');
+      emit(this, ARC_EVENTS.afterShow);
     } else {
       /* Hide */
-      emit(this, 'arc-hide');
+      emit(this, ARC_EVENTS.hide);
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
       document.removeEventListener('mousedown', this.handleDocumentMouseDown);
 
@@ -127,7 +128,7 @@ export default class ArcDropdown extends LitElement {
       await startAnimations(this.panel, keyframes, options);
       this.panel.hidden = true;
 
-      emit(this, 'arc-after-hide');
+      emit(this, ARC_EVENTS.afterHide);
     }
   }
 

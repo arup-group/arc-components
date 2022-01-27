@@ -1,8 +1,11 @@
 import { css, html, LitElement, nothing } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { emit } from '../../internal/event.js';
 import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import { watch } from '../../internal/watch.js';
+import { ARC_EVENTS } from '../../internal/eventConstants.js';
 
 import type ArcButton from '../button/ArcButton.js';
 import type ArcIconButton from '../icon-button/ArcIconButton.js';
@@ -161,6 +164,11 @@ export default class ArcNavbar extends LitElement {
     })
   }
 
+  /* Emit an event to open the accessibility panel */
+  handleAccessibility(event: MouseEvent) {
+    emit(this, ARC_EVENTS.openAccessibility)
+  }
+
   render() {
     /*
     Template that displays all button and icon-button components inside a dropdown menu
@@ -186,13 +194,15 @@ export default class ArcNavbar extends LitElement {
       <div id="main">
         <div id="left">
           ${this.home ? html`
-            <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
+            <a id="logoWrapper"
+               href="${ifDefined(this.home)}"
+               rel="noreferrer noopener"
+               role="button"
+               aria-label="tool logo">
               ${logoInterior}
             </a>
           ` : html`
-            <div id='logoWrapper'>
-              ${logoInterior}
-            </div>
+            <div id="logoWrapper">${logoInterior}</div>
           `}
         </div>
         <div id="right">
@@ -204,6 +214,11 @@ export default class ArcNavbar extends LitElement {
                 <arc-menu>${menuInterior}</arc-menu>
               </arc-dropdown>
             ` : nothing}
+            <arc-icon-button
+              name="accessibility"
+              label="Accessibility panel"
+              @click="${this.handleAccessibility}"
+            ></arc-icon-button>
             <slot name="user"></slot>
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}

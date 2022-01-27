@@ -10,6 +10,7 @@ import { setDefaultAnimation, getAnimation } from '../../utilities/animation-reg
 import Modal from '../../internal/modal.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
+import { ARC_EVENTS } from '../../internal/eventConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 
@@ -212,7 +213,7 @@ export default class ArcDrawer extends LitElement {
   }
 
   private requestClose() {
-    const arcRequestClose = emit(this, 'arc-request-close', { cancelable: true });
+    const arcRequestClose = emit(this, ARC_EVENTS.requestClose, { cancelable: true });
     if (arcRequestClose.defaultPrevented) {
       const animation = getAnimation(this, 'drawer.denyClose');
       startAnimations(this.panel, animation.keyframes, animation.options);
@@ -233,7 +234,7 @@ export default class ArcDrawer extends LitElement {
   async handleOpenChange() {
     if (this.open) {
       /* Show */
-      emit(this, 'arc-show');
+      emit(this, ARC_EVENTS.show);
       this.originalTrigger = document.activeElement as HTMLElement;
 
       /* Lock body scrolling only if the drawer isn't contained */
@@ -245,7 +246,7 @@ export default class ArcDrawer extends LitElement {
       await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
       this.drawer.hidden = false;
 
-      const arcInitialFocus = emit(this, 'arc-initial-focus', { cancelable: true });
+      const arcInitialFocus = emit(this, ARC_EVENTS.initialFocus, { cancelable: true });
       if (!arcInitialFocus.defaultPrevented) {
         this.panel.focus({ preventScroll: true });
       }
@@ -257,10 +258,10 @@ export default class ArcDrawer extends LitElement {
         startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options)
       ]);
 
-      emit(this, 'arc-after-show');
+      emit(this, ARC_EVENTS.afterShow);
     } else {
       /* Hide */
-      emit(this, 'arc-hide');
+      emit(this, ARC_EVENTS.hide);
       this.modal.deactivate();
       unlockBodyScrolling(this);
 
@@ -280,7 +281,7 @@ export default class ArcDrawer extends LitElement {
         setTimeout(() => trigger.focus());
       }
 
-      emit(this, 'arc-after-hide');
+      emit(this, ARC_EVENTS.afterHide);
     }
   }
 

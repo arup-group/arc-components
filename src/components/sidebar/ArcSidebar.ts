@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { emit } from '../../internal/event.js';
 import componentStyles from '../../styles/component.styles.js';
+import { ARC_EVENTS } from '../../internal/eventConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 
@@ -88,7 +89,7 @@ export default class ArcSidebar extends LitElement {
 
   toggleOpenState = () => {
     this.open = !this.open;
-    emit(this, `${this.open ? 'arc-show' : 'arc-hide'}`, {
+    emit(this, `${this.open ? ARC_EVENTS.show : ARC_EVENTS.hide}`, {
       detail: { open: this.open },
     });
   };

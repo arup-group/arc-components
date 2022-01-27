@@ -48,6 +48,7 @@ describe('ArcSSO', () => {
     });
   });
 
+
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     let element: ArcSSO;

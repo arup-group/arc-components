@@ -1,13 +1,13 @@
 import { html } from 'lit';
 import { expect, fixture, oneEvent } from '@open-wc/testing';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import { homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent } from '../../utilities/test-utils.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcMenu from './ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
-
-import { homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent } from '../../utilities/test-utils.js';
 
 describe('ArcMenu', () => {
   /* Retrieve the tabindex of a menu item */
@@ -173,7 +173,7 @@ describe('ArcMenu', () => {
       }
 
       /* Add a listener to the arc-select event */
-      element.addEventListener('arc-select', updateEvent);
+      element.addEventListener(ARC_EVENTS.select, updateEvent);
 
       /* By default the first (not disabled) item has a tabindex of 0 */
       expect(getIndex(selectedItem)).to.equal('0');
@@ -184,7 +184,7 @@ describe('ArcMenu', () => {
       expect(getIndex(selectedItem)).to.equal('0');
 
       /* Remove the listener on the arc-select event */
-      element.removeEventListener('arc-select', updateEvent);
+      element.removeEventListener(ARC_EVENTS.select, updateEvent);
     });
 
     it('moves the selection down or up', () => {

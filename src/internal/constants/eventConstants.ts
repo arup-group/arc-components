@@ -1,4 +1,4 @@
-export declare type ArcEvent = 'afterHide' | 'afterShow' | 'auth' | 'hide' | 'initialFocus' | 'openAccessibility' | 'requestClose' | 'select' | 'show';
+export declare type ArcEvent = 'afterHide' | 'afterShow' | 'auth' | 'hide' | 'initialFocus' | 'requestClose' | 'select' | 'showAccessibility' | 'show';
 
 export const ARC_EVENTS: { [key in ArcEvent ]: string } = {
   afterHide: 'arc-after-hide',
@@ -6,8 +6,8 @@ export const ARC_EVENTS: { [key in ArcEvent ]: string } = {
   auth: 'arc-auth',
   hide: 'arc-hide',
   initialFocus: 'arc-initial-focus',
-  openAccessibility: 'arc-open-accessibility',
   requestClose: 'arc-request-close',
   select: 'arc-select',
+  showAccessibility: 'arc-show-accessibility',
   show: 'arc-show'
 }

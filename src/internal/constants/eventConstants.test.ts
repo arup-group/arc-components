@@ -13,9 +13,9 @@ describe('EventConstants', () => {
     expect(keys).to.contain('auth');
     expect(keys).to.contain('hide');
     expect(keys).to.contain('initialFocus');
-    expect(keys).to.contain('openAccessibility');
     expect(keys).to.contain('requestClose');
     expect(keys).to.contain('select');
+    expect(keys).to.contain('showAccessibility');
     expect(keys).to.contain('show');
   });
 
@@ -27,9 +27,9 @@ describe('EventConstants', () => {
     expect(values).to.contain('arc-auth');
     expect(values).to.contain('arc-hide');
     expect(values).to.contain('arc-initial-focus');
-    expect(values).to.contain('arc-open-accessibility');
     expect(values).to.contain('arc-request-close');
     expect(values).to.contain('arc-select');
+    expect(values).to.contain('arc-show-accessibility');
     expect(values).to.contain('arc-show');
   })
 })

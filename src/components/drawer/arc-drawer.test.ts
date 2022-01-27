@@ -1,10 +1,10 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
+import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
 import { escEvent } from '../../utilities/test-utils.js';
-
-import { getPropertyValue } from '../../utilities/style-utils.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcDrawer from './ArcDrawer.js';
 import './arc-drawer.js';
@@ -122,8 +122,8 @@ describe('ArcDrawer', () => {
     });
 
     it('should emit arc-show and arc-after-show when calling show()', async () => {
-      element.addEventListener('arc-show', showHandler);
-      element.addEventListener('arc-after-show', afterShowHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       await element.show();
       await waitUntil(() => showHandler.calledOnce);
@@ -138,8 +138,8 @@ describe('ArcDrawer', () => {
     it('should emit arc-hide and arc-after-hide when calling hide()', async () => {
       await element.show();
 
-      element.addEventListener('arc-hide', hideHandler);
-      element.addEventListener('arc-after-hide', afterHideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
 
       await element.hide();
       await waitUntil(() => hideHandler.calledOnce);
@@ -152,8 +152,8 @@ describe('ArcDrawer', () => {
     });
 
     it('should emit arc-show and arc-after-show when setting open = true', async () => {
-      element.addEventListener('arc-show', showHandler);
-      element.addEventListener('arc-after-show', afterShowHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       element.open = true;
       await waitUntil(() => showHandler.calledOnce);
@@ -169,8 +169,8 @@ describe('ArcDrawer', () => {
       element.open = true;
       await elementUpdated(element);
 
-      element.addEventListener('arc-hide', hideHandler);
-      element.addEventListener('arc-after-hide', afterHideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
 
       element.open = false;
       await waitUntil(() => hideHandler.calledOnce);
@@ -183,8 +183,8 @@ describe('ArcDrawer', () => {
     });
 
     it('should prevent emitting the arc-show and arc-after-show when the drawer is already open', async () => {
-      element.addEventListener('arc-show', showHandler);
-      element.addEventListener('arc-after-show', afterShowHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       await element.show();
       expect(isOpen()).to.be.true;
@@ -199,8 +199,8 @@ describe('ArcDrawer', () => {
     it('should prevent emitting the arc-hide and arc-after-hide when the drawer is not open', async () => {
       await element.show();
 
-      element.addEventListener('arc-hide', hideHandler);
-      element.addEventListener('arc-after-hide', afterHideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
 
       await element.hide();
       await element.hide();
@@ -212,7 +212,7 @@ describe('ArcDrawer', () => {
     it('should not close when arc-request-close is prevented', async () => {
       await element.show();
 
-      element.addEventListener('arc-request-close', event => event.preventDefault());
+      element.addEventListener(ARC_EVENTS.requestClose, event => event.preventDefault());
       overlay.click();
 
       expect(element.open).to.be.true;
@@ -228,7 +228,7 @@ describe('ArcDrawer', () => {
     })
 
     it('should allow initial focus to be set', async () => {
-      element.addEventListener('arc-initial-focus', initialFocusHandler);
+      element.addEventListener(ARC_EVENTS.initialFocus, initialFocusHandler);
 
       await element.show();
       await waitUntil(() => initialFocusHandler.calledOnce);
@@ -240,7 +240,7 @@ describe('ArcDrawer', () => {
     it('closes the menu when escape is pressed', async () => {
       await element.show();
 
-      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
 
       /* Close the menu with the Escape keypress on the overlay */
       element.handleKeyDown(escEvent);

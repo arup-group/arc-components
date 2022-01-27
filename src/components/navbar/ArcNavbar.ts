@@ -164,9 +164,9 @@ export default class ArcNavbar extends LitElement {
     })
   }
 
-  /* Emit an event to open the accessibility panel */
-  handleAccessibility(event: MouseEvent) {
-    emit(this, ARC_EVENTS.openAccessibility)
+  /* Emit an event to show the accessibility panel */
+  showAccessibility() {
+    emit(this, ARC_EVENTS.showAccessibility)
   }
 
   render() {
@@ -217,7 +217,7 @@ export default class ArcNavbar extends LitElement {
             <arc-icon-button
               name="accessibility"
               label="Accessibility panel"
-              @click="${this.handleAccessibility}"
+              @click="${this.showAccessibility}"
             ></arc-icon-button>
             <slot name="user"></slot>
           </div>

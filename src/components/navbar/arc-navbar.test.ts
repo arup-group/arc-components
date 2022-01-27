@@ -1,8 +1,10 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { elementUpdated, expect, fixture, waitUntil } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
+import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcNavbar from './ArcNavbar.js';
 import './arc-navbar.js';
@@ -69,6 +71,29 @@ describe('ArcNavbar', () => {
 
       expect(element.tabs).to.equal(3);
       expect(element.getAttribute('tabs')).to.equal('3');
+    });
+  });
+
+  /* Test the events (click, focus, blur etc.) */
+  describe('events', () => {
+    let element: ArcNavbar;
+
+    const showHandler: SinonSpy = sinon.spy();
+
+    beforeEach(async () => {
+      element = await fixture(html`<arc-navbar></arc-navbar>`);
+    });
+
+    afterEach(() => {
+      showHandler.resetHistory();
+    });
+
+    it('should emit arc-show-accessibility when calling showAccessibility()', async () => {
+      element.addEventListener(ARC_EVENTS.showAccessibility, showHandler);
+
+      await element.showAccessibility();
+      await waitUntil(() => showHandler.calledOnce);
+      expect(showHandler).to.have.been.calledOnce;
     });
   });
 

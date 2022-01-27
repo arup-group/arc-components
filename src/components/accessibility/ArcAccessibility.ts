@@ -67,7 +67,13 @@ export default class ArcAccessibility extends LitElement {
   `
 
   textDisplayTemplate = () => html`
-    display
+    <div class='menu-label'>
+      <span>Text Display</span>
+      <arc-icon name=${ICON_TYPES.eye}></arc-icon>
+    </div>
+    <arc-menu-item>High Legibility Fonts</arc-menu-item>
+    <arc-menu-item>Large</arc-menu-item>
+    <arc-menu-item>Extra Large</arc-menu-item>
   `
 
   render() {

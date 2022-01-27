@@ -102,6 +102,10 @@ export default class ArcNavbar extends LitElement {
         margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
       }
 
+      #accessibility {
+        display: none;
+      }
+
       #company-logo {
         color: rgb(var(--arc-color-primary));
         display: flex;
@@ -115,7 +119,7 @@ export default class ArcNavbar extends LitElement {
 
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #tabSlot, #tool-logo + #tool-name {
+        #tabSlot, #tool-logo + #tool-name, #accessibility {
           display: flex;
         }
       }
@@ -216,6 +220,7 @@ export default class ArcNavbar extends LitElement {
               </arc-dropdown>
             ` : nothing}
             <arc-icon-button
+              id='accessibility'
               name=${ICON_TYPES.accessibility}
               label="Accessibility panel"
               @click="${this.emitAccessibility}"

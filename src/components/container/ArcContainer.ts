@@ -101,6 +101,7 @@ export default class ArcContainer extends LitElement {
         <slot name="bottom">
           <arc-bottombar>
             <arc-icon-button name=${ICON_TYPES.home} href="/" label="Go home">Home</arc-icon-button>
+            <arc-icon-button name=${ICON_TYPES.accessibility} label="Open accessibility" @click="${this.showAccessibility}">Accessibility</arc-icon-button>
           </arc-bottombar>
         </slot>
       </div>

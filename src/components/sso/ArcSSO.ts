@@ -10,6 +10,7 @@ import { isExpired } from '../../internal/auth.js';
 import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../dropdown/arc-dropdown.js';
 import '../button/arc-button.js';
@@ -169,13 +170,13 @@ export default class ArcSSO extends LitElement {
     const account = this.getAccount();
     const interior = html`
       ${account && account.name ? html`
-        <arc-icon-button class='mobile' slot="trigger" name="user" label=${account.name}></arc-icon-button>
+        <arc-icon-button class='mobile' slot="trigger" name=${ICON_TYPES.user} label=${account.name}></arc-icon-button>
         <arc-button class='fullscreen' slot="trigger" type="tab">
           ${account.name}
-          <arc-icon slot="suffix" name="user"></arc-icon>
+          <arc-icon slot="suffix" name=${ICON_TYPES.user}></arc-icon>
         </arc-button>
       ` : html`
-        <arc-icon-button slot="trigger" name="user" label="User"></arc-icon-button>
+        <arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button>
       `}
     `;
 

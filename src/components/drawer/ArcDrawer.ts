@@ -11,6 +11,7 @@ import Modal from '../../internal/modal.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 
@@ -303,7 +304,7 @@ export default class ArcDrawer extends LitElement {
             <span>${this.label}</span>
             <arc-icon-button
               id="toggleClose"
-              name="x"
+              name=${ICON_TYPES.x}
               label="Close drawer"
               @click=${this.requestClose}
             ></arc-icon-button>

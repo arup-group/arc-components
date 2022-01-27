@@ -6,6 +6,7 @@ import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcButton from '../button/ArcButton.js';
 import type ArcIconButton from '../icon-button/ArcIconButton.js';
@@ -210,12 +211,12 @@ export default class ArcNavbar extends LitElement {
             <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
             ${this.showDropdown ? html`
               <arc-dropdown hoist>
-                <arc-icon-button slot="trigger" name="menu"></arc-icon-button>
+                <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
                 <arc-menu>${menuInterior}</arc-menu>
               </arc-dropdown>
             ` : nothing}
             <arc-icon-button
-              name="accessibility"
+              name=${ICON_TYPES.accessibility}
               label="Accessibility panel"
               @click="${this.emitAccessibility}"
             ></arc-icon-button>

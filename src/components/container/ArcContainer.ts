@@ -6,6 +6,7 @@ import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
@@ -99,7 +100,7 @@ export default class ArcContainer extends LitElement {
         <arc-accessibility id='accessibility'></arc-accessibility>
         <slot name="bottom">
           <arc-bottombar>
-            <arc-icon-button name="home" href="/" label="Go home">Home</arc-icon-button>
+            <arc-icon-button name=${ICON_TYPES.home} href="/" label="Go home">Home</arc-icon-button>
           </arc-bottombar>
         </slot>
       </div>

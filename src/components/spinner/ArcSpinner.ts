@@ -67,8 +67,8 @@ export default class ArcSpinner extends LitElement {
   render() {
     return html`
       <svg class="spinner" aria-busy="true" aria-live="polite">
-        <circle class="spinner__track"></circle>
-        <circle class="spinner__indicator"></circle>
+        <circle class="spinner__track"/>
+        <circle class="spinner__indicator"/>
       </svg>
     `;
   }

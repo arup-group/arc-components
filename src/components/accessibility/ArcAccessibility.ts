@@ -4,6 +4,7 @@ import componentStyles from '../../styles/component.styles.js';
 import { waitForEvent } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { CONTAINER_THEMES } from '../container/constants/ContainerConstants.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
 import '../drawer/arc-drawer.js';
@@ -48,7 +49,7 @@ export default class ArcAccessibility extends LitElement {
   colourTemplate = () => html`
     <div class='menu-label'>
       <span>Colour Mode</span>
-      <arc-icon></arc-icon>
+      <arc-icon name=${ICON_TYPES.bulb}></arc-icon>
     </div>
     ${Object.keys(CONTAINER_THEMES).map(key => html`
       <arc-menu-item>${key}</arc-menu-item>
@@ -58,7 +59,7 @@ export default class ArcAccessibility extends LitElement {
   textTemplate = () => html`
     <div class='menu-label'>
       <span>Text Size</span>
-      <arc-icon></arc-icon>
+      <arc-icon name=${ICON_TYPES['open-book']}></arc-icon>
     </div>
     <arc-menu-item>Regular</arc-menu-item>
     <arc-menu-item>Large</arc-menu-item>

@@ -16,18 +16,22 @@ export default class ArcRadio extends LitElement {
       #main {
         display: inline-flex;
         align-items: center;
-        gap: var(--arc-spacing-small);
         vertical-align: middle;
         cursor: pointer;
       }
 
       /* Hide the original input */
       input {
+        cursor: inherit;
         position: absolute;
         opacity: 0;
-        padding: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
         margin: 0;
-        pointer-events: none;
+        padding: 0;
+        z-index: 1;
       }
 
       /* Radio button */
@@ -37,11 +41,8 @@ export default class ArcRadio extends LitElement {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: var(--arc-toggle-size);
-        height: var(--arc-toggle-size);
       }
 
-      /* Icon */
       arc-icon {
         padding: var(--arc-spacing-small);
         border-radius: 50%;
@@ -55,7 +56,7 @@ export default class ArcRadio extends LitElement {
 
       /* Hover & Focus */
       :host(:not([disabled])) #radio:hover arc-icon,
-      :host(:not([disabled])) input:focus-visible ~ #radio arc-icon {
+      :host(:not([disabled])) input:focus-visible + arc-icon {
         background: rgba(var(--arc-font-color), 10%);
       }
 
@@ -82,11 +83,30 @@ export default class ArcRadio extends LitElement {
 
   @property({ type: Boolean, reflect: true }) checked = false;
 
+  firstUpdated() {
+    this.updateComplete.then(() => {
+      const radios = this.getAllRadios();
+      const checkedRadio = radios.find(radio => radio.checked);
+      radios.forEach(radio => radio.input.setAttribute('tabindex', '-1'));
+
+      if (checkedRadio) {
+        checkedRadio.input.setAttribute('tabindex', '0');
+      } else if (radios.length > 0) {
+        radios[0].input.setAttribute('tabindex', '0');
+      }
+    });
+  }
+
   @watch('checked', { waitUntilFirstUpdate: true })
   handleCheckedChange() {
     /* If the radio gets checked, remove the checked status from sibling radio buttons */
     if (this.checked) {
-      this.getSiblingRadios().forEach(radio => radio.removeAttribute('checked'));
+      this.input.tabIndex = 0;
+
+      this.getSiblingRadios().forEach(radio => {
+        radio.input.setAttribute('tabindex', '-1');
+        radio.removeAttribute('checked')
+      });
     }
   }
 
@@ -134,9 +154,15 @@ export default class ArcRadio extends LitElement {
       if (index > radios.length - 1) index = 0;
 
       /* Remove the checked state of all radio buttons */
-      this.getAllRadios().forEach(radio => radio.removeAttribute('checked'));
+      this.getAllRadios().forEach(radio => {
+        radio.removeAttribute('checked');
+        radio.input.setAttribute('tabindex', '-1');
+      });
+
       radios[index].focus();
       radios[index].checked = true;
+      radios[index].input.setAttribute('tabindex', '0');
+
       emit(radios[index], 'arc-change');
 
       event.preventDefault();
@@ -144,21 +170,26 @@ export default class ArcRadio extends LitElement {
   }
 
   render() {
+    this.setAttribute('role', 'radio');
+    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+
     return html`
       <label id="main" @keydown=${this.handleKeyDown}>
-        <input
-          type="radio"
-          name=${ifDefined(this.name)}
-          .value=${ifDefined(this.value)}
-          ?checked=${live(this.checked)}
-          ?disabled=${this.disabled}
-          @click=${this.handleClick}
-        />
         <span id="radio">
+          <input
+            type="radio"
+            name=${ifDefined(this.name)}
+            .value=${ifDefined(this.value)}
+            ?checked=${live(this.checked)}
+            ?disabled=${this.disabled}
+            aria-hidden="true"
+            @click=${this.handleClick}
+          />
           ${this.checked ? html`
-            <arc-icon name=${ICON_TYPES['radio-checked']}></arc-icon>
+            <arc-icon name=${ICON_TYPES['radio-checked']} size="large" focusable="false"></arc-icon>
           ` : html`
-            <arc-icon name=${ICON_TYPES['radio-unchecked']}></arc-icon>
+            <arc-icon name=${ICON_TYPES['radio-unchecked']} size="large" focusable="false"></arc-icon>
           `}
         </span>
         <span id="label"><slot></slot></span>

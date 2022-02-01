@@ -67,11 +67,9 @@ export default class ArcSSO extends LitElement {
     scopes: ['openid', 'profile', 'User.Read']
   }
 
-  @state()
-  private _msalInstance: PublicClientApplication;
+  @state() private _msalInstance: PublicClientApplication;
 
-  @state()
-  private _isAuth: boolean;
+  @state() private _isAuth: boolean = false;
 
   /* The id of the application. This value can be found on the Azure AD portal. */
   @property({ attribute: 'client-id', type: String }) clientId: string;

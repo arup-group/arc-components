@@ -120,9 +120,9 @@ export default class ArcNavbar extends LitElement {
 
   @query('#tabSlot') tabSlot: HTMLSlotElement;
 
-  @state() showDropdown: boolean = false;
+  @state() private showDropdown: boolean = false;
 
-  @state() navTabs: (ArcButton | ArcIconButton)[] = [];
+  @state() private navTabs: (ArcButton | ArcIconButton)[] = [];
 
   @property({ type: String, reflect: true }) home: string;
 

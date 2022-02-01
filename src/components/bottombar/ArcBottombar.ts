@@ -22,9 +22,9 @@ export default class ArcBottombar extends LitElement {
     `,
   ];
 
-  @state() tabs: number = 5;
+  @state() private tabs: number = 5;
 
-  @state() tabCount: number;
+  @state() private tabCount: number;
 
   handleTabChange = (e: any) => {
     const isTab = (element: any) => element.tagName === 'ARC-ICON-BUTTON';

@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
+
+let id = 0;
 
 export default class ArcRadio extends LitElement {
   static tag = 'arc-radio';
@@ -9,6 +11,12 @@ export default class ArcRadio extends LitElement {
     componentStyles,
     css``,
   ];
+
+  private inputId = `radio-${++id}`;
+
+  private labelId = `radio-label-${id}`;
+
+  @state() private hasFocus: boolean = false;
 
   @property()
   name: string = '';

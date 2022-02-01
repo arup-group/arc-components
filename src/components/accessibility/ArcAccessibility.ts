@@ -26,7 +26,7 @@ export default class ArcAccessibility extends LitElement {
 
   @query('#drawer') drawer: ArcDrawer;
 
-  /** Shows the drawer. */
+  /** Shows the drawer */
   async show() {
     if (this.drawer.open) {
       return;

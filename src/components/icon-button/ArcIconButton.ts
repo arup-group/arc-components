@@ -22,12 +22,6 @@ export default class ArcIconButton extends LitElement {
         --icon-color: rgb(var(--arc-font-color));
       }
 
-      #iconWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
       #button {
         display: flex;
         flex-direction: column;
@@ -47,6 +41,12 @@ export default class ArcIconButton extends LitElement {
         background: none;
         outline: none;
         -webkit-appearance: none;
+      }
+
+      #iconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       #icon {
@@ -133,12 +133,12 @@ export default class ArcIconButton extends LitElement {
     this.button.click();
   }
 
-  /** Sets focus on the button. */
+  /* Sets focus on the button. */
   focus(options?: FocusOptions) {
     this.button.focus(options);
   }
 
-  /** Removes focus from the button. */
+  /* Removes focus from the button. */
   blur() {
     this.button.blur();
   }

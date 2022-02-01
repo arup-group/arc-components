@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 
-// import type ArcRadio from '../radio/ArcRadio.js';
+import type ArcRadio from '../radio/ArcRadio.js';
 
 export default class ArcRadioGroup extends LitElement {
   static tag = 'arc-radio-group';
@@ -10,6 +10,10 @@ export default class ArcRadioGroup extends LitElement {
   static styles = [
     componentStyles,
     css`
+      :host {
+        display: inline-flex;
+      }
+
       #main {
         display: grid;
         gap: var(--arc-spacing-x-small);
@@ -38,15 +42,15 @@ export default class ArcRadioGroup extends LitElement {
 
   /* When tabbing into the fieldset, make sure it lands on the checked radio */
   handleFocusIn() {
-    // requestAnimationFrame(() => {
-    //   const checkedRadio = [...this.defaultSlot.assignedElements({ flatten: true })].find((el: HTMLElement) =>
-    //     el.tagName === 'ARC-RADIO' && (el as ArcRadio).checked
-    //   ) as ArcRadio;
-    //
-    //   if (checkedRadio) {
-    //     checkedRadio.focus();
-    //   }
-    // });
+    requestAnimationFrame(() => {
+      const checkedRadio = [...this.defaultSlot.assignedElements({ flatten: true })].find((el: HTMLElement) =>
+        el.tagName === 'ARC-RADIO' && (el as ArcRadio).checked
+      ) as ArcRadio;
+
+      if (checkedRadio) {
+        checkedRadio.focus();
+      }
+    });
   }
 
   render() {

@@ -1,5 +1,5 @@
 export declare type IconSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large' | 'xxx-large' | 'xxxx-large';
-export declare type IconType = 'accessibility' | 'arrow-down' | 'arrow-down-circle' | 'arrow-left' | 'arrow-left-circle' | 'arrow-right' | 'arrow-right-circle' | 'arrow-up' | 'arrow-up-circle' | 'bell' | 'brightness_high' | 'brightness_low' | 'calendar' | 'check' | 'close' | 'cloud-download' | 'cloud-upload' | 'crop' | 'cursor-move' | 'equalizer' | 'eye' | 'eyeglass' | 'fire' | 'frame' | 'graduation' | 'grid' | 'home' | 'info' | 'layers' | 'link' | 'lock' | 'lock-open' | 'magnifier' | 'magnifier-add' | 'magnifier-remove' | 'menu' | 'microphone' | 'note' | 'options' | 'options-vertical' | 'paper-clip' | 'people' | 'pin' | 'question' | 'refresh' | 'reload' | 'screen-desktop' | 'screen-smartphone' | 'screen-tablet' | 'settings' | 'share' | 'shield' | 'size-actual' | 'size-fullscreen' | 'speech' | 'star' | 'trash' | 'user' | 'user-check' | 'user-plus' | 'user-remove' | 'volume-off' | 'volume-1' | 'volume-2' | 'x';
+export declare type IconType = 'accessibility' | 'arrow-down' | 'arrow-down-circle' | 'arrow-left' | 'arrow-left-circle' | 'arrow-right' | 'arrow-right-circle' | 'arrow-up' | 'arrow-up-circle' | 'bell' | 'brightness_high' | 'brightness_low' | 'calendar' | 'check' | 'close' | 'cloud-download' | 'cloud-upload' | 'crop' | 'cursor-move' | 'equalizer' | 'eye' | 'eyeglass' | 'fire' | 'frame' | 'graduation' | 'grid' | 'home' | 'info' | 'layers' | 'link' | 'lock' | 'lock-open' | 'magnifier' | 'magnifier-add' | 'magnifier-remove' | 'menu' | 'microphone' | 'note' | 'options' | 'options-vertical' | 'paper-clip' | 'people' | 'pin' | 'question' | 'radio-checked' | 'radio-unchecked' | 'refresh' | 'reload' | 'screen-desktop' | 'screen-smartphone' | 'screen-tablet' | 'settings' | 'share' | 'shield' | 'size-actual' | 'size-fullscreen' | 'speech' | 'star' | 'trash' | 'user' | 'user-check' | 'user-plus' | 'user-remove' | 'volume-off' | 'volume-1' | 'volume-2' | 'x';
 
 export const ICON_SIZES: { [key in IconSize]: IconSize } = {
   'xx-small': 'xx-small',
@@ -58,6 +58,8 @@ export const ICON_TYPES: { [key in IconType]: IconType } = {
   'people': 'people',
   'pin': 'pin',
   'question': 'question',
+  'radio-checked': 'radio-checked',
+  'radio-unchecked': 'radio-unchecked',
   'refresh': 'refresh',
   'reload': 'reload',
   'screen-desktop': 'screen-desktop',

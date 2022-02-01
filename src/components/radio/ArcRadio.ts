@@ -87,11 +87,16 @@ export default class ArcRadio extends LitElement {
     this.updateComplete.then(() => {
       const radios = this.getAllRadios();
       const checkedRadio = radios.find(radio => radio.checked);
+
+      /* Set the tabindex of all radios to -1 */
       radios.forEach(radio => radio.input.setAttribute('tabindex', '-1'));
 
+      /* If there is a radio with the 'checked' prop, set the tabindex to 0 */
       if (checkedRadio) {
         checkedRadio.input.setAttribute('tabindex', '0');
-      } else if (radios.length > 0) {
+      }
+      /* Set the tabindex to 0 for the first radio button instead */
+      else if (radios.length > 0) {
         radios[0].input.setAttribute('tabindex', '0');
       }
     });
@@ -133,7 +138,7 @@ export default class ArcRadio extends LitElement {
       return [this];
     }
 
-    return [...radioGroup.querySelectorAll('arc-radio')].filter((radio: this) => radio.name === this.name) as this[];
+    return [...radioGroup.querySelectorAll('arc-radio')].filter((radio: this) => radio.name === this.name) as ArcRadio[];
   }
 
   getSiblingRadios() {

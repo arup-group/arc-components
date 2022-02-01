@@ -14,7 +14,11 @@ export default class ArcRadioGroup extends LitElement {
         display: inline-flex;
       }
 
-      #main {
+      #label {
+        margin-left: var(--arc-spacing-small);
+      }
+
+      #radioGroup {
         display: grid;
         border: none;
         padding: 0;
@@ -22,22 +26,8 @@ export default class ArcRadioGroup extends LitElement {
         min-width: 0;
       }
 
-      #main:focus {
-        outline: none;
-      }
-
-      :host([row]) #main {
+      :host([row]) #radioGroup {
         grid-auto-flow: column;
-      }
-
-      #label {
-        position: absolute;
-        width: 0;
-        height: 0;
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        overflow: hidden;
-        white-space: nowrap;
       }
     `,
   ];
@@ -62,8 +52,13 @@ export default class ArcRadioGroup extends LitElement {
 
   render() {
     return html`
-      <div id='main' role="radiogroup" @focusin=${this.handleFocusIn}>
-        <slot></slot>
+      <div id="main">
+        <label id="label">
+          <slot name="label">${this.label}</slot>
+        </label>
+        <div id="radioGroup" role="radiogroup" @focusin=${this.handleFocusIn}>
+          <slot></slot>
+        </div>
       </div>
     `;
   }

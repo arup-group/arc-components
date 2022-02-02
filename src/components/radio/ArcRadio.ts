@@ -75,6 +75,7 @@ export default class ArcRadio extends LitElement {
 
   @query('input[type="radio"]') input: HTMLInputElement;
 
+  /* A group of attributes is defined by name. Only one radio button can be chosen. */
   @property({ type: String }) name: string;
 
   @property({ type: String }) value: string;
@@ -91,12 +92,17 @@ export default class ArcRadio extends LitElement {
       /* Set the tabindex of all radios to -1 */
       radios.forEach(radio => radio.input.setAttribute('tabindex', '-1'));
 
-      /* If there is a radio with the 'checked' prop, set the tabindex to 0 */
-      if (checkedRadio) {
+      /* Make sure that at least one radio gets the tabindex of 0 */
+      if (checkedRadio && !checkedRadio.disabled) {
         checkedRadio.input.setAttribute('tabindex', '0');
-      }
-      /* Set the tabindex to 0 for the first radio button instead */
-      else if (radios.length > 0) {
+      } else if (radios.length > 0) {
+        const enabledRadio = radios.find(radio => !radio.disabled);
+
+        if (enabledRadio) {
+          enabledRadio.input.setAttribute('tabindex', '0');
+        }
+
+        /* If there is no available radio, set the tabindex to the first element */
         radios[0].input.setAttribute('tabindex', '0');
       }
     });
@@ -138,11 +144,11 @@ export default class ArcRadio extends LitElement {
       return [this];
     }
 
-    return [...radioGroup.querySelectorAll('arc-radio')].filter((radio: this) => radio.name === this.name) as ArcRadio[];
+    return [...radioGroup.querySelectorAll('arc-radio')].filter((radio: ArcRadio) => radio.name === this.name) as ArcRadio[];
   }
 
   getSiblingRadios() {
-    return this.getAllRadios().filter(radio => radio !== this) as this[];
+    return this.getAllRadios().filter(radio => radio !== this) as ArcRadio[];
   }
 
   handleClick() {
@@ -176,8 +182,8 @@ export default class ArcRadio extends LitElement {
 
   render() {
     this.setAttribute('role', 'radio');
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this.setAttribute('aria-checked', `${this.checked}`);
+    this.setAttribute('aria-disabled', `${this.disabled}`);
 
     return html`
       <label id="main" @keydown=${this.handleKeyDown}>
@@ -191,11 +197,7 @@ export default class ArcRadio extends LitElement {
             aria-hidden="true"
             @click=${this.handleClick}
           />
-          ${this.checked ? html`
-            <arc-icon name=${ICON_TYPES['radio-checked']} size="large" focusable="false"></arc-icon>
-          ` : html`
-            <arc-icon name=${ICON_TYPES['radio-unchecked']} size="large" focusable="false"></arc-icon>
-          `}
+          <arc-icon name=${this.checked ? ICON_TYPES['radio-checked'] : ICON_TYPES['radio-unchecked']} size="large" focusable="false"></arc-icon>
         </span>
         <span id="label"><slot></slot></span>
       </label>

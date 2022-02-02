@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import { upEvent, downEvent, leftEvent, rightEvent, escEvent } from '../../utilities/test-utils.js';
 
 import type ArcRadioGroup from '../radio-group/ArcRadioGroup.js';
 import type ArcRadio from './ArcRadio.js';
@@ -99,12 +100,13 @@ describe('ArcRadio', () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-          <arc-radio-group>
-            <arc-radio disabled>Alpha</arc-radio>
-            <arc-radio checked>Bravo</arc-radio>
-            <arc-radio>Charlie</arc-radio>
-          </arc-radio-group>
-        `);
+        <arc-radio-group>
+          <arc-radio name='one' disabled>Alpha</arc-radio>
+          <arc-radio name='one' checked>Bravo</arc-radio>
+          <arc-radio name='one'>Charlie</arc-radio>
+          <arc-radio name='two'>Delta</arc-radio>
+        </arc-radio-group>
+      `);
       radioButtons = element.querySelectorAll('arc-radio');
     });
 
@@ -112,6 +114,7 @@ describe('ArcRadio', () => {
       expect(radioButtons[0].checked).to.be.false;
       expect(radioButtons[1].checked).to.be.true;
       expect(radioButtons[2].checked).to.be.false;
+      expect(radioButtons[3].checked).to.be.false;
 
       /* Update the checked state */
       radioButtons[2].checked = true;
@@ -120,22 +123,47 @@ describe('ArcRadio', () => {
       expect(radioButtons[0].checked).to.be.false;
       expect(radioButtons[1].checked).to.be.false;
       expect(radioButtons[2].checked).to.be.true;
+      expect(radioButtons[3].checked).to.be.false;
     });
 
-    it('retrieves radio buttons', () => {
+    it('retrieves radio buttons within the same named group', () => {
       /* By default, disabled radio buttons are included */
       expect(radioButtons[0].getAllRadios().length).to.equal(3);
 
       /* Exclude disabled radio buttons */
       expect(radioButtons[0].getAllRadios({ includeDisabled: false }).length).to.equal(2);
+
+      /* Only one radio with the name 'two' */
+      expect(radioButtons[3].getAllRadios().length).to.equal(1);
     });
 
     it('retrieves the sibling radio buttons in the radio group', () => {
       expect(radioButtons[0].getSiblingRadios().length).to.equal(2);
     });
 
-    it('makes a selection based on keyboard input', async () => {
+    it('makes a selection based on keyboard input within the same named group', () => {
+      /* Set focus to the checked radio */
+      radioButtons[1].focus();
 
+      /* From 2nd to 3rd as the 1st is disabled */
+      radioButtons[1].handleKeyDown(upEvent);
+      expect(radioButtons[2].checked).to.be.true;
+
+      /* From 3rd to 2nd */
+      radioButtons[2].handleKeyDown(leftEvent);
+      expect(radioButtons[1].checked).to.be.true;
+
+      /* From 2nd to 3rd */
+      radioButtons[1].handleKeyDown(downEvent);
+      expect(radioButtons[2].checked).to.be.true;
+
+      /* From 3rd to 2nd as the 1st is disabled */
+      radioButtons[2].handleKeyDown(rightEvent);
+      expect(radioButtons[1].checked).to.be.true;
+
+      /* Do nothing when a fault key is pressed */
+      radioButtons[1].handleKeyDown(escEvent);
+      expect('nothing').to.equal('nothing');
     });
 
     it('sets the correct tabIndex to the checked (not disabled) radio', async () => {
@@ -155,12 +183,12 @@ describe('ArcRadio', () => {
 
     it('sets the correct tabIndex to the first available (not disabled) radio', async () => {
       const elementTwo: ArcRadioGroup = await fixture(html`
-          <arc-radio-group>
-            <arc-radio disabled>Alpha</arc-radio>
-            <arc-radio checked disabled>Bravo</arc-radio>
-            <arc-radio>Charlie</arc-radio>
-          </arc-radio-group>
-        `)
+        <arc-radio-group>
+          <arc-radio disabled>Alpha</arc-radio>
+          <arc-radio checked disabled>Bravo</arc-radio>
+          <arc-radio>Charlie</arc-radio>
+        </arc-radio-group>
+      `)
       const radioButtonsTwo: NodeListOf<ArcRadio> = elementTwo.querySelectorAll('arc-radio');
 
       expect(getIndex(radioButtonsTwo[0])).to.equal('-1');
@@ -170,12 +198,12 @@ describe('ArcRadio', () => {
 
     it('sets the correct tabIndex to the first available radio', async () => {
       const elementTwo: ArcRadioGroup = await fixture(html`
-          <arc-radio-group>
-            <arc-radio>Alpha</arc-radio>
-            <arc-radio>Bravo</arc-radio>
-            <arc-radio>Charlie</arc-radio>
-          </arc-radio-group>
-        `)
+        <arc-radio-group>
+          <arc-radio>Alpha</arc-radio>
+          <arc-radio>Bravo</arc-radio>
+          <arc-radio>Charlie</arc-radio>
+        </arc-radio-group>
+      `)
       const radioButtonsTwo: NodeListOf<ArcRadio> = elementTwo.querySelectorAll('arc-radio');
 
       expect(getIndex(radioButtonsTwo[0])).to.equal('0');
@@ -187,23 +215,29 @@ describe('ArcRadio', () => {
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcRadio;
-    const clickSpy: SinonSpy = sinon.spy();
+    let clickSpy: SinonSpy;
+    let changeSpy: SinonSpy;
 
     beforeEach(async () => {
       element = await fixture(html`<arc-radio></arc-radio>`);
+      clickSpy = sinon.spy();
+      changeSpy = sinon.spy();
+      element.addEventListener('click', clickSpy);
+      element.addEventListener('arc-change', changeSpy);
     });
 
     afterEach(async () => {
-      clickSpy.resetHistory();
+      element.removeEventListener('click', clickSpy);
+      element.removeEventListener('arc-change', changeSpy);
     });
 
-    it('simulates a click on the radio', async () => {
-      element.addEventListener('click', clickSpy);
-
+    it('simulates a click on the radio and emits arc-change', async () => {
       element.click();
       await waitUntil(() => clickSpy.calledOnce);
+      await waitUntil(() => changeSpy.calledOnce);
 
       expect(clickSpy).to.have.been.calledOnce;
+      expect(changeSpy).to.have.been.calledOnce;
     });
 
     it('suppresses a click on the radio while in a disabled state', async () => {
@@ -212,6 +246,7 @@ describe('ArcRadio', () => {
 
       element.click();
       expect(clickSpy).to.have.not.been.called;
+      expect(changeSpy).to.have.not.been.called;
     });
 
     it('sets and removes focus from the radio', async () => {

@@ -161,7 +161,7 @@ export default class ArcDrawer extends LitElement {
 
   private originalTrigger: HTMLElement | null;
 
-  /** Indicates whether or not the drawer is open. You can use this instead of the show/hide methods. */
+  /* Indicates whether or not the drawer is open. You can use this instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
 
   /*
@@ -195,7 +195,7 @@ export default class ArcDrawer extends LitElement {
     unlockBodyScrolling(this);
   }
 
-  /** Shows the drawer. */
+  /* Shows the drawer. */
   async show() {
     if (this.open) {
       return;
@@ -205,7 +205,7 @@ export default class ArcDrawer extends LitElement {
     await waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
-  /** Hides the drawer */
+  /* Hides the drawer */
   async hide() {
     if (!this.open) {
       return;

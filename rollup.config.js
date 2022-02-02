@@ -16,11 +16,11 @@ export default {
   preserveEntrySignatures: false,
 
   plugins: [
-    /** Resolve bare module imports */
+    /* Resolve bare module imports */
     nodeResolve(),
-    /** Minify JS */
+    /* Minify JS */
     terser(),
-    /** Compile JS to a lower language target */
+    /* Compile JS to a lower language target */
     babel({
       babelHelpers: 'bundled',
       presets: [

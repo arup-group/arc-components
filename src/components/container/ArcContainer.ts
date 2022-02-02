@@ -73,6 +73,7 @@ export default class ArcContainer extends LitElement {
 
   @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
 
+  /* Hides the padding, margin and gap values */
   @property({ type: Boolean }) fullscreen: boolean = false;
 
   @watch('theme')

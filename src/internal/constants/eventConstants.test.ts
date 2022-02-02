@@ -7,10 +7,11 @@ describe('EventConstants', () => {
     expect(ARC_EVENTS).to.exist;
     const keys = Object.keys(ARC_EVENTS);
 
-    expect(keys.length).to.equal(9);
+    expect(keys.length).to.equal(10);
     expect(keys).to.contain('afterHide');
     expect(keys).to.contain('afterShow');
     expect(keys).to.contain('auth');
+    expect(keys).to.contain('change');
     expect(keys).to.contain('hide');
     expect(keys).to.contain('initialFocus');
     expect(keys).to.contain('requestClose');
@@ -25,6 +26,7 @@ describe('EventConstants', () => {
     expect(values).to.contain('arc-after-hide');
     expect(values).to.contain('arc-after-show');
     expect(values).to.contain('arc-auth');
+    expect(values).to.contain('arc-change');
     expect(values).to.contain('arc-hide');
     expect(values).to.contain('arc-initial-focus');
     expect(values).to.contain('arc-request-close');

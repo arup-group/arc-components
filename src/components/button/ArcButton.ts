@@ -168,17 +168,17 @@ export default class ArcButton extends LitElement {
 
   @property({ type: Boolean, reflect: true }) submit: boolean = false;
 
-  /** Simulates a click on the button. */
+  /* Simulates a click on the button. */
   click() {
     this.button.click();
   }
 
-  /** Sets focus on the button. */
+  /* Sets focus on the button. */
   focus(options?: FocusOptions) {
     this.button.focus(options);
   }
 
-  /** Removes focus from the button. */
+  /* Removes focus from the button. */
   blur() {
     this.button.blur();
   }
@@ -231,14 +231,14 @@ export default class ArcButton extends LitElement {
             <a
               id="button"
               style=${styleMap(btnStyles)}
-              href="${ifDefined(this.href)}"
-              target="${ifDefined(this.target)}"
-              download="${ifDefined(this.download)}"
-              rel="${ifDefined(this.target ? 'noreferrer noopener' : undefined)}"
+              href=${ifDefined(this.href)}
+              target=${ifDefined(this.target)}
+              download=${ifDefined(this.download)}
+              rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
               role="button"
-              aria-disabled="${this.disabled ? 'true' : 'false'}"
-              tabindex="${this.disabled ? '-1' : '0'}"
-              @click="${this.handleClick}"
+              aria-disabled=${this.disabled ? 'true' : 'false'}
+              tabindex=${this.disabled ? '-1' : '0'}
+              @click=${this.handleClick}
               >${interior}</a
             >
           `
@@ -246,9 +246,9 @@ export default class ArcButton extends LitElement {
             <button
               id="button"
               style=${styleMap(btnStyles)}
-              ?disabled="${this.disabled}"
-              type="${this.submit ? 'submit' : 'button'}"
-              @click="${this.handleClick}"
+              ?disabled=${this.disabled}
+              type=${this.submit ? 'submit' : 'button'}
+              @click=${this.handleClick}
             >
               ${interior}
             </button>

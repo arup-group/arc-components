@@ -160,7 +160,6 @@ describe('ArcNavbar', () => {
       /* Lower the tab count to exceed the tab limit */
       element.tabs = 1;
       await elementUpdated(element);
-      expect(element.showDropdown).to.be.true;
 
       /* Validate the hidden tabs and untouched elements */
       expect(retrieveElements().hiddenTabs.length).to.equal(7);

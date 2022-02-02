@@ -12,7 +12,7 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({ label, row }: ArgTypes) => html`
-  <arc-radio-group label=${label} ?row=${row}>
+  <arc-radio-group label="${label}" ?row="${row}">
     <arc-radio>Item 1</arc-radio>
     <arc-radio>Item 2</arc-radio>
     <arc-radio>Item 3</arc-radio>

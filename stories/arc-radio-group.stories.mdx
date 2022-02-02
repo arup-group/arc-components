@@ -1,0 +1,49 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/components/radio-group/arc-radio-group.stories.js';
+
+<Meta
+title='ArcRadioGroup'
+component='arc-radio-group'
+argTypes={{
+    label: {
+      description: 'The radio group label. Required for proper accessibility. Alternatively, you can use the label slot.',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
+    },
+    row: {
+      description: 'Lays out the radio buttons horizontally',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    }
+}}
+parameters={{
+  actions: {
+    handles: ['arc-change'],
+  },
+}} />
+
+# RadioGroup
+### `<arc-radio-group>`
+
+The ArcRadioGroup is used to group multiple radios, so they function as a single control.
+
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+</Canvas>
+
+## Examples
+### Direction
+Use the `row` attribute to lay out the radio buttons horizontally.
+<Canvas>
+  <Story name="Row" story={stories.Row} />
+</Canvas>
+
+## Properties
+<ArgsTable story="Default" />
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The default slot where radio controls are placed.         |
+| label        | The radio group label. Alternatively, you can use the label prop. |

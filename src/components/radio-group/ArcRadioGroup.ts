@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
+import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 
 import type ArcRadio from '../radio/ArcRadio.js';
 
@@ -15,22 +16,26 @@ export default class ArcRadioGroup extends LitElement {
       }
 
       #radioGroup {
+        display: grid;
         position: relative;
         right: var(--arc-spacing-small);
-        display: grid;
         border: none;
         padding: 0;
         margin: 0;
         min-width: 0;
       }
 
-      :host([row]) #radioGroup {
-        grid-auto-flow: column;
+      /* Medium devices and up */
+      @media (min-width: ${mobileBreakpoint}rem) {
+        :host([row]) #radioGroup {
+          grid-auto-flow: column;
+        }
       }
     `,
   ];
 
-  @query('slot') defaultSlot: HTMLSlotElement;
+  /* Slot that contains radio buttons */
+  @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
   /* The radio group label. Required for proper accessibility. Alternatively, you can use the label slot. */
   @property({ type: String }) label: string = '';
@@ -40,13 +45,11 @@ export default class ArcRadioGroup extends LitElement {
 
   /* When tabbing into the fieldset, make sure it lands on the checked radio */
   handleFocusIn() {
-    requestAnimationFrame(() => {
-      const slottedChildren = this.defaultSlot.assignedElements({ flatten: true });
-      const checkedRadio = [...slottedChildren as ArcRadio[]].find(el =>
-        el.tagName === 'ARC-RADIO' && el.checked
-      );
-      checkedRadio?.focus();
-    });
+    const slottedChildren = this.defaultSlot.assignedElements({ flatten: true });
+    const checkedRadio = [...slottedChildren as ArcRadio[]].find(el =>
+      el.tagName === 'ARC-RADIO' && el.checked
+    );
+    checkedRadio?.focus();
   }
 
   render() {

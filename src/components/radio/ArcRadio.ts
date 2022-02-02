@@ -182,10 +182,6 @@ export default class ArcRadio extends LitElement {
   }
 
   render() {
-    this.setAttribute('role', 'radio');
-    this.setAttribute('aria-checked', `${this.checked}`);
-    this.setAttribute('aria-disabled', `${this.disabled}`);
-
     return html`
       <label id="main" @keydown=${this.handleKeyDown}>
         <span id="radio">
@@ -195,7 +191,8 @@ export default class ArcRadio extends LitElement {
             .value=${ifDefined(this.value)}
             ?checked=${live(this.checked)}
             ?disabled=${this.disabled}
-            aria-hidden="true"
+            aria-checked=${this.checked}
+            aria-disabled=${this.disabled}
             @click=${this.handleClick}
           />
           <arc-icon name=${this.checked ? ICON_TYPES['radio-checked'] : ICON_TYPES['radio-unchecked']} size="large" focusable="false"></arc-icon>

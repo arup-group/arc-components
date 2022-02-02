@@ -1,13 +1,12 @@
 import { html } from 'lit';
 import { expect, fixture, oneEvent } from '@open-wc/testing';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import { homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent } from '../../utilities/test-utils.js';
 
 import type ArcMenu from './ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
-
-import { homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent } from '../../utilities/test-utils.js';
 
 describe('ArcMenu', () => {
   /* Retrieve the tabindex of a menu item */

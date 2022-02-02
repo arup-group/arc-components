@@ -75,7 +75,7 @@ export default class ArcRadio extends LitElement {
 
   @query('input[type="radio"]') input: HTMLInputElement;
 
-  /* A group of attributes is defined by name. Only one radio button can be chosen. */
+  /* A group of attributes is defined by name. */
   @property({ type: String }) name: string;
 
   @property({ type: String }) value: string;
@@ -90,20 +90,14 @@ export default class ArcRadio extends LitElement {
       const checkedRadio = radios.find(radio => radio.checked);
 
       /* Set the tabindex of all radios to -1 */
-      radios.forEach(radio => radio.input.setAttribute('tabindex', '-1'));
+      radios.forEach(radio => { radio.input.tabIndex = -1 });
 
       /* Make sure that at least one radio gets the tabindex of 0 */
       if (checkedRadio && !checkedRadio.disabled) {
-        checkedRadio.input.setAttribute('tabindex', '0');
+        checkedRadio.input.tabIndex = 0;
       } else if (radios.length > 0) {
-        const enabledRadio = radios.find(radio => !radio.disabled);
-
-        if (enabledRadio) {
-          enabledRadio.input.setAttribute('tabindex', '0');
-        }
-
-        /* If there is no available radio, set the tabindex to the first element */
-        radios[0].input.setAttribute('tabindex', '0');
+        const enabledRadios = this.getAllRadios({ includeDisabled: false });
+        enabledRadios[0].input.tabIndex = 0;
       }
     });
   }
@@ -115,8 +109,8 @@ export default class ArcRadio extends LitElement {
       this.input.tabIndex = 0;
 
       this.getSiblingRadios().forEach(radio => {
-        radio.input.setAttribute('tabindex', '-1');
-        radio.removeAttribute('checked')
+        radio.input.tabIndex = -1;
+        radio.checked = false;
       });
     }
   }
@@ -136,15 +130,20 @@ export default class ArcRadio extends LitElement {
     this.input.blur();
   }
 
-  getAllRadios() {
+  getAllRadios(options: { includeDisabled: boolean } = { includeDisabled: true }) {
     const radioGroup = this.closest('arc-radio-group');
+    const { includeDisabled } = options;
 
     /* Radios must be part of a radio group */
-    if (!radioGroup) {
-      return [this];
-    }
+    if (!radioGroup) return [this];
 
-    return [...radioGroup.querySelectorAll('arc-radio')].filter((radio: ArcRadio) => radio.name === this.name) as ArcRadio[];
+    return [...radioGroup.querySelectorAll('arc-radio')].filter((radio: ArcRadio) => {
+      if (radio.name !== this.name) return false;
+
+      /* Are disabled items included? return true, else false */
+      return !(!includeDisabled && radio.disabled);
+
+    }) as ArcRadio[];
   }
 
   getSiblingRadios() {
@@ -157,27 +156,29 @@ export default class ArcRadio extends LitElement {
   }
 
   handleKeyDown(event: KeyboardEvent) {
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-      const radios = this.getAllRadios().filter(radio => !radio.disabled);
-      const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
-      let index = radios.indexOf(this) + incr;
-      if (index < 0) index = radios.length - 1;
-      if (index > radios.length - 1) index = 0;
+    /* Only allow the following keys to be pressed */
+    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return;
 
-      /* Remove the checked state of all radio buttons */
-      this.getAllRadios().forEach(radio => {
-        radio.removeAttribute('checked');
-        radio.input.setAttribute('tabindex', '-1');
-      });
+    const radios = this.getAllRadios({ includeDisabled: false });
+    const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
+    let index = radios.indexOf(this) + incr;
+    if (index < 0) index = radios.length - 1;
+    if (index > radios.length - 1) index = 0;
 
-      radios[index].focus();
-      radios[index].checked = true;
-      radios[index].input.setAttribute('tabindex', '0');
+    /* Remove the checked state of all radio buttons */
+    this.getAllRadios().forEach(radio => {
+      radio.checked = false;
+      radio.input.tabIndex = -1;
+    });
 
-      emit(radios[index], 'arc-change');
+    /* Set focus on the radio */
+    radios[index].focus();
+    radios[index].checked = true;
+    radios[index].input.tabIndex = 0;
 
-      event.preventDefault();
-    }
+    emit(radios[index], 'arc-change');
+
+    event.preventDefault();
   }
 
   render() {

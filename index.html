@@ -26,10 +26,11 @@
   </arc-navbar>
 
   <div style='padding: var(--arc-spacing-medium)'>
-    <arc-radio-group label='Hi there'>
-      <arc-radio>Option 1</arc-radio>
-      <arc-radio checked>Option 2</arc-radio>
+    <arc-radio-group id='radioGroup' label='Hi there'>
+      <arc-radio disabled>Option 1</arc-radio>
+      <arc-radio checked disabled>Option 2</arc-radio>
       <arc-radio>Option 3</arc-radio>
+      <arc-radio>Option 4</arc-radio>
     </arc-radio-group>
   </div>
 
@@ -54,10 +55,14 @@
 
   const container = document.querySelector('arc-container');
   const themeSetter = document.getElementById('themeSetter');
-  const accessibility = document.getElementById('accessibility');
+  const radioGroup = document.getElementById('radioGroup');
 
   themeSetter.addEventListener('click', () => {
     container.theme = container.theme === 'light' ? 'dark' : 'light';
+  })
+
+  radioGroup.addEventListener('arc-change', e => {
+    console.log(e.target);
   })
 </script>
 </body>

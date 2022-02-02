@@ -14,11 +14,9 @@ export default class ArcRadioGroup extends LitElement {
         display: inline-flex;
       }
 
-      #label {
-        margin-left: var(--arc-spacing-small);
-      }
-
       #radioGroup {
+        position: relative;
+        right: var(--arc-spacing-small);
         display: grid;
         border: none;
         padding: 0;
@@ -43,7 +41,8 @@ export default class ArcRadioGroup extends LitElement {
   /* When tabbing into the fieldset, make sure it lands on the checked radio */
   handleFocusIn() {
     requestAnimationFrame(() => {
-      const checkedRadio = [...this.defaultSlot.assignedElements({ flatten: true }) as ArcRadio[]].find(el =>
+      const slottedChildren = this.defaultSlot.assignedElements({ flatten: true });
+      const checkedRadio = [...slottedChildren as ArcRadio[]].find(el =>
         el.tagName === 'ARC-RADIO' && el.checked
       );
       checkedRadio?.focus();

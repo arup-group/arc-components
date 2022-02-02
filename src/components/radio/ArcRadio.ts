@@ -157,29 +157,29 @@ export default class ArcRadio extends LitElement {
   }
 
   handleKeyDown(event: KeyboardEvent) {
-    /* Only allow the following keys to be pressed */
-    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    /* Move the selection when pressing down, up, left or right */
+    if (['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      const radios = this.getAllRadios({ includeDisabled: false });
+      const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
+      let index = radios.indexOf(this) + incr;
+      if (index < 0) index = radios.length - 1;
+      if (index > radios.length - 1) index = 0;
 
-    const radios = this.getAllRadios({ includeDisabled: false });
-    const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
-    let index = radios.indexOf(this) + incr;
-    if (index < 0) index = radios.length - 1;
-    if (index > radios.length - 1) index = 0;
+      /* Remove the checked state of all radio buttons */
+      this.getAllRadios().forEach(radio => {
+        radio.checked = false;
+        radio.input.tabIndex = -1;
+      });
 
-    /* Remove the checked state of all radio buttons */
-    this.getAllRadios().forEach(radio => {
-      radio.checked = false;
-      radio.input.tabIndex = -1;
-    });
+      /* Set focus on the radio */
+      radios[index].input.focus();
+      radios[index].checked = true;
+      radios[index].input.tabIndex = 0;
 
-    /* Set focus on the radio */
-    radios[index].focus();
-    radios[index].checked = true;
-    radios[index].input.tabIndex = 0;
+      emit(radios[index], ARC_EVENTS.change);
 
-    emit(radios[index], ARC_EVENTS.change);
-
-    event.preventDefault();
+      event.preventDefault();
+    }
   }
 
   render() {

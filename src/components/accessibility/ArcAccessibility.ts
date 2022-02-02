@@ -8,6 +8,8 @@ import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
 import '../drawer/arc-drawer.js';
+import '../radio-group/arc-radio-group.js';
+import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
 
 export default class ArcAccessibility extends LitElement {
@@ -16,6 +18,11 @@ export default class ArcAccessibility extends LitElement {
   static styles = [
     componentStyles,
     css`
+      #wrapper {
+        display: grid;
+        gap: var(--arc-spacing-small);
+      }
+
       .menu-label {
         display: flex;
         align-items: center;
@@ -47,44 +54,49 @@ export default class ArcAccessibility extends LitElement {
   }
 
   colourTemplate = () => html`
-    <div class='menu-label'>
-      <span>Colour Mode</span>
-      <arc-icon name=${ICON_TYPES.bulb}></arc-icon>
-    </div>
-    ${Object.keys(CONTAINER_THEMES).map(key => html`
-      <arc-menu-item>${key}</arc-menu-item>
-    `)}
+    <arc-radio-group>
+      <div slot='label' class='menu-label'>
+        <span>Colour Mode</span>
+        <arc-icon name=${ICON_TYPES.bulb}></arc-icon>
+      </div>
+      ${Object.keys(CONTAINER_THEMES).map(key => html`
+        <arc-radio name='theme' value=${key}>${key}</arc-radio>
+      `)}
+    </arc-radio-group>
   `
 
   textTemplate = () => html`
-    <div class='menu-label'>
-      <span>Text Size</span>
-      <arc-icon name=${ICON_TYPES['book-open']}></arc-icon>
-    </div>
-    <arc-menu-item>Regular</arc-menu-item>
-    <arc-menu-item>Large</arc-menu-item>
-    <arc-menu-item>Extra Large</arc-menu-item>
+    <arc-radio-group>
+      <div slot='label' class='menu-label'>
+        <span>Text Size</span>
+        <arc-icon name=${ICON_TYPES['book-open']}></arc-icon>
+      </div>
+      <arc-radio name='text-size' value='small'>Small</arc-radio>
+      <arc-radio name='text-size' value='medium'>Medium</arc-radio>
+      <arc-radio name='text-size' value='large'>Large</arc-radio>
+    </arc-radio-group>
   `
 
-  textDisplayTemplate = () => html`
-    <div class='menu-label'>
-      <span>Text Display</span>
-      <arc-icon name=${ICON_TYPES.eye}></arc-icon>
-    </div>
-    <arc-menu-item>High Legibility Fonts</arc-menu-item>
-    <arc-menu-item>Large</arc-menu-item>
-    <arc-menu-item>Extra Large</arc-menu-item>
-  `
+  // textDisplayTemplate = () => html`
+  //   <div class='menu-label'>
+  //     <span>Text Display</span>
+  //     <arc-icon name=${ICON_TYPES.eye}></arc-icon>
+  //   </div>
+  //   <arc-menu>
+  //     <arc-menu-item>High Legibility Fonts</arc-menu-item>
+  //     <arc-menu-item>Large</arc-menu-item>
+  //     <arc-menu-item>Extra Large</arc-menu-item>
+  //   </arc-menu>
+  // `
 
   render() {
     return html`
       <div id='main'>
         <arc-drawer id='drawer' label='Accessibility Controls (A)'>
-          <arc-menu>
+          <div id='wrapper'>
             ${this.colourTemplate()}
             ${this.textTemplate()}
-            ${this.textDisplayTemplate()}
-          </arc-menu>
+          </div>
         </arc-drawer>
       </div>
     `;

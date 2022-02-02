@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../utilities/dom-utils.js';
-import { upEvent, downEvent, leftEvent, rightEvent, escEvent } from '../../utilities/test-utils.js';
+import { upEvent, downEvent, leftEvent, rightEvent } from '../../utilities/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcRadioGroup from '../radio-group/ArcRadioGroup.js';
@@ -161,10 +161,6 @@ describe('ArcRadio', () => {
       /* From 3rd to 2nd as the 1st is disabled */
       radioButtons[2].handleKeyDown(rightEvent);
       expect(radioButtons[1].checked).to.be.true;
-
-      /* Do nothing when a fault key is pressed */
-      radioButtons[1].handleKeyDown(escEvent);
-      expect('nothing').to.equal('nothing');
     });
 
     it('sets the correct tabIndex to the checked (not disabled) radio', async () => {

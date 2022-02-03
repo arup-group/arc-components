@@ -161,7 +161,7 @@ export default class ArcDrawer extends LitElement {
 
   private originalTrigger: HTMLElement | null;
 
-  /* Indicates whether or not the drawer is open. You can use this instead of the show/hide methods. */
+  /* Indicates whether or not the drawer is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
 
   /*

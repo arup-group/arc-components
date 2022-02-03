@@ -69,6 +69,8 @@ export default class ArcContainer extends LitElement {
     `,
   ];
 
+  @query('#main') container: ArcAccessibility;
+
   @query('#accessibility') accessibility: ArcAccessibility;
 
   @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
@@ -83,11 +85,28 @@ export default class ArcContainer extends LitElement {
     }
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+
+    /* Listen to keyboard input on the page */
+    document.addEventListener('keypress', this.handleKeyDown.bind(this))
+  }
+
   getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);
 
   /* Trigger the show event of the arc-accessibility component */
   showAccessibility() {
-    this.accessibility.show();
+    this.accessibility.open = true;
+  }
+
+  handleKeyDown(event: KeyboardEvent) {
+    /* Make sure that no input elements are focused */
+    if (event.target !== document.body && event.target !== this) return;
+
+    /* Toggle the accessibility panel */
+    if (event.key === 'a') {
+      this.accessibility.open = !this.accessibility.open;
+    }
   }
 
   render() {
@@ -98,7 +117,7 @@ export default class ArcContainer extends LitElement {
           <slot name="side"></slot>
           <div id="content"><slot></slot></div>
         </div>
-        <arc-accessibility id='accessibility'></arc-accessibility>
+        <arc-accessibility id="accessibility"></arc-accessibility>
         <slot name="bottom">
           <arc-bottombar>
             <arc-icon-button name=${ICON_TYPES.home} href="/" label="Go home">Home</arc-icon-button>

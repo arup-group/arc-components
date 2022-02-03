@@ -1,8 +1,7 @@
 import { css, html, LitElement } from 'lit';
-import { query } from 'lit/decorators.js';
-import { waitForEvent } from '../../internal/event.js';
+import { property, query } from 'lit/decorators.js';
+import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { CONTAINER_THEMES } from '../container/constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
@@ -33,24 +32,28 @@ export default class ArcAccessibility extends LitElement {
 
   @query('#drawer') drawer: ArcDrawer;
 
-  /** Shows the drawer */
-  async show() {
-    if (this.drawer.open) {
+  /* Indicates whether or not the drawer is open. This can be used instead of the show/hide methods. */
+  @property({ type: Boolean, reflect: true }) open = false;
+
+  /* Shows the drawer */
+  show() {
+    if (this.open) {
       return;
     }
-
-    this.drawer.open = true;
-    await waitForEvent(this, ARC_EVENTS.afterShow);
+    this.open = true;
   }
 
-  /** Hides the drawer */
-  async hide() {
-    if (!this.drawer.open) {
+  /* Hides the drawer */
+  hide() {
+    if (!this.open) {
       return;
     }
+    this.open = false;
+  }
 
-    this.drawer.open = false;
-    await waitForEvent(this, ARC_EVENTS.afterHide);
+  @watch('open', { waitUntilFirstUpdate: true })
+  handleOpenChange() {
+    this.drawer.open = this.open;
   }
 
   colourTemplate = () => html`
@@ -92,9 +95,9 @@ export default class ArcAccessibility extends LitElement {
   render() {
     return html`
       <div id='main'>
-        <arc-drawer id='drawer'>
+        <arc-drawer id='drawer' @arc-hide=${this.hide}>
           <div class='label' slot='label'>
-            <arc-icon name='accessibility'></arc-icon>
+            <arc-icon name='accessibility' size='large'></arc-icon>
             <span>Accessibility Controls (A)</span>
           </div>
           <div id='wrapper'>

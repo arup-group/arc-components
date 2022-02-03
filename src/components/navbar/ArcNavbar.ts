@@ -223,7 +223,7 @@ export default class ArcNavbar extends LitElement {
               id='accessibility'
               name=${ICON_TYPES.accessibility}
               label="Accessibility panel"
-              @click="${this.emitAccessibility}"
+              @click=${this.emitAccessibility}
             ></arc-icon-button>
             <slot name="user"></slot>
           </div>

@@ -18,7 +18,7 @@
 <arc-container theme='light'>
   <arc-navbar slot='nav' logo="/assets/arc-red.svg" tabs='0'></arc-navbar>
 
-  <my-component name='Jasper'></my-component>
+  <input>
 </arc-container>
 
 <script type="module">
@@ -34,7 +34,12 @@
   import './out-tsc/components/navbar/arc-navbar.js';
   import './out-tsc/components/button/arc-button.js';
   import './out-tsc/components/icon-button/arc-icon-button.js';
-  import './out-tsc/components/my-component/my-component.js';
+
+  const container = document.querySelector('arc-container');
+  container.addEventListener('arc-show', () => console.log('arc-show triggered'));
+  container.addEventListener('arc-after-show', () => console.log('arc-after-show triggered'));
+  container.addEventListener('arc-hide', () => console.log('arc-hide triggered'));
+  container.addEventListener('arc-after-hide', () => console.log('arc-after-hide triggered'));
 </script>
 </body>
 </html>

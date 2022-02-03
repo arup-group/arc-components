@@ -24,6 +24,8 @@
     <arc-menu-item>Three</arc-menu-item>
     <arc-menu-item>Another</arc-menu-item>
   </arc-menu>
+
+  <input id='input'/>
 </arc-container>
 
 <script type="module">
@@ -42,11 +44,10 @@
   import './out-tsc/components/menu/arc-menu.js';
   import './out-tsc/components/menu-item/arc-menu-item.js';
 
-  const container = document.querySelector('arc-container');
-  container.addEventListener('arc-show', () => console.log('arc-show triggered'));
-  container.addEventListener('arc-after-show', () => console.log('arc-after-show triggered'));
-  container.addEventListener('arc-hide', () => console.log('arc-hide triggered'));
-  container.addEventListener('arc-after-hide', () => console.log('arc-after-hide triggered'));
+  const input = document.getElementById('input');
+  input.addEventListener('keydown', e => {
+    console.log(e);
+  })
 </script>
 </body>
 </html>

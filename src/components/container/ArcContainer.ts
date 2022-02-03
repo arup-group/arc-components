@@ -101,14 +101,12 @@ export default class ArcContainer extends LitElement {
 
   handleKeyDown(event: KeyboardEvent) {
     /* Make sure that no input element and/or textarea is focused */
-    if (event.composedPath().some((el: HTMLElement) => IGNORE_KEYPRESS.includes(el.tagName))) {
-      return;
-    }
-
-    /* Toggle the accessibility panel */
-    if (event.key === 'a') {
-      event.preventDefault();
-      this.accessibility.open = !this.accessibility.open;
+    if (!event.composedPath().some((el: HTMLElement) => IGNORE_KEYPRESS.includes(el.tagName))) {
+      /* Toggle the accessibility panel */
+      if (event.key === 'a') {
+        event.preventDefault();
+        this.accessibility.open = !this.accessibility.open;
+      }
     }
   }
 

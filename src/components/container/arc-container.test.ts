@@ -80,7 +80,6 @@ describe('ArcContainer', () => {
   /* Test specific methods */
   describe('methods', () => {
     let element: ArcContainer;
-    let inputField: HTMLInputElement;
 
     const showHandler: SinonSpy = sinon.spy();
     const afterShowHandler: SinonSpy = sinon.spy();
@@ -91,7 +90,6 @@ describe('ArcContainer', () => {
           <input>
         </arc-container>
       `)
-      inputField = element.querySelector('input')!;
     });
 
     afterEach(() => {
@@ -131,22 +129,6 @@ describe('ArcContainer', () => {
 
       expect(showHandler).to.have.been.calledOnce;
       expect(afterShowHandler).to.have.been.calledOnce;
-    });
-
-    it('should prevent emitting the arc-show and arc-after-show when the focus is on an element listed in the IGNORE_KEYPRESS constant', async () => {
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
-      inputField.focus();
-
-      /* Make sure that the input field has focus */
-      expect(document.activeElement).to.equal(inputField);
-
-      /* Press the a key */
-      element.handleKeyDown(createKeyEvent('a'));
-
-      expect(showHandler).to.not.have.been.calledOnce;
-      expect(afterShowHandler).to.not.have.been.calledOnce;
     });
   })
 

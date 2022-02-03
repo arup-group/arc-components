@@ -37,8 +37,8 @@ export default class ArcRadioGroup extends LitElement {
   /* Slot that contains radio buttons */
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
-  /* The radio group label. Required for proper accessibility. Alternatively, you can use the label slot. */
-  @property({ type: String }) label: string = '';
+  /* The radio group label. Required for proper accessibility. Alternatively, the label slot can be used. */
+  @property({ type: String }) label: string;
 
   /* Lays out the radio buttons horizontally */
   @property({ type: Boolean }) row: boolean = false;

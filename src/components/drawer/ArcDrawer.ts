@@ -173,7 +173,8 @@ export default class ArcDrawer extends LitElement {
   /* The direction from which the drawer will open */
   @property({ reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
 
-  @property({ reflect: true }) label: string;
+  /* The drawer label. Alternatively, the label slot can be used. */
+  @property({ type: String }) label: string;
 
   connectedCallback() {
     super.connectedCallback();
@@ -301,7 +302,7 @@ export default class ArcDrawer extends LitElement {
              tabindex='0'
         >
           <div id="header">
-            <span>${this.label}</span>
+            <slot name="label"><span>${this.label}</span></slot>
             <arc-icon-button
               id="toggleClose"
               name=${ICON_TYPES.x}

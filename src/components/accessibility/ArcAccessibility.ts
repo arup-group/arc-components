@@ -23,7 +23,7 @@ export default class ArcAccessibility extends LitElement {
         gap: var(--arc-spacing-small);
       }
 
-      .menu-label {
+      .label {
         display: flex;
         align-items: center;
         gap: var(--arc-spacing-small);
@@ -55,7 +55,7 @@ export default class ArcAccessibility extends LitElement {
 
   colourTemplate = () => html`
     <arc-radio-group>
-      <div slot='label' class='menu-label'>
+      <div slot='label' class='label'>
         <span>Colour Mode</span>
         <arc-icon name=${ICON_TYPES.bulb}></arc-icon>
       </div>
@@ -67,7 +67,7 @@ export default class ArcAccessibility extends LitElement {
 
   textTemplate = () => html`
     <arc-radio-group>
-      <div slot='label' class='menu-label'>
+      <div slot='label' class='label'>
         <span>Text Size</span>
         <arc-icon name=${ICON_TYPES['book-open']}></arc-icon>
       </div>
@@ -92,7 +92,11 @@ export default class ArcAccessibility extends LitElement {
   render() {
     return html`
       <div id='main'>
-        <arc-drawer id='drawer' label='Accessibility Controls (A)'>
+        <arc-drawer id='drawer'>
+          <div class='label' slot='label'>
+            <arc-icon name='accessibility'></arc-icon>
+            <span>Accessibility Controls (A)</span>
+          </div>
           <div id='wrapper'>
             ${this.colourTemplate()}
             ${this.textTemplate()}

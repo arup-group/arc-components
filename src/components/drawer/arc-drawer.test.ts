@@ -266,6 +266,7 @@ describe('ArcDrawer', () => {
       expect(hasSlot(main)).to.be.true;
 
       /* A specific (named) slot is available */
+      expect(hasSlot(main, 'label')).to.be.true;
       expect(hasSlot(main, 'footer')).to.be.true;
     });
   });

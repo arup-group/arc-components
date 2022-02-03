@@ -15,8 +15,10 @@
 </head>
 
 <body>
-<arc-container>
+<arc-container theme='light'>
   <arc-navbar slot='nav' logo="/assets/arc-red.svg" tabs='0'></arc-navbar>
+
+  <my-component name='Jasper'></my-component>
 </arc-container>
 
 <script type="module">
@@ -32,6 +34,7 @@
   import './out-tsc/components/navbar/arc-navbar.js';
   import './out-tsc/components/button/arc-button.js';
   import './out-tsc/components/icon-button/arc-icon-button.js';
+  import './out-tsc/components/my-component/my-component.js';
 </script>
 </body>
 </html>

@@ -5,7 +5,7 @@ import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import componentStyles from '../../styles/component.styles.js';
-import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
+import { CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme } from './constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
@@ -100,11 +100,14 @@ export default class ArcContainer extends LitElement {
   }
 
   handleKeyDown(event: KeyboardEvent) {
-    /* Make sure that no input elements are focused */
-    if (event.target !== document.body && event.target !== this) return;
+    /* Make sure that no input element and/or textarea is focused */
+    if (event.composedPath().some((el: HTMLElement) => IGNORE_KEYPRESS.includes(el.tagName))) {
+      return;
+    }
 
     /* Toggle the accessibility panel */
     if (event.key === 'a') {
+      event.preventDefault();
       this.accessibility.open = !this.accessibility.open;
     }
   }

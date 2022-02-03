@@ -6,6 +6,7 @@ import { isNight } from '../../internal/theme.js';
 import { isMobile } from '../../utilities/ui-utils.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
+import { createKeyEvent } from '../../utilities/test-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
@@ -78,7 +79,25 @@ describe('ArcContainer', () => {
 
   /* Test specific methods */
   describe('methods', () => {
-    const element: ArcContainer = new ArcContainer();
+    let element: ArcContainer;
+    let inputField: HTMLInputElement;
+
+    const showHandler: SinonSpy = sinon.spy();
+    const afterShowHandler: SinonSpy = sinon.spy();
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <arc-container>
+          <input>
+        </arc-container>
+      `)
+      inputField = element.querySelector('input')!;
+    });
+
+    afterEach(() => {
+      showHandler.resetHistory();
+      afterShowHandler.resetHistory();
+    });
 
     it('returns the correct theme when a specific date is given', async () => {
       const dayTime: Date = new Date('January 15, 2021 15:00:00');
@@ -86,23 +105,6 @@ describe('ArcContainer', () => {
 
       expect(element.getTheme(dayTime)).to.equal(CONTAINER_THEMES.light);
       expect(element.getTheme(nightTime)).to.equal(CONTAINER_THEMES.dark);
-    });
-  });
-
-  /* Test the events (click, focus, blur etc.) */
-  describe('events', () => {
-    let element: ArcContainer;
-
-    const showHandler: SinonSpy = sinon.spy();
-    const afterShowHandler: SinonSpy = sinon.spy();
-
-    beforeEach(async () => {
-      element = await fixture(html`<arc-container></arc-container>`)
-    });
-
-    afterEach(() => {
-      showHandler.resetHistory();
-      afterShowHandler.resetHistory();
     });
 
     it('should emit arc-show and arc-after-show when calling showAccessibility', async () => {
@@ -115,6 +117,36 @@ describe('ArcContainer', () => {
 
       expect(showHandler).to.have.been.calledOnce;
       expect(afterShowHandler).to.have.been.calledOnce;
+    });
+
+    it('should emit arc-show and arc-after-show when pressing the accessibility key (a)', async () => {
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      /* Press the a key */
+      element.handleKeyDown(createKeyEvent('a'));
+
+      await waitUntil(() => showHandler.calledOnce);
+      await waitUntil(() => afterShowHandler.calledOnce);
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+    });
+
+    it('should prevent emitting the arc-show and arc-after-show when the focus is on an element listed in the IGNORE_KEYPRESS constant', async () => {
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      inputField.focus();
+
+      /* Make sure that the input field has focus */
+      expect(document.activeElement).to.equal(inputField);
+
+      /* Press the a key */
+      element.handleKeyDown(createKeyEvent('a'));
+
+      expect(showHandler).to.not.have.been.calledOnce;
+      expect(afterShowHandler).to.not.have.been.calledOnce;
     });
   })
 

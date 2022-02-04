@@ -176,6 +176,61 @@ export default class ArcDrawer extends LitElement {
   /* The drawer label. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
 
+  @watch('open', { waitUntilFirstUpdate: true })
+  async handleOpenChange() {
+    if (this.open) {
+      /* Show */
+      emit(this, ARC_EVENTS.show);
+      this.originalTrigger = document.activeElement as HTMLElement;
+
+      /* Lock body scrolling only if the drawer isn't contained */
+      if (!this.contained) {
+        this.modal.activate();
+        lockBodyScrolling(this);
+      }
+
+      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
+      this.drawer.hidden = false;
+
+      const arcInitialFocus = emit(this, ARC_EVENTS.initialFocus, { cancelable: true });
+      if (!arcInitialFocus.defaultPrevented) {
+        this.panel.focus({ preventScroll: true });
+      }
+
+      const panelAnimation = getAnimation(this, `drawer.show${uppercaseFirstLetter(this.placement)}`);
+      const overlayAnimation = getAnimation(this, 'drawer.overlay.show');
+      await Promise.all([
+        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
+        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options)
+      ]);
+
+      emit(this, ARC_EVENTS.afterShow);
+    } else {
+      /* Hide */
+      emit(this, ARC_EVENTS.hide);
+      this.modal.deactivate();
+      unlockBodyScrolling(this);
+
+      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
+      const panelAnimation = getAnimation(this, `drawer.hide${uppercaseFirstLetter(this.placement)}`);
+      const overlayAnimation = getAnimation(this, 'drawer.overlay.hide');
+      await Promise.all([
+        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
+        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options)
+      ]);
+
+      this.drawer.hidden = true;
+
+      /* Restore focus to the original trigger */
+      const trigger = this.originalTrigger;
+      if (trigger && typeof trigger.focus === 'function') {
+        setTimeout(() => trigger.focus());
+      }
+
+      emit(this, ARC_EVENTS.afterHide);
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -231,61 +286,6 @@ export default class ArcDrawer extends LitElement {
     if (event.key === 'Escape') {
       event.stopPropagation();
       this.requestClose();
-    }
-  }
-
-  @watch('open', { waitUntilFirstUpdate: true })
-  async handleOpenChange() {
-    if (this.open) {
-      /* Show */
-      emit(this, ARC_EVENTS.show);
-      this.originalTrigger = document.activeElement as HTMLElement;
-
-      /* Lock body scrolling only if the drawer isn't contained */
-      if (!this.contained) {
-        this.modal.activate();
-        lockBodyScrolling(this);
-      }
-
-      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
-      this.drawer.hidden = false;
-
-      const arcInitialFocus = emit(this, ARC_EVENTS.initialFocus, { cancelable: true });
-      if (!arcInitialFocus.defaultPrevented) {
-        this.panel.focus({ preventScroll: true });
-      }
-
-      const panelAnimation = getAnimation(this, `drawer.show${uppercaseFirstLetter(this.placement)}`);
-      const overlayAnimation = getAnimation(this, 'drawer.overlay.show');
-      await Promise.all([
-        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
-        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options)
-      ]);
-
-      emit(this, ARC_EVENTS.afterShow);
-    } else {
-      /* Hide */
-      emit(this, ARC_EVENTS.hide);
-      this.modal.deactivate();
-      unlockBodyScrolling(this);
-
-      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
-      const panelAnimation = getAnimation(this, `drawer.hide${uppercaseFirstLetter(this.placement)}`);
-      const overlayAnimation = getAnimation(this, 'drawer.overlay.hide');
-      await Promise.all([
-        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
-        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options)
-      ]);
-
-      this.drawer.hidden = true;
-
-      /* Restore focus to the original trigger */
-      const trigger = this.originalTrigger;
-      if (trigger && typeof trigger.focus === 'function') {
-        setTimeout(() => trigger.focus());
-      }
-
-      emit(this, ARC_EVENTS.afterHide);
     }
   }
 

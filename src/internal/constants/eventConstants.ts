@@ -1,6 +1,7 @@
-export declare type ArcEvent = 'afterHide' | 'afterShow' | 'auth' | 'change' | 'hide' | 'initialFocus' | 'requestClose' | 'select' | 'showAccessibility' | 'show';
+export declare type ArcEvent = 'accessibilityChange' | 'afterHide' | 'afterShow' | 'auth' | 'change' | 'hide' | 'initialFocus' | 'requestClose' | 'select' | 'showAccessibility' | 'show';
 
 export const ARC_EVENTS: { [key in ArcEvent ]: string } = {
+  accessibilityChange: 'arc-accessibility-change',
   afterHide: 'arc-after-hide',
   afterShow: 'arc-after-show',
   auth: 'arc-auth',

@@ -1,8 +1,11 @@
 import { css, html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
+import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
+import { stringifyObject, parseObject } from '../../internal/string.js';
 import { CONTAINER_THEMES } from '../container/constants/ContainerConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
@@ -10,6 +13,14 @@ import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
+
+interface UserPreferences {
+  colourMode: string,
+  highLegibilityFonts: boolean,
+  highlightLinks: boolean,
+  plainText: boolean,
+  textSize: string,
+}
 
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
@@ -32,8 +43,48 @@ export default class ArcAccessibility extends LitElement {
 
   @query('#drawer') drawer: ArcDrawer;
 
+  /* The default preferences for the accessibility panel */
+  @state() private _userPreferences: UserPreferences = {
+    colourMode: 'light',
+    highLegibilityFonts: false,
+    highlightLinks: false,
+    plainText: false,
+    textSize: 'medium'
+  }
+
   /* Indicates whether or not the drawer is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
+
+  @watch('_userPreferences')
+  async handlePreferenceChange() {
+    const options = {
+      detail: {
+        preferences: this._userPreferences
+      },
+      bubbles: true,
+      composed: true
+    }
+    emit(this, ARC_EVENTS.accessibilityChange, options);
+  }
+
+  @watch('open', { waitUntilFirstUpdate: true })
+  handleOpenChange() {
+    this.drawer.open = this.open;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    /* Check for personal preferences in the localStore. */
+    const cachedPreferences = localStorage.getItem('accessibility');
+
+    /* When found, update the state, else, store the current preferences in the localStore. */
+    if (cachedPreferences) {
+      this._userPreferences = parseObject(cachedPreferences);
+    } else {
+      localStorage.setItem('accessibility', stringifyObject(this._userPreferences))
+    }
+  }
 
   /* Shows the drawer */
   show() {
@@ -51,9 +102,9 @@ export default class ArcAccessibility extends LitElement {
     this.open = false;
   }
 
-  @watch('open', { waitUntilFirstUpdate: true })
-  handleOpenChange() {
-    this.drawer.open = this.open;
+  /* Method to change preferences */
+  updateUserPreferences(newPreferences: UserPreferences) {
+    this._userPreferences = newPreferences;
   }
 
   colourTemplate = () => html`
@@ -79,18 +130,6 @@ export default class ArcAccessibility extends LitElement {
       <arc-radio name='text-size' value='large'>Large</arc-radio>
     </arc-radio-group>
   `
-
-  // textDisplayTemplate = () => html`
-  //   <div class='menu-label'>
-  //     <span>Text Display</span>
-  //     <arc-icon name=${ICON_TYPES.eye}></arc-icon>
-  //   </div>
-  //   <arc-menu>
-  //     <arc-menu-item>High Legibility Fonts</arc-menu-item>
-  //     <arc-menu-item>Large</arc-menu-item>
-  //     <arc-menu-item>Extra Large</arc-menu-item>
-  //   </arc-menu>
-  // `
 
   render() {
     return html`

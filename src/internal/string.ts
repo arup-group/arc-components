@@ -15,4 +15,21 @@ function stringToArray(string: string) {
   return string.split((/[ ,]+/));
 }
 
-export { uppercaseFirstLetter, stringToInitials, stringToArray };
+function stringifyObject(object: object) {
+  try {
+    return JSON.stringify(object);
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+
+function parseObject(string: string) {
+  try {
+    return JSON.parse(string);
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+
+
+export { uppercaseFirstLetter, stringToInitials, stringToArray, stringifyObject, parseObject };

@@ -85,11 +85,16 @@ export default class ArcContainer extends LitElement {
     }
   }
 
+  /* Listen to keyboard input on the page */
   connectedCallback() {
     super.connectedCallback();
+    document.addEventListener('keypress', this.handleKeyDown.bind(this));
+  }
 
-    /* Listen to keyboard input on the page */
-    document.addEventListener('keypress', this.handleKeyDown.bind(this))
+  /* Remove to keyboard input listener on the page */
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('keypress', this.handleKeyDown.bind(this));
   }
 
   getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);

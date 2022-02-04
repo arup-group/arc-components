@@ -5,14 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="Description" content="Web-components related to the ARC design system">
-  <meta name="theme-color" content="var(--arc-color-primary)"/>
+  <meta name="theme-color" content="#E61E28"/>
   <link rel="manifest" href="/manifest.json">
   <base href="/">
 
   <title>ARC</title>
 
   <!-- Touch Icons - iOS and Android 2.1+ 152x152 pixels in size. -->
-  <link rel="apple-touch-icon-precomposed" href="/assets/icons/favicon_152.ico">
+  <link rel="apple-touch-icon" href="/assets/icons/favicon_152.ico">
 
   <!-- Firefox, Chrome, Safari, IE 11+ and Opera. 96x96 pixels in size. -->
   <link rel="icon" href="/assets/icons/152x152.png">
@@ -52,13 +52,6 @@
   import './out-tsc/components/icon-button/arc-icon-button.js';
   import './out-tsc/components/menu/arc-menu.js';
   import './out-tsc/components/menu-item/arc-menu-item.js';
-
-  const container = document.querySelector('arc-container');
-
-  container.addEventListener('arc-accessibility-change', e => {
-    const { detail } = e;
-    console.log(detail);
-  })
 </script>
 </body>
 </html>

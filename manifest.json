@@ -1,6 +1,7 @@
 {
-  "name": "ARC Web Components",
   "short_name": "ARC",
+  "name": "ARC Web Components",
+  "description": "Web-components built on the ARC design system",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#FFFFFF",
@@ -43,11 +44,10 @@
       "sizes": "384x384"
     },
     {
-      "src": "/assets/icons/72x72.png",
+      "src": "/assets/icons/512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "scope": "/",
-  "description": "Web-components built on the ARC design system"
+  "scope": "/"
 }

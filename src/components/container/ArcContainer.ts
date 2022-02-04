@@ -6,6 +6,7 @@ import { watch } from '../../internal/watch.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import componentStyles from '../../styles/component.styles.js';
 import { CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme } from './constants/ContainerConstants.js';
+import { UserPreferences } from '../accessibility/constants/AccessibilityConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
@@ -104,6 +105,17 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
+  updateUserPreferences = (event: CustomEvent) => {
+    const { detail } = event;
+    const { preferences }: { preferences: UserPreferences } = detail;
+    const { colourMode } = preferences;
+
+    /* Make sure that the given option exists */
+    if (colourMode in CONTAINER_THEMES) {
+      this.theme = colourMode;
+    }
+  }
+
   handleKeyDown(event: KeyboardEvent) {
     /* Make sure that no input element and/or textarea is focused */
     if (!event.composedPath().some((el: HTMLElement) => IGNORE_KEYPRESS.includes(el.tagName))) {
@@ -118,16 +130,16 @@ export default class ArcContainer extends LitElement {
   render() {
     return html`
       <div id="main">
-        <slot id="nav" name="nav" @arc-show-accessibility="${this.showAccessibility}"></slot>
+        <slot id="nav" name="nav" @arc-show-accessibility=${this.showAccessibility}></slot>
         <div id="container" class=${classMap({ 'fullscreen': this.fullscreen })}>
           <slot name="side"></slot>
           <div id="content"><slot></slot></div>
         </div>
-        <arc-accessibility id="accessibility"></arc-accessibility>
+        <arc-accessibility id="accessibility" @arc-accessibility-change=${this.updateUserPreferences}></arc-accessibility>
         <slot name="bottom">
           <arc-bottombar>
             <arc-icon-button name=${ICON_TYPES.home} href="/" label="Go home">Home</arc-icon-button>
-            <arc-icon-button name=${ICON_TYPES.accessibility} label="Open accessibility" @click="${this.showAccessibility}">Accessibility</arc-icon-button>
+            <arc-icon-button name=${ICON_TYPES.accessibility} label="Open accessibility" @click=${this.showAccessibility}>Accessibility</arc-icon-button>
           </arc-bottombar>
         </slot>
       </div>

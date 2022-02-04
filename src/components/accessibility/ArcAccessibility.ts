@@ -5,6 +5,7 @@ import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import { stringifyObject, parseObject } from '../../internal/string.js';
 import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
+import { USER_PREFERENCES, UserPreferences } from './constants/AccessibilityConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
@@ -14,13 +15,7 @@ import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
 
-interface UserPreferences {
-  colourMode: ContainerTheme,
-  highLegibilityFonts: boolean,
-  highlightLinks: boolean,
-  plainText: boolean,
-  textSize: string,
-}
+
 
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
@@ -44,13 +39,7 @@ export default class ArcAccessibility extends LitElement {
   @query('#drawer') drawer: ArcDrawer;
 
   /* The default preferences for the accessibility panel */
-  @state() private _userPreferences: UserPreferences = {
-    colourMode: CONTAINER_THEMES.auto,
-    highLegibilityFonts: false,
-    highlightLinks: false,
-    plainText: false,
-    textSize: 'medium'
-  }
+  @state() private _userPreferences: UserPreferences = USER_PREFERENCES;
 
   /* Indicates whether or not the drawer is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
@@ -65,6 +54,9 @@ export default class ArcAccessibility extends LitElement {
       composed: true
     }
     emit(this, ARC_EVENTS.accessibilityChange, options);
+
+    /* Store the new preferences */
+    localStorage.setItem('accessibility', stringifyObject(this._userPreferences))
   }
 
   @watch('open', { waitUntilFirstUpdate: true })
@@ -78,11 +70,9 @@ export default class ArcAccessibility extends LitElement {
     /* Check for personal preferences in the localStore. */
     const cachedPreferences = localStorage.getItem('accessibility');
 
-    /* When found, update the state, else, store the current preferences in the localStore. */
+    /* When stored preferences found, update the state. */
     if (cachedPreferences) {
       this._userPreferences = parseObject(cachedPreferences);
-    } else {
-      localStorage.setItem('accessibility', stringifyObject(this._userPreferences))
     }
   }
 
@@ -102,9 +92,18 @@ export default class ArcAccessibility extends LitElement {
     this.open = false;
   }
 
-  /* Method to change preferences */
-  updateUserPreferences(newPreferences: UserPreferences) {
-    this._userPreferences = newPreferences;
+  /* Update the theme */
+  updateTheme(event: MouseEvent) {
+    const radio = event.target as HTMLInputElement;
+    const { value } = radio;
+
+    /* Make sure that the given option exists */
+    if (value in CONTAINER_THEMES) {
+      this._userPreferences = {
+        ...this._userPreferences,
+        colourMode: value as ContainerTheme
+      }
+    }
   }
 
   colourTemplate = () => html`
@@ -113,8 +112,8 @@ export default class ArcAccessibility extends LitElement {
         <span>Colour Mode</span>
         <arc-icon name=${ICON_TYPES.bulb}></arc-icon>
       </div>
-      ${Object.keys(CONTAINER_THEMES).map(key => html`
-        <arc-radio name='theme' value=${key}>${key}</arc-radio>
+      ${Object.values(CONTAINER_THEMES).map(value => html`
+          <arc-radio name='colourMode' value=${value} ?checked=${value === this._userPreferences.colourMode} @arc-change=${this.updateTheme}>${value}</arc-radio>
       `)}
     </arc-radio-group>
   `

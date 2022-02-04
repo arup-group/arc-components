@@ -4,7 +4,7 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import { stringifyObject, parseObject } from '../../internal/string.js';
-import { CONTAINER_THEMES } from '../container/constants/ContainerConstants.js';
+import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
@@ -15,7 +15,7 @@ import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
 
 interface UserPreferences {
-  colourMode: string,
+  colourMode: ContainerTheme,
   highLegibilityFonts: boolean,
   highlightLinks: boolean,
   plainText: boolean,
@@ -45,7 +45,7 @@ export default class ArcAccessibility extends LitElement {
 
   /* The default preferences for the accessibility panel */
   @state() private _userPreferences: UserPreferences = {
-    colourMode: 'light',
+    colourMode: CONTAINER_THEMES.auto,
     highLegibilityFonts: false,
     highlightLinks: false,
     plainText: false,
@@ -119,18 +119,6 @@ export default class ArcAccessibility extends LitElement {
     </arc-radio-group>
   `
 
-  textTemplate = () => html`
-    <arc-radio-group>
-      <div slot='label' class='label'>
-        <span>Text Size</span>
-        <arc-icon name=${ICON_TYPES['book-open']}></arc-icon>
-      </div>
-      <arc-radio name='text-size' value='small'>Small</arc-radio>
-      <arc-radio name='text-size' value='medium'>Medium</arc-radio>
-      <arc-radio name='text-size' value='large'>Large</arc-radio>
-    </arc-radio-group>
-  `
-
   render() {
     return html`
       <div id='main'>
@@ -141,7 +129,6 @@ export default class ArcAccessibility extends LitElement {
           </div>
           <div id='wrapper'>
             ${this.colourTemplate()}
-            ${this.textTemplate()}
           </div>
         </arc-drawer>
       </div>

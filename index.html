@@ -5,19 +5,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="Description" content="Web-components related to the ARC design system">
+  <meta name="theme-color" content="var(--arc-color-primary)"/>
+  <link rel="manifest" href="/manifest.json">
   <base href="/">
 
   <title>ARC</title>
 
-  <link crossorigin="anonymous" href="themes/index.css" rel="stylesheet">
-  <link crossorigin="anonymous" href="themes/light.css" rel="stylesheet">
-  <link crossorigin="anonymous" href="themes/dark.css" rel="stylesheet">
+  <!-- Touch Icons - iOS and Android 2.1+ 152x152 pixels in size. -->
+  <link rel="apple-touch-icon-precomposed" href="/assets/icons/favicon_152.ico">
+
+  <!-- Firefox, Chrome, Safari, IE 11+ and Opera. 96x96 pixels in size. -->
+  <link rel="icon" href="/assets/icons/152x152.png">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon_96.ico">
+
+  <link crossorigin="anonymous" href="/themes/index.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="/themes/light.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="/themes/dark.css" rel="stylesheet">
 </head>
 
 <body>
 <arc-container>
   <arc-navbar slot='nav' logo="/assets/arc-red.svg" tabs='0'></arc-navbar>
-  <div>
+  <div style='padding: var(--arc-spacing-medium)'>
     <arc-radio-group>
       <arc-radio disabled checked>1</arc-radio>
       <arc-radio>2</arc-radio>

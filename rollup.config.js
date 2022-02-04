@@ -61,8 +61,8 @@ export default {
     }),
     copy({
       targets: [
-        { src: ['assets', 'themes'], dest: 'dist' },
-        { src: ['out-tsc/arc.d.ts', 'out-tsc/components/**/!(*.stories).{js,d.ts}', 'out-tsc/internal', 'out-tsc/styles', 'out-tsc/utilities'], dest: 'dist'}
+        { src: ['assets/arc-red.svg', 'assets/icons.svg'], dest: 'dist/assets' },
+        { src: ['out-tsc/arc.d.ts', 'out-tsc/components/**/!(*.stories).{js,d.ts}', 'out-tsc/internal', 'out-tsc/styles', 'out-tsc/utilities', 'themes'], dest: 'dist'}
       ],
       flatten: false
     })

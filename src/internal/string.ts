@@ -19,7 +19,7 @@ function stringifyObject(object: object) {
   try {
     return JSON.stringify(object);
   } catch (e) {
-    throw new Error(e);
+    throw new Error('Invalid JSON object')
   }
 }
 
@@ -27,7 +27,7 @@ function parseObject(string: string) {
   try {
     return JSON.parse(string);
   } catch (e) {
-    throw new Error(e);
+    throw new Error('Invalid JSON string')
   }
 }
 

@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { elementUpdated, expect, fixture, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
+import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcIconButton from './ArcIconButton.js';
@@ -21,7 +22,7 @@ describe('ArcIconButton', () => {
 
     /* Test the type of the button */
     it('renders the button as a default button', () => {
-      const buttonTarget = element.shadowRoot!.querySelector('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('button')!;
       expect(buttonTarget.getAttribute('type')).to.equal('button');
     });
 
@@ -42,56 +43,47 @@ describe('ArcIconButton', () => {
 
     it('renders the element with a custom label property', async () => {
       const element: ArcIconButton = await fixture(html`<arc-icon-button label="Test label"></arc-icon-button>`);
+      const buttonTarget = element.shadowRoot!.querySelector('button')!;
 
-      const buttonTarget = element.shadowRoot!.querySelector('button');
-
-      expect(buttonTarget!.getAttribute('aria-label')).to.equal('Test label');
       expect(element.label).to.equal('Test label');
       expect(element.getAttribute('label')).to.equal('Test label');
+
+      expect(buttonTarget.getAttribute('aria-label')).to.equal('Test label');
     });
 
     it('renders the button as an anchor', async () => {
-      const element: ArcIconButton = await fixture(
-        html`<arc-icon-button href="/" label="Test label">Test</arc-icon-button>`
-      );
-      const buttonTarget = element.shadowRoot!.querySelector('button');
-      const anchorTarget = element.shadowRoot!.querySelector('a');
-
-      expect(buttonTarget).to.be.null;
-      expect(anchorTarget).to.exist;
-
-      expect(anchorTarget!.getAttribute('href')).to.equal('/');
-      expect(anchorTarget!.getAttribute('aria-label')).to.equal('Test label');
-      expect(anchorTarget!.hasAttribute('target')).to.be.false;
-      expect(anchorTarget!.hasAttribute('rel')).to.be.false;
+      const element: ArcIconButton = await fixture(html`<arc-icon-button href="/" label="Test label">Test</arc-icon-button>`);
+      const buttonTarget = element.shadowRoot!.getElementById('button')!;
 
       expect(element.href).to.equal('/');
       expect(element.getAttribute('href')).to.equal('/');
+
+      expect(buttonTarget.tagName).to.equal('A');
+      expect(buttonTarget.getAttribute('href')).to.equal('/');
+      expect(buttonTarget.getAttribute('aria-label')).to.equal('Test label');
+      expect(buttonTarget.hasAttribute('target')).to.be.false;
+      expect(buttonTarget.hasAttribute('rel')).to.be.false;
     });
 
     it('renders the anchor with a target attribute', async () => {
-      const element: ArcIconButton = await fixture(
-        html`<arc-icon-button href="/" target="_blank">Test</arc-icon-button>`
-      );
-      const anchorTarget = element.shadowRoot!.querySelector('a')!;
-
-      expect(anchorTarget.getAttribute('target')).to.equal('_blank');
-      expect(anchorTarget.getAttribute('rel')).to.equal('noreferrer noopener');
+      const element: ArcIconButton = await fixture(html`<arc-icon-button href="/" target="_blank">Test</arc-icon-button>`);
+      const buttonTarget = element.shadowRoot!.getElementById('button')!;
 
       expect(element.target).to.equal('_blank');
       expect(element.getAttribute('target')).to.equal('_blank');
+
+      expect(buttonTarget.getAttribute('target')).to.equal('_blank');
+      expect(buttonTarget.getAttribute('rel')).to.equal('noreferrer noopener');
     });
 
     it('renders the anchor with a download attribute', async () => {
-      const element: ArcIconButton = await fixture(
-        html`<arc-icon-button href="/" download="Filename">Test</arc-icon-button>`
-      );
-      const anchorTarget = element.shadowRoot!.querySelector('a')!;
-
-      expect(anchorTarget.getAttribute('download')).to.equal('Filename');
+      const element: ArcIconButton = await fixture(html`<arc-icon-button href="/" download="Filename">Test</arc-icon-button>`);
+      const buttonTarget = element.shadowRoot!.getElementById('button')!;
 
       expect(element.download).to.equal('Filename');
       expect(element.getAttribute('download')).to.equal('Filename');
+
+      expect(buttonTarget.getAttribute('download')).to.equal('Filename');
     });
   });
 
@@ -114,7 +106,7 @@ describe('ArcIconButton', () => {
     });
 
     it('renders the button in a disabled state', async () => {
-      const buttonTarget = element.shadowRoot!.querySelector('button');
+      const buttonTarget = element.shadowRoot!.getElementById('button');
 
       expect(buttonTarget!.hasAttribute('disabled')).to.be.false;
       expect(element.disabled).to.be.false;
@@ -132,7 +124,7 @@ describe('ArcIconButton', () => {
       element.href = '/';
       await elementUpdated(element);
 
-      const anchorTarget = element.shadowRoot!.querySelector('a');
+      const anchorTarget = element.shadowRoot!.getElementById('button');
 
       expect(anchorTarget!.getAttribute('aria-disabled')).to.equal('false');
       expect(anchorTarget!.getAttribute('tabindex')).to.equal('0');
@@ -219,4 +211,19 @@ describe('ArcIconButton', () => {
       expect(hasSlot(buttonTarget)).to.be.true;
     });
   });
+
+  /* Test the css variables that can be overwritten */
+  describe('css variables', () => {
+    it('uses the default css variables', async () => {
+      const element: ArcIconButton = await fixture(html`<arc-icon-button>Test</arc-icon-button>`);
+
+      expect(getPropertyValue(element, '--icon-color')).to.equal('');
+    });
+
+    it('overwrites the css variables', async () => {
+      const element: ArcIconButton = await fixture(html`<arc-icon-button style="--icon-color: green;">Test</arc-icon-button>`);
+
+      expect(getPropertyValue(element, '--icon-color')).to.equal('green');
+    });
+  })
 });

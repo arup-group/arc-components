@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { uppercaseFirstLetter, stringToInitials, stringToArray } from './string.js';
+import { uppercaseFirstLetter, stringToInitials, stringToArray, stringifyObject, parseObject } from './string.js';
 
 describe('string', () => {
   describe('uppercaseFirstLetter', () => {
@@ -46,5 +46,36 @@ describe('string', () => {
       expect(stringArrayTwo[1]).to.equal('two');
       expect(stringArrayTwo[2]).to.equal('three');
     });
+  });
+
+  describe('stringifyObject', () => {
+    it('returns a JSON object as JSON string', () => {
+      const JSONObj = { one: 'one' }
+      expect(stringifyObject(JSONObj)).to.equal('{"one":"one"}');
+    });
+
+    it('throws an error when trying to convert a faulty (circular) object', () => {
+      const JSONObj = { one: {} };
+
+      /* Cyclical object that references itself */
+      JSONObj.one = JSONObj;
+
+      expect(() => stringifyObject(JSONObj)).to.throw('Invalid JSON object');
+    });
+  });
+
+  describe('parseObject', () => {
+    it('returns a JSON string as JSON object', () => {
+      const JSONStr = '{"one":"one"}';
+      const parsedObj = parseObject(JSONStr);
+
+      expect(Object.keys(parsedObj).length).to.equal(1);
+      expect(parsedObj.one).to.equal('one');
+    });
+
+    it('throws an error when trying to convert a faulty string', () => {
+      const string = `{'one':'one'}`;
+      expect(() => parseObject(string)).to.throw('Invalid JSON string');
+    })
   });
 })

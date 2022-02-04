@@ -7,7 +7,8 @@ describe('EventConstants', () => {
     expect(ARC_EVENTS).to.exist;
     const keys = Object.keys(ARC_EVENTS);
 
-    expect(keys.length).to.equal(10);
+    expect(keys.length).to.equal(11);
+    expect(keys).to.contain('accessibilityChange');
     expect(keys).to.contain('afterHide');
     expect(keys).to.contain('afterShow');
     expect(keys).to.contain('auth');
@@ -23,6 +24,7 @@ describe('EventConstants', () => {
   it('should have the correct values', () => {
     const values = Object.values(ARC_EVENTS);
 
+    expect(values).to.contain('arc-accessibility-change');
     expect(values).to.contain('arc-after-hide');
     expect(values).to.contain('arc-after-show');
     expect(values).to.contain('arc-auth');

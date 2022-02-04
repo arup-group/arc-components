@@ -15,8 +15,6 @@ import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
 
-
-
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
 

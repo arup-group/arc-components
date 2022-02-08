@@ -54,7 +54,7 @@ export default class ArcAccessibility extends LitElement {
     emit(this, ARC_EVENTS.accessibilityChange, options);
 
     /* Store the new preferences */
-    localStorage.setItem('accessibility', stringifyObject(this._userPreferences))
+    localStorage.setItem('arc-accessibility', stringifyObject(this._userPreferences))
   }
 
   @watch('open', { waitUntilFirstUpdate: true })
@@ -66,7 +66,7 @@ export default class ArcAccessibility extends LitElement {
     super.connectedCallback();
 
     /* Check for personal preferences in the localStore. */
-    const cachedPreferences = localStorage.getItem('accessibility');
+    const cachedPreferences = localStorage.getItem('arc-accessibility');
 
     /* When stored preferences found, update the state. */
     if (cachedPreferences) {
@@ -93,15 +93,14 @@ export default class ArcAccessibility extends LitElement {
   /* Update the theme */
   updateTheme(event: MouseEvent) {
     const radio = event.target as HTMLInputElement;
-    const { value } = radio;
+    const colourMode = radio.value as ContainerTheme;
 
-    /* Make sure that the given option exists */
-    if (value in CONTAINER_THEMES) {
-      this._userPreferences = {
-        ...this._userPreferences,
-        colourMode: value as ContainerTheme
-      }
+    /* Prevent firing of a change event when nothing changed or when the given option does not exist in CONTAINER_THEMES */
+    if (colourMode === this._userPreferences.colourMode || !(colourMode in CONTAINER_THEMES)) {
+      return;
     }
+
+    this._userPreferences = { ...this._userPreferences, colourMode }
   }
 
   colourTemplate = () => html`

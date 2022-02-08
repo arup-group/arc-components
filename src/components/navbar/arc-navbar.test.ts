@@ -103,6 +103,7 @@ describe('ArcNavbar', () => {
     let toolName: HTMLElement;
     let tabContainer: HTMLElement;
     let tabSlot: HTMLElement;
+    let accessibility: HTMLElement;
 
     /* Function that returns hidden and untouched elements when the slotted button and icon-button components exceed the tab limit */
     function retrieveElements() {
@@ -132,6 +133,7 @@ describe('ArcNavbar', () => {
       toolName = element.shadowRoot!.getElementById('tool-name')!;
       tabContainer = element.shadowRoot!.getElementById('tabs')!;
       tabSlot = element.shadowRoot!.getElementById('tabSlot')!;
+      accessibility = element.shadowRoot!.getElementById('accessibility')!;
     });
 
     it('shows the correct elements on a desktop', async () => {
@@ -139,6 +141,9 @@ describe('ArcNavbar', () => {
 
       expect(getPropertyValue(toolName, 'display')).to.equal('flex');
       expect(getPropertyValue(tabSlot, 'display')).to.equal('flex');
+
+      /* Accessibility always needs to be visible */
+      expect(getPropertyValue(accessibility, 'display')).to.equal('flex');
     });
 
     it('shows the correct elements on a phone', async () => {
@@ -154,6 +159,9 @@ describe('ArcNavbar', () => {
 
       /* Hide the tabs */
       expect(getPropertyValue(tabSlot, 'display')).to.equal('none');
+
+      /* Accessibility always needs to be visible */
+      expect(getPropertyValue(accessibility, 'display')).to.equal('flex');
     });
 
     it('shows the correct elements when the tab count changes', async () => {

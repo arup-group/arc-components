@@ -10,6 +10,11 @@ function stringToInitials(string: string) {
   return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 }
 
+function camelCaseToSpaceSeparated(string: string) {
+  const result = string.replace( /([A-Z])/g, " $1" );
+  return `${result.charAt(0).toUpperCase()}${result.slice(1)}`
+}
+
 /* Convert a comma-separated string to an array of strings */
 function stringToArray(string: string) {
   return string.split((/[ ,]+/));
@@ -32,4 +37,4 @@ function parseObject(string: string) {
 }
 
 
-export { uppercaseFirstLetter, stringToInitials, stringToArray, stringifyObject, parseObject };
+export { uppercaseFirstLetter, stringToInitials, camelCaseToSpaceSeparated, stringToArray, stringifyObject, parseObject };

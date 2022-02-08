@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { uppercaseFirstLetter, stringToInitials, stringToArray, stringifyObject, parseObject } from './string.js';
+import { uppercaseFirstLetter, stringToInitials, camelCaseToSpaceSeparated, stringToArray, stringifyObject, parseObject } from './string.js';
 
 describe('string', () => {
   describe('uppercaseFirstLetter', () => {
@@ -27,6 +27,23 @@ describe('string', () => {
       const string = '';
       expect(stringToInitials(string)).to.equal('');
     })
+  });
+
+  describe('camelCaseToSpaceSeparated', () => {
+    it('should return Test Option', () => {
+      const string = 'testOption';
+      expect(camelCaseToSpaceSeparated(string)).to.equal('Test Option');
+    });
+
+    it('should return Testoption', () => {
+      const string = 'testoption';
+      expect(camelCaseToSpaceSeparated(string)).to.equal('Testoption');
+    });
+
+    it('should return Test Option Two', () => {
+      const string = 'testOptionTwo';
+      expect(camelCaseToSpaceSeparated(string)).to.equal('Test Option Two');
+    });
   });
 
   describe('stringToArray', () => {

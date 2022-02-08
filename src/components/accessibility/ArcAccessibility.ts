@@ -1,13 +1,11 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import { stringifyObject, parseObject } from '../../internal/string.js';
-import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
-import { USER_PREFERENCES, UserPreferences } from './constants/AccessibilityConstants.js';
+import { camelCaseToSpaceSeparated, stringifyObject, parseObject } from '../../internal/string.js';
+import { ACCESSIBILITY_OPTIONS, USER_PREFERENCES, AccessibilityKey, AccessibilityOption, UserPreference } from './constants/AccessibilityConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
 import '../drawer/arc-drawer.js';
@@ -37,7 +35,7 @@ export default class ArcAccessibility extends LitElement {
   @query('#drawer') drawer: ArcDrawer;
 
   /* The default preferences for the accessibility panel */
-  @state() private _userPreferences: UserPreferences = USER_PREFERENCES;
+  @state() private _userPreferences: { [accessKeys in AccessibilityKey]: UserPreference } = USER_PREFERENCES;
 
   /* Indicates whether or not the drawer is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
@@ -91,29 +89,36 @@ export default class ArcAccessibility extends LitElement {
   }
 
   /* Update the theme */
-  updateTheme(event: MouseEvent) {
+  updatePreference(event: MouseEvent) {
     const radio = event.target as HTMLInputElement;
-    const colourMode = radio.value as ContainerTheme;
+    const key = radio.name as AccessibilityKey;
+    const value = radio.value as UserPreference;
 
-    /* Prevent firing of a change event when nothing changed or when the given option does not exist in CONTAINER_THEMES */
-    if (colourMode === this._userPreferences.colourMode || !(colourMode in CONTAINER_THEMES)) {
+    /* Prevent firing of a change event when nothing changed */
+    if (value === this._userPreferences[key]) {
       return;
     }
 
-    this._userPreferences = { ...this._userPreferences, colourMode }
+    /* Overwrite the object */
+    this._userPreferences = { ...this._userPreferences, [key]: value }
   }
 
-  colourTemplate = () => html`
-    <arc-radio-group>
-      <div slot='label' class='label'>
-        <span>Colour Mode</span>
-        <arc-icon name=${ICON_TYPES.bulb}></arc-icon>
-      </div>
-      ${Object.values(CONTAINER_THEMES).map(value => html`
-          <arc-radio name='colourMode' value=${value} ?checked=${value === this._userPreferences.colourMode} @arc-change=${this.updateTheme}>${value}</arc-radio>
-      `)}
-    </arc-radio-group>
-  `
+  optionTemplate = (key: AccessibilityKey, accessibilityOption: AccessibilityOption) => {
+    const { icon, values } = accessibilityOption;
+
+    /* When the values are within a string[], they can only be set by a checkbox */
+    return Array.isArray(values) ? html`
+      <arc-radio-group>
+        <div slot='label' class='label'>
+          <span>${camelCaseToSpaceSeparated(key)}</span>
+          <arc-icon name=${icon}></arc-icon>
+        </div>
+        ${values.map(value => html`
+          <arc-radio name=${key} value=${value} ?checked=${value === this._userPreferences[key]} @arc-change=${this.updatePreference}>${value}</arc-radio>
+        `)}
+      </arc-radio-group>
+    ` : nothing
+  }
 
   render() {
     return html`
@@ -124,7 +129,9 @@ export default class ArcAccessibility extends LitElement {
             <span>Accessibility Controls (A)</span>
           </div>
           <div id='wrapper'>
-            ${this.colourTemplate()}
+            ${Object.keys(ACCESSIBILITY_OPTIONS).map(
+              (key: AccessibilityKey) => this.optionTemplate(key, ACCESSIBILITY_OPTIONS[key])
+            )}
           </div>
         </arc-drawer>
       </div>

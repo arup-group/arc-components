@@ -140,10 +140,7 @@ describe('ArcNavbar', () => {
       await setViewport({ width: 1200, height: 640 });
 
       expect(getPropertyValue(toolName, 'display')).to.equal('flex');
-      expect(getPropertyValue(tabSlot, 'display')).to.equal('flex');
-
-      /* Accessibility always needs to be visible */
-      expect(getPropertyValue(accessibility, 'display')).to.equal('flex');
+      expect(getPropertyValue(tabSlot, 'display')).to.equal('flex');'flex');
     });
 
     it('shows the correct elements on a phone', async () => {
@@ -159,9 +156,6 @@ describe('ArcNavbar', () => {
 
       /* Hide the tabs */
       expect(getPropertyValue(tabSlot, 'display')).to.equal('none');
-
-      /* Accessibility always needs to be visible */
-      expect(getPropertyValue(accessibility, 'display')).to.equal('flex');
     });
 
     it('shows the correct elements when the tab count changes', async () => {

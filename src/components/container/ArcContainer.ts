@@ -6,8 +6,9 @@ import { watch } from '../../internal/watch.js';
 import { mobileBreakpoint } from "../../utilities/ui-utils.js";
 import componentStyles from '../../styles/component.styles.js';
 import { CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme } from './constants/ContainerConstants.js';
-import { UserPreferences } from '../accessibility/constants/AccessibilityConstants.js';
+import { AccessibilityKey, TextDisplay, UserPreference } from '../accessibility/constants/AccessibilityConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
+import { FONT_SIZES, FontSize } from '../../internal/constants/fontConstants.js';
 
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
@@ -107,12 +108,23 @@ export default class ArcContainer extends LitElement {
 
   updateUserPreferences = (event: CustomEvent) => {
     const { detail } = event;
-    const { preferences }: { preferences: UserPreferences } = detail;
-    const { colourMode } = preferences;
+    const { preferences }: { preferences: { [accessKeys in AccessibilityKey]: UserPreference } } = detail;
+    const colourMode = preferences.colourMode as ContainerTheme;
+    const textSize = preferences.textSize as FontSize;
+    const textDisplay = preferences.textDisplay as { [keys in TextDisplay]: boolean };
 
     /* Make sure that the given option exists */
     if (colourMode in CONTAINER_THEMES) {
       this.theme = colourMode;
+    }
+
+    /* Make sure that the given option exists */
+    if (textSize in FONT_SIZES) {
+      console.log('Changing the font-size');
+    }
+
+    if (textDisplay) {
+      console.log('Changing the text-display');
     }
   }
 

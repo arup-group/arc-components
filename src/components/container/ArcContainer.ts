@@ -108,19 +108,21 @@ export default class ArcContainer extends LitElement {
 
   updateUserPreferences = (event: CustomEvent) => {
     const { detail } = event;
-    const { preferences }: { preferences: { [accessKeys in AccessibilityKey]: UserPreference } } = detail;
+    const { preferences }: {
+      preferences: { [accessKeys in AccessibilityKey]: UserPreference }
+    } = detail;
     const colourMode = preferences.colourMode as ContainerTheme;
     const textSize = preferences.textSize as FontSize;
     const textDisplay = preferences.textDisplay as { [keys in TextDisplay]: boolean };
 
-    /* Make sure that the given option exists */
+    /* Make sure that the new option exists in the CONTAINER_THEMES. */
     if (colourMode in CONTAINER_THEMES) {
       this.theme = colourMode;
     }
 
     /* Make sure that the given option exists */
     if (textSize in FONT_SIZES) {
-      console.log('Changing the font-size');
+      console.log(`Changing the font-size to ${textSize}`);
     }
 
     if (textDisplay) {

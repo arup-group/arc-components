@@ -4,22 +4,20 @@ import { IconType } from '../../icon/constants/IconConstants.js';
 
 export declare type AccessibilityKey = 'colourMode' | 'textSize' | 'textDisplay';
 export declare type TextDisplay = 'highLegibilityFonts' | 'highlightLinks' | 'plainText';
-
 export declare type UserPreference = ContainerTheme | FontSize | { [keys in TextDisplay]: boolean };
-
 export declare type AccessibilityOption = {
   icon: IconType,
-  values: string[] | { [keys in TextDisplay]: boolean }
+  values: ContainerTheme[] | FontSize[] | { [keys in TextDisplay]: boolean }
 };
 
 export const ACCESSIBILITY_OPTIONS: { [accessKeys in AccessibilityKey]: AccessibilityOption } = {
   colourMode: {
     icon: 'bulb',
-    values: Object.keys(CONTAINER_THEMES)
+    values: Object.values(CONTAINER_THEMES)
   },
   textSize: {
     icon: 'book-open',
-    values: Object.keys(FONT_SIZES)
+    values: ['medium', 'large', 'x-large']
   },
   textDisplay: {
     icon: 'eye',

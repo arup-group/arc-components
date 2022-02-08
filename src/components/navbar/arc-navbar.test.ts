@@ -103,7 +103,6 @@ describe('ArcNavbar', () => {
     let toolName: HTMLElement;
     let tabContainer: HTMLElement;
     let tabSlot: HTMLElement;
-    let accessibility: HTMLElement;
 
     /* Function that returns hidden and untouched elements when the slotted button and icon-button components exceed the tab limit */
     function retrieveElements() {
@@ -133,14 +132,13 @@ describe('ArcNavbar', () => {
       toolName = element.shadowRoot!.getElementById('tool-name')!;
       tabContainer = element.shadowRoot!.getElementById('tabs')!;
       tabSlot = element.shadowRoot!.getElementById('tabSlot')!;
-      accessibility = element.shadowRoot!.getElementById('accessibility')!;
     });
 
     it('shows the correct elements on a desktop', async () => {
       await setViewport({ width: 1200, height: 640 });
 
       expect(getPropertyValue(toolName, 'display')).to.equal('flex');
-      expect(getPropertyValue(tabSlot, 'display')).to.equal('flex');'flex');
+      expect(getPropertyValue(tabSlot, 'display')).to.equal('flex');
     });
 
     it('shows the correct elements on a phone', async () => {

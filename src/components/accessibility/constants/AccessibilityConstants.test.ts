@@ -10,11 +10,10 @@ describe('AccessibilityConstants', () => {
 
       expect(keys.length).to.equal(3);
       keys.forEach((key: AccessibilityKey) => {
-        expect(ACCESSIBILITY_OPTIONS[key]).to.contain('icon');
-        expect(ACCESSIBILITY_OPTIONS[key]).to.contain('values');
+        expect(Object.keys(ACCESSIBILITY_OPTIONS[key])).to.contain('icon');
+        expect(Object.keys(ACCESSIBILITY_OPTIONS[key])).to.contain('values');
       })
     });
-
   });
 
   describe('UserPreferences', () => {

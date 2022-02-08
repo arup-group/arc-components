@@ -38,11 +38,14 @@ describe('ArcContainer', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
-    it('renders the element with a custom theme property', async () => {
+    it('prevents the element from having a non-existing theme', async () => {
       const element: ArcContainer = await fixture(html`<arc-container theme="test-theme"></arc-container>`);
 
-      expect(element.theme).to.equal('test-theme');
-      expect(element.getAttribute('theme')).to.equal('test-theme');
+      if (isNight()) {
+        expect(element.theme).to.equal(CONTAINER_THEMES.dark);
+      } else {
+        expect(element.theme).to.equal(CONTAINER_THEMES.light);
+      }
     });
 
     it('renders a theme based on the time of day', async () => {

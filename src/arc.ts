@@ -1,4 +1,5 @@
 /* Components */
+import './components/accessibility/arc-accessibility.js';
 import './components/bottombar/arc-bottombar.js';
 import './components/button/arc-button.js';
 import './components/container/arc-container.js';
@@ -17,11 +18,10 @@ import './components/sso/arc-sso.js';
 
 /* Utilities */
 export * from './utilities/base-path.js';
-export * from './utilities/dom-utils.js';
 export * from './utilities/style-utils.js';
-export * from './utilities/ui-utils.js';
 
 /* Types */
+export { default as ArcAccessibility } from './components/accessibility/ArcAccessibility.js';
 export { default as ArcBottombar } from './components/bottombar/ArcBottombar.js';
 export { default as ArcButton } from './components/button/ArcButton.js';
 export { default as ArcContainer } from './components/container/ArcContainer.js';

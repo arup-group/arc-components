@@ -17,7 +17,6 @@ describe('ButtonConstants', () => {
     expect(keys).to.contain('xx-large');
     expect(keys).to.contain('xxx-large');
     expect(keys).to.contain('xxxx-large');
-
   });
 
   describe('types', () => {

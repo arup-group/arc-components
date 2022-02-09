@@ -46,7 +46,6 @@ export default class Modal {
   }
 
   handleKeyDown(event: KeyboardEvent) {
-
     /* Quick hack to determine tab direction */
     if (event.key === 'Tab' && event.shiftKey) {
       this.tabDirection = 'backward';

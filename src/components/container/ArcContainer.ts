@@ -4,7 +4,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import { mobileBreakpoint } from '../../utilities/ui-utils.js';
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 
 import '../bottombar/arc-bottombar.js';
@@ -83,7 +83,7 @@ export default class ArcContainer extends LitElement {
     return html`
       <div id="main">
         <slot id="nav" name="nav"></slot>
-        <div id="container" class=${classMap({ 'fullscreen': this.fullscreen })}>
+        <div id="container" class=${classMap({ fullscreen: this.fullscreen })}>
           <slot name="side"></slot>
           <div id="content"><slot></slot></div>
         </div>

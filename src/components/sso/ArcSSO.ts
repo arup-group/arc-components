@@ -8,7 +8,7 @@ import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
 import { isExpired } from '../../internal/auth.js';
 import componentStyles from '../../styles/component.styles.js';
-import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import { mobileBreakpoint } from '../../utilities/ui-utils.js';
 
 import '../dropdown/arc-dropdown.js';
 import '../button/arc-button.js';
@@ -64,8 +64,8 @@ export default class ArcSSO extends LitElement {
   It allows the client or app to correctly identify the user over time and access rudimentary user information.
   */
   private loginRequest = {
-    scopes: ['openid', 'profile', 'User.Read']
-  }
+    scopes: ['openid', 'profile', 'User.Read'],
+  };
 
   @state()
   private _msalInstance: PublicClientApplication;
@@ -85,8 +85,9 @@ export default class ArcSSO extends LitElement {
   /* Additional scopes (permissions) */
   @property({
     type: Array,
-    converter: (attrValue: string | null) => attrValue ? stringToArray(attrValue) : []
-  }) scopes: string;
+    converter: (attrValue: string | null) => (attrValue ? stringToArray(attrValue) : []),
+  })
+  scopes: string;
 
   @watch('_isAuth')
   async handleAuthChange() {
@@ -97,8 +98,8 @@ export default class ArcSSO extends LitElement {
       },
       bubbles: true,
       composed: true,
-    }
-    emit(this, 'arc-auth', options)
+    };
+    emit(this, 'arc-auth', options);
   }
 
   connectedCallback() {
@@ -126,11 +127,11 @@ export default class ArcSSO extends LitElement {
       },
       cache: {
         cacheLocation: 'localStorage',
-        storeAuthStateInCookie: false
-      }
-    }
+        storeAuthStateInCookie: false,
+      },
+    };
 
-    return new Msal.PublicClientApplication(msalConfig)
+    return new Msal.PublicClientApplication(msalConfig);
   }
 
   /* Check whether the user is authenticated */
@@ -154,7 +155,7 @@ export default class ArcSSO extends LitElement {
   /* c8 ignore next 5 */
   async signOut() {
     await this._msalInstance.logoutRedirect({
-      account: this.getAccount()
+      account: this.getAccount(),
     });
   }
 
@@ -167,34 +168,38 @@ export default class ArcSSO extends LitElement {
   render() {
     const account = this.getAccount();
     const interior = html`
-      ${account && account.name ? html`
-        <arc-icon-button class='mobile' slot="trigger" name="user" label=${account.name}></arc-icon-button>
-        <arc-button class='fullscreen' slot="trigger" type="tab">
-          ${account.name}
-          <arc-icon slot="suffix" name="user"></arc-icon>
-        </arc-button>
-      ` : html`
-        <arc-icon-button slot="trigger" name="user" label="User"></arc-icon-button>
-      `}
+      ${account && account.name
+        ? html`
+            <arc-icon-button class="mobile" slot="trigger" name="user" label=${account.name}></arc-icon-button>
+            <arc-button class="fullscreen" slot="trigger" type="tab">
+              ${account.name}
+              <arc-icon slot="suffix" name="user"></arc-icon>
+            </arc-button>
+          `
+        : html` <arc-icon-button slot="trigger" name="user" label="User"></arc-icon-button> `}
     `;
 
     return html`
       <div id="main">
-        ${this._isAuth ? html`
-          <slot name="logout">
-            <arc-dropdown id="userMenu" hoist>
-              ${interior}
-              <arc-menu>
-                <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
-              </arc-menu>
-            </arc-dropdown>
-          </slot>
-        ` : nothing}
-        ${!this._isAuth ? html`
-          <slot name="login">
-            <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
-          </slot>
-        ` : nothing}
+        ${this._isAuth
+          ? html`
+              <slot name="logout">
+                <arc-dropdown id="userMenu" hoist>
+                  ${interior}
+                  <arc-menu>
+                    <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
+                  </arc-menu>
+                </arc-dropdown>
+              </slot>
+            `
+          : nothing}
+        ${!this._isAuth
+          ? html`
+              <slot name="login">
+                <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
+              </slot>
+            `
+          : nothing}
       </div>
     `;
   }

@@ -72,7 +72,7 @@ describe('ArcContainer', () => {
 
       expect(getPropertyValue(container, 'gap')).to.equal('0px');
       expect(getPropertyValue(container, 'padding')).to.equal('0px');
-    })
+    });
   });
 
   /* Test specific methods */

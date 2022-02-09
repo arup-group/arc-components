@@ -6,10 +6,8 @@ const filteredLogs = ['Running in dev mode', 'lit-html is in dev mode'];
 const replace = fromRollup(rollupReplace);
 
 export default /** @type {import('@web/test-runner').TestRunnerConfig} */ ({
-  /** Test files to run */
+  rootDir: '/',
   files: 'src/**/*.test.ts',
-
-  /** Resolve bare module imports */
   nodeResolve: {
     exportConditions: ['browser', 'development'],
   },

@@ -22,7 +22,8 @@ export default class ArcDropdown extends LitElement {
         align-items: center;
       }
 
-      #main, #trigger {
+      #main,
+      #trigger {
         display: inline-flex;
         align-items: center;
         justify-content: center;

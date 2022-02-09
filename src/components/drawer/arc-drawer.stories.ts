@@ -9,17 +9,19 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  open: boolean,
-  contained: boolean,
-  placement: DrawerPlacements,
-  label: string | undefined,
-  size: string
+  open: boolean;
+  contained: boolean;
+  placement: DrawerPlacements;
+  label: string | undefined;
+  size: string;
 }
 
 const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
-  <div style='position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)'>
+  <div
+    style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
+  >
     <arc-drawer
-      style='--size:${size}'
+      style="--size:${size}"
       ?open="${open}"
       ?contained="${contained}"
       placement="${placement}"
@@ -33,10 +35,12 @@ const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: 
 `;
 
 const LockedTemplate: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
-  <div style='position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)'>
+  <div
+    style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
+  >
     <arc-drawer
-      id='lockedDrawer'
-      style='--size:${size}'
+      id="lockedDrawer"
+      style="--size:${size}"
       ?open="${open}"
       ?contained="${contained}"
       placement="${placement}"
@@ -53,7 +57,7 @@ const defaultArgs = {
   contained: true,
   placement: DRAWER_PLACEMENTS.end,
   label: 'Drawer',
-  size: '25rem'
+  size: '25rem',
 };
 
 /* TYPES */
@@ -73,4 +77,3 @@ Start.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.start, label: 'Drawe
 export const Closing = LockedTemplate.bind({});
 
 Closing.args = { ...defaultArgs };
-

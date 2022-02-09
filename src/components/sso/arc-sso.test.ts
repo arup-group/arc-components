@@ -27,7 +27,9 @@ describe('ArcSSO', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom client-id, tenant-id, redirect-uri, scopes and interaction property', async () => {
-      const element: ArcSSO = await fixture(html`<arc-sso client-id='1' tenant-id='2' redirect-uri='/' scopes='one,two, three'></arc-sso>`);
+      const element: ArcSSO = await fixture(
+        html`<arc-sso client-id="1" tenant-id="2" redirect-uri="/" scopes="one,two, three"></arc-sso>`
+      );
 
       expect(element.clientId).to.equal('1');
       expect(element.getAttribute('client-id')).to.equal('1');
@@ -62,7 +64,6 @@ describe('ArcSSO', () => {
       expect(hasSlot(main, 'login')).to.be.true;
 
       /* The logout slot is available when the user is signed in */
-
     });
   });
 });

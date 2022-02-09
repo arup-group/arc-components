@@ -1,6 +1,14 @@
 import { html, TemplateResult } from 'lit';
 
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES, ButtonColor, ButtonSize, ButtonType, ButtonTarget } from './constants/ButtonConstants.js';
+import {
+  BUTTON_COLORS,
+  BUTTON_SIZES,
+  BUTTON_TYPES,
+  ButtonColor,
+  ButtonSize,
+  ButtonType,
+  ButtonTarget,
+} from './constants/ButtonConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

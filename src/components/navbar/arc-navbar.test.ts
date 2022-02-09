@@ -83,7 +83,7 @@ describe('ArcNavbar', () => {
     function retrieveElements() {
       return {
         hiddenTabs: [...element.children].filter(el => (el as HTMLElement).style.display === 'none'),
-        untouchedElements: [...element.children].filter(el => (el as HTMLElement).style.display === '')
+        untouchedElements: [...element.children].filter(el => (el as HTMLElement).style.display === ''),
       };
     }
 
@@ -93,14 +93,14 @@ describe('ArcNavbar', () => {
           <span slot="name">Custom Brand</span>
           <div>Some div</div>
           <arc-dropdown>
-            <arc-button slot='trigger'>Dropdown</arc-button>
+            <arc-button slot="trigger">Dropdown</arc-button>
           </arc-dropdown>
           <arc-button type="tab">1</arc-button>
           <arc-button type="tab" disabled>2</arc-button>
           <arc-button type="tab"></arc-button>
           <arc-icon-button>Home</arc-icon-button>
-          <arc-icon-button label='Home'></arc-icon-button>
-          <arc-icon-button name='home'></arc-icon-button>
+          <arc-icon-button label="Home"></arc-icon-button>
+          <arc-icon-button name="home"></arc-icon-button>
           <arc-icon-button></arc-icon-button>
         </arc-navbar>
       `);
@@ -158,7 +158,7 @@ describe('ArcNavbar', () => {
       /* A dropdown menu exists */
       const dropdown = tabContainer.querySelector('arc-dropdown');
       expect(dropdown).to.exist;
-    })
+    });
 
     it('retrieves the correct properties from the slotted button and icon-button components', async () => {
       element.tabs = 1;
@@ -176,7 +176,7 @@ describe('ArcNavbar', () => {
       expect(menu.children[4].textContent?.includes(`${element.children[7].getAttribute('label')}`)).to.be.true;
       expect(menu.children[5].textContent?.includes(`${element.children[8].getAttribute('name')}`)).to.be.true;
       expect(menu.children[6].textContent?.includes('Invalid label')).to.be.true;
-    })
+    });
   });
 
   /* Test whether the slots can be filled and that they exist */

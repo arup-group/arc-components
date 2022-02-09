@@ -11,7 +11,7 @@ interface Story<T> {
 
 interface ArgTypes {
   theme?: ContainerTheme;
-  fullscreen?: boolean
+  fullscreen?: boolean;
 }
 
 const Template: Story<ArgTypes> = ({ theme, fullscreen }: ArgTypes) => html`
@@ -30,8 +30,8 @@ const Template: Story<ArgTypes> = ({ theme, fullscreen }: ArgTypes) => html`
 
 const defaultArgs: ArgTypes = {
   theme: CONTAINER_THEMES.auto,
-  fullscreen: false
-}
+  fullscreen: false,
+};
 
 export const Container = Template.bind({});
 export const DarkContainer = Template.bind({});

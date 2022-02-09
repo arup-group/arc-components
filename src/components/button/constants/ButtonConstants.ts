@@ -10,13 +10,13 @@ export const BUTTON_COLORS: { [key in ButtonColor]: ButtonColor } = {
   error: 'error',
   warning: 'warning',
   info: 'info',
-  success: 'success'
+  success: 'success',
 };
 
 export const BUTTON_SIZES: { [key in ButtonSize]: ButtonSize } = {
   small: 'small',
   medium: 'medium',
-  large: 'large'
+  large: 'large',
 };
 
 export const BUTTON_TYPES: { [key in ButtonType]: ButtonType } = {
@@ -24,5 +24,5 @@ export const BUTTON_TYPES: { [key in ButtonType]: ButtonType } = {
   tile: 'tile',
   outlined: 'outlined',
   pill: 'pill',
-  tab: 'tab'
+  tab: 'tab',
 };

@@ -1,7 +1,7 @@
 import { css, html, LitElement, nothing } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
-import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import { mobileBreakpoint } from '../../utilities/ui-utils.js';
 import { watch } from '../../internal/watch.js';
 
 import type ArcButton from '../button/ArcButton.js';
@@ -111,7 +111,8 @@ export default class ArcNavbar extends LitElement {
 
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #tabSlot, #tool-logo + #tool-name {
+        #tabSlot,
+        #tool-logo + #tool-name {
           display: flex;
         }
       }
@@ -149,7 +150,7 @@ export default class ArcNavbar extends LitElement {
     this.navTabs = nodes.filter((el: Element) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
 
     this.updateTemplate();
-  };
+  }
 
   updateTemplate() {
     this.showDropdown = this.navTabs.length > this.tabs;
@@ -158,7 +159,7 @@ export default class ArcNavbar extends LitElement {
     [...this.navTabs].forEach(tab => {
       /* eslint-disable-next-line no-param-reassign */
       tab.style.display = this.showDropdown ? 'none' : 'initial';
-    })
+    });
   }
 
   render() {
@@ -167,43 +168,45 @@ export default class ArcNavbar extends LitElement {
     Properties are derived from the button and icon-button components
     */
     const menuInterior = html`
-      ${this.navTabs.map(tab => html`
-        <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
-          ${(tab as ArcIconButton).name ? html`
-            <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon>
-          ` : nothing}
-          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || "Invalid label"}
-        </arc-menu-item>
-      `)}
+      ${this.navTabs.map(
+        tab => html`
+          <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
+            ${(tab as ArcIconButton).name
+              ? html` <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon> `
+              : nothing}
+            ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
+          </arc-menu-item>
+        `
+      )}
     `;
 
     const logoInterior = html`
       ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
       <slot id="tool-name" name="name"></slot>
-    `
+    `;
 
     return html`
       <div id="main">
         <div id="left">
-          ${this.home ? html`
-            <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
-              ${logoInterior}
-            </a>
-          ` : html`
-            <div id='logoWrapper'>
-              ${logoInterior}
-            </div>
-          `}
+          ${this.home
+            ? html`
+                <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
+                  ${logoInterior}
+                </a>
+              `
+            : html` <div id="logoWrapper">${logoInterior}</div> `}
         </div>
         <div id="right">
           <div id="tabs">
             <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
-            ${this.showDropdown ? html`
-              <arc-dropdown hoist>
-                <arc-icon-button slot="trigger" name="menu"></arc-icon-button>
-                <arc-menu>${menuInterior}</arc-menu>
-              </arc-dropdown>
-            ` : nothing}
+            ${this.showDropdown
+              ? html`
+                  <arc-dropdown hoist>
+                    <arc-icon-button slot="trigger" name="menu"></arc-icon-button>
+                    <arc-menu>${menuInterior}</arc-menu>
+                  </arc-dropdown>
+                `
+              : nothing}
             <slot name="user"></slot>
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}

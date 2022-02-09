@@ -22,11 +22,11 @@ describe('string', () => {
     it('should return the initials when one (or many) middle names are present', () => {
       const string = 'Test Middle Name User';
       expect(stringToInitials(string)).to.equal('TU');
-    })
+    });
     it('should return an empty string when an empty string is given', () => {
       const string = '';
       expect(stringToInitials(string)).to.equal('');
-    })
+    });
   });
 
   describe('stringToArray', () => {
@@ -47,4 +47,4 @@ describe('string', () => {
       expect(stringArrayTwo[2]).to.equal('three');
     });
   });
-})
+});

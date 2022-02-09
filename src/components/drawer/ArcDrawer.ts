@@ -254,7 +254,7 @@ export default class ArcDrawer extends LitElement {
       const overlayAnimation = getAnimation(this, 'drawer.overlay.show');
       await Promise.all([
         startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
-        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options)
+        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options),
       ]);
 
       emit(this, 'arc-after-show');
@@ -269,7 +269,7 @@ export default class ArcDrawer extends LitElement {
       const overlayAnimation = getAnimation(this, 'drawer.overlay.hide');
       await Promise.all([
         startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
-        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options)
+        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options),
       ]);
 
       this.drawer.hidden = true;
@@ -286,15 +286,16 @@ export default class ArcDrawer extends LitElement {
 
   render() {
     return html`
-      <div id='main' @keydown=${this.handleKeyDown}>
-        <div id='overlay' @click=${this.requestClose} role="presentation" tabindex='-1'></div>
-        <div id='panel'
-             role='dialog'
-             aria-modal='true'
-             aria-hidden=${this.open ? 'false' : 'true'}
-             aria-label=${ifDefined(this.label)}
-             aria-labelledby=${ifDefined(`${this.componentId}-title`)}
-             tabindex='0'
+      <div id="main" @keydown=${this.handleKeyDown}>
+        <div id="overlay" @click=${this.requestClose} role="presentation" tabindex="-1"></div>
+        <div
+          id="panel"
+          role="dialog"
+          aria-modal="true"
+          aria-hidden=${this.open ? 'false' : 'true'}
+          aria-label=${ifDefined(this.label)}
+          aria-labelledby=${ifDefined(`${this.componentId}-title`)}
+          tabindex="0"
         >
           <div id="header">
             <span>${this.label}</span>
@@ -306,7 +307,7 @@ export default class ArcDrawer extends LitElement {
             ></arc-icon-button>
           </div>
 
-          <div id='body'>
+          <div id="body">
             <slot></slot>
           </div>
 
@@ -323,85 +324,85 @@ export default class ArcDrawer extends LitElement {
 setDefaultAnimation('drawer.showTop', {
   keyframes: [
     { opacity: 0, transform: 'translateY(-100%)' },
-    { opacity: 1, transform: 'translateY(0)' }
+    { opacity: 1, transform: 'translateY(0)' },
   ],
-  options: { duration: 250, easing: 'ease' }
+  options: { duration: 250, easing: 'ease' },
 });
 
 setDefaultAnimation('drawer.hideTop', {
   keyframes: [
     { opacity: 1, transform: 'translateY(0)' },
-    { opacity: 0, transform: 'translateY(-100%)' }
+    { opacity: 0, transform: 'translateY(-100%)' },
   ],
-  options: { duration: 250, easing: 'ease' }
+  options: { duration: 250, easing: 'ease' },
 });
 
 /* End */
 setDefaultAnimation('drawer.showEnd', {
   keyframes: [
     { opacity: 0, transform: 'translateX(100%)' },
-    { opacity: 1, transform: 'translateX(0)' }
+    { opacity: 1, transform: 'translateX(0)' },
   ],
-  options: { duration: 250, easing: 'ease' }
+  options: { duration: 250, easing: 'ease' },
 });
 
 setDefaultAnimation('drawer.hideEnd', {
   keyframes: [
     { opacity: 1, transform: 'translateX(0)' },
-    { opacity: 0, transform: 'translateX(100%)' }
+    { opacity: 0, transform: 'translateX(100%)' },
   ],
-  options: { duration: 250, easing: 'ease' }
+  options: { duration: 250, easing: 'ease' },
 });
 
 /* Bottom */
 setDefaultAnimation('drawer.showBottom', {
   keyframes: [
     { opacity: 0, transform: 'translateY(100%)' },
-    { opacity: 1, transform: 'translateY(0)' }
+    { opacity: 1, transform: 'translateY(0)' },
   ],
-  options: { duration: 250, easing: 'ease' }
+  options: { duration: 250, easing: 'ease' },
 });
 
 setDefaultAnimation('drawer.hideBottom', {
   keyframes: [
     { opacity: 1, transform: 'translateY(0)' },
-    { opacity: 0, transform: 'translateY(100%)' }
+    { opacity: 0, transform: 'translateY(100%)' },
   ],
-  options: { duration: 250, easing: 'ease' }
+  options: { duration: 250, easing: 'ease' },
 });
 
 /* Start */
 setDefaultAnimation('drawer.showStart', {
   keyframes: [
     { opacity: 0, transform: 'translateX(-100%)' },
-    { opacity: 1, transform: 'translateX(0)' }
+    { opacity: 1, transform: 'translateX(0)' },
   ],
-  options: { duration: 250, easing: 'ease' }
+  options: { duration: 250, easing: 'ease' },
 });
 
 setDefaultAnimation('drawer.hideStart', {
   keyframes: [
     { opacity: 1, transform: 'translateX(0)' },
-    { opacity: 0, transform: 'translateX(-100%)' }
+    { opacity: 0, transform: 'translateX(-100%)' },
   ],
-  options: { duration: 250, easing: 'ease' }
+  options: { duration: 250, easing: 'ease' },
 });
 
 /* Deny close */
 setDefaultAnimation('drawer.denyClose', {
   keyframes: [{ transform: 'scale(1)' }, { transform: 'scale(1.01)' }, { transform: 'scale(1)' }],
-  options: { duration: 250 }
+  options: { duration: 250 },
 });
 
 /* Overlay */
 setDefaultAnimation('drawer.overlay.show', {
   keyframes: [{ opacity: 0 }, { opacity: 1 }],
-  options: { duration: 250 }
+  options: { duration: 250 },
 });
 
 setDefaultAnimation('drawer.overlay.hide', {
   keyframes: [{ opacity: 1 }, { opacity: 0 }],
-  options: { duration: 250 }
+  options: { duration: 250 },
 });
 
 declare global {

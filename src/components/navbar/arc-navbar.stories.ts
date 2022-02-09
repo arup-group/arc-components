@@ -35,7 +35,7 @@ const defaultArgs: ArgTypes = {
   tabs: 5,
   height: 'var(--arc-navbar-height)',
   name: 'Web Components',
-}
+};
 
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };

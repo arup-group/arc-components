@@ -12,7 +12,7 @@ function stringToInitials(string: string) {
 
 /* Convert a comma-separated string to an array of strings */
 function stringToArray(string: string) {
-  return string.split((/[ ,]+/));
+  return string.split(/[ ,]+/);
 }
 
 export { uppercaseFirstLetter, stringToInitials, stringToArray };

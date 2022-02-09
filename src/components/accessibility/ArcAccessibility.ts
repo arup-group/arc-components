@@ -3,14 +3,8 @@ import { property, query, state } from 'lit/decorators.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import { camelCaseToSpaceSeparated, stringifyObject, parseObject } from '../../internal/string.js';
-import {
-  ACCESSIBILITY_OPTIONS,
-  USER_PREFERENCES,
-  AccessibilityKey,
-  AccessibilityOption,
-  UserPreference,
-} from './constants/AccessibilityConstants.js';
+import { uppercaseFirstLetter, camelCaseToSpaceSeparated, stringifyObject, parseObject } from '../../internal/string.js';
+import {ACCESSIBILITY_OPTIONS, USER_PREFERENCES, AccessibilityKey, AccessibilityOption, UserPreference,} from './constants/AccessibilityConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
@@ -127,7 +121,7 @@ export default class ArcAccessibility extends LitElement {
                   value=${value}
                   ?checked=${value === this._userPreferences[key]}
                   @arc-change=${this.updatePreference}
-                  >${value}</arc-radio
+                  >${uppercaseFirstLetter(value)}</arc-radio
                 >
               `
             )}

@@ -1,14 +1,15 @@
-import { css, html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { isNight } from '../../internal/theme.js';
-import { watch } from '../../internal/watch.js';
-import { mobileBreakpoint } from '../../utilities/ui-utils.js';
+import {css, html, LitElement} from 'lit';
+import {property, query} from 'lit/decorators.js';
+import {classMap} from 'lit/directives/class-map.js';
+import {isNight} from '../../internal/theme.js';
+import {watch} from '../../internal/watch.js';
+import {mobileBreakpoint} from '../../utilities/ui-utils.js';
 import componentStyles from '../../styles/component.styles.js';
-import { CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme } from './constants/ContainerConstants.js';
-import { AccessibilityKey, TextDisplay, UserPreference } from '../accessibility/constants/AccessibilityConstants.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
-import { FONT_SIZES, FontSize } from '../../internal/constants/fontConstants.js';
+import {CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme} from './constants/ContainerConstants.js';
+import {TextDisplay} from '../accessibility/constants/AccessibilityConstants.js';
+import {ICON_TYPES} from '../icon/constants/IconConstants.js';
+import {FONT_SIZES, FontSize} from '../../internal/constants/fontConstants.js';
+import StyleUpdater from "../../internal/style.js";
 
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
@@ -75,10 +76,12 @@ export default class ArcContainer extends LitElement {
 
   @query('#accessibility') accessibility: ArcAccessibility;
 
-  @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
+  private _styleUpdater: StyleUpdater;
+
+  @property({type: String, reflect: true}) theme: ContainerTheme = CONTAINER_THEMES.auto;
 
   /* Hides the padding, margin and gap values */
-  @property({ type: Boolean }) fullscreen: boolean = false;
+  @property({type: Boolean}) fullscreen: boolean = false;
 
   @watch('theme')
   handleThemeChange() {
@@ -91,6 +94,9 @@ export default class ArcContainer extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('keypress', this.handleKeyDown.bind(this));
+
+    /* Register the StyleUpdater class */
+    this._styleUpdater = new StyleUpdater();
   }
 
   /* Remove to keyboard input listener on the page */
@@ -106,13 +112,10 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
+  /* Method fired when the arc-accessibility component emits the @arc-accessibility-change event */
   updateUserPreferences = (event: CustomEvent) => {
-    const { detail } = event;
-    const {
-      preferences,
-    }: {
-      preferences: { [accessKeys in AccessibilityKey]: UserPreference };
-    } = detail;
+    const {detail} = event;
+    const {preferences} = detail;
     const colourMode = preferences.colourMode as ContainerTheme;
     const textSize = preferences.textSize as FontSize;
     const textDisplay = preferences.textDisplay as { [keys in TextDisplay]: boolean };
@@ -122,9 +125,9 @@ export default class ArcContainer extends LitElement {
       this.theme = colourMode;
     }
 
-    /* Make sure that the given option exists */
+    /* Make sure that the given option exists in the FONT_SIZES. */
     if (textSize in FONT_SIZES) {
-      console.log(`Changing the font-size to ${textSize}`);
+      this._styleUpdater.changeFontSize(textSize);
     }
 
     if (textDisplay) {
@@ -147,9 +150,11 @@ export default class ArcContainer extends LitElement {
     return html`
       <div id="main">
         <slot id="nav" name="nav" @arc-show-accessibility=${this.showAccessibility}></slot>
-        <div id="container" class=${classMap({ fullscreen: this.fullscreen })}>
+        <div id="container" class=${classMap({fullscreen: this.fullscreen})}>
           <slot name="side"></slot>
-          <div id="content"><slot></slot></div>
+          <div id="content">
+            <slot></slot>
+          </div>
         </div>
         <arc-accessibility
           id="accessibility"
@@ -162,7 +167,8 @@ export default class ArcContainer extends LitElement {
               name=${ICON_TYPES.accessibility}
               label="Open accessibility"
               @click=${this.showAccessibility}
-              >Accessibility</arc-icon-button
+            >Accessibility
+            </arc-icon-button
             >
           </arc-bottombar>
         </slot>

@@ -57,7 +57,7 @@
     "@web/dev-server": "^0.1.28",
     "@web/dev-server-esbuild": "^0.2.16",
     "@web/dev-server-rollup": "^0.3.13",
-    "@web/dev-server-storybook": "next",
+    "@web/dev-server-storybook": "^0.4.2",
     "@web/rollup-plugin-html": "^1.10.1",
     "@web/test-runner": "next",
     "babel-plugin-template-html-minifier": "^4.1.0",

@@ -31,7 +31,7 @@ describe('ArcDrawer', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom placement and label property', async () => {
-      const element: ArcDrawer = await fixture(html`<arc-drawer placement='top' label='Test label'></arc-drawer>`);
+      const element: ArcDrawer = await fixture(html`<arc-drawer placement="top" label="Test label"></arc-drawer>`);
 
       expect(element.placement).to.equal('top');
       expect(element.getAttribute('placement')).to.equal('top');
@@ -48,7 +48,7 @@ describe('ArcDrawer', () => {
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
       expect(isOpen()).to.be.true;
-    })
+    });
   });
 
   /* Test different component states (active, disabled, loading etc.) */
@@ -79,7 +79,7 @@ describe('ArcDrawer', () => {
 
       expect(element.contained).to.be.true;
       expect(element.hasAttribute('contained')).to.be.true;
-    })
+    });
   });
 
   /* Test the events (click, focus, blur etc.) */
@@ -102,8 +102,8 @@ describe('ArcDrawer', () => {
     const afterHideHandler: SinonSpy = sinon.spy();
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-drawer id='one'><input /></arc-drawer>`);
-      elementTwo = await fixture(html`<arc-drawer id='two'><input /></arc-drawer>`);
+      element = await fixture(html`<arc-drawer id="one"><input /></arc-drawer>`);
+      elementTwo = await fixture(html`<arc-drawer id="two"><input /></arc-drawer>`);
 
       input = element.querySelector('input') as HTMLElement;
       overlay = element.shadowRoot?.getElementById('overlay') as HTMLElement;
@@ -207,7 +207,7 @@ describe('ArcDrawer', () => {
 
       expect(hideHandler).to.have.been.calledOnce;
       expect(afterHideHandler).to.have.been.calledOnce;
-    })
+    });
 
     it('should not close when arc-request-close is prevented', async () => {
       await element.show();
@@ -225,7 +225,7 @@ describe('ArcDrawer', () => {
       await elementTwo.show();
 
       expect(document.activeElement === elementTwo).to.be.true;
-    })
+    });
 
     it('should allow initial focus to be set', async () => {
       element.addEventListener(ARC_EVENTS.initialFocus, initialFocusHandler);
@@ -279,7 +279,7 @@ describe('ArcDrawer', () => {
       expect(getPropertyValue(element, '--size')).to.equal('25rem');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcDrawer = await fixture(html`<arc-drawer style='--size:5px'></arc-drawer>`);
+      const element: ArcDrawer = await fixture(html`<arc-drawer style="--size:5px"></arc-drawer>`);
 
       expect(getPropertyValue(element, '--size')).to.equal('5px');
     });

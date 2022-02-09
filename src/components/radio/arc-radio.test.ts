@@ -42,7 +42,9 @@ describe('ArcRadio', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom name, value, disabled and checked property', async () => {
-      const element: ArcRadio = await fixture(html`<arc-radio name='testName' value='testVal' disabled checked></arc-radio>`);
+      const element: ArcRadio = await fixture(
+        html`<arc-radio name="testName" value="testVal" disabled checked></arc-radio>`
+      );
       const input: HTMLInputElement = element.shadowRoot!.querySelector('input')!;
 
       expect(input.name).to.equal('testName');
@@ -102,10 +104,10 @@ describe('ArcRadio', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <arc-radio-group>
-          <arc-radio name='one' disabled>Alpha</arc-radio>
-          <arc-radio name='one' checked>Bravo</arc-radio>
-          <arc-radio name='one'>Charlie</arc-radio>
-          <arc-radio name='two'>Delta</arc-radio>
+          <arc-radio name="one" disabled>Alpha</arc-radio>
+          <arc-radio name="one" checked>Bravo</arc-radio>
+          <arc-radio name="one">Charlie</arc-radio>
+          <arc-radio name="two">Delta</arc-radio>
         </arc-radio-group>
       `);
       radioButtons = element.querySelectorAll('arc-radio');
@@ -170,7 +172,7 @@ describe('ArcRadio', () => {
           <arc-radio checked>Bravo</arc-radio>
           <arc-radio>Charlie</arc-radio>
         </arc-radio-group>
-      `)
+      `);
       const radioButtonsTwo: NodeListOf<ArcRadio> = elementTwo.querySelectorAll('arc-radio');
 
       expect(getIndex(radioButtonsTwo[0])).to.equal('-1');
@@ -185,13 +187,13 @@ describe('ArcRadio', () => {
           <arc-radio checked disabled>Bravo</arc-radio>
           <arc-radio>Charlie</arc-radio>
         </arc-radio-group>
-      `)
+      `);
       const radioButtonsTwo: NodeListOf<ArcRadio> = elementTwo.querySelectorAll('arc-radio');
 
       expect(getIndex(radioButtonsTwo[0])).to.equal('-1');
       expect(getIndex(radioButtonsTwo[1])).to.equal('-1');
       expect(getIndex(radioButtonsTwo[2])).to.equal('0');
-    })
+    });
 
     it('sets the correct tabIndex to the first available radio', async () => {
       const elementTwo: ArcRadioGroup = await fixture(html`
@@ -200,13 +202,13 @@ describe('ArcRadio', () => {
           <arc-radio>Bravo</arc-radio>
           <arc-radio>Charlie</arc-radio>
         </arc-radio-group>
-      `)
+      `);
       const radioButtonsTwo: NodeListOf<ArcRadio> = elementTwo.querySelectorAll('arc-radio');
 
       expect(getIndex(radioButtonsTwo[0])).to.equal('0');
       expect(getIndex(radioButtonsTwo[1])).to.equal('-1');
       expect(getIndex(radioButtonsTwo[2])).to.equal('-1');
-    })
+    });
   });
 
   /* Test the events (click, focus, blur etc.) */

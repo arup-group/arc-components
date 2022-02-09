@@ -52,7 +52,9 @@ describe('ArcIconButton', () => {
     });
 
     it('renders the button as an anchor', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button href="/" label="Test label">Test</arc-icon-button>`);
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button href="/" label="Test label">Test</arc-icon-button>`
+      );
       const buttonTarget = element.shadowRoot!.getElementById('button')!;
 
       expect(element.href).to.equal('/');
@@ -66,7 +68,9 @@ describe('ArcIconButton', () => {
     });
 
     it('renders the anchor with a target attribute', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button href="/" target="_blank">Test</arc-icon-button>`);
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button href="/" target="_blank">Test</arc-icon-button>`
+      );
       const buttonTarget = element.shadowRoot!.getElementById('button')!;
 
       expect(element.target).to.equal('_blank');
@@ -77,7 +81,9 @@ describe('ArcIconButton', () => {
     });
 
     it('renders the anchor with a download attribute', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button href="/" download="Filename">Test</arc-icon-button>`);
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button href="/" download="Filename">Test</arc-icon-button>`
+      );
       const buttonTarget = element.shadowRoot!.getElementById('button')!;
 
       expect(element.download).to.equal('Filename');
@@ -221,9 +227,11 @@ describe('ArcIconButton', () => {
     });
 
     it('overwrites the css variables', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button style="--icon-color: green;">Test</arc-icon-button>`);
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button style="--icon-color: green;">Test</arc-icon-button>`
+      );
 
       expect(getPropertyValue(element, '--icon-color')).to.equal('green');
     });
-  })
+  });
 });

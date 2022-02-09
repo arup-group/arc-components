@@ -35,5 +35,5 @@ describe('EventConstants', () => {
     expect(values).to.contain('arc-select');
     expect(values).to.contain('arc-show-accessibility');
     expect(values).to.contain('arc-show');
-  })
-})
+  });
+});

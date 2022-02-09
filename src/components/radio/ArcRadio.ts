@@ -91,7 +91,9 @@ export default class ArcRadio extends LitElement {
       const checkedRadio = radios.find(radio => radio.checked);
 
       /* Set the tabindex of all radios to -1. */
-      radios.forEach(radio => { radio.input.tabIndex = -1 });
+      radios.forEach(radio => {
+        radio.input.tabIndex = -1;
+      });
 
       /* Make sure that at least one radio gets the tabindex of 0. */
       if (checkedRadio && !checkedRadio.disabled) {
@@ -143,7 +145,6 @@ export default class ArcRadio extends LitElement {
 
       /* Are disabled items included? return true, else false. */
       return !(!includeDisabled && radio.disabled);
-
     }) as ArcRadio[];
   }
 
@@ -196,7 +197,11 @@ export default class ArcRadio extends LitElement {
             aria-disabled=${this.disabled}
             @click=${this.handleClick}
           />
-          <arc-icon name=${this.checked ? ICON_TYPES['radio-checked'] : ICON_TYPES['radio-unchecked']} size="large" focusable="false"></arc-icon>
+          <arc-icon
+            name=${this.checked ? ICON_TYPES['radio-checked'] : ICON_TYPES['radio-unchecked']}
+            size="large"
+            focusable="false"
+          ></arc-icon>
         </span>
         <span id="label"><slot></slot></span>
       </label>

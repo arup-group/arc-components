@@ -190,7 +190,7 @@ export default class ArcIconButton extends LitElement {
         </span>
         ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : nothing}
       </${tag}>
-    `
+    `;
   }
 }
 

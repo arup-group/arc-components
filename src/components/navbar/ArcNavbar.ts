@@ -3,7 +3,7 @@ import { property, state, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import { mobileBreakpoint } from '../../utilities/ui-utils.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
@@ -119,7 +119,9 @@ export default class ArcNavbar extends LitElement {
 
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #tabSlot, #tool-logo + #tool-name, #accessibility {
+        #tabSlot,
+        #tool-logo + #tool-name,
+        #accessibility {
           display: flex;
         }
       }
@@ -157,7 +159,7 @@ export default class ArcNavbar extends LitElement {
     this.navTabs = nodes.filter((el: Element) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
 
     this.updateTemplate();
-  };
+  }
 
   updateTemplate() {
     this.showDropdown = this.navTabs.length > this.tabs;
@@ -166,12 +168,12 @@ export default class ArcNavbar extends LitElement {
     [...this.navTabs].forEach(tab => {
       /* eslint-disable-next-line no-param-reassign */
       tab.style.display = this.showDropdown ? 'none' : 'initial';
-    })
+    });
   }
 
   /* Emit an event to show the accessibility panel */
   emitAccessibility() {
-    emit(this, ARC_EVENTS.showAccessibility)
+    emit(this, ARC_EVENTS.showAccessibility);
   }
 
   render() {
@@ -180,47 +182,53 @@ export default class ArcNavbar extends LitElement {
     Properties are derived from the button and icon-button components
     */
     const menuInterior = html`
-      ${this.navTabs.map(tab => html`
-        <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
-          ${(tab as ArcIconButton).name ? html`
-            <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon>
-          ` : nothing}
-          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || "Invalid label"}
-        </arc-menu-item>
-      `)}
+      ${this.navTabs.map(
+        tab => html`
+          <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
+            ${(tab as ArcIconButton).name
+              ? html` <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon> `
+              : nothing}
+            ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
+          </arc-menu-item>
+        `
+      )}
     `;
 
     const logoInterior = html`
       ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
       <slot id="tool-name" name="name"></slot>
-    `
+    `;
 
     return html`
       <div id="main">
         <div id="left">
-          ${this.home ? html`
-            <a id="logoWrapper"
-               href="${ifDefined(this.home)}"
-               rel="noreferrer noopener"
-               role="button"
-               aria-label="tool logo">
-              ${logoInterior}
-            </a>
-          ` : html`
-            <div id="logoWrapper">${logoInterior}</div>
-          `}
+          ${this.home
+            ? html`
+                <a
+                  id="logoWrapper"
+                  href="${ifDefined(this.home)}"
+                  rel="noreferrer noopener"
+                  role="button"
+                  aria-label="tool logo"
+                >
+                  ${logoInterior}
+                </a>
+              `
+            : html` <div id="logoWrapper">${logoInterior}</div> `}
         </div>
         <div id="right">
           <div id="tabs">
             <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
-            ${this.showDropdown ? html`
-              <arc-dropdown hoist>
-                <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
-                <arc-menu>${menuInterior}</arc-menu>
-              </arc-dropdown>
-            ` : nothing}
+            ${this.showDropdown
+              ? html`
+                  <arc-dropdown hoist>
+                    <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
+                    <arc-menu>${menuInterior}</arc-menu>
+                  </arc-dropdown>
+                `
+              : nothing}
             <arc-icon-button
-              id='accessibility'
+              id="accessibility"
               name=${ICON_TYPES.accessibility}
               label="Accessibility panel"
               @click=${this.emitAccessibility}

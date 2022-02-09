@@ -86,7 +86,7 @@ export default class ArcIcon extends LitElement {
     return html`
       <svg
         id="icon"
-        class=${classMap({spinning: this.spinning})}
+        class=${classMap({ spinning: this.spinning })}
         style=${styleMap(styles)}
         role=${ifDefined(this.label ? 'img' : undefined)}
         aria-label=${ifDefined(this.label ? this.label : undefined)}

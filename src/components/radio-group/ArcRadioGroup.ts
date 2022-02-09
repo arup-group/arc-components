@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
-import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import { mobileBreakpoint } from '../../utilities/ui-utils.js';
 
 import type ArcRadio from '../radio/ArcRadio.js';
 
@@ -46,9 +46,7 @@ export default class ArcRadioGroup extends LitElement {
   /* When tabbing into the fieldset, make sure it lands on the checked radio */
   handleFocusIn() {
     const slottedChildren = this.defaultSlot.assignedElements({ flatten: true });
-    const checkedRadio = [...slottedChildren as ArcRadio[]].find(el =>
-      el.tagName === 'ARC-RADIO' && el.checked
-    );
+    const checkedRadio = [...(slottedChildren as ArcRadio[])].find(el => el.tagName === 'ARC-RADIO' && el.checked);
     checkedRadio?.focus();
   }
 

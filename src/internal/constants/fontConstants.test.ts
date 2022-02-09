@@ -16,5 +16,5 @@ describe('FontConstants', () => {
     expect(keys).to.contain('xx-large');
     expect(keys).to.contain('xxx-large');
     expect(keys).to.contain('xxxx-large');
-  })
-})
+  });
+});

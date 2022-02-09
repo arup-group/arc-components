@@ -1,5 +1,12 @@
 import { expect } from '@open-wc/testing';
-import { uppercaseFirstLetter, stringToInitials, camelCaseToSpaceSeparated, stringToArray, stringifyObject, parseObject } from './string.js';
+import {
+  uppercaseFirstLetter,
+  stringToInitials,
+  camelCaseToSpaceSeparated,
+  stringToArray,
+  stringifyObject,
+  parseObject,
+} from './string.js';
 
 describe('string', () => {
   describe('uppercaseFirstLetter', () => {
@@ -22,11 +29,11 @@ describe('string', () => {
     it('should return the initials when one (or many) middle names are present', () => {
       const string = 'Test Middle Name User';
       expect(stringToInitials(string)).to.equal('TU');
-    })
+    });
     it('should return an empty string when an empty string is given', () => {
       const string = '';
       expect(stringToInitials(string)).to.equal('');
-    })
+    });
   });
 
   describe('camelCaseToSpaceSeparated', () => {
@@ -67,7 +74,7 @@ describe('string', () => {
 
   describe('stringifyObject', () => {
     it('returns a JSON object as JSON string', () => {
-      const JSONObj = { one: 'one' }
+      const JSONObj = { one: 'one' };
       expect(stringifyObject(JSONObj)).to.equal('{"one":"one"}');
     });
 
@@ -93,6 +100,6 @@ describe('string', () => {
     it('throws an error when trying to convert a faulty string', () => {
       const string = `{'one':'one'}`;
       expect(() => parseObject(string)).to.throw('Invalid JSON string');
-    })
+    });
   });
-})
+});

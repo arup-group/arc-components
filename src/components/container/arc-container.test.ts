@@ -77,7 +77,7 @@ describe('ArcContainer', () => {
 
       expect(getPropertyValue(container, 'gap')).to.equal('0px');
       expect(getPropertyValue(container, 'padding')).to.equal('0px');
-    })
+    });
   });
 
   /* Test specific methods */
@@ -90,9 +90,9 @@ describe('ArcContainer', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <arc-container>
-          <input>
+          <input />
         </arc-container>
-      `)
+      `);
     });
 
     afterEach(() => {
@@ -133,7 +133,7 @@ describe('ArcContainer', () => {
       expect(showHandler).to.have.been.calledOnce;
       expect(afterShowHandler).to.have.been.calledOnce;
     });
-  })
+  });
 
   /* Test the component responsiveness */
   describe('responsiveness', () => {

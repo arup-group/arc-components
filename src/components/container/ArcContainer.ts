@@ -3,7 +3,7 @@ import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
-import { mobileBreakpoint } from "../../utilities/ui-utils.js";
+import { mobileBreakpoint } from '../../utilities/ui-utils.js';
 import componentStyles from '../../styles/component.styles.js';
 import { CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme } from './constants/ContainerConstants.js';
 import { AccessibilityKey, TextDisplay, UserPreference } from '../accessibility/constants/AccessibilityConstants.js';
@@ -108,8 +108,10 @@ export default class ArcContainer extends LitElement {
 
   updateUserPreferences = (event: CustomEvent) => {
     const { detail } = event;
-    const { preferences }: {
-      preferences: { [accessKeys in AccessibilityKey]: UserPreference }
+    const {
+      preferences,
+    }: {
+      preferences: { [accessKeys in AccessibilityKey]: UserPreference };
     } = detail;
     const colourMode = preferences.colourMode as ContainerTheme;
     const textSize = preferences.textSize as FontSize;
@@ -128,7 +130,7 @@ export default class ArcContainer extends LitElement {
     if (textDisplay) {
       console.log('Changing the text-display');
     }
-  }
+  };
 
   handleKeyDown(event: KeyboardEvent) {
     /* Make sure that no input element and/or textarea is focused */
@@ -145,15 +147,23 @@ export default class ArcContainer extends LitElement {
     return html`
       <div id="main">
         <slot id="nav" name="nav" @arc-show-accessibility=${this.showAccessibility}></slot>
-        <div id="container" class=${classMap({ 'fullscreen': this.fullscreen })}>
+        <div id="container" class=${classMap({ fullscreen: this.fullscreen })}>
           <slot name="side"></slot>
           <div id="content"><slot></slot></div>
         </div>
-        <arc-accessibility id="accessibility" @arc-accessibility-change=${this.updateUserPreferences}></arc-accessibility>
+        <arc-accessibility
+          id="accessibility"
+          @arc-accessibility-change=${this.updateUserPreferences}
+        ></arc-accessibility>
         <slot name="bottom">
           <arc-bottombar>
             <arc-icon-button name=${ICON_TYPES.home} href="/" label="Go home">Home</arc-icon-button>
-            <arc-icon-button name=${ICON_TYPES.accessibility} label="Open accessibility" @click=${this.showAccessibility}>Accessibility</arc-icon-button>
+            <arc-icon-button
+              name=${ICON_TYPES.accessibility}
+              label="Open accessibility"
+              @click=${this.showAccessibility}
+              >Accessibility</arc-icon-button
+            >
           </arc-bottombar>
         </slot>
       </div>

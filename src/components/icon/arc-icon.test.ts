@@ -44,7 +44,7 @@ describe('ArcIcon', () => {
       expect(svg.getAttribute('role')).to.equal('img');
       expect(svg.getAttribute('aria-label')).to.equal('heart');
       expect(svg.getAttribute('aria-hidden')).to.be.null;
-    })
+    });
 
     it('renders the element with a custom size property', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon></arc-icon>`);
@@ -74,7 +74,7 @@ describe('ArcIcon', () => {
       element = await fixture(html`<arc-icon></arc-icon>`);
     });
 
-    it ('renders the icon in a spinning state', async () => {
+    it('renders the icon in a spinning state', async () => {
       expect(element.spinning).to.be.false;
       expect(element.hasAttribute('spinning')).to.be.false;
 

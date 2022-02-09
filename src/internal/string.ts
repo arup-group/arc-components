@@ -11,20 +11,20 @@ function stringToInitials(string: string) {
 }
 
 function camelCaseToSpaceSeparated(string: string) {
-  const result = string.replace( /([A-Z])/g, " $1" );
-  return `${result.charAt(0).toUpperCase()}${result.slice(1)}`
+  const result = string.replace(/([A-Z])/g, ' $1');
+  return `${result.charAt(0).toUpperCase()}${result.slice(1)}`;
 }
 
 /* Convert a comma-separated string to an array of strings */
 function stringToArray(string: string) {
-  return string.split((/[ ,]+/));
+  return string.split(/[ ,]+/);
 }
 
 function stringifyObject(object: object) {
   try {
     return JSON.stringify(object);
   } catch (e) {
-    throw new Error('Invalid JSON object')
+    throw new Error('Invalid JSON object');
   }
 }
 
@@ -32,9 +32,15 @@ function parseObject(string: string) {
   try {
     return JSON.parse(string);
   } catch (e) {
-    throw new Error('Invalid JSON string')
+    throw new Error('Invalid JSON string');
   }
 }
 
-
-export { uppercaseFirstLetter, stringToInitials, camelCaseToSpaceSeparated, stringToArray, stringifyObject, parseObject };
+export {
+  uppercaseFirstLetter,
+  stringToInitials,
+  camelCaseToSpaceSeparated,
+  stringToArray,
+  stringifyObject,
+  parseObject,
+};

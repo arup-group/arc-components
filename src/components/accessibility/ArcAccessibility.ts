@@ -4,7 +4,13 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import { camelCaseToSpaceSeparated, stringifyObject, parseObject } from '../../internal/string.js';
-import { ACCESSIBILITY_OPTIONS, USER_PREFERENCES, AccessibilityKey, AccessibilityOption, UserPreference } from './constants/AccessibilityConstants.js';
+import {
+  ACCESSIBILITY_OPTIONS,
+  USER_PREFERENCES,
+  AccessibilityKey,
+  AccessibilityOption,
+  UserPreference,
+} from './constants/AccessibilityConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
@@ -44,15 +50,15 @@ export default class ArcAccessibility extends LitElement {
   async handlePreferenceChange() {
     const options = {
       detail: {
-        preferences: this._userPreferences
+        preferences: this._userPreferences,
       },
       bubbles: true,
-      composed: true
-    }
+      composed: true,
+    };
     emit(this, ARC_EVENTS.accessibilityChange, options);
 
     /* Store the new preferences */
-    localStorage.setItem('arc-accessibility', stringifyObject(this._userPreferences))
+    localStorage.setItem('arc-accessibility', stringifyObject(this._userPreferences));
   }
 
   @watch('open', { waitUntilFirstUpdate: true })
@@ -100,37 +106,47 @@ export default class ArcAccessibility extends LitElement {
     }
 
     /* Overwrite the object */
-    this._userPreferences = { ...this._userPreferences, [key]: value }
+    this._userPreferences = { ...this._userPreferences, [key]: value };
   }
 
   optionTemplate = (key: AccessibilityKey, accessibilityOption: AccessibilityOption) => {
     const { icon, values } = accessibilityOption;
 
     /* When the values are within a string[], they can only be set by a checkbox */
-    return Array.isArray(values) ? html`
-      <arc-radio-group>
-        <div slot='label' class='label'>
-          <span>${camelCaseToSpaceSeparated(key)}</span>
-          <arc-icon name=${icon}></arc-icon>
-        </div>
-        ${values.map(value => html`
-          <arc-radio name=${key} value=${value} ?checked=${value === this._userPreferences[key]} @arc-change=${this.updatePreference}>${value}</arc-radio>
-        `)}
-      </arc-radio-group>
-    ` : nothing
-  }
+    return Array.isArray(values)
+      ? html`
+          <arc-radio-group>
+            <div slot="label" class="label">
+              <span>${camelCaseToSpaceSeparated(key)}</span>
+              <arc-icon name=${icon}></arc-icon>
+            </div>
+            ${values.map(
+              value => html`
+                <arc-radio
+                  name=${key}
+                  value=${value}
+                  ?checked=${value === this._userPreferences[key]}
+                  @arc-change=${this.updatePreference}
+                  >${value}</arc-radio
+                >
+              `
+            )}
+          </arc-radio-group>
+        `
+      : nothing;
+  };
 
   render() {
     return html`
-      <div id='main'>
-        <arc-drawer id='drawer' @arc-hide=${this.hide}>
-          <div class='label' slot='label'>
-            <arc-icon name='accessibility' size='large'></arc-icon>
+      <div id="main">
+        <arc-drawer id="drawer" @arc-hide=${this.hide}>
+          <div class="label" slot="label">
+            <arc-icon name="accessibility" size="large"></arc-icon>
             <span>Accessibility Controls (A)</span>
           </div>
-          <div id='wrapper'>
-            ${Object.keys(ACCESSIBILITY_OPTIONS).map(
-              (key: AccessibilityKey) => this.optionTemplate(key, ACCESSIBILITY_OPTIONS[key])
+          <div id="wrapper">
+            ${Object.keys(ACCESSIBILITY_OPTIONS).map((key: AccessibilityKey) =>
+              this.optionTemplate(key, ACCESSIBILITY_OPTIONS[key])
             )}
           </div>
         </arc-drawer>

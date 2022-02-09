@@ -60,14 +60,14 @@ describe('ArcButton', () => {
     });
 
     it('renders the button with a custom name and value property', async () => {
-      const element: ArcButton = await fixture(html`<arc-button name='button' value='one'>Test</arc-button>`);
+      const element: ArcButton = await fixture(html`<arc-button name="button" value="one">Test</arc-button>`);
 
       expect(element.name).to.equal('button');
       expect(element.getAttribute('name')).to.equal('button');
 
       expect(element.value).to.equal('one');
       expect(element.getAttribute('value')).to.equal('one');
-    })
+    });
 
     it('renders the button as an anchor', async () => {
       const element: ArcButton = await fixture(html`<arc-button href="/">Test</arc-button>`);

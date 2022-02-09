@@ -5,20 +5,20 @@ import { ACCESSIBILITY_OPTIONS, AccessibilityKey, USER_PREFERENCES } from './Acc
 describe('AccessibilityConstants', () => {
   describe('AccessibilityOptions', () => {
     it('should contain the basic ARC options', () => {
-      expect (ACCESSIBILITY_OPTIONS).to.exist;
+      expect(ACCESSIBILITY_OPTIONS).to.exist;
       const keys = Object.keys(ACCESSIBILITY_OPTIONS);
 
       expect(keys.length).to.equal(3);
       keys.forEach((key: AccessibilityKey) => {
         expect(Object.keys(ACCESSIBILITY_OPTIONS[key])).to.contain('icon');
         expect(Object.keys(ACCESSIBILITY_OPTIONS[key])).to.contain('values');
-      })
+      });
     });
   });
 
   describe('UserPreferences', () => {
     it('should contain the basic ARC preferences', () => {
-      expect (USER_PREFERENCES).to.exist;
+      expect(USER_PREFERENCES).to.exist;
       const keys = Object.keys(USER_PREFERENCES);
 
       expect(keys.length).to.equal(3);

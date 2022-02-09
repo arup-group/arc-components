@@ -6,18 +6,18 @@ export declare type AccessibilityKey = 'colourMode' | 'textSize' | 'textDisplay'
 export declare type TextDisplay = 'highLegibilityFonts' | 'highlightLinks' | 'plainText';
 export declare type UserPreference = ContainerTheme | FontSize | { [keys in TextDisplay]: boolean };
 export declare type AccessibilityOption = {
-  icon: IconType,
-  values: ContainerTheme[] | FontSize[] | { [keys in TextDisplay]: boolean }
+  icon: IconType;
+  values: ContainerTheme[] | FontSize[] | { [keys in TextDisplay]: boolean };
 };
 
 export const ACCESSIBILITY_OPTIONS: { [accessKeys in AccessibilityKey]: AccessibilityOption } = {
   colourMode: {
     icon: 'bulb',
-    values: Object.values(CONTAINER_THEMES)
+    values: Object.values(CONTAINER_THEMES),
   },
   textSize: {
     icon: 'book-open',
-    values: ['medium', 'large', 'x-large']
+    values: ['medium', 'large', 'x-large'],
   },
   textDisplay: {
     icon: 'eye',
@@ -25,8 +25,8 @@ export const ACCESSIBILITY_OPTIONS: { [accessKeys in AccessibilityKey]: Accessib
       highLegibilityFonts: false,
       highlightLinks: false,
       plainText: false,
-    }
-  }
+    },
+  },
 };
 
 export const USER_PREFERENCES: { [accessKeys in AccessibilityKey]: UserPreference } = {
@@ -36,5 +36,5 @@ export const USER_PREFERENCES: { [accessKeys in AccessibilityKey]: UserPreferenc
     highLegibilityFonts: false,
     highlightLinks: false,
     plainText: false,
-  }
+  },
 };

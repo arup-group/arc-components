@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
-import { FONT_SIZES } from '../../internal/constants/fontConstants.js';
+import { FONT_SIZES } from '../../internal/constants/styleConstants.js';
 
 import type ArcIcon from './ArcIcon.js';
 import './arc-icon.js';

@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { FONT_SIZES } from './fontConstants.js';
+import { FONT_SIZES } from './styleConstants.js';
 
 describe('FontConstants', () => {
   it('should contain the correct font sizes', () => {

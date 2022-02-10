@@ -6,7 +6,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { getBasePath } from '../../utilities/base-path.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
-import { FONT_SIZES, FontSize } from '../../internal/constants/fontConstants.js';
+import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
 
 export default class ArcIcon extends LitElement {
   static tag = 'arc-icon';

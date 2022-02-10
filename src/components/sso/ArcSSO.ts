@@ -164,7 +164,7 @@ export default class ArcSSO extends LitElement {
     return this._msalInstance.getAllAccounts()[0] as AccountInfo;
   }
 
-  /* c8 ignore next 34 */
+  /* c8 ignore next 43 */
   render() {
     const account = this.getAccount();
     const interior = html`

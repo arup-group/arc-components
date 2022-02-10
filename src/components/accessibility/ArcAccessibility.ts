@@ -5,12 +5,7 @@ import {emit} from '../../internal/event.js';
 import {watch} from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import {uppercaseFirstLetter, camelCaseToSpaceSeparated, stringifyObject, parseObject} from '../../internal/string.js';
-import {
-  ACCESSIBILITY_OPTIONS,
-  AccessibilityKey,
-  AccessibilityOption,
-  UserPreference,
-} from './constants/AccessibilityConstants.js';
+import {ACCESSIBILITY_OPTIONS, AccessibilityKey, AccessibilityOption, UserPreference,} from './constants/AccessibilityConstants.js';
 import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
@@ -40,9 +35,6 @@ export default class ArcAccessibility extends LitElement {
 
   @query('#drawer') drawer: ArcDrawer;
 
-  /* Class that allows for manipulation of core css values */
-  private _cssManipulator: CssManipulator;
-
   /* The default preferences for the accessibility panel */
   @state() private _userPreferences: { [accessKeys in AccessibilityKey]: UserPreference };
 
@@ -71,10 +63,6 @@ export default class ArcAccessibility extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
-    /* Hook up the css manipulator */
-    this._cssManipulator = new CssManipulator();
-
     /* Check for personal preferences in the localStore. */
     const cachedPreferences = localStorage.getItem('arc-accessibility');
 
@@ -104,15 +92,6 @@ export default class ArcAccessibility extends LitElement {
     const radio = event.target as HTMLInputElement;
     const key = radio.name as AccessibilityKey;
     const value = radio.value as UserPreference;
-
-    /* Update ARC css properties */
-    if (key === 'textSize') {
-      this._cssManipulator.updateTextSize(value);
-    }
-
-    if (key === 'textDisplay') {
-      this._cssManipulator.updateTextDisplay(value);
-    }
 
     /* Overwrite the object, which will emit the arc-accessibility-change */
     this._userPreferences = {...this._userPreferences, [key]: value};

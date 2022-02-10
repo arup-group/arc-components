@@ -1,11 +1,28 @@
 /*
-Retrieves the computed value of a style.
+Retrieves the computed value of a component.
 i.e. <component style='--my-var: 30rem'></component>
 getPropertyValue(element, '--my-var') will return 30rem
 */
 function getPropertyValue(element: any, property: string) {
   const computedStyles = window.getComputedStyle(element);
   return computedStyles.getPropertyValue(property).trim();
+}
+
+/* Retrieves the computed value of an ARC :root property */
+function getRootValue(property: string) {
+  const root: HTMLElement = document.querySelector(':root')!;
+  const computedStyles = getComputedStyle(root);
+  return computedStyles.getPropertyValue(property).trim();
+}
+
+/* Sets the computed value of an ARC :root property */
+function setRootValue(variable: string, newVal: string) {
+  const root: HTMLElement = document.querySelector(':root')!;
+
+  /* Only overwrite when the css variable changed */
+  if (getRootValue(variable) !== newVal) {
+    root.style.setProperty(variable, newVal);
+  }
 }
 
 /*
@@ -26,4 +43,4 @@ function noFOUC() {
   };
 }
 
-export { getPropertyValue, noFOUC };
+export { getPropertyValue, getRootValue, setRootValue, noFOUC };

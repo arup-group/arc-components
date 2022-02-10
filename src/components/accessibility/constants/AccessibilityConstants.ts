@@ -1,5 +1,5 @@
 import { CONTAINER_THEMES, ContainerTheme } from '../../container/constants/ContainerConstants.js';
-import { FontSize } from '../../../internal/constants/fontConstants.js';
+import { FontSize } from '../../../internal/constants/styleConstants.js';
 import { IconType } from '../../icon/constants/IconConstants.js';
 
 export declare type AccessibilityKey = 'colourMode' | 'textSize' | 'textDisplay';

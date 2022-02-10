@@ -101,11 +101,6 @@ export default class ArcContainer extends LitElement {
   /* Retrieve the theme based on the time of day */
   getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);
 
-  /* Trigger the show event of the arc-accessibility component */
-  showAccessibility() {
-    this.accessibility.open = true;
-  }
-
   /* Update the theme when the @arc-accessibility-change event emits */
   handleAccessibilityChange = (event: CustomEvent) => {
     const {preferences} = event.detail;
@@ -116,6 +111,11 @@ export default class ArcContainer extends LitElement {
       this.theme = colourMode;
     }
   };
+
+  /* Trigger the show event of the arc-accessibility component */
+  showAccessibility() {
+    this.accessibility.open = true;
+  }
 
   /* Handle keyboard input */
   handleKeyDown(event: KeyboardEvent) {

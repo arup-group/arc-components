@@ -20,3 +20,5 @@ export const FONT_SIZES: { [key in FontSize]: FontSize } = {
   'xxx-large': 'xxx-large',
   'xxxx-large': 'xxxx-large',
 };
+
+export const DEFAULT_FONTSIZE: FontSize = FONT_SIZES.medium;

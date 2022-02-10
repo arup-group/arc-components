@@ -69,7 +69,7 @@ export default class ArcContainer extends LitElement {
     `,
   ];
 
-  @query('#main') container: ArcAccessibility;
+  @query('#main') container: HTMLElement;
 
   @query('#accessibility') accessibility: ArcAccessibility;
 

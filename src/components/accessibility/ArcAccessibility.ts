@@ -4,15 +4,21 @@ import {ifDefined} from "lit/directives/if-defined.js";
 import {emit} from '../../internal/event.js';
 import {watch} from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import {uppercaseFirstLetter, camelCaseToSpaceSeparated, stringifyObject, parseObject} from '../../internal/string.js';
-import {ACCESSIBILITY_OPTIONS, AccessibilityKey, AccessibilityOption, UserPreference,} from './constants/AccessibilityConstants.js';
+import {uppercaseFirstLetter, camelCaseToSpaceSeparated, parseObject, stringifyObject} from '../../internal/string.js';
+import {getRootValue, setRootValue} from "../../utilities/style-utils.js";
+import {ACCESSIBILITY_OPTIONS, AccessibilityKey, AccessibilityOption, UserPreference, UserPreferences} from './constants/AccessibilityConstants.js';
 import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
+import { FONT_SIZES, DEFAULT_FONTSIZE, FontSize } from "../../internal/constants/styleConstants.js";
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
+
+declare type RootFontValues = {
+  [key in FontSize]: string;
+}
 
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
@@ -35,25 +41,30 @@ export default class ArcAccessibility extends LitElement {
 
   @query('#drawer') drawer: ArcDrawer;
 
-  /* The default preferences for the accessibility panel */
-  @state() private _userPreferences: { [accessKeys in AccessibilityKey]: UserPreference };
+  /* Core values that are scoped to the :root */
+  private _rootFontSizes: RootFontValues = {} as RootFontValues;
+
+  private _availableFonts: FontSize[] = Object.values(FONT_SIZES);
+
+  /* State that stores the user preferences */
+  @state() private _userPreferences: UserPreferences;
 
   /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
   @property({type: Boolean, reflect: true}) open = false;
 
   @watch('_userPreferences')
   async handlePreferenceChange() {
-    const options = {
+    /* Update the preferences */
+    this.updatePreferences();
+
+    /* Emit the accessibility-change event */
+    emit(this, ARC_EVENTS.accessibilityChange, {
       detail: {
         preferences: this._userPreferences,
       },
       bubbles: true,
       composed: true,
-    };
-    emit(this, ARC_EVENTS.accessibilityChange, options);
-
-    /* Store the new preferences */
-    localStorage.setItem('arc-accessibility', stringifyObject(this._userPreferences));
+    });
   }
 
   @watch('open', {waitUntilFirstUpdate: true})
@@ -63,10 +74,12 @@ export default class ArcAccessibility extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    /* Check for personal preferences in the localStore. */
-    const cachedPreferences = localStorage.getItem('arc-accessibility');
 
-    /* When stored preferences found, update the state. */
+    /* Store a reference of default ARC :root values */
+    this.storeRootFontSizes();
+
+    /* Check for cached preferences in the localStore and update the state. */
+    const cachedPreferences = this.getPreferences();
     if (cachedPreferences) {
       this._userPreferences = parseObject(cachedPreferences);
     }
@@ -88,6 +101,55 @@ export default class ArcAccessibility extends LitElement {
     this.open = false;
   }
 
+  /* Store font-sizes from the :root i.e. --arc-font-size-medium. */
+  storeRootFontSizes() {
+    this._availableFonts.forEach((key: FontSize) => {
+      this._rootFontSizes[key] = getRootValue(`--arc-font-size-${key}`)
+    });
+  }
+
+  /* Restore font-sizes to the :root. */
+  restoreRootFontSizes() {
+    this._availableFonts.forEach((key: FontSize) => {
+      setRootValue(`--arc-font-size-${key}`, this._rootFontSizes[key]);
+    });
+  }
+
+  /* Update :root font-sizes */
+  updateFontSize(fontSize: FontSize) {
+    /* First restore root font-sizes */
+    this.restoreRootFontSizes();
+
+    /* Make sure that the new value exists in the available FONT_SIZES. */
+    if (!(fontSize in FONT_SIZES)) { return; }
+
+    /*
+    Retrieve the index of the default fontSize and the index of the new fontSize.
+    The incr value can then be used to retrieve the new value from the FONT_SIZES constant.
+    When the incr === 1, medium will become large, large will become x-large etc.
+    */
+    const rootIndex = this._availableFonts.findIndex(size => size === DEFAULT_FONTSIZE);
+    const newFontIndex = this._availableFonts.findIndex(size => size === fontSize);
+    const incr = newFontIndex - rootIndex;
+
+    /* Loop through each available FONT_SIZE and overwrite the value */
+    this._availableFonts.forEach((size, index) => {
+      let newIndex = index + incr;
+
+      /* If the new index is larger than the available options, set the last available option */
+      if (newIndex >= this._availableFonts.length) {
+        newIndex = this._availableFonts.length - 1;
+      }
+
+      /* Grab the value from the new index */
+      const newVal = getRootValue(`--arc-font-size-${this._availableFonts[newIndex]}`);
+
+      /* Overwrite the root value with the new value */
+      setRootValue(`--arc-font-size-${size}`, newVal);
+    })
+  }
+
+  /* Update a single preference */
   updatePreference(event: MouseEvent) {
     const radio = event.target as HTMLInputElement;
     const key = radio.name as AccessibilityKey;
@@ -95,6 +157,24 @@ export default class ArcAccessibility extends LitElement {
 
     /* Overwrite the object, which will emit the arc-accessibility-change */
     this._userPreferences = {...this._userPreferences, [key]: value};
+  }
+
+  /* Update all preferences */
+  updatePreferences() {
+    this.updateFontSize(this._userPreferences.textSize as FontSize);
+
+    /* Store the new preferences in the localStore */
+    this.storePreferences();
+  }
+
+  /* Retrieve the updated preferences */
+  getPreferences() {
+    return localStorage.getItem(ArcAccessibility.tag);
+  }
+
+  /* Store the updated preferences */
+  storePreferences() {
+    localStorage.setItem(ArcAccessibility.tag, stringifyObject(this._userPreferences));
   }
 
   optionTemplate = (key: AccessibilityKey, accessibilityOption: AccessibilityOption) => {

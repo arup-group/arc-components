@@ -24,20 +24,12 @@
 </head>
 
 <body>
-<!--<arc-container theme="dark">-->
-<!--  <arc-navbar slot='nav' logo="/assets/arc-red.svg" tabs='0'></arc-navbar>-->
-<!--  <div style='padding: var(&#45;&#45;arc-spacing-medium)'>-->
+<arc-container theme="dark">
+  <arc-navbar slot='nav' logo="/assets/arc-red.svg" tabs='0'></arc-navbar>
+  <div style='padding: var(--arc-spacing-medium)'>
 
-<!--  </div>-->
-<!--  -->
-
-  <div id="myContainer">
-    My div
-    <button onClick="document.getElementById('accessibility').show()">Show accessibility</button>
   </div>
-
-  <arc-accessibility id="accessibility"></arc-accessibility>
-<!--</arc-container>-->
+</arc-container>
 
 <script type="module">
   import { noFOUC } from './out-tsc/utilities/style-utils.js';
@@ -48,16 +40,8 @@
 </script>
 
 <script type="module">
-  import './out-tsc/components/accessibility/arc-accessibility.js';
-
-  const accessibility = document.getElementById('accessibility');
-  const container = document.getElementById('myContainer');
-
-  accessibility.addEventListener('arc-accessibility-change', e => {
-    const {preferences} = e.detail;
-    const {colourMode} = preferences;
-    container.setAttribute('theme', colourMode);
-  })
+  import './out-tsc/components/container/arc-container.js';
+  import './out-tsc/components/navbar/arc-navbar.js';
 </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 import { CONTAINER_THEMES, ContainerTheme } from '../../container/constants/ContainerConstants.js';
-import { FONT_SIZES, FontSize } from '../../../internal/constants/fontConstants.js';
+import { FontSize } from '../../../internal/constants/fontConstants.js';
 import { IconType } from '../../icon/constants/IconConstants.js';
 
 export declare type AccessibilityKey = 'colourMode' | 'textSize' | 'textDisplay';
@@ -26,15 +26,5 @@ export const ACCESSIBILITY_OPTIONS: { [accessKeys in AccessibilityKey]: Accessib
       highlightLinks: false,
       plainText: false,
     },
-  },
-};
-
-export const USER_PREFERENCES: { [accessKeys in AccessibilityKey]: UserPreference } = {
-  colourMode: CONTAINER_THEMES.auto,
-  textSize: FONT_SIZES.medium,
-  textDisplay: {
-    highLegibilityFonts: false,
-    highlightLinks: false,
-    plainText: false,
   },
 };

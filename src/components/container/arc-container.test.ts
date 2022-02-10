@@ -124,7 +124,7 @@ describe('ArcContainer', () => {
       element.addEventListener(ARC_EVENTS.show, showHandler);
       element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
-      /* Press the a key */
+      /* Press the 'a' key */
       element.handleKeyDown(createKeyEvent('a'));
 
       await waitUntil(() => showHandler.calledOnce);

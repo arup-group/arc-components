@@ -153,6 +153,7 @@ export default class ArcRadio extends LitElement {
   }
 
   handleClick() {
+    if (this.checked) {return}
     this.checked = true;
     emit(this, ARC_EVENTS.change);
   }

@@ -66,6 +66,7 @@ To activate a theme, import it and apply the theme's name to the `<arc-container
 This example imports and activates the dark theme that comes with the bundle.
 
 ```bash
+# index.html / base.html
 <html>
   <head>
     <link rel="stylesheet" href="path/to/arc/dist/styles/dark.css">
@@ -89,36 +90,36 @@ By default, the arc-container figures out the theme based on the users local tim
 For this to work, both light and dark theme need to be imported and included within the `<head>` tags.
 
 ### Creating themes
-To create your own theme, import the provided light-theme and create a separate stylesheet that overrides the design tokens
-and adds component styles to your liking. Import your own theme after the built-in theme.
+To create your own custom theme, create your own stylesheet and import it as shown in the example.
+Apply the theme's name to the `<arc-container>` element.
+Keep in mind that the name of the theme must be either `light` or `dark` as the built-in accessibility component can work with these properties.
+The container will default its value back to `auto` when an invalid theme is provided.
 
 ```bash
-:host,
-arc-container[theme="my-own-theme"] {
-  /* your custom styles here */
-}
-```
-
-```bash
+# index.html / base.html
 <html>
   <head>
-    <link rel="stylesheet" href="path/to/arc/dist/styles/dark.css">
-    <link rel="stylesheet" href="path/to/my/own/themes/myTheme.css">
+    <link rel="stylesheet" href="path/to/customLightTheme.css">
   </head>
 
   <body>
-    <arc-container theme="my-own-theme"></arc-container>
+    <arc-container theme="light"></arc-container>
   </body>
 </html>
 ```
 
-By customizing a built-in theme, you'll maintain a small stylesheet containing only the changes you've made.
+```bash
+# customLightTheme.css
+:root,
+:host,
+arc-container[theme="light"] {
+  --arc-color-primary: var(--arc-blue-060);
+  --arc-color-error: var(--arc-purple-060);
+}
+```
 
 ## Properties
 <ArgsTable story='Container' />
-
-## Events
-Coming soon
 
 ## Methods
 

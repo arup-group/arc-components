@@ -6,10 +6,7 @@ import {watch} from '../../internal/watch.js';
 import {mobileBreakpoint} from '../../utilities/ui-utils.js';
 import componentStyles from '../../styles/component.styles.js';
 import {CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme} from './constants/ContainerConstants.js';
-import {TextDisplay} from '../accessibility/constants/AccessibilityConstants.js';
 import {ICON_TYPES} from '../icon/constants/IconConstants.js';
-import {FONT_SIZES, FontSize} from '../../internal/constants/fontConstants.js';
-import StyleUpdater from "../../internal/style.js";
 
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
@@ -76,8 +73,6 @@ export default class ArcContainer extends LitElement {
 
   @query('#accessibility') accessibility: ArcAccessibility;
 
-  private _styleUpdater: StyleUpdater;
-
   @property({type: String, reflect: true}) theme: ContainerTheme = CONTAINER_THEMES.auto;
 
   /* Hides the padding, margin and gap values */
@@ -85,7 +80,8 @@ export default class ArcContainer extends LitElement {
 
   @watch('theme')
   handleThemeChange() {
-    if (CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto) {
+    /* Retrieve the theme when a faulty (non-existing) or the 'auto' theme is set */
+    if (!(this.theme in CONTAINER_THEMES) || CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto) {
       this.theme = this.getTheme();
     }
   }
@@ -94,9 +90,6 @@ export default class ArcContainer extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('keypress', this.handleKeyDown.bind(this));
-
-    /* Register the StyleUpdater class */
-    this._styleUpdater = new StyleUpdater();
   }
 
   /* Remove to keyboard input listener on the page */
@@ -105,6 +98,7 @@ export default class ArcContainer extends LitElement {
     document.removeEventListener('keypress', this.handleKeyDown.bind(this));
   }
 
+  /* Retrieve the theme based on the time of day */
   getTheme = (date?: Date) => (isNight(date) ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light);
 
   /* Trigger the show event of the arc-accessibility component */
@@ -112,29 +106,18 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
-  /* Method fired when the arc-accessibility component emits the @arc-accessibility-change event */
-  updateUserPreferences = (event: CustomEvent) => {
-    const {detail} = event;
-    const {preferences} = detail;
+  /* Update the theme when the @arc-accessibility-change event emits */
+  handleAccessibilityChange = (event: CustomEvent) => {
+    const {preferences} = event.detail;
     const colourMode = preferences.colourMode as ContainerTheme;
-    const textSize = preferences.textSize as FontSize;
-    const textDisplay = preferences.textDisplay as { [keys in TextDisplay]: boolean };
 
-    /* Make sure that the new option exists in the CONTAINER_THEMES. */
+    /* Make sure that the new theme exists in the available CONTAINER_THEMES. */
     if (colourMode in CONTAINER_THEMES) {
       this.theme = colourMode;
     }
-
-    /* Make sure that the given option exists in the FONT_SIZES. */
-    if (textSize in FONT_SIZES) {
-      this._styleUpdater.changeFontSize(textSize);
-    }
-
-    if (textDisplay) {
-      console.log('Changing the text-display');
-    }
   };
 
+  /* Handle keyboard input */
   handleKeyDown(event: KeyboardEvent) {
     /* Make sure that no input element and/or textarea is focused */
     if (!event.composedPath().some((el: HTMLElement) => IGNORE_KEYPRESS.includes(el.tagName))) {
@@ -158,7 +141,7 @@ export default class ArcContainer extends LitElement {
         </div>
         <arc-accessibility
           id="accessibility"
-          @arc-accessibility-change=${this.updateUserPreferences}
+          @arc-accessibility-change=${this.handleAccessibilityChange}
         ></arc-accessibility>
         <slot name="bottom">
           <arc-bottombar>
@@ -167,9 +150,7 @@ export default class ArcContainer extends LitElement {
               name=${ICON_TYPES.accessibility}
               label="Open accessibility"
               @click=${this.showAccessibility}
-            >Accessibility
-            </arc-icon-button
-            >
+            >Accessibility</arc-icon-button>
           </arc-bottombar>
         </slot>
       </div>

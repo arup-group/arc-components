@@ -1,11 +1,17 @@
-import { css, html, LitElement, nothing } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
-import { emit } from '../../internal/event.js';
-import { watch } from '../../internal/watch.js';
+import {css, html, LitElement, nothing} from 'lit';
+import {property, query, state} from 'lit/decorators.js';
+import {ifDefined} from "lit/directives/if-defined.js";
+import {emit} from '../../internal/event.js';
+import {watch} from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import { uppercaseFirstLetter, camelCaseToSpaceSeparated, stringifyObject, parseObject } from '../../internal/string.js';
-import {ACCESSIBILITY_OPTIONS, USER_PREFERENCES, AccessibilityKey, AccessibilityOption, UserPreference,} from './constants/AccessibilityConstants.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import {uppercaseFirstLetter, camelCaseToSpaceSeparated, stringifyObject, parseObject} from '../../internal/string.js';
+import {
+  ACCESSIBILITY_OPTIONS,
+  AccessibilityKey,
+  AccessibilityOption,
+  UserPreference,
+} from './constants/AccessibilityConstants.js';
+import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
 
 import type ArcDrawer from '../drawer/ArcDrawer.js';
 import '../drawer/arc-drawer.js';
@@ -34,11 +40,14 @@ export default class ArcAccessibility extends LitElement {
 
   @query('#drawer') drawer: ArcDrawer;
 
+  /* Class that allows for manipulation of core css values */
+  private _cssManipulator: CssManipulator;
+
   /* The default preferences for the accessibility panel */
-  @state() private _userPreferences: { [accessKeys in AccessibilityKey]: UserPreference } = USER_PREFERENCES;
+  @state() private _userPreferences: { [accessKeys in AccessibilityKey]: UserPreference };
 
   /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
-  @property({ type: Boolean, reflect: true }) open = false;
+  @property({type: Boolean, reflect: true}) open = false;
 
   @watch('_userPreferences')
   async handlePreferenceChange() {
@@ -55,13 +64,16 @@ export default class ArcAccessibility extends LitElement {
     localStorage.setItem('arc-accessibility', stringifyObject(this._userPreferences));
   }
 
-  @watch('open', { waitUntilFirstUpdate: true })
+  @watch('open', {waitUntilFirstUpdate: true})
   handleOpenChange() {
     this.drawer.open = this.open;
   }
 
   connectedCallback() {
     super.connectedCallback();
+
+    /* Hook up the css manipulator */
+    this._cssManipulator = new CssManipulator();
 
     /* Check for personal preferences in the localStore. */
     const cachedPreferences = localStorage.getItem('arc-accessibility');
@@ -88,46 +100,46 @@ export default class ArcAccessibility extends LitElement {
     this.open = false;
   }
 
-  /* Update the theme */
   updatePreference(event: MouseEvent) {
     const radio = event.target as HTMLInputElement;
     const key = radio.name as AccessibilityKey;
     const value = radio.value as UserPreference;
 
-    /* Prevent firing of a change event when nothing changed */
-    if (value === this._userPreferences[key]) {
-      return;
+    /* Update ARC css properties */
+    if (key === 'textSize') {
+      this._cssManipulator.updateTextSize(value);
     }
 
-    /* Overwrite the object */
-    this._userPreferences = { ...this._userPreferences, [key]: value };
+    if (key === 'textDisplay') {
+      this._cssManipulator.updateTextDisplay(value);
+    }
+
+    /* Overwrite the object, which will emit the arc-accessibility-change */
+    this._userPreferences = {...this._userPreferences, [key]: value};
   }
 
   optionTemplate = (key: AccessibilityKey, accessibilityOption: AccessibilityOption) => {
-    const { icon, values } = accessibilityOption;
+    const {icon, values} = accessibilityOption;
 
     /* When the values are within a string[], they can only be set by a checkbox */
     return Array.isArray(values)
       ? html`
-          <arc-radio-group>
-            <div slot="label" class="label">
-              <span>${camelCaseToSpaceSeparated(key)}</span>
-              <arc-icon name=${icon}></arc-icon>
-            </div>
-            ${values.map(
-              value => html`
-                <arc-radio
-                  name=${key}
-                  value=${value}
-                  ?checked=${value === this._userPreferences[key]}
-                  @arc-change=${this.updatePreference}
-                  >${uppercaseFirstLetter(value)}</arc-radio
-                >
-              `
-            )}
-          </arc-radio-group>
-        `
-      : nothing;
+        <arc-radio-group>
+          <div slot="label" class="label">
+            <span>${camelCaseToSpaceSeparated(key)}</span>
+            <arc-icon name=${icon}></arc-icon>
+          </div>
+          ${values.map(value => html`
+            <arc-radio
+              name=${key}
+              value=${value}
+              ?checked=${ifDefined(this._userPreferences ? value === this._userPreferences[key] : false)}
+              @arc-change=${this.updatePreference}
+            >${uppercaseFirstLetter(value)}
+            </arc-radio>
+          `)}
+        </arc-radio-group>
+      ` : nothing;
   };
 
   render() {

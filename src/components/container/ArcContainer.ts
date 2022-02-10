@@ -73,6 +73,8 @@ export default class ArcContainer extends LitElement {
 
   @query('#accessibility') accessibility: ArcAccessibility;
 
+  private _appPreferredTheme: ContainerTheme;
+
   @property({type: String, reflect: true}) theme: ContainerTheme = CONTAINER_THEMES.auto;
 
   /* Hides the padding, margin and gap values */
@@ -90,6 +92,11 @@ export default class ArcContainer extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('keypress', this.handleKeyDown.bind(this));
+
+    /* Store a reference of the app-defined theme */
+    if (this.theme in CONTAINER_THEMES) {
+      this._appPreferredTheme = this.theme;
+    }
   }
 
   /* Remove to keyboard input listener on the page */
@@ -107,9 +114,13 @@ export default class ArcContainer extends LitElement {
     const colourMode = preferences.colourMode as ContainerTheme;
 
     /* Make sure that the new theme exists in the available CONTAINER_THEMES. */
-    if (colourMode in CONTAINER_THEMES) {
+    if (!!colourMode && colourMode in CONTAINER_THEMES) {
       this.theme = colourMode;
+      return;
     }
+
+    /* When the preferences are reset, restore the appPreferredTheme instead */
+    this.theme = this._appPreferredTheme;
   };
 
   /* Trigger the show event of the arc-accessibility component */

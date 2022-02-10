@@ -94,7 +94,7 @@ describe('ArcContainer', () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-        <arc-container>
+        <arc-container theme="dark">
           <input/>
         </arc-container>
       `);
@@ -114,15 +114,23 @@ describe('ArcContainer', () => {
     });
 
     it('should update the theme when the user-preferences change', async () => {
-      const colourMode = 'dark';
+      const colourMode = 'light';
 
-      /* Set up a fake event */
+      /* Set up a fake event to imitate new user preferences */
       element.handleAccessibilityChange(new CustomEvent(ARC_EVENTS.accessibilityChange, {
         detail: { preferences: { colourMode } },
       }));
       await elementUpdated(element);
 
       expect(element.theme).to.equal(colourMode);
+
+      /* Set up a fake event to imitate restored user preferences */
+      element.handleAccessibilityChange(new CustomEvent(ARC_EVENTS.accessibilityChange, {
+        detail: { preferences: {} },
+      }));
+      await elementUpdated(element);
+
+      expect(element.theme).to.equal(CONTAINER_THEMES.dark);
     });
 
     it('should emit arc-show and arc-after-show when calling showAccessibility()', async () => {

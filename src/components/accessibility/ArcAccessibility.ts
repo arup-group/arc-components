@@ -15,6 +15,7 @@ import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
+import '../button/arc-button.js';
 
 declare type RootFontValues = {
   [key in FontSize]: string;
@@ -79,7 +80,7 @@ export default class ArcAccessibility extends LitElement {
     this.storeRootFontSizes();
 
     /* Check for cached preferences in the localStore and update the state. */
-    const cachedPreferences = this.getPreferences();
+    const cachedPreferences = localStorage.getItem(ArcAccessibility.tag);
     if (cachedPreferences) {
       this._userPreferences = parseObject(cachedPreferences);
     }
@@ -108,11 +109,17 @@ export default class ArcAccessibility extends LitElement {
     });
   }
 
-  /* Restore font-sizes to the :root. */
+  /* Restore font-sizes. */
   restoreRootFontSizes() {
     this._availableFonts.forEach((key: FontSize) => {
       setRootValue(`--arc-font-size-${key}`, this._rootFontSizes[key]);
     });
+  }
+
+  /* Restore all values to default */
+  restoreDefaults() {
+    this.restoreRootFontSizes();
+    this._userPreferences = {} as UserPreferences;
   }
 
   /* Update :root font-sizes */
@@ -149,32 +156,23 @@ export default class ArcAccessibility extends LitElement {
     })
   }
 
-  /* Update a single preference */
-  updatePreference(event: MouseEvent) {
+  /* Update all preferences */
+  updatePreferences() {
+    /* Update the fontSize */
+    this.updateFontSize(this._userPreferences.textSize as FontSize);
+
+    /* TODO: Update other options */
+
+    /* Store the new preferences in the localStore */
+    localStorage.setItem(ArcAccessibility.tag, stringifyObject(this._userPreferences));
+  }
+
+  handleOptionChange(event: MouseEvent) {
     const radio = event.target as HTMLInputElement;
     const key = radio.name as AccessibilityKey;
     const value = radio.value as UserPreference;
 
-    /* Overwrite the object, which will emit the arc-accessibility-change */
     this._userPreferences = {...this._userPreferences, [key]: value};
-  }
-
-  /* Update all preferences */
-  updatePreferences() {
-    this.updateFontSize(this._userPreferences.textSize as FontSize);
-
-    /* Store the new preferences in the localStore */
-    this.storePreferences();
-  }
-
-  /* Retrieve the updated preferences */
-  getPreferences() {
-    return localStorage.getItem(ArcAccessibility.tag);
-  }
-
-  /* Store the updated preferences */
-  storePreferences() {
-    localStorage.setItem(ArcAccessibility.tag, stringifyObject(this._userPreferences));
   }
 
   optionTemplate = (key: AccessibilityKey, accessibilityOption: AccessibilityOption) => {
@@ -193,7 +191,7 @@ export default class ArcAccessibility extends LitElement {
               name=${key}
               value=${value}
               ?checked=${ifDefined(this._userPreferences ? value === this._userPreferences[key] : false)}
-              @arc-change=${this.updatePreference}
+              @arc-change=${this.handleOptionChange}
             >${uppercaseFirstLetter(value)}
             </arc-radio>
           `)}
@@ -214,6 +212,7 @@ export default class ArcAccessibility extends LitElement {
               this.optionTemplate(key, ACCESSIBILITY_OPTIONS[key])
             )}
           </div>
+          <arc-button slot="footer" @click=${this.restoreDefaults}>Restore defaults</arc-button>
         </arc-drawer>
       </div>
     `;

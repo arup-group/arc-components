@@ -6,10 +6,18 @@ import {watch} from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import {uppercaseFirstLetter, camelCaseToSpaceSeparated, parseObject, stringifyObject} from '../../internal/string.js';
 import {getRootValue, setRootValue} from "../../utilities/style-utils.js";
-import {ACCESSIBILITY_OPTIONS, AccessibilityKey, AccessibilityOption, UserPreference, UserPreferences} from './constants/AccessibilityConstants.js';
+import {
+  ACCESSIBILITY_OPTIONS,
+  AccessibilityKey,
+  AccessibilityOption,
+  UserPreference,
+  UserPreferences
+} from './constants/AccessibilityConstants.js';
 import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
-import { FONT_SIZES, DEFAULT_FONTSIZE, FontSize } from "../../internal/constants/styleConstants.js";
+import {FONT_SIZES, DEFAULT_FONTSIZE, FontSize} from "../../internal/constants/styleConstants.js";
+import {CONTAINER_THEMES} from "../container/constants/ContainerConstants.js";
 
+import type ArcContainer from "../container/ArcContainer.js";
 import type ArcDrawer from '../drawer/ArcDrawer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
@@ -48,7 +56,15 @@ export default class ArcAccessibility extends LitElement {
   private _availableFonts: FontSize[] = Object.values(FONT_SIZES);
 
   /* State that stores the user preferences */
-  @state() private _userPreferences: UserPreferences;
+  @state() private _userPreferences: UserPreferences = {
+    colourMode: this.getColourMode(),
+    textSize: FONT_SIZES.medium,
+    textDisplay: {
+      highLegibilityFonts: false,
+      highlightLinks: false,
+      plainText: false,
+    }
+  };
 
   /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
   @property({type: Boolean, reflect: true}) open = false;
@@ -102,6 +118,12 @@ export default class ArcAccessibility extends LitElement {
     this.open = false;
   }
 
+  /* Method used to grab the theme property from the arc-container */
+  getColourMode() {
+    const arcContainer: ArcContainer | null = document.querySelector('arc-container');
+    return arcContainer ? arcContainer.theme : CONTAINER_THEMES.auto;
+  }
+
   /* Store font-sizes from the :root i.e. --arc-font-size-medium. */
   storeRootFontSizes() {
     this._availableFonts.forEach((key: FontSize) => {
@@ -128,7 +150,9 @@ export default class ArcAccessibility extends LitElement {
     this.restoreRootFontSizes();
 
     /* Make sure that the new value exists in the available FONT_SIZES. */
-    if (!(fontSize in FONT_SIZES)) { return; }
+    if (!(fontSize in FONT_SIZES)) {
+      return;
+    }
 
     /*
     Retrieve the index of the default fontSize and the index of the new fontSize.

@@ -152,6 +152,7 @@ export default class ArcContainer extends LitElement {
         </div>
         <arc-accessibility
           id="accessibility"
+          default-theme=${this.theme}
           @arc-accessibility-change=${this.handleAccessibilityChange}
         ></arc-accessibility>
         <slot name="bottom">

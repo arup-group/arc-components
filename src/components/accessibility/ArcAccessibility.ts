@@ -1,4 +1,4 @@
-import {css, html, LitElement} from 'lit';
+import {css, html, LitElement, nothing} from 'lit';
 import {property, query, state} from 'lit/decorators.js';
 import {ifDefined} from "lit/directives/if-defined.js";
 import {emit} from '../../internal/event.js';
@@ -82,6 +82,9 @@ export default class ArcAccessibility extends LitElement {
     /* Store the new preferences in the localStore */
     localStorage.setItem(ArcAccessibility.tag, stringifyObject(this._userPreferences));
 
+    /* Update the :root values */
+    Object.keys(this._userPreferences).forEach((key: keyof UserPreferences) => this.updateRootValue(key, this._userPreferences[key]))
+
     /* Emit the accessibility-change event */
     emit(this, ARC_EVENTS.accessibilityChange, {
       detail: {
@@ -106,6 +109,7 @@ export default class ArcAccessibility extends LitElement {
     /* Check for cached preferences in the localStore and update the state. */
     const cachedPreferences = localStorage.getItem(ArcAccessibility.tag);
     if (cachedPreferences) {
+      /* Update the state of the user preferences */
       this._userPreferences = parseObject(cachedPreferences);
     }
   }
@@ -132,7 +136,6 @@ export default class ArcAccessibility extends LitElement {
     return arcContainer ? arcContainer.theme : CONTAINER_THEMES.auto;
   }
 
-
   /* Store :root css values i.e. --arc-font-size, --arc-letter-spacing etc. */
   storeRootValues(key: keyof UserPreferences) {
     /* Make sure that the given key has available :root values associated with it */
@@ -157,17 +160,8 @@ export default class ArcAccessibility extends LitElement {
     });
   }
 
-  /* Restore all values to default */
-  restoreRootDefaults() {
-    /* Restore default values */
-    Object.keys(this._defaultPreferences).forEach((key: keyof UserPreferences) => this.restoreRootValues(key));
-
-    /* Update the state of the user preferences */
-    this._userPreferences = this._defaultPreferences;
-  }
-
-  /* Update :root font-values */
-  updateFontValue(key: keyof UserPreferences, newValue: any) {
+  /* Update an array of :root values */
+  updateRootValue(key: keyof UserPreferences, newValue: any) {
     /* Make sure that the given key has available :root values associated with it */
     if (!(key in this._availableRootValues)) return;
 
@@ -201,15 +195,20 @@ export default class ArcAccessibility extends LitElement {
     })
   }
 
+  /* Restore all default root values */
+  restoreRootDefaults() {
+    /* Restore default values */
+    Object.keys(this._defaultPreferences).forEach((key: keyof UserPreferences) => this.restoreRootValues(key));
+
+    /* Update the state of the user preferences */
+    this._userPreferences = this._defaultPreferences;
+  }
+
+  /* Method used to update a preference */
   handleOptionChange(event: MouseEvent) {
     const radio = event.target as HTMLInputElement;
     const key = radio.name as keyof UserPreferences;
     const value = radio.value as any;
-
-    /* Update the required :root value */
-    if (key === 'fontSize' || key === 'lineHeight' || key === 'letterSpacing') {
-      this.updateFontValue(key, value);
-    }
 
     /* Update the state of the user preferences */
     this._userPreferences = {...this._userPreferences, [key]: value};
@@ -230,9 +229,9 @@ export default class ArcAccessibility extends LitElement {
     </arc-radio-group>
   `;
 
-  booleanTemplate = (key: keyof UserPreferences, value: boolean) => html`
-    <div>${key}: ${value}</div>
-  `
+  // booleanTemplate = (key: keyof UserPreferences, value: boolean) => {
+  //   return html`${nothing}`
+  // }
 
   optionTemplate = (accessibilityOption: AccessibilityOption) => {
     const {name, icon, options} = accessibilityOption;
@@ -250,7 +249,8 @@ export default class ArcAccessibility extends LitElement {
         if (Array.isArray(value)) return this.radioTemplate(key, value);
 
         /* Render checkboxes or switches for booleans instead */
-        return this.booleanTemplate(key, value);
+        return nothing;
+        // return this.booleanTemplate(key, value);
       })}
     `
   };

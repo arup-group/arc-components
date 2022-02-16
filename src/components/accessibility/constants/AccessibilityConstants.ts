@@ -1,36 +1,38 @@
-import { CONTAINER_THEMES, ContainerTheme } from '../../container/constants/ContainerConstants.js';
-import { FONT_SIZES, FontSize } from '../../../internal/constants/styleConstants.js';
-import { IconType } from '../../icon/constants/IconConstants.js';
+import {CONTAINER_THEMES, ContainerTheme} from '../../container/constants/ContainerConstants.js';
+import {FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../../internal/constants/styleConstants.js';
+import {IconType} from '../../icon/constants/IconConstants.js';
 
-export declare type TextDisplay = 'highLegibilityFonts' | 'highlightLinks' | 'plainText';
-export declare type AccessibilityKey = 'colourMode' | 'textSize' | 'textDisplay';
-export declare type UserPreference = ContainerTheme | FontSize | { [keys in TextDisplay]: boolean };
-export declare type UserPreferences = { [accessKeys in AccessibilityKey]: UserPreference }
+export declare type ColourPreference = 'theme';
+export declare type ContentPreference = 'fontSize' | 'lineHeight' | 'letterSpacing' | 'highLegibilityFonts' | 'highlightLinks' | 'plainText';
+
+export declare type AccessibilityKey = 'colourAdjustments' | 'contentAdjustments';
 export declare type AccessibilityOption = {
   name: AccessibilityKey,
   icon: IconType;
-  values: ContainerTheme[] | FontSize[] | { [keys in TextDisplay]: boolean };
+  options: {
+    [key in ColourPreference]: ContainerTheme[] } | {
+    [key in ContentPreference]: FontSize[] | FontSpacing[] | boolean
+  }
 };
-export declare type AccessibilityOptions = { [accessKeys in AccessibilityKey]: AccessibilityOption }
 
-export const ACCESSIBILITY_OPTIONS: AccessibilityOptions = {
-  colourMode: {
-    name: 'colourMode',
+export const ACCESSIBILITY_OPTIONS: { [key in AccessibilityKey]: AccessibilityOption } = {
+  colourAdjustments: {
+    name: 'colourAdjustments',
     icon: 'bulb',
-    values: Object.values(CONTAINER_THEMES),
+    options: {
+      theme: Object.values(CONTAINER_THEMES)
+    },
   },
-  textSize: {
-    name: 'textSize',
+  contentAdjustments: {
+    name: 'contentAdjustments',
     icon: 'book-open',
-    values: [FONT_SIZES.medium, FONT_SIZES.large, FONT_SIZES["x-large"]],
-  },
-  textDisplay: {
-    name: 'textDisplay',
-    icon: 'eye',
-    values: {
+    options: {
+      fontSize: [FONT_SIZES.medium, FONT_SIZES.large, FONT_SIZES["x-large"]],
+      lineHeight: [FONT_SPACING.dense, FONT_SPACING.normal, FONT_SPACING.loose],
+      letterSpacing: [FONT_SPACING.dense, FONT_SPACING.normal, FONT_SPACING.loose],
       highLegibilityFonts: false,
       highlightLinks: false,
-      plainText: false,
+      plainText: false
     },
   },
 };

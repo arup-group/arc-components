@@ -1,21 +1,20 @@
-import {css, html, LitElement, nothing} from 'lit';
+import {css, html, LitElement} from 'lit';
 import {property, query, state} from 'lit/decorators.js';
 import {ifDefined} from "lit/directives/if-defined.js";
 import {emit} from '../../internal/event.js';
 import {watch} from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import {uppercaseFirstLetter, camelCaseToSpaceSeparated, parseObject, stringifyObject} from '../../internal/string.js';
+import {camelCaseToSpaceSeparated, camelCaseToHyphenSeparated, parseObject, stringifyObject, uppercaseFirstLetter} from '../../internal/string.js';
 import {getRootValue, setRootValue} from "../../utilities/style-utils.js";
 import {
   ACCESSIBILITY_OPTIONS,
   AccessibilityKey,
   AccessibilityOption,
-  UserPreference,
-  UserPreferences
+  ColourPreference, ContentPreference,
 } from './constants/AccessibilityConstants.js';
 import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
-import {FONT_SIZES, DEFAULT_FONTSIZE, FontSize} from "../../internal/constants/styleConstants.js";
-import {CONTAINER_THEMES} from "../container/constants/ContainerConstants.js";
+import {FONT_SIZES, FONT_SPACING, FontSize, FontSpacing} from "../../internal/constants/styleConstants.js";
+import {CONTAINER_THEMES, ContainerTheme} from "../container/constants/ContainerConstants.js";
 
 import type ArcContainer from "../container/ArcContainer.js";
 import type ArcDrawer from '../drawer/ArcDrawer.js';
@@ -25,8 +24,9 @@ import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
 import '../button/arc-button.js';
 
-declare type RootFontValues = {
-  [key in FontSize]: string;
+declare type UserPreferences = {
+  [key in ColourPreference]: ContainerTheme } | {
+  [key in ContentPreference]: FontSize | FontSpacing | boolean
 }
 
 export default class ArcAccessibility extends LitElement {
@@ -50,29 +50,37 @@ export default class ArcAccessibility extends LitElement {
 
   @query('#drawer') drawer: ArcDrawer;
 
-  /* Core values that are scoped to the :root */
-  private _rootFontSizes: RootFontValues = {} as RootFontValues;
+  /* Reference to css variables that are scoped to :root */
+  private _rootCssVariables: { [key: string]: string } = {};
 
-  private _availableFonts: FontSize[] = Object.values(FONT_SIZES);
+  /* Fallback preferences */
+  private _defaultPreferences: UserPreferences = {
+    theme: this.getTheme(),
+    fontSize: FONT_SIZES.medium,
+    lineHeight: FONT_SPACING.normal,
+    letterSpacing: FONT_SPACING.normal,
+    highLegibilityFonts: false,
+    highlightLinks: false,
+    plainText: false,
+  }
+
+  /* Available root values */
+  private _availableRootValues: any = {
+    fontSize: Object.values(FONT_SIZES),
+    lineHeight: Object.values(FONT_SPACING),
+    letterSpacing: Object.values(FONT_SPACING),
+  }
 
   /* State that stores the user preferences */
-  @state() private _userPreferences: UserPreferences = {
-    colourMode: this.getColourMode(),
-    textSize: FONT_SIZES.medium,
-    textDisplay: {
-      highLegibilityFonts: false,
-      highlightLinks: false,
-      plainText: false,
-    }
-  };
+  @state() private _userPreferences: UserPreferences = this._defaultPreferences;
 
   /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
   @property({type: Boolean, reflect: true}) open = false;
 
   @watch('_userPreferences')
   async handlePreferenceChange() {
-    /* Update the preferences */
-    this.updatePreferences();
+    /* Store the new preferences in the localStore */
+    localStorage.setItem(ArcAccessibility.tag, stringifyObject(this._userPreferences));
 
     /* Emit the accessibility-change event */
     emit(this, ARC_EVENTS.accessibilityChange, {
@@ -92,8 +100,8 @@ export default class ArcAccessibility extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    /* Store a reference of default ARC :root values */
-    this.storeRootFontSizes();
+    /* Store a reference of default :root values */
+    Object.keys(this._defaultPreferences).forEach((key: keyof UserPreferences) => this.storeRootValues(key));
 
     /* Check for cached preferences in the localStore and update the state. */
     const cachedPreferences = localStorage.getItem(ArcAccessibility.tag);
@@ -119,108 +127,132 @@ export default class ArcAccessibility extends LitElement {
   }
 
   /* Method used to grab the theme property from the arc-container */
-  getColourMode() {
+  getTheme() {
     const arcContainer: ArcContainer | null = document.querySelector('arc-container');
     return arcContainer ? arcContainer.theme : CONTAINER_THEMES.auto;
   }
 
-  /* Store font-sizes from the :root i.e. --arc-font-size-medium. */
-  storeRootFontSizes() {
-    this._availableFonts.forEach((key: FontSize) => {
-      this._rootFontSizes[key] = getRootValue(`--arc-font-size-${key}`)
+
+  /* Store :root css values i.e. --arc-font-size, --arc-letter-spacing etc. */
+  storeRootValues(key: keyof UserPreferences) {
+    /* Make sure that the given key has available :root values associated with it */
+    if (!(key in this._availableRootValues)) return;
+
+    /* Store a local copy of each :root css variable */
+    this._availableRootValues[key].forEach((value: FontSize | FontSpacing) => {
+      const variable = `--arc-${camelCaseToHyphenSeparated(key)}-${value}`;
+      this._rootCssVariables[variable] = getRootValue(variable);
     });
   }
 
-  /* Restore font-sizes. */
-  restoreRootFontSizes() {
-    this._availableFonts.forEach((key: FontSize) => {
-      setRootValue(`--arc-font-size-${key}`, this._rootFontSizes[key]);
+  /* Restore :root css values i.e. --arc-font-size, --arc-letter-spacing etc. */
+  restoreRootValues(key: keyof UserPreferences) {
+    /* Make sure that the given key has available :root values associated with it */
+    if (!(key in this._availableRootValues)) return;
+
+    /* Restore a :root css variable with the local copy */
+    this._availableRootValues[key].forEach((value: any) => {
+      const variable = `--arc-${camelCaseToHyphenSeparated(key)}-${value}`;
+      setRootValue(variable, this._rootCssVariables[variable]);
     });
   }
 
   /* Restore all values to default */
-  restoreDefaults() {
-    this.restoreRootFontSizes();
-    this._userPreferences = {} as UserPreferences;
+  restoreRootDefaults() {
+    /* Restore default values */
+    Object.keys(this._defaultPreferences).forEach((key: keyof UserPreferences) => this.restoreRootValues(key));
+
+    /* Update the state of the user preferences */
+    this._userPreferences = this._defaultPreferences;
   }
 
-  /* Update :root font-sizes */
-  updateFontSize(fontSize: FontSize) {
-    /* First restore root font-sizes */
-    this.restoreRootFontSizes();
+  /* Update :root font-values */
+  updateFontValue(key: keyof UserPreferences, newValue: any) {
+    /* Make sure that the given key has available :root values associated with it */
+    if (!(key in this._availableRootValues)) return;
 
-    /* Make sure that the new value exists in the available FONT_SIZES. */
-    if (!(fontSize in FONT_SIZES)) {
-      return;
-    }
+    /* Restore :root values of the given key */
+    this.restoreRootValues(key);
 
     /*
-    Retrieve the index of the default fontSize and the index of the new fontSize.
-    The incr value can then be used to retrieve the new value from the FONT_SIZES constant.
+    Retrieve the index of the default value and the index of the new value.
+    The incr value can then be used to retrieve the new value from the array of FontSizes or FontSpacings.
     When the incr === 1, medium will become large, large will become x-large etc.
+    When the incr === 0, all values will be set to default.
     */
-    const rootIndex = this._availableFonts.findIndex(size => size === DEFAULT_FONTSIZE);
-    const newFontIndex = this._availableFonts.findIndex(size => size === fontSize);
+    const options: FontSize[] | FontSpacing[] = this._availableRootValues[key];
+    const rootIndex = options.findIndex(option => option === this._defaultPreferences[key]);
+    const newFontIndex = options.findIndex(option => option === newValue);
     const incr = newFontIndex - rootIndex;
 
-    /* Loop through each available FONT_SIZE and overwrite the value */
-    this._availableFonts.forEach((size, index) => {
+    /* Loop through each available FONT_SIZE or FONT_SPACING and overwrite the value */
+    options.forEach((value, index) => {
       let newIndex = index + incr;
 
       /* If the new index is larger than the available options, set the last available option */
-      if (newIndex >= this._availableFonts.length) {
-        newIndex = this._availableFonts.length - 1;
-      }
+      if (newIndex >= options.length) newIndex = options.length - 1;
 
-      /* Grab the value from the new index */
-      const newVal = getRootValue(`--arc-font-size-${this._availableFonts[newIndex]}`);
+      /* Set the css variable to look for */
+      const oldVar = `--arc-${camelCaseToHyphenSeparated(key)}-${value}`;
+      const newVar = `--arc-${camelCaseToHyphenSeparated(key)}-${options[newIndex]}`;
 
-      /* Overwrite the root value with the new value */
-      setRootValue(`--arc-font-size-${size}`, newVal);
+      /* Overwrite the :root value with the new value */
+      setRootValue(oldVar, getRootValue(newVar));
     })
-  }
-
-  /* Update all preferences */
-  updatePreferences() {
-    /* Update the fontSize */
-    this.updateFontSize(this._userPreferences.textSize as FontSize);
-
-    /* TODO: Update other options */
-
-    /* Store the new preferences in the localStore */
-    localStorage.setItem(ArcAccessibility.tag, stringifyObject(this._userPreferences));
   }
 
   handleOptionChange(event: MouseEvent) {
     const radio = event.target as HTMLInputElement;
-    const key = radio.name as AccessibilityKey;
-    const value = radio.value as UserPreference;
+    const key = radio.name as keyof UserPreferences;
+    const value = radio.value as any;
 
+    /* Update the required :root value */
+    if (key === 'fontSize' || key === 'lineHeight' || key === 'letterSpacing') {
+      this.updateFontValue(key, value);
+    }
+
+    /* Update the state of the user preferences */
     this._userPreferences = {...this._userPreferences, [key]: value};
   }
 
-  optionTemplate = (key: AccessibilityKey, accessibilityOption: AccessibilityOption) => {
-    const {icon, values} = accessibilityOption;
+  radioTemplate = (key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) => html`
+    <arc-radio-group>
+      <span slot="label">${camelCaseToSpaceSeparated(key)}</span>
+      ${values.map(value => html`
+        <arc-radio
+          name=${key}
+          value=${value}
+          ?checked=${ifDefined(this._userPreferences ? value === this._userPreferences[key] : false)}
+          @arc-change=${this.handleOptionChange}
+        >${uppercaseFirstLetter(value)}
+        </arc-radio>
+      `)}
+    </arc-radio-group>
+  `;
 
-    /* When the values are within a string[], they can only be set by a checkbox */
-    return Array.isArray(values)
-      ? html`
-        <arc-radio-group>
-          <div slot="label" class="label">
-            <span>${camelCaseToSpaceSeparated(key)}</span>
-            <arc-icon name=${icon}></arc-icon>
-          </div>
-          ${values.map(value => html`
-            <arc-radio
-              name=${key}
-              value=${value}
-              ?checked=${ifDefined(this._userPreferences ? value === this._userPreferences[key] : false)}
-              @arc-change=${this.handleOptionChange}
-            >${uppercaseFirstLetter(value)}
-            </arc-radio>
-          `)}
-        </arc-radio-group>
-      ` : nothing;
+  booleanTemplate = (key: keyof UserPreferences, value: boolean) => html`
+    <div>${key}: ${value}</div>
+  `
+
+  optionTemplate = (accessibilityOption: AccessibilityOption) => {
+    const {name, icon, options} = accessibilityOption;
+
+    return html`
+      <div class="label">
+        <span>${camelCaseToSpaceSeparated(name)}</span>
+        <arc-icon name=${icon}></arc-icon>
+      </div>
+
+      ${Object.entries(options).map((preference) => {
+        const [ key, value ] = preference as [keyof UserPreferences, any];
+
+        /* If the value is an array of options, render radio-buttons. */
+        if (Array.isArray(value)) return this.radioTemplate(key, value);
+
+        /* Render checkboxes or switches for booleans instead */
+        return this.booleanTemplate(key, value);
+      })}
+    `
   };
 
   render() {
@@ -233,10 +265,10 @@ export default class ArcAccessibility extends LitElement {
           </div>
           <div id="wrapper">
             ${Object.keys(ACCESSIBILITY_OPTIONS).map((key: AccessibilityKey) =>
-              this.optionTemplate(key, ACCESSIBILITY_OPTIONS[key])
+              this.optionTemplate(ACCESSIBILITY_OPTIONS[key])
             )}
           </div>
-          <arc-button slot="footer" @click=${this.restoreDefaults}>Restore defaults</arc-button>
+          <arc-button slot="footer" @click=${this.restoreRootDefaults}>Restore defaults</arc-button>
         </arc-drawer>
       </div>
     `;

@@ -111,11 +111,11 @@ export default class ArcContainer extends LitElement {
   /* Update the theme when the @arc-accessibility-change event emits */
   handleAccessibilityChange = (event: CustomEvent) => {
     const {preferences} = event.detail;
-    const colourMode = preferences.colourMode as ContainerTheme;
+    const {theme}: { theme: ContainerTheme} = preferences;
 
     /* Make sure that the new theme exists in the available CONTAINER_THEMES. */
-    if (!!colourMode && colourMode in CONTAINER_THEMES) {
-      this.theme = colourMode;
+    if (!!theme && theme in CONTAINER_THEMES) {
+      this.theme = theme;
       return;
     }
 

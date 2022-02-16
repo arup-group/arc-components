@@ -9,6 +9,8 @@ export declare type FontSize =
   | 'xxx-large'
   | 'xxxx-large';
 
+export declare type FontSpacing = 'dense' | 'normal' | 'loose'
+
 export const FONT_SIZES: { [key in FontSize]: FontSize } = {
   'xx-small': 'xx-small',
   'x-small': 'x-small',
@@ -21,4 +23,8 @@ export const FONT_SIZES: { [key in FontSize]: FontSize } = {
   'xxxx-large': 'xxxx-large',
 };
 
-export const DEFAULT_FONTSIZE: FontSize = FONT_SIZES.medium;
+export const FONT_SPACING: { [key in FontSpacing]: FontSpacing } = {
+  dense: 'dense',
+  normal: 'normal',
+  loose: 'loose'
+}

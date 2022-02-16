@@ -10,9 +10,16 @@ function stringToInitials(string: string) {
   return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 }
 
+/* Turns a camelCase value into a space separated string like so: Camel Case */
 function camelCaseToSpaceSeparated(string: string) {
   const result = string.replace(/([A-Z])/g, ' $1');
   return `${result.charAt(0).toUpperCase()}${result.slice(1)}`;
+}
+
+/* Turns a CamelCase value into a hyphen separated string like so: camel-case */
+function camelCaseToHyphenSeparated(string: string) {
+  const result = string.replace(/([A-Z])/g, ' $1');
+  return `${result.toLowerCase().replace(' ', '-')}`
 }
 
 /* Convert a comma-separated string to an array of strings */
@@ -40,6 +47,7 @@ export {
   uppercaseFirstLetter,
   stringToInitials,
   camelCaseToSpaceSeparated,
+  camelCaseToHyphenSeparated,
   stringToArray,
   stringifyObject,
   parseObject,

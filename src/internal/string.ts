@@ -1,5 +1,13 @@
+function isPascalCase(string: string) {
+  return /^([A-Z]([a-z]+))(([A-Z]([a-z]+))+)$/.test(string)
+}
+
+function isCamelCase(string: string) {
+  return /^([a-z]+)(([A-Z]([a-z]+))+)$/.test(string)
+}
+
 function uppercaseFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
 }
 
 /* Retrieve the initials of a user */
@@ -10,16 +18,23 @@ function stringToInitials(string: string) {
   return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 }
 
-/* Turns a camelCase value into a space separated string like so: Camel Case */
-function camelCaseToSpaceSeparated(string: string) {
-  const result = string.replace(/([A-Z])/g, ' $1');
-  return `${result.charAt(0).toUpperCase()}${result.slice(1)}`;
+/* Turns a camelCase or PascalCase string into a space separated string */
+function stringToSpaceSeparated(string: string) {
+  if (!isPascalCase(string) && !isCamelCase(string)) {
+    return uppercaseFirstLetter(string);
+  }
+  const camelStr = `${string.charAt(0).toLowerCase()}${string.slice(1)}`; /* turn string into camelCase first */
+  const spacedString = camelStr.replace(/([A-Z])/g, ' $1'); /* turn string into space Separated */
+  return uppercaseFirstLetter(spacedString);
 }
 
-/* Turns a CamelCase value into a hyphen separated string like so: camel-case */
-function camelCaseToHyphenSeparated(string: string) {
-  const result = string.replace(/([A-Z])/g, ' $1');
-  return `${result.toLowerCase().replace(' ', '-')}`
+/* Turns a PascalCase or camelCase string into a hyphen separated string */
+function stringToHyphenSeparated(string: string) {
+  if (!isPascalCase(string) && !isCamelCase(string)) return string;
+
+  const camelStr = `${string.charAt(0).toLowerCase()}${string.slice(1)}`; /* turn string into camelCase first */
+  const hyphenString = camelStr.replace(/([A-Z])/g, '-$1'); /* turn string into hyphen-Separated */
+  return hyphenString.toLowerCase();
 }
 
 /* Convert a comma-separated string to an array of strings */
@@ -46,8 +61,8 @@ function parseObject(string: string) {
 export {
   uppercaseFirstLetter,
   stringToInitials,
-  camelCaseToSpaceSeparated,
-  camelCaseToHyphenSeparated,
+  stringToSpaceSeparated,
+  stringToHyphenSeparated,
   stringToArray,
   stringifyObject,
   parseObject,

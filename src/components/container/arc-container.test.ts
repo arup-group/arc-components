@@ -114,15 +114,15 @@ describe('ArcContainer', () => {
     });
 
     it('should update the theme when the user-preferences change', async () => {
-      const colourMode = 'light';
+      const theme = 'light';
 
       /* Set up a fake event to imitate new user preferences */
       element.handleAccessibilityChange(new CustomEvent(ARC_EVENTS.accessibilityChange, {
-        detail: { preferences: { colourMode } },
+        detail: { preferences: { theme } },
       }));
       await elementUpdated(element);
 
-      expect(element.theme).to.equal(colourMode);
+      expect(element.theme).to.equal(theme);
 
       /* Set up a fake event to imitate restored user preferences */
       element.handleAccessibilityChange(new CustomEvent(ARC_EVENTS.accessibilityChange, {

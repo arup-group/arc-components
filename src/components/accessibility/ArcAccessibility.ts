@@ -6,7 +6,7 @@ import {ifDefined} from "lit/directives/if-defined.js";
 import {emit} from '../../internal/event.js';
 import {watch} from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import {camelCaseToSpaceSeparated, camelCaseToHyphenSeparated, parseObject, stringifyObject, uppercaseFirstLetter} from '../../internal/string.js';
+import {stringToSpaceSeparated, stringToHyphenSeparated, parseObject, stringifyObject, uppercaseFirstLetter} from '../../internal/string.js';
 import {getRootValue, setRootValue} from "../../utilities/style-utils.js";
 import {
   ACCESSIBILITY_OPTIONS,
@@ -147,7 +147,7 @@ export default class ArcAccessibility extends LitElement {
 
     /* Store a local copy of each :root css variable */
     this._availableRootValues[key].forEach((value: FontSize | FontSpacing) => {
-      const variable = `--arc-${camelCaseToHyphenSeparated(key)}-${value}`;
+      const variable = `--arc-${stringToHyphenSeparated(key)}-${value}`;
       this._rootCssVariables[variable] = getRootValue(variable);
     });
   }
@@ -159,7 +159,7 @@ export default class ArcAccessibility extends LitElement {
 
     /* Restore a :root css variable with the local copy */
     this._availableRootValues[key].forEach((value: any) => {
-      const variable = `--arc-${camelCaseToHyphenSeparated(key)}-${value}`;
+      const variable = `--arc-${stringToHyphenSeparated(key)}-${value}`;
       setRootValue(variable, this._rootCssVariables[variable]);
     });
   }
@@ -191,8 +191,8 @@ export default class ArcAccessibility extends LitElement {
       if (newIndex >= options.length) newIndex = options.length - 1;
 
       /* Set the css variable to look for */
-      const oldVar = `--arc-${camelCaseToHyphenSeparated(key)}-${value}`;
-      const newVar = `--arc-${camelCaseToHyphenSeparated(key)}-${options[newIndex]}`;
+      const oldVar = `--arc-${stringToHyphenSeparated(key)}-${value}`;
+      const newVar = `--arc-${stringToHyphenSeparated(key)}-${options[newIndex]}`;
 
       /* Overwrite the :root value with the new value */
       setRootValue(oldVar, getRootValue(newVar));
@@ -220,7 +220,7 @@ export default class ArcAccessibility extends LitElement {
 
   radioTemplate = (key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) => html`
     <arc-radio-group>
-      <span slot="label">${camelCaseToSpaceSeparated(key)}</span>
+      <span slot="label">${stringToSpaceSeparated(key)}</span>
       ${map(values, value => html`
         <arc-radio
           name=${key}
@@ -246,7 +246,7 @@ export default class ArcAccessibility extends LitElement {
           <div id="wrapper">
             ${map(ACCESSIBILITY_OPTIONS, (item: AccessibilityOption) => html`
               <div class="label">
-                <span>${camelCaseToSpaceSeparated(item.name)}</span>
+                <span>${stringToSpaceSeparated(item.name)}</span>
                 <arc-icon name=${item.icon}></arc-icon>
               </div>
               <div class="options">

@@ -2,7 +2,8 @@ import { expect } from '@open-wc/testing';
 import {
   uppercaseFirstLetter,
   stringToInitials,
-  camelCaseToSpaceSeparated,
+  stringToSpaceSeparated,
+  stringToHyphenSeparated,
   stringToArray,
   stringifyObject,
   parseObject,
@@ -36,20 +37,49 @@ describe('string', () => {
     });
   });
 
-  describe('camelCaseToSpaceSeparated', () => {
-    it('should return Test Option', () => {
-      const string = 'testOption';
-      expect(camelCaseToSpaceSeparated(string)).to.equal('Test Option');
+  describe('stringToSpaceSeparated', () => {
+    it('should return a camelCase string into a space separated string', () => {
+      expect(stringToSpaceSeparated('testOption')).to.equal('Test Option');
     });
 
-    it('should return Testoption', () => {
-      const string = 'testoption';
-      expect(camelCaseToSpaceSeparated(string)).to.equal('Testoption');
+    it ('should return a PascalCase string into a space separated string', () => {
+      expect(stringToSpaceSeparated('TestOption')).to.equal('Test Option');
     });
 
-    it('should return Test Option Two', () => {
-      const string = 'testOptionTwo';
-      expect(camelCaseToSpaceSeparated(string)).to.equal('Test Option Two');
+    it('should return a camelCaseString into a space separated string', () => {
+      expect(stringToSpaceSeparated('testOptionTwo')).to.equal('Test Option Two');
+    });
+
+    it('should return PascalCaseString into a space separated string', () => {
+      expect(stringToSpaceSeparated('TestOptionTwo')).to.equal('Test Option Two');
+    });
+
+    it('should return the original string when a faulty string is provided', () => {
+      expect(stringToSpaceSeparated('testoptiontwo')).to.equal('Testoptiontwo');
+      expect(stringToSpaceSeparated('TESTOPTIONTWO')).to.equal('TESTOPTIONTWO');
+    });
+  });
+
+  describe('stringToHyphenSeparated', () => {
+    it('should return a camelCase string into a hyphen separated string', () => {
+      expect(stringToHyphenSeparated('testOption')).to.equal('test-option');
+    });
+
+    it ('should return a PascalCase string into a hyphen separated string', () => {
+      expect(stringToHyphenSeparated('TestOption')).to.equal('test-option');
+    });
+
+    it('should return a camelCaseString into a hyphen separated string', () => {
+      expect(stringToHyphenSeparated('testOptionTwo')).to.equal('test-option-two');
+    });
+
+    it('should return a PascalCaseString into a hyphen separated string', () => {
+      expect(stringToHyphenSeparated('TestOptionTwo')).to.equal('test-option-two');
+    });
+
+    it('should return the original string when a faulty string is provided', () => {
+      expect(stringToHyphenSeparated('testoptiontwo')).to.equal('testoptiontwo');
+      expect(stringToHyphenSeparated('TESTOPTIONTWO')).to.equal('TESTOPTIONTWO');
     });
   });
 

@@ -1,5 +1,5 @@
 import {css, html, LitElement, nothing} from 'lit';
-import {property, query, state} from 'lit/decorators.js';
+import {property, state} from 'lit/decorators.js';
 import {map} from 'lit/directives/map.js';
 import {when} from 'lit/directives/when.js';
 import {ifDefined} from "lit/directives/if-defined.js";
@@ -19,7 +19,6 @@ import {FONT_SIZES, FONT_SPACING, FontSize, FontSpacing} from "../../internal/co
 import {CONTAINER_THEMES, ContainerTheme} from "../container/constants/ContainerConstants.js";
 
 import type ArcContainer from "../container/ArcContainer.js";
-import type ArcDrawer from '../drawer/ArcDrawer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
@@ -59,8 +58,6 @@ export default class ArcAccessibility extends LitElement {
       }
     `,
   ];
-
-  @query('#drawer') drawer: ArcDrawer;
 
   /* Reference to css variables that are scoped to :root */
   private _rootCssVariables: { [key: string]: string } = {};
@@ -107,11 +104,6 @@ export default class ArcAccessibility extends LitElement {
     });
   }
 
-  @watch('open', {waitUntilFirstUpdate: true})
-  handleOpenChange() {
-    this.drawer.open = this.open;
-  }
-
   connectedCallback() {
     super.connectedCallback();
 
@@ -127,7 +119,7 @@ export default class ArcAccessibility extends LitElement {
   }
 
   /* Shows the drawer */
-  show() {
+  async show() {
     if (this.open) {
       return;
     }
@@ -135,7 +127,7 @@ export default class ArcAccessibility extends LitElement {
   }
 
   /* Hides the drawer */
-  hide() {
+  async hide() {
     if (!this.open) {
       return;
     }
@@ -246,7 +238,7 @@ export default class ArcAccessibility extends LitElement {
   render() {
     return html`
       <div id="main">
-        <arc-drawer id="drawer" @arc-hide=${this.hide}>
+        <arc-drawer id="drawer" @arc-hide=${this.hide} ?open=${this.open}>
           <div class="label" slot="label">
             <arc-icon name="accessibility" size="large"></arc-icon>
             <span>Accessibility Controls (A)</span>

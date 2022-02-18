@@ -53,6 +53,10 @@ export default class ArcAccessibility extends LitElement {
         flex-wrap: wrap;
         gap: var(--arc-spacing-small);
       }
+
+      .boolean-option {
+        height: 5rem;
+      }
     `,
   ];
 

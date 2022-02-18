@@ -11,7 +11,7 @@ export declare type AccessibilityOption = {
   icon: IconType;
   options: {
     [key in ColourPreference]: ContainerTheme[] } | {
-    [key in ContentPreference]: FontSize[] | FontSpacing[] | boolean
+    [key in ContentPreference]: FontSize[] | FontSpacing[] | null
   }
 };
 
@@ -30,9 +30,9 @@ export const ACCESSIBILITY_OPTIONS: AccessibilityOption[] = [
       fontSize: [FONT_SIZES.medium, FONT_SIZES.large, FONT_SIZES["x-large"]],
       lineHeight: [FONT_SPACING.dense, FONT_SPACING.normal, FONT_SPACING.loose],
       letterSpacing: [FONT_SPACING.dense, FONT_SPACING.normal, FONT_SPACING.loose],
-      highLegibilityFonts: false,
-      highlightLinks: false,
-      plainText: false
+      highLegibilityFonts: null,
+      highlightLinks: null,
+      plainText: null
     },
   },
 ];

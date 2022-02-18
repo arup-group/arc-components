@@ -25,7 +25,7 @@ import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
 import '../button/arc-button.js';
 
-declare type UserPreferences = {
+export declare type UserPreferences = {
   [key in ColourPreference]: ContainerTheme } | {
   [key in ContentPreference]: FontSize | FontSpacing | boolean
 }
@@ -119,7 +119,7 @@ export default class ArcAccessibility extends LitElement {
   }
 
   /* Shows the drawer */
-  async show() {
+  show() {
     if (this.open) {
       return;
     }
@@ -127,7 +127,7 @@ export default class ArcAccessibility extends LitElement {
   }
 
   /* Hides the drawer */
-  async hide() {
+  hide() {
     if (!this.open) {
       return;
     }
@@ -219,7 +219,7 @@ export default class ArcAccessibility extends LitElement {
   }
 
   radioTemplate = (key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) => html`
-    <arc-radio-group>
+    <arc-radio-group id=${key}>
       <span slot="label">${stringToSpaceSeparated(key)}</span>
       ${map(values, value => html`
         <arc-radio

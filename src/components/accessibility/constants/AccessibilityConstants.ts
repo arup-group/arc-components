@@ -15,15 +15,15 @@ export declare type AccessibilityOption = {
   }
 };
 
-export const ACCESSIBILITY_OPTIONS: { [key in AccessibilityKey]: AccessibilityOption } = {
-  colourAdjustments: {
+export const ACCESSIBILITY_OPTIONS: AccessibilityOption[] = [
+  {
     name: 'colourAdjustments',
     icon: 'bulb',
     options: {
       theme: Object.values(CONTAINER_THEMES)
     },
   },
-  contentAdjustments: {
+  {
     name: 'contentAdjustments',
     icon: 'book-open',
     options: {
@@ -35,4 +35,4 @@ export const ACCESSIBILITY_OPTIONS: { [key in AccessibilityKey]: AccessibilityOp
       plainText: false
     },
   },
-};
+];

@@ -1,5 +1,7 @@
 import {css, html, LitElement, nothing} from 'lit';
 import {property, query, state} from 'lit/decorators.js';
+import {map} from 'lit/directives/map.js';
+import {when} from 'lit/directives/when.js';
 import {ifDefined} from "lit/directives/if-defined.js";
 import {emit} from '../../internal/event.js';
 import {watch} from '../../internal/watch.js';
@@ -8,9 +10,9 @@ import {camelCaseToSpaceSeparated, camelCaseToHyphenSeparated, parseObject, stri
 import {getRootValue, setRootValue} from "../../utilities/style-utils.js";
 import {
   ACCESSIBILITY_OPTIONS,
-  AccessibilityKey,
   AccessibilityOption,
-  ColourPreference, ContentPreference,
+  ColourPreference,
+  ContentPreference
 } from './constants/AccessibilityConstants.js';
 import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
 import {FONT_SIZES, FONT_SPACING, FontSize, FontSpacing} from "../../internal/constants/styleConstants.js";
@@ -217,7 +219,7 @@ export default class ArcAccessibility extends LitElement {
   radioTemplate = (key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) => html`
     <arc-radio-group>
       <span slot="label">${camelCaseToSpaceSeparated(key)}</span>
-      ${values.map(value => html`
+      ${map(values, value => html`
         <arc-radio
           name=${key}
           value=${value}
@@ -229,31 +231,7 @@ export default class ArcAccessibility extends LitElement {
     </arc-radio-group>
   `;
 
-  // booleanTemplate = (key: keyof UserPreferences, value: boolean) => {
-  //   return html`${nothing}`
-  // }
-
-  optionTemplate = (accessibilityOption: AccessibilityOption) => {
-    const {name, icon, options} = accessibilityOption;
-
-    return html`
-      <div class="label">
-        <span>${camelCaseToSpaceSeparated(name)}</span>
-        <arc-icon name=${icon}></arc-icon>
-      </div>
-
-      ${Object.entries(options).map((preference) => {
-        const [ key, value ] = preference as [keyof UserPreferences, any];
-
-        /* If the value is an array of options, render radio-buttons. */
-        if (Array.isArray(value)) return this.radioTemplate(key, value);
-
-        /* Render checkboxes or switches for booleans instead */
-        return nothing;
-        // return this.booleanTemplate(key, value);
-      })}
-    `
-  };
+  booleanTemplate = () => html`${nothing}`
 
   render() {
     return html`
@@ -264,9 +242,19 @@ export default class ArcAccessibility extends LitElement {
             <span>Accessibility Controls (A)</span>
           </div>
           <div id="wrapper">
-            ${Object.keys(ACCESSIBILITY_OPTIONS).map((key: AccessibilityKey) =>
-              this.optionTemplate(ACCESSIBILITY_OPTIONS[key])
-            )}
+            ${map(ACCESSIBILITY_OPTIONS, (item: AccessibilityOption) => html`
+              <div class="label">
+                <span>${camelCaseToSpaceSeparated(item.name)}</span>
+                <arc-icon name=${item.icon}></arc-icon>
+              </div>
+              ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
+                const [ userPreference, value ] = option as [keyof UserPreferences, any];
+
+                return html`${when(Array.isArray(value),
+                () => this.radioTemplate(userPreference, value),
+                () => this.booleanTemplate())}`
+              })}
+            `)}
           </div>
           <arc-button slot="footer" @click=${this.restoreRootDefaults}>Restore defaults</arc-button>
         </arc-drawer>

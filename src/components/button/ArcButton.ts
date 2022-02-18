@@ -40,6 +40,7 @@ export default class ArcButton extends LitElement {
         border-radius: var(--arc-border-radius-medium);
         font-family: var(--arc-font-button);
         font-size: inherit;
+        letter-spacing: inherit;
         font-weight: var(--arc-font-weight-semibold);
         text-decoration: none;
         user-select: none;

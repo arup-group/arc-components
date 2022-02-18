@@ -47,6 +47,12 @@ export default class ArcAccessibility extends LitElement {
         align-items: center;
         gap: var(--arc-spacing-small);
       }
+
+      .options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--arc-spacing-small);
+      }
     `,
   ];
 
@@ -247,16 +253,18 @@ export default class ArcAccessibility extends LitElement {
                 <span>${camelCaseToSpaceSeparated(item.name)}</span>
                 <arc-icon name=${item.icon}></arc-icon>
               </div>
-              ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
-                const [ userPreference, value ] = option as [keyof UserPreferences, any];
+              <div class="options">
+                ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
+                  const [ userPreference, value ] = option as [keyof UserPreferences, any];
 
-                return html`${when(Array.isArray(value),
-                () => this.radioTemplate(userPreference, value),
-                () => this.booleanTemplate())}`
-              })}
+                  return html`${when(Array.isArray(value),
+                  () => this.radioTemplate(userPreference, value),
+                  () => this.booleanTemplate())}`
+                })}
+              </div>
             `)}
           </div>
-          <arc-button slot="footer" @click=${this.restoreRootDefaults}>Restore defaults</arc-button>
+          <arc-button type="tab" slot="footer" @click=${this.restoreRootDefaults}>Restore defaults</arc-button>
         </arc-drawer>
       </div>
     `;

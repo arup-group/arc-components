@@ -31,6 +31,17 @@ They can change settings like:
 By default, the [arc-container](?path=/story/arccontainer--default) component imports the accessibility panel
 and handles all the above out of the box. When used without the [arc-container](?path=/story/arccontainer--default) component,
 your application can listen to the `arc-accessibility-change` event fired from the accessibility component.
+
+```bash
+<arc-accessibility id='accessibility'></arc-accessibility>
+<script>
+  document.getElementById('accessibility').addEventListener('arc-accessibility-change', e => {
+    const { preferences } = e.detail;
+    console.log(preferences);
+  })
+</script>
+```
+
 This event throws out the user defined values like so:
 ```bash
  {

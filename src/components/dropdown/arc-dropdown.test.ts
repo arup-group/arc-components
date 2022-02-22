@@ -12,6 +12,8 @@ import {
   enterEvent,
   upEvent,
 } from '../../utilities/test-utils.js';
+import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcDropdown from './ArcDropdown.js';
 import type ArcMenu from '../menu/ArcMenu.js';
@@ -21,8 +23,6 @@ import './arc-dropdown.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 import '../button/arc-button.js';
-
-import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 
 describe('ArcDropdown', () => {
   /* Test the rendering of the component */
@@ -216,8 +216,8 @@ describe('ArcDropdown', () => {
     });
 
     it('should emit arc-show and arc-after-show when calling show()', async () => {
-      element.addEventListener('arc-show', showHandler);
-      element.addEventListener('arc-after-show', afterShowHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       await element.show();
       await waitUntil(() => showHandler.calledOnce);
@@ -231,8 +231,8 @@ describe('ArcDropdown', () => {
     it('should emit arc-hide and arc-after-hide when calling hide()', async () => {
       await element.show();
 
-      element.addEventListener('arc-hide', hideHandler);
-      element.addEventListener('arc-after-hide', afterHideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
 
       await element.hide();
       await waitUntil(() => hideHandler.calledOnce);
@@ -244,8 +244,8 @@ describe('ArcDropdown', () => {
     });
 
     it('should emit arc-show and arc-after-show when setting open = true', async () => {
-      element.addEventListener('arc-show', showHandler);
-      element.addEventListener('arc-after-show', afterShowHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       element.open = true;
       await waitUntil(() => showHandler.calledOnce);
@@ -260,8 +260,8 @@ describe('ArcDropdown', () => {
       element.open = true;
       await elementUpdated(element);
 
-      element.addEventListener('arc-hide', hideHandler);
-      element.addEventListener('arc-after-hide', afterHideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
 
       element.open = false;
       await waitUntil(() => hideHandler.calledOnce);
@@ -273,8 +273,8 @@ describe('ArcDropdown', () => {
     });
 
     it('should prevent emitting the arc-show and arc-after-show when the menu is already open', async () => {
-      element.addEventListener('arc-show', showHandler);
-      element.addEventListener('arc-after-show', afterShowHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       await element.show();
       expect(isOpen()).to.be.true;
@@ -290,8 +290,8 @@ describe('ArcDropdown', () => {
       element.disabled = true;
       await elementUpdated(element);
 
-      element.addEventListener('arc-show', showHandler);
-      element.addEventListener('arc-after-show', afterShowHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       element.open = true;
 
@@ -302,7 +302,7 @@ describe('ArcDropdown', () => {
     });
 
     it('closes the menu when escape is pressed', async () => {
-      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
 
       /* Open the menu */
       await element.show();
@@ -326,7 +326,7 @@ describe('ArcDropdown', () => {
     });
 
     it('closes the menu when tabbing inside an open menu', async () => {
-      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
 
       /* Open the menu */
       await element.show();
@@ -349,7 +349,7 @@ describe('ArcDropdown', () => {
     });
 
     it('closes the menu when clicking on a menu item', async () => {
-      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
 
       /* Open the menu */
       await element.show();
@@ -365,7 +365,7 @@ describe('ArcDropdown', () => {
     });
 
     it('closes the menu when clicking outside of the element', async () => {
-      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
 
       /* Open the menu */
       await element.show();
@@ -381,8 +381,8 @@ describe('ArcDropdown', () => {
     });
 
     it('toggles the menu when the space bar or enter is pressed', async () => {
-      element.addEventListener('arc-show', showHandler);
-      element.addEventListener('arc-hide', hideHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
 
       /* Open / close the menu with space */
       element.handleTriggerKeyDown(spaceEvent);
@@ -408,7 +408,7 @@ describe('ArcDropdown', () => {
     });
 
     it('focuses the first menu item when ArrowDown is pressed', async () => {
-      element.addEventListener('arc-show', showHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
 
       /* Open the menu with ArrowDown */
       element.handleTriggerKeyDown(downEvent);
@@ -421,7 +421,7 @@ describe('ArcDropdown', () => {
     });
 
     it('focuses the last menu item when ArrowUp is pressed', async () => {
-      element.addEventListener('arc-show', showHandler);
+      element.addEventListener(ARC_EVENTS.show, showHandler);
 
       /* Open the menu with ArrowUp */
       element.handleTriggerKeyDown(upEvent);

@@ -1,8 +1,12 @@
 import { css, html, LitElement, nothing } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
-import componentStyles from '../../styles/component.styles.js';
-import { mobileBreakpoint } from '../../utilities/ui-utils.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import { mobileBreakpoint } from '../../utilities/ui-utils.js';
+import componentStyles from '../../styles/component.styles.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import type ArcButton from '../button/ArcButton.js';
 import type ArcIconButton from '../icon-button/ArcIconButton.js';
@@ -98,6 +102,10 @@ export default class ArcNavbar extends LitElement {
         margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
       }
 
+      #accessibility {
+        display: none;
+      }
+
       #company-logo {
         color: rgb(var(--arc-color-primary));
         display: flex;
@@ -112,7 +120,8 @@ export default class ArcNavbar extends LitElement {
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
         #tabSlot,
-        #tool-logo + #tool-name {
+        #tool-logo + #tool-name,
+        #accessibility {
           display: flex;
         }
       }
@@ -121,9 +130,9 @@ export default class ArcNavbar extends LitElement {
 
   @query('#tabSlot') tabSlot: HTMLSlotElement;
 
-  @state() showDropdown: boolean = false;
+  @state() private showDropdown: boolean = false;
 
-  @state() navTabs: (ArcButton | ArcIconButton)[] = [];
+  @state() private navTabs: (ArcButton | ArcIconButton)[] = [];
 
   @property({ type: String, reflect: true }) home: string;
 
@@ -162,6 +171,11 @@ export default class ArcNavbar extends LitElement {
     });
   }
 
+  /* Emit an event to show the accessibility panel */
+  emitAccessibility() {
+    emit(this, ARC_EVENTS.showAccessibility);
+  }
+
   render() {
     /*
     Template that displays all button and icon-button components inside a dropdown menu
@@ -190,7 +204,13 @@ export default class ArcNavbar extends LitElement {
         <div id="left">
           ${this.home
             ? html`
-                <a id="logoWrapper" href="${this.home}" rel="noreferrer noopener" role="button" aria-label="tool logo">
+                <a
+                  id="logoWrapper"
+                  href="${ifDefined(this.home)}"
+                  rel="noreferrer noopener"
+                  role="button"
+                  aria-label="tool logo"
+                >
                   ${logoInterior}
                 </a>
               `
@@ -202,11 +222,17 @@ export default class ArcNavbar extends LitElement {
             ${this.showDropdown
               ? html`
                   <arc-dropdown hoist>
-                    <arc-icon-button slot="trigger" name="menu"></arc-icon-button>
+                    <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
                     <arc-menu>${menuInterior}</arc-menu>
                   </arc-dropdown>
                 `
               : nothing}
+            <arc-icon-button
+              id="accessibility"
+              name=${ICON_TYPES.accessibility}
+              label="Accessibility panel"
+              @click=${this.emitAccessibility}
+            ></arc-icon-button>
             <slot name="user"></slot>
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}

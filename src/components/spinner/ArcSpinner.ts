@@ -26,9 +26,6 @@ export default class ArcSpinner extends LitElement {
       .spinner__indicator {
         fill: none;
         stroke-width: var(--track-width);
-        r: calc(0.5em - var(--track-width) / 2);
-        cx: 0.5em;
-        cy: 0.5em;
         transform-origin: 50% 50%;
       }
 
@@ -67,8 +64,8 @@ export default class ArcSpinner extends LitElement {
   render() {
     return html`
       <svg class="spinner" aria-busy="true" aria-live="polite">
-        <circle class="spinner__track"></circle>
-        <circle class="spinner__indicator"></circle>
+        <circle class="spinner__track" r="calc(0.5em - var(--track-width) / 2)" cx="0.5em" cy="0.5em" />
+        <circle class="spinner__indicator" r="calc(0.5em - var(--track-width) / 2)" cx="0.5em" cy="0.5em" />
       </svg>
     `;
   }

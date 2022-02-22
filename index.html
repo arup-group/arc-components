@@ -5,24 +5,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="Description" content="Web-components related to the ARC design system">
+  <meta name="theme-color" content="#E61E28"/>
+  <link rel="manifest" href="/manifest.json">
   <base href="/">
 
   <title>ARC</title>
 
-  <link crossorigin="anonymous" href="themes/index.css" rel="stylesheet">
-  <link crossorigin="anonymous" href="themes/light.css" rel="stylesheet">
-  <link crossorigin="anonymous" href="themes/dark.css" rel="stylesheet">
+  <!-- Touch Icons - iOS and Android 2.1+ 152x152 pixels in size. -->
+  <link rel="apple-touch-icon" href="/assets/icons/favicon_152.ico">
+
+  <!-- Firefox, Chrome, Safari, IE 11+ and Opera. 96x96 pixels in size. -->
+  <link rel="icon" href="/assets/icons/152x152.png">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon_96.ico">
+
+  <link crossorigin="anonymous" href="/themes/index.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="/themes/light.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="/themes/dark.css" rel="stylesheet">
 </head>
 
 <body>
-<arc-container>
-  <arc-navbar slot='nav' logo="/assets/arc-red.svg">
-    <arc-icon-button id='themeSetter' label="Toggle theme" name="brightness_low"></arc-icon-button>
-    <span slot='name'>Web-components</span>
-<!--    <arc-sso slot='user' client-id="1c9f600f-c214-4c21-89d9-ca3b8bba8735" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea" redirect-uri="http://localhost:8000/"></arc-sso>-->
-  </arc-navbar>
-
-  <slot></slot>
+<arc-container theme="dark">
+  <arc-navbar slot='nav' logo="/assets/arc-red.svg" tabs='0'></arc-navbar>
+  <div style='padding: var(--arc-spacing-medium)'>
+    <p>Hello World, I came here to check something out.</p>
+    <p>Something different than before.</p>
+  </div>
 </arc-container>
 
 <script type="module">
@@ -36,16 +43,8 @@
 <script type="module">
   import './out-tsc/components/container/arc-container.js';
   import './out-tsc/components/navbar/arc-navbar.js';
-  import './out-tsc/components/button/arc-button.js';
-  import './out-tsc/components/icon-button/arc-icon-button.js';
-  // import './out-tsc/components/sso/arc-sso.js';
-
-  const container = document.querySelector('arc-container');
-  const themeSetter = document.getElementById('themeSetter');
-
-  themeSetter.addEventListener('click', () => {
-    container.theme = container.theme === 'light' ? 'dark' : 'light';
-  })
+  import './out-tsc/components/menu/arc-menu.js';
+  import './out-tsc/components/menu-item/arc-menu-item.js';
 </script>
 </body>
 </html>

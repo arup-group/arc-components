@@ -1,0 +1,81 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/components/radio/arc-radio.stories.js';
+
+<Meta
+title='ArcRadio'
+component='arc-radio'
+argTypes={{
+    name: {
+      description: 'The name used to reference the value of the control.',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
+    },
+    value: {
+      description: 'The value attribute of the radio',
+      defaultValue: { summary: '' },
+      control: { type: 'text' },
+    },
+    disabled: {
+      description: 'Draws the component in a disabled state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+    checked: {
+      description: 'Draws the component in a checked state.',
+      defaultValue: { summary: 'false' },
+      control: { type: 'boolean' },
+    },
+}}
+parameters={{
+  actions: {
+    handles: ['arc-change'],
+  },
+}} />
+
+# Radio
+### `<arc-radio>`
+
+The ArcRadio is used to select one option from a group of many.
+
+Radios are designed to be used with [arc-radio-groups](?path=/story/arcradiogroup--default).
+As such, all the examples on this page utilize them to demonstrate their correct usage.
+
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+</Canvas>
+
+## Examples
+### Disabled
+Use the `disabled` attribute to disable the radio button, so it cannot be selected.
+
+<Canvas>
+  <Story name='Disabled' story={stories.Disabled} />
+</Canvas>
+
+## Properties
+<ArgsTable story="Default" />
+
+## Events
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| arc-change   | Emitted when the control's checked state changes.         |
+
+## Methods
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| click        | Simulates a click on the radio.                           |
+| focus        | Sets focus on the radio.                                  |
+| blur         | Removes focus from the radio.                             |
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The radio's label.                                        |
+
+## Dependencies
+
+This component imports the following dependencies.
+* [arc-icon](?path=/story/arcicon--default)

@@ -10,6 +10,8 @@ import { setDefaultAnimation, getAnimation } from '../../utilities/animation-reg
 import Modal from '../../internal/modal.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 
@@ -119,6 +121,8 @@ export default class ArcDrawer extends LitElement {
       #body {
         flex: 1 1 auto;
         padding: var(--arc-spacing-medium);
+        padding-top: var(--arc-spacing-normal);
+        border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
         overflow: auto;
         -webkit-overflow-scrolling: touch;
       }
@@ -157,7 +161,7 @@ export default class ArcDrawer extends LitElement {
 
   private originalTrigger: HTMLElement | null;
 
-  /** Indicates whether or not the drawer is open. You can use this instead of the show/hide methods. */
+  /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
 
   /*
@@ -169,7 +173,63 @@ export default class ArcDrawer extends LitElement {
   /* The direction from which the drawer will open */
   @property({ reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
 
-  @property({ reflect: true }) label: string;
+  /* The drawer label. Alternatively, the label slot can be used. */
+  @property({ type: String }) label: string;
+
+  @watch('open', { waitUntilFirstUpdate: true })
+  async handleOpenChange() {
+    if (this.open) {
+      /* Show */
+      emit(this, ARC_EVENTS.show);
+      this.originalTrigger = document.activeElement as HTMLElement;
+
+      /* Lock body scrolling only if the drawer isn't contained */
+      if (!this.contained) {
+        this.modal.activate();
+        lockBodyScrolling(this);
+      }
+
+      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
+      this.drawer.hidden = false;
+
+      const arcInitialFocus = emit(this, ARC_EVENTS.initialFocus, { cancelable: true });
+      if (!arcInitialFocus.defaultPrevented) {
+        this.panel.focus({ preventScroll: true });
+      }
+
+      const panelAnimation = getAnimation(this, `drawer.show${uppercaseFirstLetter(this.placement)}`);
+      const overlayAnimation = getAnimation(this, 'drawer.overlay.show');
+      await Promise.all([
+        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
+        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options),
+      ]);
+
+      emit(this, ARC_EVENTS.afterShow);
+    } else {
+      /* Hide */
+      emit(this, ARC_EVENTS.hide);
+      this.modal.deactivate();
+      unlockBodyScrolling(this);
+
+      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
+      const panelAnimation = getAnimation(this, `drawer.hide${uppercaseFirstLetter(this.placement)}`);
+      const overlayAnimation = getAnimation(this, 'drawer.overlay.hide');
+      await Promise.all([
+        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
+        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options),
+      ]);
+
+      this.drawer.hidden = true;
+
+      /* Restore focus to the original trigger */
+      const trigger = this.originalTrigger;
+      if (trigger && typeof trigger.focus === 'function') {
+        setTimeout(() => trigger.focus());
+      }
+
+      emit(this, ARC_EVENTS.afterHide);
+    }
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -191,28 +251,28 @@ export default class ArcDrawer extends LitElement {
     unlockBodyScrolling(this);
   }
 
-  /** Shows the drawer. */
+  /* Shows the drawer. */
   async show() {
     if (this.open) {
       return;
     }
 
     this.open = true;
-    await waitForEvent(this, 'arc-after-show');
+    await waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
-  /** Hides the drawer */
+  /* Hides the drawer */
   async hide() {
     if (!this.open) {
       return;
     }
 
     this.open = false;
-    await waitForEvent(this, 'arc-after-hide');
+    await waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
   private requestClose() {
-    const arcRequestClose = emit(this, 'arc-request-close', { cancelable: true });
+    const arcRequestClose = emit(this, ARC_EVENTS.requestClose, { cancelable: true });
     if (arcRequestClose.defaultPrevented) {
       const animation = getAnimation(this, 'drawer.denyClose');
       startAnimations(this.panel, animation.keyframes, animation.options);
@@ -226,61 +286,6 @@ export default class ArcDrawer extends LitElement {
     if (event.key === 'Escape') {
       event.stopPropagation();
       this.requestClose();
-    }
-  }
-
-  @watch('open', { waitUntilFirstUpdate: true })
-  async handleOpenChange() {
-    if (this.open) {
-      /* Show */
-      emit(this, 'arc-show');
-      this.originalTrigger = document.activeElement as HTMLElement;
-
-      /* Lock body scrolling only if the drawer isn't contained */
-      if (!this.contained) {
-        this.modal.activate();
-        lockBodyScrolling(this);
-      }
-
-      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
-      this.drawer.hidden = false;
-
-      const arcInitialFocus = emit(this, 'arc-initial-focus', { cancelable: true });
-      if (!arcInitialFocus.defaultPrevented) {
-        this.panel.focus({ preventScroll: true });
-      }
-
-      const panelAnimation = getAnimation(this, `drawer.show${uppercaseFirstLetter(this.placement)}`);
-      const overlayAnimation = getAnimation(this, 'drawer.overlay.show');
-      await Promise.all([
-        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
-        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options),
-      ]);
-
-      emit(this, 'arc-after-show');
-    } else {
-      /* Hide */
-      emit(this, 'arc-hide');
-      this.modal.deactivate();
-      unlockBodyScrolling(this);
-
-      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
-      const panelAnimation = getAnimation(this, `drawer.hide${uppercaseFirstLetter(this.placement)}`);
-      const overlayAnimation = getAnimation(this, 'drawer.overlay.hide');
-      await Promise.all([
-        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
-        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options),
-      ]);
-
-      this.drawer.hidden = true;
-
-      /* Restore focus to the original trigger */
-      const trigger = this.originalTrigger;
-      if (trigger && typeof trigger.focus === 'function') {
-        setTimeout(() => trigger.focus());
-      }
-
-      emit(this, 'arc-after-hide');
     }
   }
 
@@ -298,10 +303,10 @@ export default class ArcDrawer extends LitElement {
           tabindex="0"
         >
           <div id="header">
-            <span>${this.label}</span>
+            <slot name="label"><span>${this.label}</span></slot>
             <arc-icon-button
               id="toggleClose"
-              name="x"
+              name=${ICON_TYPES.x}
               label="Close drawer"
               @click=${this.requestClose}
             ></arc-icon-button>
@@ -326,7 +331,7 @@ setDefaultAnimation('drawer.showTop', {
     { opacity: 0, transform: 'translateY(-100%)' },
     { opacity: 1, transform: 'translateY(0)' },
   ],
-  options: { duration: 250, easing: 'ease' },
+  options: { duration: 500, easing: 'ease' },
 });
 
 setDefaultAnimation('drawer.hideTop', {
@@ -334,7 +339,7 @@ setDefaultAnimation('drawer.hideTop', {
     { opacity: 1, transform: 'translateY(0)' },
     { opacity: 0, transform: 'translateY(-100%)' },
   ],
-  options: { duration: 250, easing: 'ease' },
+  options: { duration: 500, easing: 'ease' },
 });
 
 /* End */
@@ -343,7 +348,7 @@ setDefaultAnimation('drawer.showEnd', {
     { opacity: 0, transform: 'translateX(100%)' },
     { opacity: 1, transform: 'translateX(0)' },
   ],
-  options: { duration: 250, easing: 'ease' },
+  options: { duration: 500, easing: 'ease' },
 });
 
 setDefaultAnimation('drawer.hideEnd', {
@@ -351,7 +356,7 @@ setDefaultAnimation('drawer.hideEnd', {
     { opacity: 1, transform: 'translateX(0)' },
     { opacity: 0, transform: 'translateX(100%)' },
   ],
-  options: { duration: 250, easing: 'ease' },
+  options: { duration: 500, easing: 'ease' },
 });
 
 /* Bottom */
@@ -360,7 +365,7 @@ setDefaultAnimation('drawer.showBottom', {
     { opacity: 0, transform: 'translateY(100%)' },
     { opacity: 1, transform: 'translateY(0)' },
   ],
-  options: { duration: 250, easing: 'ease' },
+  options: { duration: 500, easing: 'ease' },
 });
 
 setDefaultAnimation('drawer.hideBottom', {
@@ -368,7 +373,7 @@ setDefaultAnimation('drawer.hideBottom', {
     { opacity: 1, transform: 'translateY(0)' },
     { opacity: 0, transform: 'translateY(100%)' },
   ],
-  options: { duration: 250, easing: 'ease' },
+  options: { duration: 500, easing: 'ease' },
 });
 
 /* Start */
@@ -377,7 +382,7 @@ setDefaultAnimation('drawer.showStart', {
     { opacity: 0, transform: 'translateX(-100%)' },
     { opacity: 1, transform: 'translateX(0)' },
   ],
-  options: { duration: 250, easing: 'ease' },
+  options: { duration: 500, easing: 'ease' },
 });
 
 setDefaultAnimation('drawer.hideStart', {
@@ -385,24 +390,24 @@ setDefaultAnimation('drawer.hideStart', {
     { opacity: 1, transform: 'translateX(0)' },
     { opacity: 0, transform: 'translateX(-100%)' },
   ],
-  options: { duration: 250, easing: 'ease' },
+  options: { duration: 500, easing: 'ease' },
 });
 
 /* Deny close */
 setDefaultAnimation('drawer.denyClose', {
   keyframes: [{ transform: 'scale(1)' }, { transform: 'scale(1.01)' }, { transform: 'scale(1)' }],
-  options: { duration: 250 },
+  options: { duration: 500 },
 });
 
 /* Overlay */
 setDefaultAnimation('drawer.overlay.show', {
   keyframes: [{ opacity: 0 }, { opacity: 1 }],
-  options: { duration: 250 },
+  options: { duration: 500 },
 });
 
 setDefaultAnimation('drawer.overlay.hide', {
   keyframes: [{ opacity: 1 }, { opacity: 0 }],
-  options: { duration: 250 },
+  options: { duration: 500 },
 });
 
 declare global {

@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit';
-
 import { getBasePath } from '../../utilities/base-path.js';
 
 interface Story<T> {

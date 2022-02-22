@@ -3,6 +3,7 @@ import { query } from 'lit/decorators.js';
 import { emit } from '../../internal/event.js';
 import { getTextContent } from '../../internal/slot.js';
 import componentStyles from '../../styles/component.styles.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
@@ -33,7 +34,7 @@ export default class ArcMenu extends LitElement {
       if (el.getAttribute('role') !== 'menuitem') {
         return false;
       }
-      // Are disabled items included? return true, else false
+      /* Are disabled items included? return true, else false */
       return !(!includeDisabled && (el as ArcMenuItem).disabled);
     }) as ArcMenuItem[];
   }
@@ -94,7 +95,7 @@ export default class ArcMenu extends LitElement {
     const item = target.closest('arc-menu-item') as ArcMenuItem;
 
     if (item && !item.disabled) {
-      emit(this, 'arc-select', { detail: { item } });
+      emit(this, ARC_EVENTS.select, { detail: { item } });
     }
   }
 

@@ -31,6 +31,28 @@ By default, the container will display an [arc-bottombar](?path=/story/arcbottom
   <Story name='Container' story={stories.Container} />
 </Canvas>
 
+## Accessibility
+ARC recognizes the need for all users, regardless of ability and device,
+to have undeterred access to the websites and applications that are built with it.
+Every component is built with accessibility in mind and is tested thoroughly as such.
+
+The ArcContainer component comes with a default [arc-accessibility](?path=/story/arcaccessibility--default) component,
+which allows users to change certain aspects of the website or application to fit their needs.
+The accessibility panel can be opened (and closed) by pressing the `a` key anywhere within the page.
+Next to that, the [arc-navbar](?path=/story/arcnavbar--default) and [arc-bottombar](?path=/story/arcbottombar--default) components
+provide a default accessibility button to trigger the accessibility panel.
+
+### Colour combinations
+Each website and application should have a good colour contrast between text and background colour.
+That includes links, icons, buttons and any other information on the page.
+The accessibility panel allows users to change the contrast on the page.
+
+### Keyboard-only navigation
+Every component within the ARC ecosystem is set up for keyboard-only navigation.
+It affects anyone who uses assistive technology, like a screen reader, to navigate through a website.
+This includes a large range of people with motor, sensory and or cognitive impairments.
+Keyboard users typically use the tab key to navigate through elements on a web page such as links, buttons and forms.
+
 ## Theming
 ### Theme Basics
 All themes are scoped to the arc-container using the arc-container[theme={name}] convention, where {name} is a lowercase,
@@ -44,6 +66,7 @@ To activate a theme, import it and apply the theme's name to the `<arc-container
 This example imports and activates the dark theme that comes with the bundle.
 
 ```bash
+# index.html / base.html
 <html>
   <head>
     <link rel="stylesheet" href="path/to/arc/dist/styles/dark.css">
@@ -67,36 +90,43 @@ By default, the arc-container figures out the theme based on the users local tim
 For this to work, both light and dark theme need to be imported and included within the `<head>` tags.
 
 ### Creating themes
-To create your own theme, import the provided light-theme and create a separate stylesheet that overrides the design tokens
-and adds component styles to your liking. Import your own theme after the built-in theme.
+To create your own custom theme, create your own stylesheet and import it as shown in the example.
+Apply the theme's name to the `<arc-container>` element.
+Keep in mind that the name of the theme must be either `light` or `dark` as the built-in [arc-accessibility](?path=/story/arcaccessibility--default) component can work with these properties.
+The container will default its value back to `auto` when an invalid theme is provided.
 
 ```bash
-:host,
-arc-container[theme="my-own-theme"] {
-  /* your custom styles here */
-}
-```
-
-```bash
+# index.html / base.html
 <html>
   <head>
-    <link rel="stylesheet" href="path/to/arc/dist/styles/dark.css">
-    <link rel="stylesheet" href="path/to/my/own/themes/myTheme.css">
+    <link rel="stylesheet" href="path/to/customLightTheme.css">
   </head>
 
   <body>
-    <arc-container theme="my-own-theme"></arc-container>
+    <arc-container theme="light"></arc-container>
   </body>
 </html>
 ```
 
-By customizing a built-in theme, you'll maintain a small stylesheet containing only the changed you've made.
+```bash
+# customLightTheme.css
+:root,
+:host,
+arc-container[theme="light"] {
+  --arc-color-primary: var(--arc-blue-060);
+  --arc-color-error: var(--arc-purple-060);
+}
+```
 
 ## Properties
 <ArgsTable story='Container' />
 
-## Events
-Coming soon
+## Methods
+
+| Name               | Description                                         |
+|--------------------|-----------------------------------------------------|
+| getTheme           | Retrieves the auto theme based on a date input.     |
+| showAccessibility  | Shows the built-in accessibility panel.             |
 
 ## Slots
 
@@ -110,5 +140,6 @@ Coming soon
 ## Dependencies
 
 This component imports the following dependencies.
+* [arc-accessibility](?path=/story/arcaccessibility--default)
 * [arc-bottombar](?path=/story/arcbottombar--default)
 * [arc-icon-button](?path=/story/arciconbutton--default)

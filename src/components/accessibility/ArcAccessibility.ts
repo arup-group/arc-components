@@ -2,7 +2,6 @@ import {css, html, LitElement, nothing} from 'lit';
 import {property, state} from 'lit/decorators.js';
 import {map} from 'lit/directives/map.js';
 import {when} from 'lit/directives/when.js';
-import {ifDefined} from "lit/directives/if-defined.js";
 import {emit} from '../../internal/event.js';
 import {watch} from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
@@ -120,18 +119,16 @@ export default class ArcAccessibility extends LitElement {
 
   /* Shows the drawer */
   show() {
-    if (this.open) {
-      return;
+    if (!this.open) {
+      this.open = true;
     }
-    this.open = true;
   }
 
   /* Hides the drawer */
   hide() {
-    if (!this.open) {
-      return;
+    if (this.open) {
+      this.open = false;
     }
-    this.open = false;
   }
 
   /* Method used to grab the theme property from the arc-container */
@@ -166,7 +163,13 @@ export default class ArcAccessibility extends LitElement {
 
   /* Update an array of :root values */
   updateRootValue(key: keyof UserPreferences, newValue: any) {
-    /* Make sure that the given key has available :root values associated with it */
+    /* Make sure that the provided key is a UserPreference */
+    if (!(key in this._defaultPreferences)) throw new Error('The provided key is not a valid UserPreference');
+
+    /*
+    Make sure that the provided key has available :root values associated with it in the index.css.
+    The `theme` property does not need to overwrite any :root values.
+    */
     if (!(key in this._availableRootValues)) return;
 
     /* Restore :root values of the given key */
@@ -181,6 +184,10 @@ export default class ArcAccessibility extends LitElement {
     const options: FontSize[] | FontSpacing[] = this._availableRootValues[key];
     const rootIndex = options.findIndex(option => option === this._defaultPreferences[key]);
     const newFontIndex = options.findIndex(option => option === newValue);
+
+    /* Make sure that the given newValue exists in the availableRootValues */
+    if (newFontIndex < 0) throw new Error('The provided value does not exist as an available root value');
+
     const incr = newFontIndex - rootIndex;
 
     /* Loop through each available FONT_SIZE or FONT_SPACING and overwrite the value */
@@ -225,7 +232,7 @@ export default class ArcAccessibility extends LitElement {
         <arc-radio
           name=${key}
           value=${value}
-          ?checked=${ifDefined(this._userPreferences ? value === this._userPreferences[key] : false)}
+          ?checked=${value === this._userPreferences[key]}
           @arc-change=${this.handleOptionChange}
         >${uppercaseFirstLetter(value)}
         </arc-radio>

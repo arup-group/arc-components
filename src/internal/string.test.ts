@@ -42,7 +42,7 @@ describe('string', () => {
       expect(stringToSpaceSeparated('testOption')).to.equal('Test Option');
     });
 
-    it ('should return a PascalCase string into a space separated string', () => {
+    it('should return a PascalCase string into a space separated string', () => {
       expect(stringToSpaceSeparated('TestOption')).to.equal('Test Option');
     });
 
@@ -65,7 +65,7 @@ describe('string', () => {
       expect(stringToHyphenSeparated('testOption')).to.equal('test-option');
     });
 
-    it ('should return a PascalCase string into a hyphen separated string', () => {
+    it('should return a PascalCase string into a hyphen separated string', () => {
       expect(stringToHyphenSeparated('TestOption')).to.equal('test-option');
     });
 

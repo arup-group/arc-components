@@ -1,14 +1,14 @@
-import {html} from 'lit';
-import {expect, fixture, elementUpdated, waitUntil} from '@open-wc/testing';
-import sinon, {SinonSpy} from 'sinon';
-import {setViewport} from '@web/test-runner-commands';
-import {isNight} from '../../internal/theme.js';
-import {isMobile} from '../../utilities/ui-utils.js';
-import {getPropertyValue} from '../../utilities/style-utils.js';
-import {hasSlot} from '../../utilities/dom-utils.js';
-import {createKeyEvent} from '../../utilities/test-utils.js';
-import {CONTAINER_THEMES} from './constants/ContainerConstants.js';
-import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
+import { html } from 'lit';
+import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
+import { setViewport } from '@web/test-runner-commands';
+import { isNight } from '../../internal/theme.js';
+import { isMobile } from '../../utilities/ui-utils.js';
+import { getPropertyValue } from '../../utilities/style-utils.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
+import { createKeyEvent } from '../../utilities/test-utils.js';
+import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcContainer from './ArcContainer.js';
 import './arc-container.js';
@@ -18,8 +18,7 @@ describe('ArcContainer', () => {
   describe('rendering', () => {
     let element: ArcContainer;
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-container></arc-container>`);
+      element = await fixture(html` <arc-container></arc-container>`);
     });
 
     /* Test default properties that reflect to the DOM */
@@ -40,8 +39,7 @@ describe('ArcContainer', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('prevents the element from having a non-existing theme', async () => {
-      const element: ArcContainer = await fixture(html`
-        <arc-container theme="test-theme"></arc-container>`);
+      const element: ArcContainer = await fixture(html` <arc-container theme="test-theme"></arc-container>`);
 
       if (isNight()) {
         expect(element.theme).to.equal(CONTAINER_THEMES.dark);
@@ -51,8 +49,7 @@ describe('ArcContainer', () => {
     });
 
     it('renders a theme based on the time of day', async () => {
-      const element: ArcContainer = await fixture(html`
-        <arc-container theme="auto"></arc-container>`);
+      const element: ArcContainer = await fixture(html` <arc-container theme="auto"></arc-container>`);
 
       if (isNight()) {
         expect(element.theme).to.equal(CONTAINER_THEMES.dark);
@@ -62,8 +59,7 @@ describe('ArcContainer', () => {
     });
 
     it('removes the gap and padding properties when the fullscreen property is set', async () => {
-      const element: ArcContainer = await fixture(html`
-        <arc-container fullscreen></arc-container>`);
+      const element: ArcContainer = await fixture(html` <arc-container fullscreen></arc-container>`);
       const container = element.shadowRoot!.getElementById('container');
 
       expect(element.fullscreen).to.equal(true);
@@ -73,8 +69,7 @@ describe('ArcContainer', () => {
     });
 
     it('removes the gap and padding properties when the fullscreen property is set', async () => {
-      const element: ArcContainer = await fixture(html`
-        <arc-container></arc-container>`);
+      const element: ArcContainer = await fixture(html` <arc-container></arc-container>`);
       const container = element.shadowRoot!.getElementById('container');
 
       element.fullscreen = true;
@@ -95,7 +90,7 @@ describe('ArcContainer', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <arc-container theme="dark">
-          <input/>
+          <input />
         </arc-container>
       `);
     });
@@ -117,17 +112,21 @@ describe('ArcContainer', () => {
       const theme = 'light';
 
       /* Set up a fake event to imitate new user preferences */
-      element.handleAccessibilityChange(new CustomEvent(ARC_EVENTS.accessibilityChange, {
-        detail: { preferences: { theme } },
-      }));
+      element.handleAccessibilityChange(
+        new CustomEvent(ARC_EVENTS.accessibilityChange, {
+          detail: { preferences: { theme } },
+        })
+      );
       await elementUpdated(element);
 
       expect(element.theme).to.equal(theme);
 
       /* Set up a fake event to imitate restored user preferences */
-      element.handleAccessibilityChange(new CustomEvent(ARC_EVENTS.accessibilityChange, {
-        detail: { preferences: {} },
-      }));
+      element.handleAccessibilityChange(
+        new CustomEvent(ARC_EVENTS.accessibilityChange, {
+          detail: { preferences: {} },
+        })
+      );
       await elementUpdated(element);
 
       expect(element.theme).to.equal(CONTAINER_THEMES.dark);
@@ -189,7 +188,7 @@ describe('ArcContainer', () => {
       slottedBottom = bottom.assignedNodes()[0];
     });
     it('shows correct styling on a desktop', async () => {
-      await setViewport({width: 1200, height: 640});
+      await setViewport({ width: 1200, height: 640 });
       expect(isMobile()).to.be.false;
 
       expect(getPropertyValue(slottedNav, 'display')).to.equal('block');
@@ -197,7 +196,7 @@ describe('ArcContainer', () => {
       expect(getPropertyValue(slottedBottom, 'display')).to.equal('none');
     });
     it('shows correct styling on a phone', async () => {
-      await setViewport({width: 360, height: 640});
+      await setViewport({ width: 360, height: 640 });
       expect(isMobile()).to.be.true;
 
       expect(getPropertyValue(slottedNav, 'display')).to.equal('block');
@@ -212,8 +211,7 @@ describe('ArcContainer', () => {
   describe('slots', () => {
     let element: ArcContainer;
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-container></arc-container>`);
+      element = await fixture(html` <arc-container></arc-container>`);
     });
 
     it('renders default slots to fill the container', () => {
@@ -229,14 +227,12 @@ describe('ArcContainer', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcContainer = await fixture(html`
-        <arc-container></arc-container>`);
+      const element: ArcContainer = await fixture(html` <arc-container></arc-container>`);
 
       expect(getPropertyValue(element, '--bottom-height')).to.equal('');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcContainer = await fixture(html`
-        <arc-container style="--bottom-height:30rem"></arc-container>`);
+      const element: ArcContainer = await fixture(html` <arc-container style="--bottom-height:30rem"></arc-container>`);
 
       expect(getPropertyValue(element, '--bottom-height')).to.equal('30rem');
     });

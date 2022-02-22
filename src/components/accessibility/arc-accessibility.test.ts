@@ -1,32 +1,31 @@
-import {html} from 'lit';
-import {expect, fixture, elementUpdated, waitUntil} from '@open-wc/testing';
-import sinon, {SinonSpy} from 'sinon';
-import {parseObject, stringToHyphenSeparated} from "../../internal/string.js";
-import {setRootValue, getRootValue} from "../../utilities/style-utils.js";
-import {ARC_EVENTS} from "../../internal/constants/eventConstants.js";
-import {CONTAINER_THEMES} from "../container/constants/ContainerConstants.js";
-import {FONT_SIZES, FONT_SPACING} from "../../internal/constants/styleConstants.js";
+import { html } from 'lit';
+import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
+import { parseObject, stringToHyphenSeparated } from '../../internal/string.js';
+import { setRootValue, getRootValue } from '../../utilities/style-utils.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { CONTAINER_THEMES } from '../container/constants/ContainerConstants.js';
+import { FONT_SIZES, FONT_SPACING } from '../../internal/constants/styleConstants.js';
 import ArcAccessibility, { UserPreferences } from './ArcAccessibility.js';
-import { ContentPreference } from "./constants/AccessibilityConstants.js";
-import type ArcContainer from "../container/ArcContainer.js";
-import type ArcDrawer from "../drawer/ArcDrawer.js";
-import type ArcRadioGroup from "../radio-group/ArcRadioGroup.js";
-import type ArcRadio from "../radio/ArcRadio.js";
+import { ContentPreference } from './constants/AccessibilityConstants.js';
+import type ArcContainer from '../container/ArcContainer.js';
+import type ArcDrawer from '../drawer/ArcDrawer.js';
+import type ArcRadioGroup from '../radio-group/ArcRadioGroup.js';
+import type ArcRadio from '../radio/ArcRadio.js';
 import '../container/arc-container.js';
 import './arc-accessibility.js';
 
 describe('ArcAccessibility', () => {
   const isOpen = (element: ArcAccessibility) => {
     const drawer: ArcDrawer = element.shadowRoot?.getElementById('drawer') as ArcDrawer;
-    return element.hasAttribute('open') && drawer.hasAttribute('open')
-  }
+    return element.hasAttribute('open') && drawer.hasAttribute('open');
+  };
 
   /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcAccessibility;
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-accessibility></arc-accessibility>`);
+      element = await fixture(html` <arc-accessibility></arc-accessibility>`);
     });
 
     /* Test default properties that reflect to the DOM */
@@ -82,15 +81,15 @@ describe('ArcAccessibility', () => {
       localStorage.clear(); /* Ensure that local preferences are reset! */
 
       /* Add some default :root arc css variables */
-      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES["xx-small"]}`, '0.625rem');
-      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES["x-small"]}`, '0.75rem');
+      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES['xx-small']}`, '0.625rem');
+      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES['x-small']}`, '0.75rem');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.small}`, '0.875rem');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.medium}`, '1rem');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.large}`, '1.25rem');
-      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES["x-large"]}`, '1.5rem');
-      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES["xx-large"]}`, '2.25rem');
-      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES["xxx-large"]}`, '3rem');
-      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES["xxxx-large"]}`, '4.5rem');
+      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES['x-large']}`, '1.5rem');
+      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES['xx-large']}`, '2.25rem');
+      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES['xxx-large']}`, '3rem');
+      setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES['xxxx-large']}`, '4.5rem');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.dense}`, '1.4');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.normal}`, '1.8');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.loose}`, '2.2');
@@ -101,8 +100,10 @@ describe('ArcAccessibility', () => {
     });
 
     it('should return the custom theme property of a parent arc-container', async () => {
-      const container: ArcContainer = await fixture(html`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`)
-      const accessibility = container.shadowRoot?.getElementById('accessibility') as ArcAccessibility
+      const container: ArcContainer = await fixture(
+        html`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`
+      );
+      const accessibility = container.shadowRoot?.getElementById('accessibility') as ArcAccessibility;
 
       expect(accessibility.getTheme()).to.equal(CONTAINER_THEMES.dark);
     });
@@ -116,7 +117,7 @@ describe('ArcAccessibility', () => {
       const element: ArcAccessibility = await fixture(html`<arc-accessibility></arc-accessibility>`);
 
       /* Test whether the root values were defined properly */
-      expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.medium}`)).to.equal('1rem')
+      expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.medium}`)).to.equal('1rem');
 
       /*
       Turn all font-sizes to large (index 4). The default font-size is medium (index 3).
@@ -124,13 +125,14 @@ describe('ArcAccessibility', () => {
       small will become medium, medium will become large etc.
       */
       element.updateRootValue(testPreference as keyof UserPreferences, FONT_SIZES.large);
-      expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.medium}`)).to.equal('1.25rem')
+      expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.medium}`)).to.equal('1.25rem');
     });
 
     it('throws an error when trying to update an invalid user preference', async () => {
       const element: ArcAccessibility = await fixture(html`<arc-accessibility></arc-accessibility>`);
-      expect(() => element.updateRootValue('testVal' as keyof UserPreferences, 'someNewValue'))
-        .to.throw('The provided key is not a valid UserPreference');
+      expect(() => element.updateRootValue('testVal' as keyof UserPreferences, 'someNewValue')).to.throw(
+        'The provided key is not a valid UserPreference'
+      );
     });
 
     it('throws an error when trying to update a none existing arc css root variable', async () => {
@@ -138,15 +140,16 @@ describe('ArcAccessibility', () => {
       const contentPreference: ContentPreference = 'lineHeight';
 
       /* Turn the font-size to xxxx-large */
-      expect(() => element.updateRootValue(contentPreference as keyof UserPreferences, 'testVal'))
-        .to.throw('The provided value does not exist as an available root value');
+      expect(() => element.updateRootValue(contentPreference as keyof UserPreferences, 'testVal')).to.throw(
+        'The provided value does not exist as an available root value'
+      );
     });
 
     it('does nothing when the theme property is being updated', async () => {
       const element: ArcAccessibility = await fixture(html`<arc-accessibility></arc-accessibility>`);
       element.updateRootValue('theme' as keyof UserPreferences, CONTAINER_THEMES.dark);
       expect('nothing happened').to.equal('nothing happened');
-    })
+    });
 
     it('should restore an arc css root variable', async () => {
       const element: ArcAccessibility = await fixture(html`<arc-accessibility></arc-accessibility>`);
@@ -165,12 +168,16 @@ describe('ArcAccessibility', () => {
       element.updateRootValue(testPreferenceTwo as keyof UserPreferences, FONT_SPACING.loose);
 
       expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.medium}`)).to.equal('1.25rem');
-      expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.normal}`)).to.equal('2.2');
+      expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.normal}`)).to.equal(
+        '2.2'
+      );
 
       element.restoreRootDefaults();
 
       expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES.medium}`)).to.equal('1rem');
-      expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.normal}`)).to.equal('1.8');
+      expect(getRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.normal}`)).to.equal(
+        '1.8'
+      );
     });
   });
 
@@ -185,9 +192,11 @@ describe('ArcAccessibility', () => {
       const cachedPreferences = localStorage.getItem(ArcAccessibility.tag);
       let validateObject: UserPreferences = {} as any;
 
-      if (cachedPreferences) { validateObject = parseObject(cachedPreferences); }
+      if (cachedPreferences) {
+        validateObject = parseObject(cachedPreferences);
+      }
       return validateObject;
-    }
+    };
 
     beforeEach(async () => {
       localStorage.clear(); /* Ensure that local preferences are reset! */
@@ -214,7 +223,7 @@ describe('ArcAccessibility', () => {
       element.show();
       await elementUpdated(element);
 
-      element.hide()
+      element.hide();
       await elementUpdated(element);
 
       expect(isOpen(element)).to.be.false;
@@ -231,7 +240,9 @@ describe('ArcAccessibility', () => {
       await elementUpdated(element);
 
       /* Change a personal preference. Ensure that the element is an arc-radio and is not already checked */
-      const unselectedOptions = [...themeRadioGroup.children].filter(child => child.tagName === 'ARC-RADIO' && !child.hasAttribute('checked'));
+      const unselectedOptions = [...themeRadioGroup.children].filter(
+        child => child.tagName === 'ARC-RADIO' && !child.hasAttribute('checked')
+      );
       (unselectedOptions[0] as ArcRadio).click();
 
       /* After a radio button is `clicked` the accessibility component fires of the change handler and updates the localStore */

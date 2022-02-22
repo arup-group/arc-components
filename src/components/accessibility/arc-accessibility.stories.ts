@@ -13,7 +13,7 @@ interface ArgTypes {
 const Template: Story<ArgTypes> = () => html`
   <style>
     #content {
-      padding: var(--arc-spacing-medium)
+      padding: var(--arc-spacing-medium);
     }
 
     #content code {
@@ -27,7 +27,10 @@ const Template: Story<ArgTypes> = () => html`
     <div id="content">
       <p>Press the <code>a</code> key to toggle the built-in accessibility.</p>
       <p>Change your personal preferences by making a selection within the accessibility panel.</p>
-      <p>Check the arc-accessibility-change event being fired inside the <code>Actions</code> tab whenever a change is made.</p>
+      <p>
+        Check the arc-accessibility-change event being fired inside the <code>Actions</code> tab whenever a change is
+        made.
+      </p>
     </div>
   </arc-container>
 `;
@@ -39,4 +42,3 @@ const defaultArgs: ArgTypes = {
 /* TYPES */
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
-

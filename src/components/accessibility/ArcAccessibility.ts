@@ -1,33 +1,42 @@
-import {css, html, LitElement, nothing} from 'lit';
-import {property, state} from 'lit/decorators.js';
-import {map} from 'lit/directives/map.js';
-import {when} from 'lit/directives/when.js';
-import {emit} from '../../internal/event.js';
-import {watch} from '../../internal/watch.js';
+import { css, html, LitElement, nothing } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { map } from 'lit/directives/map.js';
+import { when } from 'lit/directives/when.js';
+import { emit } from '../../internal/event.js';
+import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
-import {stringToSpaceSeparated, stringToHyphenSeparated, parseObject, stringifyObject, uppercaseFirstLetter} from '../../internal/string.js';
-import {getRootValue, setRootValue} from "../../utilities/style-utils.js";
+import {
+  stringToSpaceSeparated,
+  stringToHyphenSeparated,
+  parseObject,
+  stringifyObject,
+  uppercaseFirstLetter,
+} from '../../internal/string.js';
+import { getRootValue, setRootValue } from '../../utilities/style-utils.js';
 import {
   ACCESSIBILITY_OPTIONS,
   AccessibilityOption,
   ColourPreference,
-  ContentPreference
+  ContentPreference,
 } from './constants/AccessibilityConstants.js';
-import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
-import {FONT_SIZES, FONT_SPACING, FontSize, FontSpacing} from "../../internal/constants/styleConstants.js";
-import {CONTAINER_THEMES, ContainerTheme} from "../container/constants/ContainerConstants.js";
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../internal/constants/styleConstants.js';
+import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
 
-import type ArcContainer from "../container/ArcContainer.js";
+import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
 import '../icon/arc-icon.js';
 import '../button/arc-button.js';
 
-export declare type UserPreferences = {
-  [key in ColourPreference]: ContainerTheme } | {
-  [key in ContentPreference]: FontSize | FontSpacing | boolean
-}
+export declare type UserPreferences =
+  | {
+      [key in ColourPreference]: ContainerTheme;
+    }
+  | {
+      [key in ContentPreference]: FontSize | FontSpacing | boolean;
+    };
 
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
@@ -70,20 +79,20 @@ export default class ArcAccessibility extends LitElement {
     highLegibilityFonts: false,
     highlightLinks: false,
     plainText: false,
-  }
+  };
 
   /* Available root values */
   private _availableRootValues: any = {
     fontSize: Object.values(FONT_SIZES),
     lineHeight: Object.values(FONT_SPACING),
     letterSpacing: Object.values(FONT_SPACING),
-  }
+  };
 
   /* State that stores the user preferences */
   @state() private _userPreferences: UserPreferences = this._defaultPreferences;
 
   /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
-  @property({type: Boolean, reflect: true}) open = false;
+  @property({ type: Boolean, reflect: true }) open = false;
 
   @watch('_userPreferences')
   async handlePreferenceChange() {
@@ -91,7 +100,9 @@ export default class ArcAccessibility extends LitElement {
     localStorage.setItem(ArcAccessibility.tag, stringifyObject(this._userPreferences));
 
     /* Update the :root values */
-    Object.keys(this._userPreferences).forEach((key: keyof UserPreferences) => this.updateRootValue(key, this._userPreferences[key]))
+    Object.keys(this._userPreferences).forEach((key: keyof UserPreferences) =>
+      this.updateRootValue(key, this._userPreferences[key])
+    );
 
     /* Emit the accessibility-change event */
     emit(this, ARC_EVENTS.accessibilityChange, {
@@ -203,7 +214,7 @@ export default class ArcAccessibility extends LitElement {
 
       /* Overwrite the :root value with the new value */
       setRootValue(oldVar, getRootValue(newVar));
-    })
+    });
   }
 
   /* Restore all default root values */
@@ -222,25 +233,28 @@ export default class ArcAccessibility extends LitElement {
     const value = radio.value as any;
 
     /* Update the state of the user preferences */
-    this._userPreferences = {...this._userPreferences, [key]: value};
+    this._userPreferences = { ...this._userPreferences, [key]: value };
   }
 
   radioTemplate = (key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) => html`
     <arc-radio-group id=${key}>
       <span slot="label">${stringToSpaceSeparated(key)}</span>
-      ${map(values, value => html`
-        <arc-radio
-          name=${key}
-          value=${value}
-          ?checked=${value === this._userPreferences[key]}
-          @arc-change=${this.handleOptionChange}
-        >${uppercaseFirstLetter(value)}
-        </arc-radio>
-      `)}
+      ${map(
+        values,
+        value => html`
+          <arc-radio
+            name=${key}
+            value=${value}
+            ?checked=${value === this._userPreferences[key]}
+            @arc-change=${this.handleOptionChange}
+            >${uppercaseFirstLetter(value)}
+          </arc-radio>
+        `
+      )}
     </arc-radio-group>
   `;
 
-  booleanTemplate = () => html`${nothing}`
+  booleanTemplate = () => html`${nothing}`;
 
   render() {
     return html`
@@ -251,21 +265,26 @@ export default class ArcAccessibility extends LitElement {
             <span>Accessibility Controls (A)</span>
           </div>
           <div id="wrapper">
-            ${map(ACCESSIBILITY_OPTIONS, (item: AccessibilityOption) => html`
-              <div class="label">
-                <span>${stringToSpaceSeparated(item.name)}</span>
-                <arc-icon name=${item.icon}></arc-icon>
-              </div>
-              <div class="options">
-                ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
-                  const [ userPreference, value ] = option as [keyof UserPreferences, any];
+            ${map(
+              ACCESSIBILITY_OPTIONS,
+              (item: AccessibilityOption) => html`
+                <div class="label">
+                  <span>${stringToSpaceSeparated(item.name)}</span>
+                  <arc-icon name=${item.icon}></arc-icon>
+                </div>
+                <div class="options">
+                  ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
+                    const [userPreference, value] = option as [keyof UserPreferences, any];
 
-                  return html`${when(Array.isArray(value),
-                  () => this.radioTemplate(userPreference, value),
-                  () => this.booleanTemplate())}`
-                })}
-              </div>
-            `)}
+                    return html`${when(
+                      Array.isArray(value),
+                      () => this.radioTemplate(userPreference, value),
+                      () => this.booleanTemplate()
+                    )}`;
+                  })}
+                </div>
+              `
+            )}
           </div>
           <arc-button type="tab" slot="footer" @click=${this.restoreRootDefaults}>Restore defaults</arc-button>
         </arc-drawer>

@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import {ACCESSIBILITY_OPTIONS, AccessibilityOption} from './AccessibilityConstants.js';
+import { ACCESSIBILITY_OPTIONS, AccessibilityOption } from './AccessibilityConstants.js';
 
 describe('AccessibilityOptions', () => {
   it('should contain the basic ARC options', () => {

@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
-import {getPropertyValue, getRootValue, setRootValue, noFOUC} from './style-utils.js';
+import { getPropertyValue, getRootValue, setRootValue, noFOUC } from './style-utils.js';
 
 describe('getPropertyValue', () => {
   it('returns the correct property value', async () => {

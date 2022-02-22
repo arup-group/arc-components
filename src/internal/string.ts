@@ -1,9 +1,9 @@
 function isPascalCase(string: string) {
-  return /^([A-Z]([a-z]+))(([A-Z]([a-z]+))+)$/.test(string)
+  return /^([A-Z]([a-z]+))(([A-Z]([a-z]+))+)$/.test(string);
 }
 
 function isCamelCase(string: string) {
-  return /^([a-z]+)(([A-Z]([a-z]+))+)$/.test(string)
+  return /^([a-z]+)(([A-Z]([a-z]+))+)$/.test(string);
 }
 
 function uppercaseFirstLetter(string: string) {

@@ -18,6 +18,8 @@ describe('ArcContainer', () => {
   describe('rendering', () => {
     let element: ArcContainer;
     beforeEach(async () => {
+      /* Ensure that local preferences from the built-in arc-accessibility are reset! */
+      localStorage.clear();
       element = await fixture(html` <arc-container></arc-container>`);
     });
 
@@ -38,6 +40,11 @@ describe('ArcContainer', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
+    beforeEach(() => {
+      /* Ensure that local preferences from the built-in arc-accessibility are reset! */
+      localStorage.clear();
+    })
+
     it('prevents the element from having a non-existing theme', async () => {
       const element: ArcContainer = await fixture(html` <arc-container theme="test-theme"></arc-container>`);
 

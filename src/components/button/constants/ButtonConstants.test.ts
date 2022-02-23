@@ -18,10 +18,9 @@ describe('ButtonConstants', () => {
     expect(BUTTON_COLORS).to.exist;
     const keys = Object.keys(BUTTON_COLORS);
 
-    expect(keys.length).to.equal(7);
+    expect(keys.length).to.equal(6);
     expect(keys).to.contain('default');
     expect(keys).to.contain('primary');
-    expect(keys).to.contain('secondary');
     expect(keys).to.contain('error');
     expect(keys).to.contain('warning');
     expect(keys).to.contain('info');

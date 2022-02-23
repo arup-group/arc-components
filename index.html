@@ -26,29 +26,11 @@
 <body>
 <arc-container theme="dark">
   <arc-navbar slot='nav' logo="/assets/arc-red.svg"></arc-navbar>
-  <arc-sidebar>
-    <div>One</div>
-    <div>Two</div>
-  </arc-sidebar>
-  <div style='padding: var(--arc-spacing-medium)'>
-    <p>Hello World, I came here to check something out.</p>
-    <p>Something different than before.</p>
-  </div>
+  <section aria-label="Test section" style='padding: var(--arc-spacing-medium)'>
+    <p>Some content.</p>
+  </section>
 </arc-container>
 
-<script type="module">
-  import { noFOUC } from './out-tsc/utilities/style-utils.js';
-  import { setBasePath } from "./out-tsc/utilities/base-path.js";
-
-  noFOUC();
-  setBasePath('/');
-</script>
-
-<script type="module">
-  import './out-tsc/components/container/arc-container.js';
-  import './out-tsc/components/navbar/arc-navbar.js';
-  import './out-tsc/components/menu/arc-menu.js';
-  import './out-tsc/components/menu-item/arc-menu-item.js';
-</script>
+<script type="module" src="/out-tsc/arc.js" data-arc="/"></script>
 </body>
 </html>

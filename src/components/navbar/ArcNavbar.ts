@@ -200,7 +200,7 @@ export default class ArcNavbar extends LitElement {
     `;
 
     return html`
-      <div id="main">
+      <nav id="main" aria-label="primary navigation">
         <div id="left">
           ${this.home
             ? html`
@@ -237,7 +237,7 @@ export default class ArcNavbar extends LitElement {
           </div>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
         </div>
-      </div>
+      </nav>
     `;
   }
 }

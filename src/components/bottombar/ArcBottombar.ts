@@ -45,9 +45,9 @@ export default class ArcBottombar extends LitElement {
 
   render() {
     return html`
-      <div id="main">
+      <nav id="main" aria-label="mobile navigation">
         <slot @slotchange=${this.handleTabChange}></slot>
-      </div>
+      </nav>
     `;
   }
 }

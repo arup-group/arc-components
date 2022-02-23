@@ -22,11 +22,26 @@ argTypes={{
 
 The ArcBottombar includes support for navigation and provides out of the box responsiveness for all devices.
 Use [arc-icon-buttons](?path=/story/arciconbutton--default) to compose the bottom bar.
-On mobile devices, this component will be displayed within the [arc-container](?path=/story/arccontainer--container) component automatically,
+On mobile devices, this component will be displayed within the [arc-container](?path=/story/arccontainer--container) automatically,
 to ensure a functional and layout-friendly application at any time.
+To overwrite this default behaviour, add your own desired ArcBottombar component as a child of the [arc-container](?path=/story/arccontainer--container) like so:
+
+```bash
+<arc-container>
+  <arc-bottombar slot='bottom'>
+    <arc-icon-button name='icon-name' label='button explanation'>Button one</arc-icon-button>
+    <arc-icon-button name='icon-name' label='button explanation'>Button two</arc-icon-button>
+    <arc-icon-button name='icon-name' label='button explanation'>Button three</arc-icon-button>
+  </arc-bottombar>
+</arc-container>
+```
+
+Keep in mind that adding a `label` property to each [arc-icon-button](?path=/story/arciconbutton--default) is extremely important.
+This is a description that gets read by screen readers and other assistive devices.
+For optimal accessibility, you should always include a label that describes what the icon button does.
 
 ### When to use:
-* Top-level destinations that need to be accessible from anywhere in the app
+* Top-level destinations that need to be accessible from anywhere within the app
 * Three to five destinations
 * Mobile or tablet only
 
@@ -41,12 +56,6 @@ to ensure a functional and layout-friendly application at any time.
 
 ## Properties
 <ArgsTable story='Default' />
-
-## Events
-Coming soon
-
-## Methods
-Coming soon
 
 ## Slots
 

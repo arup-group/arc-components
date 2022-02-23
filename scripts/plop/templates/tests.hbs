@@ -1,8 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
-import { isNight } from '../../internal/theme.js';
-import { isMobile } from '../../utilities/ui-utils.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
 
@@ -35,11 +33,11 @@ describe('{{ properCase tag }}', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
-    it('renders the element with a custom property', async () => {
-      const element: {{ properCase tag }} = await fixture(html`<{{ tag }} prop='testProp'></{{ tag }}>`);
+    it('renders the element with a custom name property', async () => {
+      const element: {{ properCase tag }} = await fixture(html`<{{ tag }} name='testProp'></{{ tag }}>`);
 
-      expect(element.prop).to.equal('testProp');
-      expect(element.getAttribute('prop')).to.equal('testProp');
+      expect(element.name).to.equal('testProp');
+      expect(element.getAttribute('name')).to.equal('testProp');
     });
   });
 
@@ -57,16 +55,14 @@ describe('{{ properCase tag }}', () => {
 
       element.active = true;
       await elementUpdated(element);
+
       expect(element.active).to.be.true;
       expect(element.hasAttribute('active')).to.be.true;
     });
   });
 
   /* Test specific methods */
-  describe('methods', () => {
-    const element: {{ properCase tag }} = new {{ properCase tag }}();
-    // Write the tests for the specific method of element here
-  });
+  describe('methods', () => { // Write the tests for specific methods here });
 
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
@@ -92,9 +88,7 @@ describe('{{ properCase tag }}', () => {
   });
 
   /* Test the component responsiveness */
-  describe('responsiveness', () => {
-    // Write tests for responsiveness here like showing/hiding buttons/elements on different screen sizes
-  });
+  describe('responsiveness', () => { // Write tests for responsiveness here });
 
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
@@ -120,12 +114,12 @@ describe('{{ properCase tag }}', () => {
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: {{ properCase tag }} = await fixture(html`<{{ tag }}></{{ tag }}>`);
-      expect(getPropertyValue(element, '--custom-value')).to.equal('');
+      expect(getPropertyValue(element, '--custom-color')).to.equal('green');
     });
 
     it('overwrites the css variables', async () => {
-      const element: {{ properCase tag }} = await fixture(html`<{{ tag }} style='--custom-value:5px'></{{ tag }}>`);
-      expect(getPropertyValue(element, '--custom-value')).to.equal('5px');
+      const element: {{ properCase tag }} = await fixture(html`<{{ tag }} style='--custom-color:red'></{{ tag }}>`);
+      expect(getPropertyValue(element, '--custom-color')).to.equal('red');
     });
   });
 });

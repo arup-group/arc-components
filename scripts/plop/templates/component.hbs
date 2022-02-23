@@ -9,11 +9,20 @@ export default class {{ properCase tag }} extends LitElement {
 
   static styles = [
     componentStyles,
-    css``,
+    css`
+      :host {
+        --custom-color: green;
+      }
+      #main {
+        color: var(--custom-color);
+      }
+    `,
   ];
 
   /* An example property. */
-  @property({type: String}) prop: string = 'Hello World';
+  @property({type: String}) name: string = 'Hello World';
+
+  @property({type: Boolean}) active: boolean = false;
 
   @watch('prop')
   handlePropChange() {
@@ -22,7 +31,12 @@ export default class {{ properCase tag }} extends LitElement {
   }
 
   render() {
-    return html`<div id='main'>${this.prop}</div>`;
+    return html`
+      <div id='main'>
+        ${this.active && html`This is active`}
+        ${this.name}
+      </div>
+    `;
   }
 }
 

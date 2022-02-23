@@ -9,12 +9,12 @@ arc-container[theme="light"] {
 
   /* Palette */
   --arc-color-default: var(--arc-grey-010);
-  --arc-color-primary: var(--arc-red-060);
+  --arc-color-primary: var(--arc-red-050);
   --arc-color-secondary: var(--arc-grey-100);
-  --arc-color-error: var(--arc-red-050);
-  --arc-color-warning: var(--arc-orange-050);
-  --arc-color-info: var(--arc-blue-050);
-  --arc-color-success: var(--arc-green-050);
+  --arc-color-error: var(--arc-red-000);
+  --arc-color-warning: var(--arc-orange-000);
+  --arc-color-info: var(--arc-blue-000);
+  --arc-color-success: var(--arc-green-000);
 
   /* Hover */
   --arc-hover-darker: rgba(var(--arc-black-100), 0.3);

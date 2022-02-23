@@ -40,6 +40,31 @@ Once all node_modules are installed, run the following command to start the web-
 yarn start
 ```
 
+## Creating web components
+In order to build a fully documented and tested web-component, the following files should be present:
+* Web component
+* Web component registry method
+* Test file
+* Storybook file (containing the Canvas that holds the controls and actions of the web component)
+* Storybook MDX file (containing the documentation of the web component)
+
+Next to that, the newly created web-component needs to be added to the `arc.ts` file in the `src` directory.
+
+To simplify the above, ARC ships with a creation script.
+Run `yarn run create` to create a new web-component and all the required files.
+
+This script takes care of the following.
+* Creates a web component
+* Creates a method to register the web component
+* Creates a test file with some example tests
+* Creates a Storybook file with some example properties to play with
+* Creates a Storybook MDX file containing some basic documentation
+* Adds an import of the component inside the arc.ts file in the src directory
+* Adds an export of the component inside the arc.ts file in the src directory
+
+Once the script is done, add your newly created web-component inside the `index.html` file.
+Goodluck!
+
 ## Testing
 The web-components can run unit tests with the help of [@open-wc/testing](https://open-wc.org/docs/testing/helpers/).
 In order to run the tests, make sure that [Node](https://nodejs.org/) is installed.

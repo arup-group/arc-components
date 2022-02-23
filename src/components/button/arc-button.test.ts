@@ -19,7 +19,7 @@ describe('ArcButton', () => {
     /* Test default properties that reflect to the DOM */
     it('renders the button with default properties in the dom', () => {
       expect(element).dom.to.equal(
-        `<arc-button type='${BUTTON_TYPES.contained}' color='${BUTTON_COLORS.default}' size='${BUTTON_SIZES.medium}'>Test</arc-button>`
+        `<arc-button type='${BUTTON_TYPES.pill}' color='${BUTTON_COLORS.default}' size='${BUTTON_SIZES.medium}'>Test</arc-button>`
       );
     });
 

@@ -1,4 +1,4 @@
-import { html, TemplateResult } from 'lit';
+import {html, TemplateResult} from 'lit';
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
@@ -11,6 +11,7 @@ import {
 
 interface Story<T> {
   (args: T): TemplateResult;
+
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
@@ -38,26 +39,26 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({
-  label,
-  type,
-  color,
-  size,
-  name,
-  value,
-  href,
-  target,
-  download,
-  active,
-  disabled,
-  loading,
-  submit,
-  width,
-  minWidth,
-  btnColor,
-  btnBackground,
-  prefix,
-  suffix,
-}: ArgTypes) => html`
+                                     label,
+                                     type,
+                                     color,
+                                     size,
+                                     name,
+                                     value,
+                                     href,
+                                     target,
+                                     download,
+                                     active,
+                                     disabled,
+                                     loading,
+                                     submit,
+                                     width,
+                                     minWidth,
+                                     btnColor,
+                                     btnBackground,
+                                     prefix,
+                                     suffix,
+                                   }: ArgTypes) => html`
   <arc-button
     style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
     type="${type}"
@@ -73,15 +74,17 @@ const Template: Story<ArgTypes> = ({
     ?loading="${loading}"
     ?submit="${submit}"
   >
-    ${prefix ? html`<arc-icon slot="prefix" name="home"></arc-icon>` : null}
+    ${prefix ? html`
+      <arc-icon slot="prefix" name="home"></arc-icon>` : null}
     ${label.charAt(0).toUpperCase() + label.slice(1)}
-    ${suffix ? html`<arc-icon slot="suffix" name="settings"></arc-icon>` : null}
+    ${suffix ? html`
+      <arc-icon slot="suffix" name="settings"></arc-icon>` : null}
   </arc-button>
 `;
 
 const defaultArgs: ArgTypes = {
   label: 'Default',
-  type: BUTTON_TYPES.contained,
+  type: BUTTON_TYPES.pill,
   color: 'default',
   size: BUTTON_SIZES.medium,
   name: undefined,
@@ -110,7 +113,11 @@ export const LinkNewWindow = Template.bind({});
 export const LinkDownload = Template.bind({});
 export const LinkDisabled = Template.bind({});
 
-Contained.args = { ...defaultArgs, label: BUTTON_TYPES.contained };
+Contained.args = {
+  ...defaultArgs,
+  label: BUTTON_TYPES.contained,
+  type: BUTTON_TYPES.contained
+};
 Tile.args = {
   ...defaultArgs,
   label: BUTTON_TYPES.tile,
@@ -121,27 +128,23 @@ Outlined.args = {
   label: BUTTON_TYPES.outlined,
   type: BUTTON_TYPES.outlined,
 };
-Pill.args = {
-  ...defaultArgs,
-  label: BUTTON_TYPES.pill,
-  type: BUTTON_TYPES.pill,
-};
-Tab.args = { ...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab };
-Link.args = { ...defaultArgs, label: 'Link', href: '/' };
-LinkNewWindow.args = { ...Link.args, label: 'New Window', target: '_blank' };
+Pill.args = {...defaultArgs, label: BUTTON_TYPES.pill};
+Tab.args = {...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab};
+Link.args = {...defaultArgs, label: 'Link', href: '/'};
+LinkNewWindow.args = {...Link.args, label: 'New Window', target: '_blank'};
 LinkDownload.args = {
   ...Link.args,
   label: 'Download',
   download: 'ARC Storybook',
 };
-LinkDisabled.args = { ...Link.args, label: 'Disabled', disabled: true };
+LinkDisabled.args = {...Link.args, label: 'Disabled', disabled: true};
 
 /* SLOTS */
 export const Prefix = Template.bind({});
 export const Suffix = Template.bind({});
 
-Prefix.args = { ...defaultArgs, label: 'Home', prefix: true };
-Suffix.args = { ...defaultArgs, label: 'Settings', suffix: true };
+Prefix.args = {...defaultArgs, label: 'Home', prefix: true};
+Suffix.args = {...defaultArgs, label: 'Settings', suffix: true};
 
 /* COLORS */
 export const Default = Template.bind({});
@@ -165,7 +168,6 @@ Primary.args = {
 Secondary.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.secondary,
-  color: BUTTON_COLORS.secondary,
 };
 Error.args = {
   ...defaultArgs,
@@ -214,6 +216,6 @@ export const Active = Template.bind({});
 export const Disabled = Template.bind({});
 export const Loading = Template.bind({});
 
-Active.args = { ...Tab.args, label: 'Active', active: true };
-Disabled.args = { ...Tab.args, label: 'Disabled', disabled: true };
-Loading.args = { ...Tab.args, label: 'Loading', loading: true };
+Active.args = {...Tab.args, label: 'Active', active: true};
+Disabled.args = {...Tab.args, label: 'Disabled', disabled: true};
+Loading.args = {...Tab.args, label: 'Loading', loading: true};

@@ -92,7 +92,8 @@ export default class ArcButton extends LitElement {
       }
 
       /* Outlined */
-      :host([type='outlined']) #button {
+      :host([type='outlined']) #button,
+      :host([type='pill'][color='secondary']) #button {
         border: var(--arc-border-width) var(--arc-border-style) currentColor;
         background-color: transparent;
         box-shadow: none;
@@ -104,11 +105,13 @@ export default class ArcButton extends LitElement {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
-      /* Tab & Outlined - Hover & Focus */
+      /* Tab & Outlined & Pill (Secondary) - Hover & Focus */
       :host([type='tab']:not([disabled]):not([loading])) #button:hover,
       :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
       :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
-      :host([type='outlined']:not([disabled]):not([loading])) #button:focus-visible {
+      :host([type='outlined']:not([disabled]):not([loading])) #button:focus-visible,
+      :host([type='pill'][color='secondary']:not([disabled]):not([loading])) #button:hover,
+      :host([type='pill'][color='secondary']:not([disabled]):not([loading])) #button:focus-visible {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
@@ -118,9 +121,10 @@ export default class ArcButton extends LitElement {
         background-image: linear-gradient(var(--arc-hover-darker) 0 0);
       }
 
-      /* Tab & Outlined - Mouse down */
+      /* Tab & Outlined & Pill (Secondary) - Mouse down */
       :host([type='tab']:not([disabled]):not([loading])) #button:active,
-      :host([type='outlined']:not([disabled]):not([loading])) #button:active {
+      :host([type='outlined']:not([disabled]):not([loading])) #button:active,
+      :host([type='pill'][color='secondary']:not([disabled]):not([loading])) #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
@@ -218,9 +222,7 @@ export default class ArcButton extends LitElement {
           return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
         }
         default: {
-          return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary
-            ? 'rgb(var(--arc-container-color))'
-            : 'rgb(var(--arc-input-color))';
+          return this.color === BUTTON_COLORS.primary ? 'rgb(var(--arc-container-color))' : 'rgb(var(--arc-input-color))';
         }
       }
     };

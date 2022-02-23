@@ -9,7 +9,7 @@ import {
 <Meta title='ArcButton' component='arc-button' argTypes={{
   type: {
     description: 'Set the type of the button.',
-    defaultValue: { summary: 'contained' },
+    defaultValue: { summary: 'pill' },
     control: { type: 'select' },
     options: Object.keys(BUTTON_TYPES),
   },
@@ -122,8 +122,8 @@ Use the `type` attribute to set the button type.
 
 ### Colors
 Use the `color` attribute to set the button's color.
-
-`TODO: Add an explanation to why only use Primary and Secondary `
+Keep in mind that the semantics of a button should not be defined by the color.
+It is highly recommended to use only the Primary and Secondary colors for buttons on the page.
 
 <Canvas>
   <Story name='Default' story={stories.Default} />
@@ -174,9 +174,6 @@ Use the `prefix` and `suffix` slots to add icons.
 
 ## Properties
 <ArgsTable story='Contained' />
-
-## Events
-Coming soon
 
 ## Methods
 

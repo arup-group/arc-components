@@ -11,10 +11,10 @@ arc-container[theme="light"] {
   --arc-color-default: var(--arc-grey-010);
   --arc-color-primary: var(--arc-red-050);
   --arc-color-secondary: var(--arc-grey-100);
-  --arc-color-error: var(--arc-red-000);
-  --arc-color-warning: var(--arc-orange-000);
-  --arc-color-info: var(--arc-blue-000);
-  --arc-color-success: var(--arc-green-000);
+  --arc-color-error: var(--arc-red-040);
+  --arc-color-warning: var(--arc-orange-040);
+  --arc-color-info: var(--arc-blue-040);
+  --arc-color-success: var(--arc-green-040);
 
   /* Hover */
   --arc-hover-darker: rgba(var(--arc-black-100), 0.3);

@@ -19,6 +19,7 @@ import '../spinner/arc-spinner.js';
 export default class ArcButton extends LitElement {
   static tag = 'arc-button';
 
+  // TODO: Review the light/dark font-color for the different button colors
   static styles = [
     componentStyles,
     css`
@@ -150,7 +151,7 @@ export default class ArcButton extends LitElement {
 
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
-  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.contained;
+  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.pill;
 
   @property({ type: String, reflect: true }) color: ButtonColor = BUTTON_COLORS.default;
 

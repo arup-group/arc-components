@@ -1,6 +1,7 @@
 import { css, html, LitElement, nothing } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { map } from 'lit/directives/map.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { mobileBreakpoint } from '../../utilities/ui-utils.js';
@@ -182,15 +183,14 @@ export default class ArcNavbar extends LitElement {
     Properties are derived from the button and icon-button components
     */
     const menuInterior = html`
-      ${this.navTabs.map(
-        tab => html`
-          <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
-            ${(tab as ArcIconButton).name
-              ? html` <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon> `
-              : nothing}
-            ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
-          </arc-menu-item>
-        `
+      ${map(this.navTabs, tab => html`
+        <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
+          ${(tab as ArcIconButton).name
+            ? html` <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon> `
+            : nothing}
+          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
+        </arc-menu-item>
+      `
       )}
     `;
 

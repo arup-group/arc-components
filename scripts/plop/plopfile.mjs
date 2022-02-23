@@ -72,6 +72,18 @@ export default function (plop) {
         type: 'add',
         path: '../../stories/{{ tag }}.stories.mdx',
         templateFile: './templates/docs.hbs'
+      },
+      {
+        type: 'modify',
+        path: '../../src/arc.ts',
+        pattern: /\/\* plop:component-import \*\//,
+        template: `import './components/{{ tagWithoutPrefix tag }}/{{ tag }}.js';\n/* plop:component-import */`
+      },
+      {
+        type: 'modify',
+        path: '../../src/arc.ts',
+        pattern: /\/\* plop:component-export \*\//,
+        template: `export { default as {{ properCase tag }} } from './components/{{ tagWithoutPrefix tag }}/{{ properCase tag }}.js';\n/* plop:component-export */`
       }
     ]
   });

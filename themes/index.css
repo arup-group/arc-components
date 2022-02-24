@@ -97,9 +97,9 @@
   --arc-bottom-height: 4.5rem;
 
   /* Font Family */
-  --arc-font-headline: "Times New Roman";
-  --arc-font-body: "Arial", sans-serif;
-  --arc-font-button: "Arial", sans-serif;
+  --arc-font-headline: 'Times New Roman';
+  --arc-font-body: 'Arial', sans-serif;
+  --arc-font-button: 'Arial', sans-serif;
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;
@@ -110,7 +110,8 @@
   --arc-font-size-x-large: 1.5rem;
   --arc-font-size-xx-large: 2.25rem;
   --arc-font-size-xxx-large: 3rem;
-  --arc-font-size-xxxx-large: 4.5rem;
+  --arc-font-size-xxxx-large: 4rem;
+  --arc-font-size-xxxxx-large: 4.5rem;
 
   /* Font Weight */
   --arc-font-weight-light: 300;
@@ -156,6 +157,7 @@
   --arc-spacing-normal: 1rem;
   --arc-spacing-medium: 1.5rem;
   --arc-spacing-large: 1.75rem;
+  --arc-spacing-x-large: 2.5rem;
 
   /* Border */
   --arc-border-width: 1px;

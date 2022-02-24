@@ -2,19 +2,17 @@ import {css, html, LitElement} from 'lit';
 import {property} from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { mobileBreakpoint } from '../../arc';
 
-
-export default class ArcHero extends LitElement {
-  static tag = 'arc-hero';
+export default class ArcHero2 extends LitElement {
+  static tag = 'arc-hero2';
 
   static styles = [
 
     css`
          #main {
-              display: flex;
-              flex-wrap:wrap;
-              justify-content: space-evenly;
-              align-items:center;
+              display: grid;
+              place-items : center;
               font-family :var(--arc-font-headline);
               gap:  var(--arc-spacing-medium);/*5vw*/
               padding:  var(--arc-spacing-medium); /*5vw*/
@@ -25,10 +23,7 @@ export default class ArcHero extends LitElement {
             background-repeat: no-repeat;
             background-position: center center;
           }
-           ::slotted(*){
-             flex: 1 1 49%;
 
-           }
            ::slotted(img){
             width: 100%;
             height: 100%;
@@ -41,15 +36,22 @@ export default class ArcHero extends LitElement {
               border:1px solid yellow;
             }
             #title,#content {
-              /*word-break:break-word;*/
-              overflow-wrap:nowrap;
+              word-break:break-word;
+             /* overflow-wrap:nowrap;*/
               /*white-space:normal;*/
               margin: 0;
             }
             #content {
              font-size: var(--arc-font-size-x-large);
             }
-         `,
+          /* Medium devices and up */
+              @media (min-width: ${mobileBreakpoint}rem) {
+                #main {
+                grid-auto-flow: column;
+                grid-template-columns: 1fr 1fr;
+                padding:var(--arc-spacing-x-large);
+                }
+              }    `,
     ];
 
     @property({type: String}) bgImg: string;
@@ -62,8 +64,8 @@ export default class ArcHero extends LitElement {
 
              <div id="main" class=${classMap({bgImage:this.bgImg})} style=${styleMap(setImg)}>
 
-                           <slot id="title" name="title"></slot>
-                           <slot id="content"></slot>
+              <slot id="title" name="title"></slot>
+              <slot id="content"></slot>
 
             </div>
 `
@@ -72,6 +74,6 @@ export default class ArcHero extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'arc-hero': ArcHero;
+    'arc-hero2': ArcHero2;
   }
 }

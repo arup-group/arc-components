@@ -1,0 +1,23 @@
+import { Meta, Story, Canvas } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/components/hero/arc-hero.stories.js';
+
+<Meta
+  title="ArcHero"
+  component="arc-hero"
+  argTypes={{
+    bgImg: {
+      description: 'Set background image for the hero.',
+      control: { type: 'text' },
+    },
+    textColor: {
+      description: 'Set the textColor in the hero.',
+      control: { type: 'text' },
+    },
+  }}
+/>
+
+# Hero
+
+### `<arc-hero>`
+
+The ArcHero ...

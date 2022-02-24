@@ -40,6 +40,18 @@ Once all node_modules are installed, run the following command to start the web-
 yarn start
 ```
 
+## Scripts
+- `start` runs your app for development, reloading on file changes
+- `build` builds your app and outputs it in your `dist` directory
+- `create` creates a web-component and all required files
+- `test` runs your test suite with Web Test Runner
+- `test:watch` runs your test suite with Web Test Runner while watching file changes
+- `storybook` runs the web-component playground for your project
+- `storybook:build` builds the web-component playground for your project
+- `format` runs the formatter for your project
+- `lint` runs the linter for your project
+- `analyze` runs the Custom Elements Manifest analyzer to generate a custom-elements.json file
+
 ## Creating web components
 In order to build a fully documented and tested web-component, the following files should be present:
 * Web component
@@ -74,7 +86,7 @@ If you want to run one test iteration, run `yarn test`
 
 ### Debug
 if you want to debug your tests, run `yarn test:watch`.
-Your test environment will be kept active and listen to changes made in .test.js files.
+Your test environment will be kept active and listen to changes made in .test.ts files.
 
 You are given the following options in the terminal
 - Press `F` to focus on a test file.
@@ -82,22 +94,3 @@ You are given the following options in the terminal
 - Press `M` to debug manually in a custom browser.
 - Press `Q` to quit watch mode.
 - Press `Enter` to re-run all tests.
-
-Press `m` to start debugging in your custom browser, followed by `d` to open your default browser.
-
-In the browser you will see the available test files. Click on a file to start debugging.
-
-## Scripts
-- `lint` runs the linter for your project
-- `format` runs the formatter for your project
-- `test` runs your test suite with Web Test Runner
-- `test:watch` runs your test suite with Web Test Runner while watching file changes
-- `storybook` runs the web-component playground for your project
-- `storybook:build` builds the web-component playground for your project
-- `build` builds your app and outputs it in your `dist` directory
-- `start:build` runs your app after it has been built using the build command
-- `start` runs your app for development, reloading on file changes
-
-## Tooling configs
-For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
-If you customize the configuration a lot, you can consider moving them to individual files.

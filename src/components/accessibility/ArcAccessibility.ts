@@ -239,15 +239,17 @@ export default class ArcAccessibility extends LitElement {
   radioTemplate = (key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) => html`
     <arc-radio-group id=${key}>
       <span slot="label">${stringToSpaceSeparated(key)}</span>
-      ${map(values, value => html`
-        <arc-radio
-          name=${key}
-          value=${value}
-          ?checked=${value === this._userPreferences[key]}
-          @arc-change=${this.handleOptionChange}
-          >${uppercaseFirstLetter(value)}
-        </arc-radio>
-      `
+      ${map(
+        values,
+        value => html`
+          <arc-radio
+            name=${key}
+            value=${value}
+            ?checked=${value === this._userPreferences[key]}
+            @arc-change=${this.handleOptionChange}
+            >${uppercaseFirstLetter(value)}
+          </arc-radio>
+        `
       )}
     </arc-radio-group>
   `;

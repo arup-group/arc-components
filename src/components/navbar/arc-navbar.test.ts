@@ -33,7 +33,7 @@ describe('ArcNavbar', () => {
       expect(mainDiv.tagName).to.equal('NAV');
       expect(mainDiv.hasAttribute('aria-label')).to.be.true;
       expect(mainDiv.getAttribute('aria-label')).to.equal('primary navigation');
-    })
+    });
   });
 
   /* Test the setters/getters */

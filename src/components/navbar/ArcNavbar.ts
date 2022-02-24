@@ -183,14 +183,16 @@ export default class ArcNavbar extends LitElement {
     Properties are derived from the button and icon-button components
     */
     const menuInterior = html`
-      ${map(this.navTabs, tab => html`
-        <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
-          ${(tab as ArcIconButton).name
-            ? html` <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon> `
-            : nothing}
-          ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
-        </arc-menu-item>
-      `
+      ${map(
+        this.navTabs,
+        tab => html`
+          <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
+            ${(tab as ArcIconButton).name
+              ? html` <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon> `
+              : nothing}
+            ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
+          </arc-menu-item>
+        `
       )}
     `;
 

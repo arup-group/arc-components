@@ -31,7 +31,7 @@ describe('ArcBottombar', () => {
       expect(mainDiv.tagName).to.equal('NAV');
       expect(mainDiv.hasAttribute('aria-label')).to.be.true;
       expect(mainDiv.getAttribute('aria-label')).to.equal('mobile navigation');
-    })
+    });
   });
 
   /* Test the component responsiveness */

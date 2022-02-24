@@ -16,6 +16,10 @@ import '../container/arc-container.js';
 import './arc-accessibility.js';
 
 describe('ArcAccessibility', () => {
+  /* Ensure that local preferences are reset! */
+  beforeEach(() => localStorage.clear());
+  afterEach(() => localStorage.clear());
+
   const isOpen = (element: ArcAccessibility) => {
     const drawer: ArcDrawer = element.shadowRoot?.getElementById('drawer') as ArcDrawer;
     return element.hasAttribute('open') && drawer.hasAttribute('open');
@@ -78,8 +82,6 @@ describe('ArcAccessibility', () => {
     const testPreferenceTwo: ContentPreference = 'lineHeight';
 
     beforeEach(async () => {
-      localStorage.clear(); /* Ensure that local preferences are reset! */
-
       /* Add some default :root arc css variables */
       setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES['xx-small']}`, '0.625rem');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreference)}-${FONT_SIZES['x-small']}`, '0.75rem');
@@ -93,10 +95,6 @@ describe('ArcAccessibility', () => {
       setRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.dense}`, '1.4');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.normal}`, '1.8');
       setRootValue(`--arc-${stringToHyphenSeparated(testPreferenceTwo)}-${FONT_SPACING.loose}`, '2.2');
-    });
-
-    afterEach(() => {
-      localStorage.clear(); /* Ensure that local preferences are reset! */
     });
 
     it('should return the custom theme property of a parent arc-container', async () => {
@@ -199,13 +197,11 @@ describe('ArcAccessibility', () => {
     };
 
     beforeEach(async () => {
-      localStorage.clear(); /* Ensure that local preferences are reset! */
       element = await fixture(html`<arc-accessibility></arc-accessibility>`);
       themeRadioGroup = element.shadowRoot?.getElementById('theme') as ArcRadioGroup;
     });
 
     afterEach(() => {
-      localStorage.clear(); /* Ensure that local preferences are reset! */
       element.open = false;
       accessibilityChangeHandler.resetHistory();
     });

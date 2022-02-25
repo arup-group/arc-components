@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import { getBasePath } from '../../utilities/base-path.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -15,7 +14,7 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
   <arc-container>
-    <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg"></arc-navbar>
+    <arc-navbar slot="nav" logo="../../../assets/arc-red.svg"></arc-navbar>
     <arc-sidebar slot="side" style="--gap-distance: ${gap}; --sidebar-width: ${width}" title="${title}">
       <arc-menu>
         <arc-menu-item value="home">

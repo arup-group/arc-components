@@ -5,12 +5,12 @@
    2. Cherry Picking
       1. No framework
       2. React
-      3. Vue
-      4. Angular
-3. TypeScript 
+      3. NextJS
+      4. Vue
+      5. Angular
+3. TypeScript
 4. Useful utilities
-   1. BasePath
-   2. FOUC
+   1. FOUC
 
 # Quick start
 
@@ -40,13 +40,20 @@ You can install ARC locally with the following command.
 npm install @arc-web/components
 ```
 
+or with Yarn
+
+```bash
+yarn add @arc-web/components
+```
+
 It's up to you to make the source files available to your app.
 One way to do this is to create a route in your app called /arc that serves static files from node_modules/@arc-web/components.
 
-Once you've done that, add the following tags to your page. Make sure to update href and src, so they point to the route you created.
+Add the following tags to your page. Make sure to update `href` and `src`, so they point to the route you created.
 
 ```bash
 <head>
+  <link rel="stylesheet" href="/arc/dist/themes/index.css">
   <link rel="stylesheet" href="/arc/dist/themes/light.css">
   <script type="module" src="/arc/dist/arc.js"></script>
 </head>
@@ -64,15 +71,12 @@ This will limit the number of files the browser has to download and reduce the a
 The disadvantage is that you need to load components manually.
 
 ### Any application that uses a bundler such as Webpack / Parcel / Rollup etc.
+#### Example at: https://github.com/jasperwieringa/arc-parcel-test
 ```bash
 # index.html / base.html
 <body>
   <arc-container theme="dark"></arc-container>
-  
   <script type="module" src="index.js"></script>
-  <script type="module">
-    import '@arc-web/components/dist/components/container/arc-container.js';
-  </script>
 </body>
 ```
 
@@ -82,12 +86,11 @@ import '@arc-web/components/dist/themes/index.css';
 import '@arc-web/components/dist/themes/light.css';
 import '@arc-web/components/dist/themes/dark.css';
 
-# Set the base path to the folder you copied ARC's assets to
-import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
-setBasePath('/path/to/arc/assets/');
+import '@arc-web/components/dist/components/container/arc-container.js';
 ```
 
 ### React
+#### Example at: https://github.com/jasperwieringa/arc-react-test
 ```bash
 # index.js
 import React from 'react';
@@ -98,14 +101,8 @@ import '@arc-web/components/dist/themes/index.css';
 import '@arc-web/components/dist/themes/light.css';
 import '@arc-web/components/dist/themes/dark.css';
 
-# Set the base path to the folder you copied ARC's assets to
-import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
-setBasePath('/');
-
 ReactDOM.render(
-  <React.StrictMode>
-    <App theme={'dark'} />
-  </React.StrictMode>,
+  <App theme={'dark'} />,
   document.getElementById('root')
 );
 ```
@@ -115,15 +112,100 @@ ReactDOM.render(
 import '@arc-web/components/dist/components/container/arc-container.js';
 
 function App(props) {
-    return (
-        <arc-container theme={props.theme}></arc-container>
-    );
+  const { theme } = props;
+  
+  return (
+    <arc-container theme={props.theme}></arc-container>
+  );
 }
 
 export default App;
 ```
 
+> **Note**: ARC ships with built-in icons for components like the `arc-icon-button` and the `arc-icon`.
+Instead of using separate SVG files for each icon, ARC uses a single SVG sprite that contains all the icons, to reduce the overall file size of ARC.
+In order for this to function, ARC uses the `import.meta.url` object.
+React does not know how to handle this object and requires a bundler like Webpack to solve this.
+
+More on the `import.meta.url` object can be found on: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta
+
+An example project on how to set this up can be found on: https://github.com/jasperwieringa/arc-react-test
+
+### NextJS
+```bash
+# _app.tsx
+import React from 'react';
+
+import '@arc-web/components/dist/themes/index.css';
+import '@arc-web/components/dist/themes/light.css';
+import '@arc-web/components/dist/themes/dark.css';
+
+export default function MyApp(props: AppProps) {
+  const { Component, pageProps } = props;
+
+  return (
+    <Component {...pageProps} />
+  )
+}
+```
+
+```bash
+# Layout.tsx
+import React, { useEffect } from 'react';
+import type { NextPage } from "next";
+import Head from 'next/head';
+
+export const siteTitle = 'Some title';
+
+const Layout: NextPage = ({ children }) => {
+    /* Import the required arc components */
+    useEffect(() => {
+        import('@arc-web/components/dist/components/container/arc-container.js');
+    }, [])
+
+    return (
+        <>
+            <Head>
+                <link rel={'icon'} href={'/favicon.ico'}/>
+                <meta
+                    name={'description'}
+                    content={'App description'}
+                />
+                <meta
+                    name={'og:title'}
+                    content={siteTitle}
+                />
+                <title>{siteTitle}</title>
+            </Head>
+            <arc-container>
+              {children}
+            </arc-container>
+        </>
+    )
+}
+
+export default Layout;
+```
+
+```bash
+# Index.tsx
+import React from 'react';
+import type { NextPage } from 'next';
+import Layout from './Layout';
+
+const Home: NextPage = () => {
+    return (
+        <Layout>
+            <div>Some content</div>
+        </Layout>
+    )
+}
+
+export default Home;  
+```
+
 ### Vue
+#### Example at: https://github.com/jasperwieringa/arc-vue-test
 ```bash
 # Index.vue
 <template>
@@ -136,10 +218,6 @@ import App from './components/App.vue'
 import '@arc-web/components/dist/themes/index.css';
 import '@arc-web/components/dist/themes/light.css';
 import '@arc-web/components/dist/themes/dark.css';
-
-# Set the base path to the folder you copied ARC's assets to
-import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
-setBasePath('/path/to/arc/assets/');
 
 export default {
   name: 'Index',
@@ -182,22 +260,7 @@ When using the `vue create app-name` command in the terminal, this information c
 ```
 
 ### Angular
-```bash
-# main.ts
-...other imports
-
-# Set the base path to the folder you copied ARC's assets to
-import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
-setBasePath('/');
-
-if (environment.production) {
-  enableProdMode();
-}
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
-```
-
+#### Example at: https://github.com/jasperwieringa/arc-angular-test
 ```bash
 #styles.css
 @import '~@arc-web/components/dist/themes/index.css';
@@ -277,42 +340,9 @@ declare global {
 }
 ```
 Add each component into the interface like shown above.
-More on this can be found on https://coryrylan.com/blog/how-to-use-web-components-with-typescript-and-react
+More on this can be found on: https://coryrylan.com/blog/how-to-use-web-components-with-typescript-and-react
 
 # Useful utilities
-## Setting the Base Path
-
-Some components rely on assets and ARC needs to know where they're located.
-For convenience, ARC will try to auto-detect the correct location based on the script you've loaded it from.
-
-However, if you're cherry-picking or bundling ARC, you'll need to set the base path. You can do this one of two ways.
-
-**Option 1: the data-arc attribute**
-```bash
-/* index.html */
-<head>
-  <script type="module" src="your-own-bundle.js" data-arc="/path/to/arc/"></script>
-</head>
-```
-
-**Option 2: the setBasePath() method**
-```bash
-/* index.html */
-<body>
-  <arc-container></arc-container>
-
-  <script src="your-own-bundle.js"></script>
-</body>
-```
-
-```bash
-/* your-own-bundle.js */
-import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
-setBasePath('/path/to/arc/');
-
-# other imports etc.
-```
-
 ## Flash of unstyled content (FOUC)
 A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet, 
 due to the web browser engine rendering the page before all information is retrieved.

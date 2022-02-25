@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { getBasePath } from '../../utilities/base-path.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
 import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
@@ -63,6 +62,8 @@ export default class ArcIcon extends LitElement {
     `,
   ];
 
+  private iconPath: string = new URL('../../../assets/icons.svg', import.meta.url).href;
+
   @property({ type: String, reflect: true }) name: string = ICON_TYPES.fire;
 
   /* An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
@@ -75,8 +76,6 @@ export default class ArcIcon extends LitElement {
   @property({ type: Boolean, reflect: true }) spinning: boolean = false;
 
   render() {
-    const DEFAULT_PATH: string = `${getBasePath()}/assets/icons.svg`;
-
     const styles = {
       transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
       height: `var(--arc-font-size-${this.size})`,
@@ -92,7 +91,7 @@ export default class ArcIcon extends LitElement {
         aria-label=${ifDefined(this.label ? this.label : undefined)}
         aria-hidden=${ifDefined(this.label ? undefined : 'true')}
       >
-        <use href="${DEFAULT_PATH}#arc-${this.name}" xlink:href="${DEFAULT_PATH}#arc-${this.name}" />
+        <use href="${this.iconPath}#arc-${this.name}" xlink:href="${this.iconPath}#arc-${this.name}" />
       </svg>
     `;
   }

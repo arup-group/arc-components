@@ -11,7 +11,6 @@ import {
 
 interface Story<T> {
   (args: T): TemplateResult;
-
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
@@ -39,26 +38,26 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = ({
-                                     label,
-                                     type,
-                                     color,
-                                     size,
-                                     name,
-                                     value,
-                                     href,
-                                     target,
-                                     download,
-                                     active,
-                                     disabled,
-                                     loading,
-                                     submit,
-                                     width,
-                                     minWidth,
-                                     btnColor,
-                                     btnBackground,
-                                     prefix,
-                                     suffix,
-                                   }: ArgTypes) => html`
+  label,
+  type,
+  color,
+  size,
+  name,
+  value,
+  href,
+  target,
+  download,
+  active,
+  disabled,
+  loading,
+  submit,
+  width,
+  minWidth,
+  btnColor,
+  btnBackground,
+  prefix,
+  suffix,
+}: ArgTypes) => html`
   <arc-button
     style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
     type="${type}"
@@ -116,7 +115,7 @@ export const LinkDisabled = Template.bind({});
 Contained.args = {
   ...defaultArgs,
   label: BUTTON_TYPES.contained,
-  type: BUTTON_TYPES.contained
+  type: BUTTON_TYPES.contained,
 };
 Tile.args = {
   ...defaultArgs,
@@ -149,7 +148,6 @@ Suffix.args = {...defaultArgs, label: 'Settings', suffix: true};
 /* COLORS */
 export const Default = Template.bind({});
 export const Primary = Template.bind({});
-export const Secondary = Template.bind({});
 export const Error = Template.bind({});
 export const Warning = Template.bind({});
 export const Info = Template.bind({});
@@ -164,10 +162,6 @@ Primary.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.primary,
   color: BUTTON_COLORS.primary,
-};
-Secondary.args = {
-  ...defaultArgs,
-  label: BUTTON_COLORS.secondary,
 };
 Error.args = {
   ...defaultArgs,

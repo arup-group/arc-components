@@ -27,6 +27,13 @@ describe('ArcNavbar', () => {
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
+
+    it('should be rendered as a page landmark', () => {
+      const mainDiv = element.shadowRoot?.getElementById('main')!;
+      expect(mainDiv.tagName).to.equal('NAV');
+      expect(mainDiv.hasAttribute('aria-label')).to.be.true;
+      expect(mainDiv.getAttribute('aria-label')).to.equal('primary navigation');
+    });
   });
 
   /* Test the setters/getters */

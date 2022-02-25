@@ -1,0 +1,50 @@
+import { css, html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { emit } from '../../internal/event.js';
+import { watch } from '../../internal/watch.js';
+import componentStyles from '../../styles/component.styles.js';
+
+export default class {{ properCase tag }} extends LitElement {
+  static tag = '{{ tag }}'
+
+  static styles = [
+    componentStyles,
+    css`
+      :host {
+        --custom-color: rgb(var(--arc-red-050));
+      }
+      #main {
+        color: var(--custom-color);
+      }
+      #main.active {
+        color: rgb(var(--arc-green-050));
+      }
+    `,
+  ];
+
+  /* An example property. */
+  @property({type: String}) name: string = 'Hello World';
+
+  @property({type: Boolean}) active: boolean = false;
+
+  @watch('prop')
+  handlePropChange() {
+    /* Example event */
+    emit(this, 'arc-event-name');
+  }
+
+  render() {
+    return html`
+      <div id='main' class='${classMap({active: this.active})}'>
+        ${this.name}
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    '{{ tag }}': {{ properCase tag }};
+  }
+}

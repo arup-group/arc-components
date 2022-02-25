@@ -14,6 +14,10 @@ import type ArcContainer from './ArcContainer.js';
 import './arc-container.js';
 
 describe('ArcContainer', () => {
+  /* Ensure that local preferences are reset! */
+  beforeEach(() => localStorage.clear());
+  afterEach(() => localStorage.clear());
+
   /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcContainer;

@@ -15,7 +15,9 @@ export declare type AccessibilityKey = 'colourAdjustments' | 'contentAdjustments
 export declare type AccessibilityOption = {
   name: AccessibilityKey;
   icon: IconType;
-  options: { [key in ColourPreference]: ContainerTheme[]; } | { [key in ContentPreference]: FontSize[] | FontSpacing[] | null; };
+  options:
+    | { [key in ColourPreference]: ContainerTheme[] }
+    | { [key in ContentPreference]: FontSize[] | FontSpacing[] | null };
 };
 
 export const ACCESSIBILITY_OPTIONS: AccessibilityOption[] = [

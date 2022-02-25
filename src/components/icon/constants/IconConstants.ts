@@ -1,13 +1,3 @@
-export declare type IconSize =
-  | 'xx-small'
-  | 'x-small'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'x-large'
-  | 'xx-large'
-  | 'xxx-large'
-  | 'xxxx-large';
 export declare type IconType =
   | 'accessibility'
   | 'arrow-down'
@@ -19,8 +9,10 @@ export declare type IconType =
   | 'arrow-up'
   | 'arrow-up-circle'
   | 'bell'
+  | 'book-open'
   | 'brightness_high'
   | 'brightness_low'
+  | 'bulb'
   | 'calendar'
   | 'check'
   | 'close'
@@ -53,6 +45,8 @@ export declare type IconType =
   | 'people'
   | 'pin'
   | 'question'
+  | 'radio-checked'
+  | 'radio-unchecked'
   | 'refresh'
   | 'reload'
   | 'screen-desktop'
@@ -75,18 +69,6 @@ export declare type IconType =
   | 'volume-2'
   | 'x';
 
-export const ICON_SIZES: { [key in IconSize]: IconSize } = {
-  'xx-small': 'xx-small',
-  'x-small': 'x-small',
-  small: 'small',
-  medium: 'medium',
-  large: 'large',
-  'x-large': 'x-large',
-  'xx-large': 'xx-large',
-  'xxx-large': 'xxx-large',
-  'xxxx-large': 'xxxx-large',
-};
-
 export const ICON_TYPES: { [key in IconType]: IconType } = {
   accessibility: 'accessibility',
   'arrow-down': 'arrow-down',
@@ -98,8 +80,10 @@ export const ICON_TYPES: { [key in IconType]: IconType } = {
   'arrow-up': 'arrow-up',
   'arrow-up-circle': 'arrow-up-circle',
   bell: 'bell',
+  'book-open': 'book-open',
   brightness_high: 'brightness_high',
   brightness_low: 'brightness_low',
+  bulb: 'bulb',
   calendar: 'calendar',
   check: 'check',
   close: 'close',
@@ -132,6 +116,8 @@ export const ICON_TYPES: { [key in IconType]: IconType } = {
   people: 'people',
   pin: 'pin',
   question: 'question',
+  'radio-checked': 'radio-checked',
+  'radio-unchecked': 'radio-unchecked',
   refresh: 'refresh',
   reload: 'reload',
   'screen-desktop': 'screen-desktop',

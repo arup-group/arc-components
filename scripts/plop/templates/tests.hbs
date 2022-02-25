@@ -1,0 +1,129 @@
+import { html } from 'lit';
+import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
+import { getPropertyValue } from '../../utilities/style-utils.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
+
+import {{ properCase tag }} from './{{ properCase tag }}.js';
+import './{{ tag }}.js';
+
+describe('{{ properCase tag }}', () => {
+  /* Test the rendering of the component */
+  describe('rendering', () => {
+    let element: {{ properCase tag }};
+
+    beforeEach(async () => {
+      element = await fixture(html`<{{ tag }}></{{ tag }}>`);
+    });
+
+    /* Test default properties that reflect to the DOM */
+    it('renders the element with default properties in the dom', () => {
+      /*
+      When a component reflects to the DOM, add them within the component like so:
+      <{{ tag }} reflected-prop-1='' reflected-prop-2=''></{{ tag }}>
+      */
+      expect(element).dom.to.equal(`<{{ tag }}></{{ tag }}>`);
+    });
+
+    /* Test the accessibility */
+    it('passes the a11y audit', async () => {
+      await expect(element).shadowDom.to.be.accessible();
+    });
+  });
+
+  /* Test the setters/getters */
+  describe('setters/getters', () => {
+    it('renders the element with a custom name property', async () => {
+      const element: {{ properCase tag }} = await fixture(html`<{{ tag }} name='testProp'></{{ tag }}>`);
+
+      expect(element.name).to.equal('testProp');
+      expect(element.getAttribute('name')).to.equal('testProp');
+    });
+  });
+
+  /* Test different component states (active, disabled, loading etc.) */
+  describe('states', () => {
+    let element: {{ properCase tag }};
+
+    beforeEach(async () => {
+      element = await fixture(html`<{{ tag }}></{{ tag }}>`);
+    });
+
+    it('renders the component in an active state', async () => {
+      expect(element.active).to.be.false;
+      expect(element.hasAttribute('active')).to.be.false;
+
+      element.active = true;
+      await elementUpdated(element);
+
+      expect(element.active).to.be.true;
+      expect(element.hasAttribute('active')).to.be.true;
+    });
+  });
+
+  /* Test specific methods */
+  describe('methods', () => {
+    /* Write the tests for specific methods here */
+  });
+
+  /* Test the events (click, focus, blur etc.) */
+  describe('events', () => {
+    let element: {{ properCase tag }};
+    const clickSpy: SinonSpy = sinon.spy();
+
+    beforeEach(async () => {
+      element = await fixture(html`<{{ tag }}></{{ tag }}>`);
+    });
+
+    afterEach(async () => {
+      clickSpy.resetHistory();
+    });
+
+    it('simulates a click on the button', async () => {
+      element.addEventListener('click', clickSpy);
+
+      element.click();
+      await waitUntil(() => clickSpy.calledOnce);
+
+      expect(clickSpy).to.have.been.calledOnce;
+    });
+  });
+
+  /* Test the component responsiveness */
+  describe('responsiveness', () => {
+    /* Write tests for responsiveness here */
+  });
+
+  /* Test whether the slots can be filled and that they exist */
+  describe('slots', () => {
+    let element: {{ properCase tag }};
+
+    beforeEach(async () => {
+      element = await fixture(html`<{{ tag }}></{{ tag }}>`);
+    });
+
+    it('renders default slots to fill the component', () => {
+      const main = element.shadowRoot!.getElementById('main')!;
+
+      /* An empty slot is available */
+      expect(hasSlot(main)).to.be.true;
+
+      /* A specific (named) slot is available */
+      expect(hasSlot(main, 'testSlotOne')).to.be.true;
+      expect(hasSlot(main, 'testSlotTwo')).to.be.true;
+    });
+  });
+
+  /* Test the css variables that can be overwritten */
+  describe('css variables', () => {
+    it('uses the default css variables', async () => {
+      const element: {{ properCase tag }} = await fixture(html`<{{ tag }}></{{ tag }}>`);
+      expect(getPropertyValue(element, '--custom-color')).to.equal('green');
+    });
+
+    it('overwrites the css variables', async () => {
+      const element: {{ properCase tag }} = await fixture(html`<{{ tag }} style='--custom-color:red'></{{ tag }}>`);
+      expect(getPropertyValue(element, '--custom-color')).to.equal('red');
+    });
+  });
+});

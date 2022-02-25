@@ -1,11 +1,10 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
 import sinon from 'sinon';
+import { getPropertyValue } from '../../utilities/style-utils.js';
 
 import type ArcSpinner from './ArcSpinner.js';
 import './arc-spinner.js';
-
-import { getPropertyValue } from '../../utilities/style-utils.js';
 
 describe('ArcSpinner', () => {
   /* Test the rendering of the component */

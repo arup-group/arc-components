@@ -57,6 +57,30 @@ argTypes={{
 The ArcNavbar includes support for branding and navigation and provides out of the box responsiveness for all devices.
 Use [arc-buttons](?path=/story/arcbutton--tab) or [arc-icon-buttons](?path=/story/arciconbutton--default) to compose the navbar.
 
+```bash
+<arc-container>
+  <arc-navbar slot='nav'>
+    <arc-button type='tab'>Button one</arc-button>
+    <arc-button type='tab'>Button two</arc-button>
+    <arc-button type='tab'>Button three</arc-button>
+  </arc-navbar>
+</arc-container>
+```
+
+```bash
+<arc-container>
+  <arc-navbar slot='nav'>
+    <arc-icon-button name='icon-name' label='button explanation'>Button one</arc-icon-button>
+    <arc-icon-button name='icon-name' label='button explanation'>Button two</arc-icon-button>
+    <arc-icon-button name='icon-name' label='button explanation'>Button three</arc-icon-button>
+  </arc-navbar>
+</arc-container>
+```
+
+Keep in mind that adding a `label` property to each [arc-icon-button](?path=/story/arciconbutton--default) is extremely important.
+This is a description that gets read by screen readers and other assistive devices.
+For optimal accessibility, you should always include a label that describes what the icon button does.
+
 ## Examples
 <Canvas>
   <Story name='Default' story={stories.Default} />
@@ -66,10 +90,10 @@ Use [arc-buttons](?path=/story/arcbutton--tab) or [arc-icon-buttons](?path=/stor
 <ArgsTable story='Default' />
 
 ## Events
-Coming soon
 
-## Methods
-Coming soon
+| Name                   | Description                                               |
+|------------------------|-----------------------------------------------------------|
+| arc-show-accessibility | Emitted when the built-in accessibility button is pressed |
 
 ## Slots
 

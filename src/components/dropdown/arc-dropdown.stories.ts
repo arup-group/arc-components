@@ -1,6 +1,5 @@
 import { html, TemplateResult } from 'lit';
 import { Placement } from '@popperjs/core';
-
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 
 interface Story<T> {

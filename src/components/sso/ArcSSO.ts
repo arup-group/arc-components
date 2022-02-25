@@ -7,8 +7,10 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
 import { isExpired } from '../../internal/auth.js';
-import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from '../../utilities/ui-utils.js';
+import componentStyles from '../../styles/component.styles.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../dropdown/arc-dropdown.js';
 import '../button/arc-button.js';
@@ -67,11 +69,9 @@ export default class ArcSSO extends LitElement {
     scopes: ['openid', 'profile', 'User.Read'],
   };
 
-  @state()
-  private _msalInstance: PublicClientApplication;
+  @state() private _msalInstance: PublicClientApplication;
 
-  @state()
-  private _isAuth: boolean;
+  @state() private _isAuth: boolean = false;
 
   /* The id of the application. This value can be found on the Azure AD portal. */
   @property({ attribute: 'client-id', type: String }) clientId: string;
@@ -99,7 +99,7 @@ export default class ArcSSO extends LitElement {
       bubbles: true,
       composed: true,
     };
-    emit(this, 'arc-auth', options);
+    emit(this, ARC_EVENTS.auth, options);
   }
 
   connectedCallback() {
@@ -164,19 +164,24 @@ export default class ArcSSO extends LitElement {
     return this._msalInstance.getAllAccounts()[0] as AccountInfo;
   }
 
-  /* c8 ignore next 34 */
+  /* c8 ignore next 43 */
   render() {
     const account = this.getAccount();
     const interior = html`
       ${account && account.name
         ? html`
-            <arc-icon-button class="mobile" slot="trigger" name="user" label=${account.name}></arc-icon-button>
+            <arc-icon-button
+              class="mobile"
+              slot="trigger"
+              name=${ICON_TYPES.user}
+              label=${account.name}
+            ></arc-icon-button>
             <arc-button class="fullscreen" slot="trigger" type="tab">
               ${account.name}
-              <arc-icon slot="suffix" name="user"></arc-icon>
+              <arc-icon slot="suffix" name=${ICON_TYPES.user}></arc-icon>
             </arc-button>
           `
-        : html` <arc-icon-button slot="trigger" name="user" label="User"></arc-icon-button> `}
+        : html` <arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button> `}
     `;
 
     return html`

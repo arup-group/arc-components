@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit';
-
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
@@ -21,6 +20,8 @@ interface ArgTypes {
   type?: ButtonType;
   color?: ButtonColor;
   size?: ButtonSize;
+  name?: string;
+  value?: string;
   href?: string;
   target?: ButtonTarget;
   download?: string;
@@ -41,6 +42,8 @@ const Template: Story<ArgTypes> = ({
   type,
   color,
   size,
+  name,
+  value,
   href,
   target,
   download,
@@ -60,6 +63,8 @@ const Template: Story<ArgTypes> = ({
     type="${type}"
     color="${color}"
     size="${size}"
+    name="${name}"
+    value="${value}"
     .href="${href}"
     .target="${target}"
     .download="${download}"
@@ -79,6 +84,8 @@ const defaultArgs: ArgTypes = {
   type: BUTTON_TYPES.contained,
   color: 'default',
   size: BUTTON_SIZES.medium,
+  name: undefined,
+  value: undefined,
   href: undefined,
   target: undefined,
   download: undefined,
@@ -103,7 +110,11 @@ export const LinkNewWindow = Template.bind({});
 export const LinkDownload = Template.bind({});
 export const LinkDisabled = Template.bind({});
 
-Contained.args = { ...defaultArgs, label: BUTTON_TYPES.contained };
+Contained.args = {
+  ...defaultArgs,
+  label: BUTTON_TYPES.contained,
+  type: BUTTON_TYPES.contained,
+};
 Tile.args = {
   ...defaultArgs,
   label: BUTTON_TYPES.tile,

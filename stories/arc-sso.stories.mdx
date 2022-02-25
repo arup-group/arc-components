@@ -35,7 +35,7 @@ parameters={{
   },
 }} />
 
-# SSO [Experimental]
+# ArcSSO [Experimental]
 ### `<arc-sso>`
 
 The ArcSSO is used to authenticate users using Azure AD work and school accounts (AAD),
@@ -48,7 +48,7 @@ It also enables your app to get tokens to access Microsoft Cloud services such a
 
 ## Authenticating
 ### SignIn
-By default, the component provides a simple [arc-button](?path=/story/arcbutton--default) component with the `type=tab` property.
+By default, the component provides a simple [arc-button](?path=/story/arcbutton--default) with the `type=tab` property.
 Clicking this button will trigger a dialog that allows you to sign in to your Microsoft account.
 
 You can overwrite this default behaviour by slotting your own styled component into the `login` slot.
@@ -62,8 +62,8 @@ Example:
 ```
 
 ### SignOut
-By default, component provides an [arc-dropdown](?path=/story/arcdropdown--default) component
-that displays your username and provides a single item that allows you to sign out.
+By default, the component provides an [arc-dropdown](?path=/story/arcdropdown--default) that displays your username
+and provides a single item that allows you to sign out.
 
 You can overwrite this default behaviour by slotting your own styled component into the `logout` slot.
 You can then call the signOut() method on the `arc-sso` component to trigger the sign-out flow.

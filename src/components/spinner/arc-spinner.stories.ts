@@ -35,7 +35,7 @@ GreenColor.args = { ...defaultArgs, color: 'green' };
 BlueColor.args = { ...defaultArgs, color: 'blue' };
 PurpleColor.args = { ...defaultArgs, color: 'purple' };
 
-/** Sizes */
+/* Sizes */
 export const Small = Template.bind({});
 export const XXLarge = Template.bind({});
 export const XXXXLarge = Template.bind({});

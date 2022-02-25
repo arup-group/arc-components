@@ -7,7 +7,7 @@ title='ArcDrawer'
 component='arc-drawer'
 argTypes={{
     open: {
-      description: 'Indicates whether or not the dropdown is open.',
+      description: 'Indicates whether or not the drawer is open.',
       defaultValue: { summary: 'false' },
       control: { type: 'boolean' },
     },
@@ -17,7 +17,7 @@ argTypes={{
       control: { type: 'boolean' },
     },
     placement: {
-      description: 'The preferred placement of the dropdown panel. Note that the actual placement may vary as needed to keep the panel inside of the viewport.',
+      description: 'The direction from which the drawer will open.',
       defaultValue: { summary: DRAWER_PLACEMENTS.end },
       control: { type: 'select' },
       options: Object.values(DRAWER_PLACEMENTS),
@@ -44,7 +44,7 @@ parameters={{
   },
 }} />
 
-# Drawer
+# ArcDrawer
 ### `<arc-drawer>`
 
 The ArcDrawer is used to expose additional options and information.
@@ -109,6 +109,7 @@ When canceled, the drawer will remain open and pulse briefly to draw the user's 
 
 | Name         | Description                                               |
 |--------------|-----------------------------------------------------------|
+| label        | The drawer's label.                                       |
 | (default)    | The drawer's content.                                     |
 | footer       | The drawer's footer.                                      |
 

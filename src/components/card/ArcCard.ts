@@ -96,7 +96,7 @@ export default class ArcCard extends LitElement {
           <slot name="heading"></slot>
         </header>
         <figure>
-            <img src="${this.imageUrl}" alt="${this.imageAlt}">
+            <img id="card-image" src="${this.imageUrl}" alt="${this.imageAlt}">
         </figure>
     ` : html`
             <header id="heading" part="heading">

@@ -110,7 +110,11 @@ export const LinkNewWindow = Template.bind({});
 export const LinkDownload = Template.bind({});
 export const LinkDisabled = Template.bind({});
 
-Contained.args = { ...defaultArgs, label: BUTTON_TYPES.contained };
+Contained.args = {
+  ...defaultArgs,
+  label: BUTTON_TYPES.contained,
+  type: BUTTON_TYPES.contained,
+};
 Tile.args = {
   ...defaultArgs,
   label: BUTTON_TYPES.tile,

@@ -3,12 +3,10 @@
 <link as='style' crossorigin='anonymous' href='../themes/light.css' rel='stylesheet preload prefetch' />
 <link as='style' crossorigin='anonymous' href='../themes/dark.css' rel='stylesheet preload prefetch' />
 
-<!-- PROD -->
-<script type="module" src="dist/arc.js"></script>
-
-<!-- DEV -->
-<!--<script type="module" src="out-tsc/arc.js"></script>-->
-<!--<script type='module'>-->
-<!--  import { setBasePath } from '../out-tsc/utilities/base-path.js';-->
-<!--  setBasePath('/');-->
-<!--</script>-->
+<script type="module">
+  if (process.env.NODE_ENV === 'development') {
+    await import('../out-tsc/arc.js');
+  } else {
+    await import('../dist/arc.js');
+  }
+</script>

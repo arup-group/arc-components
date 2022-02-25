@@ -2,6 +2,7 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import { terser } from 'rollup-plugin-terser';
+import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import copy from 'rollup-plugin-copy';
 
 export default {
@@ -18,6 +19,8 @@ export default {
   plugins: [
     /* Resolve bare module imports */
     nodeResolve(),
+    /* Resolve Import Meta Assets */
+    importMetaAssets(),
     /* Minify JS */
     terser(),
     /* Compile JS to a lower language target */

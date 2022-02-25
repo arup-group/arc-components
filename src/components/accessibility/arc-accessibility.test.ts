@@ -16,10 +16,6 @@ import '../container/arc-container.js';
 import './arc-accessibility.js';
 
 describe('ArcAccessibility', () => {
-  /* Ensure that local preferences are reset! */
-  beforeEach(() => localStorage.clear());
-  afterEach(() => localStorage.clear());
-
   const isOpen = (element: ArcAccessibility) => {
     const drawer: ArcDrawer = element.shadowRoot?.getElementById('drawer') as ArcDrawer;
     return element.hasAttribute('open') && drawer.hasAttribute('open');
@@ -98,6 +94,9 @@ describe('ArcAccessibility', () => {
     });
 
     it('should return the custom theme property of a parent arc-container', async () => {
+      /* Clear the user preferences first */
+      localStorage.clear();
+
       const container: ArcContainer = await fixture(
         html`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`
       );

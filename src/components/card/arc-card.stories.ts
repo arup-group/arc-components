@@ -1,7 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import './arc-card.js';
-import '../button/arc-button.js';
-import '../icon-button/arc-icon-button.js';
 
 
 interface Story<T> {

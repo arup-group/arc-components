@@ -97,9 +97,9 @@
   --arc-bottom-height: 4.5rem;
 
   /* Font Family */
-  --arc-font-headline: 'Times New Roman';
-  --arc-font-body: 'Arial', sans-serif;
-  --arc-font-button: 'Arial', sans-serif;
+  --arc-font-headline: "Times New Roman";
+  --arc-font-body: "Arial", sans-serif;
+  --arc-font-button: "Arial", sans-serif;
 
   /* Font Size */
   --arc-font-size-xx-small: 0.625rem;

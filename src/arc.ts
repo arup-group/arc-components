@@ -1,4 +1,5 @@
 /* Components */
+import './components/accessibility/arc-accessibility.js';
 import './components/bottombar/arc-bottombar.js';
 import './components/button/arc-button.js';
 import './components/container/arc-container.js';
@@ -14,14 +15,12 @@ import './components/radio-group/arc-radio-group.js';
 import './components/sidebar/arc-sidebar.js';
 import './components/spinner/arc-spinner.js';
 import './components/sso/arc-sso.js';
-
-/* Utilities */
-export * from './utilities/base-path.js';
-export * from './utilities/dom-utils.js';
-export * from './utilities/style-utils.js';
-export * from './utilities/ui-utils.js';
+import './components/hero/arc-hero.js';
+import './components/hero/arc-hero.js';
+/* plop:component-import */
 
 /* Types */
+export { default as ArcAccessibility } from './components/accessibility/ArcAccessibility.js';
 export { default as ArcBottombar } from './components/bottombar/ArcBottombar.js';
 export { default as ArcButton } from './components/button/ArcButton.js';
 export { default as ArcContainer } from './components/container/ArcContainer.js';
@@ -37,3 +36,10 @@ export { default as ArcRadioGroup } from './components/radio-group/ArcRadioGroup
 export { default as ArcSidebar } from './components/sidebar/ArcSidebar.js';
 export { default as ArcSpinner } from './components/spinner/ArcSpinner.js';
 export { default as ArcSSO } from './components/sso/ArcSSO.js';
+
+
+/* plop:component-export */
+
+/* Utilities */
+export * from './utilities/base-path.js';
+export * from './utilities/style-utils.js';

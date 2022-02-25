@@ -1,0 +1,35 @@
+import { html, TemplateResult } from 'lit';
+
+interface Story<T> {
+  (args: T): TemplateResult;
+  args?: Partial<T>;
+  argTypes?: Record<string, unknown>;
+}
+
+interface ArgTypes {
+  name: string,
+  active: boolean,
+  customColor: string | undefined,
+}
+
+const Template: Story<ArgTypes> = ({ name, active, customColor }: ArgTypes) => html`
+  <{{ tag }} style="{--custom-color:${customColor};"
+  name="${name}"
+  ?active="${active}"></{{ tag }}>
+`;
+
+const defaultArgs: ArgTypes = {
+  name: 'Hello World',
+  active: false,
+  customColor: undefined,
+};
+
+/* TYPES */
+export const Default = Template.bind({});
+export const CustomColor = Template.bind({});
+Default.args = { ...defaultArgs, active: true };
+CustomColor.args = { ...defaultArgs, customColor: 'blue' };
+
+/* STATES */
+export const Active = Template.bind({});
+Active.args = { ...defaultArgs, label: 'Active', active: true };

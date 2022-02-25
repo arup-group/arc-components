@@ -1,7 +1,76 @@
-export declare type IconType = 'accessibility' | 'arrow-down' | 'arrow-down-circle' | 'arrow-left' | 'arrow-left-circle' | 'arrow-right' | 'arrow-right-circle' | 'arrow-up' | 'arrow-up-circle' | 'bell' | 'book-open' | 'brightness_high' | 'brightness_low' | 'bulb' | 'calendar' | 'check' | 'close' | 'cloud-download' | 'cloud-upload' | 'crop' | 'cursor-move' | 'equalizer' | 'eye' | 'eyeglass' | 'fire' | 'frame' | 'graduation' | 'grid' | 'home' | 'info' | 'layers' | 'link' | 'lock' | 'lock-open' | 'magnifier' | 'magnifier-add' | 'magnifier-remove' | 'menu' | 'microphone' | 'note' | 'options' | 'options-vertical' | 'paper-clip' | 'people' | 'pin' | 'question' | 'radio-checked' | 'radio-unchecked' | 'refresh' | 'reload' | 'screen-desktop' | 'screen-smartphone' | 'screen-tablet' | 'settings' | 'share' | 'shield' | 'size-actual' | 'size-fullscreen' | 'speech' | 'star' | 'trash' | 'user' | 'user-check' | 'user-plus' | 'user-remove' | 'volume-off' | 'volume-1' | 'volume-2' | 'x';
+export declare type IconType =
+  | 'accessibility'
+  | 'arrow-down'
+  | 'arrow-down-circle'
+  | 'arrow-left'
+  | 'arrow-left-circle'
+  | 'arrow-right'
+  | 'arrow-right-circle'
+  | 'arrow-up'
+  | 'arrow-up-circle'
+  | 'bell'
+  | 'book-open'
+  | 'brightness_high'
+  | 'brightness_low'
+  | 'bulb'
+  | 'calendar'
+  | 'check'
+  | 'close'
+  | 'cloud-download'
+  | 'cloud-upload'
+  | 'crop'
+  | 'cursor-move'
+  | 'equalizer'
+  | 'eye'
+  | 'eyeglass'
+  | 'fire'
+  | 'frame'
+  | 'graduation'
+  | 'grid'
+  | 'home'
+  | 'info'
+  | 'layers'
+  | 'link'
+  | 'lock'
+  | 'lock-open'
+  | 'magnifier'
+  | 'magnifier-add'
+  | 'magnifier-remove'
+  | 'menu'
+  | 'microphone'
+  | 'note'
+  | 'options'
+  | 'options-vertical'
+  | 'paper-clip'
+  | 'people'
+  | 'pin'
+  | 'question'
+  | 'radio-checked'
+  | 'radio-unchecked'
+  | 'refresh'
+  | 'reload'
+  | 'screen-desktop'
+  | 'screen-smartphone'
+  | 'screen-tablet'
+  | 'settings'
+  | 'share'
+  | 'shield'
+  | 'size-actual'
+  | 'size-fullscreen'
+  | 'speech'
+  | 'star'
+  | 'trash'
+  | 'user'
+  | 'user-check'
+  | 'user-plus'
+  | 'user-remove'
+  | 'volume-off'
+  | 'volume-1'
+  | 'volume-2'
+  | 'x';
 
 export const ICON_TYPES: { [key in IconType]: IconType } = {
-  'accessibility': 'accessibility',
+  accessibility: 'accessibility',
   'arrow-down': 'arrow-down',
   'arrow-down-circle': 'arrow-down-circle',
   'arrow-left': 'arrow-left',
@@ -10,64 +79,64 @@ export const ICON_TYPES: { [key in IconType]: IconType } = {
   'arrow-right-circle': 'arrow-right-circle',
   'arrow-up': 'arrow-up',
   'arrow-up-circle': 'arrow-up-circle',
-  'bell': 'bell',
+  bell: 'bell',
   'book-open': 'book-open',
-  'brightness_high': 'brightness_high',
-  'brightness_low': 'brightness_low',
-  'bulb': 'bulb',
-  'calendar': 'calendar',
-  'check': 'check',
-  'close': 'close',
+  brightness_high: 'brightness_high',
+  brightness_low: 'brightness_low',
+  bulb: 'bulb',
+  calendar: 'calendar',
+  check: 'check',
+  close: 'close',
   'cloud-download': 'cloud-download',
   'cloud-upload': 'cloud-upload',
-  'crop': 'crop',
+  crop: 'crop',
   'cursor-move': 'cursor-move',
-  'equalizer': 'equalizer',
-  'eye': 'eye',
-  'eyeglass': 'eyeglass',
-  'fire': 'fire',
-  'frame': 'frame',
-  'graduation': 'graduation',
-  'grid': 'grid',
-  'home': 'home',
-  'info': 'info',
-  'layers': 'layers',
-  'link': 'link',
-  'lock': 'lock',
+  equalizer: 'equalizer',
+  eye: 'eye',
+  eyeglass: 'eyeglass',
+  fire: 'fire',
+  frame: 'frame',
+  graduation: 'graduation',
+  grid: 'grid',
+  home: 'home',
+  info: 'info',
+  layers: 'layers',
+  link: 'link',
+  lock: 'lock',
   'lock-open': 'lock-open',
-  'magnifier': 'magnifier',
+  magnifier: 'magnifier',
   'magnifier-add': 'magnifier-add',
   'magnifier-remove': 'magnifier-remove',
-  'menu': 'menu',
-  'microphone': 'microphone',
-  'note': 'note',
-  'options': 'options',
+  menu: 'menu',
+  microphone: 'microphone',
+  note: 'note',
+  options: 'options',
   'options-vertical': 'options-vertical',
   'paper-clip': 'paper-clip',
-  'people': 'people',
-  'pin': 'pin',
-  'question': 'question',
+  people: 'people',
+  pin: 'pin',
+  question: 'question',
   'radio-checked': 'radio-checked',
   'radio-unchecked': 'radio-unchecked',
-  'refresh': 'refresh',
-  'reload': 'reload',
+  refresh: 'refresh',
+  reload: 'reload',
   'screen-desktop': 'screen-desktop',
   'screen-smartphone': 'screen-smartphone',
   'screen-tablet': 'screen-tablet',
-  'settings': 'settings',
-  'share': 'share',
-  'shield': 'shield',
+  settings: 'settings',
+  share: 'share',
+  shield: 'shield',
   'size-actual': 'size-actual',
   'size-fullscreen': 'size-fullscreen',
-  'speech': 'speech',
-  'star': 'star',
-  'trash': 'trash',
-  'user': 'user',
+  speech: 'speech',
+  star: 'star',
+  trash: 'trash',
+  user: 'user',
   'user-check': 'user-check',
   'user-plus': 'user-plus',
   'user-remove': 'user-remove',
   'volume-off': 'volume-off',
   'volume-1': 'volume-1',
   'volume-2': 'volume-2',
-  'x': 'x',
+  x: 'x',
 };

@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import * as stories from '../out-tsc/components/hero/arc-hero.stories.js';
 
 <Meta
@@ -6,18 +6,72 @@ import * as stories from '../out-tsc/components/hero/arc-hero.stories.js';
   component="arc-hero"
   argTypes={{
     bgImg: {
-      description: 'Set background image for the hero.',
+      description: 'Set the name of the component',
+      defaultValue: { summary: '' },
       control: { type: 'text' },
     },
-    textColor: {
-      description: 'Set the textColor in the hero.',
-      control: { type: 'text' },
+    /*active: {
+      description: 'Draws the component in an active state.',
+      defaultValue: { summary: false },
+      control: { type: 'boolean' },
+    },*/
+    customColor: {
+      name: '--custom-color',
+      type: { required: false },
+      description: 'Overwrite the colour of the component.',
+      control: { type: 'color' },
+      table: { category: 'CSS Variables' },
     },
   }}
 />
 
-# Hero
+# ArcHero
 
 ### `<arc-hero>`
 
-The ArcHero ...
+The ArcHero is used to...
+
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+  <Story name="CustomColor" story={stories.CustomColor} />
+  <Story name="BackgroundImg" story={stories.BackgroundImg} />
+</Canvas>
+
+## Examples
+
+### Types
+
+### Sizes
+
+### Colors
+
+### States
+
+## Properties
+
+<ArgsTable story="Default" />
+
+## Events
+
+| Name      | Description                   |
+| --------- | ----------------------------- |
+| arc-event | Emitted when the component... |
+
+## Methods
+
+| Name       | Description                              |
+| ---------- | ---------------------------------------- |
+| methodName | Simulates a methodName on the component. |
+
+## Slots
+
+| Name      | Description              |
+| --------- | ------------------------ |
+| (default) | The component's content. |
+| slotName  | Used to ...              |
+
+## Dependencies
+
+This component imports the following dependencies.
+
+- [component-name](?path=/story/componenturl--storyname)

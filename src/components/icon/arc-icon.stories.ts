@@ -1,6 +1,6 @@
 import { html, TemplateResult } from 'lit';
 import { ICON_TYPES, IconType } from './constants/IconConstants.js';
-import { FONT_SIZES, FontSize } from '../../internal/constants/fontConstants.js';
+import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;

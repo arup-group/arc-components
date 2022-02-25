@@ -1,4 +1,5 @@
-import { css, html, LitElement } from 'lit';
+import { css, LitElement } from 'lit';
+import { html, literal } from 'lit/static-html.js';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -39,6 +40,7 @@ export default class ArcButton extends LitElement {
         border-radius: var(--arc-border-radius-medium);
         font-family: var(--arc-font-button);
         font-size: inherit;
+        letter-spacing: inherit;
         font-weight: var(--arc-font-weight-semibold);
         text-decoration: none;
         user-select: none;
@@ -154,11 +156,20 @@ export default class ArcButton extends LitElement {
 
   @property({ type: String, reflect: true }) size: ButtonSize = BUTTON_SIZES.medium;
 
-  @property() target: ButtonTarget;
+  /* An optional name for the button. Ignored when `href` is set. */
+  @property({ type: String }) name: string;
 
-  @property() href: string;
+  /* An optional value for the button. Ignored when `href` is set. */
+  @property({ type: String }) value: string;
 
-  @property() download: string;
+  /* When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
+  @property({ type: String }) href: string;
+
+  /* Tells the browser where to open the link. Only used when `href` is set. */
+  @property({ type: String }) target: ButtonTarget;
+
+  /* Tells the browser to download the linked file as this filename. Only used when `href` is set. */
+  @property({ type: String }) download: string;
 
   @property({ type: Boolean, reflect: true }) active: boolean = false;
 
@@ -191,6 +202,8 @@ export default class ArcButton extends LitElement {
   }
 
   render() {
+    const isLink = !!this.href;
+    const tag = isLink ? literal`a` : literal`button`;
     const compStyles = window.getComputedStyle(this);
     const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
     const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
@@ -218,41 +231,29 @@ export default class ArcButton extends LitElement {
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
     };
 
-    const interior = html`
-      <slot id="prefix" name="prefix"></slot>
-      <slot id="label"></slot>
-      <slot id="suffix" name="suffix"></slot>
-      ${this.loading ? html` <arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
-    `;
-
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
-      ${this.href
-        ? html`
-            <a
-              id="button"
-              style=${styleMap(btnStyles)}
-              href=${ifDefined(this.href)}
-              target=${ifDefined(this.target)}
-              download=${ifDefined(this.download)}
-              rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
-              role="button"
-              aria-disabled=${this.disabled ? 'true' : 'false'}
-              tabindex=${this.disabled ? '-1' : '0'}
-              @click=${this.handleClick}
-              >${interior}</a
-            >
-          `
-        : html`
-            <button
-              id="button"
-              style=${styleMap(btnStyles)}
-              ?disabled=${this.disabled}
-              type=${this.submit ? 'submit' : 'button'}
-              @click=${this.handleClick}
-            >
-              ${interior}
-            </button>
-          `}
+      <${tag}
+        id="button"
+        style=${styleMap(btnStyles)}
+        ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
+        type=${this.submit ? 'submit' : 'button'}
+        name=${ifDefined(isLink ? undefined : this.name)}
+        value=${ifDefined(isLink ? undefined : this.value)}
+        href=${ifDefined(this.href)}
+        target=${ifDefined(this.target)}
+        download=${ifDefined(this.download)}
+        rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
+        role="button"
+        aria-disabled=${this.disabled ? 'true' : 'false'}
+        tabindex=${this.disabled ? '-1' : '0'}
+        @click=${this.handleClick}
+      >
+        <slot id="prefix" name="prefix"></slot>
+        <slot id="label"></slot>
+        <slot id="suffix" name="suffix"></slot>
+        ${this.loading ? html` <arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
+      </${tag}>
     `;
   }
 }

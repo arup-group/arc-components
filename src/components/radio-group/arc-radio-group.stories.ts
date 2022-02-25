@@ -7,8 +7,8 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  label: string,
-  row: boolean,
+  label: string;
+  row: boolean;
 }
 
 const Template: Story<ArgTypes> = ({ label, row }: ArgTypes) => html`

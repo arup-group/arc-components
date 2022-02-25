@@ -1,5 +1,13 @@
 import { html, TemplateResult } from 'lit';
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES, ButtonColor, ButtonSize, ButtonType, ButtonTarget } from './constants/ButtonConstants.js';
+import {
+  BUTTON_COLORS,
+  BUTTON_SIZES,
+  BUTTON_TYPES,
+  ButtonColor,
+  ButtonSize,
+  ButtonType,
+  ButtonTarget,
+} from './constants/ButtonConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -12,6 +20,8 @@ interface ArgTypes {
   type?: ButtonType;
   color?: ButtonColor;
   size?: ButtonSize;
+  name?: string;
+  value?: string;
   href?: string;
   target?: ButtonTarget;
   download?: string;
@@ -32,6 +42,8 @@ const Template: Story<ArgTypes> = ({
   type,
   color,
   size,
+  name,
+  value,
   href,
   target,
   download,
@@ -51,6 +63,8 @@ const Template: Story<ArgTypes> = ({
     type="${type}"
     color="${color}"
     size="${size}"
+    name="${name}"
+    value="${value}"
     .href="${href}"
     .target="${target}"
     .download="${download}"
@@ -70,6 +84,8 @@ const defaultArgs: ArgTypes = {
   type: BUTTON_TYPES.contained,
   color: 'default',
   size: BUTTON_SIZES.medium,
+  name: undefined,
+  value: undefined,
   href: undefined,
   target: undefined,
   download: undefined,

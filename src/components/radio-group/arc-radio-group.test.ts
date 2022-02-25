@@ -41,7 +41,7 @@ describe('ArcRadioGroup', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom label and row property', async () => {
-      const element: ArcRadioGroup = await fixture(html`<arc-radio-group label='Test label' row></arc-radio-group>`);
+      const element: ArcRadioGroup = await fixture(html`<arc-radio-group label="Test label" row></arc-radio-group>`);
 
       expect(element.label).to.equal('Test label');
       expect(element.row).to.be.true;
@@ -88,9 +88,7 @@ describe('ArcRadioGroup', () => {
     let radioWrapper: HTMLElement;
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-radio-group row></arc-radio-group>
-      `);
+      element = await fixture(html` <arc-radio-group row></arc-radio-group> `);
       radioWrapper = element.shadowRoot!.getElementById('radioGroup')!;
     });
 

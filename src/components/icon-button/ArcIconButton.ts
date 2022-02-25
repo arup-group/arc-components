@@ -1,4 +1,5 @@
-import { css, html, LitElement, nothing } from 'lit';
+import { css, LitElement, nothing } from 'lit';
+import { html, literal } from 'lit/static-html.js';
 import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -103,12 +104,16 @@ export default class ArcIconButton extends LitElement {
 
   @state() private hasLabel = false;
 
+  /* The name of the icon to draw. */
   @property({ type: String }) name: IconType;
 
-  @property({ type: String }) target: ButtonTarget;
-
+  /* When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
   @property({ type: String }) href: string;
 
+  /* Tells the browser where to open the link. Only used when `href` is set. */
+  @property({ type: String }) target: ButtonTarget;
+
+  /* Tells the browser to download the linked file as this filename. Only used when `href` is set. */
   @property({ type: String }) download: string;
 
   /*
@@ -155,47 +160,37 @@ export default class ArcIconButton extends LitElement {
   }
 
   render() {
+    const isLink = !!this.href;
+    const tag = isLink ? literal`a` : literal`button`;
+
     const btnStyles = {
       padding: this.hasLabel ? '0 0 var(--arc-spacing-small) 0' : null,
     };
 
-    const interior = html`
-      <span id="iconWrapper" aria-hidden="true">
-        <arc-icon id="icon" part="icon" name=${ifDefined(this.name)}></arc-icon>
-        ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : nothing}
-      </span>
-      ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : nothing}
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
+    return html`
+      <${tag}
+        id="button"
+        style=${styleMap(btnStyles)}
+        ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
+        type="button"
+        href=${ifDefined(this.href)}
+        target=${ifDefined(this.target)}
+        download=${ifDefined(this.download)}
+        rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
+        role="button"
+        aria-disabled=${this.disabled ? 'true' : 'false'}
+        aria-label=${this.label}
+        tabindex=${this.disabled ? '-1' : '0'}
+        @click=${this.handleClick}
+      >
+        <span id="iconWrapper" aria-hidden="true">
+          <arc-icon id="icon" part="icon" name=${ifDefined(this.name)}></arc-icon>
+          ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : nothing}
+        </span>
+        ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : nothing}
+      </${tag}>
     `;
-
-    return this.href
-      ? html`
-          <a
-            id="button"
-            style=${styleMap(btnStyles)}
-            href=${ifDefined(this.href)}
-            target=${ifDefined(this.target)}
-            download=${ifDefined(this.download)}
-            rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
-            role="button"
-            aria-disabled=${this.disabled ? 'true' : 'false'}
-            aria-label=${this.label}
-            tabindex=${this.disabled ? '-1' : '0'}
-            @click=${this.handleClick}
-            >${interior}
-          </a>
-        `
-      : html`
-          <button
-            id="button"
-            style=${styleMap(btnStyles)}
-            ?disabled=${this.disabled}
-            type="button"
-            aria-label=${this.label}
-            @click=${this.handleClick}
-          >
-            ${interior}
-          </button>
-        `;
   }
 }
 

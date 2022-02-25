@@ -8,6 +8,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "class-methods-use-this": "off",
     "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "off",
     "no-undef": "off",

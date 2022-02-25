@@ -116,7 +116,7 @@ export default class ArcSidebar extends LitElement {
       : html`
           <arc-icon-button
             id="toggleOpen"
-            ${ICON_TYPES['arrow-right']}
+            name=${ICON_TYPES['arrow-right']}
             label="Open sidebar"
             @click=${this.toggleOpenState}
           ></arc-icon-button>

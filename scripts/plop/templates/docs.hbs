@@ -1,0 +1,46 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import * as stories from '../out-tsc/components/{{ tagWithoutPrefix tag }}/{{ tag }}.stories.js';
+
+<Meta title='{{ properCase tag }}' component='{{ tag }}' argTypes='{{ docProps }}'/>
+
+# {{ properCase tag }}
+### `<{{ tag }}>`
+
+The {{ properCase tag }} is used to...
+
+<Canvas>
+  <Story name="Default" story={stories.Default} />
+</Canvas>
+
+## Examples
+### Types
+### Sizes
+### Colors
+### States
+
+## Properties
+<ArgsTable story="Default" />
+
+## Events
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| arc-event    | Emitted when the component...                             |
+
+## Methods
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| methodName   | Simulates a methodName on the component.                  |
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| (default)    | The component's content.                                  |
+| slotName     | Used to ...                                               |
+
+## Dependencies
+
+This component imports the following dependencies.
+* [component-name](?path=/story/componenturl--storyname)

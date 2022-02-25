@@ -34,7 +34,7 @@ export default class Modal {
   handleFocusIn(event: Event) {
     const path = event.composedPath();
 
-    /* Trap focus so it doesn't go out of the modal's boundary */
+    /* Trap focus, so it doesn't go out of the modal's boundary */
     if (this.isActive() && !path.includes(this.element)) {
       const { start, end } = getTabbableBoundary(this.element);
       const target = this.tabDirection === 'forward' ? start : end;
@@ -46,7 +46,6 @@ export default class Modal {
   }
 
   handleKeyDown(event: KeyboardEvent) {
-
     /* Quick hack to determine tab direction */
     if (event.key === 'Tab' && event.shiftKey) {
       this.tabDirection = 'backward';

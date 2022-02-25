@@ -12,5 +12,5 @@ describe('DrawerConstants', () => {
     expect(keys).to.contain('end');
     expect(keys).to.contain('bottom');
     expect(keys).to.contain('start');
-  })
-})
+  });
+});

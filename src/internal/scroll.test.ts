@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { expect, fixture} from '@open-wc/testing';
+import { expect, fixture } from '@open-wc/testing';
 
 import { lockBodyScrolling, unlockBodyScrolling } from './scroll.js';
 
@@ -15,7 +15,7 @@ describe('scroll', () => {
   afterEach(() => {
     unlockBodyScrolling(elementOne);
     unlockBodyScrolling(elementTwo);
-  })
+  });
 
   it('should lock the body from scrolling', async () => {
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.false;
@@ -23,7 +23,7 @@ describe('scroll', () => {
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.true;
   });
 
-  it('should unlock the body from scrolling', async() => {
+  it('should unlock the body from scrolling', async () => {
     await lockBodyScrolling(elementOne);
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.true;
     await unlockBodyScrolling(elementOne);
@@ -46,4 +46,4 @@ describe('scroll', () => {
     await unlockBodyScrolling(elementTwo);
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.false;
   });
-})
+});

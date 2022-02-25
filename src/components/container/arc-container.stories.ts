@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit';
-import { getBasePath } from '../../utilities/base-path.js';
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 
 interface Story<T> {
@@ -15,7 +14,7 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = ({ theme, fullscreen }: ArgTypes) => html`
   <arc-container theme="${theme}" ?fullscreen="${fullscreen}">
-    <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg">
+    <arc-navbar slot="nav" logo="../../../assets/arc-red.svg">
       <span slot="name">WebComponents</span>
       <arc-button type="tab">Link 1</arc-button>
       <arc-button type="tab">Link 2</arc-button>

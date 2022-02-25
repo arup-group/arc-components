@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "yarn format && rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze --outdir dist",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze --outdir dist",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",

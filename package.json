@@ -1,7 +1,7 @@
 {
   "name": "@arc-web/components",
   "description": "Web-components built on the ARC design system",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "author": "arc-component",
   "license": "MIT",
   "main": "dist/arc.js",
@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze --outdir dist",
+    "build": "yarn format && rimraf dist && tsc && rollup -c rollup.config.js && yarn analyze --outdir dist",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",

@@ -71,6 +71,7 @@ This will limit the number of files the browser has to download and reduce the a
 The disadvantage is that you need to load components manually.
 
 ### Any application that uses a bundler such as Webpack / Parcel / Rollup etc.
+#### Example at: https://github.com/jasperwieringa/arc-parcel-test
 ```bash
 # index.html / base.html
 <body>
@@ -89,6 +90,7 @@ import '@arc-web/components/dist/components/container/arc-container.js';
 ```
 
 ### React
+#### Example at: https://github.com/jasperwieringa/arc-react-test
 ```bash
 # index.js
 import React from 'react';
@@ -203,6 +205,7 @@ export default Home;
 ```
 
 ### Vue
+#### Example at: https://github.com/jasperwieringa/arc-vue-test
 ```bash
 # Index.vue
 <template>
@@ -257,6 +260,7 @@ When using the `vue create app-name` command in the terminal, this information c
 ```
 
 ### Angular
+#### Example at: https://github.com/jasperwieringa/arc-angular-test
 ```bash
 #styles.css
 @import '~@arc-web/components/dist/themes/index.css';
@@ -337,7 +341,6 @@ declare global {
 ```
 Add each component into the interface like shown above.
 More on this can be found on: https://coryrylan.com/blog/how-to-use-web-components-with-typescript-and-react
-
 
 # Useful utilities
 ## Flash of unstyled content (FOUC)

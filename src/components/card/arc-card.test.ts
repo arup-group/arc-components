@@ -1,8 +1,5 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
-import { setViewport } from '@web/test-runner-commands';
-import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { expect, fixture } from '@open-wc/testing';
 
 import type ArcCard from './ArcCard.js';
 import './arc-card.js';
@@ -43,22 +40,6 @@ describe('ArcCard ', () => {
       expect(cardImage.getAttribute('src')).to.equal(testImageURL);
       expect(cardImage.getAttribute('alt')).to.equal(testAltText);
     });
-
-    it('renders just the heading when image is not set', async () => {
-
-        const testHeading = 'Heading'
-        const element: ArcCard  = await fixture(html`<arc-card imagealt="" imageurl=""><div id="test" slot="heading">${testHeading}</div></arc-card>`);
-        const header = element.shadowRoot!.querySelector('#test')!;
-        console.log('header', header);
-        //const main = element.shadowRoot!.getElementById('test')!;
-
-        //expect(hasSlot(slottedHeader)).to.be.true;
-        //const cardImage = element.shadowRoot!.querySelector('header#heading div')!;
-        // const heading = element.shadowRoot!.querySelector('slot[name="heading"]')!;
-        
-        expect(header).to.be.true;
-      });
-
    
   });
 

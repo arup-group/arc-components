@@ -8,14 +8,15 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  theme: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
-const Template: Story<ArgTypes> = () => html`
+const Template: Story<ArgTypes> = ({imageUrl, imageAlt}:ArgTypes) => html`
 <div style="display: flex; gap: 20px;">
     <arc-card 
-      imageUrl="https://via.placeholder.com/600.png/09f/fff"
-      imageAlt="Placeholder image"
+      imageUrl="${imageUrl}"
+      imageAlt="${imageAlt}"
     >
         <div slot="heading">Heading</div>
         <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
@@ -43,4 +44,11 @@ const Template: Story<ArgTypes> = () => html`
 </div>
 `;
 
+
+const defaultArgs: ArgTypes = {
+  imageUrl: 'https://via.placeholder.com/600.png/09f/fff',
+  imageAlt: 'Placeholder image'
+};
+
 export const Card = Template.bind({});
+Card.args = { ...defaultArgs };

@@ -4,16 +4,39 @@ import * as stories from '../out-tsc/components/card/arc-card.stories.js';
 <Meta
 title='ArcCard'
 component='arc-card'
+argTypes={{
+   imageUrl: {
+     type: { required: false },
+     description: 'URL for image',
+     defaultValue: { summary: '' },
+     control: { type: 'boolean' },
+   },
+   imageAlt: {
+     type: { required: false },
+     description: 'Alt tect for image for accessibility',
+     defaultValue: { summary: '' },
+     control: { type: 'text' },
+   }
+}}
 />
 
 # Card
 ### `<arc-card>`
 
-The ArcContainer is the most basic layout element and is required when using the ARC component library.
-It is used to contain, pad and style the page and provides out of the box responsiveness for all devices.
-You can use the [arc-navbar](?path=/story/arcnavbar--default), [arc-sidebar](?path=/story/arcsidebar--default) and [arc-bottombar](?path=/story/arcbottombar--default) components and add them to the respective slots to compose the default container.
-By default, the container will display an [arc-bottombar](?path=/story/arcbottombar--default) component on mobile devices to ensure a functional and layout-friendly application.
+The Arc card is used display summarized content and its respective actions. It contains basic slots for the user to place a heading, an optional image background and [arc-buttons](?path=/story/arc-button--default) 
+The Arc card is designed to be accessible with a property for alt text if the image is used.
 
 <Canvas>
   <Story name='card' story={stories.Card} />
 </Canvas>
+
+## Properties
+<ArgsTable story='card' />
+
+## Slots
+
+| Name         | Description                                               |
+|--------------|-----------------------------------------------------------|
+| heading         | This slot is used to add a heading to the carc.              |
+| content         | This slot is used to add the main content to the card.     |
+| actions         | This slot should be used to add footer items like buttons.   |

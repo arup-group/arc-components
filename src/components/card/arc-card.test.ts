@@ -32,7 +32,7 @@ describe('ArcCard ', () => {
     it('renders the arc-card with background image and alt text', async () => {
 
       const testAltText = 'Test Alt Text';
-      const testImageURL = 'TestURL'
+      const testImageURL = 'https://via.placeholder.com/600.png/09f/fff'
 
       const element: ArcCard  = await fixture(html`<arc-card imagealt="${testAltText}" imageurl="${testImageURL}"></arc-card>`);
       const cardImage = element.shadowRoot!.querySelector('#card-image')!;
@@ -43,6 +43,21 @@ describe('ArcCard ', () => {
       expect(cardImage.getAttribute('src')).to.equal(testImageURL);
       expect(cardImage.getAttribute('alt')).to.equal(testAltText);
     });
+
+    it('renders just the heading when image is not set', async () => {
+
+        const testHeading = 'Heading'
+        const element: ArcCard  = await fixture(html`<arc-card imagealt="" imageurl=""><div id="test" slot="heading">${testHeading}</div></arc-card>`);
+        const header = element.shadowRoot!.querySelector('#test')!;
+        console.log('header', header);
+        //const main = element.shadowRoot!.getElementById('test')!;
+
+        //expect(hasSlot(slottedHeader)).to.be.true;
+        //const cardImage = element.shadowRoot!.querySelector('header#heading div')!;
+        // const heading = element.shadowRoot!.querySelector('slot[name="heading"]')!;
+        
+        expect(header).to.be.true;
+      });
 
    
   });

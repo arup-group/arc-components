@@ -1,6 +1,5 @@
 import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
-import { getBasePath } from '../../utilities/base-path.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -43,7 +42,7 @@ const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: Arg
 const defaultArgs: ArgTypes = {
   arup: true,
   home: '/',
-  logo: `${getBasePath()}/assets/arc-red.svg`,
+  logo: `/arc-red.svg`,
   tabs: 5,
   height: 'var(--arc-navbar-height)',
   name: 'Web Components',

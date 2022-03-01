@@ -1,12 +1,10 @@
 import '../themes/index.css';
 import '../themes/light.css';
 import '../themes/dark.css';
+import '../out-tsc/arc.js';
 
-if (process.env.NODE_ENV === 'development') {
-  import ('../out-tsc/arc');
-} else {
-  import ('../dist/arc');
-}
+import '../assets/arc-red.svg'
+import '../assets/icons.svg'
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

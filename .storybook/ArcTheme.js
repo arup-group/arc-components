@@ -1,5 +1,5 @@
 import { create } from '@storybook/theming';
-import arcLogo from '../assets/arc-red.svg';
+import arcLogo from '../assets/arc-storybook.svg';
 
 export default create({
   base: 'light',
@@ -14,11 +14,6 @@ export default create({
   barTextColor: 'rgb(239, 79, 79)',
   barSelectedColor: 'rgb(239, 79, 79)',
   barBg: 'rgb(255, 255, 255)',
-
-  // Form colors
-  inputBg: 'white',
-  inputBorder: 'rgb(66, 66, 66)',
-  inputTextColor: 'rgb(66, 66, 66)',
 
   // Logo
   brandTitle: 'ARC',

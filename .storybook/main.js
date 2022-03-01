@@ -4,5 +4,6 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials"
   ],
+  staticDirs: ['../assets'],
   framework: "@storybook/web-components"
 }

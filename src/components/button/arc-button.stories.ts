@@ -1,4 +1,5 @@
-import { html, TemplateResult } from 'lit';
+import {Meta} from "@storybook/web-components";
+import {html, TemplateResult} from 'lit';
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
@@ -37,27 +38,58 @@ interface ArgTypes {
   suffix?: boolean;
 }
 
+export default {
+  title: 'ArcButton',
+  argTypes: {
+    type: {
+      control: 'select',
+      options: Object.keys(BUTTON_TYPES),
+    },
+    color: {
+      control: 'select',
+      options: Object.keys(BUTTON_COLORS),
+    },
+    size: {
+      control: 'select',
+      options: Object.keys(BUTTON_SIZES),
+    },
+    name: {control: 'text'},
+    value: {control: 'text'},
+    href: {control: 'text'},
+    target: {control: 'text'},
+    download: {control: 'text'},
+    active: {control: 'boolean'},
+    disabled: {control: 'boolean'},
+    loading: {control: 'boolean'},
+    submit: {control: 'boolean'},
+    width: {control: 'text'},
+    minWidth: {control: 'text'},
+    btnColor: {control: 'color'},
+    btnBackground: {control: 'color'},
+  },
+} as Meta;
+
 const Template: Story<ArgTypes> = ({
-  label,
-  type,
-  color,
-  size,
-  name,
-  value,
-  href,
-  target,
-  download,
-  active,
-  disabled,
-  loading,
-  submit,
-  width,
-  minWidth,
-  btnColor,
-  btnBackground,
-  prefix,
-  suffix,
-}: ArgTypes) => html`
+                                     label,
+                                     type,
+                                     color,
+                                     size,
+                                     name,
+                                     value,
+                                     href,
+                                     target,
+                                     download,
+                                     active,
+                                     disabled,
+                                     loading,
+                                     submit,
+                                     width,
+                                     minWidth,
+                                     btnColor,
+                                     btnBackground,
+                                     prefix,
+                                     suffix,
+                                   }: ArgTypes) => html`
   <arc-button
     style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
     type="${type}"
@@ -73,9 +105,11 @@ const Template: Story<ArgTypes> = ({
     ?loading="${loading}"
     ?submit="${submit}"
   >
-    ${prefix ? html`<arc-icon slot="prefix" name="home"></arc-icon>` : null}
+    ${prefix ? html`
+      <arc-icon slot="prefix" name="home"></arc-icon>` : null}
     ${label.charAt(0).toUpperCase() + label.slice(1)}
-    ${suffix ? html`<arc-icon slot="suffix" name="settings"></arc-icon>` : null}
+    ${suffix ? html`
+      <arc-icon slot="suffix" name="settings"></arc-icon>` : null}
   </arc-button>
 `;
 
@@ -130,22 +164,22 @@ Pill.args = {
   label: BUTTON_TYPES.pill,
   type: BUTTON_TYPES.pill,
 };
-Tab.args = { ...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab };
-Link.args = { ...defaultArgs, label: 'Link', href: '/' };
-LinkNewWindow.args = { ...Link.args, label: 'New Window', target: '_blank' };
+Tab.args = {...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab};
+Link.args = {...defaultArgs, label: 'Link', href: '/'};
+LinkNewWindow.args = {...Link.args, label: 'New Window', target: '_blank'};
 LinkDownload.args = {
   ...Link.args,
   label: 'Download',
   download: 'ARC Storybook',
 };
-LinkDisabled.args = { ...Link.args, label: 'Disabled', disabled: true };
+LinkDisabled.args = {...Link.args, label: 'Disabled', disabled: true};
 
 /* SLOTS */
 export const Prefix = Template.bind({});
 export const Suffix = Template.bind({});
 
-Prefix.args = { ...defaultArgs, label: 'Home', prefix: true };
-Suffix.args = { ...defaultArgs, label: 'Settings', suffix: true };
+Prefix.args = {...defaultArgs, label: 'Home', prefix: true};
+Suffix.args = {...defaultArgs, label: 'Settings', suffix: true};
 
 /* COLORS */
 export const Default = Template.bind({});
@@ -218,6 +252,6 @@ export const Active = Template.bind({});
 export const Disabled = Template.bind({});
 export const Loading = Template.bind({});
 
-Active.args = { ...Tab.args, label: 'Active', active: true };
-Disabled.args = { ...Tab.args, label: 'Disabled', disabled: true };
-Loading.args = { ...Tab.args, label: 'Loading', loading: true };
+Active.args = {...Tab.args, label: 'Active', active: true};
+Disabled.args = {...Tab.args, label: 'Disabled', disabled: true};
+Loading.args = {...Tab.args, label: 'Loading', loading: true};

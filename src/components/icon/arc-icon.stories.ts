@@ -1,6 +1,7 @@
-import { html, TemplateResult } from 'lit';
-import { ICON_TYPES, IconType } from './constants/IconConstants.js';
-import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
+import {Meta} from "@storybook/web-components";
+import {html, TemplateResult} from 'lit';
+import {ICON_TYPES, IconType} from './constants/IconConstants.js';
+import {FONT_SIZES, FontSize} from '../../internal/constants/styleConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -17,7 +18,25 @@ interface ArgTypes {
   colorSecondary?: string;
 }
 
-const Template: Story<ArgTypes> = ({ name, size, rotation, spinning, colorPrimary, colorSecondary }: ArgTypes) => html`
+export default {
+  title: 'ArcIcon',
+  argTypes: {
+    name: {
+      control: 'select',
+      options: Object.values(ICON_TYPES),
+    },
+    size: {
+      control: 'select',
+      options: Object.values(FONT_SIZES),
+    },
+    rotation: { control: 'number' },
+    spinning: { control: 'boolean' },
+    colorPrimary: { control: 'color' },
+    colorSecondary: { control: 'color' },
+  },
+} as Meta;
+
+const Template: Story<ArgTypes> = ({name, size, rotation, spinning, colorPrimary, colorSecondary}: ArgTypes) => html`
   <arc-icon
     style="--icon-color-primary:${colorPrimary || 'inherit'}; --icon-color-secondary:${colorSecondary || 'inherit'};"
     name="${name}"
@@ -44,10 +63,10 @@ export const BlueColor = Template.bind({});
 export const PurpleColor = Template.bind({});
 export const CustomSize = Template.bind({});
 
-Default.args = { ...defaultArgs };
-VariableSize.args = { ...defaultArgs, size: FONT_SIZES['xxx-large'] };
-RedColor.args = { ...defaultArgs, colorPrimary: 'red' };
-GreenColor.args = { ...defaultArgs, colorPrimary: 'green' };
-BlueColor.args = { ...defaultArgs, colorPrimary: 'blue' };
-PurpleColor.args = { ...defaultArgs, colorPrimary: 'purple' };
-CustomSize.args = { ...defaultArgs, size: 'custom' };
+Default.args = {...defaultArgs};
+VariableSize.args = {...defaultArgs, size: FONT_SIZES['xxx-large']};
+RedColor.args = {...defaultArgs, colorPrimary: 'red'};
+GreenColor.args = {...defaultArgs, colorPrimary: 'green'};
+BlueColor.args = {...defaultArgs, colorPrimary: 'blue'};
+PurpleColor.args = {...defaultArgs, colorPrimary: 'purple'};
+CustomSize.args = {...defaultArgs, size: 'custom'};

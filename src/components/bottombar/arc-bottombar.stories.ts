@@ -1,3 +1,4 @@
+import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 
 interface Story<T> {
@@ -9,6 +10,13 @@ interface Story<T> {
 interface ArgTypes {
   height?: string;
 }
+
+export default {
+  title: 'ArcBottombar',
+  argTypes: {
+    height: { control: 'text' }
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = ({ height }: ArgTypes) => html`
   <div style="display: grid;">

@@ -1,3 +1,4 @@
+import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
 
 interface Story<T> {
@@ -11,6 +12,13 @@ interface ArgTypes {
   prefix?: boolean;
   suffix?: boolean;
 }
+
+export default {
+  title: 'ArcMenuItem',
+  argTypes: {
+    disabled: { control: 'boolean' },
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = ({ disabled, prefix, suffix }: ArgTypes) => html`
   <div role="menu" style="width: 15rem;">

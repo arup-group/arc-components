@@ -1,3 +1,4 @@
+import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
 
 interface Story<T> {
@@ -10,6 +11,14 @@ interface ArgTypes {
   label: string;
   row: boolean;
 }
+
+export default {
+  title: 'ArcRadioGroup',
+  argTypes: {
+    label: { control: 'text' },
+    row: { control: 'boolean' }
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = ({ label, row }: ArgTypes) => html`
   <arc-radio-group label="${label}" ?row="${row}">

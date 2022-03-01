@@ -1,3 +1,4 @@
+import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 
 interface Story<T> {
@@ -11,6 +12,15 @@ interface ArgTypes {
   width?: string;
   size?: string;
 }
+
+export default {
+  title: 'ArcSpinner',
+  argTypes: {
+    color: { control: 'text' },
+    width: { control: 'text' },
+    size: { control: 'text' }
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = ({ color, width, size }: ArgTypes) => html`
   <arc-spinner style="--stroke-color: ${color}; --track-width: ${width}; font-size:${size}"></arc-spinner>

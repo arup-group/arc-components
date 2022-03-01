@@ -1,7 +1,9 @@
-import { html, TemplateResult } from 'lit';
+import {Meta} from "@storybook/web-components";
+import {html, TemplateResult} from 'lit';
 
 interface Story<T> {
   (args: T): TemplateResult;
+
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
@@ -9,6 +11,13 @@ interface Story<T> {
 interface ArgTypes {
   open: boolean;
 }
+
+export default {
+  title: 'ArcAccessibility',
+  argTypes: {
+    open: {control: 'boolean'}
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = () => html`
   <style>
@@ -41,4 +50,4 @@ const defaultArgs: ArgTypes = {
 
 /* TYPES */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs };
+Default.args = {...defaultArgs};

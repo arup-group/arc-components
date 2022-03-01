@@ -1,8 +1,11 @@
+import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 
 interface Story {
   (): TemplateResult;
 }
+
+export default { title: 'ArcMenu' } as Meta;
 
 const Template: Story = () => html`
   <arc-menu style="width: 15rem;">

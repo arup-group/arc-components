@@ -1,3 +1,4 @@
+import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
 import { getBasePath } from '../../utilities/base-path.js';
 
@@ -15,6 +16,18 @@ interface ArgTypes {
   height?: string;
   name?: string;
 }
+
+export default {
+  title: 'ArcNavbar',
+  argTypes: {
+    arup: { control: 'boolean' },
+    home: { control: 'text' },
+    logo: { control: 'text' },
+    tabs: { control: 'number' },
+    height: { control: 'text' },
+    logoHeight: { control: 'text' }
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: ArgTypes) => html`
   <arc-navbar slot="nav" home="${home}" logo="${logo}" arup="${arup}" .tabs=${tabs} style="height: ${height}"

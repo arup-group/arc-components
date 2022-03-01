@@ -1,3 +1,4 @@
+import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 
@@ -14,6 +15,21 @@ interface ArgTypes {
   label: string | undefined;
   size: string;
 }
+
+export default {
+  title: 'ArcDrawer',
+  argTypes: {
+    open: { control: 'boolean' },
+    contained: { control: 'boolean' },
+    placement: {
+      control: 'select',
+      options: Object.values(DRAWER_PLACEMENTS),
+    },
+    label: { control: 'text' },
+    size: { control: 'text' },
+  },
+} as Meta;
+
 
 const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
   <div

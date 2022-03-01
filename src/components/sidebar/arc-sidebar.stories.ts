@@ -1,3 +1,4 @@
+import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 import { getBasePath } from '../../utilities/base-path.js';
 
@@ -12,6 +13,15 @@ interface ArgTypes {
   width?: string;
   title?: string;
 }
+
+export default {
+  title: 'ArcSidebar',
+  argTypes: {
+    gap: { control: 'text' },
+    width: { control: 'text' },
+    title: { control: 'text' }
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
   <arc-container>

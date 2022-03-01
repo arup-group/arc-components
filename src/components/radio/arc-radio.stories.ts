@@ -1,3 +1,4 @@
+import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 
 interface Story<T> {
@@ -12,6 +13,16 @@ interface ArgTypes {
   disabled?: boolean;
   checked?: boolean;
 }
+
+export default {
+  title: 'ArcRadio',
+  argTypes: {
+    name: { control: 'text' },
+    value: { control: 'text' },
+    disabled: { control: 'boolean' },
+    checked: { control: 'boolean' }
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = ({ name, disabled, checked }: ArgTypes) => html`
   <p>For demoing purposes, only the first item responds to the checked switch in the Controls panel</p>

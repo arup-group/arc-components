@@ -1,3 +1,4 @@
+import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 
 interface Story<T> {
@@ -12,6 +13,16 @@ interface ArgTypes {
   redirectUri: string;
   scopes?: string;
 }
+
+export default {
+  title: 'ArcSSO',
+  argTypes: {
+    clientId: { control: 'text' },
+    tenantId: { control: 'text' },
+    redirectUri: { control: 'text' },
+    scopes: { control: 'text' }
+  },
+} as Meta;
 
 const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes) => html`
   <arc-container

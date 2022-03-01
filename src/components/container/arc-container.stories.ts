@@ -1,6 +1,7 @@
-import { html, TemplateResult } from 'lit';
-import { getBasePath } from '../../utilities/base-path.js';
-import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
+import {Meta} from "@storybook/web-components";
+import {html, TemplateResult} from 'lit';
+import {getBasePath} from '../../utilities/base-path.js';
+import {CONTAINER_THEMES, ContainerTheme} from './constants/ContainerConstants.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -13,7 +14,18 @@ interface ArgTypes {
   fullscreen?: boolean;
 }
 
-const Template: Story<ArgTypes> = ({ theme, fullscreen }: ArgTypes) => html`
+export default {
+  title: 'ArcContainer',
+  argTypes: {
+    theme: {
+      control: 'select',
+      options: Object.keys(CONTAINER_THEMES),
+    },
+    fullscreen: { control: 'boolean' }
+  },
+} as Meta;
+
+const Template: Story<ArgTypes> = ({theme, fullscreen}: ArgTypes) => html`
   <arc-container theme="${theme}" ?fullscreen="${fullscreen}">
     <arc-navbar slot="nav" logo="${getBasePath()}/assets/arc-red.svg">
       <span slot="name">WebComponents</span>
@@ -35,5 +47,5 @@ const defaultArgs: ArgTypes = {
 export const Container = Template.bind({});
 export const DarkContainer = Template.bind({});
 
-Container.args = { ...defaultArgs };
-DarkContainer.args = { ...defaultArgs, theme: CONTAINER_THEMES.dark };
+Container.args = {...defaultArgs};
+DarkContainer.args = {...defaultArgs, theme: CONTAINER_THEMES.dark};

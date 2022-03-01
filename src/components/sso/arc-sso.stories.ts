@@ -15,7 +15,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcSSO',
+  title: 'Components/ArcSSO',
   argTypes: {
     clientId: { control: 'text' },
     tenantId: { control: 'text' },

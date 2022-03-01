@@ -63,15 +63,19 @@ export default class ArcIcon extends LitElement {
     `,
   ];
 
+  /** Set the type of the icon. */
   @property({ type: String, reflect: true }) name: string = ICON_TYPES.fire;
 
-  /* An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
+  /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
   @property({ type: String }) label = '';
 
+  /** Set the size of the icon. */
   @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;
 
+  /** Set the rotation of the icon. */
   @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
 
+  /** Draws the icons in a spinning state. */
   @property({ type: Boolean, reflect: true }) spinning: boolean = false;
 
   render() {

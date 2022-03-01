@@ -19,7 +19,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcDropdown',
+  title: 'Components/ArcDropdown',
   argTypes: {
     placement: {
       control: 'select',

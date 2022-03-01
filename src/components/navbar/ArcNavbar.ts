@@ -135,18 +135,21 @@ export default class ArcNavbar extends LitElement {
 
   @state() private navTabs: (ArcButton | ArcIconButton)[] = [];
 
+  /** When set, the underlying logoWrapper will be rendered as an anchor with this property. */
   @property({ type: String, reflect: true }) home: string;
 
+  /** The url for the logo of the application. */
   @property({ type: String }) logo: string;
 
+  /** The amount of tabs allowed before collapsing into a dropdown. */
   @property({ type: Number, reflect: true }) tabs: number = 5;
 
+  /** Show/hide the Arup logo. */
   @property({
     type: Boolean,
     reflect: true,
     converter: (attrValue: string | null) => (attrValue ? attrValue !== 'false' : true),
-  })
-  arup: boolean = true;
+  }) arup: boolean = true;
 
   @watch('tabs', { waitUntilFirstUpdate: true })
   handleTabCountChange() {

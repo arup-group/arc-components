@@ -5,7 +5,7 @@ interface Story {
   (): TemplateResult;
 }
 
-export default { title: 'ArcMenu' } as Meta;
+export default { title: 'Components/ArcMenu' } as Meta;
 
 const Template: Story = () => html`
   <arc-menu style="width: 15rem;">

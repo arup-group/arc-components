@@ -14,7 +14,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcContainer',
+  title: 'Components/ArcContainer',
   argTypes: {
     theme: {
       control: 'select',

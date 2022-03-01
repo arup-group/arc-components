@@ -39,7 +39,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcButton',
+  title: 'Components/ArcButton',
   argTypes: {
     type: {
       control: 'select',

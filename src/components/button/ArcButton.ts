@@ -150,33 +150,40 @@ export default class ArcButton extends LitElement {
 
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
+  /** Set the type of the button. */
   @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.contained;
 
+  /** Set the color of the button. */
   @property({ type: String, reflect: true }) color: ButtonColor = BUTTON_COLORS.default;
 
+  /** Set the size of the button. */
   @property({ type: String, reflect: true }) size: ButtonSize = BUTTON_SIZES.medium;
 
-  /* An optional name for the button. Ignored when `href` is set. */
+  /** An optional name for the button. Ignored when `href` is set. */
   @property({ type: String }) name: string;
 
-  /* An optional value for the button. Ignored when `href` is set. */
+  /** An optional value for the button. Ignored when `href` is set. */
   @property({ type: String }) value: string;
 
-  /* When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
+  /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
   @property({ type: String }) href: string;
 
-  /* Tells the browser where to open the link. Only used when `href` is set. */
+  /** Tells the browser where to open the link. Only used when `href` is set. */
   @property({ type: String }) target: ButtonTarget;
 
-  /* Tells the browser to download the linked file as this filename. Only used when `href` is set. */
+  /** Tells the browser to download the linked file as this filename. Only used when `href` is set. */
   @property({ type: String }) download: string;
 
+  /** Draws the button in an active state. */
   @property({ type: Boolean, reflect: true }) active: boolean = false;
 
+  /** Draws the button in a disabled state. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
+  /** Draws the button in a loading state. */
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
 
+  /** Indicates if activating the button should submit the form. Ignored when href is set. */
   @property({ type: Boolean, reflect: true }) submit: boolean = false;
 
   /* Simulates a click on the button. */

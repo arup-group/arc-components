@@ -30,7 +30,7 @@
     "build": "tsc && yarn run analyze -- --exclude dist",
     "analyze": "cem analyze --litelement",
     "prepublish": "tsc && npm run analyze -- --exclude dist",
-    "storybook": "tsc && start-storybook"
+    "storybook": "tsc && start-storybook && tsc --watch --preserveWatchOutput"
   },
   "dependencies": {
     "@azure/msal-browser": "^2.22.0",

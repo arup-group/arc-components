@@ -76,13 +76,16 @@ export default class ArcRadio extends LitElement {
 
   @query('input[type="radio"]') input: HTMLInputElement;
 
-  /* A group of attributes is defined by name. */
+  /** The name used to reference the value of the control. */
   @property({ type: String }) name: string;
 
+  /** The value attribute of the radio. */
   @property({ type: String }) value: string;
 
+  /** Draws the component in a disabled state. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
+  /** Draws the component in a checked state. */
   @property({ type: Boolean, reflect: true }) checked = false;
 
   firstUpdated() {

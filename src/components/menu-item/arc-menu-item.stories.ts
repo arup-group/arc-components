@@ -14,7 +14,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcMenuItem',
+  title: 'Components/ArcMenuItem',
   argTypes: {
     disabled: { control: 'boolean' },
   },

@@ -17,7 +17,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcDrawer',
+  title: 'Components/ArcDrawer',
   argTypes: {
     open: { control: 'boolean' },
     contained: { control: 'boolean' },

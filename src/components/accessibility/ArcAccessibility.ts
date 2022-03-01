@@ -88,10 +88,10 @@ export default class ArcAccessibility extends LitElement {
     letterSpacing: Object.values(FONT_SPACING),
   };
 
-  /* State that stores the user preferences */
+  /** State that stores the user preferences */
   @state() private _userPreferences: UserPreferences = this._defaultPreferences;
 
-  /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
+  /** Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
 
   @watch('_userPreferences')

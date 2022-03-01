@@ -17,7 +17,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcNavbar',
+  title: 'Components/ArcNavbar',
   argTypes: {
     arup: { control: 'boolean' },
     home: { control: 'text' },

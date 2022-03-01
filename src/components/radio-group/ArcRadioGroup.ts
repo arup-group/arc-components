@@ -34,13 +34,13 @@ export default class ArcRadioGroup extends LitElement {
     `,
   ];
 
-  /* Slot that contains radio buttons */
+  /** Slot that contains radio buttons */
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
-  /* The radio group label. Required for proper accessibility. Alternatively, the label slot can be used. */
+  /** The radio group label. Required for proper accessibility. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
 
-  /* Lays out the radio buttons horizontally */
+  /** Lays out the radio buttons horizontally */
   @property({ type: Boolean }) row: boolean = false;
 
   /* When tabbing into the fieldset, make sure it lands on the checked radio */

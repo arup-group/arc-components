@@ -19,7 +19,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcIcon',
+  title: 'Components/ArcIcon',
   argTypes: {
     name: {
       control: 'select',

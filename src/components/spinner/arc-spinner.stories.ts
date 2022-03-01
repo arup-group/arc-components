@@ -14,7 +14,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcSpinner',
+  title: 'Components/ArcSpinner',
   argTypes: {
     color: { control: 'text' },
     width: { control: 'text' },

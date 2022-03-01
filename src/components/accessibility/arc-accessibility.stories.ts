@@ -13,7 +13,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcAccessibility',
+  title: 'Components/ArcAccessibility',
   argTypes: {
     open: {control: 'boolean'}
   },

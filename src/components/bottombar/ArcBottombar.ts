@@ -22,8 +22,10 @@ export default class ArcBottombar extends LitElement {
     `,
   ];
 
+  /** State that stores the max tab count */
   @state() private tabs: number = 5;
 
+  /** State that keeps track of the current tab count */
   @state() private tabCount: number;
 
   handleTabChange = (e: any) => {

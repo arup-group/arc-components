@@ -12,7 +12,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcBottombar',
+  title: 'Components/ArcBottombar',
   argTypes: {
     height: { control: 'text' }
   },

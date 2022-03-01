@@ -1,9 +1,16 @@
 module.exports = {
-  stories: ['../out-tsc/**/**/*.stories.js'],
+  stories: [
+    '../out-tsc/**/*.stories.js',
+    '../src/**/*.stories.mdx'
+  ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials"
   ],
   staticDirs: ['../assets'],
-  framework: "@storybook/web-components"
+  framework: "@storybook/web-components",
+  previewHead: (head) => (`
+    ${head}
+    <script type="module" data-arc="static/media"></script>
+  `)
 }

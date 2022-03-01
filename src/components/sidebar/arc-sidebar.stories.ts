@@ -14,7 +14,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcSidebar',
+  title: 'Components/ArcSidebar',
   argTypes: {
     gap: { control: 'text' },
     width: { control: 'text' },

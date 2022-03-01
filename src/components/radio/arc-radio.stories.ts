@@ -15,7 +15,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcRadio',
+  title: 'Components/ArcRadio',
   argTypes: {
     name: { control: 'text' },
     value: { control: 'text' },

@@ -13,7 +13,7 @@ interface ArgTypes {
 }
 
 export default {
-  title: 'ArcRadioGroup',
+  title: 'Components/ArcRadioGroup',
   argTypes: {
     label: { control: 'text' },
     row: { control: 'boolean' }

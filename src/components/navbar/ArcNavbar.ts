@@ -131,8 +131,10 @@ export default class ArcNavbar extends LitElement {
 
   @query('#tabSlot') tabSlot: HTMLSlotElement;
 
+  /** State that tracks whether a dropdown component should be visible */
   @state() private showDropdown: boolean = false;
 
+  /** State that keeps track of the current (slotted) tabs */
   @state() private navTabs: (ArcButton | ArcIconButton)[] = [];
 
   /** When set, the underlying logoWrapper will be rendered as an anchor with this property. */

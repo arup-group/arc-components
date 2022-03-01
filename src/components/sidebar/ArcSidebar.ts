@@ -72,12 +72,12 @@ export default class ArcSidebar extends LitElement {
     `,
   ];
 
-  @query('#content')
-  content: HTMLElement;
+  @query('#content') content: HTMLElement;
 
-  @property({ type: Boolean, reflect: true })
-  open: boolean = true;
+  /** Indicates whether the sidebar is open. */
+  @property({ type: Boolean, reflect: true }) open: boolean = true;
 
+  /** Set a title for the sidebar. */
   @property({ type: String }) title: string;
 
   handleSlots = (e: any) => {

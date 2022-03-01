@@ -102,30 +102,31 @@ export default class ArcIconButton extends LitElement {
 
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
+  /** State that tracks whether the button has a label. */
   @state() private hasLabel = false;
 
-  /* The name of the icon to draw. */
+  /** The name of the icon to draw. */
   @property({ type: String }) name: IconType;
 
-  /* When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
+  /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
   @property({ type: String }) href: string;
 
-  /* Tells the browser where to open the link. Only used when `href` is set. */
+  /** Tells the browser where to open the link. Only used when `href` is set. */
   @property({ type: String }) target: ButtonTarget;
 
-  /* Tells the browser to download the linked file as this filename. Only used when `href` is set. */
+  /** Tells the browser to download the linked file as this filename. Only used when `href` is set. */
   @property({ type: String }) download: string;
 
-  /*
-  A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should
-  always include a label that describes what the icon button does.
-  */
+  /** A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should always include a label that describes what the icon button does. */
   @property({ type: String }) label: string = '';
 
+  /** Draws the button in an active state. */
   @property({ type: Boolean, reflect: true }) active: boolean = false;
 
+  /** Draws the button in a disabled state. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
+  /** Draws the button in a loading state. */
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
 
   connectedCallback() {

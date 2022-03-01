@@ -63,7 +63,7 @@ export default class ArcIcon extends LitElement {
     `,
   ];
 
-  /** Set the type of the icon. */
+  /** The name of the icon to draw. */
   @property({ type: String, reflect: true }) name: string = ICON_TYPES.fire;
 
   /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */

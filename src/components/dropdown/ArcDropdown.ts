@@ -80,22 +80,22 @@ export default class ArcDropdown extends LitElement {
 
   private popover: PopperInstance;
 
-  /* The preferred placement of the dropdown panel. */
+  /** The preferred placement of the dropdown panel. */
   @property({ type: String }) placement: Placement = DROPDOWN_PLACEMENTS['bottom-start'];
 
-  /* The distance in pixels from which to offset the panel away from its trigger. */
+  /** The distance in pixels from which to offset the panel away from its trigger. */
   @property({ type: Number }) distance: number = 0;
 
-  /* The distance in pixels from which to offset the panel along its trigger. */
+  /** The distance in pixels from which to offset the panel along its trigger. */
   @property({ type: Number }) skidding: number = 0;
 
-  /* Indicates whether or not the dropdown is open. You can use this instead of the show/hide methods. */
+  /** Indicates whether or not the dropdown is open. You can use this instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open: boolean = false;
 
-  /* Disables the dropdown so the panel will not open. */
+  /** Disables the dropdown so the panel will not open. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
-  /* Enable this option to prevent the panel from being clipped when the component is placed inside a container with overflow: auto|scroll`. */
+  /** Enable this option to prevent the panel from being clipped when the component is placed inside a container with overflow: auto|scroll`. */
   @property({ type: Boolean, reflect: true }) hoist: boolean = false;
 
   @watch('open', { waitUntilFirstUpdate: true })

@@ -69,25 +69,26 @@ export default class ArcSSO extends LitElement {
     scopes: ['openid', 'profile', 'User.Read'],
   };
 
+  /** State that keeps track of the MSAL instance. */
   @state() private _msalInstance: PublicClientApplication;
 
+  /** State that keeps track of the auth status of the user. */
   @state() private _isAuth: boolean = false;
 
-  /* The id of the application. This value can be found on the Azure AD portal. */
+  /** The id of the application. This value can be found on the Azure AD portal. */
   @property({ attribute: 'client-id', type: String }) clientId: string;
 
-  /* Required for single-tenant applications. This value can be found on the Azure AD portal. */
+  /** Identifies which Azure AD instance the application sits under. The default `common` value is used for multi-tenant applications and applications allowing personal accounts (not B2C). If your application audience is single-tenant, you must provide this property. This value can be found on the Azure AD portal. */
   @property({ attribute: 'tenant-id', type: String }) tenantId: string;
 
-  /* The location where the authorization server sends the user once the app has been successfully authorized and granted an authorization code or access token. */
+  /** The location where the authorization server sends the user once the app has been successfully authorized and granted an authorization code or access token. This url needs to be specified in the component and within the Authentication tab on the Azure AD portal. */
   @property({ attribute: 'redirect-uri', type: String }) redirectUri: string;
 
-  /* Additional scopes (permissions) */
+  /** A comma separated string that allows for additional permissions on how your app must interact with the Microsoft identity platform. More about this can be found on https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent. */
   @property({
     type: Array,
     converter: (attrValue: string | null) => (attrValue ? stringToArray(attrValue) : []),
-  })
-  scopes: string;
+  }) scopes: string;
 
   @watch('_isAuth')
   async handleAuthChange() {

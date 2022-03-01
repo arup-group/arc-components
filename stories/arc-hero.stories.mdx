@@ -6,19 +6,13 @@ import * as stories from '../out-tsc/components/hero/arc-hero.stories.js';
   component="arc-hero"
   argTypes={{
     bgImg: {
-      description: 'Set the name of the component',
-      defaultValue: { summary: '' },
+      description: 'Set the url of the background image',
       control: { type: 'text' },
     },
-    /*active: {
-      description: 'Draws the component in an active state.',
-      defaultValue: { summary: false },
-      control: { type: 'boolean' },
-    },*/
     customColor: {
       name: '--custom-color',
       type: { required: false },
-      description: 'Overwrite the colour of the component.',
+      description: 'Overwrite the colour of the text',
       control: { type: 'color' },
       table: { category: 'CSS Variables' },
     },
@@ -29,49 +23,64 @@ import * as stories from '../out-tsc/components/hero/arc-hero.stories.js';
 
 ### `<arc-hero>`
 
-The ArcHero is used to...
+The ArcHero is used to create custom hero component.
+By default, it contains the title on the left hand side, the subtitle/text/image on the right hand side.
+On mobile devices, title and subtitle/text/image are located as in one column.
 
 <Canvas>
   <Story name="Default" story={stories.Default} />
-  <Story name="CustomColor" story={stories.CustomColor} />
-  <Story name="BackgroundImg" story={stories.BackgroundImg} />
 </Canvas>
 
 ## Examples
 
 ### Types
 
+Use `bgImg` type to set background image to the hero component
+
+```bash
+<html>
+  ...
+  <body>
+    <arc-hero bgImg="https://random.imagecdn.app/500/150">
+    ...
+    </arc-hero>
+  </body>
+</html>
+```
+
+which results in the following
+
+<Canvas>
+  <Story name="BackgroundImg" story={stories.BackgroundImg} />
+</Canvas>
+
 ### Sizes
 
 ### Colors
 
-### States
+Use the `--custom-color` property to set the text's color.
+
+<Canvas>
+  <Story name="CustomColor" story={stories.CustomColor} />
+</Canvas>
 
 ## Properties
 
 <ArgsTable story="Default" />
 
-## Events
-
-| Name      | Description                   |
-| --------- | ----------------------------- |
-| arc-event | Emitted when the component... |
-
-## Methods
-
-| Name       | Description                              |
-| ---------- | ---------------------------------------- |
-| methodName | Simulates a methodName on the component. |
-
 ## Slots
 
-| Name      | Description              |
-| --------- | ------------------------ |
-| (default) | The component's content. |
-| slotName  | Used to ...              |
+| Name      | Description                                  |
+| --------- | -------------------------------------------- |
+| (default) | The hero's content(subtitle/text/image/...). |
+| title     | The hero's title.                            |
+
+Add custom image to the hero component filling the default slot.
+
+<Canvas>
+  <Story name="ImgDisplay" story={stories.ImgDisplay} />
+</Canvas>
 
 ## Dependencies
 
-This component imports the following dependencies.
-
-- [component-name](?path=/story/componenturl--storyname)
+This component has no dependency.

@@ -41,4 +41,5 @@ export { default as ArcSSO } from './components/sso/ArcSSO.js';
 /* plop:component-export */
 
 /* Utilities */
+export * from './utilities/base-path.js';
 export * from './utilities/style-utils.js';

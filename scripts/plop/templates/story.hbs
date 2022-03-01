@@ -1,4 +1,6 @@
+import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import {{ properCase tag }} from './{{ properCase tag }}.js';
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -9,26 +11,26 @@ interface Story<T> {
 interface ArgTypes {
   name: string,
   active: boolean,
-  customColor: string | undefined,
 }
 
-const Template: Story<ArgTypes> = ({ name, active, customColor }: ArgTypes) => html`
-  <{{ tag }} style="{--custom-color:${customColor};"
-  name="${name}"
-  ?active="${active}"></{{ tag }}>
+export default {
+  title: 'Components/{{ properCase tag }}',
+  component: `${{{ properCase tag }}.tag}}`
+} as Meta;
+
+const Template: Story<ArgTypes> = ({ name, active }: ArgTypes) => html`
+  <{{ tag }} name="${name}" ?active="${active}"></{{ tag }}>
 `;
 
 const defaultArgs: ArgTypes = {
   name: 'Hello World',
   active: false,
-  customColor: undefined,
 };
 
 /* TYPES */
 export const Default = Template.bind({});
 export const CustomColor = Template.bind({});
 Default.args = { ...defaultArgs, active: true };
-CustomColor.args = { ...defaultArgs, customColor: 'blue' };
 
 /* STATES */
 export const Active = Template.bind({});

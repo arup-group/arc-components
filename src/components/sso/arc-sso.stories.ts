@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import ArcSSO from "./ArcSSO.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -16,12 +17,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcSSO',
-  argTypes: {
-    clientId: { control: 'text' },
-    tenantId: { control: 'text' },
-    redirectUri: { control: 'text' },
-    scopes: { control: 'text' }
-  },
+  component: `${ArcSSO.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes) => html`

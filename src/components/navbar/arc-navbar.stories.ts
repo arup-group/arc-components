@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
+import ArcNavbar from "./ArcNavbar.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -18,14 +19,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcNavbar',
-  argTypes: {
-    arup: { control: 'boolean' },
-    home: { control: 'text' },
-    logo: { control: 'text' },
-    tabs: { control: 'number' },
-    height: { control: 'text' },
-    logoHeight: { control: 'text' }
-  },
+  component: `${ArcNavbar.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: ArgTypes) => html`

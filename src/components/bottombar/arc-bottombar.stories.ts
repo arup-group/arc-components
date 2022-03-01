@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import ArcBottombar from "./ArcBottombar.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -13,9 +14,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcBottombar',
-  argTypes: {
-    height: { control: 'text' }
-  },
+  component: `${ArcBottombar.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ height }: ArgTypes) => html`

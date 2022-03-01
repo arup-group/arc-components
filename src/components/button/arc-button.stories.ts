@@ -1,5 +1,6 @@
 import {Meta} from "@storybook/web-components";
 import {html, TemplateResult} from 'lit';
+import ArcButton from "./ArcButton.js";
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
@@ -40,33 +41,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcButton',
-  argTypes: {
-    type: {
-      control: 'select',
-      options: Object.keys(BUTTON_TYPES),
-    },
-    color: {
-      control: 'select',
-      options: Object.keys(BUTTON_COLORS),
-    },
-    size: {
-      control: 'select',
-      options: Object.keys(BUTTON_SIZES),
-    },
-    name: {control: 'text'},
-    value: {control: 'text'},
-    href: {control: 'text'},
-    target: {control: 'text'},
-    download: {control: 'text'},
-    active: {control: 'boolean'},
-    disabled: {control: 'boolean'},
-    loading: {control: 'boolean'},
-    submit: {control: 'boolean'},
-    width: {control: 'text'},
-    minWidth: {control: 'text'},
-    btnColor: {control: 'color'},
-    btnBackground: {control: 'color'},
-  },
+  component: `${ArcButton.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({

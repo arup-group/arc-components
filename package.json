@@ -26,15 +26,13 @@
     "url": "https://github.com/arup-group/arc-components"
   },
   "scripts": {
-    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && yarn run analyze -- --exclude dist",
-    "analyze": "cem analyze --litelement",
-    "prepublish": "tsc && npm run analyze -- --exclude dist",
-    "storybook": "tsc && start-storybook && tsc --watch --preserveWatchOutput"
+    "start": "tsc && yarn run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "build": "tsc && yarn run analyze",
+    "storybook": "tsc && yarn run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"start-storybook\"",
+    "analyze": "cem analyze --litelement --exclude dist"
   },
   "dependencies": {
     "@azure/msal-browser": "^2.22.0",
-    "@storybook/theming": "^6.4.19",
     "lit": "^2.0.2",
     "tabbable": "^5.2.1"
   },
@@ -49,8 +47,10 @@
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-replace": "^3.1.0",
     "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-docs": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",
+    "@storybook/theming": "^6.4.19",
     "@storybook/web-components": "^6.4.19",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",

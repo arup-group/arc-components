@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import ArcIconButton from "./ArcIconButton.js";
 import { ICON_TYPES, IconType } from '../icon/constants/IconConstants.js';
 
 interface Story<T> {
@@ -23,23 +24,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcIconButton',
-  argTypes: {
-    name: {
-      control: { type: 'select' },
-      options: Object.values(ICON_TYPES),
-    },
-    label: { control: 'text' },
-    href: { control: 'text' },
-    target: { control: 'text' },
-    download: { control: 'text' },
-    active: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    loading: { control: 'boolean' },
-    iconColor: {
-      name: '--icon-color',
-      control: { type: 'color' },
-    },
-  },
+  component: `${ArcIconButton.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({

@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
+import ArcRadioGroup from "./ArcRadioGroup.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -14,10 +15,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcRadioGroup',
-  argTypes: {
-    label: { control: 'text' },
-    row: { control: 'boolean' }
-  },
+  component: `${ArcRadioGroup.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ label, row }: ArgTypes) => html`

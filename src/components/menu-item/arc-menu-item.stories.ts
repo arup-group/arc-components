@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
+import ArcMenuItem from "./ArcMenuItem.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -15,9 +16,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcMenuItem',
-  argTypes: {
-    disabled: { control: 'boolean' },
-  },
+  component: `${ArcMenuItem.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ disabled, prefix, suffix }: ArgTypes) => html`

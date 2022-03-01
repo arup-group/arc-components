@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/web-components";
 import { html, TemplateResult } from 'lit';
+import ArcDrawer from "./ArcDrawer.js";
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 
 interface Story<T> {
@@ -18,18 +19,8 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcDrawer',
-  argTypes: {
-    open: { control: 'boolean' },
-    contained: { control: 'boolean' },
-    placement: {
-      control: 'select',
-      options: Object.values(DRAWER_PLACEMENTS),
-    },
-    label: { control: 'text' },
-    size: { control: 'text' },
-  },
+  component: `${ArcDrawer.tag}`
 } as Meta;
-
 
 const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
   <div

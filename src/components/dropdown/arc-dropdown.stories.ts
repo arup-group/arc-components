@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import ArcDropdown from './ArcDropdown.js';
 import { Placement } from '@popperjs/core';
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 
@@ -20,17 +21,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcDropdown',
-  argTypes: {
-    placement: {
-      control: 'select',
-      options: Object.values(DROPDOWN_PLACEMENTS),
-    },
-    distance: { control: 'number' },
-    skidding: { control: 'number' },
-    open: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    hoist: { control: 'boolean' },
-  },
+  component: `${ArcDropdown.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ placement, distance, skidding, open, disabled, hoist }: ArgTypes) => html`

@@ -7,28 +7,6 @@ export default function (plop) {
     return titleCase(withoutPrefix(tag));
   });
 
-  plop.setHelper('docProps', () => {
-    return `{{
-      name: {
-        description: "Set the name of the component",
-        defaultValue: {summary: "Hello World"},
-        control: {type: "text"},
-      },
-      active: {
-        description: "Draws the component in an active state.",
-        defaultValue: {summary: false},
-        control: {type: "boolean"},
-      },
-      customColor: {
-        name: "--custom-color",
-        type: {required: false},
-        description: "Overwrite the colour of the component.",
-        control: {type: "color"},
-        table: {category: "CSS Variables"},
-      },
-    }}`
-  });
-
   plop.setGenerator('component', {
     description: 'Generate a new ARC web-component',
     prompts: [
@@ -67,11 +45,6 @@ export default function (plop) {
         type: 'add',
         path: '../../src/components/{{ tagWithoutPrefix tag }}/{{ tag }}.stories.ts',
         templateFile: './templates/story.hbs'
-      },
-      {
-        type: 'add',
-        path: '../../stories/{{ tag }}.stories.mdx',
-        templateFile: './templates/docs.hbs'
       },
       {
         type: 'modify',

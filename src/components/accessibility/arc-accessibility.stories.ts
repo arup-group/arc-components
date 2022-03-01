@@ -1,9 +1,9 @@
-import {Meta} from "@storybook/web-components";
+import { Meta } from '@storybook/web-components';
 import {html, TemplateResult} from 'lit';
+import ArcAccessibility from "./ArcAccessibility.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
-
   args?: Partial<T>;
   argTypes?: Record<string, unknown>;
 }
@@ -14,9 +14,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcAccessibility',
-  argTypes: {
-    open: {control: 'boolean'}
-  },
+  component: `${ArcAccessibility.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = () => html`

@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import ArcSpinner from "./ArcSpinner.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -15,11 +16,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcSpinner',
-  argTypes: {
-    color: { control: 'text' },
-    width: { control: 'text' },
-    size: { control: 'text' }
-  },
+  component: `${ArcSpinner.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ color, width, size }: ArgTypes) => html`

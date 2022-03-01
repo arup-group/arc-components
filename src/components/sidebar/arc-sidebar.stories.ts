@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import ArcSidebar  from "./ArcSidebar.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -15,11 +16,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcSidebar',
-  argTypes: {
-    gap: { control: 'text' },
-    width: { control: 'text' },
-    title: { control: 'text' }
-  },
+  component: `${ArcSidebar.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`

@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import ArcRadio from "./ArcRadio.js";
 
 interface Story<T> {
   (args: T): TemplateResult;
@@ -16,12 +17,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcRadio',
-  argTypes: {
-    name: { control: 'text' },
-    value: { control: 'text' },
-    disabled: { control: 'boolean' },
-    checked: { control: 'boolean' }
-  },
+  component: `${ArcRadio.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ name, disabled, checked }: ArgTypes) => html`

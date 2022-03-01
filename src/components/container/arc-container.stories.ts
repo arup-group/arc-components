@@ -1,5 +1,6 @@
 import {Meta} from "@storybook/web-components";
 import {html, TemplateResult} from 'lit';
+import ArcContainer from './ArcContainer.js';
 import {CONTAINER_THEMES, ContainerTheme} from './constants/ContainerConstants.js';
 
 interface Story<T> {
@@ -15,13 +16,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcContainer',
-  argTypes: {
-    theme: {
-      control: 'select',
-      options: Object.keys(CONTAINER_THEMES),
-    },
-    fullscreen: { control: 'boolean' }
-  },
+  component: `${ArcContainer.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({theme, fullscreen}: ArgTypes) => html`

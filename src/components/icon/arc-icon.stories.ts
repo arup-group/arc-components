@@ -1,5 +1,6 @@
 import {Meta} from "@storybook/web-components";
 import {html, TemplateResult} from 'lit';
+import ArcIcon from "./ArcIcon.js";
 import {ICON_TYPES, IconType} from './constants/IconConstants.js';
 import {FONT_SIZES, FontSize} from '../../internal/constants/styleConstants.js';
 
@@ -20,20 +21,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcIcon',
-  argTypes: {
-    name: {
-      control: 'select',
-      options: Object.values(ICON_TYPES),
-    },
-    size: {
-      control: 'select',
-      options: Object.values(FONT_SIZES),
-    },
-    rotation: { control: 'number' },
-    spinning: { control: 'boolean' },
-    colorPrimary: { control: 'color' },
-    colorSecondary: { control: 'color' },
-  },
+  component: `${ArcIcon.tag}`
 } as Meta;
 
 const Template: Story<ArgTypes> = ({name, size, rotation, spinning, colorPrimary, colorSecondary}: ArgTypes) => html`

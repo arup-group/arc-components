@@ -28,7 +28,13 @@
   "scripts": {
     "start": "tsc && yarn run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc && yarn run analyze",
+    "create": "plop --plopfile scripts/plop/plopfile.mjs",
+    "test": "wtr --coverage",
+    "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "tsc && yarn run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"start-storybook\"",
+    "storybook:build": "yarn build && build-storybook",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
     "analyze": "cem analyze --litelement --exclude dist"
   },
   "dependencies": {

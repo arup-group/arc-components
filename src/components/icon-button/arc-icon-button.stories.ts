@@ -1,24 +1,31 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import {ifDefined} from 'lit/directives/if-defined.js';
 import ArcIconButton from "./ArcIconButton.js";
 import { ICON_TYPES, IconType } from '../icon/constants/IconConstants.js';
 
 interface ArgTypes {
   content?: string;
   name: IconType;
-  label?: string;
+  label: string;
   href?: string;
   target?: string;
   download?: string;
-  active?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
+  active: boolean;
+  disabled: boolean;
+  loading: boolean;
   iconColor?: string;
 }
 
 export default {
   title: 'Components/ArcIconButton',
-  component: `${ArcIconButton.tag}`
+  component: `${ArcIconButton.tag}`,
+  argTypes: {
+    name: {
+      control: 'select',
+      options: Object.values(ICON_TYPES)
+    }
+  }
 } as Meta;
 
 const Template: Story<ArgTypes> = ({
@@ -37,9 +44,9 @@ const Template: Story<ArgTypes> = ({
     style="--icon-color:${iconColor || 'inherit'}"
     name="${name}"
     label="${label}"
-    .href="${href}"
-    .target="${target}"
-    .download="${download}"
+    href=${ifDefined(href ? href : undefined)}
+    target=${ifDefined(target ? target : undefined)}
+    download=${ifDefined(download ? download : undefined)}
     ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"
@@ -52,13 +59,13 @@ const defaultArgs: ArgTypes = {
   content: 'Default',
   name: ICON_TYPES.fire,
   label: 'Icon button',
-  href: undefined,
-  target: undefined,
-  download: undefined,
+  href: '',
+  target: '',
+  download: '',
   active: false,
   disabled: false,
   loading: false,
-  iconColor: undefined,
+  iconColor: '',
 };
 
 /* TYPES */

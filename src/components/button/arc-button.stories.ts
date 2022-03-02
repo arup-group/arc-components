@@ -1,11 +1,14 @@
 import {Meta, Story} from "@storybook/web-components";
-import {html, nothing} from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import {html,} from 'lit';
+import {ifDefined} from 'lit/directives/if-defined.js';
 import ArcButton from "./ArcButton.js";
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
-  BUTTON_TYPES, ButtonColor, ButtonSize, ButtonType
+  BUTTON_TYPES,
+  ButtonColor,
+  ButtonSize,
+  ButtonType
 } from './constants/ButtonConstants.js';
 
 interface ArgTypes {
@@ -49,9 +52,29 @@ export default {
   }
 } as Meta;
 
-const Template: Story<ArgTypes> = ({label, type, color, size, name, value, href, target, download, active, disabled, loading, submit, width, minWidth, btnColor, btnBackground, prefix, suffix}: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({
+                                     label,
+                                     type,
+                                     color,
+                                     size,
+                                     name,
+                                     value,
+                                     href,
+                                     target,
+                                     download,
+                                     active,
+                                     disabled,
+                                     loading,
+                                     submit,
+                                     width,
+                                     minWidth,
+                                     btnColor,
+                                     btnBackground,
+                                     prefix,
+                                     suffix
+                                   }: ArgTypes) => html`
   <arc-button
-    style="width:${width}; --min-width:${minWidth}; ${btnColor ? `--btn-color:${btnColor}` : nothing}; --btn-background:${btnBackground};"
+    style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
     type="${type}"
     color="${color}"
     size="${size}"
@@ -87,8 +110,8 @@ const defaultArgs: ArgTypes = {
   disabled: false,
   loading: false,
   submit: false,
-  width: '',
-  minWidth: '',
+  width: 'auto',
+  minWidth: '0',
   btnColor: '',
   btnBackground: '',
 };

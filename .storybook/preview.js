@@ -14,6 +14,7 @@ export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
     matchers: {
+      color: /(colorPrimary|colorSecondary|btnColor|btnBackground|iconColor)$/i,
       date: /Date$/,
     },
   },

@@ -7,13 +7,19 @@ interface ArgTypes {
   open: boolean;
   contained: boolean;
   placement: DrawerPlacements;
-  label: string | undefined;
+  label: string;
   size: string;
 }
 
 export default {
   title: 'Components/ArcDrawer',
-  component: `${ArcDrawer.tag}`
+  component: `${ArcDrawer.tag}`,
+  argTypes: {
+    placement: {
+      control: 'select',
+      options: Object.values(DRAWER_PLACEMENTS)
+    }
+  }
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`

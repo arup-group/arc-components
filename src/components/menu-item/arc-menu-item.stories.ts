@@ -14,24 +14,24 @@ export default {
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ disabled, prefix, suffix }: ArgTypes) => html`
-  <div role="menu" style="width: 15rem;">
+  <arc-menu style="width: 15rem;">
     <arc-menu-item ?disabled="${disabled}">
       ${prefix ? html`<arc-icon name="home" slot="prefix"></arc-icon>` : ''} Label
       ${suffix ? html`<arc-icon name="settings" slot="suffix"></arc-icon>` : ''}
     </arc-menu-item>
-  </div>
+  </arc-menu>
 `;
 
 const DisabledTemplate: Story<ArgTypes> = () => html`
-  <div role="menu" style="width: 15rem;">
+  <arc-menu style="width: 15rem;">
     <arc-menu-item>Home</arc-menu-item>
     <arc-menu-item disabled>Messages</arc-menu-item>
     <arc-menu-item>Settings</arc-menu-item>
-  </div>
+  </arc-menu>
 `;
 
 const PrefixSuffixTemplate: Story<ArgTypes> = () => html`
-  <div role="menu" style="width: 15rem;">
+  <arc-menu style="width: 15rem;">
     <arc-menu-item>
       <arc-icon name="home" slot="prefix"></arc-icon>
       Home
@@ -45,7 +45,7 @@ const PrefixSuffixTemplate: Story<ArgTypes> = () => html`
       Settings
       <arc-icon name="arrow-right" slot="suffix"></arc-icon>
     </arc-menu-item>
-  </div>
+  </arc-menu>
 `;
 
 const defaultArgs: ArgTypes = {

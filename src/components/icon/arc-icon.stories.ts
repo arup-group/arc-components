@@ -16,7 +16,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcIcon',
-  component: `${ArcIcon.tag}`,
+  component: ArcIcon.tag,
   argTypes: {
     name: {
       control: 'select',

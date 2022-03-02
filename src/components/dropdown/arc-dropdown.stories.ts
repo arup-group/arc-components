@@ -4,6 +4,7 @@ import {ifDefined} from 'lit/directives/if-defined.js';
 import ArcDropdown from './ArcDropdown.js';
 import {Placement} from '@popperjs/core';
 import {DROPDOWN_PLACEMENTS} from './constants/DropdownConstants.js';
+import {ARC_EVENTS} from "../../internal/constants/eventConstants";
 
 interface ArgTypes {
   placement: Placement;
@@ -16,11 +17,16 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcDropdown',
-  component: `${ArcDropdown.tag}`,
+  component: ArcDropdown.tag,
   argTypes: {
     placement: {
       control: 'select',
       options: Object.values(DROPDOWN_PLACEMENTS)
+    }
+  },
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide, ARC_EVENTS.select]
     }
   }
 } as Meta;

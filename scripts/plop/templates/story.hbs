@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { html } from 'lit';
 import {{ properCase tag }} from './{{ properCase tag }}.js';
 
 interface ArgTypes {
@@ -9,7 +9,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/{{ properCase tag }}',
-  component: `${{{ properCase tag }}.tag}}`
+  component: {{ properCase tag }}.tag
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ name, active }: ArgTypes) => html`
@@ -17,15 +17,14 @@ const Template: Story<ArgTypes> = ({ name, active }: ArgTypes) => html`
 `;
 
 const defaultArgs: ArgTypes = {
-  name: 'Hello World',
+  name: 'Component',
   active: false,
 };
 
 /* TYPES */
 export const Default = Template.bind({});
-export const CustomColor = Template.bind({});
-Default.args = { ...defaultArgs, active: true };
+Default.args = { ...defaultArgs };
 
 /* STATES */
 export const Active = Template.bind({});
-Active.args = { ...defaultArgs, label: 'Active', active: true };
+Active.args = { ...defaultArgs, name: 'Active component', active: true };

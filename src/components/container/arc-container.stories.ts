@@ -10,7 +10,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcContainer',
-  component: `${ArcContainer.tag}`,
+  component: ArcContainer.tag,
   argTypes: {
     theme: {
       control: 'select',

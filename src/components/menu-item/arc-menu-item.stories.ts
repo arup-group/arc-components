@@ -10,7 +10,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcMenuItem',
-  component: `${ArcMenuItem.tag}`
+  component: ArcMenuItem.tag
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ disabled, prefix, suffix }: ArgTypes) => html`

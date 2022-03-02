@@ -15,7 +15,7 @@ module.exports = {
     <style>
         #root, #root-inner { height: 100%; }
         .sb-show-main.sb-main-padded { padding: 0; }
-        #content { padding: var(--arc-spacing-medium) }
+        #content { padding: var(--arc-spacing-small) }
         #content code {
           background-color: rgb(var(--arc-background-color));
           padding: 5px;

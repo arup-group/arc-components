@@ -2,6 +2,7 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import ArcSSO from "./ArcSSO.js";
+import {ARC_EVENTS} from "../../internal/constants/eventConstants";
 
 interface ArgTypes {
   clientId: string;
@@ -12,7 +13,12 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcSSO',
-  component: `${ArcSSO.tag}`
+  component: ArcSSO.tag,
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.auth]
+    }
+  }
 } as Meta;
 
 const interior = html`

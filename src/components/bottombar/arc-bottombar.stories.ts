@@ -8,7 +8,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcBottombar',
-  component: `${ArcBottombar.tag}`
+  component: ArcBottombar.tag
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ height }: ArgTypes) => html`

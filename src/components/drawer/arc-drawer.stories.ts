@@ -2,6 +2,7 @@ import { Meta, Story } from "@storybook/web-components";
 import { html } from 'lit';
 import ArcDrawer from "./ArcDrawer.js";
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
+import {ARC_EVENTS} from "../../internal/constants/eventConstants";
 
 interface ArgTypes {
   open: boolean;
@@ -13,11 +14,16 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcDrawer',
-  component: `${ArcDrawer.tag}`,
+  component: ArcDrawer.tag,
   argTypes: {
     placement: {
       control: 'select',
       options: Object.values(DRAWER_PLACEMENTS)
+    }
+  },
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide, ARC_EVENTS.initialFocus, ARC_EVENTS.requestClose]
     }
   }
 } as Meta;

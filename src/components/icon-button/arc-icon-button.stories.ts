@@ -19,7 +19,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcIconButton',
-  component: `${ArcIconButton.tag}`,
+  component: ArcIconButton.tag,
   argTypes: {
     name: {
       control: 'select',
@@ -50,9 +50,7 @@ const Template: Story<ArgTypes> = ({
     ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"
-  >
-    ${content}
-  </arc-icon-button>
+  >${content}</arc-icon-button>
 `;
 
 const defaultArgs: ArgTypes = {

@@ -1,10 +1,16 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import ArcMenu from "./ArcMenu.js";
+import {ARC_EVENTS} from "../../internal/constants/eventConstants";
 
 export default {
   title: 'Components/ArcMenu',
-  component: `${ArcMenu.tag}`
+  component: ArcMenu.tag,
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.select]
+    }
+  }
 } as Meta;
 
 const Template: Story = () => html`

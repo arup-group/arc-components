@@ -11,7 +11,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcSpinner',
-  component: `${ArcSpinner.tag}`,
+  component: ArcSpinner.tag,
   argTypes: {
     size: {
       control: 'select',

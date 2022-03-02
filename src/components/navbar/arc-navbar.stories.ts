@@ -14,7 +14,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcNavbar',
-  component: `${ArcNavbar.tag}`
+  component: ArcNavbar.tag
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: ArgTypes) => html`

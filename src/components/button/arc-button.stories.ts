@@ -1,5 +1,5 @@
 import {Meta, Story} from "@storybook/web-components";
-import {html,} from 'lit';
+import {html, nothing} from 'lit';
 import {ifDefined} from 'lit/directives/if-defined.js';
 import ArcButton from "./ArcButton.js";
 import {
@@ -35,7 +35,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcButton',
-  component: `${ArcButton.tag}`,
+  component: ArcButton.tag,
   argTypes: {
     type: {
       control: 'select',
@@ -73,29 +73,25 @@ const Template: Story<ArgTypes> = ({
                                      prefix,
                                      suffix
                                    }: ArgTypes) => html`
-  <div id="content">
-    <arc-button
-      style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
-      type="${type}"
-      color="${color}"
-      size="${size}"
-      name=${ifDefined(name || undefined)}
-      value=${ifDefined(value || undefined)}
-      href=${ifDefined(href || undefined)}
-      target=${ifDefined(target || undefined)}
-      download=${ifDefined(download || undefined)}
-      ?active="${active}"
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-      ?submit="${submit}"
-    >
-      ${prefix ? html`
-        <arc-icon slot="prefix" name="home"></arc-icon>` : null}
-      ${label.charAt(0).toUpperCase() + label.slice(1)}
-      ${suffix ? html`
-        <arc-icon slot="suffix" name="settings"></arc-icon>` : null}
-    </arc-button>
-  </div>
+  <arc-button
+    style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
+    type="${type}"
+    color="${color}"
+    size="${size}"
+    name=${ifDefined(name || undefined)}
+    value=${ifDefined(value || undefined)}
+    href=${ifDefined(href || undefined)}
+    target=${ifDefined(target || undefined)}
+    download=${ifDefined(download || undefined)}
+    ?active="${active}"
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+    ?submit="${submit}"
+  >
+    ${prefix ? html`<arc-icon slot="prefix" name="home"></arc-icon>` : nothing}
+    ${label.charAt(0).toUpperCase() + label.slice(1)}
+    ${suffix ? html`<arc-icon slot="suffix" name="settings"></arc-icon>` : nothing}
+  </arc-button>
 `;
 
 const defaultArgs: ArgTypes = {

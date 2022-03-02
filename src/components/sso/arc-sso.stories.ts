@@ -1,12 +1,6 @@
-import { Meta } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
 import ArcSSO from "./ArcSSO.js";
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   clientId: string;
@@ -68,18 +62,18 @@ const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes
                         </arc-sso>
                       `}
                 `
-              : html` <arc-button type="tab" disabled>Redirect-uri missing</arc-button> `}
+              : html` <arc-button slot="user" type="tab" disabled>Redirect-uri missing</arc-button> `}
           `
-        : html` <arc-button type="tab" disabled>Client-id missing</arc-button> `}
+        : html` <arc-button slot="user" type="tab" disabled>Client-id missing</arc-button> `}
     </arc-navbar>
-    <div id="myContent"></div>
+    <div id="myContent" style="padding: var(--arc-spacing-medium)"></div>
   </arc-container>
 `;
 
 const defaultArgs: ArgTypes = {
   clientId: 'b4a4c03f-4915-42db-aa79-d49a650974c2',
   tenantId: '4ae48b41-0137-4599-8661-fc641fe77bea',
-  redirectUri: window.location.hostname === 'localhost' ? 'http://localhost:8000/' : 'https://arc.arup.com/',
+  redirectUri: window.location.hostname === 'localhost' ? 'http://localhost:9009/' : 'https://arc.arup.com/',
   scopes: '',
 };
 

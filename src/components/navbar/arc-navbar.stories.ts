@@ -1,12 +1,6 @@
-import { Meta } from "@storybook/web-components";
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from "@storybook/web-components";
+import { html } from 'lit';
 import ArcNavbar from "./ArcNavbar.js";
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   arup?: boolean;

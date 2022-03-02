@@ -1,5 +1,5 @@
-import {Meta} from "@storybook/web-components";
-import {html, TemplateResult} from 'lit';
+import {Meta, Story} from "@storybook/web-components";
+import {html} from 'lit';
 import ArcButton from "./ArcButton.js";
 import {
   BUTTON_COLORS,
@@ -10,12 +10,6 @@ import {
   ButtonType,
   ButtonTarget,
 } from './constants/ButtonConstants.js';
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   label: string;
@@ -39,32 +33,9 @@ interface ArgTypes {
   suffix?: boolean;
 }
 
-export default {
-  title: 'Components/ArcButton',
-  component: `${ArcButton.tag}`
-} as Meta;
+export default {title: 'Components/ArcButton', component: `${ArcButton.tag}`} as Meta;
 
-const Template: Story<ArgTypes> = ({
-                                     label,
-                                     type,
-                                     color,
-                                     size,
-                                     name,
-                                     value,
-                                     href,
-                                     target,
-                                     download,
-                                     active,
-                                     disabled,
-                                     loading,
-                                     submit,
-                                     width,
-                                     minWidth,
-                                     btnColor,
-                                     btnBackground,
-                                     prefix,
-                                     suffix,
-                                   }: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({label, type, color, size, name, value, href, target, download, active, disabled, loading, submit, width, minWidth, btnColor, btnBackground, prefix, suffix}: ArgTypes) => html`
   <arc-button
     style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
     type="${type}"

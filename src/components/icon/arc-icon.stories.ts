@@ -1,14 +1,8 @@
-import {Meta} from "@storybook/web-components";
-import {html, TemplateResult} from 'lit';
+import {Meta, Story} from "@storybook/web-components";
+import {html} from 'lit';
 import ArcIcon from "./ArcIcon.js";
 import {ICON_TYPES, IconType} from './constants/IconConstants.js';
 import {FONT_SIZES, FontSize} from '../../internal/constants/styleConstants.js';
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   name: IconType;

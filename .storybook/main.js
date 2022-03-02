@@ -12,5 +12,8 @@ module.exports = {
   previewHead: (head) => (`
     ${head}
     <script type="module" data-arc="static/media"></script>
+    <style>
+        #root, #root-inner { height: 100%; }
+    </style>
   `)
 }

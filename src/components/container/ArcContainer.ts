@@ -75,7 +75,7 @@ export default class ArcContainer extends LitElement {
 
   private _appPreferredTheme: ContainerTheme;
 
-  /** Set the theme for the container. */
+  /** Set the starting theme for the container. Once loaded, the built-in accessibility will be responsible for this property */
   @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
 
   /** Set the container to fullscreen mode. This hides the padding, margin and gap values. */

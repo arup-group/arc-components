@@ -1,13 +1,7 @@
-import {Meta} from "@storybook/web-components";
-import {html, TemplateResult} from 'lit';
+import {Meta, Story} from "@storybook/web-components";
+import {html} from 'lit';
 import ArcContainer from './ArcContainer.js';
 import {CONTAINER_THEMES, ContainerTheme} from './constants/ContainerConstants.js';
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   theme?: ContainerTheme;
@@ -39,7 +33,4 @@ const defaultArgs: ArgTypes = {
 };
 
 export const Container = Template.bind({});
-export const DarkContainer = Template.bind({});
-
 Container.args = {...defaultArgs};
-DarkContainer.args = {...defaultArgs, theme: CONTAINER_THEMES.dark};

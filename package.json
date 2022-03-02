@@ -31,7 +31,7 @@
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "tsc && yarn run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"start-storybook\"",
+    "storybook": "tsc && yarn run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"start-storybook -p 9009\"",
     "storybook:build": "yarn build && build-storybook",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",

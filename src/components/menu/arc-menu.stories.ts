@@ -1,10 +1,6 @@
-import { Meta } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
 import ArcMenu from "./ArcMenu.js";
-
-interface Story {
-  (): TemplateResult;
-}
 
 export default {
   title: 'Components/ArcMenu',

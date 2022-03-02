@@ -1,13 +1,7 @@
-import { Meta } from "@storybook/web-components";
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from "@storybook/web-components";
+import { html } from 'lit';
 import ArcDrawer from "./ArcDrawer.js";
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   open: boolean;
@@ -23,9 +17,7 @@ export default {
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
-  <div
-    style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
-  >
+  <div style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)">
     <arc-drawer
       style="--size:${size}"
       ?open="${open}"
@@ -41,9 +33,7 @@ const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: 
 `;
 
 const LockedTemplate: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
-  <div
-    style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
-  >
+  <div style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)">
     <arc-drawer
       id="lockedDrawer"
       style="--size:${size}"

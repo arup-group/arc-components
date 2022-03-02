@@ -58,11 +58,12 @@ Default.args = {...defaultArgs};
 
 /* POSITIONING */
 export const Position = Template.bind({});
-export const Distance = Template.bind({});
-export const Skidding = Template.bind({});
-
 Position.args = {...defaultArgs, placement: DROPDOWN_PLACEMENTS['top-start']};
+
+export const Distance = Template.bind({});
 Distance.args = {...defaultArgs, distance: 20};
+
+export const Skidding = Template.bind({});
 Skidding.args = {...defaultArgs, skidding: 20};
 
 /* STATES */

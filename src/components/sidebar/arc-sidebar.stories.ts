@@ -37,9 +37,12 @@ const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
   </arc-container>
 `;
 
-export const Default = Template.bind({});
-Default.args = {
+const defaultArgs: ArgTypes = {
   gap: 'var(--arc-spacing-normal)',
   width: 'clamp(15rem, 30%, var(--arc-sidebar-width))',
   title: 'Select an option',
-};
+}
+
+/* TYPES */
+export const Default = Template.bind({});
+Default.args = { ...defaultArgs };

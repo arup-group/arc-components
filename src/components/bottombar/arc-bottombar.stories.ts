@@ -21,7 +21,10 @@ const Template: Story<ArgTypes> = ({ height }: ArgTypes) => html`
   </div>
 `;
 
-export const Default = Template.bind({});
-Default.args = {
+const defaultArgs: ArgTypes = {
   height: 'var(--arc-bottom-height)',
 };
+
+/* TYPES */
+export const Default = Template.bind({});
+Default.args = { ...defaultArgs };

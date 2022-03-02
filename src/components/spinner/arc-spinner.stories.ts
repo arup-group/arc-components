@@ -32,22 +32,26 @@ const defaultArgs: ArgTypes = {
 
 /* TYPES */
 export const Default = Template.bind({});
-export const RedColor = Template.bind({});
-export const GreenColor = Template.bind({});
-export const BlueColor = Template.bind({});
-export const PurpleColor = Template.bind({});
-
 Default.args = { ...defaultArgs };
+
+export const RedColor = Template.bind({});
 RedColor.args = { ...defaultArgs, strokeColor: 'red' };
+
+export const GreenColor = Template.bind({});
 GreenColor.args = { ...defaultArgs, strokeColor: 'green' };
+
+export const BlueColor = Template.bind({});
 BlueColor.args = { ...defaultArgs, strokeColor: 'blue' };
+
+export const PurpleColor = Template.bind({});
 PurpleColor.args = { ...defaultArgs, strokeColor: 'purple' };
 
 /* Sizes */
 export const Small = Template.bind({});
-export const XXLarge = Template.bind({});
-export const XXXXLarge = Template.bind({});
-
 Small.args = { ...defaultArgs, size: FONT_SIZES.small };
+
+export const XXLarge = Template.bind({});
 XXLarge.args = { ...defaultArgs, size: FONT_SIZES["xx-large"] };
+
+export const XXXXLarge = Template.bind({});
 XXXXLarge.args = { ...defaultArgs, size: FONT_SIZES["xxxx-large"] };

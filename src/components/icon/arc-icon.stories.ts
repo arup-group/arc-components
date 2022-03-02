@@ -31,7 +31,7 @@ export default {
 
 const Template: Story<ArgTypes> = ({name, size, rotation, spinning, colorPrimary}: ArgTypes) => html`
   <arc-icon
-    style="--icon-color-primary:${ifDefined(colorPrimary || undefined)};"
+    style="--icon-color-primary:${colorPrimary};"
     name="${name}"
     size="${size}"
     rotation=${ifDefined(rotation || undefined)}
@@ -50,15 +50,19 @@ const defaultArgs: ArgTypes = {
 
 /* TYPES */
 export const Default = Template.bind({});
-export const VariableSize = Template.bind({});
-export const RedColor = Template.bind({});
-export const GreenColor = Template.bind({});
-export const BlueColor = Template.bind({});
-export const PurpleColor = Template.bind({});
-
 Default.args = {...defaultArgs};
+
+export const VariableSize = Template.bind({});
 VariableSize.args = {...defaultArgs, size: FONT_SIZES['xxx-large']};
+
+export const RedColor = Template.bind({});
 RedColor.args = {...defaultArgs, colorPrimary: 'red'};
+
+export const GreenColor = Template.bind({});
 GreenColor.args = {...defaultArgs, colorPrimary: 'green'};
+
+export const BlueColor = Template.bind({});
 BlueColor.args = {...defaultArgs, colorPrimary: 'blue'};
+
+export const PurpleColor = Template.bind({});
 PurpleColor.args = {...defaultArgs, colorPrimary: 'purple'};

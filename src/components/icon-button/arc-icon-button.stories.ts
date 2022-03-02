@@ -41,7 +41,7 @@ const Template: Story<ArgTypes> = ({
   iconColor,
 }: ArgTypes) => html`
   <arc-icon-button
-    style="--icon-color:${ifDefined(iconColor || undefined)}"
+    style="--icon-color:${iconColor}"
     name="${name}"
     label="${label}"
     href=${ifDefined(href || undefined)}
@@ -70,31 +70,35 @@ const defaultArgs: ArgTypes = {
 
 /* TYPES */
 export const Default = Template.bind({});
-export const CustomColor = Template.bind({});
-export const Link = Template.bind({});
-export const LinkNewWindow = Template.bind({});
-export const LinkDownload = Template.bind({});
-export const LinkDisabled = Template.bind({});
-
 Default.args = { ...defaultArgs };
+
+export const CustomColor = Template.bind({});
 CustomColor.args = {
   ...defaultArgs,
   content: 'Custom color',
   iconColor: 'red',
 };
+
+export const Link = Template.bind({});
 Link.args = { ...defaultArgs, name: ICON_TYPES.link, content: 'Link', href: '/' };
+
+export const LinkNewWindow = Template.bind({});
 LinkNewWindow.args = {
   ...Link.args,
   name: ICON_TYPES.link,
   content: 'New window',
   target: '_blank',
 };
+
+export const LinkDownload = Template.bind({});
 LinkDownload.args = {
   ...Link.args,
   name: ICON_TYPES.link,
   content: 'Download',
   download: 'ARC Storybook',
 };
+
+export const LinkDisabled = Template.bind({});
 LinkDisabled.args = {
   ...Link.args,
   name: ICON_TYPES.link,
@@ -102,23 +106,25 @@ LinkDisabled.args = {
   disabled: true,
 };
 
+
 /* STATES */
 export const Active = Template.bind({});
-export const Disabled = Template.bind({});
-export const Loading = Template.bind({});
-
 Active.args = {
   ...defaultArgs,
   label: 'Icon button',
   content: 'Active',
   active: true,
 };
+
+export const Disabled = Template.bind({});
 Disabled.args = {
   ...defaultArgs,
   label: 'Icon button',
   content: 'Disabled',
   disabled: true,
 };
+
+export const Loading = Template.bind({});
 Loading.args = {
   ...defaultArgs,
   label: 'Icon button',

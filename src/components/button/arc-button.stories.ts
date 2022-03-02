@@ -120,91 +120,103 @@ const defaultArgs: ArgTypes = {
 
 /* TYPES */
 export const Contained = Template.bind({});
-export const Tile = Template.bind({});
-export const Outlined = Template.bind({});
-export const Pill = Template.bind({});
-export const Tab = Template.bind({});
-export const Link = Template.bind({});
-export const LinkNewWindow = Template.bind({});
-export const LinkDownload = Template.bind({});
-export const LinkDisabled = Template.bind({});
-
 Contained.args = {
   ...defaultArgs,
   label: BUTTON_TYPES.contained,
   type: BUTTON_TYPES.contained,
 };
+
+export const Tile = Template.bind({});
 Tile.args = {
   ...defaultArgs,
   label: BUTTON_TYPES.tile,
   type: BUTTON_TYPES.tile,
 };
+
+export const Outlined = Template.bind({});
 Outlined.args = {
   ...defaultArgs,
   label: BUTTON_TYPES.outlined,
   type: BUTTON_TYPES.outlined,
 };
+
+export const Pill = Template.bind({});
 Pill.args = {
   ...defaultArgs,
   label: BUTTON_TYPES.pill,
   type: BUTTON_TYPES.pill,
 };
+
+export const Tab = Template.bind({});
 Tab.args = {...defaultArgs, label: BUTTON_TYPES.tab, type: BUTTON_TYPES.tab};
+
+export const Link = Template.bind({});
 Link.args = {...defaultArgs, label: 'Link', href: '/'};
+
+export const LinkNewWindow = Template.bind({});
 LinkNewWindow.args = {...Link.args, label: 'New Window', target: '_blank'};
+
+export const LinkDownload = Template.bind({});
 LinkDownload.args = {
   ...Link.args,
   label: 'Download',
   download: 'ARC Storybook',
 };
+
+export const LinkDisabled = Template.bind({});
 LinkDisabled.args = {...Link.args, label: 'Disabled', disabled: true};
 
 /* SLOTS */
 export const Prefix = Template.bind({});
-export const Suffix = Template.bind({});
-
 Prefix.args = {...defaultArgs, label: 'Home', prefix: true};
+
+export const Suffix = Template.bind({});
 Suffix.args = {...defaultArgs, label: 'Settings', suffix: true};
 
 /* COLORS */
 export const Default = Template.bind({});
-export const Primary = Template.bind({});
-export const Secondary = Template.bind({});
-export const Error = Template.bind({});
-export const Warning = Template.bind({});
-export const Info = Template.bind({});
-export const Success = Template.bind({});
-
 Default.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.default,
   color: BUTTON_COLORS.default,
 };
+
+export const Primary = Template.bind({});
 Primary.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.primary,
   color: BUTTON_COLORS.primary,
 };
+
+export const Secondary = Template.bind({});
 Secondary.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.secondary,
   color: BUTTON_COLORS.secondary,
 };
+
+export const Error = Template.bind({});
 Error.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.error,
   color: BUTTON_COLORS.error,
 };
+
+export const Warning = Template.bind({});
 Warning.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.warning,
   color: BUTTON_COLORS.warning,
 };
+
+export const Info = Template.bind({});
 Info.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.info,
   color: BUTTON_COLORS.info,
 };
+
+export const Success = Template.bind({});
 Success.args = {
   ...defaultArgs,
   label: BUTTON_COLORS.success,
@@ -213,19 +225,20 @@ Success.args = {
 
 /* SIZES */
 export const Small = Template.bind({});
-export const Medium = Template.bind({});
-export const Large = Template.bind({});
-
 Small.args = {
   ...defaultArgs,
   label: BUTTON_SIZES.small,
   size: BUTTON_SIZES.small,
 };
+
+export const Medium = Template.bind({});
 Medium.args = {
   ...defaultArgs,
   label: BUTTON_SIZES.medium,
   size: BUTTON_SIZES.medium,
 };
+
+export const Large = Template.bind({});
 Large.args = {
   ...defaultArgs,
   label: BUTTON_SIZES.large,
@@ -234,9 +247,10 @@ Large.args = {
 
 /* STATES */
 export const Active = Template.bind({});
-export const Disabled = Template.bind({});
-export const Loading = Template.bind({});
-
 Active.args = {...Tab.args, label: 'Active', active: true};
+
+export const Disabled = Template.bind({});
 Disabled.args = {...Tab.args, label: 'Disabled', disabled: true};
+
+export const Loading = Template.bind({});
 Loading.args = {...Tab.args, label: 'Loading', loading: true};

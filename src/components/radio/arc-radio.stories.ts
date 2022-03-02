@@ -34,6 +34,7 @@ const defaultArgs: ArgTypes = {
 
 /* TYPES */
 export const Default = Template.bind({});
-export const Disabled = Template.bind({});
 Default.args = { ...defaultArgs };
+
+export const Disabled = Template.bind({});
 Disabled.args = { ...defaultArgs, disabled: true };

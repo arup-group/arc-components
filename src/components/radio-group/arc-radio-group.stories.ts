@@ -29,6 +29,7 @@ const defaultArgs: ArgTypes = {
 
 /* TYPES */
 export const Default = Template.bind({});
-export const Row = Template.bind({});
 Default.args = { ...defaultArgs };
+
+export const Row = Template.bind({});
 Row.args = { ...defaultArgs, row: true };

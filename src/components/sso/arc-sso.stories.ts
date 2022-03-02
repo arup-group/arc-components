@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import ArcSSO from "./ArcSSO.js";
 
 interface ArgTypes {
@@ -14,6 +15,11 @@ export default {
   component: `${ArcSSO.tag}`
 } as Meta;
 
+const interior = html`
+  <arc-button slot="login" type="tab" onClick="this.parentElement.signIn()">SignIn</arc-button>
+  <arc-button slot="logout" type="tab" onClick="localStorage.clear(); location.reload();">SignOut</arc-button>
+`
+
 const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes) => html`
   <arc-container
     @arc-auth=${(e: CustomEvent) => {
@@ -23,48 +29,13 @@ const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes
     }}
   >
     <arc-navbar slot="nav">
-      ${clientId
-        ? html`
-            ${redirectUri
-              ? html`
-                  ${tenantId
-                    ? html`
-                        <arc-sso
-                          slot="user"
-                          client-id="${clientId}"
-                          tenant-id="${tenantId}"
-                          redirect-uri="${redirectUri}"
-                        >
-                          <arc-button slot="login" type="tab" color="success" onClick="this.parentElement.signIn()"
-                            >SignIn</arc-button
-                          >
-                          <arc-button
-                            slot="logout"
-                            type="tab"
-                            color="error"
-                            onClick="localStorage.clear(); location.reload();"
-                            >SignOut</arc-button
-                          >
-                        </arc-sso>
-                      `
-                    : html`
-                        <arc-sso slot="user" client-id="${clientId}" redirect-uri="${redirectUri}">
-                          <arc-button slot="login" type="tab" color="success" onClick="this.parentElement.signIn()"
-                            >SignIn</arc-button
-                          >
-                          <arc-button
-                            slot="logout"
-                            type="tab"
-                            color="error"
-                            onClick="localStorage.clear(); location.reload();"
-                            >SignOut</arc-button
-                          >
-                        </arc-sso>
-                      `}
-                `
-              : html` <arc-button slot="user" type="tab" disabled>Redirect-uri missing</arc-button> `}
-          `
-        : html` <arc-button slot="user" type="tab" disabled>Client-id missing</arc-button> `}
+      ${!clientId
+        ? html`<arc-button slot="user" type="tab" disabled>Client-id missing</arc-button>`
+        : html`${!redirectUri
+          ? html`<arc-button slot="user" type="tab" disabled>Redirect-uri missing</arc-button>`
+          : html`<arc-sso slot="user" client-id=${clientId} tenant-id=${ifDefined(tenantId || undefined)} redirect-uri=${redirectUri}>${interior}</arc-sso>
+        `}
+      `}
     </arc-navbar>
     <div id="myContent" style="padding: var(--arc-spacing-medium)"></div>
   </arc-container>
@@ -79,5 +50,4 @@ const defaultArgs: ArgTypes = {
 
 /* TYPES */
 export const Default = Template.bind({});
-
 Default.args = { ...defaultArgs };

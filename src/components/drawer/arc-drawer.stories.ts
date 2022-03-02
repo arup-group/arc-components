@@ -64,18 +64,20 @@ const defaultArgs = {
 
 /* TYPES */
 export const Default = Template.bind({});
-export const Top = Template.bind({});
-export const End = Template.bind({});
-export const Bottom = Template.bind({});
-export const Start = Template.bind({});
-
 Default.args = { ...defaultArgs };
+
+export const Top = Template.bind({});
 Top.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.top, label: 'Drawer top' };
+
+export const End = Template.bind({});
 End.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.end, label: 'Drawer end' };
+
+export const Bottom = Template.bind({});
 Bottom.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.bottom, label: 'Drawer bottom' };
+
+export const Start = Template.bind({});
 Start.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.start, label: 'Drawer start' };
 
-/* Other */
+/* OTHER */
 export const Closing = LockedTemplate.bind({});
-
 Closing.args = { ...defaultArgs };

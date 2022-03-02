@@ -9,7 +9,7 @@ import type ArcRadio from '../radio/ArcRadio.js';
  * @slot default - The default slot where radio controls are placed.
  * @slot label - The radio group label. Alternatively, you can use the label prop.
  *
- * @event {CustomEvent} arc-change - Emitted when a control's checked state changes.
+ * @event arc-change - Emitted when a control's checked state changes.
  */
 export default class ArcRadioGroup extends LitElement {
   static tag = 'arc-radio-group';

@@ -20,14 +20,14 @@ import '../icon-button/arc-icon-button.js';
  * @slot label - The drawer's label.
  * @slot footer - The drawer's footer.
  *
- * @event {CustomEvent} arc-show - Emitted when the drawer opens.
- * @event {CustomEvent} arc-after-show - Emitted after the drawer opens and all animations are complete.
- * @event {CustomEvent} arc-hide - Emitted when the drawer closes.
- * @event {CustomEvent} arc-after-hide - Emitted after the drawer closes and all animations are complete.
- * @event {CustomEvent} arc-initial-focus - Emitted when the drawer opens and the panel gains focus. Calling event.preventDefault() will prevent focus and allow you to set it on a different element in the drawer, such as an input or button.
- * @event {CustomEvent} arc-request-close - Emitted when the user attempts to close the drawer by clicking the close button, clicking the overlay, or pressing the escape key. Calling event.preventDefault() will prevent the drawer from closing. Avoid using this unless closing the drawer will result in destructive behavior such as data loss.
+ * @event arc-show - Emitted when the drawer opens.
+ * @event arc-after-show - Emitted after the drawer opens and all animations are complete.
+ * @event arc-hide - Emitted when the drawer closes.
+ * @event arc-after-hide - Emitted after the drawer closes and all animations are complete.
+ * @event arc-initial-focus - Emitted when the drawer opens and the panel gains focus. Calling event.preventDefault() will prevent focus and allow you to set it on a different element in the drawer, such as an input or button.
+ * @event arc-request-close - Emitted when the user attempts to close the drawer by clicking the close button, clicking the overlay, or pressing the escape key. Calling event.preventDefault() will prevent the drawer from closing. Avoid using this unless closing the drawer will result in destructive behavior such as data loss.
  *
- * @cssprop --size - The preferred size of the drawer. This will be applied to either the width or height depending on its placement.
+ * @cssproperty --size - The preferred size of the drawer. This will be applied to either the width or height depending on its placement.
  */
 export default class ArcDrawer extends LitElement {
   static tag = 'arc-drawer';

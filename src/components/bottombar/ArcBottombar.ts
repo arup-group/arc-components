@@ -3,9 +3,9 @@ import { state } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 
 /**
- * @slot default - This slot is used to add icon-buttons to the bottom bar.
+ * @slot - This slot is used to add icon-buttons to the bottom bar.
  *
- * @cssprop height - Set the height of the bottom bar.
+ * @cssproperty height - Set the height of the bottom bar.
  */
 export default class ArcBottombar extends LitElement {
   static tag = 'arc-bottombar';

@@ -23,10 +23,10 @@ import { arupLogo } from './arup-logo.js';
  * @slot name - This slot is used to add a tool name or sub branding.
  * @slot user - This slot should be used to display the signed-in user.
  *
- * @event {CustomEvent} arc-show-accessibility - Emitted when the built-in accessibility button is pressed.
+ * @event arc-show-accessibility - Emitted when the built-in accessibility button is pressed.
  *
- * @cssprop height - Set the height of the navbar.
- * @cssprop --logo-height - Set the height of the tool logo.
+ * @cssproperty height - Set the height of the navbar.
+ * @cssproperty --logo-height - Set the height of the tool logo.
  */
 export default class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';

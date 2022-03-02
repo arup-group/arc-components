@@ -39,7 +39,7 @@ export declare type UserPreferences =
     };
 
 /**
- * @event {CustomEvent} arc-accessibility-change - Emitted when the user preferences change.
+ * @event arc-accessibility-change - Emitted when the user preferences change.
  */
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';

@@ -14,7 +14,7 @@ import '../spinner/arc-spinner.js';
 /**
  * @slot default - The button's label.
  *
- * @cssprop --icon-color - Overwrite the color of the icon.
+ * @cssproperty --icon-color - Overwrite the color of the icon.
  */
 export default class ArcIconButton extends LitElement {
   static tag = 'arc-icon-button';

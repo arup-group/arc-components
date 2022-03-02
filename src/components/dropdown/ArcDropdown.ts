@@ -17,10 +17,10 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
  * @slot default - The dropdown content.
  * @slot trigger - The dropdown trigger, usually an `<arc-button>` element.
  *
- * @event {CustomEvent} arc-show - Emitted when the dropdown opens.
- * @event {CustomEvent} arc-after-show - Emitted after the dropdown opens and all animations are complete.
- * @event {CustomEvent} arc-hide - Emitted when the dropdown closes.
- * @event {CustomEvent} arc-after-hide - Emitted after the dropdown closes and all animations are complete.
+ * @event arc-show - Emitted when the dropdown opens.
+ * @event arc-after-show - Emitted after the dropdown opens and all animations are complete.
+ * @event arc-hide - Emitted when the dropdown closes.
+ * @event arc-after-hide - Emitted after the dropdown closes and all animations are complete.
  */
 export default class ArcDropdown extends LitElement {
   static tag = 'arc-dropdown';

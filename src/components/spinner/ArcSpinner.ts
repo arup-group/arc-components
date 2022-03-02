@@ -2,8 +2,8 @@ import { css, html, LitElement } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
 
 /**
- * @cssprop --stroke-color - Set the color of the loader.
- * @cssprop --track-width - Set the thickness of the track.
+ * @cssproperty --stroke-color - Set the color of the loader.
+ * @cssproperty --track-width - Set the thickness of the track.
  */
 export default class ArcSpinner extends LitElement {
   static tag = 'arc-spinner';

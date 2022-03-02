@@ -38,6 +38,9 @@ export declare type UserPreferences =
       [key in ContentPreference]: FontSize | FontSpacing | boolean;
     };
 
+/**
+ * @event {CustomEvent} arc-accessibility-change - Emitted when the user preferences change.
+ */
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
 
@@ -104,7 +107,6 @@ export default class ArcAccessibility extends LitElement {
       this.updateRootValue(key, this._userPreferences[key])
     );
 
-    /* Emit the accessibility-change event */
     emit(this, ARC_EVENTS.accessibilityChange, {
       detail: {
         preferences: this._userPreferences,

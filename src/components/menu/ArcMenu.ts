@@ -7,6 +7,11 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
+/**
+ * @slot default - The menu's content, including menu items.
+ *
+ * @event {CustomEvent} arc-select - Emitted when a menu item is selected.
+ */
 export default class ArcMenu extends LitElement {
   static tag = 'arc-menu';
 

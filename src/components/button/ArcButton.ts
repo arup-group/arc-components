@@ -16,6 +16,16 @@ import {
 
 import '../spinner/arc-spinner.js';
 
+/**
+ * @slot default - The button's label.
+ * @slot prefix - Used to prepend an icon or similar element to the button.
+ * @slot suffix - Used to append an icon or similar element to the button.
+ *
+ * @cssprop width - Set the width of the button.
+ * @cssprop --min-width - Set the min width of the button.
+ * @cssprop --btn-color - Overwrite the font color of the button.
+ * @cssprop --btn-background - Overwrite the background color of the button.
+ */
 export default class ArcButton extends LitElement {
   static tag = 'arc-button';
 

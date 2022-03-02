@@ -18,6 +18,12 @@ import '../icon-button/arc-icon-button.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
+/**
+ * @slot login - Used to overwrite the default login slot.
+ * @slot logout - Used to overwrite the default logout slot.
+ *
+ * @event {CustomEvent} arc-auth - Emitted when the internal authentication state of the component changes.
+ */
 export default class ArcSSO extends LitElement {
   static tag = 'arc-sso';
 

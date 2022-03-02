@@ -13,6 +13,15 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
+/**
+ * @slot default - The dropdown content.
+ * @slot trigger - The dropdown trigger, usually an `<arc-button>` element.
+ *
+ * @event {CustomEvent} arc-show - Emitted when the dropdown opens.
+ * @event {CustomEvent} arc-after-show - Emitted after the dropdown opens and all animations are complete.
+ * @event {CustomEvent} arc-hide - Emitted when the dropdown closes.
+ * @event {CustomEvent} arc-after-hide - Emitted after the dropdown closes and all animations are complete.
+ */
 export default class ArcDropdown extends LitElement {
   static tag = 'arc-dropdown';
 
@@ -89,7 +98,7 @@ export default class ArcDropdown extends LitElement {
   /** The distance in pixels from which to offset the panel along its trigger. */
   @property({ type: Number }) skidding: number = 0;
 
-  /** Indicates whether or not the dropdown is open. You can use this instead of the show/hide methods. */
+  /** Indicates whether the dropdown is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open: boolean = false;
 
   /** Disables the dropdown so the panel will not open. */

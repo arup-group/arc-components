@@ -8,7 +8,7 @@ const replace = fromRollup(rollupReplace);
 const hmr = process.argv.includes('--hmr');
 
 export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
-  open: '/demo/',
+  open: '/',
   watch: !hmr,
   /** Resolve bare module imports */
   nodeResolve: {

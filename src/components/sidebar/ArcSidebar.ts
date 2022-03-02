@@ -7,6 +7,15 @@ import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 
+/**
+ * @slot default - The sidebar's content.
+ *
+ * @event {CustomEvent} arc-show - Emitted when the sidebar opens.
+ * @event {CustomEvent} arc-hide - Emitted when the sidebar closes.
+ *
+ * @cssprop --gap-distance - Set the distance between sidebar elements.
+ * @cssprop --sidebar-width - Set the width of the sidebar.
+ */
 export default class ArcSidebar extends LitElement {
   static tag = 'arc-sidebar';
 

@@ -26,8 +26,8 @@
     "url": "https://github.com/arup-group/arc-components"
   },
   "scripts": {
-    "start": "tsc && yarn run analyze && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && yarn run analyze",
+    "start": "tsc && yarn run analyze --dev && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "build": "tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
@@ -35,7 +35,7 @@
     "storybook:build": "yarn build && build-storybook",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
-    "analyze": "cem analyze --litelement --exclude dist"
+    "analyze": "cem analyze --litelement --exclude src --exclude dist"
   },
   "dependencies": {
     "@azure/msal-browser": "^2.22.0",

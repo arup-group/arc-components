@@ -13,6 +13,12 @@ import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import '../icon-button/arc-icon-button.js';
 
+/**
+ * @slot default - The container's content.
+ * @slot nav - The container's navbar.
+ * @slot side - The container's sidebar.
+ * @slot bottom - The container's bottom bar.
+ */
 export default class ArcContainer extends LitElement {
   static tag = 'arc-container';
 

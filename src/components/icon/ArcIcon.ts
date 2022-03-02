@@ -8,6 +8,10 @@ import componentStyles from '../../styles/component.styles.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
 import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
 
+/**
+ * @cssprop --icon-color-primary - Set the primary color of the icon.
+ * @cssprop --icon-color-secondary - Set the secondary color of the icon (if supported).
+ */
 export default class ArcIcon extends LitElement {
   static tag = 'arc-icon';
 

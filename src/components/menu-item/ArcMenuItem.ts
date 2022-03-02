@@ -3,6 +3,11 @@ import { property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 
+/**
+ * @slot default - The menu item's label.
+ * @slot prefix - Used to prepend an icon or similar element to the menu-item.
+ * @slot suffix - Used to append an icon or similar element to the menu-item.
+ */
 export default class ArcMenuItem extends LitElement {
   static tag = 'arc-menu-item';
 

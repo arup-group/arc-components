@@ -175,9 +175,9 @@ export default class ArcIconButton extends LitElement {
         style=${styleMap(btnStyles)}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type="button"
-        href=${ifDefined(this.href)}
-        target=${ifDefined(this.target)}
-        download=${ifDefined(this.download)}
+        href=${ifDefined(this.href || undefined)}
+        target=${ifDefined(this.target || undefined)}
+        download=${ifDefined(this.download || undefined)}
         rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
         role="button"
         aria-disabled=${this.disabled ? 'true' : 'false'}
@@ -186,7 +186,7 @@ export default class ArcIconButton extends LitElement {
         @click=${this.handleClick}
       >
         <span id="iconWrapper" aria-hidden="true">
-          <arc-icon id="icon" part="icon" name=${ifDefined(this.name)}></arc-icon>
+          <arc-icon id="icon" part="icon" name=${ifDefined(this.name || undefined)}></arc-icon>
           ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : nothing}
         </span>
         ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : nothing}

@@ -1,26 +1,33 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import ArcSpinner from "./ArcSpinner.js";
+import {FONT_SIZES, FontSize} from "../../internal/constants/styleConstants";
 
 interface ArgTypes {
-  color?: string;
-  width?: string;
-  size?: string;
+  width: string;
+  size: FontSize;
+  strokeColor?: string;
 }
 
 export default {
   title: 'Components/ArcSpinner',
-  component: `${ArcSpinner.tag}`
+  component: `${ArcSpinner.tag}`,
+  argTypes: {
+    size: {
+      control: 'select',
+      options: Object.values(FONT_SIZES)
+    }
+  }
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ color, width, size }: ArgTypes) => html`
-  <arc-spinner style="--stroke-color: ${color}; --track-width: ${width}; font-size:${size}"></arc-spinner>
+const Template: Story<ArgTypes> = ({ strokeColor, width, size }: ArgTypes) => html`
+  <arc-spinner style="--stroke-color:${strokeColor}; --track-width: ${width}; font-size:var(--arc-font-size-${size})"></arc-spinner>
 `;
 
 const defaultArgs: ArgTypes = {
-  color: 'rgb(var(--arc-font-color))',
   width: '2px',
-  size: 'var(--arc-font-size-medium)',
+  size: FONT_SIZES.medium,
+  strokeColor: '',
 };
 
 /* TYPES */
@@ -31,16 +38,16 @@ export const BlueColor = Template.bind({});
 export const PurpleColor = Template.bind({});
 
 Default.args = { ...defaultArgs };
-RedColor.args = { ...defaultArgs, color: 'red' };
-GreenColor.args = { ...defaultArgs, color: 'green' };
-BlueColor.args = { ...defaultArgs, color: 'blue' };
-PurpleColor.args = { ...defaultArgs, color: 'purple' };
+RedColor.args = { ...defaultArgs, strokeColor: 'red' };
+GreenColor.args = { ...defaultArgs, strokeColor: 'green' };
+BlueColor.args = { ...defaultArgs, strokeColor: 'blue' };
+PurpleColor.args = { ...defaultArgs, strokeColor: 'purple' };
 
 /* Sizes */
 export const Small = Template.bind({});
 export const XXLarge = Template.bind({});
 export const XXXXLarge = Template.bind({});
 
-Small.args = { ...defaultArgs, size: 'var(--arc-font-size-small)' };
-XXLarge.args = { ...defaultArgs, size: 'var(--arc-font-size-xx-large)' };
-XXXXLarge.args = { ...defaultArgs, size: 'var(--arc-font-size-xxxx-large)' };
+Small.args = { ...defaultArgs, size: FONT_SIZES.small };
+XXLarge.args = { ...defaultArgs, size: FONT_SIZES["xx-large"] };
+XXXXLarge.args = { ...defaultArgs, size: FONT_SIZES["xxxx-large"] };

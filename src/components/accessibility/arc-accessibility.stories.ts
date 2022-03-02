@@ -13,7 +13,7 @@ const Template: Story = () => html`
   </style>
   <arc-container>
     <arc-navbar slot="nav"></arc-navbar>
-    <div id="content" style="padding: var(--arc-spacing-medium)">
+    <div id="content">
       <p>Press the <code>a</code> key to toggle the built-in accessibility.</p>
       <p>Change your personal preferences by making a selection within the accessibility panel.</p>
       <p>

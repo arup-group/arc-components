@@ -15,8 +15,6 @@ import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 
-let id = 0;
-
 export default class ArcDrawer extends LitElement {
   static tag = 'arc-drawer';
 
@@ -154,8 +152,6 @@ export default class ArcDrawer extends LitElement {
   @query('#panel') panel: HTMLElement;
 
   @query('#overlay') overlay: HTMLElement;
-
-  private componentId = `drawer-${++id}`;
 
   private modal: Modal;
 
@@ -295,12 +291,12 @@ export default class ArcDrawer extends LitElement {
           role="dialog"
           aria-modal="true"
           aria-hidden=${this.open ? 'false' : 'true'}
-          aria-label=${ifDefined(this.label)}
-          aria-labelledby=${ifDefined(`${this.componentId}-title`)}
+          aria-label=${ifDefined(this.label || undefined)}
+          aria-labelledby="${ifDefined(this.label ? undefined : 'title')}"
           tabindex="0"
         >
           <div id="header">
-            <slot name="label"><span>${this.label}</span></slot>
+            <slot id="title" name="label"><span>${this.label}</span></slot>
             <arc-icon-button
               id="toggleClose"
               name=${ICON_TYPES.x}

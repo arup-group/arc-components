@@ -73,27 +73,29 @@ const Template: Story<ArgTypes> = ({
                                      prefix,
                                      suffix
                                    }: ArgTypes) => html`
-  <arc-button
-    style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
-    type="${type}"
-    color="${color}"
-    size="${size}"
-    name=${ifDefined(name ? name : undefined)}
-    value=${ifDefined(value ? value : undefined)}
-    href=${ifDefined(href ? href : undefined)}
-    target=${ifDefined(target ? target : undefined)}
-    download=${ifDefined(download ? download : undefined)}
-    ?active="${active}"
-    ?disabled="${disabled}"
-    ?loading="${loading}"
-    ?submit="${submit}"
-  >
-    ${prefix ? html`
-      <arc-icon slot="prefix" name="home"></arc-icon>` : null}
-    ${label.charAt(0).toUpperCase() + label.slice(1)}
-    ${suffix ? html`
-      <arc-icon slot="suffix" name="settings"></arc-icon>` : null}
-  </arc-button>
+  <div id="content">
+    <arc-button
+      style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
+      type="${type}"
+      color="${color}"
+      size="${size}"
+      name=${ifDefined(name || undefined)}
+      value=${ifDefined(value || undefined)}
+      href=${ifDefined(href || undefined)}
+      target=${ifDefined(target || undefined)}
+      download=${ifDefined(download || undefined)}
+      ?active="${active}"
+      ?disabled="${disabled}"
+      ?loading="${loading}"
+      ?submit="${submit}"
+    >
+      ${prefix ? html`
+        <arc-icon slot="prefix" name="home"></arc-icon>` : null}
+      ${label.charAt(0).toUpperCase() + label.slice(1)}
+      ${suffix ? html`
+        <arc-icon slot="suffix" name="settings"></arc-icon>` : null}
+    </arc-button>
+  </div>
 `;
 
 const defaultArgs: ArgTypes = {

@@ -138,7 +138,7 @@ export default class ArcNavbar extends LitElement {
   @state() private navTabs: (ArcButton | ArcIconButton)[] = [];
 
   /** When set, the underlying logoWrapper will be rendered as an anchor with this property. */
-  @property({ type: String, reflect: true }) home: string;
+  @property({ type: String }) home: string;
 
   /** The url for the logo of the application. */
   @property({ type: String }) logo: string;
@@ -213,7 +213,7 @@ export default class ArcNavbar extends LitElement {
             ? html`
                 <a
                   id="logoWrapper"
-                  href="${ifDefined(this.home)}"
+                  href=${ifDefined(this.home || undefined)}
                   rel="noreferrer noopener"
                   role="button"
                   aria-label="tool logo"

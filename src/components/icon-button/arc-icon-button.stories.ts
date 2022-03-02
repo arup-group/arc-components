@@ -41,12 +41,12 @@ const Template: Story<ArgTypes> = ({
   iconColor,
 }: ArgTypes) => html`
   <arc-icon-button
-    style="--icon-color:${iconColor || 'inherit'}"
+    style="--icon-color:${ifDefined(iconColor || undefined)}"
     name="${name}"
     label="${label}"
-    href=${ifDefined(href ? href : undefined)}
-    target=${ifDefined(target ? target : undefined)}
-    download=${ifDefined(download ? download : undefined)}
+    href=${ifDefined(href || undefined)}
+    target=${ifDefined(target || undefined)}
+    download=${ifDefined(download || undefined)}
     ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"

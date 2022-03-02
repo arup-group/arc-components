@@ -93,7 +93,7 @@ export default class ArcIcon extends LitElement {
         class=${classMap({ spinning: this.spinning })}
         style=${styleMap(styles)}
         role=${ifDefined(this.label ? 'img' : undefined)}
-        aria-label=${ifDefined(this.label ? this.label : undefined)}
+        aria-label=${ifDefined(this.label || undefined)}
         aria-hidden=${ifDefined(this.label ? undefined : 'true')}
       >
         <use href="${DEFAULT_PATH}#arc-${this.name}" xlink:href="${DEFAULT_PATH}#arc-${this.name}" />

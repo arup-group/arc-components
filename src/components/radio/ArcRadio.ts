@@ -83,10 +83,10 @@ export default class ArcRadio extends LitElement {
   @property({ type: String }) value: string;
 
   /** Draws the component in a disabled state. */
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+  @property({ type: Boolean }) disabled: boolean = false;
 
   /** Draws the component in a checked state. */
-  @property({ type: Boolean, reflect: true }) checked = false;
+  @property({ type: Boolean }) checked = false;
 
   firstUpdated() {
     this.updateComplete.then(() => {
@@ -194,8 +194,8 @@ export default class ArcRadio extends LitElement {
         <span id="radio">
           <input
             type="radio"
-            name=${ifDefined(this.name)}
-            .value=${ifDefined(this.value)}
+            name=${ifDefined(this.name || undefined)}
+            value=${ifDefined(this.value || undefined)}
             ?checked=${live(this.checked)}
             ?disabled=${this.disabled}
             aria-checked=${this.checked}

@@ -1,5 +1,5 @@
 import {Meta, Story} from "@storybook/web-components";
-import {html} from 'lit';
+import {html, nothing} from 'lit';
 import ArcContainer from './ArcContainer.js';
 import {CONTAINER_THEMES, ContainerTheme} from './constants/ContainerConstants.js';
 
@@ -27,9 +27,19 @@ const Template: Story<ArgTypes> = ({theme, fullscreen}: ArgTypes) => html`
       <arc-button type="tab">Link 2</arc-button>
       <arc-button type="tab">Link 3</arc-button>
     </arc-navbar>
-    <arc-sidebar slot="side">
-      <div></div>
-    </arc-sidebar>
+    ${!fullscreen ? html`
+      <arc-sidebar slot="side">
+        <div></div>
+      </arc-sidebar>
+    ` : nothing}
+    <div id="content">
+      <p>This is the container content.</p>
+      <p>
+        When using the <code>fullscreen</code> property,
+        be aware that the <code>arc-sidebar</code> component does not function well.
+      </p>
+      <p>The <code>arc-drawer</code> component could be used instead.</p>
+    </div>
   </arc-container>
 `;
 

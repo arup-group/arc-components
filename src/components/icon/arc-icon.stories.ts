@@ -1,9 +1,9 @@
 import {Meta, Story} from "@storybook/web-components";
 import {html} from 'lit';
+import {ifDefined} from "lit/directives/if-defined.js";
 import ArcIcon from "./ArcIcon.js";
 import {ICON_TYPES, IconType} from './constants/IconConstants.js';
 import {FONT_SIZES, FontSize} from '../../internal/constants/styleConstants.js';
-import {ifDefined} from "lit/directives/if-defined.js";
 
 interface ArgTypes {
   name: IconType;
@@ -29,12 +29,12 @@ export default {
   }
 } as Meta;
 
-const Template: Story<ArgTypes> = ({name, size, rotation, spinning, colorPrimary, colorSecondary}: ArgTypes) => html`
+const Template: Story<ArgTypes> = ({name, size, rotation, spinning, colorPrimary}: ArgTypes) => html`
   <arc-icon
-    style="--icon-color-primary:${colorPrimary || 'inherit'}; --icon-color-secondary:${colorSecondary || 'inherit'};"
+    style="--icon-color-primary:${ifDefined(colorPrimary || undefined)};"
     name="${name}"
     size="${size}"
-    rotation=${ifDefined(rotation ? rotation : undefined)}
+    rotation=${ifDefined(rotation || undefined)}
     ?spinning=${spinning}
   ></arc-icon>
 `;

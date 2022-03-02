@@ -247,9 +247,9 @@ export default class ArcButton extends LitElement {
         type=${this.submit ? 'submit' : 'button'}
         name=${ifDefined(isLink ? undefined : this.name)}
         value=${ifDefined(isLink ? undefined : this.value)}
-        href=${ifDefined(this.href)}
-        target=${ifDefined(this.target)}
-        download=${ifDefined(this.download)}
+        href=${ifDefined(this.href || undefined)}
+        target=${ifDefined(this.target || undefined)}
+        download=${ifDefined(this.download || undefined)}
         rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
         role="button"
         aria-disabled=${this.disabled ? 'true' : 'false'}

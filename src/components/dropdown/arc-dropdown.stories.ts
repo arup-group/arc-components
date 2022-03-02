@@ -28,8 +28,8 @@ export default {
 const Template: Story<ArgTypes> = ({placement, distance, skidding, open, disabled, hoist}: ArgTypes) => html`
   <arc-dropdown
     placement=${placement}
-    distance=${ifDefined(distance ? distance : undefined)}
-    skidding=${ifDefined(skidding ? skidding : undefined)}
+    distance=${ifDefined(distance || undefined)}
+    skidding=${ifDefined(skidding || undefined)}
     ?open="${open}"
     ?disabled="${disabled}"
     ?hoist="${hoist}"

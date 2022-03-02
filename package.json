@@ -26,7 +26,7 @@
     "url": "https://github.com/arup-group/arc-components"
   },
   "scripts": {
-    "start": "tsc && yarn run analyze --dev && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "start": "tsc && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "wtr --coverage",

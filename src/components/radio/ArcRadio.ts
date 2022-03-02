@@ -200,7 +200,7 @@ export default class ArcRadio extends LitElement {
           <input
             type="radio"
             name=${ifDefined(this.name || undefined)}
-            value=${ifDefined(this.value || undefined)}
+            .value=${ifDefined(this.value || undefined)}
             ?checked=${live(this.checked)}
             ?disabled=${this.disabled}
             aria-checked=${this.checked}

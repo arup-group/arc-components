@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcSpinner from "./ArcSpinner.js";
-import {FONT_SIZES, FontSize} from "../../internal/constants/styleConstants";
+import ArcSpinner from './ArcSpinner.js';
+import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
 
 interface ArgTypes {
   width: string;
@@ -15,13 +15,15 @@ export default {
   argTypes: {
     size: {
       control: 'select',
-      options: Object.values(FONT_SIZES)
-    }
-  }
+      options: Object.values(FONT_SIZES),
+    },
+  },
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ strokeColor, width, size }: ArgTypes) => html`
-  <arc-spinner style="--stroke-color:${strokeColor}; --track-width: ${width}; font-size:var(--arc-font-size-${size})"></arc-spinner>
+  <arc-spinner
+    style="--stroke-color:${strokeColor}; --track-width: ${width}; font-size:var(--arc-font-size-${size})"
+  ></arc-spinner>
 `;
 
 const defaultArgs: ArgTypes = {
@@ -51,7 +53,7 @@ export const Small = Template.bind({});
 Small.args = { ...defaultArgs, size: FONT_SIZES.small };
 
 export const XXLarge = Template.bind({});
-XXLarge.args = { ...defaultArgs, size: FONT_SIZES["xx-large"] };
+XXLarge.args = { ...defaultArgs, size: FONT_SIZES['xx-large'] };
 
 export const XXXXLarge = Template.bind({});
-XXXXLarge.args = { ...defaultArgs, size: FONT_SIZES["xxxx-large"] };
+XXXXLarge.args = { ...defaultArgs, size: FONT_SIZES['xxxx-large'] };

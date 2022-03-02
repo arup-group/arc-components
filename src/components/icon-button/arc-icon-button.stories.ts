@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import {ifDefined} from 'lit/directives/if-defined.js';
-import ArcIconButton from "./ArcIconButton.js";
+import { ifDefined } from 'lit/directives/if-defined.js';
+import ArcIconButton from './ArcIconButton.js';
 import { ICON_TYPES, IconType } from '../icon/constants/IconConstants.js';
 
 interface ArgTypes {
@@ -23,9 +23,9 @@ export default {
   argTypes: {
     name: {
       control: 'select',
-      options: Object.values(ICON_TYPES)
-    }
-  }
+      options: Object.values(ICON_TYPES),
+    },
+  },
 } as Meta;
 
 const Template: Story<ArgTypes> = ({
@@ -50,7 +50,8 @@ const Template: Story<ArgTypes> = ({
     ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"
-  >${content}</arc-icon-button>
+    >${content}</arc-icon-button
+  >
 `;
 
 const defaultArgs: ArgTypes = {
@@ -103,7 +104,6 @@ LinkDisabled.args = {
   content: 'Disabled',
   disabled: true,
 };
-
 
 /* STATES */
 export const Active = Template.bind({});

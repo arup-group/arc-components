@@ -161,7 +161,8 @@ export default class ArcNavbar extends LitElement {
     type: Boolean,
     reflect: true,
     converter: (attrValue: string | null) => (attrValue ? attrValue !== 'false' : true),
-  }) arup: boolean = true;
+  })
+  arup: boolean = true;
 
   @watch('tabs', { waitUntilFirstUpdate: true })
   handleTabCountChange() {

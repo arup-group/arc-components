@@ -1,8 +1,8 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcSSO from "./ArcSSO.js";
-import {ARC_EVENTS} from "../../internal/constants/eventConstants";
+import ArcSSO from './ArcSSO.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 interface ArgTypes {
   clientId: string;
@@ -16,15 +16,15 @@ export default {
   component: ArcSSO.tag,
   parameters: {
     actions: {
-      handles: [ARC_EVENTS.auth]
-    }
-  }
+      handles: [ARC_EVENTS.auth],
+    },
+  },
 } as Meta;
 
 const interior = html`
   <arc-button slot="login" type="tab" onClick="this.parentElement.signIn()">SignIn</arc-button>
   <arc-button slot="logout" type="tab" onClick="localStorage.clear(); location.reload();">SignOut</arc-button>
-`
+`;
 
 const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes) => html`
   <arc-container
@@ -38,10 +38,14 @@ const Template: Story<ArgTypes> = ({ clientId, tenantId, redirectUri }: ArgTypes
       ${!clientId
         ? html`<arc-button slot="user" type="tab" disabled>Client-id missing</arc-button>`
         : html`${!redirectUri
-          ? html`<arc-button slot="user" type="tab" disabled>Redirect-uri missing</arc-button>`
-          : html`<arc-sso slot="user" client-id=${clientId} tenant-id=${ifDefined(tenantId || undefined)} redirect-uri=${redirectUri}>${interior}</arc-sso>
-        `}
-      `}
+            ? html`<arc-button slot="user" type="tab" disabled>Redirect-uri missing</arc-button>`
+            : html`<arc-sso
+                slot="user"
+                client-id=${clientId}
+                tenant-id=${ifDefined(tenantId || undefined)}
+                redirect-uri=${redirectUri}
+                >${interior}</arc-sso
+              > `} `}
     </arc-navbar>
     <div id="myContent" style="padding: var(--arc-spacing-medium)"></div>
   </arc-container>

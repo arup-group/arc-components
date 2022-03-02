@@ -1,7 +1,7 @@
-import { Meta, Story } from "@storybook/web-components";
+import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcRadioGroup from "./ArcRadioGroup.js";
-import {ARC_EVENTS} from "../../internal/constants/eventConstants";
+import ArcRadioGroup from './ArcRadioGroup.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 interface ArgTypes {
   label: string;
@@ -13,9 +13,9 @@ export default {
   component: ArcRadioGroup.tag,
   parameters: {
     actions: {
-      handles: [ARC_EVENTS.change]
-    }
-  }
+      handles: [ARC_EVENTS.change],
+    },
+  },
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ label, row }: ArgTypes) => html`

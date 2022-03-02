@@ -1,7 +1,7 @@
-import { Meta, Story } from "@storybook/web-components";
+import { Meta, Story } from '@storybook/web-components';
 import { html, nothing } from 'lit';
-import { ifDefined } from "lit/directives/if-defined.js";
-import ArcNavbar from "./ArcNavbar.js";
+import { ifDefined } from 'lit/directives/if-defined.js';
+import ArcNavbar from './ArcNavbar.js';
 
 interface ArgTypes {
   arup: boolean;
@@ -14,7 +14,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcNavbar',
-  component: ArcNavbar.tag
+  component: ArcNavbar.tag,
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: ArgTypes) => html`
@@ -25,7 +25,7 @@ const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: Arg
     tabs=${ifDefined(tabs || undefined)}
     arup="${arup}"
     style="height: ${height}"
-    >
+  >
     ${name ? html`<span slot="name">${name}</span>` : nothing}
     <arc-button type="tab">Menu</arc-button>
     <arc-button type="tab">User</arc-button>

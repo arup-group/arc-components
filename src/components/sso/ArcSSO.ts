@@ -94,7 +94,8 @@ export default class ArcSSO extends LitElement {
   @property({
     type: Array,
     converter: (attrValue: string | null) => (attrValue ? stringToArray(attrValue) : []),
-  }) scopes: string;
+  })
+  scopes: string;
 
   @watch('_isAuth')
   async handleAuthChange() {

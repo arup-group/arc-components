@@ -1,30 +1,27 @@
 import {Meta, Story} from "@storybook/web-components";
-import {html} from 'lit';
+import {html, nothing} from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import ArcButton from "./ArcButton.js";
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
-  BUTTON_TYPES,
-  ButtonColor,
-  ButtonSize,
-  ButtonType,
-  ButtonTarget,
+  BUTTON_TYPES, ButtonColor, ButtonSize, ButtonType
 } from './constants/ButtonConstants.js';
 
 interface ArgTypes {
   label: string;
-  type?: ButtonType;
-  color?: ButtonColor;
-  size?: ButtonSize;
+  type: ButtonType;
+  color: ButtonColor;
+  size: ButtonSize;
   name?: string;
   value?: string;
   href?: string;
-  target?: ButtonTarget;
+  target?: string;
   download?: string;
-  active?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
-  submit?: boolean;
+  active: boolean;
+  disabled: boolean;
+  loading: boolean;
+  submit: boolean;
   width?: string;
   minWidth?: string;
   btnColor?: string;
@@ -33,19 +30,36 @@ interface ArgTypes {
   suffix?: boolean;
 }
 
-export default {title: 'Components/ArcButton', component: `${ArcButton.tag}`} as Meta;
+export default {
+  title: 'Components/ArcButton',
+  component: `${ArcButton.tag}`,
+  argTypes: {
+    type: {
+      control: 'select',
+      options: Object.values(BUTTON_TYPES)
+    },
+    color: {
+      control: 'select',
+      options: Object.values(BUTTON_COLORS)
+    },
+    size: {
+      control: 'select',
+      options: Object.values(BUTTON_SIZES)
+    }
+  }
+} as Meta;
 
 const Template: Story<ArgTypes> = ({label, type, color, size, name, value, href, target, download, active, disabled, loading, submit, width, minWidth, btnColor, btnBackground, prefix, suffix}: ArgTypes) => html`
   <arc-button
-    style="width:${width}; --min-width:${minWidth}; --btn-color:${btnColor}; --btn-background:${btnBackground};"
+    style="width:${width}; --min-width:${minWidth}; ${btnColor ? `--btn-color:${btnColor}` : nothing}; --btn-background:${btnBackground};"
     type="${type}"
     color="${color}"
     size="${size}"
-    name="${name}"
-    value="${value}"
-    .href="${href}"
-    .target="${target}"
-    .download="${download}"
+    name=${ifDefined(name ? name : undefined)}
+    value=${ifDefined(value ? value : undefined)}
+    href=${ifDefined(href ? href : undefined)}
+    target=${ifDefined(target ? target : undefined)}
+    download=${ifDefined(download ? download : undefined)}
     ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"
@@ -62,21 +76,21 @@ const Template: Story<ArgTypes> = ({label, type, color, size, name, value, href,
 const defaultArgs: ArgTypes = {
   label: 'Default',
   type: BUTTON_TYPES.contained,
-  color: 'default',
+  color: BUTTON_COLORS.default,
   size: BUTTON_SIZES.medium,
-  name: undefined,
-  value: undefined,
-  href: undefined,
-  target: undefined,
-  download: undefined,
+  name: '',
+  value: '',
+  href: '',
+  target: '',
+  download: '',
   active: false,
   disabled: false,
   loading: false,
   submit: false,
-  width: undefined,
-  minWidth: undefined,
-  btnColor: undefined,
-  btnBackground: undefined,
+  width: '',
+  minWidth: '',
+  btnColor: '',
+  btnBackground: '',
 };
 
 /* TYPES */

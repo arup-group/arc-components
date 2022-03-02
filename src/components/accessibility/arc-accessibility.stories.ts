@@ -2,30 +2,18 @@ import { Meta, Story } from '@storybook/web-components';
 import {html} from 'lit';
 import ArcAccessibility from "./ArcAccessibility.js";
 
-interface ArgTypes {
-  open: boolean;
-}
-
 export default {
   title: 'Components/ArcAccessibility',
   component: `${ArcAccessibility.tag}`
 } as Meta;
 
-const Template: Story<ArgTypes> = () => html`
+const Template: Story = () => html`
   <style>
-    #content {
-      padding: var(--arc-spacing-medium);
-    }
 
-    #content code {
-      background-color: rgb(var(--arc-background-color));
-      padding: 5px;
-      border-radius: 5px;
-    }
   </style>
   <arc-container>
     <arc-navbar slot="nav"></arc-navbar>
-    <div id="content">
+    <div id="content" style="padding: var(--arc-spacing-medium)">
       <p>Press the <code>a</code> key to toggle the built-in accessibility.</p>
       <p>Change your personal preferences by making a selection within the accessibility panel.</p>
       <p>
@@ -36,10 +24,5 @@ const Template: Story<ArgTypes> = () => html`
   </arc-container>
 `;
 
-const defaultArgs: ArgTypes = {
-  open: false,
-};
-
 /* TYPES */
 export const Default = Template.bind({});
-Default.args = {...defaultArgs};

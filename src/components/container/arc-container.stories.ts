@@ -10,7 +10,13 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcContainer',
-  component: `${ArcContainer.tag}`
+  component: `${ArcContainer.tag}`,
+  argTypes: {
+    theme: {
+      control: 'select',
+      options: Object.values(CONTAINER_THEMES)
+    }
+  }
 } as Meta;
 
 const Template: Story<ArgTypes> = ({theme, fullscreen}: ArgTypes) => html`

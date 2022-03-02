@@ -13,7 +13,15 @@ module.exports = {
     ${head}
     <script type="module" data-arc="static/media"></script>
     <style>
+        /* Storybook overwrites */
         #root, #root-inner { height: 100%; }
+        .sb-show-main.sb-main-padded { padding: 0; }
+        /* Inline <code> blocks */
+        #content code {
+          background-color: rgb(var(--arc-background-color));
+          padding: 5px;
+          border-radius: 5px;
+        }
     </style>
   `)
 }

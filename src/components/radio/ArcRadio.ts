@@ -14,7 +14,7 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
  * @event arc-change - Emitted when the control's checked state changes.
  */
 export default class ArcRadio extends LitElement {
-  static tag = 'arc-radio';
+  static get tag() { return 'arc-radio'; }
 
   static styles = [
     componentStyles,

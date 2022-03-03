@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html, nothing } from 'lit';
-import ArcContainer from './ArcContainer.js';
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 
 interface ArgTypes {
@@ -10,7 +9,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcContainer',
-  component: ArcContainer.tag,
+  component: 'arc-container',
   argTypes: {
     theme: {
       control: 'select',

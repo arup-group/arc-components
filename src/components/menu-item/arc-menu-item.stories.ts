@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcMenuItem from './ArcMenuItem.js';
 
 interface ArgTypes {
   disabled?: boolean;
@@ -10,7 +9,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcMenuItem',
-  component: ArcMenuItem.tag,
+  component: 'arc-menu-item',
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ disabled, prefix, suffix }: ArgTypes) => html`

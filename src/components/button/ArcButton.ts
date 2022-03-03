@@ -27,7 +27,7 @@ import '../spinner/arc-spinner.js';
  * @cssproperty --btn-background - Overwrite the background color of the button.
  */
 export default class ArcButton extends LitElement {
-  static tag = 'arc-button';
+  static get tag() { return 'arc-button'; }
 
   static styles = [
     componentStyles,

@@ -16,15 +16,8 @@ const Template: Story<ArgTypes> = ({ name, active }: ArgTypes) => html`
   <{{ tag }} name="${name}" ?active="${active}"></{{ tag }}>
 `;
 
-const defaultArgs: ArgTypes = {
-  name: 'Component',
-  active: false,
-};
-
-/* TYPES */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs };
+Default.args = { name: 'Active component', active: true };
 
-/* STATES */
 export const Active = Template.bind({});
-Active.args = { ...defaultArgs, name: 'Active component', active: true };
+Active.args = { name: 'Active component', active: true };

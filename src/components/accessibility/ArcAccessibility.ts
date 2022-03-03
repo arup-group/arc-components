@@ -1,9 +1,9 @@
-import { css, html, LitElement, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
-import { map } from 'lit/directives/map.js';
-import { when } from 'lit/directives/when.js';
-import { emit } from '../../internal/event.js';
-import { watch } from '../../internal/watch.js';
+import {css, html, LitElement, nothing} from 'lit';
+import {property, state} from 'lit/decorators.js';
+import {map} from 'lit/directives/map.js';
+import {when} from 'lit/directives/when.js';
+import {emit} from '../../internal/event.js';
+import {watch} from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import {
   stringToSpaceSeparated,
@@ -12,16 +12,16 @@ import {
   stringifyObject,
   uppercaseFirstLetter,
 } from '../../internal/string.js';
-import { getRootValue, setRootValue } from '../../utilities/style-utils.js';
+import {getRootValue, setRootValue} from '../../utilities/style-utils.js';
 import {
   ACCESSIBILITY_OPTIONS,
   AccessibilityOption,
   ColourPreference,
   ContentPreference,
 } from './constants/AccessibilityConstants.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../internal/constants/styleConstants.js';
-import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
+import {ARC_EVENTS} from '../../internal/constants/eventConstants.js';
+import {FONT_SIZES, FONT_SPACING, FontSize, FontSpacing} from '../../internal/constants/styleConstants.js';
+import {CONTAINER_THEMES, ContainerTheme} from '../container/constants/ContainerConstants.js';
 
 import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
@@ -32,17 +32,17 @@ import '../button/arc-button.js';
 
 export declare type UserPreferences =
   | {
-      [key in ColourPreference]: ContainerTheme;
-    }
+  [key in ColourPreference]: ContainerTheme;
+}
   | {
-      [key in ContentPreference]: FontSize | FontSpacing | boolean;
-    };
+  [key in ContentPreference]: FontSize | FontSpacing | boolean;
+};
 
 /**
  * @event arc-accessibility-change - Emitted when the user preferences change.
  */
 export default class ArcAccessibility extends LitElement {
-  static tag = 'arc-accessibility';
+  static get tag() { return 'arc-accessibility'; }
 
   static styles = [
     componentStyles,
@@ -70,10 +70,10 @@ export default class ArcAccessibility extends LitElement {
     `,
   ];
 
-  /* Reference to css variables that are scoped to :root */
+  /** @internal - Reference to css variables that are scoped to :root */
   private _rootCssVariables: { [key: string]: string } = {};
 
-  /* Fallback preferences */
+  /** @internal - Fallback preferences */
   private _defaultPreferences: UserPreferences = {
     theme: this.getTheme(),
     fontSize: FONT_SIZES.medium,
@@ -84,18 +84,18 @@ export default class ArcAccessibility extends LitElement {
     plainText: false,
   };
 
-  /* Available root values */
+  /** @internal - Available root values */
   private _availableRootValues: any = {
     fontSize: Object.values(FONT_SIZES),
     lineHeight: Object.values(FONT_SPACING),
     letterSpacing: Object.values(FONT_SPACING),
   };
 
-  /** State that stores the user preferences */
+  /** @internal - State that stores the user preferences */
   @state() private _userPreferences: UserPreferences = this._defaultPreferences;
 
   /** Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
-  @property({ type: Boolean, reflect: true }) open = false;
+  @property({type: Boolean, reflect: true}) open = false;
 
   @watch('_userPreferences')
   async handlePreferenceChange() {
@@ -235,28 +235,32 @@ export default class ArcAccessibility extends LitElement {
     const value = radio.value as any;
 
     /* Update the state of the user preferences */
-    this._userPreferences = { ...this._userPreferences, [key]: value };
+    this._userPreferences = {...this._userPreferences, [key]: value};
   }
 
-  radioTemplate = (key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) => html`
-    <arc-radio-group id=${key}>
-      <span slot="label">${stringToSpaceSeparated(key)}</span>
-      ${map(
-        values,
-        value => html`
-          <arc-radio
-            name=${key}
-            value=${value}
-            ?checked=${value === this._userPreferences[key]}
-            @arc-change=${this.handleOptionChange}
+  radioTemplate(key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) {
+    return html`
+      <arc-radio-group id=${key}>
+        <span slot="label">${stringToSpaceSeparated(key)}</span>
+        ${map(
+          values,
+          value => html`
+            <arc-radio
+              name=${key}
+              value=${value}
+              ?checked=${value === this._userPreferences[key]}
+              @arc-change=${this.handleOptionChange}
             >${uppercaseFirstLetter(value)}
-          </arc-radio>
-        `
-      )}
-    </arc-radio-group>
-  `;
+            </arc-radio>
+          `
+        )}
+      </arc-radio-group>
+    `;
+  }
 
-  booleanTemplate = () => html`${nothing}`;
+  booleanTemplate() {
+    return html`${nothing}`;
+  }
 
   render() {
     return html`

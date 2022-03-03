@@ -13,7 +13,7 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
  * @event arc-select - Emitted when a menu item is selected.
  */
 export default class ArcMenu extends LitElement {
-  static tag = 'arc-menu';
+  static get tag() { return 'arc-menu'; }
 
   static styles = [
     componentStyles,

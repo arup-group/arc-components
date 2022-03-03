@@ -1,8 +1,12 @@
+import { setCustomElementsManifest } from '@storybook/web-components';
+import customElementsManifest from '../custom-elements.json';
 import '../themes/index.css';
 import '../themes/light.css';
 import '../themes/dark.css';
 import '../assets/arc-red.svg'
 import '../assets/icons.svg'
+
+setCustomElementsManifest(customElementsManifest);
 
 if (process.env.NODE_ENV === 'development') {
   import('../out-tsc/arc.js');
@@ -11,7 +15,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
     matchers: {
       color: /(colorPrimary|colorSecondary|btnColor|btnBackground|iconColor|strokeColor)$/i,

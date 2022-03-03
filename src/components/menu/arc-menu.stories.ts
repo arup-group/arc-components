@@ -1,11 +1,10 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcMenu from './ArcMenu.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcMenu',
-  component: ArcMenu.tag,
+  component: 'arc-menu',
   parameters: {
     actions: {
       handles: [ARC_EVENTS.select],

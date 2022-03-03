@@ -13,7 +13,7 @@ import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js
  * @cssproperty --icon-color-secondary - Set the secondary color of the icon (if supported).
  */
 export default class ArcIcon extends LitElement {
-  static tag = 'arc-icon';
+  static get tag() { return 'arc-icon'; }
 
   static styles = [
     componentStyles,

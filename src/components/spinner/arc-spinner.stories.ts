@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcSpinner from './ArcSpinner.js';
 import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
 
 interface ArgTypes {
@@ -11,7 +10,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcSpinner',
-  component: ArcSpinner.tag,
+  component: 'arc-spinner',
   argTypes: {
     size: {
       control: 'select',

@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcDrawer from './ArcDrawer.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
@@ -14,7 +13,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcDrawer',
-  component: ArcDrawer.tag,
+  component: 'arc-drawer',
   argTypes: {
     placement: {
       control: 'select',

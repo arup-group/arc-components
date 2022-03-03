@@ -8,7 +8,7 @@ import componentStyles from '../../styles/component.styles.js';
  * @cssproperty height - Set the height of the bottom bar.
  */
 export default class ArcBottombar extends LitElement {
-  static tag = 'arc-bottombar';
+  static get tag() { return 'arc-bottombar'; }
 
   static styles = [
     componentStyles,
@@ -27,13 +27,13 @@ export default class ArcBottombar extends LitElement {
     `,
   ];
 
-  /** State that stores the max tab count */
+  /** @internal - State that stores the max tab count */
   @state() private tabs: number = 5;
 
-  /** State that keeps track of the current tab count */
+  /** @internal - State that keeps track of the current tab count */
   @state() private tabCount: number;
 
-  handleTabChange = (e: any) => {
+  handleTabChange(e: any) {
     const isTab = (element: any) => element.tagName === 'ARC-ICON-BUTTON';
 
     const nodes = e.target.assignedElements({ flatten: true });
@@ -48,7 +48,9 @@ export default class ArcBottombar extends LitElement {
   };
 
   // eslint-disable-next-line no-console
-  log = (msg: string) => console.log(msg);
+  log(msg: string) {
+    console.log(msg)
+  };
 
   render() {
     return html`

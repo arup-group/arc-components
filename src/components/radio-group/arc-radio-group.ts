@@ -1,3 +1,3 @@
 import ArcRadioGroup from './ArcRadioGroup.js';
 
-customElements.define(ArcRadioGroup.tag, ArcRadioGroup);
+customElements.define('arc-radio-group', ArcRadioGroup);

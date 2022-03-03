@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcSidebar from './ArcSidebar.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 interface ArgTypes {
@@ -11,7 +10,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcSidebar',
-  component: ArcSidebar.tag,
+  component: 'arc-sidebar',
   parameters: {
     actions: {
       handles: [ARC_EVENTS.show, ARC_EVENTS.hide],

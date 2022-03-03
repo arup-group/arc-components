@@ -2,7 +2,6 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { Placement } from '@popperjs/core';
-import ArcDropdown from './ArcDropdown.js';
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
@@ -17,7 +16,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcDropdown',
-  component: ArcDropdown.tag,
+  component: 'arc-dropdown',
   argTypes: {
     placement: {
       control: 'select',

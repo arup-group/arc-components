@@ -6,15 +6,15 @@ import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 
 /**
-* @slot default - A description of the slot.
-* @slot something - A description of the slot.
+* @slot default - A description of the default slot.
+* @slot something - A description of the something slot.
 *
 * @event arc-event-name - A description of the event.
 *
-* @cssproperty --custom-color - A description of the css property.
+* @cssproperty --custom-color - A description of the --custom-color property.
 */
 export default class {{ properCase tag }} extends LitElement {
-  static tag = '{{ tag }}'
+  static get tag() { return '{{ tag }}'
 
   static styles = [
     componentStyles,
@@ -37,7 +37,7 @@ export default class {{ properCase tag }} extends LitElement {
   /** A description of the property. */
   @property({type: Boolean}) active: boolean = false;
 
-  @watch('prop')
+  @watch('active')
   handlePropChange() {
     emit(this, 'arc-event-name');
   }

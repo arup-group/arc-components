@@ -1,7 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcIconButton from './ArcIconButton.js';
 import { ICON_TYPES, IconType } from '../icon/constants/IconConstants.js';
 
 interface ArgTypes {
@@ -19,7 +18,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcIconButton',
-  component: ArcIconButton.tag,
+  component: 'arc-icon-button',
   argTypes: {
     name: {
       control: 'select',

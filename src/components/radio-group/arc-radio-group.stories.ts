@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcRadioGroup from './ArcRadioGroup.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 interface ArgTypes {
@@ -10,7 +9,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcRadioGroup',
-  component: ArcRadioGroup.tag,
+  component: 'arc-radio-group',
   parameters: {
     actions: {
       handles: [ARC_EVENTS.change],

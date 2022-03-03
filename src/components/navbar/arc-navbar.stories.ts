@@ -1,7 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcNavbar from './ArcNavbar.js';
 
 interface ArgTypes {
   arup: boolean;
@@ -14,7 +13,7 @@ interface ArgTypes {
 
 export default {
   title: 'Components/ArcNavbar',
-  component: ArcNavbar.tag,
+  component: 'arc-navbar',
 } as Meta;
 
 const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: ArgTypes) => html`

@@ -1,8 +1,8 @@
-import {Meta, Story} from '@storybook/web-components';
-import {html} from 'lit';
-import {ifDefined} from 'lit/directives/if-defined.js';
-import ArcIconButton from "./ArcIconButton.js";
-import {ICON_TYPES} from '../icon/constants/IconConstants.js';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import ArcIconButton from './ArcIconButton.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 export default {
   title: 'Components/ArcIconButton',
@@ -15,16 +15,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcIconButton> = ({
-                                          name,
-                                          label,
-                                          href,
-                                          target,
-                                          download,
-                                          active,
-                                          disabled,
-                                          loading
-                                        }) => html`
+const Template: Story<ArcIconButton> = ({ name, label, href, target, download, active, disabled, loading }) => html`
   <arc-icon-button
     name="${name}"
     label="${label}"
@@ -34,7 +25,8 @@ const Template: Story<ArcIconButton> = ({
     ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"
-  >${label}</arc-icon-button>
+    >${label}</arc-icon-button
+  >
 `;
 
 const defaultArgs = {
@@ -50,26 +42,26 @@ const defaultArgs = {
 
 /* TYPES */
 export const Default = Template.bind({});
-Default.args = {...defaultArgs};
+Default.args = { ...defaultArgs };
 
 export const Link = Template.bind({});
-Link.args = {...defaultArgs, name: ICON_TYPES.link, href: '/'};
+Link.args = { ...defaultArgs, name: ICON_TYPES.link, href: '/' };
 
 export const LinkNewWindow = Template.bind({});
-LinkNewWindow.args = {...Link.args, target: '_blank'};
+LinkNewWindow.args = { ...Link.args, target: '_blank' };
 
 export const LinkDownload = Template.bind({});
-LinkDownload.args = {...Link.args, download: 'ARC Storybook'};
+LinkDownload.args = { ...Link.args, download: 'ARC Storybook' };
 
 export const LinkDisabled = Template.bind({});
-LinkDisabled.args = {...Link.args, disabled: true};
+LinkDisabled.args = { ...Link.args, disabled: true };
 
 /* STATES */
 export const Active = Template.bind({});
-Active.args = {...defaultArgs, active: true};
+Active.args = { ...defaultArgs, active: true };
 
 export const Disabled = Template.bind({});
-Disabled.args = {...defaultArgs, disabled: true};
+Disabled.args = { ...defaultArgs, disabled: true };
 
 export const Loading = Template.bind({});
-Loading.args = {...defaultArgs, loading: true};
+Loading.args = { ...defaultArgs, loading: true };

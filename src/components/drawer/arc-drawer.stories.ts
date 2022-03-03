@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcDrawer from "./ArcDrawer.js";
+import ArcDrawer from './ArcDrawer.js';
 import { DRAWER_PLACEMENTS } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
@@ -31,12 +31,7 @@ const Template: Story<ArcDrawer> = ({ open, contained, placement, label }) => ht
   <div
     style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
   >
-    <arc-drawer
-      ?open="${open}"
-      ?contained="${contained}"
-      placement="${placement}"
-      label="${label}"
-    >
+    <arc-drawer ?open="${open}" ?contained="${contained}" placement="${placement}" label="${label}">
       <div style="height: 150vh;">
         <p>Scroll down and give it a try! 👇</p>
       </div>
@@ -44,7 +39,7 @@ const Template: Story<ArcDrawer> = ({ open, contained, placement, label }) => ht
   </div>
 `;
 
-const LockedTemplate: Story<ArcDrawer> = ({ open, contained, placement, label}) => html`
+const LockedTemplate: Story<ArcDrawer> = ({ open, contained, placement, label }) => html`
   <div
     style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
   >

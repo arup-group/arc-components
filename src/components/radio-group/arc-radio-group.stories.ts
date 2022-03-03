@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcRadioGroup from "./ArcRadioGroup.js";
+import ArcRadioGroup from './ArcRadioGroup.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {

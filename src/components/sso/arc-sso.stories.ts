@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcSSO from "./ArcSSO.js";
+import ArcSSO from './ArcSSO.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
@@ -17,7 +17,7 @@ export default {
 const Template: Story<ArcSSO> = ({ clientId, tenantId, redirectUri }) => html`
   <arc-sso
     slot="user"
-    client-id=${ifDefined(clientId|| undefined)}
+    client-id=${ifDefined(clientId || undefined)}
     tenant-id=${ifDefined(tenantId || undefined)}
     redirect-uri=${ifDefined(redirectUri || undefined)}
   >

@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcNavbar from "./ArcNavbar.js";
+import ArcNavbar from './ArcNavbar.js';
 
 export default {
   title: 'Components/ArcNavbar',
@@ -30,5 +30,5 @@ Default.args = {
   arup: true,
   home: '/',
   logo: `/arc-red.svg`,
-  tabs: 5
+  tabs: 5,
 };

@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcMenuItem from "./ArcMenuItem.js";
+import ArcMenuItem from './ArcMenuItem.js';
 
 export default {
   title: 'Components/ArcMenuItem',
@@ -9,9 +9,7 @@ export default {
 
 const Template: Story<ArcMenuItem> = ({ value, disabled }) => html`
   <arc-menu style="width: 15rem;">
-    <arc-menu-item value="${value}" ?disabled="${disabled}">
-      Label
-    </arc-menu-item>
+    <arc-menu-item value="${value}" ?disabled="${disabled}"> Label </arc-menu-item>
   </arc-menu>
 `;
 

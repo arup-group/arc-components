@@ -1,15 +1,15 @@
 import { Meta, Story } from '@storybook/web-components';
-import ArcBottombar from "./ArcBottombar.js";
 import { html } from 'lit';
+import ArcBottombar from './ArcBottombar.js';
 
 export default {
   title: 'Components/ArcBottombar',
   component: ArcBottombar.tag,
   argTypes: {
     height: {
-      control: 'text'
-    }
-  }
+      control: 'text',
+    },
+  },
 } as Meta;
 
 const Template: Story<ArcBottombar> = () => html`

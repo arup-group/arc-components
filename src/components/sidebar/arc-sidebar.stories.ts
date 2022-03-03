@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcSidebar from "./ArcSidebar.js";
+import ArcSidebar from './ArcSidebar.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {

@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html, nothing } from 'lit';
-import ArcContainer from "./ArcContainer.js";
+import ArcContainer from './ArcContainer.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
 export default {
@@ -41,4 +41,4 @@ const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
 `;
 
 export const Container = Template.bind({});
-Container.args = { theme: CONTAINER_THEMES.auto, fullscreen: false, };
+Container.args = { theme: CONTAINER_THEMES.auto, fullscreen: false };

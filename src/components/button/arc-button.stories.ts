@@ -1,12 +1,8 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcButton from "./ArcButton.js";
-import {
-  BUTTON_COLORS,
-  BUTTON_SIZES,
-  BUTTON_TYPES
-} from './constants/ButtonConstants.js';
+import ArcButton from './ArcButton.js';
+import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 
 export default {
   title: 'Components/ArcButton',
@@ -39,7 +35,7 @@ const Template: Story<ArcButton> = ({
   active,
   disabled,
   loading,
-  submit
+  submit,
 }) => html`
   <arc-button
     type="${type}"
@@ -54,7 +50,8 @@ const Template: Story<ArcButton> = ({
     ?disabled="${disabled}"
     ?loading="${loading}"
     ?submit="${submit}"
-  >Button</arc-button>
+    >Button</arc-button
+  >
 `;
 
 const defaultArgs = {
@@ -69,21 +66,21 @@ const defaultArgs = {
   active: false,
   disabled: false,
   loading: false,
-  submit: false
+  submit: false,
 };
 
 /* TYPES */
 export const Contained = Template.bind({});
-Contained.args = { ...defaultArgs, type: BUTTON_TYPES.contained,};
+Contained.args = { ...defaultArgs, type: BUTTON_TYPES.contained };
 
 export const Tile = Template.bind({});
-Tile.args = { ...defaultArgs, type: BUTTON_TYPES.tile,};
+Tile.args = { ...defaultArgs, type: BUTTON_TYPES.tile };
 
 export const Outlined = Template.bind({});
-Outlined.args = { ...defaultArgs, type: BUTTON_TYPES.outlined,};
+Outlined.args = { ...defaultArgs, type: BUTTON_TYPES.outlined };
 
 export const Pill = Template.bind({});
-Pill.args = { ...defaultArgs, type: BUTTON_TYPES.pill,};
+Pill.args = { ...defaultArgs, type: BUTTON_TYPES.pill };
 
 export const Tab = Template.bind({});
 Tab.args = { ...defaultArgs, type: BUTTON_TYPES.tab };
@@ -111,26 +108,26 @@ export const Secondary = Template.bind({});
 Secondary.args = { ...defaultArgs, color: BUTTON_COLORS.secondary };
 
 export const Error = Template.bind({});
-Error.args = { ...defaultArgs,  color: BUTTON_COLORS.error };
+Error.args = { ...defaultArgs, color: BUTTON_COLORS.error };
 
 export const Warning = Template.bind({});
-Warning.args = { ...defaultArgs, color: BUTTON_COLORS.warning,};
+Warning.args = { ...defaultArgs, color: BUTTON_COLORS.warning };
 
 export const Info = Template.bind({});
-Info.args = {...defaultArgs, color: BUTTON_COLORS.info,};
+Info.args = { ...defaultArgs, color: BUTTON_COLORS.info };
 
 export const Success = Template.bind({});
-Success.args = {...defaultArgs, color: BUTTON_COLORS.success,};
+Success.args = { ...defaultArgs, color: BUTTON_COLORS.success };
 
 /* SIZES */
 export const Small = Template.bind({});
-Small.args = {...defaultArgs, size: BUTTON_SIZES.small,};
+Small.args = { ...defaultArgs, size: BUTTON_SIZES.small };
 
 export const Medium = Template.bind({});
-Medium.args = {...defaultArgs, size: BUTTON_SIZES.medium,};
+Medium.args = { ...defaultArgs, size: BUTTON_SIZES.medium };
 
 export const Large = Template.bind({});
-Large.args = {...defaultArgs, size: BUTTON_SIZES.large,};
+Large.args = { ...defaultArgs, size: BUTTON_SIZES.large };
 
 /* STATES */
 export const Active = Template.bind({});

@@ -8,7 +8,9 @@ import componentStyles from '../../styles/component.styles.js';
  * @cssproperty height - Set the height of the bottom bar.
  */
 export default class ArcBottombar extends LitElement {
-  static get tag() { return 'arc-bottombar'; }
+  static get tag() {
+    return 'arc-bottombar';
+  }
 
   static styles = [
     componentStyles,
@@ -45,12 +47,12 @@ export default class ArcBottombar extends LitElement {
       // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
       this.log(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
     }
-  };
+  }
 
-  // eslint-disable-next-line no-console
   log(msg: string) {
-    console.log(msg)
-  };
+    // eslint-disable-next-line no-console
+    console.log(msg);
+  }
 
   render() {
     return html`

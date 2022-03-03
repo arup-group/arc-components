@@ -30,7 +30,9 @@ import '../icon-button/arc-icon-button.js';
  * @cssproperty --size - The preferred size of the drawer. This will be applied to either the width or height depending on its placement.
  */
 export default class ArcDrawer extends LitElement {
-  static get tag() { return 'arc-drawer'; }
+  static get tag() {
+    return 'arc-drawer';
+  }
 
   static styles = [
     componentStyles,

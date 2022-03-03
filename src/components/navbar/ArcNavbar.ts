@@ -29,7 +29,9 @@ import { arupLogo } from './arup-logo.js';
  * @cssproperty --logo-height - Set the height of the tool logo.
  */
 export default class ArcNavbar extends LitElement {
-  static get tag() { return 'arc-navbar'; }
+  static get tag() {
+    return 'arc-navbar';
+  }
 
   static styles = [
     componentStyles,

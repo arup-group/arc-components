@@ -12,7 +12,9 @@ import type ArcRadio from '../radio/ArcRadio.js';
  * @event arc-change - Emitted when a control's checked state changes.
  */
 export default class ArcRadioGroup extends LitElement {
-  static get tag() { return 'arc-radio-group'; }
+  static get tag() {
+    return 'arc-radio-group';
+  }
 
   static styles = [
     componentStyles,

@@ -9,7 +9,9 @@ import componentStyles from '../../styles/component.styles.js';
  * @slot suffix - Used to append an icon or similar element to the menu-item.
  */
 export default class ArcMenuItem extends LitElement {
-  static get tag() { return 'arc-menu-item'; }
+  static get tag() {
+    return 'arc-menu-item';
+  }
 
   static styles = [
     componentStyles,

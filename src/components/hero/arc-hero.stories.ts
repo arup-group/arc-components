@@ -15,14 +15,14 @@ const Template: Story<ArgTypes> = ({ bgImg, customColor }: ArgTypes) => html`
   <arc-hero style="--custom-color:${customColor};" bgImg="${bgImg}"
 
   >
-  <h1 slot='title'>Generative Design & the Built Environment...</h1>
+  <span slot='title'>Generative Design & the Built Environment...</span>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
   </arc-hero>
 `;
 const ImgTemplate: Story<ArgTypes> = ({ customColor }: ArgTypes) => html`
   <arc-hero style="--custom-color:${customColor};"  >
-  <h1 slot='title'>Generative design and the built environment</h1>
+  <span slot='title'>Generative design and the built environment</span>
   <img  src="https://random.imagecdn.app/500/150"/>
   </arc-hero>
 `;

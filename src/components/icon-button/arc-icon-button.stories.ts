@@ -1,20 +1,8 @@
-import { Meta, Story } from '@storybook/web-components';
-import { html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { ICON_TYPES, IconType } from '../icon/constants/IconConstants.js';
-
-interface ArgTypes {
-  content?: string;
-  name: IconType;
-  label: string;
-  href?: string;
-  target?: string;
-  download?: string;
-  active: boolean;
-  disabled: boolean;
-  loading: boolean;
-  iconColor?: string;
-}
+import {Meta, Story} from '@storybook/web-components';
+import {html} from 'lit';
+import {ifDefined} from 'lit/directives/if-defined.js';
+import ArcIconButton from "./ArcIconButton.js";
+import {ICON_TYPES} from '../icon/constants/IconConstants.js';
 
 export default {
   title: 'Components/ArcIconButton',
@@ -27,20 +15,17 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArgTypes> = ({
-  content,
-  name,
-  label,
-  href,
-  target,
-  download,
-  active,
-  disabled,
-  loading,
-  iconColor,
-}: ArgTypes) => html`
+const Template: Story<ArcIconButton> = ({
+                                          name,
+                                          label,
+                                          href,
+                                          target,
+                                          download,
+                                          active,
+                                          disabled,
+                                          loading
+                                        }) => html`
   <arc-icon-button
-    style="--icon-color:${iconColor}"
     name="${name}"
     label="${label}"
     href=${ifDefined(href || undefined)}
@@ -49,12 +34,10 @@ const Template: Story<ArgTypes> = ({
     ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"
-    >${content}</arc-icon-button
-  >
+  >${label}</arc-icon-button>
 `;
 
-const defaultArgs: ArgTypes = {
-  content: 'Default',
+const defaultArgs = {
   name: ICON_TYPES.fire,
   label: 'Icon button',
   href: '',
@@ -63,68 +46,30 @@ const defaultArgs: ArgTypes = {
   active: false,
   disabled: false,
   loading: false,
-  iconColor: '',
 };
 
 /* TYPES */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs };
-
-export const CustomColor = Template.bind({});
-CustomColor.args = {
-  ...defaultArgs,
-  content: 'Custom color',
-  iconColor: 'red',
-};
+Default.args = {...defaultArgs};
 
 export const Link = Template.bind({});
-Link.args = { ...defaultArgs, name: ICON_TYPES.link, content: 'Link', href: '/' };
+Link.args = {...defaultArgs, name: ICON_TYPES.link, href: '/'};
 
 export const LinkNewWindow = Template.bind({});
-LinkNewWindow.args = {
-  ...Link.args,
-  name: ICON_TYPES.link,
-  content: 'New window',
-  target: '_blank',
-};
+LinkNewWindow.args = {...Link.args, target: '_blank'};
 
 export const LinkDownload = Template.bind({});
-LinkDownload.args = {
-  ...Link.args,
-  name: ICON_TYPES.link,
-  content: 'Download',
-  download: 'ARC Storybook',
-};
+LinkDownload.args = {...Link.args, download: 'ARC Storybook'};
 
 export const LinkDisabled = Template.bind({});
-LinkDisabled.args = {
-  ...Link.args,
-  name: ICON_TYPES.link,
-  content: 'Disabled',
-  disabled: true,
-};
+LinkDisabled.args = {...Link.args, disabled: true};
 
 /* STATES */
 export const Active = Template.bind({});
-Active.args = {
-  ...defaultArgs,
-  label: 'Icon button',
-  content: 'Active',
-  active: true,
-};
+Active.args = {...defaultArgs, active: true};
 
 export const Disabled = Template.bind({});
-Disabled.args = {
-  ...defaultArgs,
-  label: 'Icon button',
-  content: 'Disabled',
-  disabled: true,
-};
+Disabled.args = {...defaultArgs, disabled: true};
 
 export const Loading = Template.bind({});
-Loading.args = {
-  ...defaultArgs,
-  label: 'Icon button',
-  content: 'Loading',
-  loading: true,
-};
+Loading.args = {...defaultArgs, loading: true};

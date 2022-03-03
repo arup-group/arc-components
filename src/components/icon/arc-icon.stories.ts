@@ -1,17 +1,9 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { ICON_TYPES, IconType } from './constants/IconConstants.js';
-import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
-
-interface ArgTypes {
-  name: IconType;
-  size: FontSize;
-  rotation: number;
-  spinning: boolean;
-  colorPrimary?: string;
-  colorSecondary?: string;
-}
+import ArcIcon from "./ArcIcon.js";
+import { ICON_TYPES } from './constants/IconConstants.js';
+import { FONT_SIZES } from '../../internal/constants/styleConstants.js';
 
 export default {
   title: 'Components/ArcIcon',
@@ -28,40 +20,33 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ name, size, rotation, spinning, colorPrimary }: ArgTypes) => html`
+const Template: Story<ArcIcon> = ({ name, label, size, rotation, spinning }) => html`
   <arc-icon
-    style="--icon-color-primary:${colorPrimary};"
     name="${name}"
+    label="${label}"
     size="${size}"
     rotation=${ifDefined(rotation || undefined)}
     ?spinning=${spinning}
   ></arc-icon>
 `;
 
-const defaultArgs: ArgTypes = {
+const defaultArgs = {
   name: ICON_TYPES.fire,
+  label: '',
   size: FONT_SIZES.large,
   rotation: 0,
-  spinning: false,
-  colorPrimary: '',
-  colorSecondary: '',
+  spinning: false
 };
 
 /* TYPES */
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
 
-export const VariableSize = Template.bind({});
-VariableSize.args = { ...defaultArgs, size: FONT_SIZES['xxx-large'] };
+export const Size = Template.bind({});
+Size.args = { ...defaultArgs, size: FONT_SIZES['xxx-large'] };
 
-export const RedColor = Template.bind({});
-RedColor.args = { ...defaultArgs, colorPrimary: 'red' };
+export const Rotation = Template.bind({});
+Rotation.args = { ...defaultArgs, rotation: 45 };
 
-export const GreenColor = Template.bind({});
-GreenColor.args = { ...defaultArgs, colorPrimary: 'green' };
-
-export const BlueColor = Template.bind({});
-BlueColor.args = { ...defaultArgs, colorPrimary: 'blue' };
-
-export const PurpleColor = Template.bind({});
-PurpleColor.args = { ...defaultArgs, colorPrimary: 'purple' };
+export const Spinning = Template.bind({});
+Spinning.args = { ...defaultArgs, spinning: true };

@@ -17,9 +17,7 @@ import '../icon-button/arc-icon-button.js';
  * @cssproperty --sidebar-width - Set the width of the sidebar.
  */
 export default class ArcSidebar extends LitElement {
-  static get tag() {
-    return 'arc-sidebar';
-  }
+  static tag = 'arc-sidebar';
 
   static styles = [
     componentStyles,

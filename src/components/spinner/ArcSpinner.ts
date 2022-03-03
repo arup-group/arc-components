@@ -6,9 +6,7 @@ import componentStyles from '../../styles/component.styles.js';
  * @cssproperty --track-width - Set the thickness of the track.
  */
 export default class ArcSpinner extends LitElement {
-  static get tag() {
-    return 'arc-spinner';
-  }
+  static tag = 'arc-spinner';
 
   static styles = [
     componentStyles,

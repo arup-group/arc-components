@@ -8,9 +8,7 @@ import componentStyles from '../../styles/component.styles.js';
  * @cssproperty height - Set the height of the bottom bar.
  */
 export default class ArcBottombar extends LitElement {
-  static get tag() {
-    return 'arc-bottombar';
-  }
+  static tag = 'arc-bottombar';
 
   static styles = [
     componentStyles,

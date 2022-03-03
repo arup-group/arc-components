@@ -1,18 +1,9 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { Placement } from '@popperjs/core';
+import ArcDropdown from "./ArcDropdown.js";
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
-interface ArgTypes {
-  placement: Placement;
-  distance?: number;
-  skidding?: number;
-  open: boolean;
-  disabled: boolean;
-  hoist: boolean;
-}
 
 export default {
   title: 'Components/ArcDropdown',
@@ -30,7 +21,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ placement, distance, skidding, open, disabled, hoist }: ArgTypes) => html`
+const Template: Story<ArcDropdown> = ({ placement, distance, skidding, open, disabled, hoist }) => html`
   <arc-dropdown
     placement=${placement}
     distance=${ifDefined(distance || undefined)}
@@ -48,7 +39,7 @@ const Template: Story<ArgTypes> = ({ placement, distance, skidding, open, disabl
   </arc-dropdown>
 `;
 
-const defaultArgs: ArgTypes = {
+const defaultArgs = {
   placement: DROPDOWN_PLACEMENTS['bottom-start'],
   distance: 0,
   skidding: 0,

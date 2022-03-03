@@ -1,10 +1,11 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import ArcAccessibility from './ArcAccessibility.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcAccessibility',
-  component: 'arc-accessibility',
+  component: ArcAccessibility.tag,
   parameters: {
     actions: {
       handles: [ARC_EVENTS.accessibilityChange],
@@ -12,7 +13,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story = () => html`
+const Template: Story<ArcAccessibility> = () => html`
   <arc-container>
     <arc-navbar slot="nav"></arc-navbar>
     <div id="content">
@@ -26,5 +27,4 @@ const Template: Story = () => html`
   </arc-container>
 `;
 
-/* TYPES */
 export const Default = Template.bind({});

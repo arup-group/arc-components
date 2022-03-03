@@ -1,19 +1,12 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
+import ArcDrawer from "./ArcDrawer.js";
+import { DRAWER_PLACEMENTS } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
-interface ArgTypes {
-  open: boolean;
-  contained: boolean;
-  placement: DrawerPlacements;
-  label: string;
-  size: string;
-}
 
 export default {
   title: 'Components/ArcDrawer',
-  component: 'arc-drawer',
+  component: ArcDrawer.tag,
   argTypes: {
     placement: {
       control: 'select',
@@ -34,12 +27,11 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
+const Template: Story<ArcDrawer> = ({ open, contained, placement, label }) => html`
   <div
     style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
   >
     <arc-drawer
-      style="--size:${size}"
       ?open="${open}"
       ?contained="${contained}"
       placement="${placement}"
@@ -52,13 +44,12 @@ const Template: Story<ArgTypes> = ({ open, contained, placement, label, size }: 
   </div>
 `;
 
-const LockedTemplate: Story<ArgTypes> = ({ open, contained, placement, label, size }: ArgTypes) => html`
+const LockedTemplate: Story<ArcDrawer> = ({ open, contained, placement, label}) => html`
   <div
     style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
   >
     <arc-drawer
       id="lockedDrawer"
-      style="--size:${size}"
       ?open="${open}"
       ?contained="${contained}"
       placement="${placement}"
@@ -75,7 +66,6 @@ const defaultArgs = {
   contained: true,
   placement: DRAWER_PLACEMENTS.end,
   label: 'Drawer',
-  size: '25rem',
 };
 
 /* TYPES */

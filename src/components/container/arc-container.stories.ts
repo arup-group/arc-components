@@ -1,15 +1,11 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html, nothing } from 'lit';
-import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
-
-interface ArgTypes {
-  theme?: ContainerTheme;
-  fullscreen?: boolean;
-}
+import ArcContainer from "./ArcContainer.js";
+import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
 export default {
   title: 'Components/ArcContainer',
-  component: 'arc-container',
+  component: ArcContainer.tag,
   argTypes: {
     theme: {
       control: 'select',
@@ -18,7 +14,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ theme, fullscreen }: ArgTypes) => html`
+const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
   <arc-container theme="${theme}" ?fullscreen="${fullscreen}">
     <arc-navbar slot="nav" logo="/arc-red.svg">
       <span slot="name">WebComponents</span>
@@ -44,10 +40,5 @@ const Template: Story<ArgTypes> = ({ theme, fullscreen }: ArgTypes) => html`
   </arc-container>
 `;
 
-const defaultArgs: ArgTypes = {
-  theme: CONTAINER_THEMES.auto,
-  fullscreen: false,
-};
-
 export const Container = Template.bind({});
-Container.args = { ...defaultArgs };
+Container.args = { theme: CONTAINER_THEMES.auto, fullscreen: false, };

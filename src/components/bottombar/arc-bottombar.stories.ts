@@ -1,18 +1,20 @@
 import { Meta, Story } from '@storybook/web-components';
+import ArcBottombar from "./ArcBottombar.js";
 import { html } from 'lit';
-
-interface ArgTypes {
-  height?: string;
-}
 
 export default {
   title: 'Components/ArcBottombar',
-  component: 'arc-bottombar',
+  component: ArcBottombar.tag,
+  argTypes: {
+    height: {
+      control: 'text'
+    }
+  }
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ height }: ArgTypes) => html`
+const Template: Story<ArcBottombar> = () => html`
   <div style="display: grid;">
-    <arc-bottombar style="height: ${height}">
+    <arc-bottombar>
       <arc-icon-button name="home" label="Back to home">Home</arc-icon-button>
       <arc-icon-button name="menu" label="Change settings">More</arc-icon-button>
       <arc-icon-button name="accessibility" label="Accessibility control">Accessibility</arc-icon-button>
@@ -20,10 +22,4 @@ const Template: Story<ArgTypes> = ({ height }: ArgTypes) => html`
   </div>
 `;
 
-const defaultArgs: ArgTypes = {
-  height: 'var(--arc-bottom-height)',
-};
-
-/* TYPES */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs };

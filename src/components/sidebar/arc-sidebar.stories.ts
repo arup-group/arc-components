@@ -1,16 +1,11 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import ArcSidebar from "./ArcSidebar.js";
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
-interface ArgTypes {
-  gap?: string;
-  width?: string;
-  title?: string;
-}
 
 export default {
   title: 'Components/ArcSidebar',
-  component: 'arc-sidebar',
+  component: ArcSidebar.tag,
   parameters: {
     actions: {
       handles: [ARC_EVENTS.show, ARC_EVENTS.hide],
@@ -18,10 +13,10 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
+const Template: Story<ArcSidebar> = ({ title, open }) => html`
   <arc-container>
     <arc-navbar slot="nav" logo="/arc-red.svg"></arc-navbar>
-    <arc-sidebar slot="side" style="--gap-distance: ${gap}; --sidebar-width: ${width}" title="${title}">
+    <arc-sidebar slot="side" title="${title}" ?open=${open}>
       <arc-menu>
         <arc-menu-item value="home">
           <arc-icon name="home" slot="prefix"></arc-icon>
@@ -42,12 +37,5 @@ const Template: Story<ArgTypes> = ({ gap, width, title }: ArgTypes) => html`
   </arc-container>
 `;
 
-const defaultArgs: ArgTypes = {
-  gap: 'var(--arc-spacing-normal)',
-  width: 'clamp(15rem, 30%, var(--arc-sidebar-width))',
-  title: 'Select an option',
-};
-
-/* TYPES */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs };
+Default.args = { open: true, title: 'Select an option' };

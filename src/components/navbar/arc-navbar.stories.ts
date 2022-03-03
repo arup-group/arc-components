@@ -1,31 +1,22 @@
 import { Meta, Story } from '@storybook/web-components';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-
-interface ArgTypes {
-  arup: boolean;
-  home?: string;
-  logo?: string;
-  tabs: number;
-  height?: string;
-  name?: string;
-}
+import ArcNavbar from "./ArcNavbar.js";
 
 export default {
   title: 'Components/ArcNavbar',
-  component: 'arc-navbar',
+  component: ArcNavbar.tag,
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: ArgTypes) => html`
+const Template: Story<ArcNavbar> = ({ arup, home, logo, tabs }) => html`
   <arc-navbar
     slot="nav"
     home=${ifDefined(home || undefined)}
     logo=${ifDefined(logo || undefined)}
     tabs=${ifDefined(tabs || undefined)}
     arup="${arup}"
-    style="height: ${height}"
   >
-    ${name ? html`<span slot="name">${name}</span>` : nothing}
+    <span slot="name">Web Components</span>
     <arc-button type="tab">Menu</arc-button>
     <arc-button type="tab">User</arc-button>
     <arc-button type="tab">Map</arc-button>
@@ -34,14 +25,10 @@ const Template: Story<ArgTypes> = ({ arup, home, logo, name, tabs, height }: Arg
   </arc-navbar>
 `;
 
-const defaultArgs: ArgTypes = {
+export const Default = Template.bind({});
+Default.args = {
   arup: true,
   home: '/',
   logo: `/arc-red.svg`,
-  tabs: 5,
-  height: 'var(--arc-navbar-height)',
-  name: 'Web Components',
+  tabs: 5
 };
-
-export const Default = Template.bind({});
-Default.args = { ...defaultArgs };

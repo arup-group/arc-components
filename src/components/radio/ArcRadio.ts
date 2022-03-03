@@ -79,6 +79,7 @@ export default class ArcRadio extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('input[type="radio"]') input: HTMLInputElement;
 
   /** The name used to reference the value of the control. */

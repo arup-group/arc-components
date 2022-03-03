@@ -7,7 +7,7 @@ import { FONT_SIZES } from '../../internal/constants/styleConstants.js';
 
 export default {
   title: 'Components/ArcIcon',
-  component: 'arc-icon',
+  component: ArcIcon.tag,
   argTypes: {
     name: {
       control: 'select',

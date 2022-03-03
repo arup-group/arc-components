@@ -1,15 +1,11 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import ArcRadioGroup from "./ArcRadioGroup.js";
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
-interface ArgTypes {
-  label: string;
-  row: boolean;
-}
 
 export default {
   title: 'Components/ArcRadioGroup',
-  component: 'arc-radio-group',
+  component: ArcRadioGroup.tag,
   parameters: {
     actions: {
       handles: [ARC_EVENTS.change],
@@ -17,7 +13,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ label, row }: ArgTypes) => html`
+const Template: Story<ArcRadioGroup> = ({ label, row }) => html`
   <arc-radio-group label="${label}" ?row="${row}">
     <arc-radio>Item 1</arc-radio>
     <arc-radio>Item 2</arc-radio>
@@ -25,14 +21,9 @@ const Template: Story<ArgTypes> = ({ label, row }: ArgTypes) => html`
   </arc-radio-group>
 `;
 
-const defaultArgs: ArgTypes = {
-  label: 'Radio Group',
-  row: false,
-};
-
 /* TYPES */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs };
+Default.args = { label: 'Radio Group', row: false };
 
 export const Row = Template.bind({});
-Row.args = { ...defaultArgs, row: true };
+Row.args = { label: 'Radio Group', row: true };

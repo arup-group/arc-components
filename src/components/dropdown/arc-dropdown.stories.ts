@@ -7,7 +7,7 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcDropdown',
-  component: 'arc-dropdown',
+  component: ArcDropdown.tag,
   argTypes: {
     placement: {
       control: 'select',

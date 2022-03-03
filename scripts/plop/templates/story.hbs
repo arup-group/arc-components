@@ -2,22 +2,17 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import {{ properCase tag }} from './{{ properCase tag }}.js';
 
-interface ArgTypes {
-  name: string,
-  active: boolean,
-}
-
 export default {
   title: 'Components/{{ properCase tag }}',
   component: {{ properCase tag }}.tag
 } as Meta;
 
-const Template: Story<ArgTypes> = ({ name, active }: ArgTypes) => html`
+const Template: Story<{{ properCase tag }}> = ({ name, active }) => html`
   <{{ tag }} name="${name}" ?active="${active}"></{{ tag }}>
 `;
 
 export const Default = Template.bind({});
-Default.args = { name: 'Active component', active: true };
+Default.args = { name: 'Default component', active: false };
 
 export const Active = Template.bind({});
 Active.args = { name: 'Active component', active: true };

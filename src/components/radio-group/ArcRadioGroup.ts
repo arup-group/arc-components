@@ -40,6 +40,7 @@ export default class ArcRadioGroup extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
   /** The radio group label. Required for proper accessibility. Alternatively, the label slot can be used. */

@@ -58,7 +58,7 @@ export default class ArcSSO extends LitElement {
     `,
   ];
 
-  /*
+  /** @internal
   openid - By using this permission, an app can receive a unique identifier for the user in the form of the sub claim.
   The permission also gives the app access to the UserInfo endpoint.
   The `openid` scope can be used at the Microsoft identity platform token endpoint to acquire ID tokens.
@@ -75,10 +75,10 @@ export default class ArcSSO extends LitElement {
     scopes: ['openid', 'profile', 'User.Read'],
   };
 
-  /** State that keeps track of the MSAL instance. */
+  /** @internal - State that keeps track of the MSAL instance. */
   @state() private _msalInstance: PublicClientApplication;
 
-  /** State that keeps track of the auth status of the user. */
+  /** @internal - State that keeps track of the auth status of the user. */
   @state() private _isAuth: boolean = false;
 
   /** The id of the application. This value can be found on the Azure AD portal. */

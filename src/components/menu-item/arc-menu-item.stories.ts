@@ -4,7 +4,7 @@ import ArcMenuItem from "./ArcMenuItem.js";
 
 export default {
   title: 'Components/ArcMenuItem',
-  component: 'arc-menu-item',
+  component: ArcMenuItem.tag,
 } as Meta;
 
 const Template: Story<ArcMenuItem> = ({ value, disabled }) => html`

@@ -6,7 +6,7 @@ import {ICON_TYPES} from '../icon/constants/IconConstants.js';
 
 export default {
   title: 'Components/ArcIconButton',
-  component: 'arc-icon-button',
+  component: ArcIconButton.tag,
   argTypes: {
     name: {
       control: 'select',

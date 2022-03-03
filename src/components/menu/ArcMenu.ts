@@ -24,12 +24,16 @@ export default class ArcMenu extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#menu') menu: HTMLElement;
 
+  /** @internal */
   @query('slot') defaultSlot: HTMLSlotElement;
 
+  /** @internal - String used to select a menu-item while typing */
   private typeToSelectString = '';
 
+  /** @internal - Timeout used to after clearing the typeToSelectString */
   private typeToSelectTimeout: any;
 
   getAllItems(options: { includeDisabled: boolean } = { includeDisabled: true }) {

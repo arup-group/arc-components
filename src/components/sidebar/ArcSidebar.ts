@@ -81,6 +81,7 @@ export default class ArcSidebar extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#content') content: HTMLElement;
 
   /** Indicates whether the sidebar is open. */

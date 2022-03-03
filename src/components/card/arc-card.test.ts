@@ -1,5 +1,7 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
+import { getPropertyValue } from '../../utilities/style-utils.js';
+import { hasSlot } from '../../utilities/dom-utils.js';
 
 import type ArcCard from './ArcCard.js';
 import './arc-card.js';
@@ -43,5 +45,37 @@ describe('ArcCard ', () => {
    
   });
 
+    /* Test whether the slots can be filled and that they exist */
+    describe('slots', () => {
+      let element: ArcCard;
+      beforeEach(async () => {
+        element = await fixture(html`<arc-card></arc-cardr>`);
+      });
+  
+      it('renders default slots to fill the container', () => {
+        const main = element.shadowRoot!.getElementById('card')!;
+  
+        expect(hasSlot(main)).to.be.true; /* Default content slot */
+        expect(hasSlot(main, 'heading')).to.be.true;
+        expect(hasSlot(main, 'actions')).to.be.true;
+      });
+    });
+
+    /* Test the css variables that can be overwritten */
+    describe('css variables', () => {
+      it('uses the default css variables', async () => {
+        const element: ArcCard = await fixture(html`<arc-card></arc-card>`);
+  
+        expect(getPropertyValue(element, '--header-padding')).to.equal('1.2rem');
+        expect(getPropertyValue(element, '--arc-card-height')).to.equal('25rem');
+        expect(getPropertyValue(element, '--arc-card-width')).to.equal('20rem');
+      });
+      
+      it('overwrites the css variables', async () => {
+        const element: ArcCard = await fixture(html`<arc-card style="--arc-card-width:30rem"></arc-card>`);
+  
+        expect(getPropertyValue(element, '--arc-card-width')).to.equal('30rem');
+      });
+    });
 
 });

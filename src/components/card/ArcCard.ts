@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import componentStyles from '../../styles/component.styles.js';
 
 export default class ArcCard extends LitElement {
@@ -9,17 +10,19 @@ export default class ArcCard extends LitElement {
     componentStyles,
     css`
     :host {
+      --header-padding: 1.2rem;
+      --arc-card-height: 25rem;
+      --arc-card-width: 20rem;
         background: rgb(var(--arc-background-color));
         border: var(--arc-border-width) var(--arc-border-style);
         display: flex;
         flex-flow: column nowrap;
         height: var(--arc-card-height);
         position: relative;
-        width: var( --arc-card-width);
-        --header-padding: 15px;
+        width: 20rem;
       }
 
-      article {
+      #card {
         display: contents;
       }
 
@@ -90,26 +93,26 @@ export default class ArcCard extends LitElement {
 
   render() {
     return html`
-    <article>
+    <div id="card">
         ${this.imageUrl ? html`
-        <header id="image-header" part="heading">
+        <header id="image-header">
           <slot name="heading"></slot>
         </header>
         <figure>
-            <img id="card-image" src="${this.imageUrl}" alt="${this.imageAlt}">
+            <img id="card-image" src="${ifDefined(this.imageUrl)}" alt="${ifDefined(this.imageAlt)}">
         </figure>
     ` : html`
-            <header id="heading" part="heading">
+            <header id="heading">
                 <slot name="heading"></slot>
             </header>
         `}
-        <div id="content" part="content" role="document">
-            <slot name="content"></slot>
+        <div id="content" role="document">
+            <slot></slot>
         </div>
-        <footer id="actions" part="actions">
+        <footer id="actions">
             <slot name="actions"></slot>
         </footer>
-    </article>
+    </div>
     `;
   }
 }

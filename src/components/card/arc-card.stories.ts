@@ -18,8 +18,8 @@ const Template: Story<ArgTypes> = ({imageUrl, imageAlt}:ArgTypes) => html`
       imageUrl="${imageUrl}"
       imageAlt="${imageAlt}"
     >
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
         <div slot="heading">Heading</div>
-        <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
         <arc-button slot="actions" type="pill">Preview</arc-button>
         <arc-button slot="actions" type="pill">Export</arc-button>
         <arc-icon-button slot="actions" name="info" label="info"></arc-icon-button>
@@ -27,7 +27,7 @@ const Template: Story<ArgTypes> = ({imageUrl, imageAlt}:ArgTypes) => html`
 
     <arc-card>
         <div slot="heading">Heading</div>
-        <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
         <arc-button slot="actions" type="pill">Preview</arc-button>
         <arc-button slot="actions" type="pill">Export</arc-button>
         <arc-icon-button slot="actions" name="info" label="info"></arc-icon-button>
@@ -35,7 +35,7 @@ const Template: Story<ArgTypes> = ({imageUrl, imageAlt}:ArgTypes) => html`
 
     <arc-card>
         <div slot="heading">Heading</div>
-        <p slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...</p>
         <arc-button slot="actions" type="pill">Preview</arc-button>
         <arc-button slot="actions" type="pill">Export</arc-button>
         <arc-icon-button slot="actions" name="info" label="info"></arc-icon-button>

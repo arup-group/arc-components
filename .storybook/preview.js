@@ -8,12 +8,6 @@ import '../assets/icons.svg'
 
 setCustomElementsManifest(customElementsManifest);
 
-if (process.env.NODE_ENV === 'development') {
-  import('../out-tsc/arc.js');
-} else {
-  import('../dist/arc.js');
-}
-
 export const parameters = {
   controls: {
     matchers: {

@@ -1,10 +1,12 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcBottombar from './ArcBottombar.js';
+import type ArcBottombar from './ArcBottombar.js';
+import './arc-bottombar.js';
+import '../icon-button/arc-icon-button.js';
 
 export default {
   title: 'Components/ArcBottombar',
-  component: ArcBottombar.tag,
+  component: 'arc-bottombar',
   argTypes: {
     height: {
       control: 'text',

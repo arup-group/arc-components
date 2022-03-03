@@ -1,12 +1,14 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcSSO from './ArcSSO.js';
+import type ArcSSO from './ArcSSO.js';
+import './arc-sso.js';
+import '../button/arc-button.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcSSO',
-  component: ArcSSO.tag,
+  component: 'arc-sso',
   parameters: {
     actions: {
       handles: [ARC_EVENTS.auth],

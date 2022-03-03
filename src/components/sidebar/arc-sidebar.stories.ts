@@ -1,11 +1,17 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcSidebar from './ArcSidebar.js';
+import type ArcSidebar from './ArcSidebar.js';
+import '../container/arc-container.js';
+import '../navbar/arc-navbar.js';
+import './arc-sidebar.js';
+import '../menu/arc-menu.js';
+import '../menu-item/arc-menu-item.js';
+import '../icon/arc-icon.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcSidebar',
-  component: ArcSidebar.tag,
+  component: 'arc-sidebar',
   parameters: {
     actions: {
       handles: [ARC_EVENTS.show, ARC_EVENTS.hide],

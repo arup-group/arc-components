@@ -1,11 +1,15 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html, nothing } from 'lit';
-import ArcContainer from './ArcContainer.js';
+import type ArcContainer from './ArcContainer.js';
+import './arc-container.js';
+import '../navbar/arc-navbar.js';
+import '../button/arc-button.js';
+import '../sidebar/arc-sidebar.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 
 export default {
   title: 'Components/ArcContainer',
-  component: ArcContainer.tag,
+  component: 'arc-container',
   argTypes: {
     theme: {
       control: 'select',

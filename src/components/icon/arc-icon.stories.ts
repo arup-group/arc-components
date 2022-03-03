@@ -1,13 +1,14 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcIcon from './ArcIcon.js';
+import type ArcIcon from './ArcIcon.js';
+import './arc-icon.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
 import { FONT_SIZES } from '../../internal/constants/styleConstants.js';
 
 export default {
   title: 'Components/ArcIcon',
-  component: ArcIcon.tag,
+  component: 'arc-icon',
   argTypes: {
     name: {
       control: 'select',

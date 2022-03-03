@@ -1,12 +1,13 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcIconButton from './ArcIconButton.js';
+import type ArcIconButton from './ArcIconButton.js';
+import './arc-icon-button.js'
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 export default {
   title: 'Components/ArcIconButton',
-  component: ArcIconButton.tag,
+  component: 'arc-icon-button',
   argTypes: {
     name: {
       control: 'select',

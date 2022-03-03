@@ -1,11 +1,13 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcNavbar from './ArcNavbar.js';
+import type ArcNavbar from './ArcNavbar.js';
+import './arc-navbar.js';
+import '../button/arc-button.js';
 
 export default {
   title: 'Components/ArcNavbar',
-  component: ArcNavbar.tag,
+  component: 'arc-navbar',
 } as Meta;
 
 const Template: Story<ArcNavbar> = ({ arup, home, logo, tabs }) => html`

@@ -1,10 +1,13 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import ArcMenuItem from './ArcMenuItem.js';
+import type ArcMenuItem from './ArcMenuItem.js';
+import '../menu/arc-menu.js';
+import './arc-menu-item.js';
+import '../icon/arc-icon.js';
 
 export default {
   title: 'Components/ArcMenuItem',
-  component: ArcMenuItem.tag,
+  component: 'arc-menu-item',
 } as Meta;
 
 const Template: Story<ArcMenuItem> = ({ value, disabled }) => html`

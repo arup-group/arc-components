@@ -161,14 +161,19 @@ export default class ArcDrawer extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#main') drawer: HTMLElement;
 
+  /** @internal */
   @query('#panel') panel: HTMLElement;
 
+  /** @internal */
   @query('#overlay') overlay: HTMLElement;
 
+  /** @internal - Reference to the Modal class. */
   private modal: Modal;
 
+  /** @internal - Reference to the HTMLElement slotted to the 'trigger' slot. */
   private originalTrigger: HTMLElement | null;
 
   /** Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
@@ -177,7 +182,7 @@ export default class ArcDrawer extends LitElement {
   /** By default, the drawer slides out of its containing block (usually the viewport). To make the drawer slide out of its parent element, set this prop and add position: relative to the parent. */
   @property({ type: Boolean, reflect: true }) contained = false;
 
-  /** The direction from which the drawer will open */
+  /** The direction from which the drawer will open. */
   @property({ reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
 
   /** The drawer label. Alternatively, the label slot can be used. */

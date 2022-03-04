@@ -90,7 +90,7 @@ export default class ArcSidebar extends LitElement {
   /** Set a title for the sidebar. */
   @property({ type: String }) title: string;
 
-  handleSlots = (e: any) => {
+  handleSlots(e: any) {
     const childNodes = e.target.assignedElements({ flatten: true });
 
     if (childNodes.length > 1) {
@@ -98,7 +98,7 @@ export default class ArcSidebar extends LitElement {
     }
   };
 
-  toggleOpenState = () => {
+  toggleOpenState() {
     this.open = !this.open;
     emit(this, `${this.open ? ARC_EVENTS.show : ARC_EVENTS.hide}`, {
       detail: { open: this.open },

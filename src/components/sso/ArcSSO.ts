@@ -43,7 +43,7 @@ export default class ArcSSO extends LitElement {
         display: none;
       }
 
-      /* Medium devices and up */
+      /* Medium devices and up. */
       @media (min-width: ${mobileBreakpoint}rem) {
         #userMenu .mobile {
           display: none;

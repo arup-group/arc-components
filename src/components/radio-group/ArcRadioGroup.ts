@@ -46,7 +46,7 @@ export default class ArcRadioGroup extends LitElement {
   /** The radio group label. Required for proper accessibility. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
 
-  /** Lays out the radio buttons horizontally */
+  /** Lays out the radio buttons horizontally. */
   @property({ type: Boolean }) row: boolean = false;
 
   /* When tabbing into the fieldset, make sure it lands on the checked radio */

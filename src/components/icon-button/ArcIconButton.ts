@@ -105,9 +105,10 @@ export default class ArcIconButton extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
-  /** State that tracks whether the button has a label. */
+  /** @internal - State that tracks whether the button has a label. */
   @state() private hasLabel = false;
 
   /** The name of the icon to draw. */

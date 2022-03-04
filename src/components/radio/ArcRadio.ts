@@ -26,7 +26,7 @@ export default class ArcRadio extends LitElement {
         cursor: pointer;
       }
 
-      /* Hide the original input */
+      /* Hide the original input. */
       input {
         cursor: inherit;
         position: absolute;

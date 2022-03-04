@@ -1,4 +1,4 @@
-/* Determines whether it is day or night */
+/* Determines whether it is day or night. */
 function isNight(date?: Date) {
   const currDate = date || new Date();
   const currTime = currDate.getHours();

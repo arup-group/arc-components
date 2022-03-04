@@ -79,14 +79,19 @@ export default class ArcDropdown extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#trigger') trigger: HTMLElement;
 
+  /** @internal */
   @query('#triggerSlot') triggerSlot: HTMLSlotElement;
 
+  /** @internal */
   @query('#panel') panel: HTMLElement;
 
+  /** @internal */
   @query('#positioner') positioner: HTMLElement;
 
+  /** @internal - Reference to the PopperJS instance. */
   private popover: PopperInstance;
 
   /** The preferred placement of the dropdown panel. */
@@ -309,7 +314,7 @@ export default class ArcDropdown extends LitElement {
   }
 
   /* Prevent space from triggering a click event in Firefox */
-  handleTriggerKeyUp = (event: KeyboardEvent) => {
+  handleTriggerKeyUp(event: KeyboardEvent) {
     if (event.key === ' ') {
       event.preventDefault();
     }

@@ -142,10 +142,10 @@ export default class ArcNavbar extends LitElement {
   /** @internal */
   @query('#tabSlot') tabSlot: HTMLSlotElement;
 
-  /** @internal - State that tracks whether a dropdown component should be visible */
+  /** @internal - State that tracks whether a dropdown component should be visible. */
   @state() private showDropdown: boolean = false;
 
-  /** @internal - State that keeps track of the current (slotted) tabs */
+  /** @internal - State that keeps track of the current (slotted) tabs. */
   @state() private navTabs: (ArcButton | ArcIconButton)[] = [];
 
   /** When set, the underlying logoWrapper will be rendered as an anchor with this property. */
@@ -196,8 +196,8 @@ export default class ArcNavbar extends LitElement {
 
   render() {
     /*
-    Template that displays all button and icon-button components inside a dropdown menu
-    Properties are derived from the button and icon-button components
+    Template that displays all button and icon-button components inside a dropdown menu.
+    Properties are derived from the button and icon-button components.
     */
     const menuInterior = html`
       ${map(

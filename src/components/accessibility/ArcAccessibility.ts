@@ -70,10 +70,10 @@ export default class ArcAccessibility extends LitElement {
     `,
   ];
 
-  /** @internal - Reference to css variables that are scoped to :root */
+  /** @internal - Reference to css variables that are scoped to :root. */
   private _rootCssVariables: { [key: string]: string } = {};
 
-  /** @internal - Fallback preferences */
+  /** @internal - Fallback preferences. */
   private _defaultPreferences: UserPreferences = {
     theme: this.getTheme(),
     fontSize: FONT_SIZES.medium,
@@ -84,14 +84,14 @@ export default class ArcAccessibility extends LitElement {
     plainText: false,
   };
 
-  /** @internal - Available root values */
+  /** @internal - Available root values. */
   private _availableRootValues: any = {
     fontSize: Object.values(FONT_SIZES),
     lineHeight: Object.values(FONT_SPACING),
     letterSpacing: Object.values(FONT_SPACING),
   };
 
-  /** @internal - State that stores the user preferences */
+  /** @internal - State that stores the user preferences. */
   @state() private _userPreferences: UserPreferences = this._defaultPreferences;
 
   /** Indicates whether the drawer is open. This can be used instead of the show/hide methods. */

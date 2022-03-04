@@ -28,7 +28,7 @@ const configScript = scripts.find(script => script.hasAttribute('data-arc'));
 
 /* c8 ignore next */
 if (configScript) {
-  /* Use the data-arc attribute */
+  /* Use the data-arc attribute. */
   setBasePath(configScript.getAttribute('data-arc')!);
 } else {
   const fallbackScript = scripts.find(s => /arc(\.min)?\.js$/.test(s.src));

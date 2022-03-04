@@ -6,19 +6,19 @@ import ArcSSO from './ArcSSO.js';
 import './arc-sso.js';
 
 describe('ArcSSO', () => {
-  /* Test the rendering of the component */
+  /* Test the rendering of the component. */
   describe('rendering', () => {
     let element: ArcSSO;
     beforeEach(async () => {
       element = await fixture(html`<arc-sso></arc-sso>`);
     });
 
-    /* Test default properties that reflect to the DOM */
+    /* Test default properties that reflect to the DOM. */
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(`<arc-sso></arc-sso>`);
     });
 
-    /* Test the accessibility */
+    /* Test the accessibility. */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });

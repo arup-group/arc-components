@@ -42,12 +42,12 @@ If name is specified, the function will look for a corresponding named slot,
 otherwise it will look for slotted content (e.g. a non-empty text node or an element with no slot attribute).
 */
 function hasSlot(el: HTMLElement, name?: string) {
-  /* Look for a named slot */
+  /* Look for a named slot. */
   if (name) {
     return el.querySelector(`:scope > [slot="${name}"]`) !== null;
   }
 
-  /* Look for a default slot */
+  /* Look for a default slot. */
   return [...el.childNodes].some(node => {
     if (node.nodeType === node.TEXT_NODE && node.textContent!.trim() !== '') {
       return true;

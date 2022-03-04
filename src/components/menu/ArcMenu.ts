@@ -30,10 +30,10 @@ export default class ArcMenu extends LitElement {
   /** @internal */
   @query('slot') defaultSlot: HTMLSlotElement;
 
-  /** @internal - String used to select a menu-item while typing */
+  /** @internal - String used to select a menu-item while typing. */
   private typeToSelectString = '';
 
-  /** @internal - Timeout used to after clearing the typeToSelectString */
+  /** @internal - Timeout used to after clearing the typeToSelectString. */
   private typeToSelectTimeout: any;
 
   getAllItems(options: { includeDisabled: boolean } = { includeDisabled: true }) {
@@ -43,7 +43,7 @@ export default class ArcMenu extends LitElement {
       if (el.getAttribute('role') !== 'menuitem') {
         return false;
       }
-      /* Are disabled items included? return true, else false */
+      /* Are disabled items included? return true, else false. */
       return !(!includeDisabled && (el as ArcMenuItem).disabled);
     }) as ArcMenuItem[];
   }

@@ -1,10 +1,11 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import {{ properCase tag }} from './{{ properCase tag }}.js';
+import type {{ properCase tag }} from './{{ properCase tag }}.js';
+import './{{ tag }}';
 
 export default {
   title: 'Components/{{ properCase tag }}',
-  component: {{ properCase tag }}.tag
+  component: '{{ tag }}'
 } as Meta;
 
 const Template: Story<{{ properCase tag }}> = ({ name, active }) => html`

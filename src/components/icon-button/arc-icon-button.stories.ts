@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import type ArcIconButton from './ArcIconButton.js';
-import './arc-icon-button.js'
+import './arc-icon-button.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 export default {

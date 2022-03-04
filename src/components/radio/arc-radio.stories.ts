@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import type ArcRadio from './ArcRadio.js';
 import '../radio-group/arc-radio-group.js';
-import './arc-radio'
+import './arc-radio.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {

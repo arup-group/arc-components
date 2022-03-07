@@ -18,6 +18,12 @@ import '../icon-button/arc-icon-button.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
+/**
+ * @slot login - Used to overwrite the default login slot.
+ * @slot logout - Used to overwrite the default logout slot.
+ *
+ * @event arc-auth - Emitted when the internal authentication state of the component changes.
+ */
 export default class ArcSSO extends LitElement {
   static tag = 'arc-sso';
 
@@ -37,7 +43,7 @@ export default class ArcSSO extends LitElement {
         display: none;
       }
 
-      /* Medium devices and up */
+      /* Medium devices and up. */
       @media (min-width: ${mobileBreakpoint}rem) {
         #userMenu .mobile {
           display: none;
@@ -52,7 +58,7 @@ export default class ArcSSO extends LitElement {
     `,
   ];
 
-  /*
+  /** @internal
   openid - By using this permission, an app can receive a unique identifier for the user in the form of the sub claim.
   The permission also gives the app access to the UserInfo endpoint.
   The `openid` scope can be used at the Microsoft identity platform token endpoint to acquire ID tokens.
@@ -69,20 +75,22 @@ export default class ArcSSO extends LitElement {
     scopes: ['openid', 'profile', 'User.Read'],
   };
 
+  /** @internal - State that keeps track of the MSAL instance. */
   @state() private _msalInstance: PublicClientApplication;
 
+  /** @internal - State that keeps track of the auth status of the user. */
   @state() private _isAuth: boolean = false;
 
-  /* The id of the application. This value can be found on the Azure AD portal. */
+  /** The id of the application. This value can be found on the Azure AD portal. */
   @property({ attribute: 'client-id', type: String }) clientId: string;
 
-  /* Required for single-tenant applications. This value can be found on the Azure AD portal. */
+  /** Identifies which Azure AD instance the application sits under. The default `common` value is used for multi-tenant applications and applications allowing personal accounts (not B2C). If your application audience is single-tenant, you must provide this property. This value can be found on the Azure AD portal. */
   @property({ attribute: 'tenant-id', type: String }) tenantId: string;
 
-  /* The location where the authorization server sends the user once the app has been successfully authorized and granted an authorization code or access token. */
+  /** The location where the authorization server sends the user once the app has been successfully authorized and granted an authorization code or access token. This url needs to be specified in the component and within the Authentication tab on the Azure AD portal. */
   @property({ attribute: 'redirect-uri', type: String }) redirectUri: string;
 
-  /* Additional scopes (permissions) */
+  /** A comma separated string that allows for additional permissions on how your app must interact with the Microsoft identity platform. More about this can be found on https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent. */
   @property({
     type: Array,
     converter: (attrValue: string | null) => (attrValue ? stringToArray(attrValue) : []),

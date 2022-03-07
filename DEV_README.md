@@ -57,8 +57,7 @@ In order to build a fully documented and tested web-component, the following fil
 * Web component
 * Web component registry method
 * Test file
-* Storybook file (containing the Canvas that holds the controls and actions of the web component)
-* Storybook MDX file (containing the documentation of the web component)
+* Storybook file
 
 Next to that, the newly created web-component needs to be added to the `arc.ts` file in the `src` directory.
 
@@ -70,7 +69,6 @@ This script takes care of the following.
 * Creates a method to register the web component
 * Creates a test file with some example tests
 * Creates a Storybook file with some example properties to play with
-* Creates a Storybook MDX file containing some basic documentation
 * Adds an import of the component inside the arc.ts file in the src directory
 * Adds an export of the component inside the arc.ts file in the src directory
 

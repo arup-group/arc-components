@@ -1,27 +1,21 @@
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
+import type ArcAccessibility from './ArcAccessibility.js';
+import '../container/arc-container.js';
+import '../navbar/arc-navbar.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
+export default {
+  title: 'Components/ArcAccessibility',
+  component: 'arc-accessibility',
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.accessibilityChange],
+    },
+  },
+} as Meta;
 
-interface ArgTypes {
-  open: boolean;
-}
-
-const Template: Story<ArgTypes> = () => html`
-  <style>
-    #content {
-      padding: var(--arc-spacing-medium);
-    }
-
-    #content code {
-      background-color: rgb(var(--arc-background-color));
-      padding: 5px;
-      border-radius: 5px;
-    }
-  </style>
+const Template: Story<ArcAccessibility> = () => html`
   <arc-container>
     <arc-navbar slot="nav"></arc-navbar>
     <div id="content">
@@ -35,10 +29,4 @@ const Template: Story<ArgTypes> = () => html`
   </arc-container>
 `;
 
-const defaultArgs: ArgTypes = {
-  open: false,
-};
-
-/* TYPES */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs };

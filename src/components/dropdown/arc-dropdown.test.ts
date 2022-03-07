@@ -390,7 +390,7 @@ describe('ArcDropdown', () => {
 
       /*
       Fire only the KeyUp space bar event through the TriggerKeyUp,
-      Firefox handles this as another 'click' and this should be prevented
+      Firefox handles this as another 'click' and this should be prevented.
       */
       element.handleTriggerKeyUp(spaceEvent);
 

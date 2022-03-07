@@ -8,6 +8,10 @@ import componentStyles from '../../styles/component.styles.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
 import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
 
+/**
+ * @cssproperty --icon-color-primary - Set the primary color of the icon.
+ * @cssproperty --icon-color-secondary - Set the secondary color of the icon (if supported).
+ */
 export default class ArcIcon extends LitElement {
   static tag = 'arc-icon';
 
@@ -63,15 +67,19 @@ export default class ArcIcon extends LitElement {
     `,
   ];
 
+  /** The name of the icon to draw. */
   @property({ type: String, reflect: true }) name: string = ICON_TYPES.fire;
 
-  /* An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
+  /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
   @property({ type: String }) label = '';
 
+  /** Set the size of the icon. */
   @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;
 
+  /** Set the rotation of the icon. */
   @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
 
+  /** Draws the icons in a spinning state. */
   @property({ type: Boolean, reflect: true }) spinning: boolean = false;
 
   render() {
@@ -89,7 +97,7 @@ export default class ArcIcon extends LitElement {
         class=${classMap({ spinning: this.spinning })}
         style=${styleMap(styles)}
         role=${ifDefined(this.label ? 'img' : undefined)}
-        aria-label=${ifDefined(this.label ? this.label : undefined)}
+        aria-label=${ifDefined(this.label || undefined)}
         aria-hidden=${ifDefined(this.label ? undefined : 'true')}
       >
         <use href="${DEFAULT_PATH}#arc-${this.name}" xlink:href="${DEFAULT_PATH}#arc-${this.name}" />

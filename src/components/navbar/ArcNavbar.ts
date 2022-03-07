@@ -18,6 +18,16 @@ import '../icon-button/arc-icon-button.js';
 
 import { arupLogo } from './arup-logo.js';
 
+/**
+ * @slot default - This slot is used to add tabs to the navbar.
+ * @slot name - This slot is used to add a tool name or sub branding.
+ * @slot user - This slot should be used to display the signed-in user.
+ *
+ * @event arc-show-accessibility - Emitted when the built-in accessibility button is pressed.
+ *
+ * @cssproperty height - Set the height of the navbar.
+ * @cssproperty --logo-height - Set the height of the tool logo.
+ */
 export default class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';
 
@@ -129,18 +139,25 @@ export default class ArcNavbar extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#tabSlot') tabSlot: HTMLSlotElement;
 
+  /** @internal - State that tracks whether a dropdown component should be visible. */
   @state() private showDropdown: boolean = false;
 
+  /** @internal - State that keeps track of the current (slotted) tabs. */
   @state() private navTabs: (ArcButton | ArcIconButton)[] = [];
 
-  @property({ type: String, reflect: true }) home: string;
+  /** When set, the underlying logoWrapper will be rendered as an anchor with this property. */
+  @property({ type: String }) home: string;
 
+  /** The url for the logo of the application. */
   @property({ type: String }) logo: string;
 
+  /** The amount of tabs allowed before collapsing into a dropdown. */
   @property({ type: Number, reflect: true }) tabs: number = 5;
 
+  /** Show/hide the Arup logo. */
   @property({
     type: Boolean,
     reflect: true,
@@ -179,8 +196,8 @@ export default class ArcNavbar extends LitElement {
 
   render() {
     /*
-    Template that displays all button and icon-button components inside a dropdown menu
-    Properties are derived from the button and icon-button components
+    Template that displays all button and icon-button components inside a dropdown menu.
+    Properties are derived from the button and icon-button components.
     */
     const menuInterior = html`
       ${map(
@@ -208,7 +225,7 @@ export default class ArcNavbar extends LitElement {
             ? html`
                 <a
                   id="logoWrapper"
-                  href="${ifDefined(this.home)}"
+                  href=${ifDefined(this.home || undefined)}
                   rel="noreferrer noopener"
                   role="button"
                   aria-label="tool logo"

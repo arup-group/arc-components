@@ -1,10 +1,22 @@
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
+import type ArcMenu from './ArcMenu.js';
+import './arc-menu.js';
+import '../menu-item/arc-menu-item.js';
+import '../icon/arc-icon.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
-interface Story {
-  (): TemplateResult;
-}
+export default {
+  title: 'Components/ArcMenu',
+  component: 'arc-menu',
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.select],
+    },
+  },
+} as Meta;
 
-const Template: Story = () => html`
+const Template: Story<ArcMenu> = () => html`
   <arc-menu style="width: 15rem;">
     <arc-menu-item value="home">
       <arc-icon name="home" slot="prefix"></arc-icon>
@@ -26,5 +38,4 @@ const Template: Story = () => html`
   </arc-menu>
 `;
 
-/* TYPES */
 export const Default = Template.bind({});

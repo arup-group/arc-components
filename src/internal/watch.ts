@@ -37,7 +37,7 @@ function watch(propName: string, options?: WatchOptions) {
       ...options,
     } as WatchOptions;
 
-    /* eslint-disable-next-line no-param-reassign, func-names */
+    /* eslint-disable-next-line no-param-reassign, func-names. */
     protoOrDescriptor.update = function (changedProps: Map<string, any>) {
       if (changedProps.has(propName)) {
         const oldValue = changedProps.get(propName);

@@ -10,12 +10,12 @@ import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
 describe('ArcMenu', () => {
-  /* Retrieve the tabindex of a menu item */
+  /* Retrieve the tabindex of a menu item. */
   function getIndex(el: ArcMenuItem) {
     return el.getAttribute('tabindex');
   }
 
-  /* Test the rendering of the component */
+  /* Test the rendering of the component. */
   describe('rendering', () => {
     let element: ArcMenu;
     beforeEach(async () => {
@@ -26,7 +26,7 @@ describe('ArcMenu', () => {
       `);
     });
 
-    /* Test the accessibility */
+    /* Test the accessibility. */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
@@ -160,8 +160,8 @@ describe('ArcMenu', () => {
     });
 
     /*
-    Test that nothing happens when the space is being pressed
-    This ensures that the typeToSelect method also works on items that contain spaces
+    Test that nothing happens when the space is being pressed.
+    This ensures that the typeToSelect method also works on items that contain spaces.
     */
     it('prevents default behaviour when the space is pressed', async () => {
       const selectedItem = element.children[0] as ArcMenuItem;

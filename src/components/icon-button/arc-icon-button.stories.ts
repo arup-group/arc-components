@@ -1,119 +1,68 @@
-import { html, TemplateResult } from 'lit';
-import { ICON_TYPES, IconType } from '../icon/constants/IconConstants.js';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import type ArcIconButton from './ArcIconButton.js';
+import './arc-icon-button.js';
+import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
+export default {
+  title: 'Components/ArcIconButton',
+  component: 'arc-icon-button',
+  argTypes: {
+    name: {
+      control: 'select',
+      options: Object.values(ICON_TYPES),
+    },
+  },
+} as Meta;
 
-interface ArgTypes {
-  content?: string;
-  name: IconType;
-  label?: string;
-  href?: string;
-  target?: string;
-  download?: string;
-  active?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
-  iconColor?: string;
-}
-
-const Template: Story<ArgTypes> = ({
-  content,
-  name,
-  label,
-  href,
-  target,
-  download,
-  active,
-  disabled,
-  loading,
-  iconColor,
-}: ArgTypes) => html`
+const Template: Story<ArcIconButton> = ({ name, label, href, target, download, active, disabled, loading }) => html`
   <arc-icon-button
-    style="--icon-color:${iconColor || 'inherit'}"
     name="${name}"
     label="${label}"
-    .href="${href}"
-    .target="${target}"
-    .download="${download}"
+    href=${ifDefined(href || undefined)}
+    target=${ifDefined(target || undefined)}
+    download=${ifDefined(download || undefined)}
     ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"
+    >${label}</arc-icon-button
   >
-    ${content}
-  </arc-icon-button>
 `;
 
-const defaultArgs: ArgTypes = {
-  content: 'Default',
+const defaultArgs = {
   name: ICON_TYPES.fire,
   label: 'Icon button',
-  href: undefined,
-  target: undefined,
-  download: undefined,
+  href: '',
+  target: '',
+  download: '',
   active: false,
   disabled: false,
   loading: false,
-  iconColor: undefined,
 };
 
 /* TYPES */
 export const Default = Template.bind({});
-export const CustomColor = Template.bind({});
-export const Link = Template.bind({});
-export const LinkNewWindow = Template.bind({});
-export const LinkDownload = Template.bind({});
-export const LinkDisabled = Template.bind({});
-
 Default.args = { ...defaultArgs };
-CustomColor.args = {
-  ...defaultArgs,
-  content: 'Custom color',
-  iconColor: 'red',
-};
-Link.args = { ...defaultArgs, name: ICON_TYPES.link, content: 'Link', href: '/' };
-LinkNewWindow.args = {
-  ...Link.args,
-  name: ICON_TYPES.link,
-  content: 'New window',
-  target: '_blank',
-};
-LinkDownload.args = {
-  ...Link.args,
-  name: ICON_TYPES.link,
-  content: 'Download',
-  download: 'ARC Storybook',
-};
-LinkDisabled.args = {
-  ...Link.args,
-  name: ICON_TYPES.link,
-  content: 'Disabled',
-  disabled: true,
-};
+
+export const Link = Template.bind({});
+Link.args = { ...defaultArgs, name: ICON_TYPES.link, href: '/' };
+
+export const LinkNewWindow = Template.bind({});
+LinkNewWindow.args = { ...Link.args, target: '_blank' };
+
+export const LinkDownload = Template.bind({});
+LinkDownload.args = { ...Link.args, download: 'ARC Storybook' };
+
+export const LinkDisabled = Template.bind({});
+LinkDisabled.args = { ...Link.args, disabled: true };
 
 /* STATES */
 export const Active = Template.bind({});
-export const Disabled = Template.bind({});
-export const Loading = Template.bind({});
+Active.args = { ...defaultArgs, active: true };
 
-Active.args = {
-  ...defaultArgs,
-  label: 'Icon button',
-  content: 'Active',
-  active: true,
-};
-Disabled.args = {
-  ...defaultArgs,
-  label: 'Icon button',
-  content: 'Disabled',
-  disabled: true,
-};
-Loading.args = {
-  ...defaultArgs,
-  label: 'Icon button',
-  content: 'Loading',
-  loading: true,
-};
+export const Disabled = Template.bind({});
+Disabled.args = { ...defaultArgs, disabled: true };
+
+export const Loading = Template.bind({});
+Loading.args = { ...defaultArgs, loading: true };

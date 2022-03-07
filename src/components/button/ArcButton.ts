@@ -16,6 +16,16 @@ import {
 
 import '../spinner/arc-spinner.js';
 
+/**
+ * @slot default - The button's label.
+ * @slot prefix - Used to prepend an icon or similar element to the button.
+ * @slot suffix - Used to append an icon or similar element to the button.
+ *
+ * @cssproperty width - Set the width of the button.
+ * @cssproperty --min-width - Set the min width of the button.
+ * @cssproperty --btn-color - Overwrite the font color of the button.
+ * @cssproperty --btn-background - Overwrite the background color of the button.
+ */
 export default class ArcButton extends LitElement {
   static tag = 'arc-button';
 
@@ -148,35 +158,43 @@ export default class ArcButton extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
+  /** Set the type of the button. */
   @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.contained;
 
+  /** Set the color of the button. */
   @property({ type: String, reflect: true }) color: ButtonColor = BUTTON_COLORS.default;
 
+  /** Set the size of the button. */
   @property({ type: String, reflect: true }) size: ButtonSize = BUTTON_SIZES.medium;
 
-  /* An optional name for the button. Ignored when `href` is set. */
+  /** An optional name for the button. Ignored when `href` is set. */
   @property({ type: String }) name: string;
 
-  /* An optional value for the button. Ignored when `href` is set. */
+  /** An optional value for the button. Ignored when `href` is set. */
   @property({ type: String }) value: string;
 
-  /* When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
+  /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
   @property({ type: String }) href: string;
 
-  /* Tells the browser where to open the link. Only used when `href` is set. */
+  /** Tells the browser where to open the link. Only used when `href` is set. */
   @property({ type: String }) target: ButtonTarget;
 
-  /* Tells the browser to download the linked file as this filename. Only used when `href` is set. */
+  /** Tells the browser to download the linked file as this filename. Only used when `href` is set. */
   @property({ type: String }) download: string;
 
+  /** Draws the button in an active state. */
   @property({ type: Boolean, reflect: true }) active: boolean = false;
 
+  /** Draws the button in a disabled state. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
+  /** Draws the button in a loading state. */
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
 
+  /** Indicates if activating the button should submit the form. Ignored when href is set. */
   @property({ type: Boolean, reflect: true }) submit: boolean = false;
 
   /* Simulates a click on the button. */
@@ -240,9 +258,9 @@ export default class ArcButton extends LitElement {
         type=${this.submit ? 'submit' : 'button'}
         name=${ifDefined(isLink ? undefined : this.name)}
         value=${ifDefined(isLink ? undefined : this.value)}
-        href=${ifDefined(this.href)}
-        target=${ifDefined(this.target)}
-        download=${ifDefined(this.download)}
+        href=${ifDefined(this.href || undefined)}
+        target=${ifDefined(this.target || undefined)}
+        download=${ifDefined(this.download || undefined)}
         rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
         role="button"
         aria-disabled=${this.disabled ? 'true' : 'false'}

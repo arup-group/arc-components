@@ -19,10 +19,10 @@ function getTabbableBoundary(root: HTMLElement | ShadowRoot) {
     [...el.querySelectorAll('*')].map((e: HTMLElement) => walk(e));
   }
 
-  /* Collect all elements including the root */
+  /* Collect all elements including the root. */
   walk(root);
 
-  /* Find the first and last tabbable elements */
+  /* Find the first and last tabbable elements. */
   const start = allElements.find(el => isTabbable(el)) || null;
   const end = allElements.reverse().find(el => isTabbable(el)) || null;
 

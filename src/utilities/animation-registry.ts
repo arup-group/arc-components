@@ -34,18 +34,18 @@ function setAnimation(el: Element, animationName: string, animation: ElementAnim
 function getAnimation(el: Element, animationName: string) {
   const customAnimation = customAnimationRegistry.get(el);
 
-  /* Check for a custom animation */
+  /* Check for a custom animation. */
   if (customAnimation && customAnimation[animationName]) {
     return customAnimation[animationName];
   }
 
-  /* Check for a default animation */
+  /* Check for a default animation. */
   const defaultAnimation = defaultAnimationRegistry.get(animationName);
   if (defaultAnimation) {
     return defaultAnimation;
   }
 
-  /* Fall back to an empty animation */
+  /* Fall back to an empty animation. */
   return { keyframes: [], options: { duration: 0 } };
 }
 

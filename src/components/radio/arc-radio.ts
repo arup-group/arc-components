@@ -1,3 +1,3 @@
 import ArcRadio from './ArcRadio.js';
 
-customElements.define(ArcRadio.tag, ArcRadio);
+customElements.define('arc-radio', ArcRadio);

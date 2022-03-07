@@ -5,6 +5,12 @@ import { mobileBreakpoint } from '../../utilities/ui-utils.js';
 
 import type ArcRadio from '../radio/ArcRadio.js';
 
+/**
+ * @slot default - The default slot where radio controls are placed.
+ * @slot label - The radio group label. Alternatively, you can use the label prop.
+ *
+ * @event arc-change - Emitted when a control's checked state changes.
+ */
 export default class ArcRadioGroup extends LitElement {
   static tag = 'arc-radio-group';
 
@@ -34,13 +40,13 @@ export default class ArcRadioGroup extends LitElement {
     `,
   ];
 
-  /* Slot that contains radio buttons */
+  /** @internal */
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
-  /* The radio group label. Required for proper accessibility. Alternatively, the label slot can be used. */
+  /** The radio group label. Required for proper accessibility. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
 
-  /* Lays out the radio buttons horizontally */
+  /** Lays out the radio buttons horizontally. */
   @property({ type: Boolean }) row: boolean = false;
 
   /* When tabbing into the fieldset, make sure it lands on the checked radio */

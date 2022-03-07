@@ -8,18 +8,18 @@ function getPropertyValue(element: any, property: string) {
   return computedStyles.getPropertyValue(property).trim();
 }
 
-/* Retrieves the computed value of an ARC :root property */
+/* Retrieves the computed value of an ARC :root property. */
 function getRootValue(property: string) {
   const root: HTMLElement = document.querySelector(':root')!;
   const computedStyles = getComputedStyle(root);
   return computedStyles.getPropertyValue(property).trim();
 }
 
-/* Sets the computed value of an ARC :root property */
+/* Sets the computed value of an ARC :root property. */
 function setRootValue(variable: string, newVal: string) {
   const root: HTMLElement = document.querySelector(':root')!;
 
-  /* Only overwrite when the css variable changed */
+  /* Only overwrite when the css variable changed. */
   if (getRootValue(variable) !== newVal) {
     root.style.setProperty(variable, newVal);
   }

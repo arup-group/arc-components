@@ -15,8 +15,20 @@ import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 
-let id = 0;
-
+/**
+ * @slot default - The drawer's content.
+ * @slot label - The drawer's label.
+ * @slot footer - The drawer's footer.
+ *
+ * @event arc-show - Emitted when the drawer opens.
+ * @event arc-after-show - Emitted after the drawer opens and all animations are complete.
+ * @event arc-hide - Emitted when the drawer closes.
+ * @event arc-after-hide - Emitted after the drawer closes and all animations are complete.
+ * @event arc-initial-focus - Emitted when the drawer opens and the panel gains focus. Calling event.preventDefault() will prevent focus and allow you to set it on a different element in the drawer, such as an input or button.
+ * @event arc-request-close - Emitted when the user attempts to close the drawer by clicking the close button, clicking the overlay, or pressing the escape key. Calling event.preventDefault() will prevent the drawer from closing. Avoid using this unless closing the drawer will result in destructive behavior such as data loss.
+ *
+ * @cssproperty --size - The preferred size of the drawer. This will be applied to either the width or height depending on its placement.
+ */
 export default class ArcDrawer extends LitElement {
   static tag = 'arc-drawer';
 
@@ -149,31 +161,31 @@ export default class ArcDrawer extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#main') drawer: HTMLElement;
 
+  /** @internal */
   @query('#panel') panel: HTMLElement;
 
+  /** @internal */
   @query('#overlay') overlay: HTMLElement;
 
-  private componentId = `drawer-${++id}`;
-
+  /** @internal - Reference to the Modal class. */
   private modal: Modal;
 
+  /** @internal - Reference to the HTMLElement slotted to the 'trigger' slot. */
   private originalTrigger: HTMLElement | null;
 
-  /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
+  /** Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
 
-  /*
-  Setting this property will allow the drawer to slide out of the parent element.
-  The parent element will require `position: relative` for this to work.
-  */
+  /** By default, the drawer slides out of its containing block (usually the viewport). To make the drawer slide out of its parent element, set this prop and add position: relative to the parent. */
   @property({ type: Boolean, reflect: true }) contained = false;
 
-  /* The direction from which the drawer will open */
+  /** The direction from which the drawer will open. */
   @property({ reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
 
-  /* The drawer label. Alternatively, the label slot can be used. */
+  /** The drawer label. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
 
   @watch('open', { waitUntilFirstUpdate: true })
@@ -298,12 +310,12 @@ export default class ArcDrawer extends LitElement {
           role="dialog"
           aria-modal="true"
           aria-hidden=${this.open ? 'false' : 'true'}
-          aria-label=${ifDefined(this.label)}
-          aria-labelledby=${ifDefined(`${this.componentId}-title`)}
+          aria-label=${ifDefined(this.label || undefined)}
+          aria-labelledby="${ifDefined(this.label ? undefined : 'title')}"
           tabindex="0"
         >
           <div id="header">
-            <slot name="label"><span>${this.label}</span></slot>
+            <slot id="title" name="label"><span>${this.label}</span></slot>
             <arc-icon-button
               id="toggleClose"
               name=${ICON_TYPES.x}

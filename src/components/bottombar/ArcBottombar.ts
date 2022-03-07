@@ -2,6 +2,11 @@ import { css, html, LitElement } from 'lit';
 import { state } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 
+/**
+ * @slot - This slot is used to add icon-buttons to the bottom bar.
+ *
+ * @cssproperty height - Set the height of the bottom bar.
+ */
 export default class ArcBottombar extends LitElement {
   static tag = 'arc-bottombar';
 
@@ -22,11 +27,13 @@ export default class ArcBottombar extends LitElement {
     `,
   ];
 
+  /** @internal - State that stores the max tab count */
   @state() private tabs: number = 5;
 
+  /** @internal - State that keeps track of the current tab count */
   @state() private tabCount: number;
 
-  handleTabChange = (e: any) => {
+  handleTabChange(e: any) {
     const isTab = (element: any) => element.tagName === 'ARC-ICON-BUTTON';
 
     const nodes = e.target.assignedElements({ flatten: true });
@@ -38,10 +45,12 @@ export default class ArcBottombar extends LitElement {
       // TODO: ARC-12 Put the slotted tabs inside an arc-dropdown component once they exceed the given tab count
       this.log(`Please limit your tab count to a maximum of ${this.tabs} tabs`);
     }
-  };
+  }
 
-  // eslint-disable-next-line no-console
-  log = (msg: string) => console.log(msg);
+  log(msg: string) {
+    // eslint-disable-next-line no-console
+    console.log(msg);
+  }
 
   render() {
     return html`

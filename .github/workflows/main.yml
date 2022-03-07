@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Run the tests
-        run: npm test
+        run: npm run test
 
       - name: Build the Storybook
         run: npm run storybook:build

@@ -30,13 +30,19 @@ jobs:
           node-version: 'lts/*'
 
       - name: Install packages
-        run: yarn install
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
 
       - name: Test components
-        run: yarn test
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: test
 
       - name: Build
-        run: yarn storybook:build
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: storybook:build
 
       - name: Clear the S3 bucket
         uses: vitorsgomes/s3-rm-action@master

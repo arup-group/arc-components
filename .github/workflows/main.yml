@@ -21,10 +21,10 @@ jobs:
         run: npm install
 
       - name: Run the tests
-        run: npm test
+        run: npm run test
 
       - name: Build the Storybook
-        run: npm storybook:build
+        run: npm run storybook:build
 
       - name: Clear the S3 bucket
         uses: vitorsgomes/s3-rm-action@master

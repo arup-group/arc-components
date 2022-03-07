@@ -1,12 +1,21 @@
-import { css, html, LitElement } from 'lit';
+import { css, LitElement } from 'lit';
+import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { mobileBreakpoint } from '../../utilities/ui-utils.js';
+import componentStyles from '../../styles/component.styles.js';
+/**
+ * @slot default - The content of the hero.
+ * @slot title - The title of the hero.
+ *
+ * @cssproperty --custom-color - Overwrite the color of the hero.
+ */
 
 export default class ArcHero extends LitElement {
   static tag = 'arc-hero';
 
   static styles = [
+    componentStyles,
     css`
 
       #main{
@@ -51,12 +60,15 @@ export default class ArcHero extends LitElement {
     `,
   ];
 
+
   @property({ type: String }) bgImg: string;
 
   render() {
     /* Cover hero with the background image */
     const setImg = { background: `  url(${this.bgImg})  no-repeat  center center `, "background-size" : 'cover'};
-    return html`
+
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
+  return html`
       <section id="main"  aria-label="hero section" style=${styleMap(setImg)} tabindex="0">
         <slot id="title" name="title"></slot>
         <slot id="content"></slot>

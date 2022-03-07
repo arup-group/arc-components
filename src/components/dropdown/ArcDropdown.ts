@@ -13,6 +13,15 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
+/**
+ * @slot default - The dropdown content.
+ * @slot trigger - The dropdown trigger, usually an `<arc-button>` element.
+ *
+ * @event arc-show - Emitted when the dropdown opens.
+ * @event arc-after-show - Emitted after the dropdown opens and all animations are complete.
+ * @event arc-hide - Emitted when the dropdown closes.
+ * @event arc-after-hide - Emitted after the dropdown closes and all animations are complete.
+ */
 export default class ArcDropdown extends LitElement {
   static tag = 'arc-dropdown';
 
@@ -70,32 +79,37 @@ export default class ArcDropdown extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#trigger') trigger: HTMLElement;
 
+  /** @internal */
   @query('#triggerSlot') triggerSlot: HTMLSlotElement;
 
+  /** @internal */
   @query('#panel') panel: HTMLElement;
 
+  /** @internal */
   @query('#positioner') positioner: HTMLElement;
 
+  /** @internal - Reference to the PopperJS instance. */
   private popover: PopperInstance;
 
-  /* The preferred placement of the dropdown panel. */
+  /** The preferred placement of the dropdown panel. */
   @property({ type: String }) placement: Placement = DROPDOWN_PLACEMENTS['bottom-start'];
 
-  /* The distance in pixels from which to offset the panel away from its trigger. */
+  /** The distance in pixels from which to offset the panel away from its trigger. */
   @property({ type: Number }) distance: number = 0;
 
-  /* The distance in pixels from which to offset the panel along its trigger. */
+  /** The distance in pixels from which to offset the panel along its trigger. */
   @property({ type: Number }) skidding: number = 0;
 
-  /* Indicates whether or not the dropdown is open. You can use this instead of the show/hide methods. */
+  /** Indicates whether the dropdown is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open: boolean = false;
 
-  /* Disables the dropdown so the panel will not open. */
+  /** Disables the dropdown so the panel will not open. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
-  /* Enable this option to prevent the panel from being clipped when the component is placed inside a container with overflow: auto|scroll`. */
+  /** Enable this option to prevent the panel from being clipped when the component is placed inside a container with overflow: auto|scroll`. */
   @property({ type: Boolean, reflect: true }) hoist: boolean = false;
 
   @watch('open', { waitUntilFirstUpdate: true })
@@ -300,7 +314,7 @@ export default class ArcDropdown extends LitElement {
   }
 
   /* Prevent space from triggering a click event in Firefox */
-  handleTriggerKeyUp = (event: KeyboardEvent) => {
+  handleTriggerKeyUp(event: KeyboardEvent) {
     if (event.key === ' ') {
       event.preventDefault();
     }

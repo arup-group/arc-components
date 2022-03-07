@@ -11,6 +11,11 @@ import { IconType } from '../icon/constants/IconConstants.js';
 import '../icon/arc-icon.js';
 import '../spinner/arc-spinner.js';
 
+/**
+ * @slot default - The button's label.
+ *
+ * @cssproperty --icon-color - Overwrite the color of the icon.
+ */
 export default class ArcIconButton extends LitElement {
   static tag = 'arc-icon-button';
 
@@ -100,32 +105,34 @@ export default class ArcIconButton extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
+  /** @internal - State that tracks whether the button has a label. */
   @state() private hasLabel = false;
 
-  /* The name of the icon to draw. */
+  /** The name of the icon to draw. */
   @property({ type: String }) name: IconType;
 
-  /* When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
+  /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
   @property({ type: String }) href: string;
 
-  /* Tells the browser where to open the link. Only used when `href` is set. */
+  /** Tells the browser where to open the link. Only used when `href` is set. */
   @property({ type: String }) target: ButtonTarget;
 
-  /* Tells the browser to download the linked file as this filename. Only used when `href` is set. */
+  /** Tells the browser to download the linked file as this filename. Only used when `href` is set. */
   @property({ type: String }) download: string;
 
-  /*
-  A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should
-  always include a label that describes what the icon button does.
-  */
+  /** A description that gets read by screen readers and other assistive devices. For optimal accessibility, you should always include a label that describes what the icon button does. */
   @property({ type: String }) label: string = '';
 
+  /** Draws the button in an active state. */
   @property({ type: Boolean, reflect: true }) active: boolean = false;
 
+  /** Draws the button in a disabled state. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
+  /** Draws the button in a loading state. */
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
 
   connectedCallback() {
@@ -174,9 +181,9 @@ export default class ArcIconButton extends LitElement {
         style=${styleMap(btnStyles)}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type="button"
-        href=${ifDefined(this.href)}
-        target=${ifDefined(this.target)}
-        download=${ifDefined(this.download)}
+        href=${ifDefined(this.href || undefined)}
+        target=${ifDefined(this.target || undefined)}
+        download=${ifDefined(this.download || undefined)}
         rel=${ifDefined(this.target ? 'noreferrer noopener' : undefined)}
         role="button"
         aria-disabled=${this.disabled ? 'true' : 'false'}
@@ -185,7 +192,7 @@ export default class ArcIconButton extends LitElement {
         @click=${this.handleClick}
       >
         <span id="iconWrapper" aria-hidden="true">
-          <arc-icon id="icon" part="icon" name=${ifDefined(this.name)}></arc-icon>
+          <arc-icon id="icon" part="icon" name=${ifDefined(this.name || undefined)}></arc-icon>
           ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : nothing}
         </span>
         ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : nothing}

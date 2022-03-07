@@ -1,36 +1,23 @@
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
+import type ArcMenuItem from './ArcMenuItem.js';
+import '../menu/arc-menu.js';
+import './arc-menu-item.js';
+import '../icon/arc-icon.js';
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
+export default {
+  title: 'Components/ArcMenuItem',
+  component: 'arc-menu-item',
+} as Meta;
 
-interface ArgTypes {
-  disabled?: boolean;
-  prefix?: boolean;
-  suffix?: boolean;
-}
-
-const Template: Story<ArgTypes> = ({ disabled, prefix, suffix }: ArgTypes) => html`
-  <div role="menu" style="width: 15rem;">
-    <arc-menu-item ?disabled="${disabled}">
-      ${prefix ? html`<arc-icon name="home" slot="prefix"></arc-icon>` : ''} Label
-      ${suffix ? html`<arc-icon name="settings" slot="suffix"></arc-icon>` : ''}
-    </arc-menu-item>
-  </div>
+const Template: Story<ArcMenuItem> = ({ value, disabled }) => html`
+  <arc-menu style="width: 15rem;">
+    <arc-menu-item value="${value}" ?disabled="${disabled}"> Label </arc-menu-item>
+  </arc-menu>
 `;
 
-const DisabledTemplate: Story<ArgTypes> = () => html`
-  <div role="menu" style="width: 15rem;">
-    <arc-menu-item>Home</arc-menu-item>
-    <arc-menu-item disabled>Messages</arc-menu-item>
-    <arc-menu-item>Settings</arc-menu-item>
-  </div>
-`;
-
-const PrefixSuffixTemplate: Story<ArgTypes> = () => html`
-  <div role="menu" style="width: 15rem;">
+const PrefixSuffixTemplate: Story<ArcMenuItem> = () => html`
+  <arc-menu style="width: 15rem;">
     <arc-menu-item>
       <arc-icon name="home" slot="prefix"></arc-icon>
       Home
@@ -44,18 +31,27 @@ const PrefixSuffixTemplate: Story<ArgTypes> = () => html`
       Settings
       <arc-icon name="arrow-right" slot="suffix"></arc-icon>
     </arc-menu-item>
-  </div>
+  </arc-menu>
 `;
 
-const defaultArgs: ArgTypes = {
+const DisabledTemplate: Story<ArcMenuItem> = () => html`
+  <arc-menu style="width: 15rem;">
+    <arc-menu-item>Home</arc-menu-item>
+    <arc-menu-item disabled>Messages</arc-menu-item>
+    <arc-menu-item>Settings</arc-menu-item>
+  </arc-menu>
+`;
+
+const defaultArgs = {
+  value: 'Menu item',
   disabled: false,
 };
 
 /* TYPES */
 export const Default = Template.bind({});
-export const PrefixSuffix = PrefixSuffixTemplate.bind({});
-
 Default.args = { ...defaultArgs };
+
+export const PrefixSuffix = PrefixSuffixTemplate.bind({});
 PrefixSuffix.args = { ...defaultArgs };
 
 /* STATES */

@@ -1,3 +1,3 @@
 import ArcSpinner from './ArcSpinner.js';
 
-customElements.define(ArcSpinner.tag, ArcSpinner);
+customElements.define('arc-spinner', ArcSpinner);

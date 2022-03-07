@@ -1,7 +1,7 @@
-/* rem breakpoint for mobile devices */
+/* rem breakpoint for mobile devices. */
 export const mobileBreakpoint: number = 49;
 
-/* Determines whether the user is on a mobile-like device */
+/* Determines whether the user is on a mobile-like device. */
 function isMobile() {
   return window.matchMedia(`(max-width: ${mobileBreakpoint}rem)`).matches;
 }

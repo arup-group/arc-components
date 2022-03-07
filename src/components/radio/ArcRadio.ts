@@ -8,6 +8,11 @@ import componentStyles from '../../styles/component.styles.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
+/**
+ * @slot default - The radio's label.
+ *
+ * @event arc-change - Emitted when the control's checked state changes.
+ */
 export default class ArcRadio extends LitElement {
   static tag = 'arc-radio';
 
@@ -21,7 +26,7 @@ export default class ArcRadio extends LitElement {
         cursor: pointer;
       }
 
-      /* Hide the original input */
+      /* Hide the original input. */
       input {
         cursor: inherit;
         position: absolute;
@@ -74,16 +79,20 @@ export default class ArcRadio extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('input[type="radio"]') input: HTMLInputElement;
 
-  /* A group of attributes is defined by name. */
+  /** The name used to reference the value of the control. */
   @property({ type: String }) name: string;
 
+  /** The value attribute of the radio. */
   @property({ type: String }) value: string;
 
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+  /** Draws the component in a disabled state. */
+  @property({ type: Boolean }) disabled: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) checked = false;
+  /** Draws the component in a checked state. */
+  @property({ type: Boolean }) checked = false;
 
   firstUpdated() {
     this.updateComplete.then(() => {
@@ -191,8 +200,8 @@ export default class ArcRadio extends LitElement {
         <span id="radio">
           <input
             type="radio"
-            name=${ifDefined(this.name)}
-            .value=${ifDefined(this.value)}
+            name=${ifDefined(this.name || undefined)}
+            .value=${ifDefined(this.value || undefined)}
             ?checked=${live(this.checked)}
             ?disabled=${this.disabled}
             aria-checked=${this.checked}

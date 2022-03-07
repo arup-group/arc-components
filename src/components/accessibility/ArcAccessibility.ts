@@ -38,6 +38,9 @@ export declare type UserPreferences =
       [key in ContentPreference]: FontSize | FontSpacing | boolean;
     };
 
+/**
+ * @event arc-accessibility-change - Emitted when the user preferences change.
+ */
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
 
@@ -67,10 +70,10 @@ export default class ArcAccessibility extends LitElement {
     `,
   ];
 
-  /* Reference to css variables that are scoped to :root */
+  /** @internal - Reference to css variables that are scoped to :root. */
   private _rootCssVariables: { [key: string]: string } = {};
 
-  /* Fallback preferences */
+  /** @internal - Fallback preferences. */
   private _defaultPreferences: UserPreferences = {
     theme: this.getTheme(),
     fontSize: FONT_SIZES.medium,
@@ -81,17 +84,17 @@ export default class ArcAccessibility extends LitElement {
     plainText: false,
   };
 
-  /* Available root values */
+  /** @internal - Available root values. */
   private _availableRootValues: any = {
     fontSize: Object.values(FONT_SIZES),
     lineHeight: Object.values(FONT_SPACING),
     letterSpacing: Object.values(FONT_SPACING),
   };
 
-  /* State that stores the user preferences */
+  /** @internal - State that stores the user preferences. */
   @state() private _userPreferences: UserPreferences = this._defaultPreferences;
 
-  /* Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
+  /** Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open = false;
 
   @watch('_userPreferences')
@@ -104,7 +107,6 @@ export default class ArcAccessibility extends LitElement {
       this.updateRootValue(key, this._userPreferences[key])
     );
 
-    /* Emit the accessibility-change event */
     emit(this, ARC_EVENTS.accessibilityChange, {
       detail: {
         preferences: this._userPreferences,
@@ -236,25 +238,29 @@ export default class ArcAccessibility extends LitElement {
     this._userPreferences = { ...this._userPreferences, [key]: value };
   }
 
-  radioTemplate = (key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) => html`
-    <arc-radio-group id=${key}>
-      <span slot="label">${stringToSpaceSeparated(key)}</span>
-      ${map(
-        values,
-        value => html`
-          <arc-radio
-            name=${key}
-            value=${value}
-            ?checked=${value === this._userPreferences[key]}
-            @arc-change=${this.handleOptionChange}
-            >${uppercaseFirstLetter(value)}
-          </arc-radio>
-        `
-      )}
-    </arc-radio-group>
-  `;
+  radioTemplate(key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) {
+    return html`
+      <arc-radio-group id=${key}>
+        <span slot="label">${stringToSpaceSeparated(key)}</span>
+        ${map(
+          values,
+          value => html`
+            <arc-radio
+              name=${key}
+              value=${value}
+              ?checked=${value === this._userPreferences[key]}
+              @arc-change=${this.handleOptionChange}
+              >${uppercaseFirstLetter(value)}
+            </arc-radio>
+          `
+        )}
+      </arc-radio-group>
+    `;
+  }
 
-  booleanTemplate = () => html`${nothing}`;
+  booleanTemplate() {
+    return html`${nothing}`;
+  }
 
   render() {
     return html`

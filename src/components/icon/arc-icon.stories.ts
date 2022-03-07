@@ -1,53 +1,53 @@
-import { html, TemplateResult } from 'lit';
-import { ICON_TYPES, IconType } from './constants/IconConstants.js';
-import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import type ArcIcon from './ArcIcon.js';
+import './arc-icon.js';
+import { ICON_TYPES } from './constants/IconConstants.js';
+import { FONT_SIZES } from '../../internal/constants/styleConstants.js';
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
+export default {
+  title: 'Components/ArcIcon',
+  component: 'arc-icon',
+  argTypes: {
+    name: {
+      control: 'select',
+      options: Object.values(ICON_TYPES),
+    },
+    size: {
+      control: 'select',
+      options: Object.values(FONT_SIZES),
+    },
+  },
+} as Meta;
 
-interface ArgTypes {
-  name: IconType;
-  size?: FontSize;
-  rotation?: number;
-  spinning?: boolean;
-  colorPrimary?: string;
-  colorSecondary?: string;
-}
-
-const Template: Story<ArgTypes> = ({ name, size, rotation, spinning, colorPrimary, colorSecondary }: ArgTypes) => html`
+const Template: Story<ArcIcon> = ({ name, label, size, rotation, spinning }) => html`
   <arc-icon
-    style="--icon-color-primary:${colorPrimary || 'inherit'}; --icon-color-secondary:${colorSecondary || 'inherit'};"
     name="${name}"
+    label="${label}"
     size="${size}"
-    rotation="${rotation}"
+    rotation=${ifDefined(rotation || undefined)}
     ?spinning=${spinning}
   ></arc-icon>
 `;
 
-const defaultArgs: ArgTypes = {
+const defaultArgs = {
   name: ICON_TYPES.fire,
+  label: '',
   size: FONT_SIZES.large,
   rotation: 0,
   spinning: false,
-  colorPrimary: undefined,
 };
 
 /* TYPES */
 export const Default = Template.bind({});
-export const VariableSize = Template.bind({});
-export const RedColor = Template.bind({});
-export const GreenColor = Template.bind({});
-export const BlueColor = Template.bind({});
-export const PurpleColor = Template.bind({});
-export const CustomSize = Template.bind({});
-
 Default.args = { ...defaultArgs };
-VariableSize.args = { ...defaultArgs, size: FONT_SIZES['xxx-large'] };
-RedColor.args = { ...defaultArgs, colorPrimary: 'red' };
-GreenColor.args = { ...defaultArgs, colorPrimary: 'green' };
-BlueColor.args = { ...defaultArgs, colorPrimary: 'blue' };
-PurpleColor.args = { ...defaultArgs, colorPrimary: 'purple' };
-CustomSize.args = { ...defaultArgs, size: 'custom' };
+
+export const Size = Template.bind({});
+Size.args = { ...defaultArgs, size: FONT_SIZES['xxx-large'] };
+
+export const Rotation = Template.bind({});
+Rotation.args = { ...defaultArgs, rotation: 45 };
+
+export const Spinning = Template.bind({});
+Spinning.args = { ...defaultArgs, spinning: true };

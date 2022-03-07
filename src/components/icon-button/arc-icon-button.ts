@@ -1,3 +1,3 @@
 import ArcIconButton from './ArcIconButton.js';
 
-customElements.define(ArcIconButton.tag, ArcIconButton);
+customElements.define('arc-icon-button', ArcIconButton);

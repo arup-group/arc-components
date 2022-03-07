@@ -10,12 +10,12 @@ import type ArcRadio from './ArcRadio.js';
 import './arc-radio.js';
 
 describe('ArcRadio', () => {
-  /* Retrieve the tabindex of a radio button */
+  /* Retrieve the tabindex of a radio button. */
   function getIndex(el: ArcRadio) {
     return el.input.getAttribute('tabindex');
   }
 
-  /* Test the rendering of the component */
+  /* Test the rendering of the component. */
   describe('rendering', () => {
     let element: ArcRadioGroup;
     let radio: ArcRadio;

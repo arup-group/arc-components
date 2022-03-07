@@ -1,3 +1,3 @@
 import ArcMenu from './ArcMenu.js';
 
-customElements.define(ArcMenu.tag, ArcMenu);
+customElements.define('arc-menu', ArcMenu);

@@ -1,3 +1,3 @@
 import ArcDrawer from './ArcDrawer.js';
 
-customElements.define(ArcDrawer.tag, ArcDrawer);
+customElements.define('arc-drawer', ArcDrawer);

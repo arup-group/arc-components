@@ -38,13 +38,13 @@ jobs:
           PATH_TO_DELETE: .
 
       - name: Upload Storybook to S3
-          uses: shallwefootball/upload-s3-action@v1.1.3
-          with:
-            aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
-            aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            source_dir: storybook-static/
-            destination_dir: .
+        uses: shallwefootball/upload-s3-action@v1.1.3
+        with:
+          aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          source_dir: storybook-static/
+          destination_dir: .
 
       - name: Upload assets to S3
         uses: shallwefootball/upload-s3-action@v1.1.3

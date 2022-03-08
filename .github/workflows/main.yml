@@ -15,16 +15,21 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-          cache: 'npm'
+          cache: 'yarn'
 
-      - name: Install node_modules
-        run: npm install
+      - name: Setup environment
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          node-version: 'lts/*'
 
-      - name: Run the tests
-        run: npm run test
+      - name: Install packages
+        run: yarn install
+
+      - name: Test components
+        run: yarn run test
 
       - name: Build the Storybook
-        run: npm run storybook:build
+        run: yarn run storybook:build
 
       - name: Clear the S3 bucket
         uses: vitorsgomes/s3-rm-action@master

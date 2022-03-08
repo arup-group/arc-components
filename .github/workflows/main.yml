@@ -1,37 +1,30 @@
 name: main
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the main branch
-  push:
-    branches: [ main ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  pull_request:
+    branches: [main]
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '16'
-          cache: 'yarn'
-
-      - name: Setup environment
-        uses: borales/actions-yarn@v2.3.0
+          node-version: 16
+      - uses: borales/actions-yarn@v2.3.0
         with:
-          node-version: 'lts/*'
+          cmd: install
+      - uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: test
+      - uses: boraels/actions-yarn@v2.3.0
+        with:
+          cmd: storybook:build
 
-      - name: Install packages
-        run: yarn install
-
-      - name: Test components
-        run: yarn run test
-
-      - name: Build the Storybook
-        run: yarn run storybook:build
-
-      - name: Clear the S3 bucket
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Clear S3
         uses: vitorsgomes/s3-rm-action@master
         with:
           args: --recursive

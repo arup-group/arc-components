@@ -5,9 +5,10 @@
    2. Cherry Picking
       1. No framework
       2. React
-      3. Vue
-      4. Angular
-3. TypeScript 
+      3. NextJS
+      4. Vue
+      5. Angular
+3. TypeScript
 4. Useful utilities
    1. BasePath
    2. FOUC
@@ -19,6 +20,7 @@ Add the following code to your page, where @x.x.x stands for the version of @arc
 ```bash
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@x.x.x/dist/themes/index.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@x.x.x/dist/themes/light.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@arc-web/components@x.x.x/dist/themes/dark.css">
 <script type="module" src="https://cdn.jsdelivr.net/npm/@arc-web/components@x.x.x/dist/arc.js"></script>
 ```
 
@@ -40,14 +42,22 @@ You can install ARC locally with the following command.
 npm install @arc-web/components
 ```
 
+or with Yarn
+
+```bash
+yarn add @arc-web/components
+```
+
 It's up to you to make the source files available to your app.
 One way to do this is to create a route in your app called /arc that serves static files from node_modules/@arc-web/components.
 
-Once you've done that, add the following tags to your page. Make sure to update href and src, so they point to the route you created.
+Add the following tags to your page. Make sure to update `href` and `src`, so they point to the route you created.
 
 ```bash
 <head>
+  <link rel="stylesheet" href="/arc/dist/themes/index.css">
   <link rel="stylesheet" href="/arc/dist/themes/light.css">
+  <link rel="stylesheet" href="/arc/dist/themes/dark.css">
   <script type="module" src="/arc/dist/arc.js"></script>
 </head>
 ```
@@ -64,15 +74,12 @@ This will limit the number of files the browser has to download and reduce the a
 The disadvantage is that you need to load components manually.
 
 ### Any application that uses a bundler such as Webpack / Parcel / Rollup etc.
+#### Example at: https://github.com/jasperwieringa/arc-parcel-test
 ```bash
 # index.html / base.html
 <body>
   <arc-container theme="dark"></arc-container>
-  
-  <script type="module" src="index.js"></script>
-  <script type="module">
-    import '@arc-web/components/dist/components/container/arc-container.js';
-  </script>
+  <script type="module" src="index.js" data-arc="/path/to/arc/"></script>
 </body>
 ```
 
@@ -82,12 +89,11 @@ import '@arc-web/components/dist/themes/index.css';
 import '@arc-web/components/dist/themes/light.css';
 import '@arc-web/components/dist/themes/dark.css';
 
-# Set the base path to the folder you copied ARC's assets to
-import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
-setBasePath('/path/to/arc/assets/');
+import '@arc-web/components/dist/components/container/arc-container.js';
 ```
 
 ### React
+#### Example at: https://github.com/jasperwieringa/arc-react-test
 ```bash
 # index.js
 import React from 'react';
@@ -100,7 +106,7 @@ import '@arc-web/components/dist/themes/dark.css';
 
 # Set the base path to the folder you copied ARC's assets to
 import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
-setBasePath('/');
+setBasePath('/path/to/arc/');
 
 ReactDOM.render(
   <React.StrictMode>
@@ -123,7 +129,85 @@ function App(props) {
 export default App;
 ```
 
+### NextJS
+```bash
+# _app.tsx
+import React from 'react';
+
+import '@arc-web/components/dist/themes/index.css';
+import '@arc-web/components/dist/themes/light.css';
+import '@arc-web/components/dist/themes/dark.css';
+
+# Set the base path to the folder you copied ARC's assets to
+import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
+setBasePath('/path/to/arc/');
+
+export default function MyApp(props: AppProps) {
+  const { Component, pageProps } = props;
+
+  return (
+    <Component {...pageProps} />
+  )
+}
+```
+
+```bash
+# Layout.tsx
+import React, { useEffect } from 'react';
+import type { NextPage } from "next";
+import Head from 'next/head';
+
+export const siteTitle = 'Some title';
+
+const Layout: NextPage = ({ children }) => {
+    /* Import the required arc components */
+    useEffect(() => {
+        import('@arc-web/components/dist/components/container/arc-container.js');
+    }, [])
+
+    return (
+        <>
+            <Head>
+                <link rel={'icon'} href={'/favicon.ico'}/>
+                <meta
+                    name={'description'}
+                    content={'App description'}
+                />
+                <meta
+                    name={'og:title'}
+                    content={siteTitle}
+                />
+                <title>{siteTitle}</title>
+            </Head>
+            <arc-container>
+              {children}
+            </arc-container>
+        </>
+    )
+}
+
+export default Layout;
+```
+
+```bash
+# Index.tsx
+import React from 'react';
+import type { NextPage } from 'next';
+import Layout from './Layout';
+
+const Home: NextPage = () => {
+    return (
+        <Layout>
+            <div>Some content</div>
+        </Layout>
+    )
+}
+
+export default Home;  
+```
+
 ### Vue
+#### Example at: https://github.com/jasperwieringa/arc-vue-test
 ```bash
 # Index.vue
 <template>
@@ -139,7 +223,7 @@ import '@arc-web/components/dist/themes/dark.css';
 
 # Set the base path to the folder you copied ARC's assets to
 import { setBasePath } from '@arc-web/components/dist/utilities/base-path.js';
-setBasePath('/path/to/arc/assets/');
+setBasePath('/path/to/arc/');
 
 export default {
   name: 'Index',
@@ -182,13 +266,14 @@ When using the `vue create app-name` command in the terminal, this information c
 ```
 
 ### Angular
+#### Example at: https://github.com/jasperwieringa/arc-angular-test
 ```bash
 # main.ts
 ...other imports
 
 # Set the base path to the folder you copied ARC's assets to
 import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
-setBasePath('/');
+setBasePath('/path/to/arc/');
 
 if (environment.production) {
   enableProdMode();
@@ -277,7 +362,7 @@ declare global {
 }
 ```
 Add each component into the interface like shown above.
-More on this can be found on https://coryrylan.com/blog/how-to-use-web-components-with-typescript-and-react
+More on this can be found on: https://coryrylan.com/blog/how-to-use-web-components-with-typescript-and-react
 
 # Useful utilities
 ## Setting the Base Path

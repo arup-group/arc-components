@@ -7,6 +7,15 @@ import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../icon-button/arc-icon-button.js';
 
+/**
+ * @slot default - The sidebar's content.
+ *
+ * @event arc-show - Emitted when the sidebar opens.
+ * @event arc-hide - Emitted when the sidebar closes.
+ *
+ * @cssproperty --gap-distance - Set the distance between sidebar elements.
+ * @cssproperty --sidebar-width - Set the width of the sidebar.
+ */
 export default class ArcSidebar extends LitElement {
   static tag = 'arc-sidebar';
 
@@ -72,15 +81,16 @@ export default class ArcSidebar extends LitElement {
     `,
   ];
 
-  @query('#content')
-  content: HTMLElement;
+  /** @internal */
+  @query('#content') content: HTMLElement;
 
-  @property({ type: Boolean, reflect: true })
-  open: boolean = true;
+  /** Indicates whether the sidebar is open. */
+  @property({ type: Boolean, reflect: true }) open: boolean = true;
 
+  /** Set a title for the sidebar. */
   @property({ type: String }) title: string;
 
-  handleSlots = (e: any) => {
+  handleSlots(e: any) {
     const childNodes = e.target.assignedElements({ flatten: true });
 
     if (childNodes.length > 1) {
@@ -88,7 +98,7 @@ export default class ArcSidebar extends LitElement {
     }
   };
 
-  toggleOpenState = () => {
+  toggleOpenState() {
     this.open = !this.open;
     emit(this, `${this.open ? ARC_EVENTS.show : ARC_EVENTS.hide}`, {
       detail: { open: this.open },

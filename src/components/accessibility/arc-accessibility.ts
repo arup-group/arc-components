@@ -1,3 +1,3 @@
 import ArcAccessibility from './ArcAccessibility.js';
 
-customElements.define(ArcAccessibility.tag, ArcAccessibility);
+customElements.define('arc-accessibility', ArcAccessibility);

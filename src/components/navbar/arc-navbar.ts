@@ -1,3 +1,3 @@
 import ArcNavbar from './ArcNavbar.js';
 
-customElements.define(ArcNavbar.tag, ArcNavbar);
+customElements.define('arc-navbar', ArcNavbar);

@@ -1,6 +1,7 @@
 {
   "short_name": "ARC",
   "name": "ARC Web Components",
+  "id": "/index.html",
   "description": "Web-components built on the ARC design system",
   "start_url": "/index.html",
   "display": "standalone",

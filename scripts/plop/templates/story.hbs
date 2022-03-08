@@ -1,35 +1,19 @@
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
+import type {{ properCase tag }} from './{{ properCase tag }}.js';
+import './{{ tag }}';
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
+export default {
+  title: 'Components/{{ properCase tag }}',
+  component: '{{ tag }}'
+} as Meta;
 
-interface ArgTypes {
-  name: string,
-  active: boolean,
-  customColor: string | undefined,
-}
-
-const Template: Story<ArgTypes> = ({ name, active, customColor }: ArgTypes) => html`
-  <{{ tag }} style="{--custom-color:${customColor};"
-  name="${name}"
-  ?active="${active}"></{{ tag }}>
+const Template: Story<{{ properCase tag }}> = ({ name, active }) => html`
+  <{{ tag }} name="${name}" ?active="${active}"></{{ tag }}>
 `;
 
-const defaultArgs: ArgTypes = {
-  name: 'Hello World',
-  active: false,
-  customColor: undefined,
-};
-
-/* TYPES */
 export const Default = Template.bind({});
-export const CustomColor = Template.bind({});
-Default.args = { ...defaultArgs, active: true };
-CustomColor.args = { ...defaultArgs, customColor: 'blue' };
+Default.args = { name: 'Default component', active: false };
 
-/* STATES */
 export const Active = Template.bind({});
-Active.args = { ...defaultArgs, label: 'Active', active: true };
+Active.args = { name: 'Active component', active: true };

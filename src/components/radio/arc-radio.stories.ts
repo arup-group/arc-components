@@ -1,36 +1,43 @@
-import { html, TemplateResult } from 'lit';
+import { Meta, Story } from '@storybook/web-components';
+import { html } from 'lit';
+import type ArcRadio from './ArcRadio.js';
+import '../radio-group/arc-radio-group.js';
+import './arc-radio.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
+export default {
+  title: 'Components/ArcRadio',
+  component: 'arc-radio',
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.change],
+    },
+  },
+} as Meta;
 
-interface ArgTypes {
-  name: string;
-  value?: string;
-  disabled?: boolean;
-  checked?: boolean;
-}
-
-const Template: Story<ArgTypes> = ({ name, disabled, checked }: ArgTypes) => html`
-  <p>For demoing purposes, only the first item responds to the checked switch in the Controls panel</p>
-  <arc-radio-group label="Radio Group">
-    <arc-radio name=${name} value="option_1" ?disabled=${disabled} ?checked=${checked}>Option 1</arc-radio>
-    <arc-radio name=${name} value="option_2" ?disabled=${disabled}>Option 2</arc-radio>
-    <arc-radio name=${name} value="option_3" ?disabled=${disabled}>Option 3</arc-radio>
-  </arc-radio-group>
+const Template: Story<ArcRadio> = ({ name, value, disabled, checked }) => html`
+  <div id="content">
+    <arc-radio-group label="Radio Group">
+      <arc-radio name=${name} value=${value} ?disabled=${disabled} ?checked=${checked}>Option 1</arc-radio>
+      <arc-radio name=${name} value="option_2">Option 2</arc-radio>
+      <arc-radio name=${name} value="option_3">Option 3</arc-radio>
+    </arc-radio-group>
+    <p>
+      For demoing purposes, only the first item responds to the <code>checked</code> and <code>value</code> properties.
+    </p>
+  </div>
 `;
 
-const defaultArgs: ArgTypes = {
+const defaultArgs = {
   name: 'arc-test',
-  value: '',
+  value: 'option_1',
   disabled: false,
   checked: false,
 };
 
 /* TYPES */
 export const Default = Template.bind({});
-export const Disabled = Template.bind({});
 Default.args = { ...defaultArgs };
+
+export const Disabled = Template.bind({});
 Disabled.args = { ...defaultArgs, disabled: true };

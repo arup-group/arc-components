@@ -7,6 +7,11 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
+/**
+ * @slot default - The menu's content, including menu items.
+ *
+ * @event arc-select - Emitted when a menu item is selected.
+ */
 export default class ArcMenu extends LitElement {
   static tag = 'arc-menu';
 
@@ -19,12 +24,16 @@ export default class ArcMenu extends LitElement {
     `,
   ];
 
+  /** @internal */
   @query('#menu') menu: HTMLElement;
 
+  /** @internal */
   @query('slot') defaultSlot: HTMLSlotElement;
 
+  /** @internal - String used to select a menu-item while typing. */
   private typeToSelectString = '';
 
+  /** @internal - Timeout used to after clearing the typeToSelectString. */
   private typeToSelectTimeout: any;
 
   getAllItems(options: { includeDisabled: boolean } = { includeDisabled: true }) {
@@ -34,7 +43,7 @@ export default class ArcMenu extends LitElement {
       if (el.getAttribute('role') !== 'menuitem') {
         return false;
       }
-      /* Are disabled items included? return true, else false */
+      /* Are disabled items included? return true, else false. */
       return !(!includeDisabled && (el as ArcMenuItem).disabled);
     }) as ArcMenuItem[];
   }

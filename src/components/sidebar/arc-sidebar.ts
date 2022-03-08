@@ -1,3 +1,3 @@
 import ArcSidebar from './ArcSidebar.js';
 
-customElements.define(ArcSidebar.tag, ArcSidebar);
+customElements.define('arc-sidebar', ArcSidebar);

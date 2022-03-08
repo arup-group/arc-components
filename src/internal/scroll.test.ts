@@ -31,14 +31,14 @@ describe('scroll', () => {
   });
 
   it('should unlock when the set of stored locked elements equals 0', async () => {
-    /* Add two elements to the set */
+    /* Add two elements to the set. */
     await lockBodyScrolling(elementOne);
     await lockBodyScrolling(elementTwo);
 
-    /* The body is being locked */
+    /* The body is being locked. */
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.true;
 
-    /* Remove only one element from the set */
+    /* Remove only one element from the set. */
     await unlockBodyScrolling(elementOne);
     expect(document.body.classList.contains('arc-scroll-lock')).to.be.true;
 

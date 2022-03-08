@@ -8,25 +8,25 @@ import type ArcIcon from './ArcIcon.js';
 import './arc-icon.js';
 
 describe('ArcIcon', () => {
-  /* Test the rendering of the component */
+  /* Test the rendering of the component. */
   describe('rendering', () => {
     let element: ArcIcon;
     beforeEach(async () => {
       element = await fixture(html`<arc-icon></arc-icon>`);
     });
 
-    /* Test default properties that reflect to the DOM */
+    /* Test default properties that reflect to the DOM. */
     it('renders the element with default properties in the dom', () => {
       expect(element).dom.to.equal(`<arc-icon name=${ICON_TYPES.fire} size=${FONT_SIZES.medium}></arc-icon>`);
     });
 
-    /* Test the accessibility */
+    /* Test the accessibility. */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
 
-  /* Test the setters/getters */
+  /* Test the setters/getters. */
   describe('setters/getters', () => {
     it('renders the element with a custom name property', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon name="heart"></arc-icon>`);
@@ -85,7 +85,7 @@ describe('ArcIcon', () => {
     });
   });
 
-  /* Test the css variables that can be overwritten */
+  /* Test the css variables that can be overwritten. */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon></arc-icon>`);

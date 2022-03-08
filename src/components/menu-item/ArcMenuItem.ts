@@ -3,6 +3,11 @@ import { property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 
+/**
+ * @slot default - The menu item's label.
+ * @slot prefix - Used to prepend an icon or similar element to the menu-item.
+ * @slot suffix - Used to append an icon or similar element to the menu-item.
+ */
 export default class ArcMenuItem extends LitElement {
   static tag = 'arc-menu-item';
 
@@ -72,10 +77,10 @@ export default class ArcMenuItem extends LitElement {
     `,
   ];
 
-  /* A unique value to store in the menu item. This can be used as a way to identify menu items when selected. */
+  /** A unique value to store in the menu item. This can be used as a way to identify menu items when selected. */
   @property() value = '';
 
-  /* Draws the menu item in a disabled state. */
+  /** Draws the menu item in a disabled state. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   firstUpdated() {

@@ -3,6 +3,15 @@ import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import componentStyles from '../../styles/component.styles.js';
 
+/**
+ * @slot default - The card's content.
+ * @slot heading - The card's heading.
+ * @slot actions - The card's actions.
+ *
+ * @cssproperty --header-padding - Set the padding value of the header.
+ * @cssproperty --arc-card-height - Set the height of the card.
+ * @cssproperty --arc-card-width - Set the width of the card.
+ */
 export default class ArcCard extends LitElement {
   static tag = 'arc-card';
 
@@ -84,11 +93,14 @@ export default class ArcCard extends LitElement {
       #actions ::slotted(:not(:last-child)) {
         margin-right: var(--arc-spacing-x-small);
       }
-      
+
     `,
   ];
 
+  /** Set the url of the image */
   @property({ type: String, reflect: true }) imageUrl = '';
+
+  /** Specifies an alternate text for an image, if the image cannot be displayed. */
   @property({ type: String, reflect: true }) imageAlt = '';
 
   render() {

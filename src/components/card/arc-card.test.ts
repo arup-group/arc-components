@@ -33,7 +33,7 @@ describe('ArcCard ', () => {
       const testAltText = 'Test Alt Text';
       const testImageURL = 'https://via.placeholder.com/600.png/09f/fff'
 
-      const element: ArcCard  = await fixture(html`<arc-card imagealt="${testAltText}" imageurl="${testImageURL}"></arc-card>`);
+      const element: ArcCard  = await fixture(html`<arc-card image-alt="${testAltText}" image-url="${testImageURL}"></arc-card>`);
       const cardImage = element.shadowRoot!.querySelector('#card-image')!;
       
 

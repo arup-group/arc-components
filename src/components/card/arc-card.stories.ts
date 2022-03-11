@@ -11,8 +11,8 @@ export default {
 const Template: Story<ArcCard> = ({imageUrl, imageAlt}) => html`
   <div style="display: flex; gap: 20px;">
     <arc-card
-      imageUrl="${imageUrl}"
-      imageAlt="${imageAlt}"
+      image-url="${imageUrl}"
+      image-alt="${imageAlt}"
     >
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
         dolore...</p>

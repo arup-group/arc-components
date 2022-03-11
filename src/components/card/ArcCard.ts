@@ -19,20 +19,19 @@ export default class ArcCard extends LitElement {
     componentStyles,
     css`
     :host {
-      --header-padding: 1.2rem;
+      background: rgb(var(--arc-background-color));
+      border: var(--arc-border-width) var(--arc-border-style);
+      display: flex;
+      flex-flow: column nowrap;
+      width: 20rem;
+    }
+    
+    #card {
       --arc-card-height: 25rem;
       --arc-card-width: 20rem;
-        background: rgb(var(--arc-background-color));
-        border: var(--arc-border-width) var(--arc-border-style);
-        display: flex;
-        flex-flow: column nowrap;
-        height: var(--arc-card-height);
-        position: relative;
-        width: 20rem;
-      }
-
-      #card {
+      --header-padding: 1.2rem;
         display: contents;
+        height: var(--arc-card-height);
       }
 
       #heading {
@@ -98,10 +97,10 @@ export default class ArcCard extends LitElement {
   ];
 
   /** Set the url of the image */
-  @property({ type: String, reflect: true }) imageUrl = '';
+  @property({ attribute: 'image-url', type: String }) imageUrl = '';
 
   /** Specifies an alternate text for an image, if the image cannot be displayed. */
-  @property({ type: String, reflect: true }) imageAlt = '';
+  @property({ attribute: 'image-alt', type: String }) imageAlt = '';
 
   render() {
     return html`

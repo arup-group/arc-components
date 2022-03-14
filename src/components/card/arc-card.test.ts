@@ -17,7 +17,7 @@ describe('ArcCard ', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-card imagealt="" imageurl=""></arc-card>`);
+      expect(element).dom.to.equal(`<arc-card></arc-card>`);
     });
 
     /* Test the accessibility */
@@ -63,14 +63,6 @@ describe('ArcCard ', () => {
 
     /* Test the css variables that can be overwritten */
     describe('css variables', () => {
-      it('uses the default css variables', async () => {
-        const element: ArcCard = await fixture(html`<arc-card></arc-card>`);
-  
-        expect(getPropertyValue(element, '--header-padding')).to.equal('1.2rem');
-        expect(getPropertyValue(element, '--arc-card-height')).to.equal('25rem');
-        expect(getPropertyValue(element, '--arc-card-width')).to.equal('20rem');
-      });
-      
       it('overwrites the css variables', async () => {
         const element: ArcCard = await fixture(html`<arc-card style="--arc-card-width:30rem"></arc-card>`);
   

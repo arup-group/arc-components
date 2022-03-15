@@ -68,7 +68,6 @@ export default class ArcCard extends LitElement {
       }
 
       #content {
-        background: rgb(var(--arc-white-000));
         flex: 1;
         padding: var(--arc-spacing-large);
       }

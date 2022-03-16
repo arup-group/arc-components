@@ -15,6 +15,7 @@ import './components/radio-group/arc-radio-group.js';
 import './components/sidebar/arc-sidebar.js';
 import './components/spinner/arc-spinner.js';
 import './components/sso/arc-sso.js';
+import './components/hero/arc-hero.js';
 /* plop:component-import */
 
 /* Types */
@@ -34,6 +35,9 @@ export { default as ArcRadioGroup } from './components/radio-group/ArcRadioGroup
 export { default as ArcSidebar } from './components/sidebar/ArcSidebar.js';
 export { default as ArcSpinner } from './components/spinner/ArcSpinner.js';
 export { default as ArcSSO } from './components/sso/ArcSSO.js';
+export { default as ArcHero } from './components/hero/ArcHero.js';
+
+
 /* plop:component-export */
 
 /* Utilities */

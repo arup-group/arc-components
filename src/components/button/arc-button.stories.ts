@@ -39,26 +39,26 @@ const Template: Story<ArcButton> = ({
   loading,
   submit,
 }) => html`
-  <arc-button
-    type="${type}"
-    color="${color}"
-    size="${size}"
-    name=${ifDefined(name || undefined)}
-    value=${ifDefined(value || undefined)}
-    href=${ifDefined(href || undefined)}
-    target=${ifDefined(target || undefined)}
-    download=${ifDefined(download || undefined)}
-    ?active="${active}"
-    ?disabled="${disabled}"
-    ?loading="${loading}"
-    ?submit="${submit}"
-    >Button</arc-button
-  >
+  <div style="height: 3rem;">
+    <arc-button
+      type=${ifDefined(type || undefined)}
+      color=${ifDefined(color || undefined)}
+      size=${ifDefined(size || undefined)}
+      name=${ifDefined(name || undefined)}
+      value=${ifDefined(value || undefined)}
+      href=${ifDefined(href || undefined)}
+      target=${ifDefined(target || undefined)}
+      download=${ifDefined(download || undefined)}
+      ?active="${active}"
+      ?disabled="${disabled}"
+      ?loading="${loading}"
+      ?submit="${submit}"
+      >Button</arc-button
+    >
+  </div>
 `;
 
 const defaultArgs = {
-  type: BUTTON_TYPES.pill,
-  color: BUTTON_COLORS.default,
   size: BUTTON_SIZES.medium,
   name: '',
   value: '',
@@ -71,9 +71,31 @@ const defaultArgs = {
   submit: false,
 };
 
+/* COLORS */
+export const Default = Template.bind({});
+Default.args = { ...defaultArgs, color: BUTTON_COLORS.default };
+
+export const Primary = Template.bind({});
+Primary.args = { ...defaultArgs, color: BUTTON_COLORS.primary };
+
+export const PrimaryTwo = Template.bind({});
+PrimaryTwo.args = { ...defaultArgs, color: BUTTON_COLORS.secondary };
+
+export const Error = Template.bind({});
+Error.args = { ...defaultArgs, color: BUTTON_COLORS.error };
+
+export const Warning = Template.bind({});
+Warning.args = { ...defaultArgs, color: BUTTON_COLORS.warning };
+
+export const Info = Template.bind({});
+Info.args = { ...defaultArgs, color: BUTTON_COLORS.info };
+
+export const Success = Template.bind({});
+Success.args = { ...defaultArgs, color: BUTTON_COLORS.success };
+
 /* TYPES */
 export const Pill = Template.bind({});
-Pill.args = { ...defaultArgs, type: BUTTON_TYPES.pill };
+Pill.args = { ...defaultArgs };
 
 export const Contained = Template.bind({});
 Contained.args = { ...defaultArgs, type: BUTTON_TYPES.contained };
@@ -98,25 +120,6 @@ LinkDownload.args = { ...Link.args, download: 'ARC Storybook' };
 
 export const LinkDisabled = Template.bind({});
 LinkDisabled.args = { ...Link.args, disabled: true };
-
-/* COLORS */
-export const Default = Template.bind({});
-Default.args = { ...defaultArgs, color: BUTTON_COLORS.default };
-
-export const Primary = Template.bind({});
-Primary.args = { ...defaultArgs, color: BUTTON_COLORS.primary };
-
-export const Error = Template.bind({});
-Error.args = { ...defaultArgs, color: BUTTON_COLORS.error };
-
-export const Warning = Template.bind({});
-Warning.args = { ...defaultArgs, color: BUTTON_COLORS.warning };
-
-export const Info = Template.bind({});
-Info.args = { ...defaultArgs, color: BUTTON_COLORS.info };
-
-export const Success = Template.bind({});
-Success.args = { ...defaultArgs, color: BUTTON_COLORS.success };
 
 /* SIZES */
 export const Small = Template.bind({});

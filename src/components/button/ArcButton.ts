@@ -61,7 +61,6 @@ export default class ArcButton extends LitElement {
         color: var(--btn-color);
         background-color: var(--btn-background);
         gap: var(--arc-spacing-small);
-        box-shadow: var(--arc-input-box-shadow);
         outline: none;
         -webkit-appearance: none;
       }
@@ -79,7 +78,6 @@ export default class ArcButton extends LitElement {
       :host([type='tab']) #button {
         background: none;
         border-radius: 0;
-        box-shadow: none;
       }
 
       /* Tab - Active */
@@ -100,27 +98,22 @@ export default class ArcButton extends LitElement {
         border-radius: var(--arc-input-height-large);
       }
 
-      /* Outlined & Pill (Not primary) */
+      /* Outlined & Pill(Not primary/secondary) */
       :host([type='outlined']) #button,
-      :host([type='pill']:not([color='primary'])) #button {
+      :host([type='pill']:not([color='primary']):not([color='secondary'])) #button {
         border: var(--arc-border-width) var(--arc-border-style) currentColor;
         background-color: transparent;
-        box-shadow: none;
       }
 
-      /* Default - Hover & Focus */
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:hover,
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:focus-visible {
+      /* Default - Hover */
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:hover {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
-      /* Tab, Outlined & Pill (Not primary) - Hover & Focus */
+      /* Tab, Outlined & Pill(Not primary/secondary) - Hover */
       :host([type='tab']:not([disabled]):not([loading])) #button:hover,
-      :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
       :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
-      :host([type='outlined']:not([disabled]):not([loading])) #button:focus-visible,
-      :host([type='pill']:not([color='primary']):not([disabled]):not([loading])) #button:hover,
-      :host([type='pill']:not([color='primary']):not([disabled]):not([loading])) #button:focus-visible {
+      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #button:hover {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
@@ -133,14 +126,18 @@ export default class ArcButton extends LitElement {
       /* Tab, Outlined & Pill (Not primary) - Mouse down */
       :host([type='tab']:not([disabled]):not([loading])) #button:active,
       :host([type='outlined']:not([disabled]):not([loading])) #button:active,
-      :host([type='pill']:not([color='primary']):not([disabled]):not([loading])) #button:active {
+      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
+
+      /* Focus */
+      :host(:not([disabled]):not([loading])) #button:focus-visible {
+        box-shadow: var(--arc-focus-box-shadow) var(--focus-color);
       }
 
       /* Disabled */
       :host([disabled]) #button {
         opacity: 0.5;
-        box-shadow: none;
         cursor: not-allowed;
       }
 
@@ -239,7 +236,7 @@ export default class ArcButton extends LitElement {
           if (this.color === BUTTON_COLORS.default) {
             return 'rgb(var(--arc-input-color))'
           }
-          if (this.color === BUTTON_COLORS.primary) {
+          if (this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary) {
             return 'rgb(var(--arc-container-color))'
           }
           return 'var(--btn-background)'
@@ -248,7 +245,7 @@ export default class ArcButton extends LitElement {
           return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
         }
         default: {
-          return this.color === BUTTON_COLORS.primary ? 'rgb(var(--arc-container-color))' : 'rgb(var(--arc-input-color))';
+          return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary ? 'rgb(var(--arc-container-color))' : 'rgb(var(--arc-input-color))';
         }
       }
     };
@@ -258,6 +255,7 @@ export default class ArcButton extends LitElement {
       padding: `0 var(--arc-spacing-${this.size})`,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
+      '--focus-color': this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : `rgb(var(--arc-color-${this.color}))`,
     };
 
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */

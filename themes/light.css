@@ -10,6 +10,7 @@ arc-container[theme="light"] {
   /* Palette */
   --arc-color-default: var(--arc-grey-010);
   --arc-color-primary: var(--arc-red-050);
+  --arc-color-secondary: var(--arc-grey-070);
   --arc-color-error: var(--arc-red-040);
   --arc-color-warning: var(--arc-orange-040);
   --arc-color-info: var(--arc-blue-040);

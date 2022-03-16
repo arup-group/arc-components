@@ -230,22 +230,24 @@ export default class ArcButton extends LitElement {
     const getColor = () => {
       switch (this.type) {
         case BUTTON_TYPES.outlined: {
-          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : 'var(--btn-background)'
+          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : 'var(--btn-background)';
         }
         case BUTTON_TYPES.pill: {
           if (this.color === BUTTON_COLORS.default) {
-            return 'rgb(var(--arc-input-color))'
+            return 'rgb(var(--arc-input-color))';
           }
           if (this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary) {
-            return 'rgb(var(--arc-container-color))'
+            return 'rgb(var(--arc-container-color))';
           }
-          return 'var(--btn-background)'
+          return 'var(--btn-background)';
         }
         case BUTTON_TYPES.tab: {
           return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
         }
         default: {
-          return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary ? 'rgb(var(--arc-container-color))' : 'rgb(var(--arc-input-color))';
+          return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary
+            ? 'rgb(var(--arc-container-color))'
+            : 'rgb(var(--arc-input-color))';
         }
       }
     };
@@ -255,7 +257,8 @@ export default class ArcButton extends LitElement {
       padding: `0 var(--arc-spacing-${this.size})`,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
-      '--focus-color': this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : `rgb(var(--arc-color-${this.color}))`,
+      '--focus-color':
+        this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : `rgb(var(--arc-color-${this.color}))`,
     };
 
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */

@@ -318,7 +318,7 @@ export default class ArcDropdown extends LitElement {
     if (event.key === ' ') {
       event.preventDefault();
     }
-  };
+  }
 
   /* Hide the dropdown when a menu item is selected */
   handlePanelSelect(event: CustomEvent) {

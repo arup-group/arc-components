@@ -96,14 +96,14 @@ export default class ArcSidebar extends LitElement {
     if (childNodes.length > 1) {
       this.content.classList.add('gap');
     }
-  };
+  }
 
   toggleOpenState() {
     this.open = !this.open;
     emit(this, `${this.open ? ARC_EVENTS.show : ARC_EVENTS.hide}`, {
       detail: { open: this.open },
     });
-  };
+  }
 
   render() {
     return this.open

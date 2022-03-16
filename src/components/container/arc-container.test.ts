@@ -47,7 +47,7 @@ describe('ArcContainer', () => {
     beforeEach(() => {
       /* Ensure that local preferences from the built-in arc-accessibility are reset! */
       localStorage.clear();
-    })
+    });
 
     it('prevents the element from having a non-existing theme', async () => {
       const element: ArcContainer = await fixture(html` <arc-container theme="test-theme"></arc-container>`);

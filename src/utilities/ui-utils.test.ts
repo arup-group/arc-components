@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { setViewport } from '@web/test-runner-commands';
+import { setViewport, emulateMedia } from '@web/test-runner-commands';
 
 import { isMobile, prefersReducedMotion } from './ui-utils.js';
 
@@ -16,7 +16,13 @@ describe('isMobile', () => {
 });
 
 describe('prefersReducedMotion', () => {
-  it('returns false by default', () => {
+  it('validates the prefers-reduced-motion state', async () => {
+    expect(prefersReducedMotion()).to.be.false;
+
+    await emulateMedia({ reducedMotion: 'reduce' });
+    expect(prefersReducedMotion()).to.be.true;
+
+    await emulateMedia({ reducedMotion: 'no-preference' });
     expect(prefersReducedMotion()).to.be.false;
   });
 });

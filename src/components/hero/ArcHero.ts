@@ -55,7 +55,7 @@ export default class ArcHero extends LitElement {
         #main {
           padding: var(--arc-spacing-banner);
           grid-auto-flow: column;
-          align-content: initial;
+          align-content: normal;
         }
       }
     `,
@@ -78,7 +78,7 @@ export default class ArcHero extends LitElement {
       background: `url(${this.background}) no-repeat center center`,
       backgroundSize: 'cover',
       height: this.fullscreen ? '100%' : 'auto',
-      alignItems: this.fullscreen ? 'center' : 'initial'
+      alignItems: this.fullscreen ? 'center' : 'normal'
     };
 
     return html`

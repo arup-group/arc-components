@@ -69,31 +69,18 @@ describe('ArcHero', () => {
     let heroTarget: HTMLElement;
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-hero>
-          <span slot="title">Title</span>
-          <span slot="subtitle">Subtitle</span>
-          <span>Content</span>
-        </arc-hero>
-      `);
+      element = await fixture(html`<arc-hero></arc-hero>`);
       heroTarget = element.shadowRoot?.getElementById("main")!;
     });
 
     it('shows correct styling on a desktop', async () => {
       await setViewport({width: 1200, height: 640});
-      const computedStyles = window.getComputedStyle(element);
-      const domStyles = getComputedStyle(element);
-      console.log(computedStyles);
-      console.log(domStyles);
-
-      expect(getPropertyValue(heroTarget, 'padding')).to.equal('96px');
       expect(getPropertyValue(heroTarget, 'grid-auto-flow')).to.equal('column');
       expect(getPropertyValue(heroTarget, 'align-content')).to.equal('normal');
     });
+
     it('shows correct styling on a phone', async () => {
       await setViewport({width: 360, height: 640});
-
-      expect(getPropertyValue(heroTarget, 'padding')).to.equal('96px 24px');
       expect(getPropertyValue(heroTarget, 'grid-auto-flow')).to.equal('row');
       expect(getPropertyValue(heroTarget, 'align-content')).to.equal('start');
     });

@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { prefersDark } from "../../utilities/style-utils";
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
 import { mobileBreakpoint } from '../../utilities/ui-utils.js';
@@ -85,7 +86,7 @@ export default class ArcContainer extends LitElement {
   private _appPreferredTheme: ContainerTheme;
 
   /** Set the starting theme for the container. Once loaded, the built-in accessibility will be responsible for this property. */
-  @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
+  @property({ type: String, reflect: true }) theme: ContainerTheme = prefersDark() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.auto;
 
   /** Set the container to fullscreen mode. This hides the padding, margin and gap values. */
   @property({ type: Boolean }) fullscreen: boolean = false;

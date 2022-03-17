@@ -30,7 +30,7 @@ export default {
 
 const Template: Story<ArcDrawer> = ({ open, contained, placement, label }) => html`
   <div
-    style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
+    style="position: relative; height: 18rem; box-shadow: var(--arc-box-shadow); margin-bottom: var(--arc-spacing-medium)"
   >
     <arc-drawer ?open="${open}" ?contained="${contained}" placement="${placement}" label="${label}">
       <div style="height: 150vh;">
@@ -42,7 +42,7 @@ const Template: Story<ArcDrawer> = ({ open, contained, placement, label }) => ht
 
 const LockedTemplate: Story<ArcDrawer> = ({ open, contained, placement, label }) => html`
   <div
-    style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
+    style="position: relative; height: 18rem; box-shadow: var(--arc-box-shadow); margin-bottom: var(--arc-spacing-medium)"
   >
     <arc-drawer
       id="lockedDrawer"

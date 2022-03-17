@@ -24,8 +24,9 @@ export default class ArcHero extends LitElement {
       }
 
       #main{
-        padding: 10%;
+        padding: var(--arc-spacing-banner) var(--arc-spacing-medium);
         display:grid;
+        align-content: start;
         grid-auto-columns: 1fr;
         gap: var(--content-gap);
       }
@@ -52,11 +53,16 @@ export default class ArcHero extends LitElement {
 
       @media (min-width: ${mobileBreakpoint}rem) {
         #main {
+          padding: var(--arc-spacing-banner);
           grid-auto-flow: column;
+          align-content: initial;
         }
       }
     `,
   ];
+
+  /** Set the banner to full screen. */
+  @property({ type: Boolean }) fullscreen: boolean = false;
 
   /** Set the title of the hero. Alternatively, the title slot can be used. */
   @property({ type: String }) title: string;
@@ -70,7 +76,9 @@ export default class ArcHero extends LitElement {
   render() {
     const imageStyle = {
       background: `url(${this.background}) no-repeat center center`,
-      backgroundSize: 'cover'
+      backgroundSize: 'cover',
+      height: this.fullscreen ? '100%' : 'auto',
+      alignItems: this.fullscreen ? 'center' : 'initial'
     };
 
     return html`
@@ -78,7 +86,7 @@ export default class ArcHero extends LitElement {
         id="main"
         aria-label=${ifDefined(this.title || undefined)}
         aria-labelledby="${ifDefined(this.title ? undefined : 'title')}"
-        style=${styleMap(imageStyle)}
+        style=${ifDefined(this.background ? styleMap(imageStyle) : undefined)}
       >
         <div>
           <h1 id="title"><slot name="title">${this.title}</slot></h1>

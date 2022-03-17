@@ -23,15 +23,16 @@ export default class ArcHero extends LitElement {
         --content-gap: 5rem;
       }
 
-      #main{
+      #main {
         padding: var(--arc-spacing-banner) var(--arc-spacing-medium);
-        display:grid;
+        display: grid;
         align-content: start;
         grid-auto-columns: 1fr;
         gap: var(--content-gap);
       }
 
-      #title, #content {
+      #title,
+      #content {
         font-family: var(--arc-font-headline);
         font-size: var(--arc-font-size-xxxx-large);
         font-weight: var(--arc-font-weight-normal);
@@ -78,7 +79,7 @@ export default class ArcHero extends LitElement {
       background: `url(${this.background}) no-repeat center center`,
       backgroundSize: 'cover',
       height: this.fullscreen ? '100%' : 'auto',
-      alignItems: this.fullscreen ? 'center' : 'normal'
+      alignItems: this.fullscreen ? 'center' : 'normal',
     };
 
     return html`

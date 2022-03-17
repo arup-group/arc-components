@@ -37,7 +37,6 @@ export { default as ArcSpinner } from './components/spinner/ArcSpinner.js';
 export { default as ArcSSO } from './components/sso/ArcSSO.js';
 export { default as ArcHero } from './components/hero/ArcHero.js';
 
-
 /* plop:component-export */
 
 /* Utilities */

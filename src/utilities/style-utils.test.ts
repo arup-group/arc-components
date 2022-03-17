@@ -32,7 +32,7 @@ describe('prefersDark', () => {
     expect(prefersDark()).to.be.true;
     await emulateMedia({ colorScheme: 'light' });
     expect(prefersDark()).to.be.false;
-  })
+  });
 });
 
 describe('noFOUC', () => {

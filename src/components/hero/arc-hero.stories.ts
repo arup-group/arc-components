@@ -1,28 +1,23 @@
-import { html } from 'lit';
-import { Meta, Story } from '@storybook/web-components';
+import {html} from 'lit';
+import {Meta, Story} from '@storybook/web-components';
+import {ifDefined} from 'lit/directives/if-defined.js';
 import type ArcHero from './ArcHero.js';
+import './arc-hero.js';
 
 export default {
   title: 'Components/ArcHero',
   component: 'arc-hero'
 } as Meta;
 
-const Template: Story<ArcHero> = ({ background }) => html`
-  <arc-hero  bgImg="${background}" >
-  <span slot='title'>Generative Design & the Built Environment...</span>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+const Template: Story<ArcHero> = ({ background}) => html`
+  <arc-hero background=${ifDefined(background || undefined)} style="color: ${background ? 'white' : undefined}">
+    <span slot="title">Callisto</span>
+    <span slot="subtitle">25888 Entries | 11/06/1922</span>
+    <span>Creating a prototype website that also contains copy and images is the best way to help the client understand what the concept behind your design is.</span>
   </arc-hero>
-`;
-
-const ImgTemplate: Story<ArcHero> = () => html`
-  <arc-hero  >
-  <span slot='title'>Generative Design & the Built Environment...</span>
-  <img src="https://random.imagecdn.app/500/150"/>
-  </arc-hero>
-`;
+`
 
 /* TYPES */
 export const Default = Template.bind({});
-export const ImgDisplay = ImgTemplate.bind({});
 export const BackgroundImg = Template.bind({});
-BackgroundImg.args = { background: "https://random.imagecdn.app/500/150"};
+BackgroundImg.args = {background: 'https://images.adsttc.com/media/images/5231/c740/e8e4/4efe/3a00/0090/large_jpg/gherkin_shaundunmall.jpg?1378993979'};

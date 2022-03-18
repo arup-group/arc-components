@@ -33,9 +33,7 @@ export default class ArcHero extends LitElement {
 
       #title,
       #content {
-        font-family: var(--arc-font-headline);
         font-size: var(--arc-font-size-xxxx-large);
-        font-weight: var(--arc-font-weight-normal);
         word-break: break-word;
         margin: 0;
       }

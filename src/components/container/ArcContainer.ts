@@ -93,8 +93,8 @@ export default class ArcContainer extends LitElement {
 
   @watch('theme')
   handleThemeChange() {
-    /* Retrieve the theme when a faulty (non-existing) or the 'auto' theme is set */
-    if (!(this.theme in CONTAINER_THEMES) || CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto) {
+    /* If the given theme is auto or if the given theme does not exist in the CONTAINER_THEMES */
+    if (CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto || !(this.theme in CONTAINER_THEMES)) {
       this.theme = this.getTheme();
     }
   }
@@ -116,7 +116,7 @@ export default class ArcContainer extends LitElement {
     document.removeEventListener('keypress', this.handleKeyDown.bind(this));
   }
 
-  /* Retrieve the theme based on the time of day */
+  /* Retrieve the theme based on the time of day or on the OS setting */
   getTheme(date?: Date) {
     return isNight(date) || prefersDark() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
   }

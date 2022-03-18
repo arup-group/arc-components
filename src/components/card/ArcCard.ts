@@ -22,32 +22,33 @@ export default class ArcCard extends LitElement {
 
       #main {
         display: grid;
-        padding: var(--arc-spacing-normal);
         border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-grey-040));
+      }
+
+      header,
+      #body,
+      footer {
+        display: grid;
+        padding: var(--arc-spacing-normal);
       }
     `,
   ];
 
   render() {
     return html`
-      <article id="main" tabindex="0">
-        <div id="header">
-          <h1>
-            <slot name="title">Title</slot>
-          </h1>
-          <h2>
-            <slot name="subtitle">Subtitle</slot>
-          </h2>
-        </div>
-        <div id="image">
-          <slot name="image">Image</slot>
-        </div>
-        <div id="body">
-          <slot name="body">Content</slot>
-        </div>
-        <div id="footer">
-          <slot name="footer">Footer</slot>
-        </div>
+      <article id="main" role="article" aria-labelledby="title">
+        <header id="header">
+          <div>
+            <h1 id="title"><slot name="title"></slot></h1>
+            <p id="subtitle"><slot name="subtitle"></slot></p>
+          </div>
+          <div></div>
+        </header>
+        <div id="image"><slot name="image"></slot></div>
+        <div id="body"><slot></slot></div>
+        <footer id="footer">
+          <slot name="footer"></slot>
+        </footer>
       </article>
     `;
   }

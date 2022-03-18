@@ -21,28 +21,14 @@
   <link crossorigin="anonymous" href="/themes/index.css" rel="stylesheet">
   <link crossorigin="anonymous" href="/themes/light.css" rel="stylesheet">
   <link crossorigin="anonymous" href="/themes/dark.css" rel="stylesheet">
-
-  <style>
-    #testSection {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 1fr;
-      gap: var(--arc-spacing-medium);
-      padding: var(--arc-spacing-medium);
-    }
-  </style>
 </head>
 
 <body>
 <arc-container>
   <arc-navbar slot="nav" logo="/assets/arc-red.svg" tabs="0"></arc-navbar>
-  <arc-hero title="Title" subtitle="Using Times New Roman">
-    Creating a prototype website that also contains copy and images is the best way to help the client understand what the concept behind your design is.
-  </arc-hero>
-  <section id="testSection" aria-label="Test section">
-    <arc-card></arc-card>
-    <arc-card></arc-card>
-    <arc-card></arc-card>
+  <section aria-label="Test section">
+    <p>Hello <arc-icon-button></arc-icon-button> how are you</p>
+    <p>Hello <arc-icon-button></arc-icon-button> how are you</p>
   </section>
 </arc-container>
 

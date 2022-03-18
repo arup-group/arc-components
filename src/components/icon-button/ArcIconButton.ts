@@ -1,9 +1,7 @@
 import { css, LitElement, nothing } from 'lit';
 import { html, literal } from 'lit/static-html.js';
-import { property, query, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
+import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { hasSlot } from '../../internal/slot.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
 import { IconType } from '../icon/constants/IconConstants.js';
@@ -29,14 +27,14 @@ export default class ArcIconButton extends LitElement {
       }
 
       #button {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        align-content: center;
+        text-align: center;
         width: 100%;
         min-height: 100%;
         border: none;
         font-family: var(--arc-font-button);
+        line-height: inherit;
         text-decoration: none;
         user-select: none;
         white-space: nowrap;
@@ -108,9 +106,6 @@ export default class ArcIconButton extends LitElement {
   /** @internal */
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
-  /** @internal - State that tracks whether the button has a label. */
-  @state() private hasLabel = false;
-
   /** The name of the icon to draw. */
   @property({ type: String }) name: IconType;
 
@@ -135,11 +130,6 @@ export default class ArcIconButton extends LitElement {
   /** Draws the button in a loading state. */
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.handleSlotChange();
-  }
-
   /* Simulates a click on the button. */
   click() {
     this.button.click();
@@ -162,23 +152,14 @@ export default class ArcIconButton extends LitElement {
     }
   }
 
-  handleSlotChange() {
-    this.hasLabel = hasSlot(this);
-  }
-
   render() {
     const isLink = !!this.href;
     const tag = isLink ? literal`a` : literal`button`;
-
-    const btnStyles = {
-      padding: this.hasLabel ? '0 0 var(--arc-spacing-small) 0' : null,
-    };
 
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <${tag}
         id="button"
-        style=${styleMap(btnStyles)}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type="button"
         href=${ifDefined(this.href || undefined)}
@@ -195,7 +176,7 @@ export default class ArcIconButton extends LitElement {
           <arc-icon id="icon" part="icon" name=${ifDefined(this.name || undefined)}></arc-icon>
           ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : nothing}
         </span>
-        ${this.hasLabel ? html`<span id="action"><slot @slotchange=${this.handleSlotChange}></slot></span>` : nothing}
+        <span id="action"><slot></slot></span>
       </${tag}>
     `;
   }

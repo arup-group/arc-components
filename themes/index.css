@@ -148,7 +148,7 @@
   --arc-overlay-gradient: linear-gradient(var(--arc-overlay-opacity) 0 0);
 
   /* Box shadow values */
-  --arc-input-box-shadow: 0 2px 4px rgba(0, 0, 0, 25%);
+  --arc-box-shadow: 0 2px 4px rgba(var(--arc-grey-060), 25%);
   --arc-focus-box-shadow: 0 0 6px;
 
   /* Input */
@@ -165,6 +165,7 @@
   --arc-spacing-normal: 1rem;
   --arc-spacing-medium: 1.5rem;
   --arc-spacing-large: 1.75rem;
+  --arc-spacing-banner: 6rem;
 
   /* Border */
   --arc-border-width: 1px;

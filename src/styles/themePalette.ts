@@ -1,8 +1,8 @@
 export declare type PaletteColor = 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' | 'background';
 export declare type MUIPalette = { main: String };
-export declare type MUIBackground = { default: String, paper: String };
+export declare type MUIBackground = { default: String; paper: String };
 
-export const themePalette: { [key in PaletteColor]: MUIPalette | MUIBackground} = {
+export const themePalette: { [key in PaletteColor]: MUIPalette | MUIBackground } = {
   primary: {
     main: 'rgb(var(--arc-color-primary))',
   },

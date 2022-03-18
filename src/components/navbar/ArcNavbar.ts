@@ -1,6 +1,5 @@
 import { css, html, LitElement, nothing } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { map } from 'lit/directives/map.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
@@ -42,6 +41,7 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Layout */
+
       #main,
       #left,
       #logoWrapper,
@@ -61,6 +61,7 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Left side */
+
       #left {
         justify-content: flex-start;
       }
@@ -78,6 +79,7 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Show the tool-name when there is no tool-logo */
+
       #tool-name {
         display: flex;
         overflow: hidden;
@@ -90,11 +92,13 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Hide the tool-name when there is a tool-logo */
+
       #tool-logo + #tool-name {
         display: none;
       }
 
       /* Right side */
+
       #right {
         justify-content: flex-end;
         gap: var(--arc-spacing-small);
@@ -223,13 +227,7 @@ export default class ArcNavbar extends LitElement {
         <div id="left">
           ${this.home
             ? html`
-                <a
-                  id="logoWrapper"
-                  href=${ifDefined(this.home || undefined)}
-                  rel="noreferrer noopener"
-                  role="button"
-                  aria-label="tool logo"
-                >
+                <a id="logoWrapper" href=${this.home} rel="noreferrer noopener" role="button" aria-label="tool logo">
                   ${logoInterior}
                 </a>
               `

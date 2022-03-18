@@ -1,5 +1,5 @@
-import { expect } from "@open-wc/testing";
-import { themePalette, MUIPalette, MUIBackground } from "./themePalette.js";
+import { expect } from '@open-wc/testing';
+import { themePalette, MUIPalette, MUIBackground } from './themePalette.js';
 
 describe('ThemePalette', () => {
   it('should contain the basic ARC themes', () => {
@@ -18,6 +18,6 @@ describe('ThemePalette', () => {
         expect((value as MUIBackground).default).to.exist;
         expect((value as MUIBackground).paper).to.exist;
       }
-    })
-  })
-})
+    });
+  });
+});

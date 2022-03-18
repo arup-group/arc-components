@@ -2,9 +2,9 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { setViewport } from '@web/test-runner-commands';
+import { prefersDark, getPropertyValue } from '../../utilities/style-utils.js';
 import { isNight } from '../../internal/theme.js';
 import { isMobile } from '../../utilities/ui-utils.js';
-import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../utilities/dom-utils.js';
 import { createKeyEvent } from '../../utilities/test-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
@@ -29,7 +29,7 @@ describe('ArcContainer', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      if (isNight()) {
+      if (prefersDark() || isNight()) {
         expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`);
       } else {
         expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.light}></arc-container>`);

@@ -113,7 +113,8 @@ export default class ArcButton extends LitElement {
       /* Tab, Outlined & Pill(Not primary/secondary) - Hover */
       :host([type='tab']:not([disabled]):not([loading])) #button:hover,
       :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
-      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #button:hover {
+      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading]))
+        #button:hover {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
@@ -126,7 +127,8 @@ export default class ArcButton extends LitElement {
       /* Tab, Outlined & Pill (Not primary) - Mouse down */
       :host([type='tab']:not([disabled]):not([loading])) #button:active,
       :host([type='outlined']:not([disabled]):not([loading])) #button:active,
-      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #button:active {
+      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading]))
+        #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 

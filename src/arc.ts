@@ -4,6 +4,7 @@ import './components/bottombar/arc-bottombar.js';
 import './components/button/arc-button.js';
 import './components/container/arc-container.js';
 import './components/drawer/arc-drawer.js';
+import './components/card/arc-card.js';
 import './components/dropdown/arc-dropdown.js';
 import './components/hero/arc-hero.js';
 import './components/icon-button/arc-icon-button.js';
@@ -24,6 +25,7 @@ export { default as ArcBottombar } from './components/bottombar/ArcBottombar.js'
 export { default as ArcButton } from './components/button/ArcButton.js';
 export { default as ArcContainer } from './components/container/ArcContainer.js';
 export { default as ArcDrawer } from './components/drawer/ArcDrawer.js';
+export { default as ArcCard } from './components/card/ArcCard.js';
 export { default as ArcDropdown } from './components/dropdown/ArcDropdown.js';
 export { default as ArcHero } from './components/hero/ArcHero.js';
 export { default as ArcIcon } from './components/icon/ArcIcon.js';

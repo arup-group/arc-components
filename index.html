@@ -27,8 +27,18 @@
 <arc-container>
   <arc-navbar slot="nav" logo="/assets/arc-red.svg" tabs="0"></arc-navbar>
   <section aria-label="Test section">
-    <p>Hello <arc-icon-button></arc-icon-button> how are you</p>
-    <p>Hello <arc-icon-button></arc-icon-button> how are you</p>
+    <arc-card>
+      <div slot="title">Header</div>
+      <div slot="subtitle">Subhead</div>
+      <div slot="header-actions">
+        <arc-icon-button name="settings"></arc-icon-button>
+      </div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+      <div slot="footer-actions">
+        <arc-icon-button name="home"></arc-icon-button>
+        <arc-icon-button name="menu"></arc-icon-button>
+      </div>
+    </arc-card>
   </section>
 </arc-container>
 

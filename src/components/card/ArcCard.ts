@@ -22,14 +22,37 @@ export default class ArcCard extends LitElement {
 
       #main {
         display: grid;
+        width: var(--arc-card-width);
         border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-grey-040));
       }
 
       header,
       #body,
       footer {
-        display: grid;
         padding: var(--arc-spacing-normal);
+      }
+
+      header,
+      footer {
+        display: grid;
+        grid-auto-flow: column;
+        align-items: center;
+        justify-content: start;
+        gap: var(--arc-spacing-medium);
+      }
+
+      footer {
+        justify-content: end;
+      }
+
+      #title {
+        font-family: var(--arc-font-body);
+        font-size: var(--arc-font-size-medium);
+        margin: 0;
+      }
+
+      #subtitle {
+        font-size: var(--arc-font-size-small);
       }
     `,
   ];
@@ -38,16 +61,17 @@ export default class ArcCard extends LitElement {
     return html`
       <article id="main" role="article" aria-labelledby="title">
         <header id="header">
+          <span>T</span>
           <div>
-            <h1 id="title"><slot name="title"></slot></h1>
+            <h1 id="title"><slot name="title"></slot></h1
             <p id="subtitle"><slot name="subtitle"></slot></p>
           </div>
-          <div></div>
+          <slot name="header-actions"></slot>
         </header>
         <div id="image"><slot name="image"></slot></div>
         <div id="body"><slot></slot></div>
         <footer id="footer">
-          <slot name="footer"></slot>
+          <slot name="footer-actions"></slot>
         </footer>
       </article>
     `;

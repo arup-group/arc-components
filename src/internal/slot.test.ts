@@ -65,6 +65,12 @@ describe('getSlotContent', async () => {
 });
 
 describe('hasSlot', () => {
+  let slotController;
+
+  beforeEach(() => {
+    slotController = new HasSlotController();
+  });
+
   it('has no filled slots', async () => {
     const element: HTMLElement = await fixture(html`
       <div>

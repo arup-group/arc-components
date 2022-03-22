@@ -25,11 +25,6 @@ function setRootValue(variable: string, newVal: string) {
   }
 }
 
-/* Tells if the user has enabled the "color-scheme" setting in their browser or OS. */
-function prefersDark() {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-
 /*
 Calling this method will resolve the flash-of-unstyled-content (FOUC)
 */
@@ -48,4 +43,4 @@ function noFOUC() {
   };
 }
 
-export { getPropertyValue, getRootValue, setRootValue, prefersDark, noFOUC };
+export { getPropertyValue, getRootValue, setRootValue, noFOUC };

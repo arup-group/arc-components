@@ -21,24 +21,42 @@
   <link crossorigin="anonymous" href="/themes/index.css" rel="stylesheet">
   <link crossorigin="anonymous" href="/themes/light.css" rel="stylesheet">
   <link crossorigin="anonymous" href="/themes/dark.css" rel="stylesheet">
+
+  <style>
+    #cards {
+      display: grid;
+      grid-auto-flow: column;
+      gap: var(--arc-spacing-medium);
+    }
+  </style>
 </head>
 
 <body>
 <arc-container>
   <arc-navbar slot="nav" logo="/assets/arc-red.svg" tabs="0"></arc-navbar>
   <section aria-label="Test section">
-    <arc-card>
-      <div slot="title">Header</div>
-      <div slot="subtitle">Subhead</div>
-      <div slot="header-actions">
-        <arc-icon-button name="settings"></arc-icon-button>
-      </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-      <div slot="footer-actions">
-        <arc-icon-button name="home"></arc-icon-button>
-        <arc-icon-button name="menu"></arc-icon-button>
-      </div>
-    </arc-card>
+    <div id="cards">
+      <arc-card style="width: 20rem;">
+        <div slot="header">
+          <div>Header</div>
+          <div>
+            <arc-icon-button name="settings"></arc-icon-button>
+          </div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+        <div slot="footer">
+          <arc-button>Action</arc-button>
+        </div>
+      </arc-card>
+      <arc-card style="width: 20rem;">
+        <div slot="header">
+          <div>Header</div>
+          <div>
+            <arc-icon-button name="settings"></arc-icon-button>
+          </div>
+        </div>
+      </arc-card>
+    </div>
   </section>
 </arc-container>
 

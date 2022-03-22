@@ -1,4 +1,5 @@
 import { css, html, LitElement } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
 import componentStyles from '../../styles/component.styles.js';
 
 /**
@@ -18,60 +19,60 @@ export default class ArcCard extends LitElement {
     css`
       :host {
         display: inline-block;
+        width: auto;
       }
 
       #main {
         display: grid;
-        width: var(--arc-card-width);
         border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-grey-040));
       }
 
-      header,
+      #header,
       #body,
-      footer {
+      #footer {
         padding: var(--arc-spacing-normal);
       }
 
-      header,
-      footer {
+      #header slot::slotted(*),
+      #footer slot::slotted(*) {
         display: grid;
-        grid-auto-flow: column;
         align-items: center;
-        justify-content: start;
-        gap: var(--arc-spacing-medium);
+        grid-auto-flow: column;
+        justify-content: space-between;
       }
 
-      footer {
+      #footer slot::slotted(*) {
         justify-content: end;
-      }
-
-      #title {
-        font-family: var(--arc-font-body);
-        font-size: var(--arc-font-size-medium);
-        margin: 0;
-      }
-
-      #subtitle {
-        font-size: var(--arc-font-size-small);
       }
     `,
   ];
 
+  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
+
   render() {
     return html`
-      <article id="main" role="article" aria-labelledby="title">
+      <article
+        id="main"
+        role="article"
+        aria-labelledby="title"
+        class=${classMap({
+          card: true,
+          'card--has-footer': this.hasSlotController.test('footer'),
+          'card--has-image': this.hasSlotController.test('image'),
+          'card--has-header': this.hasSlotController.test('header'),
+        })}
+      >
         <header id="header">
-          <span>T</span>
-          <div>
-            <h1 id="title"><slot name="title"></slot></h1
-            <p id="subtitle"><slot name="subtitle"></slot></p>
-          </div>
-          <slot name="header-actions"></slot>
+          <slot name="header"></slot>
         </header>
-        <div id="image"><slot name="image"></slot></div>
-        <div id="body"><slot></slot></div>
+        <div id="image">
+          <slot name="image"></slot>
+        </div>
+        <div id="body">
+          <slot></slot>
+        </div>
         <footer id="footer">
-          <slot name="footer-actions"></slot>
+          <slot name="footer"></slot>
         </footer>
       </article>
     `;

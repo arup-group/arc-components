@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
-import { emulateMedia } from '@web/test-runner-commands';
-import { getPropertyValue, getRootValue, setRootValue, prefersDark, noFOUC } from './style-utils.js';
+import { getPropertyValue, getRootValue, setRootValue, noFOUC } from './style-utils.js';
 
 describe('getPropertyValue', () => {
   it('returns the correct property value', async () => {
@@ -23,15 +22,6 @@ describe('getRootValue / setRootValue', () => {
 
     setRootValue(variable, '3rem');
     expect(getRootValue(variable)).to.equal('3rem');
-  });
-});
-
-describe('prefersDark', () => {
-  it('validates the prefers-color-scheme: dark state', async () => {
-    await emulateMedia({ colorScheme: 'dark' });
-    expect(prefersDark()).to.be.true;
-    await emulateMedia({ colorScheme: 'light' });
-    expect(prefersDark()).to.be.false;
   });
 });
 

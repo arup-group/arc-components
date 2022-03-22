@@ -1,7 +1,13 @@
 import { css, html, LitElement } from 'lit';
+import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import componentStyles from '../../styles/component.styles.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { watch } from '../../internal/watch.js';
+import { startAnimations, stopAnimations, shimKeyframesHeightAuto } from '../../internal/animate.js';
+import { getAnimation, setDefaultAnimation } from '../../utilities/animation-registry.js';
+import { emit, waitForEvent } from '../../internal/event.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 /**
  * @slot default - The card's content.
@@ -25,7 +31,10 @@ export default class ArcCard extends LitElement {
 
       #main {
         display: grid;
+        overflow: hidden;
+        background-color: rgb(var(--arc-container-color));
         box-shadow: var(--arc-box-shadow);
+        transition: var(--arc-transition-medium) transform;
       }
 
       #header,
@@ -35,7 +44,6 @@ export default class ArcCard extends LitElement {
       }
 
       #image {
-        width: 100%;
         overflow: hidden;
       }
 
@@ -44,9 +52,9 @@ export default class ArcCard extends LitElement {
         width: 100%;
       }
 
-      /* Hide elements when they are not slotted */
+      /* Hide elements when they are not slotted or when the card is collapsed */
       #main:not(.card--has-header) #header,
-      #main:not(.card--has-header) #image,
+      #main:not(.card--has-image) #image,
       #main:not(.card--has-body) #body,
       #main:not(.card--has-footer) #footer {
         display: none;
@@ -57,6 +65,10 @@ export default class ArcCard extends LitElement {
         display: grid;
         align-items: center;
         grid-auto-flow: column;
+        gap: var(--arc-spacing-small);
+      }
+
+      #header ::slotted(*) {
         justify-content: space-between;
       }
 
@@ -66,37 +78,118 @@ export default class ArcCard extends LitElement {
     `,
   ];
 
+  /** @internal */
+  @query('#content') content: HTMLElement;
+
   private readonly hasSlotController = new HasSlotController(this, 'header', 'image', '[default]', 'footer');
+
+  /** Indicates whether the card is collapsed. This can be used instead of the expand/collapse methods. */
+  @property({ type: Boolean }) collapsed: boolean = false;
+
+  @watch('collapsed', { waitUntilFirstUpdate: true })
+  async handleCollapsedChange() {
+    if (!this.collapsed) {
+      /* Show */
+      emit(this, ARC_EVENTS.show);
+
+      await stopAnimations(this);
+      this.content.hidden = false;
+
+      const { keyframes, options } = getAnimation(this, 'card.expand');
+      await startAnimations(this.content, shimKeyframesHeightAuto(keyframes, this.content.scrollHeight), options);
+      this.content.style.height = 'auto';
+
+      emit(this, ARC_EVENTS.afterShow);
+    } else {
+      /* Hide */
+      emit(this, ARC_EVENTS.hide);
+
+      await stopAnimations(this);
+
+      const { keyframes, options } = getAnimation(this, 'card.hide');
+      await startAnimations(this.content, shimKeyframesHeightAuto(keyframes, this.content.scrollHeight), options);
+      this.content.hidden = true;
+      this.content.style.height = 'auto';
+
+      emit(this, ARC_EVENTS.afterHide);
+    }
+  }
+
+  /** Expand the card. */
+  async expand() {
+    if (!this.collapsed) {
+      return undefined;
+    }
+
+    this.collapsed = false;
+    return waitForEvent(this, ARC_EVENTS.afterHide);
+  }
+
+  /** Collapse the card. */
+  async collapse() {
+    if (this.collapsed) {
+      return undefined;
+    }
+
+    this.collapsed = true;
+    return waitForEvent(this, ARC_EVENTS.afterShow);
+  }
+
+  toggleCollapse() {
+    if (!this.collapsed) {
+      this.collapse();
+    } else {
+      this.expand();
+    }
+  }
 
   render() {
     return html`
       <article
         id="main"
         role="article"
-        aria-labelledby="title"
         class=${classMap({
           'card--has-header': this.hasSlotController.test('header'),
           'card--has-image': this.hasSlotController.test('image'),
           'card--has-body': this.hasSlotController.test('[default]'),
           'card--has-footer': this.hasSlotController.test('footer'),
+          collapsed: this.collapsed,
         })}
       >
         <header id="header">
           <slot name="header"></slot>
         </header>
-        <div id="image">
-          <slot name="image"></slot>
+        <div id="content">
+          <div id="image">
+            <slot name="image"></slot>
+          </div>
+          <div id="body">
+            <slot></slot>
+          </div>
+          <footer id="footer">
+            <slot name="footer"></slot>
+          </footer>
         </div>
-        <div id="body">
-          <slot></slot>
-        </div>
-        <footer id="footer">
-          <slot name="footer"></slot>
-        </footer>
       </article>
     `;
   }
 }
+
+setDefaultAnimation('card.expand', {
+  keyframes: [
+    { height: '0', opacity: '0' },
+    { height: 'auto', opacity: '1' },
+  ],
+  options: { duration: 500, easing: 'ease' },
+});
+
+setDefaultAnimation('card.hide', {
+  keyframes: [
+    { height: 'auto', opacity: '1' },
+    { height: '0', opacity: '0' },
+  ],
+  options: { duration: 500, easing: 'ease' },
+});
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { emit } from '../../internal/event.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -9,6 +10,7 @@ import '../icon-button/arc-icon-button.js';
 
 /**
  * @slot default - The sidebar's content.
+ * @slot label - The sidebar's label.
  *
  * @event arc-show - Emitted when the sidebar opens.
  * @event arc-hide - Emitted when the sidebar closes.
@@ -37,14 +39,14 @@ export default class ArcSidebar extends LitElement {
       }
 
       /* Open sidebar */
-      #sidebar,
+      #main,
       #content {
         height: 100%;
         display: flex;
         flex-direction: column;
       }
 
-      #title {
+      #header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -53,7 +55,7 @@ export default class ArcSidebar extends LitElement {
         user-select: none;
       }
 
-      #title span {
+      #header span {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -74,7 +76,7 @@ export default class ArcSidebar extends LitElement {
 
       /* Background */
       ::slotted(*),
-      #title,
+      #header,
       #toggleOpen {
         background: rgb(var(--arc-container-color));
       }
@@ -87,8 +89,8 @@ export default class ArcSidebar extends LitElement {
   /** Indicates whether the sidebar is open. */
   @property({ type: Boolean, reflect: true }) open: boolean = true;
 
-  /** Set a title for the sidebar. */
-  @property({ type: String }) title: string;
+  /** The sidebar label. Alternatively, the label slot can be used. */
+  @property({ type: String }) label: string;
 
   handleSlots(e: any) {
     const childNodes = e.target.assignedElements({ flatten: true });
@@ -108,9 +110,13 @@ export default class ArcSidebar extends LitElement {
   render() {
     return this.open
       ? html`
-          <div id="sidebar">
-            <div id="title">
-              <span>${this.title}</span>
+          <aside
+            id="main"
+            aria-label=${ifDefined(this.label || undefined)}
+            aria-labelledby="${ifDefined(this.label ? undefined : 'title')}"
+          >
+            <div id="header">
+              <slot id="title" name="label"><span>${this.label}</span></slot>
               <arc-icon-button
                 id="toggleClose"
                 name=${ICON_TYPES['arrow-left']}
@@ -121,7 +127,7 @@ export default class ArcSidebar extends LitElement {
             <div id="content">
               <slot @slotchange=${this.handleSlots}></slot>
             </div>
-          </div>
+          </aside>
         `
       : html`
           <arc-icon-button

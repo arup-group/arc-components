@@ -104,11 +104,15 @@ describe('ArcSidebar', () => {
 
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
-    it('renders a slot to fill the sidebar', async () => {
+    it('renders default slots to fill the component', async () => {
       const element: ArcSidebar = await fixture(html`<arc-sidebar></arc-sidebar>`);
-      const content: HTMLElement = element.shadowRoot!.getElementById('content')!;
+      const main: HTMLElement = element.shadowRoot!.getElementById('main')!;
 
-      expect(hasSlot(content)).to.be.true;
+      /* An empty slot is available */
+      expect(hasSlot(main)).to.be.true;
+
+      /* A specific (named) slot is available */
+      expect(hasSlot(main, 'label')).to.be.true;
     });
 
     it('should automatically add a gap between added slots', async () => {

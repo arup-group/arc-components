@@ -1,5 +1,9 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
+/*
+Class used to listen to slots change within the web-component.
+This is useful to show/hide elements when a specific slot is not being used.
+*/
 class HasSlotController implements ReactiveController {
   host: ReactiveControllerHost & Element;
   slotNames: string[] = [];
@@ -89,4 +93,19 @@ function getTextContent(slot: HTMLSlotElement): string {
   return text;
 }
 
-export { HasSlotController, getInnerHTML, getTextContent };
+/*
+Determines whether a web-component has a slot.
+If name is specified, the function will look for a specific named slot,
+otherwise it will look for a default slot.
+ */
+function hasSlot(el: HTMLElement, name?: string) {
+  /* Look for a named slot. */
+  if (name) {
+    return el.querySelector(`slot[name='${name}']`) !== null;
+  }
+
+  /* Look for a default slot. */
+  return [...el.querySelectorAll('slot')].some(node => !node.hasAttribute('name'));
+}
+
+export { HasSlotController, getInnerHTML, getTextContent, hasSlot };

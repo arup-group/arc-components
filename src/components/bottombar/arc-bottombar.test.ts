@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 
 import type ArcBottombar from './ArcBottombar.js';
 import './arc-bottombar.js';

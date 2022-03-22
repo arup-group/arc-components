@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, waitUntil } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcNavbar from './ArcNavbar.js';

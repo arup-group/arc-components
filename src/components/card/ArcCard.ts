@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import componentStyles from '../../styles/component.styles.js';
+import { HasSlotController } from '../../internal/slot.js';
 
 /**
  * @slot default - The card's content.
@@ -56,7 +57,6 @@ export default class ArcCard extends LitElement {
         role="article"
         aria-labelledby="title"
         class=${classMap({
-          card: true,
           'card--has-footer': this.hasSlotController.test('footer'),
           'card--has-image': this.hasSlotController.test('image'),
           'card--has-header': this.hasSlotController.test('header'),

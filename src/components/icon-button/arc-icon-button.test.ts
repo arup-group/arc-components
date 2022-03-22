@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { elementUpdated, expect, fixture, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 
 import type ArcIconButton from './ArcIconButton.js';
 import './arc-icon-button.js';
@@ -202,19 +202,14 @@ describe('ArcIconButton', () => {
 
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
-    /* Prevent padding issues when used inline within a <p> tag for example */
-    it('prevents rendering a slot to when no content is given', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button></arc-icon-button>`);
-      const buttonTarget: HTMLElement = element.shadowRoot!.getElementById('button')!;
-
-      expect(hasSlot(buttonTarget)).to.be.false;
+    let element: ArcIconButton;
+    beforeEach(async () => {
+      element = await fixture(html`<arc-icon-button></arc-icon-button>`);
     });
 
-    it('renders a slot to fill the button with a label', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button>Test</arc-icon-button>`);
-      const buttonTarget: HTMLElement = element.shadowRoot!.getElementById('button')!;
-
-      expect(hasSlot(buttonTarget)).to.be.true;
+    it('renders a default slots to fill the button with a label', () => {
+      const main = element.shadowRoot!.getElementById('button')!;
+      expect(hasSlot(main)).to.be.true;
     });
   });
 

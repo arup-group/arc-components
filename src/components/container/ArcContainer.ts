@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { prefersDark } from '../../utilities/style-utils.js';
+import { prefersDark } from '../../utilities/ui-utils.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
 import { mobileBreakpoint } from '../../utilities/ui-utils.js';

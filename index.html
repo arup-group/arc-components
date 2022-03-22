@@ -24,8 +24,8 @@
 
   <style>
     #cards {
-      display: grid;
-      grid-auto-flow: column;
+      display: flex;
+      flex-wrap: wrap;
       gap: var(--arc-spacing-medium);
     }
   </style>
@@ -55,6 +55,22 @@
             <arc-icon-button name="settings"></arc-icon-button>
           </div>
         </div>
+        <img slot="image" src="https://images.adsttc.com/media/images/5231/c740/e8e4/4efe/3a00/0090/large_jpg/gherkin_shaundunmall.jpg?1378993979">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+        <div slot="footer">
+          <arc-button>Action</arc-button>
+        </div>
+      </arc-card>
+      <arc-card style="width: 20rem;">
+        <div slot="header">
+          <div>Header</div>
+          <div>
+            <arc-icon-button name="settings"></arc-icon-button>
+          </div>
+        </div>
+      </arc-card>
+      <arc-card style="width: 20rem;">
+        Lorem Ipsum
       </arc-card>
     </div>
   </section>

@@ -25,7 +25,7 @@ export default class ArcCard extends LitElement {
 
       #main {
         display: grid;
-        border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-grey-040));
+        border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-input-color));
       }
 
       #header,
@@ -34,21 +34,39 @@ export default class ArcCard extends LitElement {
         padding: var(--arc-spacing-normal);
       }
 
-      #header slot::slotted(*),
-      #footer slot::slotted(*) {
+      #image {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      #image ::slotted(img) {
+        display: block;
+        width: 100%;
+      }
+
+      /* Hide elements when they are not slotted */
+      #main:not(.card--has-header) #header,
+      #main:not(.card--has-header) #image,
+      #main:not(.card--has-body) #body,
+      #main:not(.card--has-footer) #footer {
+        display: none;
+      }
+
+      #header ::slotted(*),
+      #footer ::slotted(*) {
         display: grid;
         align-items: center;
         grid-auto-flow: column;
         justify-content: space-between;
       }
 
-      #footer slot::slotted(*) {
+      #footer ::slotted(*) {
         justify-content: end;
       }
     `,
   ];
 
-  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'image');
+  private readonly hasSlotController = new HasSlotController(this, 'header', 'image', '[default]', 'footer');
 
   render() {
     return html`
@@ -57,9 +75,10 @@ export default class ArcCard extends LitElement {
         role="article"
         aria-labelledby="title"
         class=${classMap({
-          'card--has-footer': this.hasSlotController.test('footer'),
-          'card--has-image': this.hasSlotController.test('image'),
           'card--has-header': this.hasSlotController.test('header'),
+          'card--has-image': this.hasSlotController.test('image'),
+          'card--has-body': this.hasSlotController.test('[default]'),
+          'card--has-footer': this.hasSlotController.test('footer'),
         })}
       >
         <header id="header">

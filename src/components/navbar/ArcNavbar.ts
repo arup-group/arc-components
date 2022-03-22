@@ -56,7 +56,6 @@ export default class ArcNavbar extends LitElement {
         height: inherit;
         width: 100%;
         padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
-        box-shadow: var(--arc-box-shadow);
         user-select: none;
       }
 

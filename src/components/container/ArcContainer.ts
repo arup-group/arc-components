@@ -42,10 +42,6 @@ export default class ArcContainer extends LitElement {
         padding: 0;
       }
 
-      :host([fullscreen]) ::slotted(arc-navbar) {
-        box-shadow: var(--arc-box-shadow);
-      }
-
       ::slotted(arc-sidebar) {
         display: none;
       }

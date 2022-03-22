@@ -148,9 +148,11 @@
   --arc-overlay-opacity: rgba(var(--arc-black-100), 0.4);
   --arc-overlay-gradient: linear-gradient(var(--arc-overlay-opacity) 0 0);
 
-  /* Box shadow values */
-  --arc-box-shadow: 0 2px 4px rgba(var(--arc-grey-060), 25%);
-  --arc-focus-box-shadow: 0 0 6px;
+  /* Box shadow values x y blur spread */
+  --arc-box-shadow-01: 0 2px 1px -1px;
+  --arc-box-shadow-02: 0 1px 1px;
+  --arc-box-shadow-03: 0 1px 3px;
+  --arc-box-shadow-focus: 0 0 6px 3px;
 
   /* Input */
   --arc-input-height-small: 1.875rem;

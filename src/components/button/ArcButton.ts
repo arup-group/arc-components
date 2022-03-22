@@ -138,7 +138,7 @@ export default class ArcButton extends LitElement {
 
       /* Focus outline (same for all button states) */
       :host(:not([disabled]):not([loading])) #button:focus-visible {
-        box-shadow: var(--arc-focus-box-shadow) var(--focus-color);
+        box-shadow: var(--arc-box-shadow-focus) var(--focus-color);
       }
 
       /* Disabled */
@@ -264,7 +264,9 @@ export default class ArcButton extends LitElement {
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
       '--focus-color':
-        this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : `rgb(var(--arc-color-${this.color}))`,
+        this.color === BUTTON_COLORS.default
+          ? 'rgba(var(--arc-input-color), 0.4)'
+          : `rgba(var(--arc-color-${this.color}), 0.4)`,
     };
 
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */

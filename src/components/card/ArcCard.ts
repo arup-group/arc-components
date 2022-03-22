@@ -25,7 +25,7 @@ export default class ArcCard extends LitElement {
 
       #main {
         display: grid;
-        border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-input-color));
+        box-shadow: var(--arc-box-shadow);
       }
 
       #header,

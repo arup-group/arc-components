@@ -85,12 +85,13 @@ export default class ArcCard extends LitElement {
   /** @internal */
   @query('#content') content: HTMLElement;
 
+  /** @internal - Controller that listens to slot changes within the component. */
   private readonly hasSlotController = new HasSlotController(this, 'header', 'image', '[default]', 'footer');
 
   /** Indicates whether the card is collapsed. This can be used instead of the expand/collapse methods. */
   @property({ type: Boolean }) collapsed: boolean = false;
 
-  @watch('collapsed', { waitUntilFirstUpdate: true })
+  @watch('collapsed')
   async handleCollapsedChange() {
     if (!this.collapsed) {
       /* Show */

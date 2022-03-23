@@ -71,7 +71,7 @@ export default class ArcIcon extends LitElement {
   @property({ type: String, reflect: true }) name: string = ICON_TYPES.fire;
 
   /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
-  @property({ type: String }) label = '';
+  @property({ type: String }) label: string;
 
   /** Set the size of the icon. */
   @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;

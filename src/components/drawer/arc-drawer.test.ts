@@ -97,7 +97,6 @@ describe('ArcDrawer', () => {
       event.preventDefault();
       input.focus();
     });
-    const closeHandler: SinonSpy = sinon.spy();
     const hideHandler: SinonSpy = sinon.spy();
     const afterHideHandler: SinonSpy = sinon.spy();
 
@@ -115,7 +114,6 @@ describe('ArcDrawer', () => {
       showHandler.resetHistory();
       afterShowHandler.resetHistory();
       initialFocusHandler.resetHistory();
-      closeHandler.resetHistory();
       hideHandler.resetHistory();
       afterHideHandler.resetHistory();
       element.open = false;
@@ -126,8 +124,6 @@ describe('ArcDrawer', () => {
       element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       await element.show();
-      await waitUntil(() => showHandler.calledOnce);
-      await waitUntil(() => afterShowHandler.calledOnce);
 
       expect(showHandler).to.have.been.calledOnce;
       expect(afterShowHandler).to.have.been.calledOnce;
@@ -142,8 +138,6 @@ describe('ArcDrawer', () => {
       element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
 
       await element.hide();
-      await waitUntil(() => hideHandler.calledOnce);
-      await waitUntil(() => afterHideHandler.calledOnce);
 
       expect(hideHandler).to.have.been.calledOnce;
       expect(afterHideHandler).to.have.been.calledOnce;
@@ -166,8 +160,7 @@ describe('ArcDrawer', () => {
     });
 
     it('should emit arc-hide and arc-after-hide when setting open = false', async () => {
-      element.open = true;
-      await elementUpdated(element);
+      await element.show();
 
       element.addEventListener(ARC_EVENTS.hide, hideHandler);
       element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
@@ -187,10 +180,7 @@ describe('ArcDrawer', () => {
       element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       await element.show();
-      expect(isOpen()).to.be.true;
-
       await element.show();
-      expect(isOpen()).to.be.true;
 
       expect(showHandler).to.have.been.calledOnce;
       expect(afterShowHandler).to.have.been.calledOnce;

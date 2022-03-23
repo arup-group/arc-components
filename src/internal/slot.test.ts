@@ -5,6 +5,16 @@ import { HasSlotController, getInnerHTML, getTextContent } from './slot.js';
 
 @customElement('test-component')
 class testComponent extends LitElement {
+  private readonly hasSlotController = new HasSlotController(this, '[default]', 'one');
+
+  hasDefault() {
+    return this.hasSlotController.test('[default]');
+  }
+
+  hasNamed() {
+    return this.hasSlotController.test('one');
+  }
+
   render() {
     return html`
       <slot id="empty"></slot>
@@ -16,38 +26,28 @@ class testComponent extends LitElement {
 describe('HasSlotController', () => {
   it('has no filled slots', async () => {
     const element: testComponent = await fixture(html`<test-component></test-component>`);
-    const hasSlotController = new HasSlotController(element, '[default]', 'one');
-    expect(hasSlotController.test('[default]')).to.be.false;
-    expect(hasSlotController.test('one')).to.be.false;
+    expect(element.hasDefault()).to.be.false;
+    expect(element.hasNamed()).to.be.false;
+  });
+
+  it('has a default slot', async () => {
+    const element: testComponent = await fixture(html`<test-component><div>Test unnamed</div></test-component>`);
+    expect(element.hasDefault()).to.be.true;
+    expect(element.hasNamed()).to.be.false;
   });
 
   it('has a named slot', async () => {
-    const element: testComponent = await fixture(html`
-      <test-component>
-        <div slot="one">Test</div>
-      </test-component>
-    `);
-    const hasSlotController = new HasSlotController(element, '[default]', 'one');
-    expect(hasSlotController.test('[default]')).to.be.false;
-    expect(hasSlotController.test('one')).to.be.true;
-  });
-
-  it('has a slotted element', async () => {
-    const element: testComponent = await fixture(html`
-      <test-component>
-        <div>Test</div>
-      </test-component>
-    `);
-    const hasSlotController = new HasSlotController(element, '[default]', 'one');
-    expect(hasSlotController.test('[default]')).to.be.true;
-    expect(hasSlotController.test('one')).to.be.false;
+    const element: testComponent = await fixture(
+      html`<test-component><div slot="one">Test named</div></test-component>`
+    );
+    expect(element.hasNamed()).to.be.true;
+    expect(element.hasDefault()).to.be.false;
   });
 
   it('has slotted text', async () => {
-    const element: testComponent = await fixture(html`<test-component>Test</test-component>`);
-    const hasSlotController = new HasSlotController(element, '[default]', 'one');
-    expect(hasSlotController.test('[default]')).to.be.true;
-    expect(hasSlotController.test('one')).to.be.false;
+    const element: testComponent = await fixture(html`<test-component>Test named</test-component>`);
+    expect(element.hasDefault()).to.be.true;
+    expect(element.hasNamed()).to.be.false;
   });
 });
 

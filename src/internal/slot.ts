@@ -1,7 +1,7 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 /*
-Class used to listen to slots change within the web-component.
+Class used to listen to slot changes within an array of slots of the web-component.
 This is useful to show/hide elements when a specific slot is not being used.
 */
 class HasSlotController implements ReactiveController {
@@ -26,6 +26,7 @@ class HasSlotController implements ReactiveController {
           return true;
         }
       }
+
       return false;
     });
   }
@@ -49,7 +50,11 @@ class HasSlotController implements ReactiveController {
   handleSlotChange(event: Event) {
     const slot = event.target as HTMLSlotElement;
 
-    if ((this.slotNames.includes('[default]') && !slot.name) || (slot.name && this.slotNames.includes(slot.name))) {
+    /*
+    If an unnamed slot is given, ensure that the array contains the [default],
+    if a named slot is given, ensure that the array contains the named slot.
+    */
+    if ((!slot.name && this.slotNames.includes('[default]')) || (!!slot.name && this.slotNames.includes(slot.name))) {
       this.host.requestUpdate();
     }
   }

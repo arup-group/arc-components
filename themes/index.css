@@ -102,12 +102,6 @@
   --arc-yellow-090: 114, 68, 3;
   --arc-yellow-100: 75, 44, 2;
 
-  /* Container elements */
-  --arc-navbar-height: 3.5rem;
-  --arc-sidebar-width: 23rem;
-  --arc-bottom-height: 4.5rem;
-  --arc-card-width: 22.5rem;
-
   /* Font Family */
   --arc-font-headline: "Times New Roman";
   --arc-font-body: "Arial", sans-serif;

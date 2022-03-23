@@ -105,3 +105,9 @@ export default class ArcIcon extends LitElement {
     `;
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'arc-icon': ArcIcon;
+  }
+}

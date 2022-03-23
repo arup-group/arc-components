@@ -8,15 +8,19 @@ import { startAnimations, stopAnimations, shimKeyframesHeightAuto } from '../../
 import { getAnimation, setDefaultAnimation } from '../../utilities/animation-registry.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 
 /**
  * @slot default - The card's content.
  * @slot heading - The card's heading.
  * @slot actions - The card's actions.
  *
- * @cssproperty --header-padding - Set the padding value of the header.
- * @cssproperty --arc-card-height - Set the height of the card.
- * @cssproperty --arc-card-width - Set the width of the card.
+ * @event arc-show - Emitted when the card expands.
+ * @event arc-after-show - Emitted after the cards expands and all animations are complete.
+ * @event arc-hide - Emitted when the card collapses.
+ * @event arc-after-hide - Emitted after the card collapses and all animations are complete.
+ *
+ * @cssproperty width - Set the width of the card.
  */
 export default class ArcCard extends LitElement {
   static tag = 'arc-card';
@@ -172,7 +176,7 @@ setDefaultAnimation('card.expand', {
     { height: '0', opacity: '0' },
     { height: 'auto', opacity: '1' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('card.collapse', {
@@ -180,7 +184,7 @@ setDefaultAnimation('card.collapse', {
     { height: 'auto', opacity: '1' },
     { height: '0', opacity: '0' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 declare global {

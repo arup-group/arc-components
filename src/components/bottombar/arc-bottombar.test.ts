@@ -82,7 +82,7 @@ describe('ArcBottombar', () => {
     it('uses the default css variables', async () => {
       const element: ArcBottombar = await fixture(html` <arc-bottombar></arc-bottombar>`);
 
-      expect(getPropertyValue(element, 'height')).to.equal('auto');
+      expect(getPropertyValue(element, 'height')).to.equal('72px');
     });
     it('overwrites the css variables', async () => {
       const element: ArcBottombar = await fixture(html` <arc-bottombar style="height:30px"></arc-bottombar>`);

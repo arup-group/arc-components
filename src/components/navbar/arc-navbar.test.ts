@@ -232,7 +232,7 @@ describe('ArcNavbar', () => {
     it('uses the default css variables', async () => {
       const element: ArcNavbar = await fixture(html` <arc-navbar></arc-navbar>`);
 
-      expect(getPropertyValue(element, 'height')).to.equal('auto');
+      expect(getPropertyValue(element, 'height')).to.equal('56px');
     });
     it('overwrites the css variables', async () => {
       const element: ArcNavbar = await fixture(html` <arc-navbar style="height:30px"></arc-navbar>`);

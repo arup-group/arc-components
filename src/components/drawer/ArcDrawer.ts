@@ -11,6 +11,7 @@ import Modal from '../../internal/modal.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../icon-button/arc-icon-button.js';
@@ -343,7 +344,7 @@ setDefaultAnimation('drawer.showTop', {
     { opacity: 0, transform: 'translateY(-100%)' },
     { opacity: 1, transform: 'translateY(0)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.hideTop', {
@@ -351,7 +352,7 @@ setDefaultAnimation('drawer.hideTop', {
     { opacity: 1, transform: 'translateY(0)' },
     { opacity: 0, transform: 'translateY(-100%)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* End */
@@ -360,7 +361,7 @@ setDefaultAnimation('drawer.showEnd', {
     { opacity: 0, transform: 'translateX(100%)' },
     { opacity: 1, transform: 'translateX(0)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.hideEnd', {
@@ -368,7 +369,7 @@ setDefaultAnimation('drawer.hideEnd', {
     { opacity: 1, transform: 'translateX(0)' },
     { opacity: 0, transform: 'translateX(100%)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* Bottom */
@@ -377,7 +378,7 @@ setDefaultAnimation('drawer.showBottom', {
     { opacity: 0, transform: 'translateY(100%)' },
     { opacity: 1, transform: 'translateY(0)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.hideBottom', {
@@ -385,7 +386,7 @@ setDefaultAnimation('drawer.hideBottom', {
     { opacity: 1, transform: 'translateY(0)' },
     { opacity: 0, transform: 'translateY(100%)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* Start */
@@ -394,7 +395,7 @@ setDefaultAnimation('drawer.showStart', {
     { opacity: 0, transform: 'translateX(-100%)' },
     { opacity: 1, transform: 'translateX(0)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.hideStart', {
@@ -402,24 +403,24 @@ setDefaultAnimation('drawer.hideStart', {
     { opacity: 1, transform: 'translateX(0)' },
     { opacity: 0, transform: 'translateX(-100%)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* Deny close */
 setDefaultAnimation('drawer.denyClose', {
   keyframes: [{ transform: 'scale(1)' }, { transform: 'scale(1.01)' }, { transform: 'scale(1)' }],
-  options: { duration: 500 },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* Overlay */
 setDefaultAnimation('drawer.overlay.show', {
   keyframes: [{ opacity: 0 }, { opacity: 1 }],
-  options: { duration: 500 },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.overlay.hide', {
   keyframes: [{ opacity: 1 }, { opacity: 0 }],
-  options: { duration: 500 },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 declare global {

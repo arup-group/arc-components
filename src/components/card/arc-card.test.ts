@@ -1,13 +1,13 @@
 import { html } from 'lit';
-import { expect, fixture } from '@open-wc/testing';
+import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
-
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcCard from './ArcCard.js';
 import './arc-card.js';
-import '../button/arc-button.js';
 
-describe('ArcCard ', () => {
+describe('ArcCard', () => {
   /* Test the rendering of the component */
   describe('rendering', () => {
     let element: ArcCard;
@@ -26,21 +26,119 @@ describe('ArcCard ', () => {
     });
   });
 
-  /* Test the setters/getters */
-  describe('setters/getters', () => {
-    it('renders the arc-card with background image and alt text', async () => {
-      const testAltText = 'Test Alt Text';
-      const testImageURL = 'https://via.placeholder.com/600.png/09f/fff';
+  /* Test different component states (active, disabled, loading etc.) */
+  describe('states', () => {
+    let element: ArcCard;
 
-      const element: ArcCard = await fixture(
-        html`<arc-card image-alt="${testAltText}" image-url="${testImageURL}"></arc-card>`
-      );
-      const cardImage = element.shadowRoot!.querySelector('#card-image')!;
+    beforeEach(async () => {
+      element = await fixture(html`<arc-card></arc-card>`);
+    });
 
-      expect(element.imageAlt).to.equal(testAltText);
-      expect(element.imageUrl).to.equal(testImageURL);
-      expect(cardImage.getAttribute('src')).to.equal(testImageURL);
-      expect(cardImage.getAttribute('alt')).to.equal(testAltText);
+    it('renders the component in a collapsed state', async () => {
+      expect(element.collapsed).to.be.false;
+      expect(element.hasAttribute('collapsed')).to.be.false;
+
+      element.collapsed = true;
+      await elementUpdated(element);
+      expect(element.collapsed).to.be.true;
+      expect(element.hasAttribute('collapsed')).to.be.true;
+    });
+  });
+
+  /* Test the events (click, focus, blur etc.) */
+  describe('events', () => {
+    let element: ArcCard;
+
+    const showHandler: SinonSpy = sinon.spy();
+    const afterShowHandler: SinonSpy = sinon.spy();
+    const hideHandler: SinonSpy = sinon.spy();
+    const afterHideHandler: SinonSpy = sinon.spy();
+
+    beforeEach(async () => {
+      element = await fixture(html`<arc-card></arc-card>`);
+    });
+
+    afterEach(async () => {
+      showHandler.resetHistory();
+      afterShowHandler.resetHistory();
+      hideHandler.resetHistory();
+      afterHideHandler.resetHistory();
+    });
+
+    it('should emit arc-hide and arc-after-hide when calling collapse()', async () => {
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
+
+      await element.collapse();
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(element.collapsed).to.be.true;
+    });
+
+    it('should emit arc-show and arc-after-show when calling expand()', async () => {
+      await element.collapse();
+
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      await element.expand();
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(element.collapsed).to.be.false;
+    });
+
+    it('should emit arc-hide and arc-after-hide when setting collapsed = true', async () => {
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
+
+      element.collapsed = true;
+      await waitUntil(() => hideHandler.calledOnce);
+      await waitUntil(() => afterHideHandler.calledOnce);
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(element.collapsed).to.be.true;
+    });
+
+    it('should emit arc-show and arc-after-show when setting collapsed = false', async () => {
+      await element.collapse();
+
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      element.collapsed = false;
+      await waitUntil(() => showHandler.calledOnce);
+      await waitUntil(() => afterShowHandler.calledOnce);
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(element.collapsed).to.be.false;
+    });
+
+    it('should prevent emitting the arc-show and arc-after-show when the card is already expanded', async () => {
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      await element.expand();
+      await element.expand();
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+    });
+
+    it('should prevent emitting the arc-hide and arc-after-hide when the cards is not expanded', async () => {
+      await element.expand();
+
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
+
+      await element.collapse();
+      await element.collapse();
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
     });
   });
 
@@ -48,24 +146,33 @@ describe('ArcCard ', () => {
   describe('slots', () => {
     let element: ArcCard;
     beforeEach(async () => {
-      element = await fixture(html`<arc-card></arc-cardr>`);
+      element = await fixture(html`<arc-card></arc-card>`);
     });
 
-    it('renders default slots to fill the container', () => {
-      const main = element.shadowRoot!.getElementById('card')!;
+    it('renders default slots to fill the component', () => {
+      const main = element.shadowRoot!.getElementById('main')!;
 
-      expect(hasSlot(main)).to.be.true; /* Default content slot */
-      expect(hasSlot(main, 'heading')).to.be.true;
-      expect(hasSlot(main, 'actions')).to.be.true;
+      /* An empty slot is available */
+      expect(hasSlot(main)).to.be.true;
+
+      /* A specific (named) slot is available */
+      expect(hasSlot(main, 'header')).to.be.true;
+      expect(hasSlot(main, 'image')).to.be.true;
+      expect(hasSlot(main, 'footer')).to.be.true;
     });
   });
 
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
-    it('overwrites the css variables', async () => {
-      const element: ArcCard = await fixture(html`<arc-card style="--arc-card-width:30rem"></arc-card>`);
+    it('uses the default css variables', async () => {
+      const element: ArcCard = await fixture(html`<arc-card></arc-card>`);
 
-      expect(getPropertyValue(element, '--arc-card-width')).to.equal('30rem');
+      expect(getPropertyValue(element, 'width')).to.equal('0px');
+    });
+    it('overwrites the css variables', async () => {
+      const element: ArcCard = await fixture(html`<arc-card style="width:30px"></arc-card>`);
+
+      expect(getPropertyValue(element, 'width')).to.equal('30px');
     });
   });
 });

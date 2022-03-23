@@ -246,7 +246,6 @@ export default class ArcDrawer extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
     this.modal = new Modal(this);
   }
 

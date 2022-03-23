@@ -88,10 +88,13 @@ export default class ArcCard extends LitElement {
   /** @internal - Controller that listens to slot changes within the component. */
   private readonly hasSlotController = new HasSlotController(this, 'header', 'image', '[default]', 'footer');
 
-  /** Indicates whether the card is collapsed. This can be used instead of the expand/collapse methods. */
-  @property({ type: Boolean }) collapsed: boolean = false;
+  /** Draws the button in a disabled state. */
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
-  @watch('collapsed')
+  /** Indicates whether the card is collapsed. This can be used instead of the expand/collapse methods. */
+  @property({ type: Boolean, reflect: true }) collapsed: boolean = false;
+
+  @watch('collapsed', { waitUntilFirstUpdate: true })
   async handleCollapsedChange() {
     if (!this.collapsed) {
       /* Show */
@@ -120,6 +123,10 @@ export default class ArcCard extends LitElement {
     }
   }
 
+  firstUpdated() {
+    this.content.hidden = this.collapsed;
+  }
+
   /* Expand the card. */
   async expand() {
     if (!this.collapsed) {
@@ -127,7 +134,7 @@ export default class ArcCard extends LitElement {
     }
 
     this.collapsed = false;
-    return waitForEvent(this, ARC_EVENTS.afterHide);
+    return waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
   /* Collapse the card. */
@@ -137,7 +144,7 @@ export default class ArcCard extends LitElement {
     }
 
     this.collapsed = true;
-    return waitForEvent(this, ARC_EVENTS.afterShow);
+    return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
   render() {

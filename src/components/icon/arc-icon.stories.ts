@@ -1,10 +1,10 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import type ArcIcon from './ArcIcon.js';
-import './arc-icon.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
 import { FONT_SIZES } from '../../internal/constants/styleConstants.js';
+import type ArcIcon from './ArcIcon.js';
+import './arc-icon.js';
 
 export default {
   title: 'Components/ArcIcon',

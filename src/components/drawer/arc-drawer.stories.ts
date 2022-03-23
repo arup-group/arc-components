@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import type ArcDrawer from './ArcDrawer.js';
-import './arc-drawer.js';
 import { DRAWER_PLACEMENTS } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import type ArcDrawer from './ArcDrawer.js';
+import './arc-drawer.js';
 
 export default {
   title: 'Components/ArcDrawer',

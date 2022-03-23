@@ -1,11 +1,17 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants';
 import type ArcCard from './ArcCard.js';
 import './arc-card.js';
 
 export default {
   title: 'Components/ArcCard',
   component: 'arc-card',
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide],
+    },
+  },
 } as Meta;
 
 const Template: Story<ArcCard> = () => html`

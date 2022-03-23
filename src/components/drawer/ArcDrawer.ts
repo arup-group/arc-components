@@ -273,7 +273,7 @@ export default class ArcDrawer extends LitElement {
     await waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
-  /* Hides the drawer */
+  /* Hides the drawer. */
   async hide() {
     if (!this.open) {
       return;
@@ -283,7 +283,7 @@ export default class ArcDrawer extends LitElement {
     await waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
-  private requestClose() {
+  private _requestClose() {
     const arcRequestClose = emit(this, ARC_EVENTS.requestClose, { cancelable: true });
     if (arcRequestClose.defaultPrevented) {
       const animation = getAnimation(this, 'drawer.denyClose');
@@ -297,14 +297,14 @@ export default class ArcDrawer extends LitElement {
   handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       event.stopPropagation();
-      this.requestClose();
+      this._requestClose();
     }
   }
 
   render() {
     return html`
       <div id="main" @keydown=${this.handleKeyDown}>
-        <div id="overlay" @click=${this.requestClose} role="presentation" tabindex="-1"></div>
+        <div id="overlay" @click=${this._requestClose} role="presentation" tabindex="-1"></div>
         <div
           id="panel"
           role="dialog"
@@ -320,7 +320,7 @@ export default class ArcDrawer extends LitElement {
               id="toggleClose"
               name=${ICON_TYPES.x}
               label="Close drawer"
-              @click=${this.requestClose}
+              @click=${this._requestClose}
             ></arc-icon-button>
           </div>
 

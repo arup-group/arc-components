@@ -106,7 +106,7 @@ export default class ArcCard extends LitElement {
 
       await stopAnimations(this);
 
-      const { keyframes, options } = getAnimation(this, 'card.hide');
+      const { keyframes, options } = getAnimation(this, 'card.collapse');
       await startAnimations(this.content, shimKeyframesHeightAuto(keyframes, this.content.scrollHeight), options);
       this.content.hidden = true;
       this.content.style.height = 'auto';
@@ -115,32 +115,24 @@ export default class ArcCard extends LitElement {
     }
   }
 
-  /** Expand the card. */
+  /* Expand the card. */
   async expand() {
     if (!this.collapsed) {
-      return undefined;
+      return;
     }
 
     this.collapsed = false;
     return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
-  /** Collapse the card. */
+  /* Collapse the card. */
   async collapse() {
     if (this.collapsed) {
-      return undefined;
+      return;
     }
 
     this.collapsed = true;
     return waitForEvent(this, ARC_EVENTS.afterShow);
-  }
-
-  toggleCollapse() {
-    if (!this.collapsed) {
-      this.collapse();
-    } else {
-      this.expand();
-    }
   }
 
   render() {
@@ -183,7 +175,7 @@ setDefaultAnimation('card.expand', {
   options: { duration: 500, easing: 'ease' },
 });
 
-setDefaultAnimation('card.hide', {
+setDefaultAnimation('card.collapse', {
   keyframes: [
     { height: 'auto', opacity: '1' },
     { height: '0', opacity: '0' },

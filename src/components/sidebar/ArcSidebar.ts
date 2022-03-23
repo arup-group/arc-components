@@ -1,7 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { emit } from '../../internal/event.js';
+import { emit, waitForEvent } from '../../internal/event.js';
+import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
@@ -13,7 +14,9 @@ import '../icon-button/arc-icon-button.js';
  * @slot label - The sidebar's label.
  *
  * @event arc-show - Emitted when the sidebar opens.
+ * @event arc-after-show - Emitted after the sidebar opens and all animations are complete.
  * @event arc-hide - Emitted when the sidebar closes.
+ * @event arc-after-hide - Emitted after the sidebar closes and all animations are complete.
  *
  * @cssproperty --gap-distance - Set the distance between sidebar elements.
  * @cssproperty --sidebar-width - Set the width of the sidebar.
@@ -86,11 +89,54 @@ export default class ArcSidebar extends LitElement {
   /** @internal */
   @query('#content') content: HTMLElement;
 
-  /** Indicates whether the sidebar is open. */
+  /** Indicates whether the sidebar is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open: boolean = true;
 
   /** The sidebar label. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
+
+  @watch('open', { waitUntilFirstUpdate: true })
+  async handleOpenChange() {
+    if (this.open) {
+      /* Show */
+      emit(this, ARC_EVENTS.show);
+      /* Possible animation here */
+      emit(this, ARC_EVENTS.afterShow);
+    } else {
+      /* Hide */
+      emit(this, ARC_EVENTS.hide);
+      /* Possible animation here */
+      emit(this, ARC_EVENTS.afterHide);
+    }
+  }
+
+  /* Shows the sidebar. */
+  async show() {
+    if (this.open) {
+      return;
+    }
+
+    this.open = true;
+    await waitForEvent(this, ARC_EVENTS.afterShow);
+  }
+
+  /* Hides the sidebar. */
+  async hide() {
+    if (!this.open) {
+      return;
+    }
+
+    this.open = false;
+    await waitForEvent(this, ARC_EVENTS.afterHide);
+  }
+
+  private _toggleOpenState() {
+    if (this.open) {
+      this.hide();
+    } else {
+      this.show();
+    }
+  }
 
   handleSlots(e: any) {
     const childNodes = e.target.assignedElements({ flatten: true });
@@ -98,13 +144,6 @@ export default class ArcSidebar extends LitElement {
     if (childNodes.length > 1) {
       this.content.classList.add('gap');
     }
-  }
-
-  toggleOpenState() {
-    this.open = !this.open;
-    emit(this, `${this.open ? ARC_EVENTS.show : ARC_EVENTS.hide}`, {
-      detail: { open: this.open },
-    });
   }
 
   render() {
@@ -121,7 +160,7 @@ export default class ArcSidebar extends LitElement {
                 id="toggleClose"
                 name=${ICON_TYPES['arrow-left']}
                 label="Close sidebar"
-                @click=${this.toggleOpenState}
+                @click=${this._toggleOpenState}
               ></arc-icon-button>
             </div>
             <div id="content">
@@ -134,7 +173,7 @@ export default class ArcSidebar extends LitElement {
             id="toggleOpen"
             name=${ICON_TYPES['arrow-right']}
             label="Open sidebar"
-            @click=${this.toggleOpenState}
+            @click=${this._toggleOpenState}
           ></arc-icon-button>
         `;
   }

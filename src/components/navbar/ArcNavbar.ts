@@ -223,7 +223,7 @@ export default class ArcNavbar extends LitElement {
     `;
 
     return html`
-      <nav id="main" aria-label="primary navigation">
+      <header id="main">
         <div id="left">
           ${this.home
             ? html`
@@ -234,7 +234,7 @@ export default class ArcNavbar extends LitElement {
             : html` <div id="logoWrapper">${logoInterior}</div> `}
         </div>
         <div id="right">
-          <div id="tabs">
+          <nav id="tabs" aria-label="primary navigation">
             <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
             ${this.showDropdown
               ? html`
@@ -251,10 +251,10 @@ export default class ArcNavbar extends LitElement {
               @click=${this.emitAccessibility}
             ></arc-icon-button>
             <slot name="user"></slot>
-          </div>
+          </nav>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
         </div>
-      </nav>
+      </header>
     `;
   }
 }

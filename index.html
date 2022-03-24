@@ -35,19 +35,16 @@
 <arc-container>
   <arc-navbar slot="nav" logo="/assets/arc-red.svg" tabs="0"></arc-navbar>
   <arc-sidebar slot="side" label="Test sidebar">
-    <div slot="label">one two three</div>
-    <div>Hello World</div>
+    <div slot="label">Make a selection...</div>
+    <arc-menu>
+      <arc-menu-item>Item 1</arc-menu-item>
+      <arc-menu-item>Item 2</arc-menu-item>
+      <arc-menu-item>Item 3</arc-menu-item>
+    </arc-menu>
   </arc-sidebar>
   <section id="section" aria-label="Test section">
-    <arc-card style="width: 20rem;>
-      <div slot="header">
-        <div style="display: grid">
-          <strong>Header</strong>
-          <small>Subheading</small>
-        </div>
-        <arc-icon-button name="eye" onClick="this.closest('arc-card').collapsed = !this.closest('arc-card').collapsed"></arc-icon-button>
-      </div>
-      <img slot="image" src="https://images.unsplash.com/photo-1644990978896-c86bd2e5fd2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1166&q=80" alt="">
+    <arc-card style="width: 20rem;">
+      <img slot="image" src="https://mui.com/static/images/cards/contemplative-reptile.jpg" height="140" alt="green iguana">
       <div style="display: grid">
         <strong>Header</strong>
         <small>Subheading</small>

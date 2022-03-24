@@ -30,9 +30,10 @@ describe('ArcNavbar', () => {
 
     it('should be rendered as a page landmark', () => {
       const mainDiv = element.shadowRoot?.getElementById('main')!;
-      expect(mainDiv.tagName).to.equal('NAV');
-      expect(mainDiv.hasAttribute('aria-label')).to.be.true;
-      expect(mainDiv.getAttribute('aria-label')).to.equal('primary navigation');
+      const navDiv = element.shadowRoot?.getElementById('tabs')!;
+      expect(mainDiv.tagName).to.equal('HEADER');
+      expect(navDiv.tagName).to.equal('NAV');
+      expect(navDiv.hasAttribute('aria-label')).to.be.true;
     });
   });
 

@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
 
 /**
+ * @cssproperty font-size - Set the size of the spinner.
  * @cssproperty --stroke-color - Set the color of the loader.
  * @cssproperty --track-width - Set the thickness of the track.
  */

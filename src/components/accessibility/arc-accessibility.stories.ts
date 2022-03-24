@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcAccessibility from './ArcAccessibility.js';
 import '../container/arc-container.js';
 import '../navbar/arc-navbar.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcAccessibility',

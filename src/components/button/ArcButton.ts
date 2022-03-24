@@ -105,16 +105,20 @@ export default class ArcButton extends LitElement {
         background-color: transparent;
       }
 
-      /* Default - Hover */
-      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:hover {
+      /* Default - Hover & Focus */
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:hover,
+      :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:focus-visible {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
-      /* Tab, Outlined & Pill(Not primary/secondary) - Hover */
+      /* Tab, Outlined & Pill(Not primary/secondary) - Hover & Focus */
       :host([type='tab']:not([disabled]):not([loading])) #button:hover,
       :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
+      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #button:hover,
+      :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
+      :host([type='outlined']:not([disabled]):not([loading])) #button:focus-visible,
       :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading]))
-        #button:hover {
+        #button:focus-visible {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
@@ -132,9 +136,9 @@ export default class ArcButton extends LitElement {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
       }
 
-      /* Focus */
+      /* Focus outline (same for all button states) */
       :host(:not([disabled]):not([loading])) #button:focus-visible {
-        box-shadow: var(--arc-focus-box-shadow) var(--focus-color);
+        box-shadow: var(--arc-box-shadow-focus) var(--focus-color);
       }
 
       /* Disabled */
@@ -260,7 +264,9 @@ export default class ArcButton extends LitElement {
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
       '--focus-color':
-        this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : `rgb(var(--arc-color-${this.color}))`,
+        this.color === BUTTON_COLORS.default
+          ? 'rgba(var(--arc-input-color), 0.4)'
+          : `rgba(var(--arc-color-${this.color}), 0.4)`,
     };
 
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */

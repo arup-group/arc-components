@@ -16,6 +16,14 @@ export default css`
   [hidden] {
     display: none !important;
   }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--arc-font-headline);
+    font-weight: var(--arc-font-weight-normal);
+  }
 `;
 
 /* All components import this file, so it's a good place to ensure utility styles are applied to the light DOM. */

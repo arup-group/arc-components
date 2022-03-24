@@ -1,6 +1,9 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture, oneEvent } from '@open-wc/testing';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { expect, fixture, elementUpdated, oneEvent, waitUntil } from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
+import { getPropertyValue } from '../../utilities/style-utils.js';
+import { hasSlot } from '../../internal/slot.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcSidebar from './ArcSidebar.js';
 import './arc-sidebar.js';
@@ -23,12 +26,24 @@ describe('ArcSidebar', () => {
     });
   });
 
+  /* Test the setters/getters */
+  describe('setters/getters', () => {
+    it('renders the element with a custom label property', async () => {
+      const element: ArcSidebar = await fixture(html`<arc-sidebar label="Test label"></arc-sidebar>`);
+
+      expect(element.label).to.equal('Test label');
+      expect(element.getAttribute('label')).to.equal('Test label');
+    });
+  });
+
   /* Test different component states (active, disabled, loading etc.) */
   describe('states', () => {
     let element: ArcSidebar;
+
     beforeEach(async () => {
       element = await fixture(html`<arc-sidebar></arc-sidebar>`);
     });
+
     it('toggle the open state with setters/getters', async () => {
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
@@ -44,6 +59,7 @@ describe('ArcSidebar', () => {
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
     });
+
     it('toggle the open state with the toggle button', async () => {
       /* By default the sidebar is set in the open state */
       const toggleClose = element.shadowRoot!.getElementById('toggleClose')!;
@@ -63,52 +79,133 @@ describe('ArcSidebar', () => {
       expect(element.open).to.be.true;
       expect(element.hasAttribute('open')).to.be.true;
     });
-    it('renders the sidebar with a custom title property', async () => {
-      const title = element.shadowRoot!.getElementById('title')!;
-      const titleText = title.querySelector('span')!;
-
-      element.title = 'Test title';
-
-      await elementUpdated(element);
-      expect(element.title).to.equal('Test title');
-      expect(titleText).dom.to.equal(`<span>Test title</span>`);
-    });
   });
 
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcSidebar;
 
+    const showHandler: SinonSpy = sinon.spy();
+    const afterShowHandler: SinonSpy = sinon.spy();
+    const hideHandler: SinonSpy = sinon.spy();
+    const afterHideHandler: SinonSpy = sinon.spy();
+
     beforeEach(async () => {
-      element = await fixture(html` <arc-sidebar></arc-sidebar> `);
+      element = await fixture(html`<arc-sidebar></arc-sidebar>`);
+    });
+
+    afterEach(() => {
+      showHandler.resetHistory();
+      afterShowHandler.resetHistory();
+      hideHandler.resetHistory();
+      afterHideHandler.resetHistory();
+    });
+
+    it('should emit arc-show and arc-after-show when calling show()', async () => {
+      await element.hide();
+
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      await element.show();
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(element.open).to.be.true;
+    });
+
+    it('should emit arc-hide and arc-after-hide when calling hide()', async () => {
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
+
+      await element.hide();
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(element.open).to.be.false;
+    });
+
+    it('should emit arc-show and arc-after-show when setting open = true', async () => {
+      await element.hide();
+
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      element.open = true;
+      await waitUntil(() => showHandler.calledOnce);
+      await waitUntil(() => afterShowHandler.calledOnce);
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(element.open).to.be.true;
+    });
+
+    it('should emit arc-hide and arc-after-hide when setting open = false', async () => {
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
+
+      element.open = false;
+      await waitUntil(() => hideHandler.calledOnce);
+      await waitUntil(() => afterHideHandler.calledOnce);
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(element.open).to.be.false;
+    });
+
+    it('should prevent emitting the arc-show and arc-after-show when the sidebar is already open', async () => {
+      await element.hide();
+
+      element.addEventListener(ARC_EVENTS.show, showHandler);
+      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+
+      await element.show();
+      await element.show();
+
+      expect(showHandler).to.have.been.calledOnce;
+      expect(afterShowHandler).to.have.been.calledOnce;
+    });
+
+    it('should prevent emitting the arc-hide and arc-after-hide when the sidebar is not open', async () => {
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
+
+      await element.hide();
+      await element.hide();
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
     });
 
     it('triggers the arc-show event', async () => {
-      /* Close the sidebar before testing the arc-show event */
       element.open = false;
       await elementUpdated(element);
 
       const clickButton = () => element.shadowRoot!.querySelector('arc-icon-button')!.click();
       setTimeout(clickButton);
-      const { detail } = await oneEvent(element, 'arc-show');
-      expect(detail.open).to.be.true;
+      await oneEvent(element, 'arc-show');
+      expect(element.open).to.be.true;
     });
 
     it('triggers the arc-hide event', async () => {
       const clickButton = () => element.shadowRoot!.querySelector('arc-icon-button')!.click();
       setTimeout(clickButton);
-      const { detail } = await oneEvent(element, 'arc-hide');
-      expect(detail.open).to.be.false;
+      await oneEvent(element, 'arc-hide');
+      expect(element.open).to.be.false;
     });
   });
 
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
-    it('renders a slot to fill the sidebar', async () => {
+    it('renders default slots to fill the component', async () => {
       const element: ArcSidebar = await fixture(html`<arc-sidebar></arc-sidebar>`);
-      const content: HTMLElement = element.shadowRoot!.getElementById('content')!;
+      const main: HTMLElement = element.shadowRoot!.getElementById('main')!;
 
-      expect(hasSlot(content)).to.be.true;
+      /* An empty slot is available */
+      expect(hasSlot(main)).to.be.true;
+
+      /* A specific (named) slot is available */
+      expect(hasSlot(main, 'label')).to.be.true;
     });
 
     it('should automatically add a gap between added slots', async () => {
@@ -128,19 +225,17 @@ describe('ArcSidebar', () => {
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcSidebar = await fixture(html`<arc-sidebar></arc-sidebar>`);
-      const elementStyles = window.getComputedStyle(element);
 
-      expect(elementStyles.getPropertyValue('--gap-distance')).to.equal('');
-      expect(elementStyles.getPropertyValue('width')).to.equal('auto');
+      expect(getPropertyValue(element, '--gap-distance')).to.equal('');
+      expect(getPropertyValue(element, '--sidebar-width')).to.equal('clamp(15rem, 30%, 23rem)');
     });
     it('overwrites the css variables', async () => {
       const element: ArcSidebar = await fixture(html`
-        <arc-sidebar style="--gap-distance:2rem; width:368px"></arc-sidebar>
+        <arc-sidebar style="--gap-distance:5px; --sidebar-width:368px"></arc-sidebar>
       `);
-      const elementStyles = window.getComputedStyle(element);
 
-      expect(elementStyles.getPropertyValue('--gap-distance')).to.equal('2rem');
-      expect(elementStyles.getPropertyValue('width')).to.equal(`368px`);
+      expect(getPropertyValue(element, '--gap-distance')).to.equal('5px');
+      expect(getPropertyValue(element, '--sidebar-width')).to.equal('368px');
     });
   });
 });

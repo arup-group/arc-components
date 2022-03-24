@@ -14,7 +14,7 @@ export default class ArcBottombar extends LitElement {
     componentStyles,
     css`
       :host {
-        height: var(--arc-bottom-height);
+        height: 4.5rem;
         background: rgb(var(--arc-background-color));
       }
 

@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 import { upEvent, downEvent, leftEvent, rightEvent } from '../../utilities/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 

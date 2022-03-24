@@ -78,7 +78,7 @@ export default class ArcMenuItem extends LitElement {
   ];
 
   /** A unique value to store in the menu item. This can be used as a way to identify menu items when selected. */
-  @property() value = '';
+  @property({ type: String }) value: string;
 
   /** Draws the menu item in a disabled state. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;

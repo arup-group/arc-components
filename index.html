@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <meta name="Description" content="Web-components related to the ARC design system">
   <meta name="theme-color" content="#E61E28"/>
   <link rel="manifest" href="/manifest.json">
@@ -21,15 +21,45 @@
   <link crossorigin="anonymous" href="/themes/index.css" rel="stylesheet">
   <link crossorigin="anonymous" href="/themes/light.css" rel="stylesheet">
   <link crossorigin="anonymous" href="/themes/dark.css" rel="stylesheet">
+
+  <style>
+    #section {
+      display: grid;
+      gap: var(--arc-spacing-medium);
+      padding: var(--arc-spacing-medium);
+    }
+  </style>
 </head>
 
 <body>
-<arc-container fullscreen>
-  <arc-navbar slot='nav' logo="/assets/arc-red.svg" tabs='0'></arc-navbar>
-  <arc-hero fullscreen style="color: white;" title="My introduction" subtitle="25888 Entries" background="https://images.adsttc.com/media/images/5231/c740/e8e4/4efe/3a00/0090/large_jpg/gherkin_shaundunmall.jpg?1378993979">
-    <span slot="Arup"></span>
-    <span>Creating a prototype website that also contains copy and images is the best way to help the client understand what the concept behind your design is.</span>
-  </arc-hero>
+<arc-container>
+  <arc-navbar slot="nav" logo="/assets/arc-red.svg" tabs="0"></arc-navbar>
+  <arc-sidebar slot="side" label="Test sidebar">
+    <div slot="label">one two three</div>
+    <div>Hello World</div>
+  </arc-sidebar>
+  <section id="section" aria-label="Test section">
+    <arc-card style="width: 20rem;>
+      <div slot="header">
+        <div style="display: grid">
+          <strong>Header</strong>
+          <small>Subheading</small>
+        </div>
+        <arc-icon-button name="eye" onClick="this.closest('arc-card').collapsed = !this.closest('arc-card').collapsed"></arc-icon-button>
+      </div>
+      <img slot="image" src="https://images.unsplash.com/photo-1644990978896-c86bd2e5fd2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1166&q=80" alt="">
+      <div style="display: grid">
+        <strong>Header</strong>
+        <small>Subheading</small>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+      </p>
+      <div slot="footer">
+        <arc-button>Action</arc-button>
+      </div>
+    </arc-card>
+  </section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>

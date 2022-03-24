@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcRadioGroup from './ArcRadioGroup.js';
 import './arc-radio-group.js';
 import '../radio/arc-radio.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcRadioGroup',

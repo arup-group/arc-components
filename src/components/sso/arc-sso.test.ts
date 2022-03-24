@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 
 import ArcSSO from './ArcSSO.js';
 import './arc-sso.js';

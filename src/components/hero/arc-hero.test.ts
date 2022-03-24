@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 
 import ArcHero from './ArcHero.js';
 import './arc-hero.js';

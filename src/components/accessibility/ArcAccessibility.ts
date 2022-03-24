@@ -95,7 +95,7 @@ export default class ArcAccessibility extends LitElement {
   @state() private _userPreferences: UserPreferences = this._defaultPreferences;
 
   /** Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
-  @property({ type: Boolean, reflect: true }) open = false;
+  @property({ type: Boolean, reflect: true }) open: boolean = false;
 
   @watch('_userPreferences')
   async handlePreferenceChange() {

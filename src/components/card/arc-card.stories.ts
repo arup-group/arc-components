@@ -107,12 +107,25 @@ const ImageTemplate: Story<ArcCard> = ({ collapsed }) => html`
   </style>
 `;
 
+const defaultArgs = {
+  collapsed: false,
+};
+
 /* EXAMPLES */
 export const Default = Template.bind({});
+Default.args = { ...defaultArgs };
+
 export const BasicCard = BasicTemplate.bind({});
+BasicCard.args = { ...defaultArgs };
+
 export const CardWithHeader = HeaderTemplate.bind({});
+CardWithHeader.args = { ...defaultArgs };
+
 export const CardWithFooter = FooterTemplate.bind({});
+CardWithFooter.args = { ...defaultArgs };
+
 export const CardWithImage = ImageTemplate.bind({});
+CardWithImage.args = { ...defaultArgs };
 
 /* STATES */
 export const Collapsed = Template.bind({});

@@ -88,46 +88,47 @@ export default class ArcCard extends LitElement {
   /** @internal - Controller that listens to slot changes within the component. */
   private readonly hasSlotController = new HasSlotController(this, 'header', 'image', '[default]', 'footer');
 
-  /** Draws the button in a disabled state. */
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
-
-  /** Indicates whether the card is collapsed. This can be used instead of the expand/collapse methods. */
+  /** Indicates whether the card is collapsed. This can be used instead of the expand/collapse methods. Ignored when the `header` slot is not filled. */
   @property({ type: Boolean, reflect: true }) collapsed: boolean = false;
 
   @watch('collapsed', { waitUntilFirstUpdate: true })
   async handleCollapsedChange() {
     if (!this.collapsed) {
-      /* Show */
       emit(this, ARC_EVENTS.show);
-
       await stopAnimations(this);
       this.content.hidden = false;
 
       const { keyframes, options } = getAnimation(this, 'card.expand');
       await startAnimations(this.content, shimKeyframesHeightAuto(keyframes, this.content.scrollHeight), options);
-      this.content.style.height = 'auto';
 
+      this.content.style.height = 'auto';
       emit(this, ARC_EVENTS.afterShow);
     } else {
-      /* Hide */
-      emit(this, ARC_EVENTS.hide);
+      /* Prevent collapsing when there is no header slot. */
+      if (!this.hasSlotController.test('header')) {
+        return;
+      }
 
+      emit(this, ARC_EVENTS.hide);
       await stopAnimations(this);
 
       const { keyframes, options } = getAnimation(this, 'card.collapse');
       await startAnimations(this.content, shimKeyframesHeightAuto(keyframes, this.content.scrollHeight), options);
+
       this.content.hidden = true;
       this.content.style.height = 'auto';
-
       emit(this, ARC_EVENTS.afterHide);
     }
   }
 
   firstUpdated() {
+    if (!this.hasSlotController.test('header')) {
+      return;
+    }
     this.content.hidden = this.collapsed;
   }
 
-  /* Expand the card. */
+  /* Expand the card. Only when the header slot is filled. */
   async expand() {
     if (!this.collapsed) {
       return;
@@ -137,9 +138,9 @@ export default class ArcCard extends LitElement {
     return waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
-  /* Collapse the card. */
+  /* Collapse the card. Only when the header slot is filled. */
   async collapse() {
-    if (this.collapsed) {
+    if (this.collapsed || !this.hasSlotController.test('header')) {
       return;
     }
 

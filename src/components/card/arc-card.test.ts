@@ -55,7 +55,11 @@ describe('ArcCard', () => {
     const afterHideHandler: SinonSpy = sinon.spy();
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-card></arc-card>`);
+      element = await fixture(html`
+        <arc-card>
+          <div slot="header"></div>
+        </arc-card>
+      `);
     });
 
     afterEach(async () => {
@@ -118,6 +122,8 @@ describe('ArcCard', () => {
     });
 
     it('should prevent emitting the arc-show and arc-after-show when the card is already expanded', async () => {
+      await element.collapse();
+
       element.addEventListener(ARC_EVENTS.show, showHandler);
       element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
@@ -129,8 +135,6 @@ describe('ArcCard', () => {
     });
 
     it('should prevent emitting the arc-hide and arc-after-hide when the cards is not expanded', async () => {
-      await element.expand();
-
       element.addEventListener(ARC_EVENTS.hide, hideHandler);
       element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
 
@@ -139,6 +143,20 @@ describe('ArcCard', () => {
 
       expect(hideHandler).to.have.been.calledOnce;
       expect(afterHideHandler).to.have.been.calledOnce;
+    });
+
+    it('should prevent emitting the arc-hide and arc-after-hide when the card has no header', async () => {
+      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
+
+      element.innerHTML = '';
+      await element.collapse();
+
+      element.collapsed = true;
+      await elementUpdated(element);
+
+      expect(hideHandler).to.not.have.been.calledOnce;
+      expect(afterHideHandler).to.not.have.been.calledOnce;
     });
   });
 

@@ -30,7 +30,6 @@ describe('ArcBottombar', () => {
       const mainDiv = element.shadowRoot?.getElementById('main')!;
       expect(mainDiv.tagName).to.equal('NAV');
       expect(mainDiv.hasAttribute('aria-label')).to.be.true;
-      expect(mainDiv.getAttribute('aria-label')).to.equal('mobile navigation');
     });
   });
 

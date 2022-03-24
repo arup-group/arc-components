@@ -13,16 +13,23 @@ describe('ArcSidebar', () => {
   describe('rendering', () => {
     let element: ArcSidebar;
     beforeEach(async () => {
-      element = await fixture(html`<arc-sidebar></arc-sidebar>`);
+      element = await fixture(html`<arc-sidebar label="Test sidebar"></arc-sidebar>`);
     });
 
     /* Test properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-sidebar open=''></arc-sidebar>`);
+      expect(element).dom.to.equal(`<arc-sidebar label='Test sidebar' open=''></arc-sidebar>`);
     });
 
+    /* Test the accessibility */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
+    });
+
+    it('should be rendered as a page landmark', () => {
+      const mainDiv = element.shadowRoot?.getElementById('main')!;
+      expect(mainDiv.tagName).to.equal('ASIDE');
+      expect(mainDiv.hasAttribute('aria-label')).to.be.true;
     });
   });
 

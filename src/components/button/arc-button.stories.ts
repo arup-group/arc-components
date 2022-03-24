@@ -38,23 +38,30 @@ const Template: Story<ArcButton> = ({
   loading,
   submit,
 }) => html`
-  <div style="height: 3rem;">
-    <arc-button
-      type=${ifDefined(type || undefined)}
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      name=${ifDefined(name || undefined)}
-      value=${ifDefined(value || undefined)}
-      href=${ifDefined(href || undefined)}
-      target=${ifDefined(target || undefined)}
-      download=${ifDefined(download || undefined)}
-      ?active="${active}"
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-      ?submit="${submit}"
-      >Button</arc-button
-    >
-  </div>
+  <arc-button
+    type=${ifDefined(type || undefined)}
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    name=${ifDefined(name || undefined)}
+    value=${ifDefined(value || undefined)}
+    href=${ifDefined(href || undefined)}
+    target=${ifDefined(target || undefined)}
+    download=${ifDefined(download || undefined)}
+    ?active="${active}"
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+    ?submit="${submit}"
+    >Button</arc-button
+  >
+`;
+
+const widthTemplate = () => html`
+  <arc-button id="customWidth">Button</arc-button>
+  <style>
+    arc-button#customWidth {
+      width: 10rem;
+    }
+  </style>
 `;
 
 const defaultArgs = {
@@ -129,6 +136,8 @@ Medium.args = { ...defaultArgs, size: BUTTON_SIZES.medium };
 
 export const Large = Template.bind({});
 Large.args = { ...defaultArgs, size: BUTTON_SIZES.large };
+
+export const CustomWidth = widthTemplate.bind({});
 
 /* STATES */
 export const Active = Template.bind({});

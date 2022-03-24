@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <meta name="Description" content="Web-components related to the ARC design system">
   <meta name="theme-color" content="#E61E28"/>
   <link rel="manifest" href="/manifest.json">
@@ -21,16 +21,45 @@
   <link crossorigin="anonymous" href="/themes/index.css" rel="stylesheet">
   <link crossorigin="anonymous" href="/themes/light.css" rel="stylesheet">
   <link crossorigin="anonymous" href="/themes/dark.css" rel="stylesheet">
+
+  <style>
+    #section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--arc-spacing-medium);
+      padding: var(--arc-spacing-medium);
+    }
+  </style>
 </head>
 
 <body>
-<arc-container theme="dark">
-  <arc-navbar slot='nav' logo="/assets/arc-red.svg"></arc-navbar>
-  <section aria-label="Test section" style='padding: var(--arc-spacing-medium)'>
-    <p>Some content.</p>
+<arc-container>
+  <arc-navbar slot="nav" logo="/assets/arc-red.svg" tabs="0"></arc-navbar>
+  <arc-sidebar slot="side" label="Test sidebar">
+    <div slot="label">Make a selection...</div>
+    <arc-menu>
+      <arc-menu-item>Item 1</arc-menu-item>
+      <arc-menu-item>Item 2</arc-menu-item>
+      <arc-menu-item>Item 3</arc-menu-item>
+    </arc-menu>
+  </arc-sidebar>
+  <section id="section" aria-label="Test section">
+    <arc-card style="width: 20rem;">
+      <img slot="image" src="https://mui.com/static/images/cards/contemplative-reptile.jpg" height="140" alt="green iguana">
+      <div style="display: grid">
+        <strong>Header</strong>
+        <small>Subheading</small>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+      </p>
+      <div slot="footer">
+        <arc-button>Action</arc-button>
+      </div>
+    </arc-card>
   </section>
 </arc-container>
 
-<script type="module" src="/out-tsc/arc.js" data-arc="/"></script>
+<script type="module" src="out-tsc/arc.js" data-arc="/"></script>
 </body>
 </html>

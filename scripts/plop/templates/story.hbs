@@ -9,11 +9,16 @@ export default {
 } as Meta;
 
 const Template: Story<{{ properCase tag }}> = ({ name, active }) => html`
-  <{{ tag }} name="${name}" ?active="${active}"></{{ tag }}>
+  <{{ tag }} name=${name} ?active=${active}></{{ tag }}>
 `;
 
+const defaultArgs = {
+  name: 'Test component',
+  active: false,
+};
+
 export const Default = Template.bind({});
-Default.args = { name: 'Default component', active: false };
+Default.args = { ...defaultArgs };
 
 export const Active = Template.bind({});
-Active.args = { name: 'Active component', active: true };
+Active.args = { ...defaultArgs, active: true };

@@ -1,10 +1,10 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import type ArcIcon from './ArcIcon.js';
-import './arc-icon.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
 import { FONT_SIZES } from '../../internal/constants/styleConstants.js';
+import type ArcIcon from './ArcIcon.js';
+import './arc-icon.js';
 
 export default {
   title: 'Components/ArcIcon',
@@ -24,11 +24,18 @@ export default {
 const Template: Story<ArcIcon> = ({ name, label, size, rotation, spinning }) => html`
   <arc-icon
     name="${name}"
-    label="${label}"
-    size="${size}"
+    label=${ifDefined(label || undefined)}
+    size=${ifDefined(size || undefined)}
     rotation=${ifDefined(rotation || undefined)}
     ?spinning=${spinning}
   ></arc-icon>
+`;
+const ColorTemplate: Story<ArcIcon> = () => html`
+  <div style="display: flex;">
+    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-red-060))"></arc-icon>
+    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-blue-060))"></arc-icon>
+    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-green-060))"></arc-icon>
+  </div>
 `;
 
 const defaultArgs = {
@@ -51,3 +58,5 @@ Rotation.args = { ...defaultArgs, rotation: 45 };
 
 export const Spinning = Template.bind({});
 Spinning.args = { ...defaultArgs, spinning: true };
+
+export const Color = ColorTemplate.bind({});

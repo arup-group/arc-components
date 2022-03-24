@@ -12,11 +12,10 @@ export default {
 
 const Template: Story<ArcNavbar> = ({ arup, home, logo, tabs }) => html`
   <arc-navbar
-    slot="nav"
     home=${ifDefined(home || undefined)}
     logo=${ifDefined(logo || undefined)}
     tabs=${ifDefined(tabs || undefined)}
-    arup="${arup}"
+    arup=${arup}
   >
     <span slot="name">Web Components</span>
     <arc-button type="tab">Menu</arc-button>
@@ -26,11 +25,17 @@ const Template: Story<ArcNavbar> = ({ arup, home, logo, tabs }) => html`
     <arc-button slot="user" type="tab">username@arup.com</arc-button>
   </arc-navbar>
 `;
+const HeightTemplate: Story<ArcNavbar> = () =>
+  html` <arc-navbar logo="/arc-red.svg" style="height: 5rem;"></arc-navbar> `;
 
-export const Default = Template.bind({});
-Default.args = {
+const defaultArgs = {
   arup: true,
   home: '/',
   logo: `/arc-red.svg`,
   tabs: 5,
 };
+
+export const Default = Template.bind({});
+Default.args = { ...defaultArgs };
+
+export const CustomHeight = HeightTemplate.bind({});

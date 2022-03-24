@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 
 import type ArcButton from './ArcButton.js';
@@ -19,7 +19,7 @@ describe('ArcButton', () => {
     /* Test default properties that reflect to the DOM */
     it('renders the button with default properties in the dom', () => {
       expect(element).dom.to.equal(
-        `<arc-button type='${BUTTON_TYPES.contained}' color='${BUTTON_COLORS.default}' size='${BUTTON_SIZES.medium}'>Test</arc-button>`
+        `<arc-button type='${BUTTON_TYPES.pill}' color='${BUTTON_COLORS.default}' size='${BUTTON_SIZES.medium}'>Test</arc-button>`
       );
     });
 

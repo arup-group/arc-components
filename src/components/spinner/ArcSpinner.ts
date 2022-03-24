@@ -30,8 +30,8 @@ export default class ArcSpinner extends LitElement {
       .spinner__indicator {
         fill: none;
         stroke-width: var(--track-width);
-        transform-origin: 50% 50%;
         r: calc(0.5em - var(--track-width) / 2);
+        transform-origin: 50% 50%;
       }
 
       .spinner__track {

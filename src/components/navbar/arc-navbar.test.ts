@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, waitUntil } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcNavbar from './ArcNavbar.js';
@@ -30,9 +30,10 @@ describe('ArcNavbar', () => {
 
     it('should be rendered as a page landmark', () => {
       const mainDiv = element.shadowRoot?.getElementById('main')!;
-      expect(mainDiv.tagName).to.equal('NAV');
-      expect(mainDiv.hasAttribute('aria-label')).to.be.true;
-      expect(mainDiv.getAttribute('aria-label')).to.equal('primary navigation');
+      const navDiv = element.shadowRoot?.getElementById('tabs')!;
+      expect(mainDiv.tagName).to.equal('HEADER');
+      expect(navDiv.tagName).to.equal('NAV');
+      expect(navDiv.hasAttribute('aria-label')).to.be.true;
     });
   });
 
@@ -232,7 +233,7 @@ describe('ArcNavbar', () => {
     it('uses the default css variables', async () => {
       const element: ArcNavbar = await fixture(html` <arc-navbar></arc-navbar>`);
 
-      expect(getPropertyValue(element, 'height')).to.equal('auto');
+      expect(getPropertyValue(element, 'height')).to.equal('56px');
     });
     it('overwrites the css variables', async () => {
       const element: ArcNavbar = await fixture(html` <arc-navbar style="height:30px"></arc-navbar>`);

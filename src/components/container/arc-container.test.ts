@@ -2,10 +2,10 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { setViewport } from '@web/test-runner-commands';
-import { isNight } from '../../internal/theme.js';
-import { isMobile } from '../../utilities/ui-utils.js';
+import { isMobile, prefersDark } from '../../utilities/ui-utils.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { isNight } from '../../internal/theme.js';
+import { hasSlot } from '../../internal/slot.js';
 import { createKeyEvent } from '../../utilities/test-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -22,12 +22,14 @@ describe('ArcContainer', () => {
   describe('rendering', () => {
     let element: ArcContainer;
     beforeEach(async () => {
+      /* Ensure that local preferences from the built-in arc-accessibility are reset! */
+      localStorage.clear();
       element = await fixture(html` <arc-container></arc-container>`);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      if (isNight()) {
+      if (prefersDark() || isNight()) {
         expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`);
       } else {
         expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.light}></arc-container>`);
@@ -42,6 +44,11 @@ describe('ArcContainer', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
+    beforeEach(() => {
+      /* Ensure that local preferences from the built-in arc-accessibility are reset! */
+      localStorage.clear();
+    });
+
     it('prevents the element from having a non-existing theme', async () => {
       const element: ArcContainer = await fixture(html` <arc-container theme="test-theme"></arc-container>`);
 

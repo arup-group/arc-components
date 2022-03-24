@@ -32,10 +32,10 @@ export default class {{ properCase tag }} extends LitElement {
   ];
 
   /** A description of the property. */
-  @property({type: String}) name: string = 'Hello World';
+  @property({ type: String, reflect: true }) name: string = 'Hello World';
 
   /** A description of the property. */
-  @property({type: Boolean}) active: boolean = false;
+  @property({ type: Boolean }) active: boolean = false;
 
   @watch('active')
   handlePropChange() {

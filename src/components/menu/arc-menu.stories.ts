@@ -1,10 +1,10 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcMenu from './ArcMenu.js';
 import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 import '../icon/arc-icon.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcMenu',
@@ -17,7 +17,7 @@ export default {
 } as Meta;
 
 const Template: Story<ArcMenu> = () => html`
-  <arc-menu style="width: 15rem;">
+  <arc-menu class="menu">
     <arc-menu-item value="home">
       <arc-icon name="home" slot="prefix"></arc-icon>
       Home
@@ -36,6 +36,11 @@ const Template: Story<ArcMenu> = () => html`
       <arc-icon name="arrow-right" slot="suffix"></arc-icon>
     </arc-menu-item>
   </arc-menu>
+  <style>
+    .menu {
+      width: 15rem;
+    }
+  </style>
 `;
 
 export const Default = Template.bind({});

@@ -21,7 +21,6 @@ import '../spinner/arc-spinner.js';
  * @slot prefix - Used to prepend an icon or similar element to the button.
  * @slot suffix - Used to append an icon or similar element to the button.
  *
- * @cssproperty width - Set the width of the button.
  * @cssproperty --min-width - Set the min width of the button.
  * @cssproperty --btn-color - Overwrite the font color of the button.
  * @cssproperty --btn-background - Overwrite the background color of the button.
@@ -61,22 +60,8 @@ export default class ArcButton extends LitElement {
         color: var(--btn-color);
         background-color: var(--btn-background);
         gap: var(--arc-spacing-small);
-        box-shadow: var(--arc-input-box-shadow);
         outline: none;
         -webkit-appearance: none;
-      }
-
-      /* Pill */
-      :host([type='pill'][size='small']) #button {
-        border-radius: var(--arc-input-height-small);
-      }
-
-      :host([type='pill'][size='medium']) #button {
-        border-radius: var(--arc-input-height-medium);
-      }
-
-      :host([type='pill'][size='large']) #button {
-        border-radius: var(--arc-input-height-large);
       }
 
       /* Tile */
@@ -92,7 +77,6 @@ export default class ArcButton extends LitElement {
       :host([type='tab']) #button {
         background: none;
         border-radius: 0;
-        box-shadow: none;
       }
 
       /* Tab - Active */
@@ -100,11 +84,24 @@ export default class ArcButton extends LitElement {
         border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
       }
 
-      /* Outlined */
-      :host([type='outlined']) #button {
+      /* Pill */
+      :host([type='pill'][size='small']) #button {
+        border-radius: var(--arc-input-height-small);
+      }
+
+      :host([type='pill'][size='medium']) #button {
+        border-radius: var(--arc-input-height-medium);
+      }
+
+      :host([type='pill'][size='large']) #button {
+        border-radius: var(--arc-input-height-large);
+      }
+
+      /* Outlined & Pill(Not primary/secondary) */
+      :host([type='outlined']) #button,
+      :host([type='pill']:not([color='primary']):not([color='secondary'])) #button {
         border: var(--arc-border-width) var(--arc-border-style) currentColor;
         background-color: transparent;
-        box-shadow: none;
       }
 
       /* Default - Hover & Focus */
@@ -113,11 +110,14 @@ export default class ArcButton extends LitElement {
         background-image: linear-gradient(var(--arc-hover-dark) 0 0);
       }
 
-      /* Tab & Outlined - Hover & Focus */
+      /* Tab, Outlined & Pill(Not primary/secondary) - Hover & Focus */
       :host([type='tab']:not([disabled]):not([loading])) #button:hover,
-      :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
       :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
-      :host([type='outlined']:not([disabled]):not([loading])) #button:focus-visible {
+      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #button:hover,
+      :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
+      :host([type='outlined']:not([disabled]):not([loading])) #button:focus-visible,
+      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading]))
+        #button:focus-visible {
         background-color: currentColor;
         background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
       }
@@ -127,16 +127,22 @@ export default class ArcButton extends LitElement {
         background-image: linear-gradient(var(--arc-hover-darker) 0 0);
       }
 
-      /* Tab & Outlined - Mouse down */
+      /* Tab, Outlined & Pill (Not primary) - Mouse down */
       :host([type='tab']:not([disabled]):not([loading])) #button:active,
-      :host([type='outlined']:not([disabled]):not([loading])) #button:active {
+      :host([type='outlined']:not([disabled]):not([loading])) #button:active,
+      :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading]))
+        #button:active {
         background-image: linear-gradient(var(--arc-hover-light) 0 0);
+      }
+
+      /* Focus outline (same for all button states) */
+      :host(:not([disabled]):not([loading])) #button:focus-visible {
+        box-shadow: var(--arc-box-shadow-focus) var(--focus-color);
       }
 
       /* Disabled */
       :host([disabled]) #button {
         opacity: 0.5;
-        box-shadow: none;
         cursor: not-allowed;
       }
 
@@ -162,7 +168,7 @@ export default class ArcButton extends LitElement {
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
   /** Set the type of the button. */
-  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.contained;
+  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.pill;
 
   /** Set the color of the button. */
   @property({ type: String, reflect: true }) color: ButtonColor = BUTTON_COLORS.default;
@@ -229,7 +235,16 @@ export default class ArcButton extends LitElement {
     const getColor = () => {
       switch (this.type) {
         case BUTTON_TYPES.outlined: {
-          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-font-color))' : 'var(--btn-background)';
+          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : 'var(--btn-background)';
+        }
+        case BUTTON_TYPES.pill: {
+          if (this.color === BUTTON_COLORS.default) {
+            return 'rgb(var(--arc-input-color))';
+          }
+          if (this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary) {
+            return 'rgb(var(--arc-container-color))';
+          }
+          return 'var(--btn-background)';
         }
         case BUTTON_TYPES.tab: {
           return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
@@ -247,6 +262,10 @@ export default class ArcButton extends LitElement {
       padding: `0 var(--arc-spacing-${this.size})`,
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
+      '--focus-color':
+        this.color === BUTTON_COLORS.default
+          ? 'rgba(var(--arc-input-color), 0.4)'
+          : `rgba(var(--arc-color-${this.color}), 0.4)`,
     };
 
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */

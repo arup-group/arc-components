@@ -11,14 +11,17 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 
 /**
- * @slot default - The card's content.
- * @slot heading - The card's heading.
- * @slot actions - The card's actions.
+ * @slot default - The card's body.
+ * @slot header - The card's header.
+ * @slot image - The card's image.
+ * @slot footer - The card's footer.
  *
  * @event arc-show - Emitted when the card expands.
  * @event arc-after-show - Emitted after the cards expands and all animations are complete.
  * @event arc-hide - Emitted when the card collapses.
  * @event arc-after-hide - Emitted after the card collapses and all animations are complete.
+ *
+ * @cssproperty width - Set the width of the card.
  */
 export default class ArcCard extends LitElement {
   static tag = 'arc-card';

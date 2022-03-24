@@ -4,8 +4,6 @@ import componentStyles from '../../styles/component.styles.js';
 
 /**
  * @slot - This slot is used to add icon-buttons to the bottom bar.
- *
- * @cssproperty height - Set the height of the bottom bar.
  */
 export default class ArcBottombar extends LitElement {
   static tag = 'arc-bottombar';

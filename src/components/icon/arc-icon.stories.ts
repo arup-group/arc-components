@@ -30,6 +30,13 @@ const Template: Story<ArcIcon> = ({ name, label, size, rotation, spinning }) => 
     ?spinning=${spinning}
   ></arc-icon>
 `;
+const ColorTemplate: Story<ArcIcon> = () => html`
+  <div style="display: flex;">
+    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-red-060))"></arc-icon>
+    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-blue-060))"></arc-icon>
+    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-green-060))"></arc-icon>
+  </div>
+`;
 
 const defaultArgs = {
   name: ICON_TYPES.fire,
@@ -52,5 +59,4 @@ Rotation.args = { ...defaultArgs, rotation: 45 };
 export const Spinning = Template.bind({});
 Spinning.args = { ...defaultArgs, spinning: true };
 
-/* COLORS */
-export const CustomColor = Template.bind({});
+export const Color = ColorTemplate.bind({});

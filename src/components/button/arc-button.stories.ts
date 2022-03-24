@@ -2,6 +2,7 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
+import type ArcButton from './ArcButton.js';
 import './arc-button.js';
 
 export default {
@@ -20,13 +21,10 @@ export default {
       control: 'select',
       options: Object.values(BUTTON_SIZES),
     },
-    width: {
-      control: 'text',
-    },
   },
 } as Meta;
 
-const Template: Story = ({
+const Template: Story<ArcButton> = ({
   type,
   color,
   size,
@@ -39,10 +37,8 @@ const Template: Story = ({
   disabled,
   loading,
   submit,
-  width,
 }) => html`
   <arc-button
-    style=${ifDefined(width ? `width: ${width}` : undefined)}
     type=${ifDefined(type || undefined)}
     color=${ifDefined(color || undefined)}
     size=${ifDefined(size || undefined)}
@@ -58,6 +54,7 @@ const Template: Story = ({
     >Button</arc-button
   >
 `;
+const WidthTemplate: Story<ArcButton> = () => html`<arc-button style="width: 10rem;">Button</arc-button>`;
 
 const defaultArgs = {
   size: BUTTON_SIZES.medium,
@@ -133,8 +130,7 @@ Medium.args = { ...defaultArgs, size: BUTTON_SIZES.medium };
 export const Large = Template.bind({});
 Large.args = { ...defaultArgs, size: BUTTON_SIZES.large };
 
-export const CustomWidth = Template.bind({});
-CustomWidth.args = { ...defaultArgs, width: '10rem' };
+export const CustomWidth = WidthTemplate.bind({});
 
 /* STATES */
 export const Active = Template.bind({});

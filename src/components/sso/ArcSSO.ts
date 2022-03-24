@@ -32,7 +32,6 @@ export default class ArcSSO extends LitElement {
     css`
       :host {
         display: inline-flex;
-        width: auto;
       }
 
       #main {

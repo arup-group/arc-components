@@ -11,13 +11,20 @@ export default {
 } as Meta;
 
 const Template: Story<ArcMenuItem> = ({ value, disabled }) => html`
-  <arc-menu style="width: 15rem;">
-    <arc-menu-item value="${value}" ?disabled="${disabled}"> Label </arc-menu-item>
+  <arc-menu class="menu">
+    <arc-menu-item>Label 1</arc-menu-item>
+    <arc-menu-item value="${value}" ?disabled=${disabled}>Label 2</arc-menu-item>
+    <arc-menu-item>Label 3</arc-menu-item>
   </arc-menu>
+  <style>
+    .menu {
+      width: 15rem;
+    }
+  </style>
 `;
 
 const PrefixSuffixTemplate: Story<ArcMenuItem> = () => html`
-  <arc-menu style="width: 15rem;">
+  <arc-menu class="menu">
     <arc-menu-item>
       <arc-icon name="home" slot="prefix"></arc-icon>
       Home
@@ -32,14 +39,11 @@ const PrefixSuffixTemplate: Story<ArcMenuItem> = () => html`
       <arc-icon name="arrow-right" slot="suffix"></arc-icon>
     </arc-menu-item>
   </arc-menu>
-`;
-
-const DisabledTemplate: Story<ArcMenuItem> = () => html`
-  <arc-menu style="width: 15rem;">
-    <arc-menu-item>Home</arc-menu-item>
-    <arc-menu-item disabled>Messages</arc-menu-item>
-    <arc-menu-item>Settings</arc-menu-item>
-  </arc-menu>
+  <style>
+    .menu {
+      width: 15rem;
+    }
+  </style>
 `;
 
 const defaultArgs = {
@@ -51,8 +55,10 @@ const defaultArgs = {
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
 
+/* STATES */
+export const Disabled = Template.bind({});
+Disabled.args = { ...defaultArgs, disabled: true };
+
+/* OTHER */
 export const PrefixSuffix = PrefixSuffixTemplate.bind({});
 PrefixSuffix.args = { ...defaultArgs };
-
-/* STATES */
-export const Disabled = DisabledTemplate.bind({});

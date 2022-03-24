@@ -24,7 +24,6 @@ import { arupLogo } from './arup-logo.js';
  *
  * @event arc-show-accessibility - Emitted when the built-in accessibility button is pressed.
  *
- * @cssproperty height - Set the height of the navbar.
  * @cssproperty --logo-height - Set the height of the tool logo.
  */
 export default class ArcNavbar extends LitElement {
@@ -161,7 +160,7 @@ export default class ArcNavbar extends LitElement {
   /** The amount of tabs allowed before collapsing into a dropdown. */
   @property({ type: Number, reflect: true }) tabs: number = 5;
 
-  /** Show/hide the Arup logo. */
+  /** Show/hide the Arup logo. Can be useful for non-Arup applications. */
   @property({
     type: Boolean,
     reflect: true,

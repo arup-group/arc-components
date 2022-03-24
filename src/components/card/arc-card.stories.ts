@@ -1,17 +1,13 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants';
-import './arc-card.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants';
+import type ArcCard from './ArcCard.js';
+import './arc-card.js';
 
 export default {
   title: 'Components/ArcCard',
   component: 'arc-card',
-  argTypes: {
-    width: {
-      control: 'text',
-    },
-  },
   parameters: {
     actions: {
       handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide],
@@ -19,8 +15,8 @@ export default {
   },
 } as Meta;
 
-const Template: Story = ({ collapsed, width }) => html`
-  <arc-card ?collapsed=${collapsed} style=${ifDefined(width ? `width: ${width}` : undefined)}>
+const Template: Story<ArcCard> = ({ collapsed }) => html`
+  <arc-card class="card" ?collapsed=${ifDefined(collapsed || undefined)}>
     <div slot="header">
       <strong>Header</strong>
       <arc-icon-button name="settings"></arc-icon-button>
@@ -35,35 +31,55 @@ const Template: Story = ({ collapsed, width }) => html`
       <arc-button>Action</arc-button>
     </div>
   </arc-card>
+  <style>
+    .card {
+      width: 20rem;
+    }
+  </style>
 `;
 
-const BasicTemplate: Story = ({ collapsed, width }) => html`
-  <arc-card ?collapsed=${collapsed} style=${ifDefined(width ? `width: ${width}` : undefined)}>
+const BasicTemplate: Story<ArcCard> = ({ collapsed }) => html`
+  <arc-card class="card" ?collapsed=${ifDefined(collapsed || undefined)}>
     This is just a basic card. No image, no header, no footer, just content.
   </arc-card>
+  <style>
+    .card {
+      width: 20rem;
+    }
+  </style>
 `;
 
-const HeaderTemplate: Story = ({ collapsed, width }) => html`
-  <arc-card ?collapsed=${collapsed} style=${ifDefined(width ? `width: ${width}` : undefined)}>
+const HeaderTemplate: Story<ArcCard> = ({ collapsed }) => html`
+  <arc-card class="card" ?collapsed=${ifDefined(collapsed || undefined)}>
     <div slot="header">
       <strong>Header</strong>
       <arc-icon-button name="settings"></arc-icon-button>
     </div>
     This card has a header. You can put all sorts of things in it!
   </arc-card>
+  <style>
+    .card {
+      width: 20rem;
+    }
+  </style>
 `;
 
-const FooterTemplate: Story = ({ collapsed, width }) => html`
-  <arc-card ?collapsed=${collapsed} style=${ifDefined(width ? `width: ${width}` : undefined)}>
+const FooterTemplate: Story<ArcCard> = ({ collapsed }) => html`
+  <arc-card class="card" ?collapsed=${ifDefined(collapsed || undefined)}>
     This card has a footer. You can put all sorts of things in it!
     <div slot="footer">
       <arc-button>Action</arc-button>
     </div>
   </arc-card>
+  <style>
+    .card {
+      width: 20rem;
+    }
+  </style>
 `;
 
-const ImageTemplate: Story = ({ collapsed, width }) => html`
-  <arc-card ?collapsed=${collapsed} style=${ifDefined(width ? `width: ${width}` : undefined)}>
+const ImageTemplate: Story<ArcCard> = ({ collapsed }) => html`
+  <arc-card class="card" ?collapsed=${collapsed}>
     <img
       slot="image"
       src="https://images.unsplash.com/photo-1644990978896-c86bd2e5fd2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1166&q=80"
@@ -71,29 +87,29 @@ const ImageTemplate: Story = ({ collapsed, width }) => html`
     />
     This eagle is a symbol for strength and freedom.
   </arc-card>
+  <style>
+    .card {
+      width: 20rem;
+    }
+  </style>
 `;
-
-const defaultArgs = {
-  width: '20rem',
-  collapsed: false,
-};
 
 /* EXAMPLES */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs };
+Default.args = { collapsed: false };
 
 export const BasicCard = BasicTemplate.bind({});
-BasicCard.args = { ...defaultArgs };
+BasicCard.args = { collapsed: false };
 
 export const CardWithHeader = HeaderTemplate.bind({});
-CardWithHeader.args = { ...defaultArgs };
+CardWithHeader.args = { collapsed: false };
 
 export const CardWithFooter = FooterTemplate.bind({});
-CardWithFooter.args = { ...defaultArgs };
+CardWithFooter.args = { collapsed: false };
 
 export const CardWithImage = ImageTemplate.bind({});
-CardWithImage.args = { ...defaultArgs };
+CardWithImage.args = { collapsed: false };
 
 /* STATES */
 export const Collapsed = Template.bind({});
-Collapsed.args = { ...defaultArgs, collapsed: true };
+Collapsed.args = { collapsed: true };

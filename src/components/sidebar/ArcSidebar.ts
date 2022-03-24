@@ -93,7 +93,7 @@ export default class ArcSidebar extends LitElement {
   /** Indicates whether the sidebar is open. This can be used instead of the show/hide methods. */
   @property({ type: Boolean, reflect: true }) open: boolean = true;
 
-  /** The sidebar label. Alternatively, the label slot can be used. */
+  /** The sidebar label. Required for proper accessibility. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
 
   @watch('open', { waitUntilFirstUpdate: true })

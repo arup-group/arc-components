@@ -1,31 +1,51 @@
 import { html } from 'lit';
 import { Meta, Story } from '@storybook/web-components';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import type ArcHero from './ArcHero.js';
 import './arc-hero.js';
 
 export default {
   title: 'Components/ArcHero',
   component: 'arc-hero',
+  argTypes: {
+    customTitle: {
+      name: 'title',
+      control: 'text',
+      description: 'The title of the hero. Alternatively, the title slot can be used.',
+      table: {
+        category: 'properties',
+      },
+    },
+    customSubTitle: {
+      name: 'subtitle',
+      control: 'text',
+      description: 'The subtitle of the hero. Alternatively, the subtitle slot can be used.',
+      table: {
+        category: 'properties',
+      },
+    },
+  },
 } as Meta;
 
-const Template: Story<ArcHero> = ({ background, fullscreen }) => html`
+const Template: Story = ({ background, fullscreen, customTitle, customSubTitle }) => html`
   <arc-hero
     background=${ifDefined(background || undefined)}
+    title=${ifDefined(customTitle || undefined)}
+    subtitle=${ifDefined(customSubTitle || undefined)}
     ?fullscreen=${fullscreen}
-    style="color: ${background ? 'white' : undefined}"
+    style=${ifDefined(background ? `color: white;` : undefined)}
   >
-    <span slot="title">Callisto</span>
-    <span slot="subtitle">25888 Entries | 11/06/1922</span>
-    <span
-      >Creating a prototype website that also contains copy and images is the best way to help the client understand
-      what the concept behind your design is.</span
-    >
+    <span>
+      Creating a prototype website that also contains copy and images is the best way to help the client understand what
+      the concept behind your design is.
+    </span>
   </arc-hero>
 `;
 
 const defaultArgs = {
   fullscreen: false,
+  customTitle: 'Callisto',
+  customSubTitle: '25888 Entries | 11/06/1922',
+  background: '',
 };
 
 /* TYPES */

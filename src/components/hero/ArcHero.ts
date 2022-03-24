@@ -63,10 +63,10 @@ export default class ArcHero extends LitElement {
   /** Set the banner to full screen. */
   @property({ type: Boolean }) fullscreen: boolean = false;
 
-  /** Set the title of the hero. Alternatively, the title slot can be used. */
+  /** The title of the hero. Alternatively, the title slot can be used. */
   @property({ type: String }) title: string;
 
-  /** Set the subtitle of the hero. Alternatively, the subtitle slot can be used. */
+  /** The subtitle of the hero. Alternatively, the subtitle slot can be used. */
   @property({ type: String }) subtitle: string;
 
   /** Set the background of the hero. */

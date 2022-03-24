@@ -27,7 +27,7 @@ export default {
 
 const Template: Story<ArcDropdown> = ({ placement, distance, skidding, open, disabled, hoist }) => html`
   <arc-dropdown
-    placement=${placement}
+    placement=${ifDefined(placement || undefined)}
     distance=${ifDefined(distance || undefined)}
     skidding=${ifDefined(skidding || undefined)}
     ?open="${open}"
@@ -44,7 +44,6 @@ const Template: Story<ArcDropdown> = ({ placement, distance, skidding, open, dis
 `;
 
 const defaultArgs = {
-  placement: DROPDOWN_PLACEMENTS['bottom-start'],
   distance: 0,
   skidding: 0,
   open: false,

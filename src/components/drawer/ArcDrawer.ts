@@ -186,7 +186,7 @@ export default class ArcDrawer extends LitElement {
   /** The direction from which the drawer will open. */
   @property({ type: String, reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
 
-  /** The drawer label. Alternatively, the label slot can be used. */
+  /** The drawer label. Required for proper accessibility. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
 
   @watch('open', { waitUntilFirstUpdate: true })

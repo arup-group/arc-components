@@ -29,32 +29,48 @@ export default {
 } as Meta;
 
 const Template: Story<ArcDrawer> = ({ open, contained, placement, label }) => html`
-  <div
-    style="position: relative; height: 18rem; box-shadow: var(--arc-box-shadow); margin-bottom: var(--arc-spacing-medium)"
-  >
-    <arc-drawer ?open="${open}" ?contained="${contained}" placement="${placement}" label="${label}">
-      <div style="height: 150vh;">
+  <div class="wrapper">
+    <arc-drawer ?open=${open} ?contained=${contained} placement=${placement} label=${label}>
+      <div id="content">
         <p>Scroll down and give it a try! 👇</p>
       </div>
     </arc-drawer>
   </div>
+  <style>
+    .wrapper {
+      height: 18rem;
+      position: relative;
+      box-shadow: var(--arc-box-shadow);
+      margin-bottom: var(--arc-spacing-medium);
+    }
+
+    #content {
+      height: 150vh;
+    }
+  </style>
 `;
 
 const LockedTemplate: Story<ArcDrawer> = ({ open, contained, placement, label }) => html`
-  <div
-    style="position: relative; height: 18rem; box-shadow: var(--arc-box-shadow); margin-bottom: var(--arc-spacing-medium)"
-  >
+  <div class="wrapper">
     <arc-drawer
       id="lockedDrawer"
-      ?open="${open}"
-      ?contained="${contained}"
-      placement="${placement}"
-      label="${label}"
+      ?open=${open}
+      ?contained=${contained}
+      placement=${placement}
+      label=${label}
       @arc-request-close=${(e: CustomEvent) => e.preventDefault()}
     >
       <p>This drawer is locked from closing!</p>
     </arc-drawer>
   </div>
+  <style>
+    .wrapper {
+      height: 18rem;
+      position: relative;
+      box-shadow: var(--arc-box-shadow);
+      margin-bottom: var(--arc-spacing-medium);
+    }
+  </style>
 `;
 
 const defaultArgs = {
@@ -81,5 +97,5 @@ export const Start = Template.bind({});
 Start.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.start, label: 'Drawer start' };
 
 /* OTHER */
-export const Closing = LockedTemplate.bind({});
-Closing.args = { ...defaultArgs };
+export const PreventClosing = LockedTemplate.bind({});
+PreventClosing.args = { ...defaultArgs };

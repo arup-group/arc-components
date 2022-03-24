@@ -9,8 +9,12 @@ export default {
   component: 'arc-hero',
 } as Meta;
 
-const Template: Story<ArcHero> = ({ background }) => html`
-  <arc-hero background=${ifDefined(background || undefined)} style="color: ${background ? 'white' : undefined}">
+const Template: Story<ArcHero> = ({ background, fullscreen }) => html`
+  <arc-hero
+    background=${ifDefined(background || undefined)}
+    ?fullscreen=${fullscreen}
+    style="color: ${background ? 'white' : undefined}"
+  >
     <span slot="title">Callisto</span>
     <span slot="subtitle">25888 Entries | 11/06/1922</span>
     <span
@@ -20,10 +24,17 @@ const Template: Story<ArcHero> = ({ background }) => html`
   </arc-hero>
 `;
 
+const defaultArgs = {
+  fullscreen: false,
+};
+
 /* TYPES */
 export const Default = Template.bind({});
+Default.args = { ...defaultArgs };
+
 export const BackgroundImg = Template.bind({});
 BackgroundImg.args = {
+  ...defaultArgs,
   background:
     'https://images.adsttc.com/media/images/5231/c740/e8e4/4efe/3a00/0090/large_jpg/gherkin_shaundunmall.jpg?1378993979',
 };

@@ -24,8 +24,8 @@ export default {
 const Template: Story<ArcIcon> = ({ name, label, size, rotation, spinning }) => html`
   <arc-icon
     name="${name}"
-    label="${label}"
-    size="${size}"
+    label=${ifDefined(label || undefined)}
+    size=${ifDefined(size || undefined)}
     rotation=${ifDefined(rotation || undefined)}
     ?spinning=${spinning}
   ></arc-icon>
@@ -51,3 +51,6 @@ Rotation.args = { ...defaultArgs, rotation: 45 };
 
 export const Spinning = Template.bind({});
 Spinning.args = { ...defaultArgs, spinning: true };
+
+/* COLORS */
+export const CustomColor = Template.bind({});

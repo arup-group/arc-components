@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import type {{ properCase tag }} from './{{ properCase tag }}.js';
 import './{{ tag }}';
 
 export default {
@@ -8,8 +7,8 @@ export default {
   component: '{{ tag }}'
 } as Meta;
 
-const Template: Story<{{ properCase tag }}> = ({ name, active }) => html`
-  <{{ tag }} name="${name}" ?active="${active}"></{{ tag }}>
+const Template: Story = ({ name, active }) => html`
+  <{{ tag }} name=${name} ?active=${active}></{{ tag }}>
 `;
 
 export const Default = Template.bind({});

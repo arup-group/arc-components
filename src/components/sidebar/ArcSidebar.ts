@@ -47,6 +47,7 @@ export default class ArcSidebar extends LitElement {
         height: 100%;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
       }
 
       #header {

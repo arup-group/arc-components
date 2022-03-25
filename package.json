@@ -1,7 +1,7 @@
 {
   "name": "@arc-web/components",
   "description": "Web-components built on the ARC design system",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "author": "arc-component",
   "license": "MIT",
   "main": "dist/arc.js",
@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^2.22.0",
+    "date-fns": "^2.28.0",
     "lit": "^2.0.2",
     "tabbable": "^5.2.1"
   },

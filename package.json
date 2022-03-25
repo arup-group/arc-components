@@ -1,15 +1,13 @@
 {
   "name": "@arc-web/components",
   "description": "Web-components built on the ARC design system",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "author": "arc-component",
   "license": "MIT",
   "main": "dist/arc.js",
   "module": "dist/arc.js",
+  "customElements": "dist/custom-elements.json",
   "types": "dist/arc.d.ts",
-  "exports": {
-    ".": "./dist/arc.js"
-  },
   "files": [
     "dist"
   ],
@@ -88,7 +86,6 @@
     "tslib": "^2.3.1",
     "typescript": "^4.5.2"
   },
-  "customElements": "custom-elements.json",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

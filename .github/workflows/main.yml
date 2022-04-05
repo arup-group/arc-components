@@ -3,11 +3,11 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
 
@@ -19,6 +19,20 @@ jobs:
 
       - name: Test components
         run: yarn run test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Install Yarn
+        uses: borales/actions-yarn@v2.3.0
+
+      - name: Install node_modules
+        run: yarn install
 
       - name: Build Storybook
         run: sudo yarn run storybook:build

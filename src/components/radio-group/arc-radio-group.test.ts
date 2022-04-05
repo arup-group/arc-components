@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
-import { isMobile } from '../../utilities/ui-utils.js';
+import { isMobile } from '../../internal/preferences.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
 

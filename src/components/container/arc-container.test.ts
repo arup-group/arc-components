@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { setViewport } from '@web/test-runner-commands';
-import { isMobile, prefersDark } from '../../utilities/ui-utils.js';
+import { isMobile, prefersDark } from '../../internal/preferences.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { isNight } from '../../internal/theme.js';
 import { hasSlot } from '../../internal/slot.js';

@@ -4,6 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { watch } from '../../internal/watch.js';
 import { emit } from '../../internal/event.js';
+import { FormController } from '../../internal/form-control.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -81,6 +82,12 @@ export default class ArcRadio extends LitElement {
 
   /** @internal */
   @query('input[type="radio"]') input: HTMLInputElement;
+
+  /** @internal - Controller used to recognize form controls located inside a shadow root. */
+  /* @ts-expect-error -- Controller is currently unused */
+  private readonly formController = new FormController(this, {
+    value: (control: ArcRadio) => (control.checked ? control.value : undefined),
+  });
 
   /** The name used to reference the value of the control. */
   @property({ type: String }) name: string;

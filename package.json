@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "dist/arc.js",
   "module": "dist/arc.js",
-  "customElements": "dist/custom-elements.json",
+  "customElements": "custom-elements.json",
   "types": "dist/arc.d.ts",
   "files": [
     "dist"

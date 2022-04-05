@@ -4,6 +4,7 @@ import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import componentStyles from '../../styles/component.styles.js';
+import { FormController } from '../../internal/form-control.js';
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
@@ -167,6 +168,9 @@ export default class ArcButton extends LitElement {
   /** @internal */
   @query('#button') button: HTMLButtonElement | HTMLLinkElement;
 
+  /** @internal - Controller used to recognize form controls located inside a shadow root. */
+  private readonly formController = new FormController(this);
+
   /** Set the type of the button. */
   @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.pill;
 
@@ -222,6 +226,11 @@ export default class ArcButton extends LitElement {
     if (this.disabled || this.loading) {
       event.preventDefault();
       event.stopPropagation();
+    }
+
+    /* Submit the surrounding form with the formSubmitController class. */
+    if (this.submit) {
+      this.formController.submit();
     }
   }
 

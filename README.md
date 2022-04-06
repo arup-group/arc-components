@@ -11,10 +11,10 @@
 3. TypeScript
 4. Useful utilities
    1. BasePath
-   2. FOUC
+   2. Forms
+   3. FOUC
 
 # Quick start
-
 Add the following code to your page, where @x.x.x stands for the version of @arc-web/components.
 
 ```bash
@@ -397,6 +397,35 @@ setBasePath('/path/to/arc/');
 
 # other imports etc.
 ```
+
+## Forms
+When you are relying on standard form submissions, e.g. `<form action="...">`, you can probably skip this section. 
+However, most modern apps use the Fetch API or a library such as axios to submit forms using JavaScript.
+
+The FormData interface offers a standard way to serialize forms in the browser. 
+You can create a FormData object from any `<form>` element like this.
+
+```bash
+const form = document.querySelector('form');
+const data = new FormData(form);
+
+// All form control data is available in a FormData object
+```
+
+However, if you find FormData tricky to work with, or need to pass a JSON payload to the server, 
+ARC offers a serialization utility that gathers form data and returns a simple JavaScript object instead.
+
+```bash
+import { serialize } from '@arc-web/components/dist/utilities/form-utils.js';
+
+const form = document.querySelector('form');
+const data = serialize(form);
+
+// All form control data is available in a plain object
+```
+
+This results in an object with name/value pairs that map to each form control. 
+If more than one form control shares the same name, the values will be passed as an array, e.g. `{ name: ['value1', 'value2'] }`.
 
 ## Flash of unstyled content (FOUC)
 A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet, 

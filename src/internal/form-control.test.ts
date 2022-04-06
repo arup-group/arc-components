@@ -38,6 +38,7 @@ class SelectControlTest extends LitElement {
   @query('#testSelect') select: HTMLInputElement;
 
   connectedCallback() {
+    super.connectedCallback();
     this.value = ['val1', 'val2'];
   }
 

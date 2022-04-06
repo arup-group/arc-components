@@ -19,7 +19,7 @@ describe('ArcDrawer', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-drawer placement='end'></arc-drawer>`);
+      expect(element).dom.to.equal("<arc-drawer placement='end'></arc-drawer>");
     });
 
     /* Test the accessibility */

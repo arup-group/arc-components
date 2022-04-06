@@ -23,7 +23,7 @@ describe('ArcHero', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-hero><span slot="title">Title</span><span>Content</span></arc-hero>`);
+      expect(element).dom.to.equal('<arc-hero><span slot="title">Title</span><span>Content</span></arc-hero>');
     });
 
     /* Test the accessibility */
@@ -53,13 +53,13 @@ describe('ArcHero', () => {
       expect(element.background).to.contain('arc-red.svg');
       expect(element.getAttribute('background')).to.contain('arc-red.svg');
       expect(getPropertyValue(heroTarget, 'background')).to.contain('arc-red.svg');
-      expect(getPropertyValue(heroTarget, 'background-size')).to.equal(`cover`);
-      expect(getPropertyValue(heroTarget, 'align-items')).to.equal(`normal`);
+      expect(getPropertyValue(heroTarget, 'background-size')).to.equal('cover');
+      expect(getPropertyValue(heroTarget, 'align-items')).to.equal('normal');
 
       /* When the fullscreen property is set, the items are aligned in the center */
       element.fullscreen = true;
       await elementUpdated(element);
-      expect(getPropertyValue(heroTarget, 'align-items')).to.equal(`center`);
+      expect(getPropertyValue(heroTarget, 'align-items')).to.equal('center');
     });
   });
 

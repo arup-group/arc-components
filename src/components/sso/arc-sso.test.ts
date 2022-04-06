@@ -15,7 +15,7 @@ describe('ArcSSO', () => {
 
     /* Test default properties that reflect to the DOM. */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-sso></arc-sso>`);
+      expect(element).dom.to.equal('<arc-sso></arc-sso>');
     });
 
     /* Test the accessibility. */

@@ -20,7 +20,7 @@ describe('ArcNavbar', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-navbar arup='' tabs='5'></arc-navbar>`);
+      expect(element).dom.to.equal("<arc-navbar arup='' tabs='5'></arc-navbar>");
     });
 
     /* Test the accessibility */
@@ -40,7 +40,7 @@ describe('ArcNavbar', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the navbar with a custom home property', async () => {
-      const element: ArcNavbar = await fixture(html` <arc-navbar home="myURL"></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar home="myURL"></arc-navbar>`);
       const logoWrapper = element.shadowRoot!.querySelector('#logoWrapper')!;
 
       expect(element.home).to.equal('myURL');
@@ -49,14 +49,14 @@ describe('ArcNavbar', () => {
     });
 
     it('renders the logoWrapper as a div when no home property is set', async () => {
-      const element: ArcNavbar = await fixture(html` <arc-navbar></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar></arc-navbar>`);
       const logoWrapper = element.shadowRoot!.querySelector('#logoWrapper')!;
 
       expect(logoWrapper.tagName).to.equal('DIV');
     });
 
     it('renders the navbar with a custom logo property', async () => {
-      const element: ArcNavbar = await fixture(html` <arc-navbar logo="myURL"></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar logo="myURL"></arc-navbar>`);
       const toolLogo = element.shadowRoot!.querySelector('#tool-logo')!;
       expect(toolLogo).to.exist;
 
@@ -66,7 +66,7 @@ describe('ArcNavbar', () => {
     });
 
     it('renders the navbar without an Arup logo', async () => {
-      const element: ArcNavbar = await fixture(html` <arc-navbar arup="false"></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar arup="false"></arc-navbar>`);
       const companyLogo = element.shadowRoot!.querySelector('#company-logo')!;
       expect(companyLogo).to.be.null;
 
@@ -75,7 +75,7 @@ describe('ArcNavbar', () => {
     });
 
     it('renders the navbar with a custom tabs property', async () => {
-      const element: ArcNavbar = await fixture(html` <arc-navbar tabs="3"></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar tabs="3"></arc-navbar>`);
 
       expect(element.tabs).to.equal(3);
       expect(element.getAttribute('tabs')).to.equal('3');
@@ -215,7 +215,7 @@ describe('ArcNavbar', () => {
   describe('slots', () => {
     let element: ArcNavbar;
     beforeEach(async () => {
-      element = await fixture(html` <arc-navbar></arc-navbar>`);
+      element = await fixture(html`<arc-navbar></arc-navbar>`);
     });
 
     it('renders slots to fill the navbar', () => {
@@ -231,12 +231,12 @@ describe('ArcNavbar', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcNavbar = await fixture(html` <arc-navbar></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar></arc-navbar>`);
 
       expect(getPropertyValue(element, 'height')).to.equal('56px');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcNavbar = await fixture(html` <arc-navbar style="height:30px"></arc-navbar>`);
+      const element: ArcNavbar = await fixture(html`<arc-navbar style="height:30px"></arc-navbar>`);
 
       expect(getPropertyValue(element, 'height')).to.equal('30px');
     });

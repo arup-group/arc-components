@@ -42,4 +42,5 @@ export { default as ArcSpinner } from './components/spinner/ArcSpinner.js';
 
 /* Utilities */
 export * from './utilities/base-path.js';
+export * from './utilities/form-utils.js';
 export * from './utilities/style-utils.js';

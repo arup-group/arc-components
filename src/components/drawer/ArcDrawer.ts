@@ -152,7 +152,7 @@ export default class ArcDrawer extends LitElement {
         right: 0;
         bottom: 0;
         left: 0;
-        background-image: var(--arc-overlay-gradient);
+        background-image: linear-gradient(var(--arc-darker-40) 0 0);
         pointer-events: all;
       }
 
@@ -266,21 +266,21 @@ export default class ArcDrawer extends LitElement {
   /* Shows the drawer. */
   async show() {
     if (this.open) {
-      return;
+      return undefined;
     }
 
     this.open = true;
-    await waitForEvent(this, ARC_EVENTS.afterShow);
+    return waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
   /* Hides the drawer. */
   async hide() {
     if (!this.open) {
-      return;
+      return undefined;
     }
 
     this.open = false;
-    await waitForEvent(this, ARC_EVENTS.afterHide);
+    return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
   private _requestClose() {

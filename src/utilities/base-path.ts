@@ -17,7 +17,7 @@ The base path is used to load assets such as icons and images, so it needs to be
 By default, this script will look for a script ending in arc.js and set the base path to the directory that
 contains that file. To override this behavior, you can add the data-arc attribute to any script on the page
 (it probably makes the most sense to attach it to the Arc script, but it could also be on a bundle). The value
-can be a local folder or it can point to a CORS-enabled endpoint such as a CDN.
+can be a local folder, or it can point to a CORS-enabled endpoint such as a CDN.
 
 <script src="bundle.js" data-arc="/custom/base/path"></script>
 

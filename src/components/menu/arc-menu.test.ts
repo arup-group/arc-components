@@ -251,7 +251,7 @@ describe('ArcMenu', () => {
   describe('slots', () => {
     let element: ArcMenu;
     beforeEach(async () => {
-      element = await fixture(html` <arc-menu></arc-menu> `);
+      element = await fixture(html`<arc-menu></arc-menu>`);
     });
 
     it('renders default slots to fill the component', () => {

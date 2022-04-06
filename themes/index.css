@@ -102,6 +102,17 @@
   --arc-yellow-090: 114, 68, 3;
   --arc-yellow-100: 75, 44, 2;
 
+  /* Opacity values */
+  --arc-darker-10: rgba(var(--arc-black-100), 0.1);
+  --arc-darker-13: rgba(var(--arc-black-100), 0.13);
+  --arc-darker-15: rgba(var(--arc-black-100), 0.15);
+  --arc-darker-30: rgba(var(--arc-black-100), 0.3);
+  --arc-darker-40: rgba(var(--arc-black-100), 0.4);
+  --arc-darker-80: rgba(var(--arc-black-100), 0.8);
+  --arc-darker-85: rgba(var(--arc-black-100), 0.85);
+  --arc-lighter-70: rgba(var(--arc-white-000), 0.7);
+  --arc-lighter-90: rgba(var(--arc-white-000), 0.9);
+
   /* Font Family */
   --arc-font-headline: "Times New Roman";
   --arc-font-body: "Arial", sans-serif;
@@ -137,10 +148,6 @@
   /* Panel */
   --arc-panel-width: 8rem;
   --arc-panel-height: 75vh;
-
-  /* Overlay */
-  --arc-overlay-opacity: rgba(var(--arc-black-100), 0.4);
-  --arc-overlay-gradient: linear-gradient(var(--arc-overlay-opacity) 0 0);
 
   /* Box shadow values x y blur spread */
   --arc-box-shadow-01: 0 2px 1px -1px;

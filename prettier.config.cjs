@@ -1,11 +1,10 @@
 module.exports = {
   arrowParens: 'avoid',
   bracketSpacing: true,
-  endOfLine: "auto",
   htmlWhitespaceSensitivity: 'css',
+  endOfLine: "auto",
   insertPragma: false,
-  jsxBracketSameLine: false,
-  jsxSingleQuote: false,
+  bracketSameLine: false,
   printWidth: 120,
   proseWrap: 'preserve',
   quoteProps: 'as-needed',

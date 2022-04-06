@@ -26,12 +26,12 @@ const Template: Story<ArcNavbar> = ({ arup, home, logo, tabs }) => html`
   </arc-navbar>
 `;
 const HeightTemplate: Story<ArcNavbar> = () =>
-  html` <arc-navbar logo="/arc-red.svg" style="height: 5rem;"></arc-navbar> `;
+  html`<arc-navbar logo="/arc-red.svg" style="height: 5rem;"></arc-navbar>`;
 
 const defaultArgs = {
   arup: true,
   home: '/',
-  logo: `/arc-red.svg`,
+  logo: '/arc-red.svg',
   tabs: 5,
 };
 

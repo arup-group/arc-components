@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { setViewport, emulateMedia } from '@web/test-runner-commands';
 
-import { isMobile, prefersReducedMotion, prefersDark } from './ui-utils.js';
+import { isMobile, prefersReducedMotion, prefersDark } from './preferences.js';
 
 describe('isMobile', () => {
   it('returns true if width < 49rem', async () => {

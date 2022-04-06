@@ -1,5 +1,5 @@
 /* rem breakpoint for mobile devices. */
-export const mobileBreakpoint: number = 49;
+const mobileBreakpoint: number = 49;
 
 /* Determines whether the user is on a mobile-like device. */
 function isMobile() {
@@ -16,4 +16,4 @@ function prefersDark() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-export { isMobile, prefersReducedMotion, prefersDark };
+export { mobileBreakpoint, isMobile, prefersReducedMotion, prefersDark };

@@ -44,34 +44,23 @@
     </arc-menu>
   </arc-sidebar>
   <section id="section" aria-label="Test section">
-    <form id="myForm">
-      <input type="text" id="ble" name="name" required
-             minlength="4" maxlength="8" size="10">
-      <arc-radio-group>
-        <arc-radio name="favorite_cake" value="lemon">Lemon</arc-radio>
-        <arc-radio name="favorite_cake" value="apple">Apple</arc-radio>
-        <arc-radio name="favorite_cake" value="orange">Orange</arc-radio>
-      </arc-radio-group>
-      <arc-button submit>Submit</arc-button>
-    </form>
+    <arc-card style="width: 20rem;">
+      <img slot="image" src="https://mui.com/static/images/cards/contemplative-reptile.jpg" height="140" alt="green iguana">
+      <div style="display: grid">
+        <strong>Header</strong>
+        <small>Subheading</small>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+      </p>
+      <div slot="footer">
+        <arc-button>Action</arc-button>
+        <arc-button>Action</arc-button>
+      </div>
+    </arc-card>
   </section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
-<script type="module">
-  const form = document.getElementById('myForm');
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    new FormData(form);
-  })
-
-  form.addEventListener('formdata', (e) => {
-    console.log('formdata fired');
-
-    // Get the form data from the event object
-    let data = e.formData;
-    [...data.values()].forEach(value => console.log(value));
-  });
-</script>
 </body>
 </html>

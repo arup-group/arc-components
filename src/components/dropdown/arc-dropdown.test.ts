@@ -29,12 +29,12 @@ describe('ArcDropdown', () => {
   describe('rendering', () => {
     let element: ArcDropdown;
     beforeEach(async () => {
-      element = await fixture(html` <arc-dropdown></arc-dropdown> `);
+      element = await fixture(html`<arc-dropdown></arc-dropdown>`);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-dropdown></arc-dropdown>`);
+      expect(element).dom.to.equal('<arc-dropdown></arc-dropdown>');
     });
 
     /* Test the accessibility */
@@ -110,7 +110,7 @@ describe('ArcDropdown', () => {
     let element: ArcDropdown;
 
     beforeEach(async () => {
-      element = await fixture(html` <arc-dropdown></arc-dropdown> `);
+      element = await fixture(html`<arc-dropdown></arc-dropdown>`);
     });
 
     it('renders the component in an open state', async () => {

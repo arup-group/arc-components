@@ -6,6 +6,7 @@ This is useful to show/hide elements when a specific slot is not being used.
 */
 class HasSlotController implements ReactiveController {
   host: ReactiveControllerHost & Element;
+
   slotNames: string[] = [];
 
   constructor(host: ReactiveControllerHost & Element, ...slotNames: string[]) {

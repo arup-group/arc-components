@@ -188,7 +188,7 @@ export default class ArcSSO extends LitElement {
               <arc-icon slot="suffix" name=${ICON_TYPES.user}></arc-icon>
             </arc-button>
           `
-        : html` <arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button> `}
+        : html`<arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button>`}
     `;
 
     return html`

@@ -32,7 +32,7 @@ const Template: Story = ({ background, fullscreen, customTitle, customSubTitle }
     title=${ifDefined(customTitle || undefined)}
     subtitle=${ifDefined(customSubTitle || undefined)}
     ?fullscreen=${fullscreen}
-    style=${ifDefined(background ? `color: white;` : undefined)}
+    style=${ifDefined(background ? 'color: white;' : undefined)}
   >
     <span>
       Creating a prototype website that also contains copy and images is the best way to help the client understand what

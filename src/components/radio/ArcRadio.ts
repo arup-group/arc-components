@@ -84,7 +84,7 @@ export default class ArcRadio extends LitElement {
   @query('input[type="radio"]') input: HTMLInputElement;
 
   /** @internal - Controller used to recognize form controls located inside a shadow root. */
-  /* @ts-expect-error -- Controller is currently unused */
+  /* @ts-expect-error - Controller used to hook the component to the formData */
   private readonly formController = new FormController(this, {
     value: (control: ArcRadio) => (control.checked ? control.value : undefined),
   });

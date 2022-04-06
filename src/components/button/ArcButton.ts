@@ -1,3 +1,5 @@
+/* stylelint-disable missing-comma */
+
 import { css, LitElement } from 'lit';
 import { html, literal } from 'lit/static-html.js';
 import { property, query } from 'lit/decorators.js';
@@ -298,7 +300,7 @@ export default class ArcButton extends LitElement {
         <slot id="prefix" name="prefix"></slot>
         <slot id="label"></slot>
         <slot id="suffix" name="suffix"></slot>
-        ${this.loading ? html` <arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
+        ${this.loading ? html`<arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
       </${tag}>
     `;
   }

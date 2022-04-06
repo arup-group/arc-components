@@ -208,7 +208,7 @@ export default class ArcNavbar extends LitElement {
         tab => html`
           <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
             ${(tab as ArcIconButton).name
-              ? html` <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon> `
+              ? html`<arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon>`
               : nothing}
             ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
           </arc-menu-item>
@@ -230,7 +230,7 @@ export default class ArcNavbar extends LitElement {
                   ${logoInterior}
                 </a>
               `
-            : html` <div id="logoWrapper">${logoInterior}</div> `}
+            : html`<div id="logoWrapper">${logoInterior}</div>`}
         </div>
         <div id="right">
           <nav id="tabs" aria-label="primary navigation">

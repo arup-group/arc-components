@@ -16,7 +16,7 @@ describe('ArcSpinner', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-spinner></arc-spinner>`);
+      expect(element).dom.to.equal('<arc-spinner></arc-spinner>');
     });
 
     /* Test the accessibility */

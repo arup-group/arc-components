@@ -19,7 +19,9 @@ export interface FormSubmitControllerOptions {
 /* Class used to automatically append arc form element values to the FormData object that's used to submit the form. */
 export class FormController implements ReactiveController {
   host?: ReactiveControllerHost & Element;
+
   form?: HTMLFormElement | null;
+
   options: FormSubmitControllerOptions;
 
   constructor(host: ReactiveControllerHost & Element, options?: Partial<FormSubmitControllerOptions>) {
@@ -29,9 +31,8 @@ export class FormController implements ReactiveController {
       name: (input: HTMLInputElement) => input.name,
       value: (input: HTMLInputElement) => input.value,
       disabled: (input: HTMLInputElement) => input.disabled,
-      reportValidity: (input: HTMLInputElement) => {
-        return typeof input.reportValidity === 'function' ? input.reportValidity() : true;
-      },
+      reportValidity: (input: HTMLInputElement) =>
+        typeof input.reportValidity === 'function' ? input.reportValidity() : true,
       ...options,
     };
     this.handleFormData = this.handleFormData.bind(this);
@@ -60,7 +61,7 @@ export class FormController implements ReactiveController {
     const name = this.options.name(this.host);
     const value = this.options.value(this.host);
 
-    if (!disabled && typeof value !== 'undefined') {
+    if (!disabled && !!name && !!value) {
       if (Array.isArray(value)) {
         (value as unknown[]).forEach(val => {
           event.formData.append(name, (val as string | number | boolean).toString());
@@ -73,7 +74,7 @@ export class FormController implements ReactiveController {
 
   handleFormSubmit(event: Event) {
     const disabled = this.options.disabled(this.host);
-    const reportValidity = this.options.reportValidity;
+    const { reportValidity } = this.options;
 
     if (this.form && !this.form.noValidate && !disabled && !reportValidity(this.host)) {
       event.preventDefault();
@@ -81,11 +82,11 @@ export class FormController implements ReactiveController {
     }
   }
 
+  /*
+  Calling form.submit() seems to bypass the submit event and constraint validation.
+  Instead, we can inject a native submit button into the form, click it, then remove it to simulate a standard form submission.
+  */
   submit() {
-    /*
-    Calling form.submit() seems to bypass the submit event and constraint validation.
-    Instead, we can inject a native submit button into the form, click it, then remove it to simulate a standard form submission.
-    */
     const button = document.createElement('button');
 
     if (this.form) {

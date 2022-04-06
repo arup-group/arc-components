@@ -114,21 +114,21 @@ export default class ArcSidebar extends LitElement {
   /* Shows the sidebar. */
   async show() {
     if (this.open) {
-      return;
+      return undefined;
     }
 
     this.open = true;
-    await waitForEvent(this, ARC_EVENTS.afterShow);
+    return waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
   /* Hides the sidebar. */
   async hide() {
     if (!this.open) {
-      return;
+      return undefined;
     }
 
     this.open = false;
-    await waitForEvent(this, ARC_EVENTS.afterHide);
+    return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
   private _toggleOpenState() {

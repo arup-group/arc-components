@@ -25,7 +25,7 @@ describe('ArcAccessibility', () => {
   describe('rendering', () => {
     let element: ArcAccessibility;
     beforeEach(async () => {
-      element = await fixture(html` <arc-accessibility></arc-accessibility>`);
+      element = await fixture(html`<arc-accessibility></arc-accessibility>`);
     });
 
     /* Test default properties that reflect to the DOM */
@@ -34,7 +34,7 @@ describe('ArcAccessibility', () => {
       When a component reflects to the DOM, add them within the component like so:
       <component reflected-prop-1='' reflected-prop-2=''></component>
       */
-      expect(element).dom.to.equal(`<arc-accessibility></arc-accessibility>`);
+      expect(element).dom.to.equal('<arc-accessibility></arc-accessibility>');
     });
 
     /* Test the accessibility */

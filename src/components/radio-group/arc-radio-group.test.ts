@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
-import { isMobile } from '../../utilities/ui-utils.js';
+import { isMobile } from '../../internal/preferences.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
 
@@ -29,7 +29,7 @@ describe('ArcRadioGroup', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-radio-group><arc-radio>1</arc-radio></arc-radio-group>`);
+      expect(element).dom.to.equal('<arc-radio-group><arc-radio>1</arc-radio></arc-radio-group>');
     });
 
     /* Test the accessibility */
@@ -88,7 +88,7 @@ describe('ArcRadioGroup', () => {
     let radioWrapper: HTMLElement;
 
     beforeEach(async () => {
-      element = await fixture(html` <arc-radio-group row></arc-radio-group> `);
+      element = await fixture(html`<arc-radio-group row></arc-radio-group>`);
       radioWrapper = element.shadowRoot!.getElementById('radioGroup')!;
     });
 

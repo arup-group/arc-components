@@ -17,7 +17,7 @@ describe('ArcIconButton', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-icon-button label='Some label'></arc-icon-button>`);
+      expect(element).dom.to.equal("<arc-icon-button label='Some label'></arc-icon-button>");
     });
 
     /* Test the type of the button */

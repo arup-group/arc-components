@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from '../utilities/ui-utils.js';
+import { prefersReducedMotion } from './preferences.js';
 
 /* Animates an element using keyframes. Returns a promise that resolves after the animation completes or gets canceled. */
 function startAnimations(el: HTMLElement, keyframes: Keyframe[], options?: KeyframeAnimationOptions) {

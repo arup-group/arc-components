@@ -57,7 +57,7 @@ describe('getSlotContent', async () => {
   let filledSlot: HTMLSlotElement;
 
   beforeEach(async () => {
-    component = await fixture(html` <test-component></test-component>`);
+    component = await fixture(html`<test-component></test-component>`);
     emptySlot = component.shadowRoot!.getElementById('empty')! as HTMLSlotElement;
     filledSlot = component.shadowRoot!.getElementById('filled')! as HTMLSlotElement;
   });
@@ -68,8 +68,8 @@ describe('getSlotContent', async () => {
   });
 
   it('returns the innerHTML of a text node', async () => {
-    component.innerHTML = `Hello World`;
-    expect(getInnerHTML(emptySlot)).to.equal(`Hello World`);
+    component.innerHTML = 'Hello World';
+    expect(getInnerHTML(emptySlot)).to.equal('Hello World');
   });
 
   it('returns the innerHTML of an element node', async () => {
@@ -78,7 +78,7 @@ describe('getSlotContent', async () => {
       innerHTML: 'Hello World',
     });
     component.appendChild(newEl);
-    expect(getInnerHTML(filledSlot)).to.equal(`<div slot="one">Hello World</div>`);
+    expect(getInnerHTML(filledSlot)).to.equal('<div slot="one">Hello World</div>');
   });
 
   it('returns an empty string', async () => {
@@ -87,8 +87,8 @@ describe('getSlotContent', async () => {
   });
 
   it('returns the textContent of a text node', async () => {
-    component.innerHTML = `Hello World`;
-    expect(getTextContent(emptySlot)).to.equal(`Hello World`);
+    component.innerHTML = 'Hello World';
+    expect(getTextContent(emptySlot)).to.equal('Hello World');
   });
 
   it('returns an empty string when an element node is given', async () => {

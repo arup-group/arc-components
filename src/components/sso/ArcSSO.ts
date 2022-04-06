@@ -7,7 +7,7 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
 import { isExpired } from '../../internal/auth.js';
-import { mobileBreakpoint } from '../../utilities/ui-utils.js';
+import { mobileBreakpoint } from '../../internal/preferences.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
@@ -188,7 +188,7 @@ export default class ArcSSO extends LitElement {
               <arc-icon slot="suffix" name=${ICON_TYPES.user}></arc-icon>
             </arc-button>
           `
-        : html` <arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button> `}
+        : html`<arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button>`}
     `;
 
     return html`

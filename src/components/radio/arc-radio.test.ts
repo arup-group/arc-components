@@ -30,7 +30,7 @@ describe('ArcRadio', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(radio).dom.to.equal(`<arc-radio>1</arc-radio>`);
+      expect(radio).dom.to.equal('<arc-radio>1</arc-radio>');
     });
 
     /* Test the accessibility */

@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcCard from './ArcCard.js';
 import './arc-card.js';
 
@@ -21,11 +21,7 @@ const Template: Story<ArcCard> = ({ collapsed }) => html`
       <strong>Header</strong>
       <arc-icon-button name="settings"></arc-icon-button>
     </div>
-    <img
-      slot="image"
-      src="https://images.unsplash.com/photo-1646882172899-8436f0219b71?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-      alt="A picture of two birds."
-    />
+    <img slot="image" alt="Two birds." src="" />
     These birds are as cute as they are playful!
     <div slot="footer">
       <arc-button>Action</arc-button>
@@ -80,11 +76,7 @@ const FooterTemplate: Story<ArcCard> = ({ collapsed }) => html`
 
 const ImageTemplate: Story<ArcCard> = ({ collapsed }) => html`
   <arc-card class="card" ?collapsed=${collapsed}>
-    <img
-      slot="image"
-      src="https://images.unsplash.com/photo-1644990978896-c86bd2e5fd2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1166&q=80"
-      alt="A picture of an eagle landing on ice."
-    />
+    <img slot="image" alt="An eagle landing on ice." src="" />
     This eagle is a symbol for strength and freedom.
   </arc-card>
   <style>

@@ -33,7 +33,8 @@
       "rules": {
         "no-unused-expressions": "off",
         "prefer-destructuring": "off",
-        "no-await-in-loop": "off"
+        "no-await-in-loop": "off",
+        "max-classes-per-file ": "off"
       }
     }
   ]

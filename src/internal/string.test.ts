@@ -128,7 +128,7 @@ describe('string', () => {
     });
 
     it('throws an error when trying to convert a faulty string', () => {
-      const string = `{'one':'one'}`;
+      const string = "{'one':'one'}";
       expect(() => parseObject(string)).to.throw('Invalid JSON string');
     });
   });

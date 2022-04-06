@@ -134,7 +134,7 @@ export default class ArcCard extends LitElement {
   /* Expand the card. Only when the header slot is filled. */
   async expand() {
     if (!this.collapsed) {
-      return;
+      return undefined;
     }
 
     this.collapsed = false;
@@ -144,7 +144,7 @@ export default class ArcCard extends LitElement {
   /* Collapse the card. Only when the header slot is filled. */
   async collapse() {
     if (this.collapsed || !this.hasSlotController.test('header')) {
-      return;
+      return undefined;
     }
 
     this.collapsed = true;
@@ -155,7 +155,6 @@ export default class ArcCard extends LitElement {
     return html`
       <article
         id="main"
-        role="article"
         class=${classMap({
           'card--has-header': this.hasSlotController.test('header'),
           'card--has-image': this.hasSlotController.test('image'),

@@ -5,11 +5,19 @@ import './arc-image';
 
 export default {
   title: 'Components/ArcImage',
-  component: 'arc-image'
+  component: 'arc-image',
 } as Meta;
 
-const Template: Story<ArcImage> = ({ name, active }) => html`
-  <arc-image name=${name} ?active=${active}></arc-image>
+const Template: Story<ArcImage> = ({ src, fallback, alt, delay, margin, width, height }) => html`
+  <arc-image
+    src=${src}
+    fallback=${fallback}
+    alt=${alt}
+    delay=${delay}
+    margin=${margin}
+    width=${width}
+    height=${height}
+  ></arc-image>
 `;
 
 const defaultArgs = {

@@ -74,8 +74,8 @@ export default class ArcSSO extends LitElement {
     scopes: ['openid', 'profile', 'User.Read'],
   };
 
-  /** @internal - State that keeps track of the MSAL instance. */
-  @state() private _msalInstance: PublicClientApplication;
+  /** @internal - Reference to the MSAL instance. */
+  private _msalInstance: PublicClientApplication;
 
   /** @internal - State that keeps track of the auth status of the user. */
   @state() private _isAuth: boolean = false;
@@ -98,15 +98,12 @@ export default class ArcSSO extends LitElement {
 
   @watch('_isAuth')
   async handleAuthChange() {
-    const options = {
+    emit(this, ARC_EVENTS.auth, {
       detail: {
         authenticated: this._isAuth,
         account: this.getAccount(),
       },
-      bubbles: true,
-      composed: true,
-    };
-    emit(this, ARC_EVENTS.auth, options);
+    });
   }
 
   connectedCallback() {

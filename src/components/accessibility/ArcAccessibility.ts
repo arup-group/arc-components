@@ -111,8 +111,6 @@ export default class ArcAccessibility extends LitElement {
       detail: {
         preferences: this._userPreferences,
       },
-      bubbles: true,
-      composed: true,
     });
   }
 

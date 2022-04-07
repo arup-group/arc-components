@@ -8,16 +8,8 @@ export default {
   component: 'arc-image',
 } as Meta;
 
-const Template: Story<ArcImage> = ({ src, fallback, alt, delay, margin, width, height }) => html`
-  <arc-image
-    src=${src}
-    fallback=${fallback}
-    alt=${alt}
-    delay=${delay}
-    margin=${margin}
-    width=${width}
-    height=${height}
-  ></arc-image>
+const Template: Story<ArcImage> = ({ src, alt, delay, width, height }) => html`
+  <arc-image src=${src} alt=${alt} delay=${delay} width=${width} height=${height}></arc-image>
 `;
 
 const defaultArgs = {

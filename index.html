@@ -44,10 +44,21 @@
     </arc-menu>
   </arc-sidebar>
   <section id="section" aria-label="Test section">
-    <arc-image src="/assets/arc-red.svg" delay="50"></arc-image>
+    <arc-image src="https://cdn.stocksnap.io/img-thumbs/960w/birds-flying_FPFKGG6MAR.jpg" width="100" height="100"></arc-image>
   </section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
+<script type="module">
+  const img = document.querySelector('arc-image');
+
+  img.addEventListener('arc-loaded', e => {
+    console.log(e);
+  })
+
+  img.addEventListener('arc-error', e => {
+    console.log(e);
+  })
+</script>
 </body>
 </html>

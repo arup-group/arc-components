@@ -1,6 +1,5 @@
 import { css, html, LitElement } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { emit } from '../../internal/event.js';
@@ -32,21 +31,21 @@ export default class ArcImage extends LitElement {
       }
 
       #overlay {
-        position: absolute;
         height: 100%;
         width: 100%;
+        background-color: rgb(var(--arc-grey-020));
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: rgb(var(--arc-grey-020));
       }
 
       .has-image #image {
+        height: 100%;
+        width: 100%;
         display: block;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        width: 100%;
         object-fit: cover;
       }
 
@@ -147,12 +146,12 @@ export default class ArcImage extends LitElement {
   }
 
   imageResponse(e: any) {
-    const { type } = e;
     this._loading = false;
-    this._hasImage = type === 'load';
+    this._hasImage = e.type === 'load';
     this._removeObserver();
+    if (!this._hasImage) return;
 
-    emit(this, this._hasImage ? ARC_EVENTS.loaded : ARC_EVENTS.error, {
+    emit(this, ARC_EVENTS.loaded, {
       detail: e,
     });
   }
@@ -166,24 +165,14 @@ export default class ArcImage extends LitElement {
   }
 
   render() {
-    const containerClasses = {
-      'has-image': this._hasImage,
-    };
-
     const styles = {
       height: this.height ? this.handleSize(this.height) : undefined,
       width: this.width ? this.handleSize(this.width) : undefined,
     };
 
     return html`
-      <div id="main" class=${classMap(containerClasses)} style=${styleMap(styles)}>
-        <img
-          id="image"
-          src=""
-          alt=${this.alt}
-          width=${ifDefined(this.width || undefined)}
-          height=${ifDefined(this.height || undefined)}
-        />
+      <div id="main" class=${classMap({ 'has-image': this._hasImage })} style=${styleMap(styles)}>
+        <img id="image" src="" alt=${this.alt} />
         <div id="overlay">
           ${this._loading ? html`<arc-spinner style="font-size: 2rem;"></arc-spinner>` : imagePlaceholder}
         </div>

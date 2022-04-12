@@ -50,7 +50,7 @@ export default class ArcCard extends LitElement {
         overflow: hidden;
       }
 
-      #image ::slotted(img) {
+      #image ::slotted(*) {
         display: block;
         background-size: cover;
         background-repeat: no-repeat;

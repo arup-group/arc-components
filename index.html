@@ -57,10 +57,11 @@
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
 <script type="module">
-  const img = document.querySelector('arc-image');
+  const images = document.querySelectorAll('arc-image');
 
-  img.addEventListener('arc-loaded', e => {
-    console.log(e);
+  images.forEach(image => {
+    image.addEventListener('arc-loaded', e => console.log(e));
+    image.addEventListener('arc-error', e => console.log(e));
   })
 </script>
 </body>

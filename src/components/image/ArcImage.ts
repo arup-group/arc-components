@@ -125,6 +125,11 @@ export default class ArcImage extends LitElement {
     this._attachObserver();
   }
 
+  @watch('_loading', { waitUntilFirstUpdate: true })
+  handleLoadingChange() {
+    console.log('I started loading', this);
+  }
+
   firstUpdated() {
     this._attachObserver();
   }
@@ -166,9 +171,8 @@ export default class ArcImage extends LitElement {
     // this._loading = false;
     this._hasImage = e.type === 'load';
     this._removeObserver();
-    if (!this._hasImage) return;
 
-    emit(this, ARC_EVENTS.loaded, {
+    emit(this, this._hasImage ? ARC_EVENTS.loaded : ARC_EVENTS.error, {
       detail: e,
     });
   }

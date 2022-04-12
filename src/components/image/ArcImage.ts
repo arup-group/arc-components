@@ -10,7 +10,7 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import '../spinner/arc-spinner.js';
 
-import { imageFallback } from './image-fallback.js';
+import { imagePlaceholder } from './ImagePlaceholder.js';
 
 /**
  * @event arc-event-name - A description of the event.
@@ -166,13 +166,17 @@ export default class ArcImage extends LitElement {
   }
 
   render() {
+    const containerClasses = {
+      'has-image': this._hasImage,
+    };
+
     const styles = {
       height: this.height ? this.handleSize(this.height) : undefined,
       width: this.width ? this.handleSize(this.width) : undefined,
     };
 
     return html`
-      <div id="main" class=${classMap({ 'has-image': this._hasImage })} style=${styleMap(styles)}>
+      <div id="main" class=${classMap(containerClasses)} style=${styleMap(styles)}>
         <img
           id="image"
           src=""
@@ -181,7 +185,7 @@ export default class ArcImage extends LitElement {
           height=${ifDefined(this.height || undefined)}
         />
         <div id="overlay">
-          ${this._loading ? html`<arc-spinner style="font-size: 2rem;"></arc-spinner>` : imageFallback}
+          ${this._loading ? html`<arc-spinner style="font-size: 2rem;"></arc-spinner>` : imagePlaceholder}
         </div>
       </div>
     `;

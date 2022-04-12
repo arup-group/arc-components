@@ -1,6 +1,6 @@
 :root,
 :host,
-arc-container[theme='light'] {
+arc-container[theme="light"] {
   /* Base */
   --arc-font-color: var(--arc-grey-100);
   --arc-input-color: var(--arc-font-color);

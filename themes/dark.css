@@ -1,5 +1,5 @@
 :host,
-arc-container[theme='dark'] {
+arc-container[theme="dark"] {
   /* Base */
   --arc-font-color: var(--arc-grey-000);
   --arc-input-color: var(--arc-font-color);
@@ -15,7 +15,6 @@ arc-container[theme='dark'] {
   --arc-color-info: var(--arc-blue-040);
   --arc-color-success: var(--arc-green-040);
   --arc-color-active: var(--arc-blue-050);
-
 
   /* Box shadow */
   --arc-box-shadow:

@@ -25,12 +25,22 @@ const Template: Story<ArcSwitch> = ({ name, value, disabled, checked }) => html`
   </arc-switch>
 `;
 const PrefixTemplate: Story<ArcSwitch> = ({ name, value, disabled, checked }) => html`
-  <arc-switch name="${name}" value=${value} ?disabled=${disabled} ?checked=${checked}>
+  <arc-switch
+    name="${ifDefined(name || undefined)}"
+    value=${ifDefined(value || undefined)}
+    ?disabled=${disabled}
+    ?checked=${checked}
+  >
     <span slot="prefix">Prefix </span>
   </arc-switch>
 `;
 const SuffixTemplate: Story<ArcSwitch> = ({ name, value, disabled, checked }) => html`
-  <arc-switch name="${name}" value=${value} ?disabled=${disabled} ?checked=${checked}>
+  <arc-switch
+    name="${ifDefined(name || undefined)}"
+    value=${ifDefined(value || undefined)}
+    ?disabled=${disabled}
+    ?checked=${checked}
+  >
     <span slot="suffix">Suffix</span>
   </arc-switch>
 `;

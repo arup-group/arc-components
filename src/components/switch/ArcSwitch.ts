@@ -23,7 +23,6 @@ export default class ArcSwitch extends LitElement {
         display: inline-flex;
         align-items: center;
         vertical-align: middle;
-        cursor: pointer;
       }
       #switch {
         flex: 0 0 auto;
@@ -31,6 +30,7 @@ export default class ArcSwitch extends LitElement {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
       }
       arc-icon {
         padding: var(--arc-spacing-small);

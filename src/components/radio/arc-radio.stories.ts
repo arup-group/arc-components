@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcRadio from './ArcRadio.js';
 import '../radio-group/arc-radio-group.js';
 import './arc-radio.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
   title: 'Components/ArcRadio',
@@ -23,7 +23,8 @@ const Template: Story<ArcRadio> = ({ name, value, disabled, checked }) => html`
       <arc-radio name=${name} value="option_3">Option 3</arc-radio>
     </arc-radio-group>
     <p>
-      For demoing purposes, only the first item responds to the <code>checked</code> and <code>value</code> properties.
+      For demoing purposes, only the first item responds to the <code>checked</code>, <code>disabled</code> and
+      <code>value</code> properties.
     </p>
   </div>
 `;
@@ -38,6 +39,9 @@ const defaultArgs = {
 /* TYPES */
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
+
+export const Checked = Template.bind({});
+Checked.args = { ...defaultArgs, checked: true };
 
 export const Disabled = Template.bind({});
 Disabled.args = { ...defaultArgs, disabled: true };

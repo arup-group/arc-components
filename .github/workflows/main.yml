@@ -1,44 +1,43 @@
 name: main
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the main branch
-  push:
-    branches: [ main ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  pull_request:
+    branches: [main]
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
-      #      - name: Configure AWS Credentials
-      #        uses: aws-actions/configure-aws-credentials@v1
-      #        with:
-      #          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #          aws-region: eu-west-1
-
-      - name: Setup environment
-        uses: borales/actions-yarn@v2.3.0
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
 
-      - name: Install packages
+      - name: Install Yarn
+        uses: borales/actions-yarn@v2.3.0
+
+      - name: Install node_modules
         run: yarn install
 
       - name: Test components
-        run: yarn test
+        run: yarn run test
 
-      - name: Build
-        run: yarn storybook:build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
 
-      - name: Clear the S3 bucket
+      - name: Install Yarn
+        uses: borales/actions-yarn@v2.3.0
+
+      - name: Install node_modules
+        run: yarn install
+
+      - name: Build Storybook
+        run: sudo yarn run storybook:build
+
+      - name: Clear S3
         uses: vitorsgomes/s3-rm-action@master
         with:
           args: --recursive
@@ -47,36 +46,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          PATH_TO_DELETE: .
 
-      - name: Upload assets
-        uses: shallwefootball/upload-s3-action@v1.1.3
-        with:
-          aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source_dir: assets
-          destination_dir: assets
-
-      - name: Upload themes
-        uses: shallwefootball/upload-s3-action@v1.1.3
-        with:
-          aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source_dir: themes
-          destination_dir: themes
-
-      - name: Upload custom-elements.json
-        uses: shallwefootball/upload-s3-action@v1.1.3
-        with:
-          aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source_dir: custom-elements.json
-          destination_dir: .
-
-      - name: Upload Storybook
+      - name: Upload Storybook to S3
         uses: shallwefootball/upload-s3-action@v1.1.3
         with:
           aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
@@ -84,3 +55,12 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           source_dir: storybook-static/
           destination_dir: .
+
+      - name: Upload assets to S3
+        uses: shallwefootball/upload-s3-action@v1.1.3
+        with:
+          aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          source_dir: assets
+          destination_dir: static/media/assets

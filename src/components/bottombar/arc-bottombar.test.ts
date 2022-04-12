@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 
 import type ArcBottombar from './ArcBottombar.js';
 import './arc-bottombar.js';
@@ -13,12 +13,12 @@ describe('ArcBottombar', () => {
   describe('rendering', () => {
     let element: ArcBottombar;
     beforeEach(async () => {
-      element = await fixture(html` <arc-bottombar></arc-bottombar>`);
+      element = await fixture(html`<arc-bottombar></arc-bottombar>`);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-bottombar></arc-bottombar>`);
+      expect(element).dom.to.equal('<arc-bottombar></arc-bottombar>');
     });
 
     /* Test the accessibility */
@@ -30,7 +30,6 @@ describe('ArcBottombar', () => {
       const mainDiv = element.shadowRoot?.getElementById('main')!;
       expect(mainDiv.tagName).to.equal('NAV');
       expect(mainDiv.hasAttribute('aria-label')).to.be.true;
-      expect(mainDiv.getAttribute('aria-label')).to.equal('mobile navigation');
     });
   });
 
@@ -67,7 +66,7 @@ describe('ArcBottombar', () => {
   describe('slots', () => {
     let element: ArcBottombar;
     beforeEach(async () => {
-      element = await fixture(html` <arc-bottombar></arc-bottombar>`);
+      element = await fixture(html`<arc-bottombar></arc-bottombar>`);
     });
 
     it('renders a default slot to fill the bottom bar', () => {
@@ -80,12 +79,12 @@ describe('ArcBottombar', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcBottombar = await fixture(html` <arc-bottombar></arc-bottombar>`);
+      const element: ArcBottombar = await fixture(html`<arc-bottombar></arc-bottombar>`);
 
-      expect(getPropertyValue(element, 'height')).to.equal('auto');
+      expect(getPropertyValue(element, 'height')).to.equal('72px');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcBottombar = await fixture(html` <arc-bottombar style="height:30px"></arc-bottombar>`);
+      const element: ArcBottombar = await fixture(html`<arc-bottombar style="height:30px"></arc-bottombar>`);
 
       expect(getPropertyValue(element, 'height')).to.equal('30px');
     });

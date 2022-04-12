@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import type ArcDrawer from './ArcDrawer.js';
-import './arc-drawer.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { DRAWER_PLACEMENTS } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import './arc-drawer.js';
 
 export default {
   title: 'Components/ArcDrawer',
@@ -12,6 +12,14 @@ export default {
     placement: {
       control: 'select',
       options: Object.values(DRAWER_PLACEMENTS),
+    },
+    customLabel: {
+      name: 'label',
+      control: 'text',
+      description: 'The drawer label. Required for proper accessibility. Alternatively, the label slot can be used.',
+      table: {
+        category: 'properties',
+      },
     },
   },
   parameters: {
@@ -28,40 +36,72 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcDrawer> = ({ open, contained, placement, label }) => html`
-  <div
-    style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
-  >
-    <arc-drawer ?open="${open}" ?contained="${contained}" placement="${placement}" label="${label}">
-      <div style="height: 150vh;">
-        <p>Scroll down and give it a try! 👇</p>
-      </div>
+const Template: Story = ({ open, contained, placement, customLabel }) => html`
+  <div class="wrapper">
+    <arc-drawer
+      ?open=${open}
+      ?contained=${contained}
+      placement=${placement}
+      label=${ifDefined(customLabel || undefined)}
+    >
+      <div id="content">Scroll down and give it a try! 👇</div>
     </arc-drawer>
   </div>
-`;
+  <style>
+    .wrapper {
+      height: 18rem;
+      position: relative;
+      box-shadow: var(--arc-box-shadow);
+      margin-bottom: var(--arc-spacing-medium);
+    }
 
-const LockedTemplate: Story<ArcDrawer> = ({ open, contained, placement, label }) => html`
-  <div
-    style="position: relative; height: 18rem; box-shadow: var(--arc-input-box-shadow); margin-bottom: var(--arc-spacing-medium)"
-  >
+    #content {
+      height: 150vh;
+    }
+  </style>
+`;
+const SizeTemplate: Story = () => html`
+  <div class="wrapper">
+    <arc-drawer label="Drawer" open contained style="--size: 50vw;">
+      This drawer is always 50% of the viewport.
+    </arc-drawer>
+  </div>
+  <style>
+    .wrapper {
+      height: 18rem;
+      position: relative;
+      box-shadow: var(--arc-box-shadow);
+      margin-bottom: var(--arc-spacing-medium);
+    }
+  </style>
+`;
+const LockedTemplate: Story = ({ open, contained, placement, customLabel }) => html`
+  <div class="wrapper">
     <arc-drawer
-      id="lockedDrawer"
-      ?open="${open}"
-      ?contained="${contained}"
-      placement="${placement}"
-      label="${label}"
+      ?open=${open}
+      ?contained=${contained}
+      placement=${placement}
+      label=${ifDefined(customLabel || undefined)}
       @arc-request-close=${(e: CustomEvent) => e.preventDefault()}
     >
-      <p>This drawer is locked from closing!</p>
+      This drawer is locked from closing!
     </arc-drawer>
   </div>
+  <style>
+    .wrapper {
+      height: 18rem;
+      position: relative;
+      box-shadow: var(--arc-box-shadow);
+      margin-bottom: var(--arc-spacing-medium);
+    }
+  </style>
 `;
 
 const defaultArgs = {
   open: true,
   contained: true,
   placement: DRAWER_PLACEMENTS.end,
-  label: 'Drawer',
+  customLabel: 'Drawer',
 };
 
 /* TYPES */
@@ -69,17 +109,20 @@ export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
 
 export const Top = Template.bind({});
-Top.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.top, label: 'Drawer top' };
+Top.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.top, customLabel: 'Drawer top' };
 
 export const End = Template.bind({});
-End.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.end, label: 'Drawer end' };
+End.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.end, customLabel: 'Drawer end' };
 
 export const Bottom = Template.bind({});
-Bottom.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.bottom, label: 'Drawer bottom' };
+Bottom.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.bottom, customLabel: 'Drawer bottom' };
 
 export const Start = Template.bind({});
-Start.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.start, label: 'Drawer start' };
+Start.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.start, customLabel: 'Drawer start' };
+
+/* SIZES */
+export const CustomSize = SizeTemplate.bind({});
 
 /* OTHER */
-export const Closing = LockedTemplate.bind({});
-Closing.args = { ...defaultArgs };
+export const Locked = LockedTemplate.bind({});
+Locked.args = { ...defaultArgs };

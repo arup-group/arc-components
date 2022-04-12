@@ -1,39 +1,41 @@
 name: publish
-
 on:
   release:
-    types: [ created ]
-
+    types: [created]
 jobs:
-  publish:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org
+          node-version: 'lts/*'
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+      - name: Install Yarn
+        uses: borales/actions-yarn@v2.3.0
 
-      - name: Install packages
+      - name: Install node_modules
         run: yarn install
 
       - name: Test components
-        run: yarn test
+        run: yarn run test
 
-      - name: Build
-        run: yarn build
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Install Yarn
+        uses: borales/actions-yarn@v2.3.0
+
+      - name: Install node_modules
+        run: yarn install
+
+      - name: Build ARC
+        run: sudo yarn run build
 
       - name: Publish
         run: npm publish --access public

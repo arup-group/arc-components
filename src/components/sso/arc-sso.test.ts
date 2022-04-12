@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 
 import ArcSSO from './ArcSSO.js';
 import './arc-sso.js';
@@ -15,7 +15,7 @@ describe('ArcSSO', () => {
 
     /* Test default properties that reflect to the DOM. */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-sso></arc-sso>`);
+      expect(element).dom.to.equal('<arc-sso></arc-sso>');
     });
 
     /* Test the accessibility. */

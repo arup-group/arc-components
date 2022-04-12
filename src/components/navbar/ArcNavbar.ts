@@ -1,10 +1,9 @@
 import { css, html, LitElement, nothing } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { map } from 'lit/directives/map.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import { mobileBreakpoint } from '../../utilities/ui-utils.js';
+import { mobileBreakpoint } from '../../internal/preferences.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
@@ -25,7 +24,6 @@ import { arupLogo } from './arup-logo.js';
  *
  * @event arc-show-accessibility - Emitted when the built-in accessibility button is pressed.
  *
- * @cssproperty height - Set the height of the navbar.
  * @cssproperty --logo-height - Set the height of the tool logo.
  */
 export default class ArcNavbar extends LitElement {
@@ -35,13 +33,14 @@ export default class ArcNavbar extends LitElement {
     componentStyles,
     css`
       :host {
-        height: var(--arc-navbar-height);
+        height: 3.5rem;
         background: rgb(var(--arc-container-color));
         z-index: 1;
         --logo-height: var(--arc-brand-height);
       }
 
       /* Layout */
+
       #main,
       #left,
       #logoWrapper,
@@ -61,6 +60,7 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Left side */
+
       #left {
         justify-content: flex-start;
       }
@@ -78,6 +78,7 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Show the tool-name when there is no tool-logo */
+
       #tool-name {
         display: flex;
         overflow: hidden;
@@ -90,11 +91,13 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Hide the tool-name when there is a tool-logo */
+
       #tool-logo + #tool-name {
         display: none;
       }
 
       /* Right side */
+
       #right {
         justify-content: flex-end;
         gap: var(--arc-spacing-small);
@@ -157,7 +160,7 @@ export default class ArcNavbar extends LitElement {
   /** The amount of tabs allowed before collapsing into a dropdown. */
   @property({ type: Number, reflect: true }) tabs: number = 5;
 
-  /** Show/hide the Arup logo. */
+  /** Show/hide the Arup logo. Can be useful for non-Arup applications. */
   @property({
     type: Boolean,
     reflect: true,
@@ -205,7 +208,7 @@ export default class ArcNavbar extends LitElement {
         tab => html`
           <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
             ${(tab as ArcIconButton).name
-              ? html` <arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon> `
+              ? html`<arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon>`
               : nothing}
             ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
           </arc-menu-item>
@@ -219,24 +222,18 @@ export default class ArcNavbar extends LitElement {
     `;
 
     return html`
-      <nav id="main" aria-label="primary navigation">
+      <header id="main">
         <div id="left">
           ${this.home
             ? html`
-                <a
-                  id="logoWrapper"
-                  href=${ifDefined(this.home || undefined)}
-                  rel="noreferrer noopener"
-                  role="button"
-                  aria-label="tool logo"
-                >
+                <a id="logoWrapper" href=${this.home} rel="noreferrer noopener" role="button" aria-label="tool logo">
                   ${logoInterior}
                 </a>
               `
-            : html` <div id="logoWrapper">${logoInterior}</div> `}
+            : html`<div id="logoWrapper">${logoInterior}</div>`}
         </div>
         <div id="right">
-          <div id="tabs">
+          <nav id="tabs" aria-label="primary navigation">
             <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
             ${this.showDropdown
               ? html`
@@ -253,10 +250,10 @@ export default class ArcNavbar extends LitElement {
               @click=${this.emitAccessibility}
             ></arc-icon-button>
             <slot name="user"></slot>
-          </div>
+          </nav>
           ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
         </div>
-      </nav>
+      </header>
     `;
   }
 }

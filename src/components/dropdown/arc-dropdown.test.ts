@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 import {
   createKeyEvent,
   downEvent,
@@ -29,12 +29,12 @@ describe('ArcDropdown', () => {
   describe('rendering', () => {
     let element: ArcDropdown;
     beforeEach(async () => {
-      element = await fixture(html` <arc-dropdown></arc-dropdown> `);
+      element = await fixture(html`<arc-dropdown></arc-dropdown>`);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-dropdown></arc-dropdown>`);
+      expect(element).dom.to.equal('<arc-dropdown></arc-dropdown>');
     });
 
     /* Test the accessibility */
@@ -110,7 +110,7 @@ describe('ArcDropdown', () => {
     let element: ArcDropdown;
 
     beforeEach(async () => {
-      element = await fixture(html` <arc-dropdown></arc-dropdown> `);
+      element = await fixture(html`<arc-dropdown></arc-dropdown>`);
     });
 
     it('renders the component in an open state', async () => {
@@ -220,8 +220,6 @@ describe('ArcDropdown', () => {
       element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       await element.show();
-      await waitUntil(() => showHandler.calledOnce);
-      await waitUntil(() => afterShowHandler.calledOnce);
 
       expect(showHandler).to.have.been.calledOnce;
       expect(afterShowHandler).to.have.been.calledOnce;
@@ -235,8 +233,6 @@ describe('ArcDropdown', () => {
       element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
 
       await element.hide();
-      await waitUntil(() => hideHandler.calledOnce);
-      await waitUntil(() => afterHideHandler.calledOnce);
 
       expect(hideHandler).to.have.been.calledOnce;
       expect(afterHideHandler).to.have.been.calledOnce;
@@ -257,8 +253,7 @@ describe('ArcDropdown', () => {
     });
 
     it('should emit arc-hide and arc-after-hide when setting open = false', async () => {
-      element.open = true;
-      await elementUpdated(element);
+      await element.show();
 
       element.addEventListener(ARC_EVENTS.hide, hideHandler);
       element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
@@ -277,10 +272,7 @@ describe('ArcDropdown', () => {
       element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
 
       await element.show();
-      expect(isOpen()).to.be.true;
-
       await element.show();
-      expect(isOpen()).to.be.true;
 
       expect(showHandler).to.have.been.calledOnce;
       expect(afterShowHandler).to.have.been.calledOnce;

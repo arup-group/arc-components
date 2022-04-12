@@ -33,7 +33,7 @@ describe('getTabbableBoundary', () => {
 
   it('should return null for the first and last tabbable items', () => {
     const tabTestTwo = document.createElement('div');
-    tabTestTwo.innerHTML = `Not tabbable`;
+    tabTestTwo.innerHTML = 'Not tabbable';
 
     const boundary = getTabbableBoundary(tabTestTwo);
     const { start, end } = boundary;

@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 
 export default {
   title: 'Components/ArcButton',
@@ -39,9 +39,9 @@ const Template: Story<ArcButton> = ({
   submit,
 }) => html`
   <arc-button
-    type="${type}"
-    color="${color}"
-    size="${size}"
+    type=${ifDefined(type || undefined)}
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
     name=${ifDefined(name || undefined)}
     value=${ifDefined(value || undefined)}
     href=${ifDefined(href || undefined)}
@@ -54,10 +54,9 @@ const Template: Story<ArcButton> = ({
     >Button</arc-button
   >
 `;
+const WidthTemplate: Story<ArcButton> = () => html`<arc-button style="width: 10rem;">Button</arc-button>`;
 
 const defaultArgs = {
-  type: BUTTON_TYPES.contained,
-  color: BUTTON_COLORS.default,
   size: BUTTON_SIZES.medium,
   name: '',
   value: '',
@@ -68,9 +67,35 @@ const defaultArgs = {
   disabled: false,
   loading: false,
   submit: false,
+  width: undefined,
 };
 
+/* COLORS */
+export const Default = Template.bind({});
+Default.args = { ...defaultArgs, color: BUTTON_COLORS.default };
+
+export const Primary = Template.bind({});
+Primary.args = { ...defaultArgs, color: BUTTON_COLORS.primary };
+
+export const PrimaryTwo = Template.bind({});
+PrimaryTwo.args = { ...defaultArgs, color: BUTTON_COLORS.secondary };
+
+export const Error = Template.bind({});
+Error.args = { ...defaultArgs, color: BUTTON_COLORS.error };
+
+export const Warning = Template.bind({});
+Warning.args = { ...defaultArgs, color: BUTTON_COLORS.warning };
+
+export const Info = Template.bind({});
+Info.args = { ...defaultArgs, color: BUTTON_COLORS.info };
+
+export const Success = Template.bind({});
+Success.args = { ...defaultArgs, color: BUTTON_COLORS.success };
+
 /* TYPES */
+export const Pill = Template.bind({});
+Pill.args = { ...defaultArgs };
+
 export const Contained = Template.bind({});
 Contained.args = { ...defaultArgs, type: BUTTON_TYPES.contained };
 
@@ -79,9 +104,6 @@ Tile.args = { ...defaultArgs, type: BUTTON_TYPES.tile };
 
 export const Outlined = Template.bind({});
 Outlined.args = { ...defaultArgs, type: BUTTON_TYPES.outlined };
-
-export const Pill = Template.bind({});
-Pill.args = { ...defaultArgs, type: BUTTON_TYPES.pill };
 
 export const Tab = Template.bind({});
 Tab.args = { ...defaultArgs, type: BUTTON_TYPES.tab };
@@ -98,28 +120,6 @@ LinkDownload.args = { ...Link.args, download: 'ARC Storybook' };
 export const LinkDisabled = Template.bind({});
 LinkDisabled.args = { ...Link.args, disabled: true };
 
-/* COLORS */
-export const Default = Template.bind({});
-Default.args = { ...defaultArgs, color: BUTTON_COLORS.default };
-
-export const Primary = Template.bind({});
-Primary.args = { ...defaultArgs, color: BUTTON_COLORS.primary };
-
-export const Secondary = Template.bind({});
-Secondary.args = { ...defaultArgs, color: BUTTON_COLORS.secondary };
-
-export const Error = Template.bind({});
-Error.args = { ...defaultArgs, color: BUTTON_COLORS.error };
-
-export const Warning = Template.bind({});
-Warning.args = { ...defaultArgs, color: BUTTON_COLORS.warning };
-
-export const Info = Template.bind({});
-Info.args = { ...defaultArgs, color: BUTTON_COLORS.info };
-
-export const Success = Template.bind({});
-Success.args = { ...defaultArgs, color: BUTTON_COLORS.success };
-
 /* SIZES */
 export const Small = Template.bind({});
 Small.args = { ...defaultArgs, size: BUTTON_SIZES.small };
@@ -129,6 +129,8 @@ Medium.args = { ...defaultArgs, size: BUTTON_SIZES.medium };
 
 export const Large = Template.bind({});
 Large.args = { ...defaultArgs, size: BUTTON_SIZES.large };
+
+export const CustomWidth = WidthTemplate.bind({});
 
 /* STATES */
 export const Active = Template.bind({});

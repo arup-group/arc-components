@@ -1,20 +1,16 @@
 {
   "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "extends": [
     "@open-wc",
     "prettier"
   ],
-  "plugins": [
-    "@typescript-eslint"
-  ],
   "rules": {
+    "@typescript-eslint/no-unused-vars": ["error"],
     "class-methods-use-this": "off",
     "import/no-extraneous-dependencies": "off",
-    "no-unused-vars": "off",
-    "no-undef": "off",
-    "no-plusplus": "off",
-    "no-param-reassign": [2, { "props": false }],
-    "@typescript-eslint/no-unused-vars": ["error"],
     "import/no-unresolved": "off",
     "import/extensions": [
       "error",
@@ -22,7 +18,12 @@
       {
         "ignorePackages": true
       }
-    ]
+    ],
+    "no-unused-vars": "off",
+    "no-undef": "off",
+    "no-plusplus": "off",
+    "no-param-reassign": [2, { "props": false }],
+    "wc/guard-super-call": "off"
   },
   "overrides": [
     {
@@ -33,7 +34,8 @@
       "rules": {
         "no-unused-expressions": "off",
         "prefer-destructuring": "off",
-        "no-await-in-loop": "off"
+        "no-await-in-loop": "off",
+        "max-classes-per-file ": "off"
       }
     }
   ]

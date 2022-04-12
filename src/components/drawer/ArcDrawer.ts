@@ -11,6 +11,7 @@ import Modal from '../../internal/modal.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 
 import '../icon-button/arc-icon-button.js';
@@ -151,7 +152,7 @@ export default class ArcDrawer extends LitElement {
         right: 0;
         bottom: 0;
         left: 0;
-        background-image: var(--arc-overlay-gradient);
+        background-image: linear-gradient(var(--arc-darker-40) 0 0);
         pointer-events: all;
       }
 
@@ -177,15 +178,15 @@ export default class ArcDrawer extends LitElement {
   private originalTrigger: HTMLElement | null;
 
   /** Indicates whether the drawer is open. This can be used instead of the show/hide methods. */
-  @property({ type: Boolean, reflect: true }) open = false;
+  @property({ type: Boolean, reflect: true }) open: boolean = false;
 
   /** By default, the drawer slides out of its containing block (usually the viewport). To make the drawer slide out of its parent element, set this prop and add position: relative to the parent. */
-  @property({ type: Boolean, reflect: true }) contained = false;
+  @property({ type: Boolean, reflect: true }) contained: boolean = false;
 
   /** The direction from which the drawer will open. */
-  @property({ reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
+  @property({ type: String, reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
 
-  /** The drawer label. Alternatively, the label slot can be used. */
+  /** The drawer label. Required for proper accessibility. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
 
   @watch('open', { waitUntilFirstUpdate: true })
@@ -245,7 +246,6 @@ export default class ArcDrawer extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
     this.modal = new Modal(this);
   }
 
@@ -266,24 +266,24 @@ export default class ArcDrawer extends LitElement {
   /* Shows the drawer. */
   async show() {
     if (this.open) {
-      return;
+      return undefined;
     }
 
     this.open = true;
-    await waitForEvent(this, ARC_EVENTS.afterShow);
+    return waitForEvent(this, ARC_EVENTS.afterShow);
   }
 
-  /* Hides the drawer */
+  /* Hides the drawer. */
   async hide() {
     if (!this.open) {
-      return;
+      return undefined;
     }
 
     this.open = false;
-    await waitForEvent(this, ARC_EVENTS.afterHide);
+    return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
-  private requestClose() {
+  private _requestClose() {
     const arcRequestClose = emit(this, ARC_EVENTS.requestClose, { cancelable: true });
     if (arcRequestClose.defaultPrevented) {
       const animation = getAnimation(this, 'drawer.denyClose');
@@ -297,14 +297,14 @@ export default class ArcDrawer extends LitElement {
   handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       event.stopPropagation();
-      this.requestClose();
+      this._requestClose();
     }
   }
 
   render() {
     return html`
       <div id="main" @keydown=${this.handleKeyDown}>
-        <div id="overlay" @click=${this.requestClose} role="presentation" tabindex="-1"></div>
+        <div id="overlay" @click=${this._requestClose} role="presentation" tabindex="-1"></div>
         <div
           id="panel"
           role="dialog"
@@ -320,7 +320,7 @@ export default class ArcDrawer extends LitElement {
               id="toggleClose"
               name=${ICON_TYPES.x}
               label="Close drawer"
-              @click=${this.requestClose}
+              @click=${this._requestClose}
             ></arc-icon-button>
           </div>
 
@@ -343,7 +343,7 @@ setDefaultAnimation('drawer.showTop', {
     { opacity: 0, transform: 'translateY(-100%)' },
     { opacity: 1, transform: 'translateY(0)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.hideTop', {
@@ -351,7 +351,7 @@ setDefaultAnimation('drawer.hideTop', {
     { opacity: 1, transform: 'translateY(0)' },
     { opacity: 0, transform: 'translateY(-100%)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* End */
@@ -360,7 +360,7 @@ setDefaultAnimation('drawer.showEnd', {
     { opacity: 0, transform: 'translateX(100%)' },
     { opacity: 1, transform: 'translateX(0)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.hideEnd', {
@@ -368,7 +368,7 @@ setDefaultAnimation('drawer.hideEnd', {
     { opacity: 1, transform: 'translateX(0)' },
     { opacity: 0, transform: 'translateX(100%)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* Bottom */
@@ -377,7 +377,7 @@ setDefaultAnimation('drawer.showBottom', {
     { opacity: 0, transform: 'translateY(100%)' },
     { opacity: 1, transform: 'translateY(0)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.hideBottom', {
@@ -385,7 +385,7 @@ setDefaultAnimation('drawer.hideBottom', {
     { opacity: 1, transform: 'translateY(0)' },
     { opacity: 0, transform: 'translateY(100%)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* Start */
@@ -394,7 +394,7 @@ setDefaultAnimation('drawer.showStart', {
     { opacity: 0, transform: 'translateX(-100%)' },
     { opacity: 1, transform: 'translateX(0)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.hideStart', {
@@ -402,24 +402,24 @@ setDefaultAnimation('drawer.hideStart', {
     { opacity: 1, transform: 'translateX(0)' },
     { opacity: 0, transform: 'translateX(-100%)' },
   ],
-  options: { duration: 500, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* Deny close */
 setDefaultAnimation('drawer.denyClose', {
   keyframes: [{ transform: 'scale(1)' }, { transform: 'scale(1.01)' }, { transform: 'scale(1)' }],
-  options: { duration: 500 },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 /* Overlay */
 setDefaultAnimation('drawer.overlay.show', {
   keyframes: [{ opacity: 0 }, { opacity: 1 }],
-  options: { duration: 500 },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 setDefaultAnimation('drawer.overlay.hide', {
   keyframes: [{ opacity: 1 }, { opacity: 0 }],
-  options: { duration: 500 },
+  options: ARC_ANIMATION_OPTIONS.slow,
 });
 
 declare global {

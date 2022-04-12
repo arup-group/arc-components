@@ -7,7 +7,7 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
 import { isExpired } from '../../internal/auth.js';
-import { mobileBreakpoint } from '../../utilities/ui-utils.js';
+import { mobileBreakpoint } from '../../internal/preferences.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
@@ -32,7 +32,6 @@ export default class ArcSSO extends LitElement {
     css`
       :host {
         display: inline-flex;
-        width: auto;
       }
 
       #main {
@@ -82,13 +81,13 @@ export default class ArcSSO extends LitElement {
   @state() private _isAuth: boolean = false;
 
   /** The id of the application. This value can be found on the Azure AD portal. */
-  @property({ attribute: 'client-id', type: String }) clientId: string;
+  @property({ type: String, attribute: 'client-id' }) clientId: string;
 
   /** Identifies which Azure AD instance the application sits under. The default `common` value is used for multi-tenant applications and applications allowing personal accounts (not B2C). If your application audience is single-tenant, you must provide this property. This value can be found on the Azure AD portal. */
-  @property({ attribute: 'tenant-id', type: String }) tenantId: string;
+  @property({ type: String, attribute: 'tenant-id' }) tenantId: string;
 
   /** The location where the authorization server sends the user once the app has been successfully authorized and granted an authorization code or access token. This url needs to be specified in the component and within the Authentication tab on the Azure AD portal. */
-  @property({ attribute: 'redirect-uri', type: String }) redirectUri: string;
+  @property({ type: String, attribute: 'redirect-uri' }) redirectUri: string;
 
   /** A comma separated string that allows for additional permissions on how your app must interact with the Microsoft identity platform. More about this can be found on https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent. */
   @property({
@@ -189,7 +188,7 @@ export default class ArcSSO extends LitElement {
               <arc-icon slot="suffix" name=${ICON_TYPES.user}></arc-icon>
             </arc-button>
           `
-        : html` <arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button> `}
+        : html`<arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button>`}
     `;
 
     return html`

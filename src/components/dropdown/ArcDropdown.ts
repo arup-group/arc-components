@@ -9,6 +9,7 @@ import { setDefaultAnimation, getAnimation } from '../../utilities/animation-reg
 import componentStyles from '../../styles/component.styles.js';
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
@@ -318,7 +319,7 @@ export default class ArcDropdown extends LitElement {
     if (event.key === ' ') {
       event.preventDefault();
     }
-  };
+  }
 
   /* Hide the dropdown when a menu item is selected */
   handlePanelSelect(event: CustomEvent) {
@@ -411,7 +412,7 @@ setDefaultAnimation('dropdown.show', {
     { opacity: 0, transform: 'scale(0.9)' },
     { opacity: 1, transform: 'scale(1)' },
   ],
-  options: { duration: 150, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.fast,
 });
 
 setDefaultAnimation('dropdown.hide', {
@@ -419,7 +420,7 @@ setDefaultAnimation('dropdown.hide', {
     { opacity: 1, transform: 'scale(1)' },
     { opacity: 0, transform: 'scale(0.9)' },
   ],
-  options: { duration: 150, easing: 'ease' },
+  options: ARC_ANIMATION_OPTIONS.fast,
 });
 
 declare global {

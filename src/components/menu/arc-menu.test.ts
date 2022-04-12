@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture, oneEvent } from '@open-wc/testing';
-import { hasSlot } from '../../utilities/dom-utils.js';
+import { hasSlot } from '../../internal/slot.js';
 import { homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent } from '../../utilities/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
@@ -251,7 +251,7 @@ describe('ArcMenu', () => {
   describe('slots', () => {
     let element: ArcMenu;
     beforeEach(async () => {
-      element = await fixture(html` <arc-menu></arc-menu> `);
+      element = await fixture(html`<arc-menu></arc-menu>`);
     });
 
     it('renders default slots to fill the component', () => {

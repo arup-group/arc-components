@@ -59,6 +59,8 @@ export declare type IconType =
   | 'size-fullscreen'
   | 'speech'
   | 'star'
+  | 'switch-checked'
+  | 'switch-unchecked'
   | 'trash'
   | 'user'
   | 'user-check'
@@ -130,6 +132,8 @@ export const ICON_TYPES: { [key in IconType]: IconType } = {
   'size-fullscreen': 'size-fullscreen',
   speech: 'speech',
   star: 'star',
+  'switch-checked':'switch-checked',
+  'switch-unchecked':'switch-unchecked',
   trash: 'trash',
   user: 'user',
   'user-check': 'user-check',

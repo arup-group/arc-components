@@ -1,4 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="arc-switch-unchecked" viewBox="0 0 43 24">
+    <g fill="none" class="nc-icon-wrapper" stroke="none">
+       <path d="M0 12C0 5.373 5.373 0 12 0h19c6.627 0 12 5.373 12 12s-5.373 12-12 12H12C5.373 24 0 18.627 0 12z"
+          fill="currentColor"></path>
+    <circle cx="12" cy="12" r="10" fill="rgb(var(--arc-white-000))"></circle>
+    </g>
+  </symbol>
+  <symbol id="arc-switch-checked" viewBox="0 0 43 24">
+    <g fill="none" class="nc-icon-wrapper" stroke="none">
+      <path d="M0 12C0 5.373 5.373 0 12 0h19c6.627 0 12 5.373 12 12s-5.373 12-12 12H12C5.373 24 0 18.627 0 12z"
+        fill="currentColor"></path>
+      <circle cx="31" cy="12" r="10" fill="rgb(var(--arc-white-000))"></circle>
+    </g>
+  </symbol>
   <symbol id="arc-radio-unchecked" viewBox="0 0 24 24">
     <g class="nc-icon-wrapper">
       <path

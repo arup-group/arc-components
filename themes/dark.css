@@ -1,5 +1,5 @@
 :host,
-arc-container[theme="dark"] {
+arc-container[theme='dark'] {
   /* Base */
   --arc-font-color: var(--arc-grey-000);
   --arc-input-color: var(--arc-grey-000);
@@ -14,6 +14,7 @@ arc-container[theme="dark"] {
   --arc-color-warning: var(--arc-orange-030);
   --arc-color-info: var(--arc-blue-030);
   --arc-color-success: var(--arc-green-030);
+  --arc-color-active: var(--arc-blue-050);
 
   /* Hover */
   --arc-hover-lighter: rgba(var(--arc-black-100), 0.8);

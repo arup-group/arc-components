@@ -9,8 +9,6 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import '../spinner/arc-spinner.js';
 
-import { imagePlaceholder } from './ImagePlaceholder.js';
-
 /**
  * @event arc-event-name - A description of the event.
  */
@@ -26,22 +24,16 @@ export default class ArcImage extends LitElement {
         justify-content: center;
       }
 
-      #image {
+      #image,
+      .has-image #overlay,
+      .loading #placeholder,
+      #loader {
         display: none;
       }
 
-      #overlay {
-        height: 100%;
-        width: 100%;
-        background-color: rgb(var(--arc-grey-020));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
       .has-image #image {
-        height: 100%;
         width: 100%;
+        height: 100%;
         display: block;
         background-size: cover;
         background-repeat: no-repeat;
@@ -49,8 +41,24 @@ export default class ArcImage extends LitElement {
         object-fit: cover;
       }
 
-      .has-image #overlay {
-        display: none;
+      /* Loader and placeholder */
+      #overlay {
+        width: 100%;
+        height: 100%;
+        background-color: rgb(var(--arc-grey-020));
+      }
+
+      /* Loader */
+      .loading #loader {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #loader svg {
+        position: absolute;
       }
     `,
   ];
@@ -60,6 +68,15 @@ export default class ArcImage extends LitElement {
 
   /** @internal */
   @query('#image') image: HTMLImageElement;
+
+  /** @internal */
+  @query('#triangle') triangle: HTMLElement;
+
+  /** @internal */
+  @query('#square') square: HTMLElement;
+
+  /** @internal */
+  @query('#circle') circle: HTMLElement;
 
   /** @internal - Reference to the intersection observer. */
   private _intersectionObserver: IntersectionObserver;
@@ -146,7 +163,7 @@ export default class ArcImage extends LitElement {
   }
 
   imageResponse(e: any) {
-    this._loading = false;
+    // this._loading = false;
     this._hasImage = e.type === 'load';
     this._removeObserver();
     if (!this._hasImage) return;
@@ -164,17 +181,53 @@ export default class ArcImage extends LitElement {
     }
   }
 
+  loadingTemplate() {
+    return html`
+      <div id="loader">
+        <svg width="75" height="65" viewBox="0 0 75 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M37.8514 0L74.9618 64.2771H0.741001L37.8514 0Z" fill="rgb(var(--arc-grey-030))" />
+        </svg>
+        <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.300519 0.300555H60.9016V60.9016H0.300519V0.300555Z" fill="rgb(var(--arc-grey-030))" />
+        </svg>
+        <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M0.300519 30.6011C0.300518 13.8666 13.8665 0.300554 30.601 0.300556C47.3356 0.300555 60.9016 13.8666 60.9016 30.6011C60.9016 47.3356 47.3356 60.9016 30.601 60.9016C13.8665 60.9016 0.300518 47.3356 0.300519 30.6011Z"
+            fill="rgb(var(--arc-grey-030))"
+          />
+        </svg>
+      </div>
+    `;
+  }
+
+  placeholderTemplate() {
+    return html`
+      <svg
+        id="placeholder"
+        width="100%"
+        height="100%"
+        viewBox="0 0 360 172"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M182.36 55L216.446 114.04H148.273L182.36 55Z" fill="rgb(var(--arc-grey-030))" />
+        <circle cx="236" cy="55" r="17" fill="rgb(var(--arc-grey-030))" />
+        <rect x="122" y="87" width="27" height="27" fill="rgb(var(--arc-grey-030))" />
+      </svg>
+    `;
+  }
+
   render() {
     const styles = {
-      height: this.height ? this.handleSize(this.height) : undefined,
       width: this.width ? this.handleSize(this.width) : undefined,
+      height: this.height ? this.handleSize(this.height) : undefined,
     };
 
     return html`
       <div id="main" class=${classMap({ 'has-image': this._hasImage })} style=${styleMap(styles)}>
         <img id="image" src="" alt=${this.alt} />
-        <div id="overlay">
-          ${this._loading ? html`<arc-spinner style="font-size: 2rem;"></arc-spinner>` : imagePlaceholder}
+        <div id="overlay" class=${classMap({ loading: this._loading })}>
+          ${this.loadingTemplate()} ${this.placeholderTemplate()}
         </div>
       </div>
     `;

@@ -8,7 +8,8 @@ import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 
 /**
- * @slot default - The switch's label.
+ * @slot prefix - The switch's prefix label.
+ * @slot suffix - The switch's suffix label.
  *
  * @event arc-change - Emitted when the user checked the switch.
  */

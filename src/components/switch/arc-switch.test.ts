@@ -2,9 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../utilities/dom-utils.js';
-
+import { hasSlot } from '../../internal/slot.js';
 import type ArcSwitch from './ArcSwitch.js';
 import './arc-switch.js';
 
@@ -26,7 +24,7 @@ describe('ArcSwitch', () => {
     });
 
     /* Test the accessibility */
-   it('passes the a11y audit', async () => {
+    it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
     });
   });
@@ -34,7 +32,9 @@ describe('ArcSwitch', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom name property', async () => {
-      const element: ArcSwitch = await fixture(html`<arc-switch name='testName' value="testVal" disabled checked></arc-switch>`);
+      const element: ArcSwitch = await fixture(
+        html`<arc-switch name="testName" value="testVal" disabled checked></arc-switch>`
+      );
 
       expect(element.name).to.equal('testName');
       expect(element.getAttribute('name')).to.equal('testName');
@@ -84,15 +84,17 @@ describe('ArcSwitch', () => {
     });
   });
   /* Test the events (click, focus, blur etc.) */
- describe('events', () => {
+  describe('events', () => {
     let element: ArcSwitch;
-    let sliderElement :HTMLElement; let checkbox :HTMLElement;
-    let clickSpy: SinonSpy; let changeSpy: SinonSpy;
+    let sliderElement: HTMLElement;
+    let checkbox: HTMLElement;
+    let clickSpy: SinonSpy;
+    let changeSpy: SinonSpy;
 
     beforeEach(async () => {
       element = await fixture(html`<arc-switch></arc-switch>`);
-     sliderElement = element.shadowRoot!.getElementById('switch');
-      checkbox=sliderElement.querySelector('input');
+      sliderElement = element.shadowRoot!.getElementById('switch');
+      checkbox = sliderElement.querySelector('input');
       clickSpy = sinon.spy();
       changeSpy = sinon.spy();
       checkbox.addEventListener('click', clickSpy);
@@ -105,7 +107,6 @@ describe('ArcSwitch', () => {
     });
 
     it('simulates a toggle the switch and emits arc-change', async () => {
-
       checkbox.click();
       await waitUntil(() => clickSpy.calledOnce);
       await waitUntil(() => changeSpy.calledOnce);
@@ -115,8 +116,7 @@ describe('ArcSwitch', () => {
       expect(changeSpy).to.have.been.calledOnce;
     });
     it('simulates a toogle the switch back and elements checked status change', async () => {
-
-      element.checked=true;
+      element.checked = true;
       await elementUpdated(element);
 
       checkbox.click();
@@ -127,7 +127,6 @@ describe('ArcSwitch', () => {
       expect(changeSpy).to.have.not.been.called;
     });
 
-
     it('suppresses a click on the switch while in a disabled state', async () => {
       element.disabled = true;
       await elementUpdated(element);
@@ -136,22 +135,20 @@ describe('ArcSwitch', () => {
       expect(clickSpy).to.have.not.been.called;
       expect(changeSpy).to.have.not.been.called;
     });
-
   });
-    /* Test whether the slots can be filled and that they exist */
-    describe('slots', () => {
-      let element: ArcSwitch;
-      beforeEach(async () => {
-        element = await fixture(html`<arc-switch></arc-switch>`);
-      });
-
-      it('renders default slots to fill the component', () => {
-        const main = element.shadowRoot!.getElementById('main')!;
-
-        /* An specific slot is available */
-        expect(hasSlot(main, 'prefix')).to.be.true;
-        expect(hasSlot(main, 'suffix')).to.be.true;
-      });
+  /* Test whether the slots can be filled and that they exist */
+  describe('slots', () => {
+    let element: ArcSwitch;
+    beforeEach(async () => {
+      element = await fixture(html`<arc-switch></arc-switch>`);
     });
 
+    it('renders default slots to fill the component', () => {
+      const main = element.shadowRoot!.getElementById('main')!;
+
+      /* An specific slot is available */
+      expect(hasSlot(main, 'prefix')).to.be.true;
+      expect(hasSlot(main, 'suffix')).to.be.true;
+    });
+  });
 });

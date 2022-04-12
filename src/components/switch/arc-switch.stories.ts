@@ -1,7 +1,8 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import type ArcSwitch from './ArcSwitch.js';
-import './arc-switch';
+import './arc-switch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
@@ -14,9 +15,23 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcSwitch> = ({ name, value, disabled, checked  }) => html`
-  <arc-switch name="${name}" value=${value} ?disabled=${disabled} ?checked=${checked} >
-  Switch
+const Template: Story<ArcSwitch> = ({ name, value, disabled, checked }) => html`
+  <arc-switch
+    name="${ifDefined(name || undefined)}"
+    value=${ifDefined(value || undefined)}
+    ?disabled=${disabled}
+    ?checked=${checked}
+  >
+  </arc-switch>
+`;
+const PrefixTemplate: Story<ArcSwitch> = ({ name, value, disabled, checked }) => html`
+  <arc-switch name="${name}" value=${value} ?disabled=${disabled} ?checked=${checked}>
+    <span slot="prefix">Prefix </span>
+  </arc-switch>
+`;
+const SuffixTemplate: Story<ArcSwitch> = ({ name, value, disabled, checked }) => html`
+  <arc-switch name="${name}" value=${value} ?disabled=${disabled} ?checked=${checked}>
+    <span slot="suffix">Suffix</span>
   </arc-switch>
 `;
 const defaultArgs = {
@@ -27,7 +42,13 @@ const defaultArgs = {
 };
 /* TYPES */
 export const Default = Template.bind({});
-Default.args = {...defaultArgs };
+Default.args = { ...defaultArgs };
 
 export const Disabled = Template.bind({});
 Disabled.args = { ...defaultArgs, disabled: true };
+
+export const SwitchWithPrefix = PrefixTemplate.bind({});
+SwitchWithPrefix.args = { ...defaultArgs };
+
+export const SwitchWithSuffix = SuffixTemplate.bind({});
+SwitchWithSuffix.args = { ...defaultArgs };

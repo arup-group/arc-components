@@ -21,7 +21,7 @@ const Template: Story<ArcImage> = ({ src, alt, delay, width, height }) => html`
 const defaultArgs = {
   src: 'https://picsum.photos/900',
   alt: 'A random generated background from picsum.photos.',
-  delay: 0,
+  delay: 1000,
   width: '200',
   height: '200',
 };

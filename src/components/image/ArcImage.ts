@@ -7,7 +7,6 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 
 /**
  * @event arc-event-name - A description of the event.
@@ -41,7 +40,7 @@ export default class ArcImage extends LitElement {
         object-fit: cover;
       }
 
-      /* Loader and placeholder */
+      /* Loading state */
       #overlay {
         width: 100%;
         height: 100%;
@@ -52,10 +51,14 @@ export default class ArcImage extends LitElement {
       }
 
       .loading #loader {
-        width: 5rem;
-        height: 5rem;
+        --shadow-positive: 0.6em 0.6em 0 0.3em currentcolor;
+        --shadow-negative: -0.6em -0.6em 0 0.3em currentcolor;
+        --shadow-pos-neg: 0.6em -0.6em 0 0.3em currentcolor;
+        --shadow-neg-pos: -0.6em 0.6em 0 0.3em currentcolor;
+        width: 0.3em;
+        height: 0.3em;
         display: block;
-        background-color: rgb(var(--arc-grey-030));
+        color: rgb(var(--arc-grey-030));
       }
     `,
   ];
@@ -100,10 +103,10 @@ export default class ArcImage extends LitElement {
     reflect: true,
     converter: (attrValue: string | null) => {
       if (!attrValue) return;
-      return parseInt(attrValue, 10) || 0;
+      return parseInt(attrValue, 10) || 1000;
     },
   })
-  delay: number = 0;
+  delay: number = 1000;
 
   /** Set the width of the image. */
   @property({ type: String }) width: string;
@@ -213,12 +216,22 @@ export default class ArcImage extends LitElement {
 
 setDefaultAnimation('loader.show', {
   keyframes: [
-    { opacity: '1', borderRadius: '0 0 0 0', transform: 'rotate(0deg)' },
-    { opacity: '.5', borderRadius: '100% 100% 100% 100%', transform: 'rotate(-360deg)' },
-    { opacity: '1', borderRadius: '0 0 0 0', transform: 'rotate(0deg)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-negative), var(--shadow-negative), var(--shadow-negative)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-pos-neg), var(--shadow-pos-neg)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-positive)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-neg-pos)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-negative)' },
+    { boxShadow: 'var(--shadow-pos-neg), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-pos-neg)' },
+    { boxShadow: 'var(--shadow-positive), var(--shadow-positive), var(--shadow-positive), var(--shadow-positive)' },
+    { boxShadow: 'var(--shadow-neg-pos), var(--shadow-neg-pos), var(--shadow-positive), var(--shadow-neg-pos)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-negative), var(--shadow-positive), var(--shadow-neg-pos)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-neg-pos)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-positive), var(--shadow-positive), var(--shadow-neg-pos)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-neg-pos), var(--shadow-neg-pos), var(--shadow-neg-pos)' },
+    { boxShadow: 'var(--shadow-negative), var(--shadow-negative), var(--shadow-negative), var(--shadow-negative)' },
   ],
   options: {
-    ...ARC_ANIMATION_OPTIONS['xx-slow'],
+    duration: 6000,
     iterations: Infinity,
   },
 });

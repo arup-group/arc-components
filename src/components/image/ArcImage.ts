@@ -51,10 +51,10 @@ export default class ArcImage extends LitElement {
       }
 
       .loading #loader {
-        --shadow-positive: 0.6em 0.6em 0 0.3em currentcolor;
-        --shadow-negative: -0.6em -0.6em 0 0.3em currentcolor;
-        --shadow-pos-neg: 0.6em -0.6em 0 0.3em currentcolor;
-        --shadow-neg-pos: -0.6em 0.6em 0 0.3em currentcolor;
+        --shadow-p: 0.6em 0.6em 0 0.3em currentcolor;
+        --shadow-n: -0.6em -0.6em 0 0.3em currentcolor;
+        --shadow-pn: 0.6em -0.6em 0 0.3em currentcolor;
+        --shadow-np: -0.6em 0.6em 0 0.3em currentcolor;
         width: 0.3em;
         height: 0.3em;
         display: block;
@@ -123,7 +123,7 @@ export default class ArcImage extends LitElement {
   async handleLoadingChange() {
     if (this._loading) {
       await stopAnimations(this);
-      const { keyframes, options } = getAnimation(this, 'loader.show');
+      const { keyframes, options } = getAnimation(this, 'image.loader.show');
       await startAnimations(this.loader, keyframes, options);
     } else {
       await stopAnimations(this);
@@ -168,7 +168,7 @@ export default class ArcImage extends LitElement {
   }
 
   imageResponse(e: any) {
-    // this._loading = false;
+    this._loading = false;
     this._hasImage = e.type === 'load';
     this._removeObserver();
 
@@ -214,21 +214,21 @@ export default class ArcImage extends LitElement {
   }
 }
 
-setDefaultAnimation('loader.show', {
+setDefaultAnimation('image.loader.show', {
   keyframes: [
-    { boxShadow: 'var(--shadow-negative), var(--shadow-negative), var(--shadow-negative), var(--shadow-negative)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-pos-neg), var(--shadow-pos-neg)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-positive)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-neg-pos)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-negative)' },
-    { boxShadow: 'var(--shadow-pos-neg), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-pos-neg)' },
-    { boxShadow: 'var(--shadow-positive), var(--shadow-positive), var(--shadow-positive), var(--shadow-positive)' },
-    { boxShadow: 'var(--shadow-neg-pos), var(--shadow-neg-pos), var(--shadow-positive), var(--shadow-neg-pos)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-negative), var(--shadow-positive), var(--shadow-neg-pos)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-pos-neg), var(--shadow-positive), var(--shadow-neg-pos)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-positive), var(--shadow-positive), var(--shadow-neg-pos)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-neg-pos), var(--shadow-neg-pos), var(--shadow-neg-pos)' },
-    { boxShadow: 'var(--shadow-negative), var(--shadow-negative), var(--shadow-negative), var(--shadow-negative)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-pn), var(--shadow-pn)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-p)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-n)' },
+    { boxShadow: 'var(--shadow-pn), var(--shadow-pn), var(--shadow-p), var(--shadow-pn)' },
+    { boxShadow: 'var(--shadow-p), var(--shadow-p), var(--shadow-p), var(--shadow-p)' },
+    { boxShadow: 'var(--shadow-np), var(--shadow-np), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-n), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-p), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-np), var(--shadow-np), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n)' },
   ],
   options: {
     duration: 6000,

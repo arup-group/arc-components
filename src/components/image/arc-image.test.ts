@@ -1,9 +1,9 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
+import { elementUpdated, expect, fixture, waitUntil, aTimeout } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
+import { setViewport } from '@web/test-runner-commands';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../internal/slot.js';
-
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcImage from './ArcImage.js';
 import './arc-image.js';
 
@@ -18,11 +18,14 @@ describe('ArcImage', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      /*
-      When a component reflects to the DOM, add them within the component like so:
-      <arc-image reflected-prop-1='' reflected-prop-2=''></arc-image>
-      */
-      expect(element).dom.to.equal(`<arc-image></arc-image>`);
+      expect(element).dom.to.equal(`<arc-image delay="1000"></arc-image>`);
+    });
+
+    it('renders an overlay when no src is provided', () => {
+      const image = element.shadowRoot!.getElementById('image');
+      const overlay = element.shadowRoot!.getElementById('overlay');
+      expect(getPropertyValue(image, 'display')).to.equal('none');
+      expect(getPropertyValue(overlay, 'display')).to.equal('flex');
     });
 
     /* Test the accessibility */
@@ -33,97 +36,124 @@ describe('ArcImage', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
-    it('renders the element with a custom name property', async () => {
-      const element: ArcImage = await fixture(html`<arc-image name='testProp'></arc-image>`);
+    it('renders the element with a custom alt property', async () => {
+      const element: ArcImage = await fixture(html`<arc-image alt="testAlt"></arc-image>`);
 
-      expect(element.name).to.equal('testProp');
-      expect(element.getAttribute('name')).to.equal('testProp');
-    });
-  });
-
-  /* Test different component states (active, disabled, loading etc.) */
-  describe('states', () => {
-    let element: ArcImage;
-
-    beforeEach(async () => {
-      element = await fixture(html`<arc-image></arc-image>`);
+      expect(element.alt).to.equal('testAlt');
+      expect(element.getAttribute('alt')).to.equal('testAlt');
     });
 
-    it('renders the component in an active state', async () => {
-      expect(element.active).to.be.false;
-      expect(element.hasAttribute('active')).to.be.false;
+    it('renders the element with a custom delay property', async () => {
+      const element: ArcImage = await fixture(html`<arc-image delay="testDelay"></arc-image>`);
 
-      element.active = true;
-      await elementUpdated(element);
+      expect(element.delay).to.equal(1000);
+      expect(element.getAttribute('delay')).to.equal('1000');
+    });
 
-      expect(element.active).to.be.true;
-      expect(element.hasAttribute('active')).to.be.true;
+    it('renders the element with a converted delay', async () => {
+      const element: ArcImage = await fixture(html`<arc-image delay></arc-image>`);
+      expect(element.delay).to.equal(1000);
+      expect(element.getAttribute('delay')).to.equal('1000');
+    });
+
+    it('renders the element with a custom width and height property', async () => {
+      const element: ArcImage = await fixture(html`<arc-image width="50" height="50"></arc-image>`);
+      const main = element.shadowRoot!.getElementById('main');
+
+      expect(element.width).to.equal('50');
+      expect(element.getAttribute('width')).to.equal('50');
+      expect(getPropertyValue(main, 'width')).to.equal('50px');
+
+      expect(element.height).to.equal('50');
+      expect(element.getAttribute('height')).to.equal('50');
+      expect(getPropertyValue(main, 'height')).to.equal('50px');
     });
   });
 
   /* Test specific methods */
   describe('methods', () => {
-    /* Write the tests for specific methods here */
+    let element: ArcImage;
+
+    beforeEach(async () => {
+      element = await fixture(html`<arc-image></arc-image>`);
+    });
+
+    it('returns a correct css style property', async () => {
+      expect(element.handleSize('100px')).to.equal('100px');
+      expect(element.handleSize('100%')).to.equal('100%');
+      expect(element.handleSize('100')).to.equal('100px');
+    });
   });
 
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcImage;
-    const clickSpy: SinonSpy = sinon.spy();
+    let image: HTMLElement;
+    let overlay: HTMLElement;
+    const loadHandler: SinonSpy = sinon.spy();
+    const errorHandler: SinonSpy = sinon.spy();
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-image></arc-image>`);
+      await setViewport({ width: 100, height: 100 });
+      element = await fixture(html`<arc-image width="500px" height="500px" delay="1000"></arc-image>`);
+      image = element.shadowRoot!.getElementById('image')!;
+      overlay = element.shadowRoot!.getElementById('overlay')!;
     });
 
     afterEach(async () => {
-      clickSpy.resetHistory();
+      loadHandler.resetHistory();
+      errorHandler.resetHistory();
     });
 
-    it('simulates a click on the button', async () => {
-      element.addEventListener('click', clickSpy);
+    it('does not load the image when the container is not fully intersecting', async () => {
+      element.addEventListener(ARC_EVENTS.loaded, loadHandler);
+      element.addEventListener(ARC_EVENTS.error, errorHandler);
 
-      element.click();
-      await waitUntil(() => clickSpy.calledOnce);
+      element.src = 'https://picsum.photos/500';
+      await elementUpdated(element);
 
-      expect(clickSpy).to.have.been.calledOnce;
-    });
-  });
+      /* If the container is not fully intersecting, the image element is not updated. */
+      expect(image.getAttribute('src')).to.equal('');
+      expect(getPropertyValue(image, 'display')).to.equal('none');
+      expect(getPropertyValue(overlay, 'display')).to.equal('flex');
 
-  /* Test the component responsiveness */
-  describe('responsiveness', () => {
-    /* Write tests for responsiveness here */
-  });
-
-  /* Test whether the slots can be filled and that they exist */
-  describe('slots', () => {
-    let element: ArcImage;
-
-    beforeEach(async () => {
-      element = await fixture(html`<arc-image></arc-image>`);
+      expect(loadHandler).to.not.have.been.calledOnce;
+      expect(errorHandler).to.not.have.been.calledOnce;
     });
 
-    it('renders default slots to fill the component', () => {
-      const main = element.shadowRoot!.getElementById('main')!;
+    it('should emit arc-loaded when the container is fully intersecting', async () => {
+      element.addEventListener(ARC_EVENTS.loaded, loadHandler);
 
-      /* An empty slot is available */
-      expect(hasSlot(main)).to.be.true;
+      element.src = 'https://picsum.photos/200';
+      await elementUpdated(element);
 
-      /* A specific (named) slot is available */
-      expect(hasSlot(main, 'testSlotOne')).to.be.true;
-      expect(hasSlot(main, 'testSlotTwo')).to.be.true;
+      /* Ensure that the image is fully intersecting */
+      await setViewport({ width: 1000, height: 1000 });
+      await aTimeout(1100); /* Timeout needed as the delay within the component is 1000ms. */
+
+      await waitUntil(() => loadHandler.calledOnce);
+
+      /* Once the container is fully intersecting, the image element is updated. */
+      expect(image.getAttribute('src')).to.equal(element.src);
+      expect(getPropertyValue(image, 'display')).to.equal('block');
+      expect(getPropertyValue(overlay, 'display')).to.equal('none');
+
+      expect(loadHandler).to.have.been.calledOnce;
     });
-  });
 
-  /* Test the css variables that can be overwritten */
-  describe('css variables', () => {
-    it('uses the default css variables', async () => {
-      const element: ArcImage = await fixture(html`<arc-image></arc-image>`);
-      expect(getPropertyValue(element, '--custom-color')).to.equal('green');
-    });
+    it('should emit arc-error when the image cannot be loaded', async () => {
+      element.addEventListener(ARC_EVENTS.error, errorHandler);
 
-    it('overwrites the css variables', async () => {
-      const element: ArcImage = await fixture(html`<arc-image style='--custom-color:red'></arc-image>`);
-      expect(getPropertyValue(element, '--custom-color')).to.equal('red');
+      element.src = 'invalid-src';
+      await elementUpdated(element);
+
+      /* Ensure that the image is fully intersecting */
+      await setViewport({ width: 1000, height: 1000 });
+      await aTimeout(1100); /* Timeout needed as the delay within the component is 1000ms. */
+
+      await waitUntil(() => errorHandler.calledOnce);
+
+      expect(errorHandler).to.have.been.calledOnce;
     });
   });
 });

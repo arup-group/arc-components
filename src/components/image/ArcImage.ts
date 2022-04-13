@@ -9,7 +9,8 @@ import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 /**
- * @event arc-event-name - A description of the event.
+ * @event arc-loaded - A description of the event.
+ * @event arc-error - A description of the event.
  */
 export default class ArcImage extends LitElement {
   static tag = 'arc-image';
@@ -102,8 +103,11 @@ export default class ArcImage extends LitElement {
     type: Number,
     reflect: true,
     converter: (attrValue: string | null) => {
-      if (!attrValue) return;
-      return parseInt(attrValue, 10) || 1000;
+      if (attrValue) {
+        const asNumber = parseInt(attrValue, 10);
+        return isNaN(asNumber) ? 1000 : asNumber;
+      }
+      return 1000;
     },
   })
   delay: number = 1000;
@@ -124,6 +128,7 @@ export default class ArcImage extends LitElement {
     if (this._loading) {
       await stopAnimations(this);
       const { keyframes, options } = getAnimation(this, 'image.loader.show');
+      //TODO: Test the options?
       await startAnimations(this.loader, keyframes, options);
     } else {
       await stopAnimations(this);
@@ -160,7 +165,6 @@ export default class ArcImage extends LitElement {
   }
 
   loadImage() {
-    if (!this.src) return;
     this._loading = true;
     this.image.src = this.src;
     this.image.onload = this.imageResponse.bind(this);

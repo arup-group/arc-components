@@ -100,10 +100,10 @@ export default class ArcImage extends LitElement {
     reflect: true,
     converter: (attrValue: string | null) => {
       if (!attrValue) return;
-      return parseInt(attrValue, 10) || 1000;
+      return parseInt(attrValue, 10) || 0;
     },
   })
-  delay: number = 1000;
+  delay: number = 0;
 
   /** Set the width of the image. */
   @property({ type: String }) width: string;

@@ -1,11 +1,17 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants';
 import type ArcImage from './ArcImage.js';
 import './arc-image';
 
 export default {
   title: 'Components/ArcImage',
   component: 'arc-image',
+  parameters: {
+    actions: {
+      handles: [ARC_EVENTS.loaded, ARC_EVENTS.error],
+    },
+  },
 } as Meta;
 
 const Template: Story<ArcImage> = ({ src, alt, delay, width, height }) => html`
@@ -13,12 +19,15 @@ const Template: Story<ArcImage> = ({ src, alt, delay, width, height }) => html`
 `;
 
 const defaultArgs = {
-  name: 'Test component',
-  active: false,
+  src: 'https://picsum.photos/900',
+  alt: 'A random generated background from picsum.photos.',
+  delay: 0,
+  width: '200',
+  height: '200',
 };
 
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
 
-export const Active = Template.bind({});
-Active.args = { ...defaultArgs, active: true };
+export const Error = Template.bind({});
+Error.args = { ...defaultArgs, src: 'invalid' };

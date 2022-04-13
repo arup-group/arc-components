@@ -4,7 +4,10 @@ import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import { startAnimations, stopAnimations } from '../../internal/animate.js';
+import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry.js';
 import componentStyles from '../../styles/component.styles.js';
+import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import '../spinner/arc-spinner.js';
@@ -45,20 +48,17 @@ export default class ArcImage extends LitElement {
       #overlay {
         width: 100%;
         height: 100%;
-        background-color: rgb(var(--arc-grey-020));
-      }
-
-      /* Loader */
-      .loading #loader {
-        width: 100%;
-        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: rgb(var(--arc-grey-020));
       }
 
-      #loader svg {
-        position: absolute;
+      .loading #loader {
+        width: 50%;
+        height: 50%;
+        display: block;
+        background-color: rgb(var(--arc-grey-030));
       }
     `,
   ];
@@ -70,13 +70,7 @@ export default class ArcImage extends LitElement {
   @query('#image') image: HTMLImageElement;
 
   /** @internal */
-  @query('#triangle') triangle: HTMLElement;
-
-  /** @internal */
-  @query('#square') square: HTMLElement;
-
-  /** @internal */
-  @query('#circle') circle: HTMLElement;
+  @query('#loader') loader: HTMLElement;
 
   /** @internal - Reference to the intersection observer. */
   private _intersectionObserver: IntersectionObserver;
@@ -125,9 +119,15 @@ export default class ArcImage extends LitElement {
     this._attachObserver();
   }
 
-  @watch('_loading', { waitUntilFirstUpdate: true })
-  handleLoadingChange() {
-    console.log('I started loading', this);
+  @watch('_loading')
+  async handleLoadingChange() {
+    if (this._loading) {
+      await stopAnimations(this);
+      const { keyframes, options } = getAnimation(this, 'loader.show');
+      await startAnimations(this.loader, keyframes, options);
+    } else {
+      await stopAnimations(this);
+    }
   }
 
   firstUpdated() {
@@ -185,42 +185,6 @@ export default class ArcImage extends LitElement {
     }
   }
 
-  loadingTemplate() {
-    return html`
-      <div id="loader">
-        <svg width="75" height="65" viewBox="0 0 75 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M37.8514 0L74.9618 64.2771H0.741001L37.8514 0Z" fill="rgb(var(--arc-grey-030))" />
-        </svg>
-        <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.300519 0.300555H60.9016V60.9016H0.300519V0.300555Z" fill="rgb(var(--arc-grey-030))" />
-        </svg>
-        <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M0.300519 30.6011C0.300518 13.8666 13.8665 0.300554 30.601 0.300556C47.3356 0.300555 60.9016 13.8666 60.9016 30.6011C60.9016 47.3356 47.3356 60.9016 30.601 60.9016C13.8665 60.9016 0.300518 47.3356 0.300519 30.6011Z"
-            fill="rgb(var(--arc-grey-030))"
-          />
-        </svg>
-      </div>
-    `;
-  }
-
-  placeholderTemplate() {
-    return html`
-      <svg
-        id="placeholder"
-        width="100%"
-        height="100%"
-        viewBox="0 0 360 172"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M182.36 55L216.446 114.04H148.273L182.36 55Z" fill="rgb(var(--arc-grey-030))" />
-        <circle cx="236" cy="55" r="17" fill="rgb(var(--arc-grey-030))" />
-        <rect x="122" y="87" width="27" height="27" fill="rgb(var(--arc-grey-030))" />
-      </svg>
-    `;
-  }
-
   render() {
     const styles = {
       width: this.width ? this.handleSize(this.width) : undefined,
@@ -231,12 +195,35 @@ export default class ArcImage extends LitElement {
       <div id="main" class=${classMap({ 'has-image': this._hasImage })} style=${styleMap(styles)}>
         <img id="image" src="" alt=${this.alt} />
         <div id="overlay" class=${classMap({ loading: this._loading })}>
-          ${this.loadingTemplate()} ${this.placeholderTemplate()}
+          <div id="loader"></div>
+          <svg
+            id="placeholder"
+            width="100%"
+            height="100%"
+            viewBox="0 0 360 172"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M182.36 55L216.446 114.04H148.273L182.36 55Z" fill="rgb(var(--arc-grey-030))" />
+            <circle cx="236" cy="55" r="17" fill="rgb(var(--arc-grey-030))" />
+            <rect x="122" y="87" width="27" height="27" fill="rgb(var(--arc-grey-030))" />
+          </svg>
         </div>
       </div>
     `;
   }
 }
+
+setDefaultAnimation('loader.show', {
+  keyframes: [
+    { borderRadius: '0 0 0 0', transform: 'rotate(0deg)' },
+    { borderRadius: '25% 25% 25% 25%', transform: 'rotate(45deg)' },
+    { borderRadius: '50% 50% 50% 50%', transform: 'rotate(90deg)' },
+    { borderRadius: '75% 75% 75% 75%', transform: 'rotate(180deg)' },
+    { borderRadius: '100% 100% 100% 100%', transform: 'rotate(360deg)' },
+  ],
+  options: ARC_ANIMATION_OPTIONS.infinite,
+});
 
 declare global {
   interface HTMLElementTagNameMap {

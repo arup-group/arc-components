@@ -1,18 +1,18 @@
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { expect, fixture } from '@open-wc/testing';
-import { setDefaultAnimation, setAnimation, getAnimation } from './animation-registry.js';
+import { setDefaultAnimation, setAnimation, getAnimation, ElementAnimation } from './animate.js';
 
 @customElement('animation-test')
-class AnimationRegistryTest extends LitElement {
+class AnimateTest extends LitElement {
   render() {
     return html`<div>Animation Registry Test</div>`;
   }
 }
 
 describe('AnimationRegistry', () => {
-  let element: AnimationRegistryTest;
-  let elementTwo: AnimationRegistryTest;
+  let element: AnimateTest;
+  let elementTwo: AnimateTest;
   const defaultAnimation = {
     keyframes: [
       { opacity: 0, transform: 'scale(0.9)' },
@@ -47,19 +47,28 @@ describe('AnimationRegistry', () => {
     expect(getAnimation(elementTwo, 'animation.show')).to.equal(defaultAnimation);
   });
 
-  it('returns an empty animation when a non-existing or faulty animation is given', () => {
-    // Faulty animation as null does not match the type `ElementAnimation`
-    setDefaultAnimation('faulty.animation', null);
+  it('returns a fallback animation when a non-existing animation is requested', () => {
+    const emptyAnimation: ElementAnimation = getAnimation(element, '');
+    const { keyframes, options } = emptyAnimation;
+    const { duration } = options!;
 
-    const emptyAnimation = getAnimation(element, '');
-    const faultyAnimation = getAnimation(element, 'faulty.animation');
-
-    expect(emptyAnimation.keyframes.length).to.equal(0);
-    expect(faultyAnimation.keyframes.length).to.equal(0);
-
-    expect(Object.keys(emptyAnimation.options as Object)[0]).to.equal('duration');
-    expect(Object.keys(faultyAnimation.options as Object)[0]).to.equal('duration');
-    expect(Object.values(emptyAnimation.options as Object)[0]).to.equal(0);
-    expect(Object.values(faultyAnimation.options as Object)[0]).to.equal(0);
+    expect(keyframes.length).to.equal(0);
+    expect(duration).to.exist;
+    expect(duration).to.equal(0);
   });
+
+  it('returns a fallback animation when a faulty animation is requested', () => {
+    setDefaultAnimation('faulty.animation', null);
+    const faultyAnimation: ElementAnimation = getAnimation(element, 'faulty.animation');
+    const { keyframes, options } = faultyAnimation;
+    const { duration } = options!;
+
+    expect(keyframes.length).to.equal(0);
+    expect(duration).to.exist;
+    expect(duration).to.equal(0);
+  });
+});
+
+describe('Animations', () => {
+  //  TODO: Write tests for the startAnimations, stopAnimations and shimKeyframesHeightAuto methods.
 });

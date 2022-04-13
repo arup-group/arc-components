@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../internal/slot.js';
-import { upEvent, downEvent, leftEvent, rightEvent } from '../../utilities/test-utils.js';
+import { upEvent, downEvent, leftEvent, rightEvent } from '../../internal/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcRadioGroup from '../radio-group/ArcRadioGroup.js';

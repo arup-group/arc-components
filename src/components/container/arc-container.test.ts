@@ -6,7 +6,7 @@ import { isMobile, prefersDark } from '../../internal/preferences.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { isNight } from '../../internal/theme.js';
 import { hasSlot } from '../../internal/slot.js';
-import { createKeyEvent } from '../../utilities/test-utils.js';
+import { createKeyEvent } from '../../internal/test-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 

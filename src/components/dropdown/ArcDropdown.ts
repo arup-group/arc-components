@@ -1,16 +1,14 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { Instance as PopperInstance, createPopper, Placement } from '@popperjs/core';
-import { startAnimations, stopAnimations } from '../../internal/animate.js';
+import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { getTabbableBoundary } from '../../internal/tabbable.js';
-import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
-
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 

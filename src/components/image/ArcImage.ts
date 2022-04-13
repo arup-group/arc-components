@@ -2,15 +2,11 @@ import { css, html, LitElement } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import { startAnimations, stopAnimations } from '../../internal/animate.js';
-import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry.js';
 import componentStyles from '../../styles/component.styles.js';
-import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
-import '../spinner/arc-spinner.js';
 
 /**
  * @event arc-event-name - A description of the event.
@@ -222,7 +218,11 @@ setDefaultAnimation('loader.show', {
     { borderRadius: '75% 75% 75% 75%', transform: 'rotate(180deg)' },
     { borderRadius: '100% 100% 100% 100%', transform: 'rotate(360deg)' },
   ],
-  options: ARC_ANIMATION_OPTIONS.infinite,
+  options: {
+    duration: 2000,
+    easing: 'ease',
+    iterations: 100,
+  },
 });
 
 declare global {

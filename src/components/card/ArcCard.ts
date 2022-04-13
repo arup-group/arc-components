@@ -1,12 +1,17 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import componentStyles from '../../styles/component.styles.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
-import { startAnimations, stopAnimations, shimKeyframesHeightAuto } from '../../internal/animate.js';
-import { getAnimation, setDefaultAnimation } from '../../utilities/animation-registry.js';
+import {
+  getAnimation,
+  setDefaultAnimation,
+  startAnimations,
+  stopAnimations,
+  shimKeyframesHeightAuto,
+} from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
+import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 

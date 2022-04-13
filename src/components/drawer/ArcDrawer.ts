@@ -1,19 +1,17 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { startAnimations, stopAnimations } from '../../internal/animate.js';
+import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { uppercaseFirstLetter } from '../../internal/string.js';
 import { watch } from '../../internal/watch.js';
-import { setDefaultAnimation, getAnimation } from '../../utilities/animation-registry.js';
 import Modal from '../../internal/modal.js';
 import componentStyles from '../../styles/component.styles.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
-
 import '../icon-button/arc-icon-button.js';
 
 /**

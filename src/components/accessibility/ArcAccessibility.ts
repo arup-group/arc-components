@@ -4,7 +4,6 @@ import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
 import {
   stringToSpaceSeparated,
   stringToHyphenSeparated,
@@ -13,6 +12,7 @@ import {
   uppercaseFirstLetter,
 } from '../../internal/string.js';
 import { getRootValue, setRootValue } from '../../utilities/style-utils.js';
+import componentStyles from '../../styles/component.styles.js';
 import {
   ACCESSIBILITY_OPTIONS,
   AccessibilityOption,
@@ -22,7 +22,6 @@ import {
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../internal/constants/styleConstants.js';
 import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
-
 import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';

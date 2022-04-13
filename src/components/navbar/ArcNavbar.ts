@@ -7,14 +7,12 @@ import { mobileBreakpoint } from '../../internal/preferences.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
-
 import type ArcButton from '../button/ArcButton.js';
 import type ArcIconButton from '../icon-button/ArcIconButton.js';
 import '../dropdown/arc-dropdown.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 import '../icon-button/arc-icon-button.js';
-
 import { arupLogo } from './arup-logo.js';
 
 /**

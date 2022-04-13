@@ -4,7 +4,6 @@ import { emit } from '../../internal/event.js';
 import { getTextContent } from '../../internal/slot.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
 /**

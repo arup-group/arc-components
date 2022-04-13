@@ -54,15 +54,6 @@ export default class ArcCard extends LitElement {
         overflow: hidden;
       }
 
-      #image ::slotted(*) {
-        display: block;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        width: 100%;
-        object-fit: cover;
-      }
-
       /* Hide elements when they are not slotted or when the card is collapsed */
       #main:not(.card--has-header) #header,
       #main:not(.card--has-image) #image,

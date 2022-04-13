@@ -52,8 +52,8 @@ export default class ArcImage extends LitElement {
       }
 
       .loading #loader {
-        width: 50%;
-        height: 50%;
+        width: 5rem;
+        height: 5rem;
         display: block;
         background-color: rgb(var(--arc-grey-030));
       }

@@ -43,13 +43,6 @@ export default class ArcHero extends LitElement {
         font-size: var(--arc-font-size-x-large);
       }
 
-      * ::slotted(img) {
-        height: 100%;
-        width: 100%;
-        object-fit: fill;
-        overflow: hidden;
-      }
-
       @media (min-width: ${mobileBreakpoint}rem) {
         #main {
           padding: var(--arc-spacing-banner);

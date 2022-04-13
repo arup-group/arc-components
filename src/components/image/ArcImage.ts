@@ -7,6 +7,7 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 
 /**
  * @event arc-event-name - A description of the event.
@@ -212,16 +213,13 @@ export default class ArcImage extends LitElement {
 
 setDefaultAnimation('loader.show', {
   keyframes: [
-    { borderRadius: '0 0 0 0', transform: 'rotate(0deg)' },
-    { borderRadius: '25% 25% 25% 25%', transform: 'rotate(45deg)' },
-    { borderRadius: '50% 50% 50% 50%', transform: 'rotate(90deg)' },
-    { borderRadius: '75% 75% 75% 75%', transform: 'rotate(180deg)' },
-    { borderRadius: '100% 100% 100% 100%', transform: 'rotate(360deg)' },
+    { opacity: '1', borderRadius: '0 0 0 0', transform: 'rotate(0deg)' },
+    { opacity: '.5', borderRadius: '100% 100% 100% 100%', transform: 'rotate(-360deg)' },
+    { opacity: '1', borderRadius: '0 0 0 0', transform: 'rotate(0deg)' },
   ],
   options: {
-    duration: 2000,
-    easing: 'ease',
-    iterations: 100,
+    ...ARC_ANIMATION_OPTIONS['xx-slow'],
+    iterations: Infinity,
   },
 });
 

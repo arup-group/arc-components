@@ -7,7 +7,8 @@ describe('AnimationConstants', () => {
     expect(ARC_ANIMATION_OPTIONS).to.exist;
     const keys = Object.keys(ARC_ANIMATION_OPTIONS);
 
-    expect(keys.length).to.equal(5);
+    expect(keys.length).to.equal(6);
+    expect(keys).to.contain('xx-slow');
     expect(keys).to.contain('x-slow');
     expect(keys).to.contain('slow');
     expect(keys).to.contain('medium');

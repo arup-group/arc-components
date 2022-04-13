@@ -64,7 +64,6 @@ export default class ArcDrawer extends LitElement {
         max-width: 100%;
         max-height: 100%;
         background-color: rgb(var(--arc-container-color));
-        transition: var(--arc-transition-medium) transform;
         overflow: auto;
         pointer-events: all;
       }

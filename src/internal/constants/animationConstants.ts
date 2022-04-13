@@ -1,6 +1,10 @@
-export declare type TransitionSpeed = 'x-slow' | 'slow' | 'medium' | 'fast' | 'x-fast';
+export declare type TransitionSpeed = 'xx-slow' | 'x-slow' | 'slow' | 'medium' | 'fast' | 'x-fast';
 
 export const ARC_ANIMATION_OPTIONS: { [key in TransitionSpeed]: KeyframeAnimationOptions } = {
+  'xx-slow': {
+    duration: 4000,
+    easing: 'ease',
+  },
   'x-slow': {
     duration: 1000,
     easing: 'ease',
@@ -18,7 +22,7 @@ export const ARC_ANIMATION_OPTIONS: { [key in TransitionSpeed]: KeyframeAnimatio
     easing: 'ease',
   },
   'x-fast': {
-    duration: 5,
+    duration: 50,
     easing: 'ease',
   },
 };

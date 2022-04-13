@@ -66,25 +66,6 @@ describe('ArcIcon', () => {
     });
   });
 
-  /* Test different component states (active, disabled, loading etc. */
-  describe('states', () => {
-    let element: ArcIcon;
-
-    beforeEach(async () => {
-      element = await fixture(html`<arc-icon></arc-icon>`);
-    });
-
-    it('renders the icon in a spinning state', async () => {
-      expect(element.spinning).to.be.false;
-      expect(element.hasAttribute('spinning')).to.be.false;
-
-      element.spinning = true;
-      await elementUpdated(element);
-      expect(element.spinning).to.be.true;
-      expect(element.hasAttribute('spinning')).to.be.true;
-    });
-  });
-
   /* Test the css variables that can be overwritten. */
   describe('css variables', () => {
     it('uses the default css variables', async () => {

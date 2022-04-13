@@ -42,7 +42,6 @@ export default class ArcCard extends LitElement {
         overflow: hidden;
         background-color: rgb(var(--arc-container-color));
         box-shadow: var(--arc-box-shadow);
-        transition: var(--arc-transition-medium) transform;
       }
 
       #header,

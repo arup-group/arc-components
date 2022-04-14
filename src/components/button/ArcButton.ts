@@ -5,8 +5,8 @@ import { html, literal } from 'lit/static-html.js';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import componentStyles from '../../styles/component.styles.js';
 import { FormController } from '../../internal/form-control.js';
+import componentStyles from '../../styles/component.styles.js';
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
@@ -16,7 +16,6 @@ import {
   ButtonSize,
   ButtonTarget,
 } from './constants/ButtonConstants.js';
-
 import '../spinner/arc-spinner.js';
 
 /**

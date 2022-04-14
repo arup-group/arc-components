@@ -18,7 +18,7 @@ export const ARC_ANIMATION_OPTIONS: { [key in TransitionSpeed]: KeyframeAnimatio
     easing: 'ease',
   },
   'x-fast': {
-    duration: 5,
+    duration: 50,
     easing: 'ease',
   },
 };

@@ -24,7 +24,6 @@ export default class ArcMenuItem extends LitElement {
         align-items: stretch;
         text-align: left;
         padding: var(--arc-spacing-small) var(--arc-spacing-medium);
-        transition: var(--arc-transition-fast) fill;
         user-select: none;
         white-space: nowrap;
         cursor: pointer;

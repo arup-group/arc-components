@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Forms"/>
+
+# Form Controls
+Every ARC component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles and behavior.
+One caveat of this approach is that native `form` elements do not recognize form controls located inside a shadow root.
+
+ARC solves this problem by using the [formData](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event) event, which is available in all [modern browsers](https://caniuse.com/mdn-api_htmlformelement_formdata_event).
+This means, when a form is submitted, ARC form controls (i.e. arc-radio) will automatically append their values to the `FormData` object that is used to submit the form.
+In most cases, things will 'just work.' However, if you are using a form serialization library, it might need to be adapted to recognize ARC form controls.
+
+## Form Serialization
+When you are relying on standard form submissions, e.g. `<form action="...">`, you can probably skip this section.
+However, most modern apps use the Fetch API or a library such as axios to submit forms using JavaScript.
+
+The [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) interface offers a standard way to serialize forms in the browser.
+You can create a `FormData` object from any `<form>` element like this.
+
+```bash
+const form = document.querySelector('form');
+const data = new FormData(form);
+
+// All form control data is available in a FormData object
+```
+
+However, if you find `FormData` tricky to work with, or need to pass a JSON payload to the server,
+ARC offers a serialization utility that gathers form data and returns a simple JavaScript object instead.
+
+```bash
+import { serialize } from '@arc-web/components/dist/utilities/form-utils.js';
+
+const form = document.querySelector('form');
+const data = serialize(form);
+
+// All form control data is available in a plain object
+```
+
+This results in an object with name/value pairs that map to each form control.
+If more than one form control shares the same name, the values will be passed as an array, e.g. `{ name: ['value1', 'value2'] }`.
+

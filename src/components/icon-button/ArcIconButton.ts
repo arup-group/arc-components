@@ -5,7 +5,6 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
 import { IconType } from '../icon/constants/IconConstants.js';
-
 import '../icon/arc-icon.js';
 import '../spinner/arc-spinner.js';
 

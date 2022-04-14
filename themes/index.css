@@ -179,13 +179,6 @@
   --arc-border-radius-large: 0.5rem;
   --arc-border-radius-x-large: 1rem;
 
-  /* Transition */
-  --arc-transition-x-slow: 1000ms;
-  --arc-transition-slow: 500ms;
-  --arc-transition-medium: 250ms;
-  --arc-transition-fast: 150ms;
-  --arc-transition-x-fast: 50ms;
-
   /* Z-indexes */
   --arc-z-index-dropdown: 900;
   --arc-z-index-drawer: 700;

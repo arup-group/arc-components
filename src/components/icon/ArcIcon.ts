@@ -2,7 +2,6 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { getBasePath } from '../../utilities/base-path.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ICON_TYPES } from './constants/IconConstants.js';
@@ -32,13 +31,10 @@ export default class ArcIcon extends LitElement {
         max-width: initial;
       }
 
+      /* Caps/Corners */
       #icon use {
         fill: var(--icon-color-secondary);
         stroke: var(--icon-color-secondary);
-      }
-
-      /* Caps/Corners */
-      #icon use {
         --icon-stroke-linecap-butt: butt;
         stroke-miterlimit: 10;
         stroke-linecap: square;
@@ -49,20 +45,6 @@ export default class ArcIcon extends LitElement {
         --icon-stroke-linecap-butt: round;
         stroke-linecap: round;
         stroke-linejoin: round;
-      }
-
-      /* Animations */
-      .spinning {
-        animation: icon-spin var(--arc-transition-x-slow) infinite linear;
-      }
-
-      @keyframes icon-spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
       }
     `,
   ];
@@ -79,9 +61,6 @@ export default class ArcIcon extends LitElement {
   /** Set the rotation of the icon. */
   @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
 
-  /** Draws the icons in a spinning state. */
-  @property({ type: Boolean, reflect: true }) spinning: boolean = false;
-
   render() {
     const DEFAULT_PATH: string = `${getBasePath()}/assets/icons.svg`;
 
@@ -94,7 +73,6 @@ export default class ArcIcon extends LitElement {
     return html`
       <svg
         id="icon"
-        class=${classMap({ spinning: this.spinning })}
         style=${styleMap(styles)}
         role=${ifDefined(this.label ? 'img' : undefined)}
         aria-label=${ifDefined(this.label || undefined)}

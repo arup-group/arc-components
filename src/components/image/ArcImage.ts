@@ -9,8 +9,8 @@ import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 /**
- * @event arc-loaded - A description of the event.
- * @event arc-error - A description of the event.
+ * @event arc-loaded - Emitted when the image is loaded.
+ * @event arc-error - Emitted when the image cannot be loaded.
  */
 export default class ArcImage extends LitElement {
   static tag = 'arc-image';

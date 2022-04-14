@@ -104,8 +104,8 @@ export default class ArcImage extends LitElement {
     reflect: true,
     converter: (attrValue: string | null) => {
       if (attrValue) {
-        const asNumber = parseInt(attrValue, 10);
-        return isNaN(asNumber) ? 1000 : asNumber;
+        const delay = parseInt(attrValue, 10);
+        return Number.isNaN(delay) ? 1000 : delay;
       }
       return 1000;
     },
@@ -184,9 +184,8 @@ export default class ArcImage extends LitElement {
   handleSize(size: string) {
     if (size.endsWith('px') || size.endsWith('%')) {
       return size;
-    } else {
-      return `${size}px`;
     }
+    return `${size}px`;
   }
 
   render() {

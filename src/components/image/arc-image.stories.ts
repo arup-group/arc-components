@@ -1,8 +1,8 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcImage from './ArcImage.js';
-import './arc-image';
+import './arc-image.js';
 
 export default {
   title: 'Components/ArcImage',

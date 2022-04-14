@@ -49,13 +49,5 @@
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
-<script type="module">
-  const images = document.querySelectorAll('arc-image');
-
-  images.forEach(image => {
-    image.addEventListener('arc-loaded', e => console.log(e));
-    image.addEventListener('arc-error', e => console.log(e));
-  })
-</script>
 </body>
 </html>

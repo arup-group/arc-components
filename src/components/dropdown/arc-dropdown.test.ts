@@ -11,7 +11,7 @@ import {
   spaceEvent,
   enterEvent,
   upEvent,
-} from '../../utilities/test-utils.js';
+} from '../../internal/test-utils.js';
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 

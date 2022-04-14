@@ -21,13 +21,12 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcIcon> = ({ name, label, size, rotation, spinning }) => html`
+const Template: Story<ArcIcon> = ({ name, label, size, rotation }) => html`
   <arc-icon
     name="${name}"
     label=${ifDefined(label || undefined)}
     size=${ifDefined(size || undefined)}
     rotation=${ifDefined(rotation || undefined)}
-    ?spinning=${spinning}
   ></arc-icon>
 `;
 const ColorTemplate: Story<ArcIcon> = () => html`
@@ -43,7 +42,6 @@ const defaultArgs = {
   label: '',
   size: FONT_SIZES.large,
   rotation: 0,
-  spinning: false,
 };
 
 /* TYPES */
@@ -55,8 +53,5 @@ Size.args = { ...defaultArgs, size: FONT_SIZES['xxx-large'] };
 
 export const Rotation = Template.bind({});
 Rotation.args = { ...defaultArgs, rotation: 45 };
-
-export const Spinning = Template.bind({});
-Spinning.args = { ...defaultArgs, spinning: true };
 
 export const Color = ColorTemplate.bind({});

@@ -19,5 +19,8 @@ jobs:
       - name: Install node_modules
         run: yarn install
 
+      - name: Format the code
+        run: yarn run format
+
       - name: Test components
         run: yarn run test

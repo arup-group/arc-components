@@ -4,6 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcCard from './ArcCard.js';
 import './arc-card.js';
+import '../image/arc-image.js';
 
 export default {
   title: 'Components/ArcCard',
@@ -21,8 +22,13 @@ const Template: Story<ArcCard> = ({ collapsed }) => html`
       <strong>Header</strong>
       <arc-icon-button name="settings"></arc-icon-button>
     </div>
-    <img slot="image" alt="Two birds." src="" />
-    These birds are as cute as they are playful!
+    <arc-image
+      slot="image"
+      src="https://picsum.photos/300"
+      alt="Example banner for the arc-card component."
+      height="200"
+    ></arc-image>
+    This is a basic card with a header, an image and a footer.
     <div slot="footer">
       <arc-button>Action</arc-button>
     </div>
@@ -76,8 +82,13 @@ const FooterTemplate: Story<ArcCard> = ({ collapsed }) => html`
 
 const ImageTemplate: Story<ArcCard> = ({ collapsed }) => html`
   <arc-card class="card" ?collapsed=${collapsed}>
-    <img slot="image" alt="An eagle landing on ice." src="" />
-    This eagle is a symbol for strength and freedom.
+    <arc-image
+      slot="image"
+      src="https://picsum.photos/300"
+      alt="Example banner for the arc-card component."
+      height="200"
+    ></arc-image>
+    This card has an image. You can put any image in it!
   </arc-card>
   <style>
     .card {

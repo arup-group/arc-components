@@ -1,8 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import componentStyles from '../../styles/component.styles.js';
 import { mobileBreakpoint } from '../../internal/preferences.js';
-
+import componentStyles from '../../styles/component.styles.js';
 import type ArcRadio from '../radio/ArcRadio.js';
 
 /**

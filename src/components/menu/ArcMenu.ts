@@ -4,7 +4,6 @@ import { emit } from '../../internal/event.js';
 import { getTextContent } from '../../internal/slot.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
 /**
@@ -33,8 +32,8 @@ export default class ArcMenu extends LitElement {
   /** @internal - String used to select a menu-item while typing. */
   private typeToSelectString = '';
 
-  /** @internal - Timeout used to after clearing the typeToSelectString. */
-  private typeToSelectTimeout: any;
+  /** @internal - Timeout used to wait before clearing the typeToSelectString. */
+  private typeToSelectTimeout: number;
 
   getAllItems(options: { includeDisabled: boolean } = { includeDisabled: true }) {
     const { includeDisabled } = options;
@@ -80,10 +79,9 @@ export default class ArcMenu extends LitElement {
 
     /* Reset the timeout */
     clearTimeout(this.typeToSelectTimeout);
-    this.typeToSelectTimeout = setTimeout(() => {
+    this.typeToSelectTimeout = window.setTimeout(() => {
       this.typeToSelectString = '';
     }, 750);
-
     this.typeToSelectString += key.toLowerCase();
 
     for (const item of items) {

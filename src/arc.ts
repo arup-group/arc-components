@@ -7,13 +7,14 @@ import './components/container/arc-container.js';
 import './components/drawer/arc-drawer.js';
 import './components/dropdown/arc-dropdown.js';
 import './components/hero/arc-hero.js';
-import './components/icon-button/arc-icon-button.js';
 import './components/icon/arc-icon.js';
-import './components/menu-item/arc-menu-item.js';
+import './components/icon-button/arc-icon-button.js';
+import './components/image/arc-image.js';
 import './components/menu/arc-menu.js';
+import './components/menu-item/arc-menu-item.js';
 import './components/navbar/arc-navbar.js';
-import './components/radio-group/arc-radio-group.js';
 import './components/radio/arc-radio.js';
+import './components/radio-group/arc-radio-group.js';
 import './components/sidebar/arc-sidebar.js';
 import './components/spinner/arc-spinner.js';
 import './components/sso/arc-sso.js';
@@ -30,14 +31,15 @@ export { default as ArcDropdown } from './components/dropdown/ArcDropdown.js';
 export { default as ArcHero } from './components/hero/ArcHero.js';
 export { default as ArcIcon } from './components/icon/ArcIcon.js';
 export { default as ArcIconButton } from './components/icon-button/ArcIconButton.js';
+export { default as ArcImage } from './components/image/ArcImage.js';
 export { default as ArcMenu } from './components/menu/ArcMenu.js';
 export { default as ArcMenuItem } from './components/menu-item/ArcMenuItem.js';
 export { default as ArcNavbar } from './components/navbar/ArcNavbar.js';
 export { default as ArcRadio } from './components/radio/ArcRadio.js';
 export { default as ArcRadioGroup } from './components/radio-group/ArcRadioGroup.js';
-export { default as ArcSSO } from './components/sso/ArcSSO.js';
 export { default as ArcSidebar } from './components/sidebar/ArcSidebar.js';
 export { default as ArcSpinner } from './components/spinner/ArcSpinner.js';
+export { default as ArcSSO } from './components/sso/ArcSSO.js';
 /* plop:component-export */
 
 /* Utilities */

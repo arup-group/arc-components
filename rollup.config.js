@@ -11,7 +11,7 @@ export default {
     chunkFileNames: '[hash].js',
     assetFileNames: '[hash][extname]',
     format: 'es',
-    dir: 'dist'
+    dir: 'dist',
   },
   preserveEntrySignatures: false,
 
@@ -31,12 +31,12 @@ export default {
               'last 3 Chrome major versions',
               'last 3 Firefox major versions',
               'last 3 Edge major versions',
-              'last 3 Safari major versions'
+              'last 3 Safari major versions',
             ],
             modules: false,
-            bugfixes: true
-          }
-        ]
+            bugfixes: true,
+          },
+        ],
       ],
       plugins: [
         [
@@ -50,21 +50,31 @@ export default {
               conservativeCollapse: true,
               removeComments: true,
               caseSensitive: true,
-              minifyCSS: true
-            }
-          }
-        ]
-      ]
+              minifyCSS: true,
+            },
+          },
+        ],
+      ],
     }),
     injectProcessEnv({
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
     }),
     copy({
       targets: [
-        { src: ['assets/arc-red.svg', 'assets/icons.svg'], dest: 'dist/assets' },
-        { src: ['out-tsc/arc.d.ts', 'out-tsc/components/**/!(*.stories).{js,d.ts}', 'out-tsc/internal', 'out-tsc/styles', 'out-tsc/utilities', 'themes'], dest: 'dist'}
+        { src: ['assets/icons.svg'], dest: 'dist/assets' },
+        {
+          src: [
+            'out-tsc/arc.d.ts',
+            'out-tsc/components/**/!(*.stories).{js,d.ts}',
+            'out-tsc/internal',
+            'out-tsc/styles',
+            'out-tsc/utilities',
+            'themes',
+          ],
+          dest: 'dist',
+        },
       ],
-      flatten: false
-    })
-  ]
+      flatten: false,
+    }),
+  ],
 };

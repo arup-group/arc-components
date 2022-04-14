@@ -3,23 +3,6 @@ on:
   release:
     types: [created]
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 'lts/*'
-
-      - name: Install Yarn
-        uses: borales/actions-yarn@v2.3.0
-
-      - name: Install node_modules
-        run: yarn install
-
-      - name: Test components
-        run: yarn run test
-
   publish:
     runs-on: ubuntu-latest
     steps:

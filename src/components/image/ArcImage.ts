@@ -128,7 +128,7 @@ export default class ArcImage extends LitElement {
     if (this._loading) {
       await stopAnimations(this);
       const { keyframes, options } = getAnimation(this, 'image.loader.show');
-      //TODO: Test the options?
+      /* c8 ignore next */
       await startAnimations(this.loader, keyframes, options);
     } else {
       await stopAnimations(this);

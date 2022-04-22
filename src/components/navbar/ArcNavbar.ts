@@ -98,7 +98,7 @@ export default class ArcNavbar extends LitElement {
 
       #right {
         justify-content: flex-end;
-        gap: var(--arc-spacing-small);
+        gap: var(--arc-spacing-medium);
       }
 
       #tabSlot {

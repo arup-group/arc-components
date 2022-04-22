@@ -4,6 +4,14 @@ import arcLogo from '../assets/arc-storybook.svg';
 export default create({
   base: 'light',
 
+  colorPrimary: "rgb(230, 30, 40)",
+  colorSecondary: "rgb(87, 87, 87)",
+
+   // UI
+  appBg: 'rgb( 239, 239, 239)',
+  appContentBg: 'rgb(255, 255, 255)',
+  appBorderRadius: "0.25rem",
+
   // Typography
   fontBase: '"Arial", sans-serif',
 
@@ -18,4 +26,5 @@ export default create({
   // Logo
   brandTitle: 'ARC',
   brandImage: arcLogo,
+
 });

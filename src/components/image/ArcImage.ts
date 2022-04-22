@@ -126,12 +126,11 @@ export default class ArcImage extends LitElement {
   @watch('_loading')
   async handleLoadingChange() {
     if (this._loading) {
-      await stopAnimations(this);
-      const { keyframes, options } = getAnimation(this, 'image.loader.show');
-      /* c8 ignore next */
+      await stopAnimations(this.loader);
+      const { keyframes, options } = getAnimation(this.loader, 'loader.show');
       await startAnimations(this.loader, keyframes, options);
     } else {
-      await stopAnimations(this);
+      await stopAnimations(this.loader);
     }
   }
 
@@ -217,7 +216,7 @@ export default class ArcImage extends LitElement {
   }
 }
 
-setDefaultAnimation('image.loader.show', {
+setDefaultAnimation('loader.show', {
   keyframes: [
     { boxShadow: 'var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n)' },
     { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-pn), var(--shadow-pn)' },

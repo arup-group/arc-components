@@ -2,12 +2,16 @@ import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../internal/slot.js';
+import { serialize } from '../../utilities/form-utils.js';
 import { upEvent, downEvent, leftEvent, rightEvent } from '../../internal/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcRadioGroup from '../radio-group/ArcRadioGroup.js';
 import type ArcRadio from './ArcRadio.js';
+import type ArcButton from '../button/ArcButton.js';
+import '../radio-group/arc-radio-group.js';
 import './arc-radio.js';
+import '../button/arc-button.js';
 
 describe('ArcRadio', () => {
   /* Retrieve the tabindex of a radio button. */
@@ -254,6 +258,46 @@ describe('ArcRadio', () => {
       expect(document.activeElement === element).to.be.true;
       element.blur();
       expect(document.activeElement === element).to.be.false;
+    });
+  });
+
+  /* Test form submission */
+  describe('form-controls', () => {
+    let form: HTMLFormElement;
+    let submitBtn: ArcButton;
+    const submitSpy: SinonSpy = sinon.spy();
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <arc-radio-group>
+            <arc-radio name="car" value="audi">Audi</arc-radio>
+            <arc-radio name="car" value="opel" checked>Opel</arc-radio>
+            <arc-radio name="car" value="vw">Volkswagen</arc-radio>
+          </arc-radio-group>
+          <arc-button submit>Submit</arc-button>
+        </form>
+      `);
+      submitBtn = form.querySelector('arc-button')!;
+    });
+
+    afterEach(() => {
+      submitSpy.resetHistory();
+    });
+
+    it('submits the value of the input in a native form element', async () => {
+      const formSubmit = (e: SubmitEvent) => {
+        e.preventDefault();
+        const data = serialize(form);
+        expect(data.car).to.equal('opel');
+        submitSpy();
+      };
+
+      form.addEventListener('submit', formSubmit);
+      submitBtn.click();
+
+      await waitUntil(() => submitSpy.calledOnce);
+      form.removeEventListener('submit', formSubmit);
     });
   });
 

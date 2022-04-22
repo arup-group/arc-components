@@ -96,8 +96,12 @@ export default class ArcCard extends LitElement {
       await stopAnimations(this);
       this.content.hidden = false;
 
-      const { keyframes, options } = getAnimation(this, 'card.expand');
-      await startAnimations(this.content, shimKeyframesHeightAuto(keyframes, this.content.scrollHeight), options);
+      const cardAnimation = getAnimation(this, 'card.expand');
+      await startAnimations(
+        this.content,
+        shimKeyframesHeightAuto(cardAnimation.keyframes, this.content.scrollHeight),
+        cardAnimation.options
+      );
 
       this.content.style.height = 'auto';
       emit(this, ARC_EVENTS.afterShow);

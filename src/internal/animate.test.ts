@@ -1,7 +1,16 @@
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { expect, fixture } from '@open-wc/testing';
-import { setDefaultAnimation, setAnimation, getAnimation, ElementAnimation } from './animate.js';
+import {
+  setDefaultAnimation,
+  setAnimation,
+  getAnimation,
+  startAnimations,
+  stopAnimations,
+  shimKeyframesHeightAuto,
+  ElementAnimation,
+} from './animate.js';
+import { ARC_ANIMATION_OPTIONS } from './constants/animationConstants.js';
 
 @customElement('animation-test')
 class AnimateTest extends LitElement {
@@ -18,24 +27,27 @@ describe('AnimationRegistry', () => {
       { opacity: 0, transform: 'scale(0.9)' },
       { opacity: 1, transform: 'scale(1)' },
     ],
-    options: { duration: 150, easing: 'ease' },
+    options: ARC_ANIMATION_OPTIONS.fast,
   };
   const customAnimation = {
     keyframes: [
       { opacity: 1, transform: 'scale(1)' },
       { opacity: 0, transform: 'scale(0.9)' },
     ],
-    options: { duration: 150, easing: 'ease' },
+    options: ARC_ANIMATION_OPTIONS.fast,
   };
 
   beforeEach(async () => {
+    setDefaultAnimation('animation.show', defaultAnimation);
     element = await fixture('<animation-test></animation-test>');
     elementTwo = await fixture('<animation-test></animation-test>');
   });
 
-  it('registers a default animation for all components', () => {
-    setDefaultAnimation('animation.show', defaultAnimation);
+  afterEach(() => {
+    setDefaultAnimation('animation.show', null);
+  });
 
+  it('registered a default animation for all components', () => {
     expect(getAnimation(element, 'animation.show')).to.equal(defaultAnimation);
     expect(getAnimation(elementTwo, 'animation.show')).to.equal(defaultAnimation);
   });
@@ -67,8 +79,74 @@ describe('AnimationRegistry', () => {
     expect(duration).to.exist;
     expect(duration).to.equal(0);
   });
+
+  it('shims/changes the `auto` height property into a calculated height', () => {
+    const keyFrames: Keyframe[] = [{ height: 'auto' }, { height: '100px' }];
+    const updatedKeyFrames = shimKeyframesHeightAuto(keyFrames, element.scrollHeight);
+
+    const oldKeys = Object.keys(keyFrames);
+    const shimmedKeys = Object.keys(updatedKeyFrames);
+
+    expect(oldKeys.length).to.equal(shimmedKeys.length);
+    expect(keyFrames[0].height).to.not.equal(updatedKeyFrames[0].height);
+    expect(keyFrames[1].height).to.equal(updatedKeyFrames[1].height);
+  });
 });
 
 describe('Animations', () => {
-  //  TODO: Write tests for the startAnimations, stopAnimations and shimKeyframesHeightAuto methods.
+  let element: AnimateTest;
+
+  beforeEach(async () => {
+    setDefaultAnimation('animation.expand', {
+      keyframes: [
+        { height: '100px', opacity: '0' },
+        { height: '200px', opacity: '1' },
+      ],
+      options: ARC_ANIMATION_OPTIONS['x-fast'],
+    });
+    element = await fixture('<animation-test></animation-test>');
+
+    /* Stop any ongoing animations */
+    await stopAnimations(element);
+  });
+
+  afterEach(async () => {
+    setDefaultAnimation('animation.expand', null);
+
+    /* Stop any ongoing animations */
+    await stopAnimations(element);
+  });
+
+  it('starts the animation', async () => {
+    const { keyframes, options } = getAnimation(element, 'animation.expand');
+    let animationFinished = false;
+
+    await startAnimations(element, keyframes, options).then(() => {
+      animationFinished = true;
+    });
+
+    expect(animationFinished).to.be.true;
+  });
+
+  it('stops the animation before finishing', async () => {
+    const { keyframes, options } = getAnimation(element, 'animation.expand');
+    let animationFinished = false;
+    options!.duration = 10000;
+
+    startAnimations(element, keyframes, options).then(() => {
+      animationFinished = true;
+    });
+
+    await stopAnimations(element);
+    expect(animationFinished).to.be.true;
+  });
+
+  it('throws an error when the animation is set to Infinity', async () => {
+    const { keyframes, options } = getAnimation(element, 'animation.expand');
+    options!.duration = Infinity;
+
+    startAnimations(element, keyframes, options).catch(err => {
+      expect(err.message).to.equal('Promise-based animations must be finite.');
+    });
+  });
 });

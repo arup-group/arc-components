@@ -1,5 +1,6 @@
 import { setCustomElementsManifest } from '@storybook/web-components';
 import customElementsManifest from '../custom-elements.json';
+import Theme from './ArcTheme';
 import '../themes/index.css';
 import '../themes/light.css';
 import '../themes/dark.css';
@@ -14,5 +15,8 @@ export const parameters = {
       color: /(colorPrimary|colorSecondary|btnColor|btnBackground|iconColor|strokeColor)$/i,
       date: /Date$/,
     },
+  },
+ docs: {
+    theme: Theme,
   },
 }

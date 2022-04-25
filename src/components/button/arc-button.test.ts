@@ -178,7 +178,7 @@ describe('ArcButton', () => {
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcButton;
-    let clickSpy: SinonSpy = sinon.spy();
+    const clickSpy: SinonSpy = sinon.spy();
 
     beforeEach(async () => {
       element = await fixture(html`<arc-button></arc-button>`);

@@ -81,31 +81,28 @@ describe('ArcSwitch', () => {
       expect(input.getAttribute('aria-disabled')).to.equal('true');
     });
   });
+
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcSwitch;
-    let sliderElement: HTMLElement;
-    let checkbox: HTMLElement;
     let clickSpy: SinonSpy;
     let changeSpy: SinonSpy;
 
     beforeEach(async () => {
       element = await fixture(html`<arc-switch></arc-switch>`);
-      sliderElement = element.shadowRoot!.getElementById('switch');
-      checkbox = sliderElement.querySelector('input');
       clickSpy = sinon.spy();
       changeSpy = sinon.spy();
-      checkbox.addEventListener('click', clickSpy);
+      element.addEventListener('click', clickSpy);
       element.addEventListener(ARC_EVENTS.change, changeSpy);
     });
 
     afterEach(async () => {
-      checkbox.removeEventListener('click', clickSpy);
+      element.removeEventListener('click', clickSpy);
       element.removeEventListener(ARC_EVENTS.change, changeSpy);
     });
 
     it('simulates a toggle the switch and emits arc-change', async () => {
-      checkbox.click();
+      element.click();
       await waitUntil(() => clickSpy.calledOnce);
       await waitUntil(() => changeSpy.calledOnce);
 
@@ -117,19 +114,20 @@ describe('ArcSwitch', () => {
       element.checked = true;
       await elementUpdated(element);
 
-      checkbox.click();
+      element.click();
       await waitUntil(() => clickSpy.calledOnce);
+      await waitUntil(() => changeSpy.calledOnce);
 
       expect(clickSpy).to.have.been.calledOnce;
+      expect(changeSpy).to.have.been.calledOnce;
       expect(element.checked).to.be.false;
-      expect(clickSpy).to.have.been.calledOnce;
     });
 
     it('suppresses a click on the switch while in a disabled state', async () => {
       element.disabled = true;
       await elementUpdated(element);
 
-      checkbox.click();
+      element.click();
       expect(clickSpy).to.have.not.been.called;
       expect(changeSpy).to.have.not.been.called;
     });

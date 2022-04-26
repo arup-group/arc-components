@@ -1,11 +1,11 @@
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { live } from 'lit/directives/live.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { live } from 'lit/directives/live.js';
 import { emit } from '../../internal/event.js';
 import componentStyles from '../../styles/component.styles.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { FormController } from '../../internal/form-control';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 /**
  * @slot prefix - The switch's prefix label.
@@ -19,85 +19,53 @@ export default class ArcSwitch extends LitElement {
   static styles = [
     componentStyles,
     css`
+      :host {
+        --height: var(--arc-toggle-size);
+        --width: calc(var(--arc-toggle-size) * 2);
+      }
+
       #main {
         display: inline-flex;
+        gap: var(--arc-spacing-small);
         align-items: center;
         vertical-align: middle;
         cursor: pointer;
       }
 
-      /* Hide the original input. */
       input {
-        cursor: inherit;
         position: absolute;
         opacity: 0;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        margin: 0;
         padding: 0;
-        z-index: 1;
+        margin: 0;
+        pointer-events: none;
       }
 
       #switch {
-        display: inline-flex;
-        width: 58px;
-        height: 38px;
-        overflow: hidden;
-        padding: 12px;
-        box-sizing: border-box;
         position: relative;
-        flex-shrink: 0;
-        z-index: 0;
-        vertical-align: middle;
-      }
-
-      #base {
         display: inline-flex;
-        -webkit-box-align: center;
         align-items: center;
-        -webkit-box-pack: center;
         justify-content: center;
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-        background-color: transparent;
-        outline: 0px;
-        border: 0px;
-        margin: 0px;
-        cursor: pointer;
-        user-select: none;
-        vertical-align: middle;
-        appearance: none;
-        text-decoration: none;
-        padding: 9px;
-        border-radius: 50%;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        z-index: 1;
-        color: rgb(224, 224, 224);
-        transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       }
 
-      #track {
-        height: 100%;
-        width: 100%;
-        border-radius: 7px;
-        z-index: -1;
-        transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-          background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-        background-color: rgb(255, 255, 255);
-        opacity: 0.3;
+      #control {
+        flex: 0 0 auto;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--height);
+        width: var(--width);
+        background-color: rgb(var(--arc-grey-060));
+        border-radius: var(--arc-toggle-size);
       }
 
       #thumb {
-        box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px,
-          rgb(0 0 0 / 12%) 0px 1px 3px 0px;
-        background-color: currentcolor;
-        width: 20px;
-        height: 20px;
+        width: calc(var(--arc-toggle-size) + 4px);
+        height: calc(var(--arc-toggle-size) + 4px);
+        background-color: rgb(var(--arc-grey-000));
+        box-shadow: var(--arc-box-shadow);
         border-radius: 50%;
+        transform: translateX(calc((var(--width) - var(--height)) / -2));
       }
 
       #label {
@@ -152,21 +120,20 @@ export default class ArcSwitch extends LitElement {
     return html`
       <label id="main">
         <span id="switch">
-          <span id="base">
-            <input
-              type="checkbox"
-              role="switch"
-              name=${ifDefined(this.name || undefined)}
-              value=${ifDefined(this.value || undefined)}
-              .checked=${live(this.checked)}
-              .disabled=${this.disabled}
-              aria-checked=${this.checked}
-              aria-disabled=${this.disabled}
-              @click=${this.handleClick}
-            />
+          <input
+            type="checkbox"
+            role="switch"
+            name=${ifDefined(this.name || undefined)}
+            value=${ifDefined(this.value || undefined)}
+            .checked=${live(this.checked)}
+            .disabled=${this.disabled}
+            aria-checked=${this.checked}
+            aria-disabled=${this.disabled}
+            @click=${this.handleClick}
+          />
+          <span id="control">
             <span id="thumb"></span>
           </span>
-          <span id="track"></span>
         </span>
         <span id="label"><slot></slot></span>
       </label>

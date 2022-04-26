@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { getBasePath } from '../../utilities/base-path.js';
 import componentStyles from '../../styles/component.styles.js';
-import { ICON_TYPES } from './constants/IconConstants.js';
+import { ICON_TYPES, IconType } from './constants/IconConstants.js';
 import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
 
 /**
@@ -50,7 +50,7 @@ export default class ArcIcon extends LitElement {
   ];
 
   /** The name of the icon to draw. */
-  @property({ type: String, reflect: true }) name: string = ICON_TYPES.fire;
+  @property({ type: String, reflect: true }) name: IconType = ICON_TYPES.fire;
 
   /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
   @property({ type: String }) label: string;

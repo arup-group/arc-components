@@ -49,14 +49,5 @@
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
-<script type="module">
-  import { serialize } from "./out-tsc/utilities/form-utils.js";
-
-  const form = document.getElementById('arcForm');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    console.log(serialize(form));
-  })
-</script>
 </body>
 </html>

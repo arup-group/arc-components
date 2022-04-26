@@ -28,6 +28,7 @@ export default class ArcSwitch extends LitElement {
         display: inline-flex;
         align-items: center;
         vertical-align: middle;
+        gap: var(--arc-spacing-small);
         cursor: pointer;
       }
 
@@ -40,15 +41,12 @@ export default class ArcSwitch extends LitElement {
       }
 
       #switch {
-        position: relative;
         display: inline-flex;
         align-items: center;
         justify-content: center;
       }
 
       #control {
-        flex: 0 0 auto;
-        position: relative;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -59,8 +57,8 @@ export default class ArcSwitch extends LitElement {
       }
 
       #thumb {
-        width: calc(var(--arc-toggle-size) + 4px);
-        height: calc(var(--arc-toggle-size) + 4px);
+        width: calc(var(--arc-toggle-size) - 4px);
+        height: calc(var(--arc-toggle-size) - 4px);
         background-color: rgb(var(--arc-grey-000));
         box-shadow: var(--arc-box-shadow);
         border-radius: 50%;
@@ -70,6 +68,21 @@ export default class ArcSwitch extends LitElement {
       #label {
         line-height: var(--arc-toggle-size);
         user-select: none;
+      }
+
+      /* Checked */
+      :host([checked]) #control {
+        background-color: rgb(var(--arc-color-info));
+      }
+
+      :host([checked]) #thumb {
+        transform: translateX(calc((var(--width) - var(--height)) / 2));
+      }
+
+      /* Disabled */
+      :host([disabled]) #main {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
     `,
   ];
@@ -118,18 +131,18 @@ export default class ArcSwitch extends LitElement {
   render() {
     return html`
       <label id="main">
+        <input
+          type="checkbox"
+          role="switch"
+          name=${ifDefined(this.name || undefined)}
+          value=${ifDefined(this.value || undefined)}
+          .checked=${live(this.checked)}
+          .disabled=${this.disabled}
+          aria-checked=${this.checked}
+          aria-disabled=${this.disabled}
+          @click=${this.handleClick}
+        />
         <span id="switch">
-          <input
-            type="checkbox"
-            role="switch"
-            name=${ifDefined(this.name || undefined)}
-            value=${ifDefined(this.value || undefined)}
-            .checked=${live(this.checked)}
-            .disabled=${this.disabled}
-            aria-checked=${this.checked}
-            aria-disabled=${this.disabled}
-            @click=${this.handleClick}
-          />
           <span id="control">
             <span id="thumb"></span>
           </span>

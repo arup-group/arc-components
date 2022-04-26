@@ -26,6 +26,7 @@ export default class ArcRadio extends LitElement {
         cursor: pointer;
       }
 
+      /* Hide the original input */
       input {
         position: absolute;
         opacity: 0;
@@ -35,7 +36,6 @@ export default class ArcRadio extends LitElement {
       }
 
       #radio {
-        position: relative;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -45,27 +45,17 @@ export default class ArcRadio extends LitElement {
 
       #control {
         display: inline-flex;
-        position: relative;
-      }
-
-      #radioIcon {
-        display: inline-flex;
         width: var(--arc-toggle-size);
         height: var(--arc-toggle-size);
       }
 
-      #radioIcon svg {
+      #icon {
         width: 100%;
         height: 100%;
       }
 
-      #thumb {
-        width: calc(var(--arc-toggle-size) + 4px);
-        height: calc(var(--arc-toggle-size) + 4px);
-        background-color: rgb(var(--arc-grey-000));
-        box-shadow: var(--arc-box-shadow);
-        border-radius: 50%;
-        transform: translateX(calc((var(--width) - var(--height)) / -2));
+      #icon .fill {
+        transform: scale(0);
       }
 
       #label {
@@ -74,18 +64,22 @@ export default class ArcRadio extends LitElement {
       }
 
       /* Checked */
-      :host([checked]) #radioIcon svg {
+      :host([checked]) #icon {
         color: rgb(var(--arc-color-info));
       }
 
+      :host([checked]) #icon .fill {
+        transform: scale(1);
+      }
+
       /* Hover & Focus */
-      :host(:not([disabled])) #radio:hover,
+      :host(:not([disabled])) input:hover + #radio,
       :host(:not([disabled])) input:focus-visible + #radio {
         background: rgba(var(--arc-font-color), 10%);
       }
 
       /* Mouse down */
-      :host(:not([disabled])) #radio:active {
+      :host(:not([disabled])) input:active + #radio {
         background: rgba(var(--arc-font-color), 30%);
       }
 
@@ -234,25 +228,15 @@ export default class ArcRadio extends LitElement {
         />
         <span id="radio">
           <span id="control">
-            <span id="radioIcon">
-              ${this.checked
-                ? html` <svg viewBox="0 0 24 24">
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                      fill="currentColor"
-                      stroke="none"
-                    />
-                    <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" fill="currentColor" stroke="none" />
-                  </svg>`
-                : html` <svg viewBox="0 0 24 24">
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                      fill="currentColor"
-                      stroke="none"
-                      class="nc-icon-wrapper"
-                    />
-                  </svg>`}
-            </span>
+            <svg id="icon" viewBox="0 0 24 24">
+              <path
+                class="background"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                fill="currentColor"
+                stroke="none"
+              />
+              <path class="fill" d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" fill="currentColor" stroke="none" />
+            </svg>
           </span>
         </span>
         <span id="label"><slot></slot></span>

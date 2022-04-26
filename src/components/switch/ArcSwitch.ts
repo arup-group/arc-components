@@ -26,7 +26,6 @@ export default class ArcSwitch extends LitElement {
 
       #main {
         display: inline-flex;
-        gap: var(--arc-spacing-small);
         align-items: center;
         vertical-align: middle;
         cursor: pointer;
@@ -53,8 +52,8 @@ export default class ArcSwitch extends LitElement {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: var(--height);
         width: var(--width);
+        height: var(--height);
         background-color: rgb(var(--arc-grey-060));
         border-radius: var(--arc-toggle-size);
       }

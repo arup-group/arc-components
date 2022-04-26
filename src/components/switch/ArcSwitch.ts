@@ -3,8 +3,9 @@ import { property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { emit } from '../../internal/event.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import componentStyles from '../../styles/component.styles.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { FormController } from '../../internal/form-control';
 
 /**
  * @slot prefix - The switch's prefix label.
@@ -24,18 +25,11 @@ export default class ArcSwitch extends LitElement {
         vertical-align: middle;
         cursor: pointer;
       }
-      #switch {
-        flex: 0 0 auto;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: inherit;
-        padding: var(--arc-spacing-x-small);
-      }
 
       /* Hide the original input. */
       input {
         cursor: inherit;
+        position: absolute;
         opacity: 0;
         width: 100%;
         height: 100%;
@@ -44,62 +38,83 @@ export default class ArcSwitch extends LitElement {
         margin: 0;
         padding: 0;
         z-index: 1;
-        border: 3px solid red;
-      }
-      .thumb {
-        position: relative;
-        cursor: inherit;
-        width: calc(var(--arc-font-size-xxxx-large) * 1.15);
-        height: calc(var(--arc-font-size-xxxx-large) / 3);
-        background-color: rgb(var(--arc-grey-060));
-        border-radius: calc(var(--arc-font-size-xxxx-large) / 6);
-      }
-      .thumb::after {
-        position: absolute;
-        left: 0.5px;
-        content: '';
-        top: 1.3px;
-        width: calc(var(--arc-font-size-xxxx-large) / 3.35);
-        height: calc(var(--arc-font-size-xxxx-large) / 3.35);
-        background-color: rgb(var(--arc-white-000));
-        transition: 0.4s;
-        border-radius: calc(var(--arc-font-size-xxxx-large) / 6);
-      }
-      .thumb::after:hover {
-        background: red;
-      }
-      /* Label */
-      .label {
-        line-height: var(--arc-toggle-size);
-        user-select: none;
-      }
-      /* Checked */
-      input:checked ~ .thumb {
-        background-color: rgb(var(--arc-color-active));
-      }
-      input:checked ~ .thumb::after {
-        transform: translateX(calc(var(--arc-font-size-xxxx-large) / 4));
-      }
-      /* Hover & Focus */
-      :host(:not([disabled])) #switch:hover .thumb::after,
-      :host(:not([disabled])) input:focus-visible + .thumb::after {
-        box-shadow: 0 0 3px 10px rgba(var(--arc-font-color), 10%);
       }
 
-      /* Mouse down */
-      :host(:not([disabled])) #switch:active .thumb::after {
-        box-shadow: 0 0 3px 10px rgba(var(--arc-font-color), 30%);
+      #switch {
+        display: inline-flex;
+        width: 58px;
+        height: 38px;
+        overflow: hidden;
+        padding: 12px;
+        box-sizing: border-box;
+        position: relative;
+        flex-shrink: 0;
+        z-index: 0;
+        vertical-align: middle;
       }
-      /* Disabled */
-      :host([disabled]) #switch {
-        opacity: 0.5;
-        cursor: not-allowed;
+
+      #base {
+        display: inline-flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        background-color: transparent;
+        outline: 0px;
+        border: 0px;
+        margin: 0px;
+        cursor: pointer;
+        user-select: none;
+        vertical-align: middle;
+        appearance: none;
+        text-decoration: none;
+        padding: 9px;
+        border-radius: 50%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+        color: rgb(224, 224, 224);
+        transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      }
+
+      #track {
+        height: 100%;
+        width: 100%;
+        border-radius: 7px;
+        z-index: -1;
+        transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        background-color: rgb(255, 255, 255);
+        opacity: 0.3;
+      }
+
+      #thumb {
+        box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px,
+          rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+        background-color: currentcolor;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+
+      #label {
+        line-height: var(--arc-toggle-size);
+        user-select: none;
       }
     `,
   ];
 
   /** @internal */
   @query('input[type="checkbox"]') input: HTMLInputElement;
+
+  /** @internal - Controller used to recognize form controls located inside a shadow root. */
+  /* @ts-expect-error - Controller used to hook the component to the formData */
+  private readonly formController = new FormController(this, {
+    value: (control: ArcSwitch) => (control.checked ? control.value : undefined),
+  });
 
   /** The name used to reference the value of the control. */
   @property({ type: String }) name: string;
@@ -108,18 +123,10 @@ export default class ArcSwitch extends LitElement {
   @property({ type: String }) value: string;
 
   /** Draws the component in a disabled state. */
-  @property({ type: Boolean }) disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   /** Draws the component in a checked state. */
-  @property({ type: Boolean }) checked = false;
-
-  /** The switch label. */
-  @property({ type: String }) label: string;
-
-  handleClick() {
-    this.checked = !this.checked;
-    emit(this, ARC_EVENTS.change);
-  }
+  @property({ type: Boolean, reflect: true }) checked: boolean = false;
 
   /* Simulates a click on the switch. */
   click() {
@@ -127,8 +134,8 @@ export default class ArcSwitch extends LitElement {
   }
 
   /* Sets focus on the switch. */
-  focus() {
-    this.input.focus();
+  focus(options?: FocusOptions) {
+    this.input.focus(options);
   }
 
   /* Removes focus from the switch. */
@@ -136,25 +143,32 @@ export default class ArcSwitch extends LitElement {
     this.input.blur();
   }
 
+  handleClick() {
+    this.checked = !this.checked;
+    emit(this, ARC_EVENTS.change);
+  }
+
   render() {
     return html`
       <label id="main">
         <span id="switch">
-          <input
-            type="checkbox"
-            role="switch"
-            @click=${this.handleClick}
-            name=${ifDefined(this.name || undefined)}
-            .value=${ifDefined(this.value || undefined)}
-            ?checked=${live(this.checked)}
-            ?disabled=${this.disabled}
-            aria-checked=${this.checked}
-            aria-disabled=${this.disabled}
-            aria-labelledby=${ifDefined(this.label || 'label')}
-          />
-          <span class="thumb"></span>
+          <span id="base">
+            <input
+              type="checkbox"
+              role="switch"
+              name=${ifDefined(this.name || undefined)}
+              value=${ifDefined(this.value || undefined)}
+              .checked=${live(this.checked)}
+              .disabled=${this.disabled}
+              aria-checked=${this.checked}
+              aria-disabled=${this.disabled}
+              @click=${this.handleClick}
+            />
+            <span id="thumb"></span>
+          </span>
+          <span id="track"></span>
         </span>
-        <span id=${ifDefined(this.label || 'label')} class="label"><slot></slot></span>
+        <span id="label"><slot></slot></span>
       </label>
     `;
   }

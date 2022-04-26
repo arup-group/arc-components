@@ -29,7 +29,7 @@ describe('ArcSwitch', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
-    it('renders the element with a custom name property', async () => {
+    it('renders the element with a custom name, value, disabled and checked property', async () => {
       const element: ArcSwitch = await fixture(
         html`<arc-switch name="testName" value="testVal" disabled checked></arc-switch>`
       );
@@ -58,26 +58,26 @@ describe('ArcSwitch', () => {
     });
 
     it('renders the component in a checked state', async () => {
-      expect(input.checked).to.be.false;
-      expect(input.hasAttribute('checked')).to.be.false;
+      expect(element.checked).to.be.false;
+      expect(element.hasAttribute('checked')).to.be.false;
       expect(input.getAttribute('aria-checked')).to.equal('false');
 
       element.checked = true;
       await elementUpdated(element);
-      expect(input.checked).to.be.true;
-      expect(input.hasAttribute('checked')).to.be.true;
+      expect(element.checked).to.be.true;
+      expect(element.hasAttribute('checked')).to.be.true;
       expect(input.getAttribute('aria-checked')).to.equal('true');
     });
 
     it('renders the component in a disabled state', async () => {
-      expect(input.disabled).to.be.false;
-      expect(input.hasAttribute('disabled')).to.be.false;
+      expect(element.disabled).to.be.false;
+      expect(element.hasAttribute('disabled')).to.be.false;
       expect(input.getAttribute('aria-disabled')).to.equal('false');
 
       element.disabled = true;
       await elementUpdated(element);
-      expect(input.disabled).to.be.true;
-      expect(input.hasAttribute('disabled')).to.be.true;
+      expect(element.disabled).to.be.true;
+      expect(element.hasAttribute('disabled')).to.be.true;
       expect(input.getAttribute('aria-disabled')).to.equal('true');
     });
   });

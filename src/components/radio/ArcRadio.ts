@@ -55,7 +55,6 @@ export default class ArcRadio extends LitElement {
         border-radius: 50%;
       }
 
-      /* Label */
       #label {
         line-height: var(--arc-toggle-size);
         user-select: none;
@@ -96,10 +95,10 @@ export default class ArcRadio extends LitElement {
   @property({ type: String }) value: string;
 
   /** Draws the component in a disabled state. */
-  @property({ type: Boolean }) disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   /** Draws the component in a checked state. */
-  @property({ type: Boolean }) checked = false;
+  @property({ type: Boolean, reflect: true }) checked: boolean = false;
 
   firstUpdated() {
     this.updateComplete.then(() => {
@@ -134,21 +133,6 @@ export default class ArcRadio extends LitElement {
     }
   }
 
-  /* Simulates a click on the radio. */
-  click() {
-    this.input.click();
-  }
-
-  /* Sets focus on the radio. */
-  focus(options?: FocusOptions) {
-    this.input.focus(options);
-  }
-
-  /* Removes focus from the radio. */
-  blur() {
-    this.input.blur();
-  }
-
   getAllRadios(options: { includeDisabled: boolean } = { includeDisabled: true }) {
     const radioGroup = this.closest('arc-radio-group');
     const { includeDisabled } = options;
@@ -166,6 +150,21 @@ export default class ArcRadio extends LitElement {
 
   getSiblingRadios() {
     return this.getAllRadios().filter(radio => radio !== this) as ArcRadio[];
+  }
+
+  /* Simulates a click on the radio. */
+  click() {
+    this.input.click();
+  }
+
+  /* Sets focus on the radio. */
+  focus(options?: FocusOptions) {
+    this.input.focus(options);
+  }
+
+  /* Removes focus from the radio. */
+  blur() {
+    this.input.blur();
   }
 
   handleClick() {
@@ -207,10 +206,11 @@ export default class ArcRadio extends LitElement {
         <span id="radio">
           <input
             type="radio"
+            role="radio"
             name=${ifDefined(this.name || undefined)}
-            .value=${ifDefined(this.value || undefined)}
-            ?checked=${live(this.checked)}
-            ?disabled=${this.disabled}
+            value=${ifDefined(this.value || undefined)}
+            .checked=${live(this.checked)}
+            .disabled=${this.disabled}
             aria-checked=${this.checked}
             aria-disabled=${this.disabled}
             @click=${this.handleClick}

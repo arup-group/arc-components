@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { emit } from '../../internal/event.js';
 import componentStyles from '../../styles/component.styles.js';
-import { FormController } from '../../internal/form-control';
+import { FormController } from '../../internal/form-control.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 /**
@@ -166,7 +166,7 @@ export default class ArcSwitch extends LitElement {
             type="checkbox"
             role="switch"
             name=${ifDefined(this.name || undefined)}
-            value=${ifDefined(this.value || undefined)}
+            .value=${ifDefined(this.value || undefined)}
             .checked=${live(this.checked)}
             .disabled=${this.disabled}
             aria-checked=${this.checked}

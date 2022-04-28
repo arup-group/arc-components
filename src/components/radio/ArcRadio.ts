@@ -238,9 +238,8 @@ export default class ArcRadio extends LitElement {
       <label id="main" @keydown=${this.handleKeyDown}>
         <input
           type="radio"
-          role="radio"
           name=${ifDefined(this.name || undefined)}
-          value=${ifDefined(this.value || undefined)}
+          .value=${ifDefined(this.value || undefined)}
           .checked=${live(this.checked)}
           .disabled=${this.disabled}
           aria-checked=${this.checked}

@@ -8,10 +8,9 @@ import { FormController } from '../../internal/form-control';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 /**
- * @slot prefix - The switch's prefix label.
- * @slot suffix - The switch's suffix label.
+ * @slot default - The checkbox' label.
  *
- * @event arc-change - Emitted when the user checked the switch.
+ * @event arc-change - Emitted when the control's checked state changes.
  */
 export default class ArcSwitch extends LitElement {
   static tag = 'arc-switch';

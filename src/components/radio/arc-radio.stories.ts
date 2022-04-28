@@ -15,7 +15,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcRadio> = ({ name, value, disabled, checked }) => html`
+const Template: Story<ArcRadio> = ({ name, value, checked, disabled }) => html`
   <div id="content">
     <arc-radio-group label="Radio Group">
       <arc-radio name=${name} value=${value} ?disabled=${disabled} ?checked=${checked}>Option 1</arc-radio>
@@ -32,8 +32,8 @@ const Template: Story<ArcRadio> = ({ name, value, disabled, checked }) => html`
 const defaultArgs = {
   name: 'arc-test',
   value: 'option_1',
-  disabled: false,
   checked: false,
+  disabled: false,
 };
 
 /* TYPES */

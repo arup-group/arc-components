@@ -13,7 +13,7 @@ arc-container[theme="light"] {
   --arc-color-secondary: var(--arc-grey-070);
   --arc-color-error: var(--arc-red-040);
   --arc-color-warning: var(--arc-orange-040);
-  --arc-color-info: var(--arc-blue-040);
+  --arc-color-info: var(--arc-blue-050);
   --arc-color-success: var(--arc-green-040);
   --arc-color-active: var(--arc-blue-050);
 

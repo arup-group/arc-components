@@ -15,26 +15,32 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcSwitch> = ({ name, value, disabled, checked }) => html`
-  <arc-switch
-    name="${ifDefined(name || undefined)}"
-    value=${ifDefined(value || undefined)}
-    ?disabled=${disabled}
-    ?checked=${checked}
-  >
-    Switch
-  </arc-switch>
+const Template: Story<ArcSwitch> = ({ name, value, checked, disabled }) => html`
+  <div id="content">
+    <arc-switch
+      name=${ifDefined(name || undefined)}
+      value=${ifDefined(value || undefined)}
+      ?disabled=${disabled}
+      ?checked=${checked}
+    >
+      Switch
+    </arc-switch>
+  </div>
 `;
 
 const defaultArgs = {
   name: 'arc-test',
   value: 'switch',
-  disabled: false,
   checked: false,
+  disabled: false,
 };
+
 /* TYPES */
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
+
+export const Checked = Template.bind({});
+Checked.args = { ...defaultArgs, checked: true };
 
 export const Disabled = Template.bind({});
 Disabled.args = { ...defaultArgs, disabled: true };

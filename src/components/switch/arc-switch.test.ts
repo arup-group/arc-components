@@ -3,8 +3,12 @@ import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { hasSlot } from '../../internal/slot.js';
+import { serialize } from '../../utilities/form-utils';
+
 import type ArcSwitch from './ArcSwitch.js';
+import type ArcButton from '../button/ArcButton';
 import './arc-switch.js';
+import '../button/arc-button.js';
 
 describe('ArcSwitch', () => {
   /* Test the rendering of the component */
@@ -140,6 +144,45 @@ describe('ArcSwitch', () => {
       expect(document.activeElement === element).to.be.false;
     });
   });
+
+  /* Test form submission */
+  describe('form-controls', () => {
+    let form: HTMLFormElement;
+    let submitBtn: ArcButton;
+    const submitSpy: SinonSpy = sinon.spy();
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <arc-switch name="dogs" value="likes_dogs" checked>Do you like dogs?</arc-switch>
+          <arc-switch name="cats" value="likes_cats">Do you like cats?</arc-switch>
+          <arc-button submit>Submit</arc-button>
+        </form>
+      `);
+      submitBtn = form.querySelector('arc-button')!;
+    });
+
+    afterEach(() => {
+      submitSpy.resetHistory();
+    });
+
+    it('submits the value of the input in a native form element', async () => {
+      const formSubmit = (e: SubmitEvent) => {
+        e.preventDefault();
+        const data = serialize(form);
+        expect(data.dogs).to.equal('likes_dogs');
+        expect(data.cats).to.be.undefined;
+        submitSpy();
+      };
+
+      form.addEventListener('submit', formSubmit);
+      submitBtn.click();
+
+      await waitUntil(() => submitSpy.calledOnce);
+      form.removeEventListener('submit', formSubmit);
+    });
+  });
+
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     let element: ArcSwitch;

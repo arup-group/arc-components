@@ -123,7 +123,7 @@ export default class ArcImage extends LitElement {
     this._attachObserver();
   }
 
-  @watch('_loading')
+  @watch('_loading', { waitUntilFirstUpdate: true })
   async handleLoadingChange() {
     if (this._loading) {
       await stopAnimations(this.loader);

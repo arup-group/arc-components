@@ -16,16 +16,14 @@ export default {
 } as Meta;
 
 const Template: Story<ArcSwitch> = ({ name, value, checked, disabled }) => html`
-  <div id="content">
-    <arc-switch
-      name=${ifDefined(name || undefined)}
-      value=${ifDefined(value || undefined)}
-      ?disabled=${disabled}
-      ?checked=${checked}
-    >
-      Switch
-    </arc-switch>
-  </div>
+  <arc-switch
+    name=${ifDefined(name || undefined)}
+    value=${ifDefined(value || undefined)}
+    ?disabled=${disabled}
+    ?checked=${checked}
+  >
+    Switch
+  </arc-switch>
 `;
 
 const defaultArgs = {

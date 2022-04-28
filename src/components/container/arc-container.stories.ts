@@ -33,11 +33,7 @@ const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
           </arc-sidebar>
         `
       : nothing}
-    <div id="content">
-      <p>This is the container content.</p>
-      <p>When using the <code>fullscreen</code> property, the <code>arc-sidebar</code> component should not be used.</p>
-      <p>The <code>arc-drawer</code> component could be used instead.</p>
-    </div>
+    <p>This is the container content.</p>
   </arc-container>
 `;
 

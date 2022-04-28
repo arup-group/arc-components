@@ -166,8 +166,6 @@ export default class ArcImage extends LitElement {
   loadImage() {
     this._loading = true;
     this.image.src = this.src;
-    this.image.onload = this.imageResponse.bind(this);
-    this.image.onerror = this.imageResponse.bind(this);
   }
 
   imageResponse(e: any) {
@@ -195,7 +193,7 @@ export default class ArcImage extends LitElement {
 
     return html`
       <div id="main" class=${classMap({ 'has-image': this._hasImage })} style=${styleMap(styles)}>
-        <img id="image" src="" alt=${this.alt} />
+        <img id="image" src="" alt=${this.alt} @load=${this.imageResponse} @error=${this.imageResponse} />
         <div id="overlay" class=${classMap({ loading: this._loading })}>
           <div id="loader"></div>
           <svg

@@ -21,48 +21,70 @@ export default class ArcSwitch extends LitElement {
     css`
       :host {
         --height: var(--arc-toggle-size);
-        --width: calc(var(--arc-toggle-size) * 2);
-      }
-
-      #main {
-        display: inline-flex;
-        align-items: center;
-        vertical-align: middle;
-        gap: var(--arc-spacing-small);
-        cursor: pointer;
-      }
-
-      input {
-        position: absolute;
-        opacity: 0;
-        padding: 0;
-        margin: 0;
-        pointer-events: none;
+        --width: calc(var(--height) * 2);
+        --thumb-size: calc(var(--arc-toggle-size) - 4px);
       }
 
       #switch {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
+        vertical-align: middle;
+        cursor: pointer;
+        gap: var(--arc-spacing-x-small);
+      }
+
+      /* Hide the original input */
+      input {
+        cursor: inherit;
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        z-index: 1;
       }
 
       #control {
+        flex: 0 0 auto;
+        position: relative;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         width: var(--width);
         height: var(--height);
         background-color: rgb(var(--arc-grey-060));
-        border-radius: var(--arc-toggle-size);
+        border-radius: var(--height);
+      }
+
+      #base {
+        display: inline-flex;
+        align-items: center;
+        vertical-align: middle;
+        justify-content: center;
+        position: absolute;
+        box-sizing: border-box;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        cursor: inherit;
+        user-select: none;
+        appearance: none;
+        text-decoration: none;
+        padding: 9px;
+        border-radius: 50%;
+        z-index: 1;
+        transform: translateX(calc((var(--width) - var(--height)) / -2));
       }
 
       #thumb {
-        width: calc(var(--arc-toggle-size) - 4px);
-        height: calc(var(--arc-toggle-size) - 4px);
+        width: var(--thumb-size);
+        height: var(--thumb-size);
         background-color: rgb(var(--arc-grey-000));
-        box-shadow: var(--arc-box-shadow);
         border-radius: 50%;
-        transform: translateX(calc((var(--width) - var(--height)) / -2));
       }
 
       #label {
@@ -75,7 +97,7 @@ export default class ArcSwitch extends LitElement {
         background-color: rgb(var(--arc-color-info));
       }
 
-      :host([checked]) #thumb {
+      :host([checked]) #base {
         transform: translateX(calc((var(--width) - var(--height)) / 2));
       }
 
@@ -130,20 +152,20 @@ export default class ArcSwitch extends LitElement {
 
   render() {
     return html`
-      <label id="main">
-        <input
-          type="checkbox"
-          role="switch"
-          name=${ifDefined(this.name || undefined)}
-          value=${ifDefined(this.value || undefined)}
-          .checked=${live(this.checked)}
-          .disabled=${this.disabled}
-          aria-checked=${this.checked}
-          aria-disabled=${this.disabled}
-          @click=${this.handleClick}
-        />
-        <span id="switch">
-          <span id="control">
+      <label id="switch">
+        <span id="control">
+          <span id="base">
+            <input
+              type="checkbox"
+              role="switch"
+              name=${ifDefined(this.name || undefined)}
+              value=${ifDefined(this.value || undefined)}
+              .checked=${live(this.checked)}
+              .disabled=${this.disabled}
+              aria-checked=${this.checked}
+              aria-disabled=${this.disabled}
+              @click=${this.handleClick}
+            />
             <span id="thumb"></span>
           </span>
         </span>

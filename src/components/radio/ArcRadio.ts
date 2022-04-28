@@ -4,8 +4,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { watch } from '../../internal/watch.js';
 import { emit } from '../../internal/event.js';
-import { FormController } from '../../internal/form-control.js';
 import componentStyles from '../../styles/component.styles.js';
+import { FormController } from '../../internal/form-control.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 /**
@@ -19,7 +19,7 @@ export default class ArcRadio extends LitElement {
   static styles = [
     componentStyles,
     css`
-      #main {
+      #radio {
         display: inline-flex;
         align-items: center;
         vertical-align: middle;
@@ -28,33 +28,55 @@ export default class ArcRadio extends LitElement {
 
       /* Hide the original input */
       input {
+        cursor: inherit;
         position: absolute;
         opacity: 0;
-        padding: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
         margin: 0;
-        pointer-events: none;
-      }
-
-      #radio {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: var(--arc-spacing-x-small);
-        border-radius: 50%;
+        padding: 0;
+        z-index: 1;
       }
 
       #control {
         display: inline-flex;
-        width: var(--arc-toggle-size);
-        height: var(--arc-toggle-size);
+        align-items: center;
+        vertical-align: middle;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        cursor: inherit;
+        user-select: none;
+        appearance: none;
+        text-decoration: none;
+        padding: 9px;
+        border-radius: 50%;
       }
 
       #icon {
-        width: 100%;
-        height: 100%;
+        position: relative;
+        display: flex;
       }
 
-      #icon .fill {
+      #icon svg {
+        user-select: none;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentcolor;
+        flex-shrink: 0;
+        font-size: var(--arc-font-size-x-large);
+        transform: scale(1);
+      }
+
+      #icon svg.fill {
+        position: absolute;
         transform: scale(0);
       }
 
@@ -68,19 +90,8 @@ export default class ArcRadio extends LitElement {
         color: rgb(var(--arc-color-info));
       }
 
-      :host([checked]) #icon .fill {
+      :host([checked]) #icon svg.fill {
         transform: scale(1);
-      }
-
-      /* Hover & Focus */
-      :host(:not([disabled])) input:hover + #radio,
-      :host(:not([disabled])) input:focus-visible + #radio {
-        background: rgba(var(--arc-font-color), 10%);
-      }
-
-      /* Mouse down */
-      :host(:not([disabled])) input:active + #radio {
-        background: rgba(var(--arc-font-color), 30%);
       }
 
       /* Disabled */
@@ -214,28 +225,41 @@ export default class ArcRadio extends LitElement {
 
   render() {
     return html`
-      <label id="main" @keydown=${this.handleKeyDown}>
-        <input
-          type="radio"
-          role="radio"
-          name=${ifDefined(this.name || undefined)}
-          value=${ifDefined(this.value || undefined)}
-          .checked=${live(this.checked)}
-          .disabled=${this.disabled}
-          aria-checked=${this.checked}
-          aria-disabled=${this.disabled}
-          @click=${this.handleClick}
-        />
-        <span id="radio">
-          <span id="control">
-            <svg id="icon" viewBox="0 0 24 24">
+      <label id="radio" @keydown=${this.handleKeyDown}>
+        <span id="control">
+          <input
+            type="radio"
+            role="radio"
+            name=${ifDefined(this.name || undefined)}
+            value=${ifDefined(this.value || undefined)}
+            .checked=${live(this.checked)}
+            .disabled=${this.disabled}
+            aria-checked=${this.checked}
+            aria-disabled=${this.disabled}
+            @click=${this.handleClick}
+          />
+          <span id="icon">
+            <svg
+              class="bg"
+              focusable="false"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              data-testid="RadioButtonUncheckedIcon"
+            >
               <path
-                class="background"
                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                fill="currentColor"
-                stroke="none"
-              />
-              <path class="fill" d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" fill="currentColor" stroke="none" />
+              ></path>
+            </svg>
+            <svg
+              class="fill"
+              focusable="false"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              data-testid="RadioButtonCheckedIcon"
+            >
+              <path
+                d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+              ></path>
             </svg>
           </span>
         </span>

@@ -13,7 +13,6 @@ export declare type IconType =
   | 'arrow-up-circle'
   | 'ban-circle'
   | 'bell'
-  | 'bell-1'
   | 'book-open'
   | 'briefcase'
   | 'bubble'
@@ -61,7 +60,6 @@ export declare type IconType =
   | 'globe-alt'
   | 'grid'
   | 'heart'
-  | 'heart-1'
   | 'home'
   | 'hourglass'
   | 'info-circle'
@@ -110,9 +108,7 @@ export declare type IconType =
   | 'size-actual'
   | 'size-fullscreen'
   | 'speech'
-  | 'speech-1'
   | 'star'
-  | 'star-1'
   | 'support'
   | 'tag'
   | 'target'
@@ -143,7 +139,6 @@ export const ICON_TYPES: { [key in IconType]: IconType } = {
   'arrow-up-circle': 'arrow-up-circle',
   'ban-circle': 'ban-circle',
   bell: 'bell',
-  'bell-1': 'bell-1',
   'book-open': 'book-open',
   briefcase: 'briefcase',
   bubble: 'bubble',
@@ -191,7 +186,6 @@ export const ICON_TYPES: { [key in IconType]: IconType } = {
   'globe-alt': 'globe-alt',
   grid: 'grid',
   heart: 'heart',
-  'heart-1': 'heart-1',
   home: 'home',
   hourglass: 'hourglass',
   'info-circle': 'info-circle',
@@ -240,9 +234,7 @@ export const ICON_TYPES: { [key in IconType]: IconType } = {
   'size-actual': 'size-actual',
   'size-fullscreen': 'size-fullscreen',
   speech: 'speech',
-  'speech-1': 'speech-1',
   star: 'star',
-  'star-1': 'star-1',
   support: 'support',
   tag: 'tag',
   target: 'target',

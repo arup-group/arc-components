@@ -32,7 +32,7 @@ function setAnimation(el: Element, animationName: string, animation: ElementAnim
   customAnimationRegistry.set(el, { ...customAnimationRegistry.get(el), [animationName]: ensureAnimation(animation) });
 }
 
-/* Gets an element's animation. Falls back to the default if no animation is found. */
+/* Retrieves an element's animation. Falls back to the default if no animation is found. */
 function getAnimation(el: Element, animationName: string) {
   const customAnimation = customAnimationRegistry.get(el);
 
@@ -78,7 +78,6 @@ function stopAnimations(el: HTMLElement) {
           const handleAnimationEvent = requestAnimationFrame(resolve);
 
           animation.addEventListener('cancel', () => handleAnimationEvent, { once: true });
-          animation.addEventListener('finish', () => handleAnimationEvent, { once: true });
           animation.cancel();
         })
     )

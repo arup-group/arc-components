@@ -29,6 +29,11 @@
       gap: var(--arc-spacing-medium);
       padding: var(--arc-spacing-medium);
     }
+
+    #arcForm {
+      display: grid;
+      gap: var(--arc-spacing-medium);
+    }
   </style>
 </head>
 
@@ -44,10 +49,30 @@
     </arc-menu>
   </arc-sidebar>
   <section id="section" aria-label="Test section">
-    <arc-image src="https://picsum.photos/100" height="500"></arc-image>
+    <form id="arcForm">
+      <arc-switch name="like_cars" value="likes_cars">Do you like cars?</arc-switch>
+
+      <arc-radio-group>
+        <arc-radio name="car" value="vw">Volkswagen</arc-radio>
+        <arc-radio name="car" value="opel">Opel</arc-radio>
+        <arc-radio name="car" value="audi">Audi</arc-radio>
+      </arc-radio-group>
+
+      <arc-button color="primary" submit>Submit form</arc-button>
+    </form>
   </section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
+<script type="module">
+  import { serialize } from "./out-tsc/utilities/form-utils.js";
+
+  const form = document.getElementById('arcForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const data = serialize(form);
+    console.log(data);
+  })
+</script>
 </body>
 </html>

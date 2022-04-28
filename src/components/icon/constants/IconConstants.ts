@@ -1,5 +1,8 @@
 export declare type IconType =
   | 'accessibility'
+  | 'action-redo'
+  | 'action-undo'
+  | 'anchor'
   | 'arrow-down'
   | 'arrow-down-circle'
   | 'arrow-left'
@@ -8,135 +11,250 @@ export declare type IconType =
   | 'arrow-right-circle'
   | 'arrow-up'
   | 'arrow-up-circle'
+  | 'ban-circle'
   | 'bell'
+  | 'bell-1'
   | 'book-open'
-  | 'brightness_high'
-  | 'brightness_low'
+  | 'briefcase'
+  | 'bubble'
+  | 'bubbles'
   | 'bulb'
   | 'calendar'
-  | 'check'
+  | 'camera'
+  | 'camrecorder'
+  | 'chart'
+  | 'check-circle'
   | 'close'
+  | 'close-circle'
   | 'cloud-download'
   | 'cloud-upload'
+  | 'compass'
+  | 'control-end'
+  | 'control-forward'
+  | 'control-pause'
+  | 'control-play'
+  | 'control-rewind'
+  | 'control-start'
   | 'crop'
+  | 'cursor'
   | 'cursor-move'
+  | 'direction'
+  | 'directions'
+  | 'dislike'
+  | 'doc'
+  | 'docs'
+  | 'energy'
+  | 'envelope'
+  | 'envelope-letter'
+  | 'envelope-open'
   | 'equalizer'
+  | 'event'
+  | 'exclamation-circle'
   | 'eye'
-  | 'eyeglass'
+  | 'feed'
+  | 'film'
   | 'fire'
+  | 'flag'
+  | 'folder'
   | 'frame'
-  | 'graduation'
+  | 'globe'
+  | 'globe-alt'
   | 'grid'
+  | 'heart'
+  | 'heart-1'
   | 'home'
-  | 'info'
+  | 'hourglass'
+  | 'info-circle'
+  | 'key'
   | 'layers'
+  | 'like'
   | 'link'
+  | 'list'
+  | 'location-pin'
   | 'lock'
   | 'lock-open'
+  | 'login'
+  | 'logout'
+  | 'loop'
   | 'magnifier'
-  | 'magnifier-add'
-  | 'magnifier-remove'
+  | 'map'
   | 'menu'
   | 'microphone'
+  | 'minus-circle'
+  | 'music-tone'
   | 'note'
+  | 'notebook'
   | 'options'
   | 'options-vertical'
-  | 'paper-clip'
+  | 'organization'
+  | 'paper-plane'
+  | 'pencil'
   | 'people'
-  | 'pin'
-  | 'question'
-  | 'radio-checked'
-  | 'radio-unchecked'
+  | 'picture'
+  | 'pie-chart'
+  | 'plus-circle'
+  | 'power'
+  | 'printer'
+  | 'puzzle'
+  | 'question-circle'
   | 'refresh'
   | 'reload'
+  | 'satellite'
   | 'screen-desktop'
   | 'screen-smartphone'
   | 'screen-tablet'
   | 'settings'
   | 'share'
-  | 'shield'
+  | 'share-alt'
+  | 'shuffle'
   | 'size-actual'
   | 'size-fullscreen'
   | 'speech'
+  | 'speech-1'
   | 'star'
+  | 'star-1'
+  | 'support'
+  | 'tag'
+  | 'target'
   | 'trash'
   | 'user'
-  | 'user-check'
-  | 'user-plus'
-  | 'user-remove'
-  | 'volume-off'
+  | 'user-female'
+  | 'user-follow'
+  | 'user-following'
+  | 'user-unfollow'
+  | 'vector'
   | 'volume-1'
   | 'volume-2'
-  | 'x';
+  | 'volume-off'
+  | 'wrench';
 
 export const ICON_TYPES: { [key in IconType]: IconType } = {
-  accessibility: 'accessibility',
-  'arrow-down': 'arrow-down',
-  'arrow-down-circle': 'arrow-down-circle',
-  'arrow-left': 'arrow-left',
-  'arrow-left-circle': 'arrow-left-circle',
-  'arrow-right': 'arrow-right',
-  'arrow-right-circle': 'arrow-right-circle',
-  'arrow-up': 'arrow-up',
-  'arrow-up-circle': 'arrow-up-circle',
-  bell: 'bell',
-  'book-open': 'book-open',
-  brightness_high: 'brightness_high',
-  brightness_low: 'brightness_low',
-  bulb: 'bulb',
-  calendar: 'calendar',
-  check: 'check',
-  close: 'close',
-  'cloud-download': 'cloud-download',
-  'cloud-upload': 'cloud-upload',
-  crop: 'crop',
-  'cursor-move': 'cursor-move',
-  equalizer: 'equalizer',
-  eye: 'eye',
-  eyeglass: 'eyeglass',
-  fire: 'fire',
-  frame: 'frame',
-  graduation: 'graduation',
-  grid: 'grid',
-  home: 'home',
-  info: 'info',
-  layers: 'layers',
-  link: 'link',
-  lock: 'lock',
-  'lock-open': 'lock-open',
-  magnifier: 'magnifier',
-  'magnifier-add': 'magnifier-add',
-  'magnifier-remove': 'magnifier-remove',
-  menu: 'menu',
-  microphone: 'microphone',
-  note: 'note',
-  options: 'options',
-  'options-vertical': 'options-vertical',
-  'paper-clip': 'paper-clip',
-  people: 'people',
-  pin: 'pin',
-  question: 'question',
-  'radio-checked': 'radio-checked',
-  'radio-unchecked': 'radio-unchecked',
-  refresh: 'refresh',
-  reload: 'reload',
-  'screen-desktop': 'screen-desktop',
-  'screen-smartphone': 'screen-smartphone',
-  'screen-tablet': 'screen-tablet',
-  settings: 'settings',
-  share: 'share',
-  shield: 'shield',
-  'size-actual': 'size-actual',
-  'size-fullscreen': 'size-fullscreen',
-  speech: 'speech',
-  star: 'star',
-  trash: 'trash',
-  user: 'user',
-  'user-check': 'user-check',
-  'user-plus': 'user-plus',
-  'user-remove': 'user-remove',
-  'volume-off': 'volume-off',
-  'volume-1': 'volume-1',
-  'volume-2': 'volume-2',
-  x: 'x',
+  ['accessibility']: 'accessibility',
+  ['action-redo']: 'action-redo',
+  ['action-undo']: 'action-undo',
+  ['anchor']: 'anchor',
+  ['arrow-down']: 'arrow-down',
+  ['arrow-down-circle']: 'arrow-down-circle',
+  ['arrow-left']: 'arrow-left',
+  ['arrow-left-circle']: 'arrow-left-circle',
+  ['arrow-right']: 'arrow-right',
+  ['arrow-right-circle']: 'arrow-right-circle',
+  ['arrow-up']: 'arrow-up',
+  ['arrow-up-circle']: 'arrow-up-circle',
+  ['ban-circle']: 'ban-circle',
+  ['bell']: 'bell',
+  ['bell-1']: 'bell-1',
+  ['book-open']: 'book-open',
+  ['briefcase']: 'briefcase',
+  ['bubble']: 'bubble',
+  ['bubbles']: 'bubbles',
+  ['bulb']: 'bulb',
+  ['calendar']: 'calendar',
+  ['camera']: 'camera',
+  ['camrecorder']: 'camrecorder',
+  ['chart']: 'chart',
+  ['check-circle']: 'check-circle',
+  ['close']: 'close',
+  ['close-circle']: 'close-circle',
+  ['cloud-download']: 'cloud-download',
+  ['cloud-upload']: 'cloud-upload',
+  ['compass']: 'compass',
+  ['control-end']: 'control-end',
+  ['control-forward']: 'control-forward',
+  ['control-pause']: 'control-pause',
+  ['control-play']: 'control-play',
+  ['control-rewind']: 'control-rewind',
+  ['control-start']: 'control-start',
+  ['crop']: 'crop',
+  ['cursor']: 'cursor',
+  ['cursor-move']: 'cursor-move',
+  ['direction']: 'direction',
+  ['directions']: 'directions',
+  ['dislike']: 'dislike',
+  ['doc']: 'doc',
+  ['docs']: 'docs',
+  ['energy']: 'energy',
+  ['envelope']: 'envelope',
+  ['envelope-letter']: 'envelope-letter',
+  ['envelope-open']: 'envelope-open',
+  ['equalizer']: 'equalizer',
+  ['event']: 'event',
+  ['exclamation-circle']: 'exclamation-circle',
+  ['eye']: 'eye',
+  ['feed']: 'feed',
+  ['film']: 'film',
+  ['fire']: 'fire',
+  ['flag']: 'flag',
+  ['folder']: 'folder',
+  ['frame']: 'frame',
+  ['globe']: 'globe',
+  ['globe-alt']: 'globe-alt',
+  ['grid']: 'grid',
+  ['heart']: 'heart',
+  ['heart-1']: 'heart-1',
+  ['home']: 'home',
+  ['hourglass']: 'hourglass',
+  ['info-circle']: 'info-circle',
+  ['key']: 'key',
+  ['layers']: 'layers',
+  ['like']: 'like',
+  ['link']: 'link',
+  ['list']: 'list',
+  ['location-pin']: 'location-pin',
+  ['lock']: 'lock',
+  ['lock-open']: 'lock-open',
+  ['login']: 'login',
+  ['logout']: 'logout',
+  ['loop']: 'loop',
+  ['magnifier']: 'magnifier',
+  ['map']: 'map',
+  ['menu']: 'menu',
+  ['microphone']: 'microphone',
+  ['minus-circle']: 'minus-circle',
+  ['music-tone']: 'music-tone',
+  ['note']: 'note',
+  ['notebook']: 'notebook',
+  ['options']: 'options',
+  ['options-vertical']: 'options-vertical',
+  ['organization']: 'organization',
+  ['paper-plane']: 'paper-plane',
+  ['pencil']: 'pencil',
+  ['people']: 'people',
+  ['picture']: 'picture',
+  ['pie-chart']: 'pie-chart',
+  ['plus-circle']: 'plus-circle',
+  ['power']: 'power',
+  ['printer']: 'printer',
+  ['puzzle']: 'puzzle',
+  ['question-circle']: 'question-circle',
+  ['refresh']: 'refresh',
+  ['reload']: 'reload',
+  ['satellite']: 'satellite',
+  ['screen-desktop']: 'screen-desktop',
+  ['screen-smartphone']: 'screen-smartphone',
+  ['screen-tablet']: 'screen-tablet',
+  ['settings']: 'settings',
+  ['share']: 'share',
+  ['share-alt']: 'share-alt',
+  ['shuffle']: 'shuffle',
+  ['size-actual']: 'size-actual',
+  ['size-fullscreen']: 'size-fullscreen',
+  ['speech']: 'speech',
+  ['speech-1']: 'speech-1',
+  ['star']: 'star',
+  ['star-1']: 'star-1',
+  ['support']: 'support',
+  ['tag']: 'tag',
+  ['target']: 'target',
+  ['trash']: 'trash',
+  ['user']: 'user',
+  ['user-female']: 'user-female',
+  ['user-follow']: 'user-follow',
+  ['user-following']: 'user-following',
+  ['user-unfollow']: 'user-unfollow',
+  ['vector']: 'vector',
+  ['volume-1']: 'volume-1',
+  ['volume-2']: 'volume-2',
+  ['volume-off']: 'volume-off',
+  ['wrench']: 'wrench',
 };

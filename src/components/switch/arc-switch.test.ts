@@ -1,9 +1,9 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { hasSlot } from '../../internal/slot.js';
-import { serialize } from '../../utilities/form-utils';
+import { serialize } from '../../utilities/form-utils.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcSwitch from './ArcSwitch.js';
 import type ArcButton from '../button/ArcButton';

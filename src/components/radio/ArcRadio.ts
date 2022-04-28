@@ -19,14 +19,13 @@ export default class ArcRadio extends LitElement {
   static styles = [
     componentStyles,
     css`
-      #radio {
+      #main {
         display: inline-flex;
         align-items: center;
         vertical-align: middle;
         cursor: pointer;
       }
 
-      /* Hide the original input */
       input {
         cursor: inherit;
         position: absolute;
@@ -55,7 +54,7 @@ export default class ArcRadio extends LitElement {
         user-select: none;
         appearance: none;
         text-decoration: none;
-        padding: 9px;
+        padding: var(--arc-spacing-small);
         border-radius: 50%;
       }
 
@@ -81,7 +80,7 @@ export default class ArcRadio extends LitElement {
       }
 
       #label {
-        line-height: var(--arc-toggle-size);
+        line-height: var(--arc-font-size-x-large);
         user-select: none;
       }
 
@@ -92,6 +91,17 @@ export default class ArcRadio extends LitElement {
 
       :host([checked]) #icon svg.fill {
         transform: scale(1);
+      }
+
+      /* Hover & Focus */
+      :host(:not([disabled])) input:hover + #control,
+      :host(:not([disabled])) input:focus-visible + #control {
+        background: rgba(var(--arc-font-color), 10%);
+      }
+
+      /* Mouse down */
+      :host(:not([disabled])) input:active + #control {
+        background: rgba(var(--arc-font-color), 30%);
       }
 
       /* Disabled */
@@ -225,19 +235,19 @@ export default class ArcRadio extends LitElement {
 
   render() {
     return html`
-      <label id="radio" @keydown=${this.handleKeyDown}>
+      <label id="main" @keydown=${this.handleKeyDown}>
+        <input
+          type="radio"
+          role="radio"
+          name=${ifDefined(this.name || undefined)}
+          value=${ifDefined(this.value || undefined)}
+          .checked=${live(this.checked)}
+          .disabled=${this.disabled}
+          aria-checked=${this.checked}
+          aria-disabled=${this.disabled}
+          @click=${this.handleClick}
+        />
         <span id="control">
-          <input
-            type="radio"
-            role="radio"
-            name=${ifDefined(this.name || undefined)}
-            value=${ifDefined(this.value || undefined)}
-            .checked=${live(this.checked)}
-            .disabled=${this.disabled}
-            aria-checked=${this.checked}
-            aria-disabled=${this.disabled}
-            @click=${this.handleClick}
-          />
           <span id="icon">
             <svg
               class="bg"

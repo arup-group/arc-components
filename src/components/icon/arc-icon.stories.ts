@@ -21,6 +21,35 @@ export default {
   },
 } as Meta;
 
+const AllTemplate: Story = () =>
+  html`
+    <p>This is a list of all the available icons within the component library.</p>
+    <p>Click on an icon to copy the code to your clipboard!</p>
+    <div id="container">
+      ${Object.values(ICON_TYPES).map(icon => html`<arc-icon name=${icon} size=${FONT_SIZES.large}></arc-icon>`)}
+    </div>
+    <style>
+      #container {
+        width: 50%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(max(100% / 8 - 1rem, 1rem), 100%), 1fr));
+        grid-auto-rows: max-content;
+        gap: 1rem;
+      }
+    </style>
+    <script>
+      document
+        .getElementById('container')
+        .querySelectorAll('arc-icon')
+        .forEach(icon => {
+          icon.addEventListener('click', e => {
+            const { target } = e;
+            navigator.clipboard.writeText(target.outerHTML);
+          });
+        });
+    </script>
+  `;
+
 const Template: Story<ArcIcon> = ({ name, label, size, rotation }) => html`
   <arc-icon
     name="${name}"
@@ -29,6 +58,7 @@ const Template: Story<ArcIcon> = ({ name, label, size, rotation }) => html`
     rotation=${ifDefined(rotation || undefined)}
   ></arc-icon>
 `;
+
 const ColorTemplate: Story<ArcIcon> = () => html`
   <div style="display: flex;">
     <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-red-060))"></arc-icon>
@@ -45,6 +75,8 @@ const defaultArgs = {
 };
 
 /* TYPES */
+export const All = AllTemplate.bind({});
+
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
 

@@ -89,6 +89,10 @@ export default class ArcAvatar extends LitElement {
     this._hasError = false;
   }
 
+  _handleImageError() {
+    this._hasError = true;
+  }
+
   render() {
     return html`
       <div
@@ -98,7 +102,7 @@ export default class ArcAvatar extends LitElement {
         class=${classMap({ 'has-image': this.image && !this._hasError })}
       >
         ${this.image && !this._hasError
-          ? html` <img id="avatar" src=${this.image} alt="Avatar" @error=${() => (this._hasError = true)} /> `
+          ? html` <img id="avatar" src=${this.image} alt="Avatar" @error=${this._handleImageError} /> `
           : html`
               ${this.name
                 ? html` <div id="initials">${this.name}</div> `

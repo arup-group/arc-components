@@ -17,7 +17,7 @@ const Template: Story<ArcAvatar> = ({ name, image, label }) => html`
   ></arc-avatar>
 `;
 
-const GroupTemplate: Story<ArcAvatar> = ({}) => html`
+const GroupTemplate: Story<ArcAvatar> = () => html`
   <div class="avatar-group">
     <arc-avatar image="https://picsum.photos/200" label="First avatar in avatar group."></arc-avatar>
 

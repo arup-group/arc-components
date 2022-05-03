@@ -1,11 +1,12 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
-import sinon, { SinonSpy } from 'sinon';
+import { elementUpdated, expect, fixture } from '@open-wc/testing';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
 
 import type ArcAvatar from './ArcAvatar.js';
+import type ArcIcon from '../icon/ArcIcon.js';
 import './arc-avatar.js';
+import '../icon/arc-icon.js';
 
 describe('ArcAvatar', () => {
   /* Test the rendering of the component */
@@ -13,16 +14,34 @@ describe('ArcAvatar', () => {
     let element: ArcAvatar;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-avatar></arc-avatar>`);
+      element = await fixture(html`<arc-avatar label="User avatar."></arc-avatar>`);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      /*
-      When a component reflects to the DOM, add them within the component like so:
-      <arc-avatar reflected-prop-1='' reflected-prop-2=''></arc-avatar>
-      */
-      expect(element).dom.to.equal(`<arc-avatar></arc-avatar>`);
+      expect(element).dom.to.equal(`<arc-avatar label="User avatar."></arc-avatar>`);
+    });
+
+    it('renders a placeholder icon when no properties are given', () => {
+      const icon = element.shadowRoot!.getElementById('icon')!;
+      const defaultIcon: ArcIcon = icon.querySelector('arc-icon')!;
+
+      expect(defaultIcon).to.exist;
+      expect(defaultIcon.name).to.equal('user');
+      expect(defaultIcon.size).to.equal('large');
+    });
+
+    it('renders an avatar with a proper image attribute', async () => {
+      element.image = 'https://picsum.photos/100';
+      await elementUpdated(element);
+
+      const avatar = element.shadowRoot!.getElementById('avatar');
+      const initials = element.shadowRoot!.getElementById('initials');
+      const icon = element.shadowRoot!.getElementById('icon');
+
+      expect(avatar).to.exist;
+      expect(initials).to.be.null;
+      expect(icon).to.be.null;
     });
 
     /* Test the accessibility */
@@ -33,65 +52,26 @@ describe('ArcAvatar', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
+    it('renders the element with a custom image property', async () => {
+      const element: ArcAvatar = await fixture(html`<arc-avatar image="testProp"></arc-avatar>`);
+
+      expect(element.image).to.equal('testProp');
+      expect(element.getAttribute('image')).to.equal('testProp');
+    });
+
+    it('renders the element with a custom label property', async () => {
+      const element: ArcAvatar = await fixture(html`<arc-avatar label="testProp"></arc-avatar>`);
+
+      expect(element.label).to.equal('testProp');
+      expect(element.getAttribute('label')).to.equal('testProp');
+    });
+
     it('renders the element with a custom name property', async () => {
-      const element: ArcAvatar = await fixture(html`<arc-avatar name='testProp'></arc-avatar>`);
+      const element: ArcAvatar = await fixture(html`<arc-avatar name="Some Username"></arc-avatar>`);
 
-      expect(element.name).to.equal('testProp');
-      expect(element.getAttribute('name')).to.equal('testProp');
+      expect(element.name).to.equal('SU');
+      expect(element.getAttribute('name')).to.equal('Some Username');
     });
-  });
-
-  /* Test different component states (active, disabled, loading etc.) */
-  describe('states', () => {
-    let element: ArcAvatar;
-
-    beforeEach(async () => {
-      element = await fixture(html`<arc-avatar></arc-avatar>`);
-    });
-
-    it('renders the component in an active state', async () => {
-      expect(element.active).to.be.false;
-      expect(element.hasAttribute('active')).to.be.false;
-
-      element.active = true;
-      await elementUpdated(element);
-
-      expect(element.active).to.be.true;
-      expect(element.hasAttribute('active')).to.be.true;
-    });
-  });
-
-  /* Test specific methods */
-  describe('methods', () => {
-    /* Write the tests for specific methods here */
-  });
-
-  /* Test the events (click, focus, blur etc.) */
-  describe('events', () => {
-    let element: ArcAvatar;
-    const clickSpy: SinonSpy = sinon.spy();
-
-    beforeEach(async () => {
-      element = await fixture(html`<arc-avatar></arc-avatar>`);
-    });
-
-    afterEach(async () => {
-      clickSpy.resetHistory();
-    });
-
-    it('simulates a click on the button', async () => {
-      element.addEventListener('click', clickSpy);
-
-      element.click();
-      await waitUntil(() => clickSpy.calledOnce);
-
-      expect(clickSpy).to.have.been.calledOnce;
-    });
-  });
-
-  /* Test the component responsiveness */
-  describe('responsiveness', () => {
-    /* Write tests for responsiveness here */
   });
 
   /* Test whether the slots can be filled and that they exist */
@@ -105,12 +85,8 @@ describe('ArcAvatar', () => {
     it('renders default slots to fill the component', () => {
       const main = element.shadowRoot!.getElementById('main')!;
 
-      /* An empty slot is available */
-      expect(hasSlot(main)).to.be.true;
-
-      /* A specific (named) slot is available */
-      expect(hasSlot(main, 'testSlotOne')).to.be.true;
-      expect(hasSlot(main, 'testSlotTwo')).to.be.true;
+      /* A specific icon slot is available */
+      expect(hasSlot(main, 'icon')).to.be.true;
     });
   });
 
@@ -118,12 +94,12 @@ describe('ArcAvatar', () => {
   describe('css variables', () => {
     it('uses the default css variables', async () => {
       const element: ArcAvatar = await fixture(html`<arc-avatar></arc-avatar>`);
-      expect(getPropertyValue(element, '--custom-color')).to.equal('green');
+      expect(getPropertyValue(element, '--size')).to.equal('3rem');
     });
 
     it('overwrites the css variables', async () => {
-      const element: ArcAvatar = await fixture(html`<arc-avatar style='--custom-color:red'></arc-avatar>`);
-      expect(getPropertyValue(element, '--custom-color')).to.equal('red');
+      const element: ArcAvatar = await fixture(html`<arc-avatar style="--size:5px"></arc-avatar>`);
+      expect(getPropertyValue(element, '--size')).to.equal('5px');
     });
   });
 });

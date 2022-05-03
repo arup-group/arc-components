@@ -69,7 +69,7 @@ export default class ArcAvatar extends LitElement {
   ];
 
   /** @internal - State that keeps track whether the given image failed to load. */
-  @state() private hasError: boolean = false;
+  @state() private _hasError: boolean = false;
 
   /** The image source to use for the avatar. */
   @property({ type: String }) image: string;
@@ -86,7 +86,7 @@ export default class ArcAvatar extends LitElement {
 
   @watch('image')
   handleImageChange() {
-    this.hasError = false;
+    this._hasError = false;
   }
 
   render() {
@@ -95,10 +95,10 @@ export default class ArcAvatar extends LitElement {
         id="main"
         role="img"
         aria-label=${this.label}
-        class=${classMap({ 'has-image': this.image && !this.hasError })}
+        class=${classMap({ 'has-image': this.image && !this._hasError })}
       >
-        ${this.image && !this.hasError
-          ? html` <img id="avatar" src=${this.image} alt="Avatar" @error=${() => (this.hasError = true)} /> `
+        ${this.image && !this._hasError
+          ? html` <img id="avatar" src=${this.image} alt="Avatar" @error=${() => (this._hasError = true)} /> `
           : html`
               ${this.name
                 ? html` <div id="initials">${this.name}</div> `

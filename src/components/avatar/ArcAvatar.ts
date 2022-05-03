@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
 import componentStyles from '../../styles/component.styles.js';
 import { stringToInitials } from '../../internal/string.js';
@@ -17,6 +18,7 @@ export default class ArcAvatar extends LitElement {
     css`
       :host {
         display: inline-block;
+        border-radius: 50%;
         --size: 3rem;
       }
 
@@ -27,16 +29,16 @@ export default class ArcAvatar extends LitElement {
         position: relative;
         width: var(--size);
         height: var(--size);
-        background-color: rgb(var(--arc-grey-030));
         color: rgb(var(--arc-grey-000));
         user-select: none;
         vertical-align: middle;
       }
 
+      #main:not(.has-image) {
+        background-color: rgb(var(--arc-grey-050));
+      }
+
       #avatar {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -45,15 +47,12 @@ export default class ArcAvatar extends LitElement {
 
       #main,
       #avatar {
-        border-radius: 50%;
+        border-radius: inherit;
       }
 
       #initials {
         font-size: calc(var(--size) * 0.4);
         line-height: 1;
-        text-transform: uppercase;
-        overflow: hidden;
-        white-space: nowrap;
       }
 
       #icon {
@@ -92,7 +91,12 @@ export default class ArcAvatar extends LitElement {
 
   render() {
     return html`
-      <div id="main" role="img" aria-label=${this.label}>
+      <div
+        id="main"
+        role="img"
+        aria-label=${this.label}
+        class=${classMap({ 'has-image': this.image && !this.hasError })}
+      >
         ${this.image && !this.hasError
           ? html` <img id="avatar" src=${this.image} alt="Avatar" @error=${() => (this.hasError = true)} /> `
           : html`
@@ -101,7 +105,7 @@ export default class ArcAvatar extends LitElement {
                 : html`
                     <div id="icon">
                       <slot name="icon">
-                        <arc-icon name="user"></arc-icon>
+                        <arc-icon name="user" size="large"></arc-icon>
                       </slot>
                     </div>
                   `}

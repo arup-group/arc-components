@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import type ArcAvatar from './ArcAvatar.js';
-import './arc-avatar';
+import './arc-avatar.js';
 
 export default {
   title: 'Components/ArcAvatar',

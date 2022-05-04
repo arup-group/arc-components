@@ -1,4 +1,4 @@
-import { css, html, LitElement, nothing } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import * as Msal from '@azure/msal-browser';
 import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
@@ -10,10 +10,11 @@ import { isExpired } from '../../internal/auth.js';
 import { mobileBreakpoint } from '../../internal/preferences.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
-import '../dropdown/arc-dropdown.js';
+import { DROPDOWN_PLACEMENTS } from '../dropdown/constants/DropdownConstants.js';
 import '../button/arc-button.js';
 import '../icon-button/arc-icon-button.js';
+import '../avatar/arc-avatar.js';
+import '../dropdown/arc-dropdown.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
@@ -29,25 +30,27 @@ export default class ArcSSO extends LitElement {
   static styles = [
     componentStyles,
     css`
-      :host {
-        display: inline-flex;
-      }
-
+      :host,
       #main {
         display: inline-flex;
       }
 
-      #userMenu .fullscreen {
+      #desktopTrigger {
         display: none;
+      }
+
+      arc-avatar {
+        --size: 1.5rem;
+        cursor: pointer;
       }
 
       /* Medium devices and up. */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #userMenu .mobile {
+        #mobileTrigger {
           display: none;
         }
 
-        #userMenu .fullscreen {
+        #desktopTrigger {
           display: initial;
           border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
           border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
@@ -170,44 +173,33 @@ export default class ArcSSO extends LitElement {
   /* c8 ignore next 43 */
   render() {
     const account = this.getAccount();
-    const interior = html`
-      ${account && account.name
-        ? html`
-            <arc-icon-button
-              class="mobile"
-              slot="trigger"
-              name=${ICON_TYPES.user}
-              label=${account.name}
-            ></arc-icon-button>
-            <arc-button class="fullscreen" slot="trigger" type="tab">
-              ${account.name}
-              <arc-icon slot="suffix" name=${ICON_TYPES.user}></arc-icon>
-            </arc-button>
-          `
-        : html`<arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button>`}
-    `;
 
     return html`
       <div id="main">
         ${this._isAuth
           ? html`
               <slot name="logout">
-                <arc-dropdown id="userMenu" hoist>
-                  ${interior}
+                <arc-dropdown id="userMenu" placement=${DROPDOWN_PLACEMENTS['bottom-end']} hoist>
+                  ${account && account.name
+                    ? html`
+                        <arc-button id="desktopTrigger" slot="trigger" type="tab">
+                          ${account.name}
+                          <arc-avatar slot="suffix"></arc-avatar>
+                        </arc-button>
+                        <arc-avatar id="mobileTrigger" slot="trigger" label="Avatar of ${account.name}"></arc-avatar>
+                      `
+                    : html` <arc-avatar id="mobileTrigger" slot="trigger" label="User avatar"></arc-avatar> `}
                   <arc-menu>
                     <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
                   </arc-menu>
                 </arc-dropdown>
               </slot>
             `
-          : nothing}
-        ${!this._isAuth
-          ? html`
+          : html`
               <slot name="login">
                 <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
               </slot>
-            `
-          : nothing}
+            `}
       </div>
     `;
   }

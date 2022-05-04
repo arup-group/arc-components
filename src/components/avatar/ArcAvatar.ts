@@ -109,7 +109,7 @@ export default class ArcAvatar extends LitElement {
                 : html`
                     <div id="icon">
                       <slot name="icon">
-                        <arc-icon name="user" size="large"></arc-icon>
+                        <arc-icon name="user"></arc-icon>
                       </slot>
                     </div>
                   `}

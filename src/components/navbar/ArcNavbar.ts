@@ -38,7 +38,6 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Layout */
-
       #main,
       #left,
       #logoWrapper,
@@ -58,7 +57,6 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Left side */
-
       #left {
         justify-content: flex-start;
       }
@@ -76,7 +74,6 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Show the tool-name when there is no tool-logo */
-
       #tool-name {
         display: flex;
         overflow: hidden;
@@ -89,13 +86,11 @@ export default class ArcNavbar extends LitElement {
       }
 
       /* Hide the tool-name when there is a tool-logo */
-
       #tool-logo + #tool-name {
         display: none;
       }
 
       /* Right side */
-
       #right {
         justify-content: flex-end;
         gap: var(--arc-spacing-medium);
@@ -110,7 +105,8 @@ export default class ArcNavbar extends LitElement {
         border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
 
-      ::slotted(arc-icon-button) {
+      ::slotted(arc-icon-button),
+      #accessibility {
         margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
       }
 

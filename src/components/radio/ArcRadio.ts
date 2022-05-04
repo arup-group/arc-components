@@ -96,12 +96,12 @@ export default class ArcRadio extends LitElement {
       /* Hover & Focus */
       :host(:not([disabled])) input:hover + #control,
       :host(:not([disabled])) input:focus-visible + #control {
-        background: rgba(var(--arc-font-color), 10%);
+        background-color: rgba(var(--arc-font-color), 10%);
       }
 
       /* Mouse down */
       :host(:not([disabled])) input:active + #control {
-        background: rgba(var(--arc-font-color), 30%);
+        background-color: rgba(var(--arc-font-color), 30%);
       }
 
       /* Disabled */

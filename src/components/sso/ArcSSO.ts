@@ -46,14 +46,17 @@ export default class ArcSSO extends LitElement {
 
       /* Medium devices and up. */
       @media (min-width: ${mobileBreakpoint}rem) {
+        #main {
+          border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+          border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+        }
+
         #mobileTrigger {
           display: none;
         }
 
         #desktopTrigger {
           display: initial;
-          border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-          border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
         }
       }
     `,
@@ -158,11 +161,9 @@ export default class ArcSSO extends LitElement {
     this._isAuth = this._isAuthenticated();
   }
 
-  /* c8 ignore next 5 */
-  async signOut() {
-    await this._msalInstance.logoutRedirect({
-      account: this.getAccount(),
-    });
+  /* c8 ignore next 4 */
+  signOut() {
+    this._msalInstance.logoutRedirect();
   }
 
   /* Retrieve the signed in account */
@@ -186,7 +187,12 @@ export default class ArcSSO extends LitElement {
                           ${account.name}
                           <arc-avatar slot="suffix"></arc-avatar>
                         </arc-button>
-                        <arc-avatar id="mobileTrigger" slot="trigger" label="Avatar of ${account.name}"></arc-avatar>
+                        <arc-avatar
+                          id="mobileTrigger"
+                          slot="trigger"
+                          name=${account.name}
+                          label="Avatar of ${account.name}"
+                        ></arc-avatar>
                       `
                     : html` <arc-avatar id="mobileTrigger" slot="trigger" label="User avatar"></arc-avatar> `}
                   <arc-menu>

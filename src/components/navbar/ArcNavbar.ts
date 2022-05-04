@@ -45,7 +45,6 @@ export default class ArcNavbar extends LitElement {
       #tabs {
         display: grid;
         grid-auto-flow: column;
-        overflow: hidden;
       }
 
       #main {

@@ -46,7 +46,7 @@ export default class ArcContainer extends LitElement {
 
       #content {
         flex: 1 1 100%;
-        overflow: auto;
+        overflow: hidden;
         background: rgb(var(--arc-container-color));
       }
 

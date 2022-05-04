@@ -81,7 +81,7 @@ export default class ArcSidebar extends LitElement {
       ::slotted(*),
       #header,
       #toggleOpen {
-        background: rgb(var(--arc-container-color));
+        background-color: rgb(var(--arc-container-color));
       }
     `,
   ];

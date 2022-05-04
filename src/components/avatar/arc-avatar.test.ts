@@ -28,7 +28,7 @@ describe('ArcAvatar', () => {
 
       expect(defaultIcon).to.exist;
       expect(defaultIcon.name).to.equal('user');
-      expect(defaultIcon.size).to.equal('large');
+      expect(defaultIcon.size).to.equal('medium');
     });
 
     it('renders an avatar with a proper image attribute', async () => {

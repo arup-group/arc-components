@@ -57,6 +57,7 @@ export default class ArcSSO extends LitElement {
 
         #desktopTrigger {
           display: initial;
+          --btn-color: rgb(var(--arc-font-color));
         }
       }
     `,
@@ -123,7 +124,7 @@ export default class ArcSSO extends LitElement {
     }
 
     /* Update the _isAuth state */
-    this._isAuth = this._isAuthenticated();
+    this._isAuth = this.isAuthenticated();
   }
 
   /* Initialize the MSAL authentication context */
@@ -140,25 +141,14 @@ export default class ArcSSO extends LitElement {
       },
     };
 
+    /* c8 ignore next 3 */
     return new Msal.PublicClientApplication(msalConfig);
   }
 
-  /* Check whether the user is authenticated */
-  /* c8 ignore next 8 */
-  private _isAuthenticated() {
-    if (!this.getAccount()) {
-      return false;
-    }
-
-    return !isExpired(this.getAccount());
-  }
-
-  /* c8 ignore next 7 */
+  /* c8 ignore next 5 */
   async signIn() {
     await this._msalInstance.loginPopup(this.loginRequest);
-
-    /* Set the _isAuth state to re-render the component */
-    this._isAuth = this._isAuthenticated();
+    this._isAuth = this.isAuthenticated();
   }
 
   /* c8 ignore next 4 */
@@ -166,46 +156,35 @@ export default class ArcSSO extends LitElement {
     this._msalInstance.logoutRedirect();
   }
 
-  /* Retrieve the signed in account */
+  /* c8 ignore next 4 */
+  isAuthenticated() {
+    return !!this.getAccount() && !isExpired(this.getAccount());
+  }
+
   getAccount() {
     return this._msalInstance.getAllAccounts()[0] as AccountInfo;
   }
 
-  /* c8 ignore next 43 */
   render() {
-    const account = this.getAccount();
+    const { name } = this.getAccount() || {};
 
     return html`
       <div id="main">
-        ${this._isAuth
-          ? html`
-              <slot name="logout">
-                <arc-dropdown id="userMenu" placement=${DROPDOWN_PLACEMENTS['bottom-end']} hoist>
-                  ${account && account.name
-                    ? html`
-                        <arc-button id="desktopTrigger" slot="trigger" type="tab">
-                          ${account.name}
-                          <arc-avatar slot="suffix"></arc-avatar>
-                        </arc-button>
-                        <arc-avatar
-                          id="mobileTrigger"
-                          slot="trigger"
-                          name=${account.name}
-                          label="Avatar of ${account.name}"
-                        ></arc-avatar>
-                      `
-                    : html` <arc-avatar id="mobileTrigger" slot="trigger" label="User avatar"></arc-avatar> `}
-                  <arc-menu>
-                    <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
-                  </arc-menu>
-                </arc-dropdown>
-              </slot>
-            `
-          : html`
-              <slot name="login">
-                <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
-              </slot>
-            `}
+        <slot name="login" ?hidden=${this._isAuth}>
+          <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
+        </slot>
+        <slot name="logout" ?hidden=${!this._isAuth}>
+          <arc-dropdown id="userMenu" placement=${DROPDOWN_PLACEMENTS['bottom-end']} hoist>
+            <arc-button id="desktopTrigger" slot="trigger" type="tab">
+              ${name}
+              <arc-avatar slot="suffix" name=${name} label="User avatar"></arc-avatar>
+            </arc-button>
+            <arc-avatar id="mobileTrigger" slot="trigger" name=${name} label="User avatar"></arc-avatar>
+            <arc-menu>
+              <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
+            </arc-menu>
+          </arc-dropdown>
+        </slot>
       </div>
     `;
   }

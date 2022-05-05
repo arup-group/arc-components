@@ -152,12 +152,12 @@ export default class ArcSSO extends LitElement {
     const account = this.getAccount();
 
     const accessTokenRequest = {
-      account: account,
+      account,
       scopes: this.loginRequest.scopes,
     };
 
     /* c8 ignore next 5 */
-    return !!account
+    return account
       ? this._msalInstance.acquireTokenSilent(accessTokenRequest).then(resp => resp.accessToken)
       : undefined;
   }
@@ -185,9 +185,9 @@ export default class ArcSSO extends LitElement {
   async getAvatar() {
     const token = await this._getAccessToken();
 
-    /* c8 ignore next 10 */
-    return !!token
-      ? await fetch('https://graph.microsoft.com/v1.0/me/photos/48x48/$value', {
+    /* c8 ignore next 9 */
+    return token
+      ? fetch('https://graph.microsoft.com/v1.0/me/photos/48x48/$value', {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'image/jpg',

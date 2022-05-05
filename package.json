@@ -24,6 +24,7 @@
     "url": "https://github.com/arup-group/arc-components"
   },
   "scripts": {
+    "prepare": "husky install",
     "start": "tsc && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
@@ -87,19 +88,5 @@
     "stylelint-config-standard": "^25.0.0",
     "tslib": "^2.3.1",
     "typescript": "^4.5.2"
-  },
-  "lint-staged": {
-    "*.ts": [
-      "yarn run prettier:check",
-    ],
-    "*.css": [
-      "stylelint --fix"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn run format"
-    }
   }
 }

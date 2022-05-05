@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+eslint eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier "**/*.ts" --write --ignore-path .gitignore && stylelint "**/*.css" --fix --ignore-path .gitignore

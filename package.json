@@ -90,11 +90,17 @@
   },
   "lint-staged": {
     "*.ts": [
-      "eslint --fix",
-      "prettier --write"
+      "yarn run format",
+      "yarn run lint"
     ],
     "*.css": [
       "stylelint --fix"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn run format"
+    }
   }
 }

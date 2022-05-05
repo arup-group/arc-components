@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-eslint --ext .ts,.html . --ignore-path .gitignore && prettier "**/*.ts" --check --ignore-path .gitignore && stylelint "**/*.css" --ignore-path .gitignore && yarn run test
+yarn run format && yarn run test

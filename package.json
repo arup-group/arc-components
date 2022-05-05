@@ -90,8 +90,7 @@
   },
   "lint-staged": {
     "*.ts": [
-      "yarn run format",
-      "yarn run lint"
+      "yarn run prettier:check",
     ],
     "*.css": [
       "stylelint --fix"

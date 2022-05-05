@@ -22,10 +22,14 @@ const Template: Story<ArcSSO> = ({ clientId, tenantId, redirectUri }) => html`
     client-id=${ifDefined(clientId || undefined)}
     tenant-id=${ifDefined(tenantId || undefined)}
     redirect-uri=${ifDefined(redirectUri || undefined)}
+  ></arc-sso>
+
+  <p>The default logoutRedirect method does not work within an iframe.</p>
+  <p>To work around this behaviour, use the 'hacky logout button' to sign out instead.</p>
+
+  <arc-button style="justify-self: flex-start" onClick="localStorage.clear(); location.reload();"
+    >Hacky logout button</arc-button
   >
-    <arc-button slot="login" type="tab" onClick="this.parentElement.signIn()">SignIn</arc-button>
-    <arc-button slot="logout" type="tab" onClick="localStorage.clear(); location.reload();">SignOut</arc-button>
-  </arc-sso>
 `;
 
 export const Default = Template.bind({});

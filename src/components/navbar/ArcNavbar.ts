@@ -131,6 +131,11 @@ export default class ArcNavbar extends LitElement {
         #accessibility {
           display: flex;
         }
+
+        ::slotted(arc-sso) {
+          border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+          border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+        }
       }
     `,
   ];

@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { until } from 'lit/directives/until.js';
 import * as Msal from '@azure/msal-browser';
 import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
 import { Configuration } from '@azure/msal-browser/dist/config/Configuration';
@@ -12,7 +13,6 @@ import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { DROPDOWN_PLACEMENTS } from '../dropdown/constants/DropdownConstants.js';
 import '../button/arc-button.js';
-import '../icon-button/arc-icon-button.js';
 import '../avatar/arc-avatar.js';
 import '../dropdown/arc-dropdown.js';
 import '../menu/arc-menu.js';
@@ -46,11 +46,6 @@ export default class ArcSSO extends LitElement {
 
       /* Medium devices and up. */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #main {
-          border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-          border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-        }
-
         #mobileTrigger {
           display: none;
         }
@@ -86,6 +81,9 @@ export default class ArcSSO extends LitElement {
   /** @internal - State that keeps track of the auth status of the user. */
   @state() private _isAuth: boolean = false;
 
+  /** @internal - State that keeps track of the user avatar. */
+  @state() private _avatar: string;
+
   /** The id of the application. This value can be found on the Azure AD portal. */
   @property({ type: String, attribute: 'client-id' }) clientId: string;
 
@@ -110,6 +108,11 @@ export default class ArcSSO extends LitElement {
         account: this.getAccount(),
       },
     });
+
+    /* c8 ignore next 3 */
+    if (this._isAuth) {
+      this._avatar = await this.getAvatar();
+    }
   }
 
   connectedCallback() {
@@ -145,6 +148,20 @@ export default class ArcSSO extends LitElement {
     return new Msal.PublicClientApplication(msalConfig);
   }
 
+  private _getAccessToken() {
+    const account = this.getAccount();
+
+    const accessTokenRequest = {
+      account: account,
+      scopes: this.loginRequest.scopes,
+    };
+
+    /* c8 ignore next 5 */
+    return !!account
+      ? this._msalInstance.acquireTokenSilent(accessTokenRequest).then(resp => resp.accessToken)
+      : undefined;
+  }
+
   /* c8 ignore next 5 */
   async signIn() {
     await this._msalInstance.loginPopup(this.loginRequest);
@@ -165,6 +182,22 @@ export default class ArcSSO extends LitElement {
     return this._msalInstance.getAllAccounts()[0] as AccountInfo;
   }
 
+  async getAvatar() {
+    const token = await this._getAccessToken();
+
+    /* c8 ignore next 10 */
+    return !!token
+      ? await fetch('https://graph.microsoft.com/v1.0/me/photos/48x48/$value', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'image/jpg',
+          },
+        })
+          .then(resp => resp.blob())
+          .then(resp => URL.createObjectURL(resp))
+      : '';
+  }
+
   render() {
     const { name } = this.getAccount() || {};
 
@@ -177,9 +210,15 @@ export default class ArcSSO extends LitElement {
           <arc-dropdown id="userMenu" placement=${DROPDOWN_PLACEMENTS['bottom-end']} hoist>
             <arc-button id="desktopTrigger" slot="trigger" type="tab">
               ${name}
-              <arc-avatar slot="suffix" name=${name} label="User avatar"></arc-avatar>
+              <arc-avatar slot="suffix" name=${name} image=${until(this._avatar, '')} label="User avatar"></arc-avatar>
             </arc-button>
-            <arc-avatar id="mobileTrigger" slot="trigger" name=${name} label="User avatar"></arc-avatar>
+            <arc-avatar
+              id="mobileTrigger"
+              slot="trigger"
+              image=${until(this._avatar, '')}
+              name=${name}
+              label="User avatar"
+            ></arc-avatar>
             <arc-menu>
               <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
             </arc-menu>

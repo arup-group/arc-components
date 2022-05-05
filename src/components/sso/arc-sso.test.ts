@@ -88,6 +88,11 @@ describe('ArcSSO', () => {
     it('should retrieve an undefined account', () => {
       expect(element.getAccount()).to.be.undefined;
     });
+
+    it('should retrieve an empty avatar string', async () => {
+      const avatar = await element.getAvatar();
+      expect(avatar).to.equal('');
+    });
   });
 
   /* Test whether the slots can be filled and that they exist */

@@ -7,15 +7,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { FormController } from '../../internal/form-control.js';
 import componentStyles from '../../styles/component.styles.js';
-import {
-  BUTTON_COLORS,
-  BUTTON_SIZES,
-  BUTTON_TYPES,
-  ButtonType,
-  ButtonColor,
-  ButtonSize,
-  ButtonTarget,
-} from './constants/ButtonConstants.js';
+import { THEME_COLORS, ThemeColor } from '../../internal/constants/styleConstants.js';
+import { BUTTON_SIZES, BUTTON_TYPES, ButtonType, ButtonSize, ButtonTarget } from './constants/ButtonConstants.js';
 import '../spinner/arc-spinner.js';
 
 /**
@@ -176,7 +169,7 @@ export default class ArcButton extends LitElement {
   @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.pill;
 
   /** Set the color of the button. */
-  @property({ type: String, reflect: true }) color: ButtonColor = BUTTON_COLORS.default;
+  @property({ type: String, reflect: true }) color: ThemeColor = THEME_COLORS.default;
 
   /** Set the size of the button. */
   @property({ type: String, reflect: true }) size: ButtonSize = BUTTON_SIZES.medium;
@@ -245,22 +238,22 @@ export default class ArcButton extends LitElement {
     const getColor = () => {
       switch (this.type) {
         case BUTTON_TYPES.outlined: {
-          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-input-color))' : 'var(--btn-background)';
+          return this.color === THEME_COLORS.default ? 'rgb(var(--arc-input-color))' : 'var(--btn-background)';
         }
         case BUTTON_TYPES.pill: {
-          if (this.color === BUTTON_COLORS.default) {
+          if (this.color === THEME_COLORS.default) {
             return 'rgb(var(--arc-input-color))';
           }
-          if (this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary) {
+          if (this.color === THEME_COLORS.primary || this.color === THEME_COLORS.secondary) {
             return 'rgb(var(--arc-container-color))';
           }
           return 'var(--btn-background)';
         }
         case BUTTON_TYPES.tab: {
-          return this.color === BUTTON_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
+          return this.color === THEME_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
         }
         default: {
-          return this.color === BUTTON_COLORS.primary || this.color === BUTTON_COLORS.secondary
+          return this.color === THEME_COLORS.primary || this.color === THEME_COLORS.secondary
             ? 'rgb(var(--arc-container-color))'
             : 'rgb(var(--arc-input-color))';
         }
@@ -273,7 +266,7 @@ export default class ArcButton extends LitElement {
       '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
       '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
       '--focus-color':
-        this.color === BUTTON_COLORS.default
+        this.color === THEME_COLORS.default
           ? 'rgba(var(--arc-input-color), 0.4)'
           : `rgba(var(--arc-color-${this.color}), 0.4)`,
     };

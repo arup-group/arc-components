@@ -1,9 +1,18 @@
 import { expect } from '@open-wc/testing';
-
-import { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SIZES } from './ButtonConstants.js';
+import { BUTTON_SIZES, BUTTON_TYPES } from './ButtonConstants.js';
 
 describe('ButtonConstants', () => {
-  describe('types', () => {
+  it('should contain the correct button sizes', () => {
+    expect(BUTTON_SIZES).to.exist;
+    const keys = Object.keys(BUTTON_SIZES);
+
+    expect(keys.length).to.equal(3);
+    expect(keys).to.contain('small');
+    expect(keys).to.contain('medium');
+    expect(keys).to.contain('large');
+  });
+
+  it('should contain the correct button types', () => {
     expect(BUTTON_TYPES).to.exist;
     const keys = Object.keys(BUTTON_TYPES);
 
@@ -13,27 +22,5 @@ describe('ButtonConstants', () => {
     expect(keys).to.contain('outlined');
     expect(keys).to.contain('pill');
     expect(keys).to.contain('tab');
-  });
-  describe('colors', () => {
-    expect(BUTTON_COLORS).to.exist;
-    const keys = Object.keys(BUTTON_COLORS);
-
-    expect(keys.length).to.equal(7);
-    expect(keys).to.contain('default');
-    expect(keys).to.contain('primary');
-    expect(keys).to.contain('secondary');
-    expect(keys).to.contain('error');
-    expect(keys).to.contain('warning');
-    expect(keys).to.contain('info');
-    expect(keys).to.contain('success');
-  });
-  describe('sizes', () => {
-    expect(BUTTON_SIZES).to.exist;
-    const keys = Object.keys(BUTTON_SIZES);
-
-    expect(keys.length).to.equal(3);
-    expect(keys).to.contain('small');
-    expect(keys).to.contain('medium');
-    expect(keys).to.contain('large');
   });
 });

@@ -11,6 +11,8 @@ export declare type FontSize =
 
 export declare type FontSpacing = 'dense' | 'normal' | 'loose';
 
+export declare type ThemeColor = 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
+
 export const FONT_SIZES: { [key in FontSize]: FontSize } = {
   'xx-small': 'xx-small',
   'x-small': 'x-small',
@@ -27,4 +29,14 @@ export const FONT_SPACING: { [key in FontSpacing]: FontSpacing } = {
   dense: 'dense',
   normal: 'normal',
   loose: 'loose',
+};
+
+export const THEME_COLORS: { [key in ThemeColor]: ThemeColor } = {
+  default: 'default',
+  primary: 'primary',
+  secondary: 'secondary',
+  error: 'error',
+  warning: 'warning',
+  info: 'info',
+  success: 'success',
 };

@@ -165,14 +165,14 @@ export default class ArcButton extends LitElement {
   /** @internal - Controller used to recognize form controls located inside a shadow root. */
   private readonly formController = new FormController(this);
 
-  /** Set the type of the button. */
-  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.pill;
-
   /** Set the color of the button. */
   @property({ type: String, reflect: true }) color: ThemeColor = THEME_COLORS.default;
 
   /** Set the size of the button. */
   @property({ type: String, reflect: true }) size: ButtonSize = BUTTON_SIZES.medium;
+
+  /** Set the type of the button. */
+  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.pill;
 
   /** An optional name for the button. Ignored when `href` is set. */
   @property({ type: String }) name: string;

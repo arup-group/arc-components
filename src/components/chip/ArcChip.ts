@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import componentStyles from '../../styles/component.styles.js';
 import { THEME_COLORS, ThemeColor } from '../../internal/constants/styleConstants.js';
-import { CHIP_SIZES, ChipSize } from './constants/ChipConstants.js';
+import { CHIP_SIZES, CHIP_TYPES, ChipSize, ChipType } from './constants/ChipConstants.js';
 
 /**
  * @slot default - A description of the default slot.
@@ -19,13 +19,20 @@ export default class ArcChip extends LitElement {
     componentStyles,
     css`
       :host {
-        --custom-color: rgb(var(--arc-red-050));
+        display: inline-flex;
       }
       #main {
-        color: var(--custom-color);
-      }
-      #main.active {
-        color: rgb(var(--arc-green-050));
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--arc-font-size-x-small);
+        line-height: 1;
+        border-radius: var(--arc-border-radius-large);
+        border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+        white-space: nowrap;
+        padding: 3px 6px;
+        user-select: none;
+        cursor: inherit;
       }
     `,
   ];
@@ -34,8 +41,9 @@ export default class ArcChip extends LitElement {
 
   @property({ type: String, reflect: true }) size: ChipSize = CHIP_SIZES.medium;
 
-  /** A description of the property. */
-  @property({ type: Boolean, reflect: true }) pulse: boolean = false;
+  @property({ type: String, reflect: true }) type: ChipType = CHIP_TYPES.filled;
+
+  @property({ type: Boolean, reflect: true }) clearable: boolean = false;
 
   render() {
     return html`

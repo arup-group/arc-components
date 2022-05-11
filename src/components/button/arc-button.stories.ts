@@ -1,7 +1,8 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
+import { THEME_COLORS } from '../../internal/constants/styleConstants.js';
+import { BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
 
@@ -9,25 +10,25 @@ export default {
   title: 'Components/ArcButton',
   component: 'arc-button',
   argTypes: {
-    type: {
-      control: 'select',
-      options: Object.values(BUTTON_TYPES),
-    },
     color: {
       control: 'select',
-      options: Object.values(BUTTON_COLORS),
+      options: Object.values(THEME_COLORS),
     },
     size: {
       control: 'select',
       options: Object.values(BUTTON_SIZES),
     },
+    type: {
+      control: 'select',
+      options: Object.values(BUTTON_TYPES),
+    },
   },
 } as Meta;
 
 const Template: Story<ArcButton> = ({
-  type,
   color,
   size,
+  type,
   name,
   value,
   href,
@@ -72,25 +73,25 @@ const defaultArgs = {
 
 /* COLORS */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs, color: BUTTON_COLORS.default };
+Default.args = { ...defaultArgs, color: THEME_COLORS.default };
 
 export const Primary = Template.bind({});
-Primary.args = { ...defaultArgs, color: BUTTON_COLORS.primary };
+Primary.args = { ...defaultArgs, color: THEME_COLORS.primary };
 
 export const PrimaryTwo = Template.bind({});
-PrimaryTwo.args = { ...defaultArgs, color: BUTTON_COLORS.secondary };
+PrimaryTwo.args = { ...defaultArgs, color: THEME_COLORS.secondary };
 
 export const Error = Template.bind({});
-Error.args = { ...defaultArgs, color: BUTTON_COLORS.error };
+Error.args = { ...defaultArgs, color: THEME_COLORS.error };
 
 export const Warning = Template.bind({});
-Warning.args = { ...defaultArgs, color: BUTTON_COLORS.warning };
+Warning.args = { ...defaultArgs, color: THEME_COLORS.warning };
 
 export const Info = Template.bind({});
-Info.args = { ...defaultArgs, color: BUTTON_COLORS.info };
+Info.args = { ...defaultArgs, color: THEME_COLORS.info };
 
 export const Success = Template.bind({});
-Success.args = { ...defaultArgs, color: BUTTON_COLORS.success };
+Success.args = { ...defaultArgs, color: THEME_COLORS.success };
 
 /* TYPES */
 export const Pill = Template.bind({});

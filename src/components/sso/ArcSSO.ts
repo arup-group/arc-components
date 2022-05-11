@@ -171,15 +171,12 @@ export default class ArcSSO extends LitElement {
       }
     });
 
-    this._msalInstance
-      .handleRedirectPromise()
-      .then(() => {
-        /* Check if user signed in */
-        if (!this.getAccount()) {
-          this._msalInstance.loginPopup(this.loginRequest);
-        }
-      })
-      .catch(err => console.log(err));
+    this._msalInstance.handleRedirectPromise().then(() => {
+      /* Check if user signed in */
+      if (!this.getAccount()) {
+        this._msalInstance.loginPopup(this.loginRequest);
+      }
+    });
   }
 
   /* c8 ignore next 4 */

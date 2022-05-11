@@ -24,22 +24,24 @@
 
   <style>
     #section {
+      height: 100%;
+      overflow: auto;
       display: flex;
       flex-wrap: wrap;
       gap: var(--arc-spacing-medium);
       padding: var(--arc-spacing-medium);
-    }
-
-    #arcForm {
-      display: grid;
-      gap: var(--arc-spacing-medium);
     }
   </style>
 </head>
 
 <body>
 <arc-container>
-  <arc-navbar slot="nav" logo="/assets/arc-red.svg" tabs="0"></arc-navbar>
+  <arc-navbar slot="nav" logo="/assets/arc-red.svg">
+    <span slot="name">Web Components</span>
+    <arc-icon-button label="Home" name="home"></arc-icon-button>
+    <arc-icon-button label="Settings" name="settings"></arc-icon-button>
+    <arc-sso slot="user" client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea" redirect-uri="http://localhost:8001/"></arc-sso>
+  </arc-navbar>
   <arc-sidebar slot="side" label="Test sidebar">
     <div slot="label">Make a selection...</div>
     <arc-menu>
@@ -49,7 +51,9 @@
     </arc-menu>
   </arc-sidebar>
   <section id="section" aria-label="Test section">
-    Some content
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis eligendi, error harum illum maxime obcaecati
+      praesentium repudiandae vitae voluptatibus. A autem beatae magnam nisi perferendis quaerat quia quos recusandae
+      sint.</p>
   </section>
 </arc-container>
 

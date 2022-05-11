@@ -160,6 +160,9 @@
   --arc-input-height-medium: 2rem;
   --arc-input-height-large: 3.125rem;
 
+  /* Toggles (checkbox, radio, switch) */
+  --arc-toggle-size: 1rem;
+
   /* Padding / Margin */
   --arc-spacing-x-small: 0.5rem;
   --arc-spacing-small: 0.75rem;
@@ -175,6 +178,9 @@
   --arc-border-radius-medium: 0.25rem;
   --arc-border-radius-large: 0.5rem;
   --arc-border-radius-x-large: 1rem;
+
+  /* Scrollbar */
+  --arc-scroll-width: 21px;
 
   /* Z-indexes */
   --arc-z-index-dropdown: 900;
@@ -202,7 +208,37 @@ body {
   box-sizing: border-box;
 }
 
-/* Classname used to fix flash-of-unstyled-content (FOUC) */
+/* Lock the body and the content within the arc-container from scrolling while an overlay is active. */
+.arc-scroll-lock,
+.arc-scroll-lock arc-container > *:not([slot="nav"]):not([slot="side"]):not([slot="bottom"]) {
+  overflow: hidden !important;
+}
+
+/* Overwrite the default scrollbar */
+::-webkit-scrollbar {
+  width: var(--arc-scroll-width);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--arc-background-color);
+  border-radius: var(--arc-scroll-width);
+  overflow: auto;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--arc-grey-060), 1);
+  border-radius: var(--arc-scroll-width);
+  overflow: auto;
+  border: 0.5rem var(--arc-border-style) transparent;
+  background-clip: padding-box;
+  min-height: 5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(var(--arc-grey-070), 1);
+}
+
+/* Classname used to fix FOUC */
 .no-fouc {
   display: none;
 }

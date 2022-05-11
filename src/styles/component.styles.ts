@@ -1,5 +1,4 @@
 import { css } from 'lit';
-import utilityStyles from './utility.styles.js';
 
 export default css`
   :host {
@@ -17,6 +16,7 @@ export default css`
     display: none !important;
   }
 
+  /* Overwrite the titles */
   h1,
   h2,
   h3,
@@ -24,9 +24,28 @@ export default css`
     font-family: var(--arc-font-headline);
     font-weight: var(--arc-font-weight-normal);
   }
-`;
 
-/* All components import this file, so it's a good place to ensure utility styles are applied to the light DOM. */
-const style = document.createElement('style');
-style.textContent = utilityStyles.toString();
-document.head.append(style);
+  /* Overwrite the default scrollbar */
+  ::-webkit-scrollbar {
+    width: var(--arc-scroll-width);
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--arc-background-color);
+    border-radius: var(--arc-scroll-width);
+    overflow: auto;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--arc-grey-060), 1);
+    border-radius: var(--arc-scroll-width);
+    overflow: auto;
+    border: 0.5rem var(--arc-border-style) transparent;
+    background-clip: padding-box;
+    min-height: 5rem;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(var(--arc-grey-070), 1);
+  }
+`;

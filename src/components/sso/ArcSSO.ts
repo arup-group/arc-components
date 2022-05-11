@@ -1,7 +1,8 @@
-import { css, html, LitElement, nothing } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { until } from 'lit/directives/until.js';
 import * as Msal from '@azure/msal-browser';
-import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
+import { AccountInfo, PublicClientApplication, EventType } from '@azure/msal-browser';
 import { Configuration } from '@azure/msal-browser/dist/config/Configuration';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
@@ -10,10 +11,10 @@ import { isExpired } from '../../internal/auth.js';
 import { mobileBreakpoint } from '../../internal/preferences.js';
 import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
-import '../dropdown/arc-dropdown.js';
+import { DROPDOWN_PLACEMENTS } from '../dropdown/constants/DropdownConstants.js';
 import '../button/arc-button.js';
-import '../icon-button/arc-icon-button.js';
+import '../avatar/arc-avatar.js';
+import '../dropdown/arc-dropdown.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
 
@@ -29,28 +30,29 @@ export default class ArcSSO extends LitElement {
   static styles = [
     componentStyles,
     css`
-      :host {
-        display: inline-flex;
-      }
-
+      :host,
       #main {
         display: inline-flex;
       }
 
-      #userMenu .fullscreen {
+      #desktopTrigger {
         display: none;
+      }
+
+      arc-avatar {
+        --size: 1.5rem;
+        cursor: pointer;
       }
 
       /* Medium devices and up. */
       @media (min-width: ${mobileBreakpoint}rem) {
-        #userMenu .mobile {
+        #mobileTrigger {
           display: none;
         }
 
-        #userMenu .fullscreen {
+        #desktopTrigger {
           display: initial;
-          border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-          border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+          --btn-color: rgb(var(--arc-font-color));
         }
       }
     `,
@@ -79,6 +81,9 @@ export default class ArcSSO extends LitElement {
   /** @internal - State that keeps track of the auth status of the user. */
   @state() private _isAuth: boolean = false;
 
+  /** @internal - State that keeps track of the user avatar. */
+  @state() private _avatar: string;
+
   /** The id of the application. This value can be found on the Azure AD portal. */
   @property({ type: String, attribute: 'client-id' }) clientId: string;
 
@@ -103,6 +108,11 @@ export default class ArcSSO extends LitElement {
         account: this.getAccount(),
       },
     });
+
+    /* c8 ignore next 3 */
+    if (this._isAuth) {
+      this._avatar = await this.getAvatar();
+    }
   }
 
   connectedCallback() {
@@ -117,7 +127,7 @@ export default class ArcSSO extends LitElement {
     }
 
     /* Update the _isAuth state */
-    this._isAuth = this._isAuthenticated();
+    this._isAuth = this.isAuthenticated();
   }
 
   /* Initialize the MSAL authentication context */
@@ -134,80 +144,97 @@ export default class ArcSSO extends LitElement {
       },
     };
 
+    /* c8 ignore next 3 */
     return new Msal.PublicClientApplication(msalConfig);
   }
 
-  /* Check whether the user is authenticated */
-  /* c8 ignore next 8 */
-  private _isAuthenticated() {
-    if (!this.getAccount()) {
-      return false;
-    }
+  private _getAccessToken() {
+    const account = this.getAccount();
 
-    return !isExpired(this.getAccount());
+    const accessTokenRequest = {
+      account,
+      scopes: this.loginRequest.scopes,
+    };
+
+    /* c8 ignore next 5 */
+    return account
+      ? this._msalInstance.acquireTokenSilent(accessTokenRequest).then(resp => resp.accessToken)
+      : undefined;
   }
 
-  /* c8 ignore next 7 */
-  async signIn() {
-    await this._msalInstance.loginPopup(this.loginRequest);
+  /* c8 ignore next 19 */
+  signIn() {
+    this._msalInstance.addEventCallback(event => {
+      if (event.eventType === EventType.LOGIN_SUCCESS && !!event.payload) {
+        this._msalInstance.setActiveAccount(event.payload as AccountInfo);
+        this._isAuth = this.isAuthenticated();
+      }
+    });
 
-    /* Set the _isAuth state to re-render the component */
-    this._isAuth = this._isAuthenticated();
-  }
-
-  /* c8 ignore next 5 */
-  async signOut() {
-    await this._msalInstance.logoutRedirect({
-      account: this.getAccount(),
+    this._msalInstance.handleRedirectPromise().then(() => {
+      /* Check if user signed in */
+      if (!this.getAccount()) {
+        this._msalInstance.loginPopup(this.loginRequest);
+      }
     });
   }
 
-  /* Retrieve the signed in account */
+  /* c8 ignore next 4 */
+  signOut() {
+    this._msalInstance.logoutRedirect();
+  }
+
+  /* c8 ignore next 4 */
+  isAuthenticated() {
+    return !!this.getAccount() && !isExpired(this.getAccount());
+  }
+
   getAccount() {
     return this._msalInstance.getAllAccounts()[0] as AccountInfo;
   }
 
-  /* c8 ignore next 43 */
+  async getAvatar() {
+    const token = await this._getAccessToken();
+
+    /* c8 ignore next 9 */
+    return token
+      ? fetch('https://graph.microsoft.com/v1.0/me/photos/48x48/$value', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'image/jpg',
+          },
+        })
+          .then(resp => resp.blob())
+          .then(resp => URL.createObjectURL(resp))
+      : '';
+  }
+
   render() {
-    const account = this.getAccount();
-    const interior = html`
-      ${account && account.name
-        ? html`
-            <arc-icon-button
-              class="mobile"
-              slot="trigger"
-              name=${ICON_TYPES.user}
-              label=${account.name}
-            ></arc-icon-button>
-            <arc-button class="fullscreen" slot="trigger" type="tab">
-              ${account.name}
-              <arc-icon slot="suffix" name=${ICON_TYPES.user}></arc-icon>
-            </arc-button>
-          `
-        : html`<arc-icon-button slot="trigger" name=${ICON_TYPES.user} label="User"></arc-icon-button>`}
-    `;
+    const { name } = this.getAccount() || {};
 
     return html`
       <div id="main">
-        ${this._isAuth
-          ? html`
-              <slot name="logout">
-                <arc-dropdown id="userMenu" hoist>
-                  ${interior}
-                  <arc-menu>
-                    <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
-                  </arc-menu>
-                </arc-dropdown>
-              </slot>
-            `
-          : nothing}
-        ${!this._isAuth
-          ? html`
-              <slot name="login">
-                <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
-              </slot>
-            `
-          : nothing}
+        <slot name="login" ?hidden=${this._isAuth}>
+          <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
+        </slot>
+        <slot name="logout" ?hidden=${!this._isAuth}>
+          <arc-dropdown id="userMenu" placement=${DROPDOWN_PLACEMENTS['bottom-end']} hoist>
+            <arc-button id="desktopTrigger" slot="trigger" type="tab">
+              ${name}
+              <arc-avatar slot="suffix" name=${name} image=${until(this._avatar, '')} label="User avatar"></arc-avatar>
+            </arc-button>
+            <arc-avatar
+              id="mobileTrigger"
+              slot="trigger"
+              image=${until(this._avatar, '')}
+              name=${name}
+              label="User avatar"
+            ></arc-avatar>
+            <arc-menu>
+              <arc-menu-item @click=${this.signOut}>Logout</arc-menu-item>
+            </arc-menu>
+          </arc-dropdown>
+        </slot>
       </div>
     `;
   }

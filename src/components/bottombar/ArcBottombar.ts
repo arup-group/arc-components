@@ -13,7 +13,7 @@ export default class ArcBottombar extends LitElement {
     css`
       :host {
         height: 4.5rem;
-        background: rgb(var(--arc-background-color));
+        background-color: rgb(var(--arc-background-color));
       }
 
       #main {

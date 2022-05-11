@@ -7,7 +7,7 @@ const replace = fromRollup(rollupReplace);
 
 export default /** @type {import('@web/test-runner').TestRunnerConfig} */ ({
   /** Test files to run */
-  files: 'src/**/.test.ts',
+  files: 'src/**/*.test.ts',
 
   /** Resolve bare module imports */
   nodeResolve: {

@@ -7,8 +7,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { FormController } from '../../internal/form-control.js';
 import componentStyles from '../../styles/component.styles.js';
-import { THEME_COLORS, ThemeColor } from '../../internal/constants/styleConstants.js';
-import { BUTTON_SIZES, BUTTON_TYPES, ButtonType, ButtonSize, ButtonTarget } from './constants/ButtonConstants.js';
+import { INPUT_SIZES, InputSize, THEME_COLORS, ThemeColor } from '../../internal/constants/styleConstants.js';
+import { BUTTON_TYPES, ButtonType, ButtonTarget } from './constants/ButtonConstants.js';
 import '../spinner/arc-spinner.js';
 
 /**
@@ -169,7 +169,7 @@ export default class ArcButton extends LitElement {
   @property({ type: String, reflect: true }) color: ThemeColor = THEME_COLORS.default;
 
   /** Set the size of the button. */
-  @property({ type: String, reflect: true }) size: ButtonSize = BUTTON_SIZES.medium;
+  @property({ type: String, reflect: true }) size: InputSize = INPUT_SIZES.medium;
 
   /** Set the type of the button. */
   @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.pill;

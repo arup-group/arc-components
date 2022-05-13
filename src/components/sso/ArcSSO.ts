@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 import * as Msal from '@azure/msal-browser';
-import { AccountInfo, PublicClientApplication } from '@azure/msal-browser';
+import { AccountInfo, PublicClientApplication, EventType } from '@azure/msal-browser';
 import { Configuration } from '@azure/msal-browser/dist/config/Configuration';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
@@ -162,10 +162,21 @@ export default class ArcSSO extends LitElement {
       : undefined;
   }
 
-  /* c8 ignore next 5 */
-  async signIn() {
-    await this._msalInstance.loginPopup(this.loginRequest);
-    this._isAuth = this.isAuthenticated();
+  /* c8 ignore next 19 */
+  signIn() {
+    this._msalInstance.addEventCallback(event => {
+      if (event.eventType === EventType.LOGIN_SUCCESS && !!event.payload) {
+        this._msalInstance.setActiveAccount(event.payload as AccountInfo);
+        this._isAuth = true;
+      }
+    });
+
+    this._msalInstance.handleRedirectPromise().then(() => {
+      /* Check if user signed in */
+      if (!this.getAccount()) {
+        this._msalInstance.loginPopup(this.loginRequest);
+      }
+    });
   }
 
   /* c8 ignore next 4 */

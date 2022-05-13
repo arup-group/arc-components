@@ -3,7 +3,8 @@ import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
+import { BUTTON_TYPES } from './constants/ButtonConstants.js';
+import { INPUT_SIZES, THEME_COLORS } from '../../internal/constants/styleConstants.js';
 
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
@@ -19,7 +20,7 @@ describe('ArcButton', () => {
     /* Test default properties that reflect to the DOM */
     it('renders the button with default properties in the dom', () => {
       expect(element).dom.to.equal(
-        `<arc-button type='${BUTTON_TYPES.pill}' color='${BUTTON_COLORS.default}' size='${BUTTON_SIZES.medium}'>Test</arc-button>`
+        `<arc-button type='${BUTTON_TYPES.pill}' color='${THEME_COLORS.default}' size='${INPUT_SIZES.medium}'>Test</arc-button>`
       );
     });
 
@@ -40,11 +41,11 @@ describe('ArcButton', () => {
     it('renders the button with a custom color, type and size property', async () => {
       const element: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
 
-      for (const buttonColor of Object.values(BUTTON_COLORS)) {
+      for (const buttonColor of Object.values(THEME_COLORS)) {
         element.color = buttonColor;
         for (const buttonType of Object.values(BUTTON_TYPES)) {
           element.type = buttonType;
-          for (const buttonSize of Object.values(BUTTON_SIZES)) {
+          for (const buttonSize of Object.values(INPUT_SIZES)) {
             element.size = buttonSize;
 
             await elementUpdated(element);

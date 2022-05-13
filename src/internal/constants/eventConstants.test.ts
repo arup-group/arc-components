@@ -7,12 +7,13 @@ describe('EventConstants', () => {
     expect(ARC_EVENTS).to.exist;
     const keys = Object.keys(ARC_EVENTS);
 
-    expect(keys.length).to.equal(13);
+    expect(keys.length).to.be.greaterThan(0);
     expect(keys).to.contain('accessibilityChange');
     expect(keys).to.contain('afterHide');
     expect(keys).to.contain('afterShow');
     expect(keys).to.contain('auth');
     expect(keys).to.contain('change');
+    expect(keys).to.contain('clear');
     expect(keys).to.contain('error');
     expect(keys).to.contain('hide');
     expect(keys).to.contain('initialFocus');

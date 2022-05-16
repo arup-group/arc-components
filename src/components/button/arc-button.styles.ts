@@ -173,6 +173,7 @@ export default css`
 
   #loader {
     position: absolute;
+    --stroke-color: var(--btn-color);
   }
 
   /* Prevent click events from firing when a user clicks on a slot */

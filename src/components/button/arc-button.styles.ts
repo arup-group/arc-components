@@ -1,4 +1,3 @@
-/* stylelint-disable missing-comma */
 import { css } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
 
@@ -10,26 +9,30 @@ export default css`
     width: auto;
     cursor: pointer;
     --min-width: 0;
+    --btn-color: rgb(var(--arc-input-color));
+    --btn-background: initial;
   }
 
-  #main {
+  :host([type='tab']) {
+    height: 100%;
+  }
+
+  .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     min-width: var(--min-width);
+    height: var(--button-size);
     min-height: 100%;
     border: none;
-    border-radius: var(--arc-border-radius-medium);
-    font-family: var(--arc-font-button);
-    font-size: inherit;
-    letter-spacing: inherit;
+    border-radius: var(--button-size);
     font-weight: var(--arc-font-weight-semibold);
     text-decoration: none;
     user-select: none;
     white-space: nowrap;
     vertical-align: middle;
-    padding: 0;
+    padding: 0 var(--button-spacing);
     cursor: inherit;
     color: var(--btn-color);
     background-color: var(--btn-background);
@@ -38,91 +41,133 @@ export default css`
     -webkit-appearance: none;
   }
 
-  /* Tile */
-  :host([type='tile']) #main {
-    border-radius: 0;
+  /* Types */
+  .button--outlined {
+    border: var(--arc-border-style) var(--arc-border-width);
+    background: none;
   }
 
-  /* Tab */
-  :host([type='tab']) {
-    height: 100%;
-  }
-
-  :host([type='tab']) #main {
+  .button--tab {
     background: none;
     border-radius: 0;
   }
-
-  /* Tab - Active */
-  :host([type='tab']:not([disabled])[active]) #main {
+  .button--tab.button--active {
     border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
   }
 
-  /* Pill */
-  :host([type='pill'][size='small']) #main {
-    border-radius: var(--arc-input-height-small);
+  /* Sizes */
+  .button--small {
+    --button-size: var(--arc-input-height-small);
+    --button-spacing: var(--arc-spacing-small);
   }
 
-  :host([type='pill'][size='medium']) #main {
-    border-radius: var(--arc-input-height-medium);
+  .button--medium {
+    --button-size: var(--arc-input-height-medium);
+    --button-spacing: var(--arc-spacing-medium);
   }
 
-  :host([type='pill'][size='large']) #main {
-    border-radius: var(--arc-input-height-large);
+  .button--large {
+    --button-size: var(--arc-input-height-large);
+    --button-spacing: var(--arc-spacing-large);
   }
 
-  /* Outlined & Pill(Not primary/secondary) */
-  :host([type='outlined']) #main,
-  :host([type='pill']:not([color='primary']):not([color='secondary'])) #main {
-    border: var(--arc-border-width) var(--arc-border-style) currentColor;
-    background-color: transparent;
+  /* Colors */
+  .button--filled.button--default {
+    --btn-background: rgb(var(--arc-color-default));
+    --focus-color: rgba(var(--arc-input-color), 0.4);
   }
 
-  /* Default - Hover & Focus */
-  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #main:hover,
-  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #main:focus-visible {
+  .button--filled.button--primary {
+    --btn-color: rgb(var(--arc-container-color));
+    --btn-background: rgb(var(--arc-color-primary));
+    --focus-color: rgba(var(--arc-color-primary), 0.4);
+  }
+  .button--outlined.button--primary {
+    --btn-color: rgb(var(--arc-color-primary));
+  }
+
+  .button--filled.button--secondary {
+    --btn-color: rgb(var(--arc-container-color));
+    --btn-background: rgb(var(--arc-color-secondary));
+    --focus-color: rgba(var(--arc-color-secondary), 0.4);
+  }
+  .button--outlined.button--secondary {
+    --btn-color: rgb(var(--arc-color-secondary));
+  }
+
+  .button--filled.button--error {
+    --btn-background: rgb(var(--arc-color-error));
+    --focus-color: rgba(var(--arc-color-error), 0.4);
+  }
+  .button--outlined.button--error {
+    --btn-color: rgb(var(--arc-color-error));
+  }
+
+  .button--filled.button--warning {
+    --btn-background: rgb(var(--arc-color-warning));
+    --focus-color: rgba(var(--arc-color-warning), 0.4);
+  }
+  .button--outlined.button--warning {
+    --btn-color: rgb(var(--arc-color-warning));
+  }
+
+  .button--filled.button--info {
+    --btn-background: rgb(var(--arc-color-info));
+    --focus-color: rgba(var(--arc-color-info), 0.4);
+  }
+  .button--outlined.button--info {
+    --btn-color: rgb(var(--arc-color-info));
+  }
+
+  .button--filled.button--success {
+    --btn-background: rgb(var(--arc-color-success));
+    --focus-color: rgba(var(--arc-color-success), 0.4);
+  }
+  .button--outlined.button--success {
+    --btn-color: rgb(var(--arc-color-success));
+  }
+
+  /* Default - Hover, Focus & Mouse down */
+  .button--filled:hover:not(.button--disabled):not(.button--loading),
+  .button--filled:focus-visible:not(.button--disabled):not(.button--loading) {
     background-image: linear-gradient(var(--arc-hover-dark) 0 0);
   }
-
-  /* Tab, Outlined & Pill(Not primary/secondary) - Hover & Focus */
-  :host([type='tab']:not([disabled]):not([loading])) #main:hover,
-  :host([type='outlined']:not([disabled]):not([loading])) #main:hover,
-  :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #main:hover,
-  :host([type='tab']:not([disabled]):not([loading])) #main:focus-visible,
-  :host([type='outlined']:not([disabled]):not([loading])) #main:focus-visible,
-  :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading]))
-    #main:focus-visible {
-    background-color: currentColor;
-    background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
-  }
-
-  /* Default - Mouse down */
-  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #main:active {
+  .button--filled:active:not(.button--disabled):not(.button--loading) {
     background-image: linear-gradient(var(--arc-hover-darker) 0 0);
   }
 
-  /* Tab, Outlined & Pill (Not primary) - Mouse down */
-  :host([type='tab']:not([disabled]):not([loading])) #main:active,
-  :host([type='outlined']:not([disabled]):not([loading])) #main:active,
-  :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #main:active {
+  /* Tab & Outlined - Hover, Focus & Mouse down */
+  .button--tab:hover:not(.button--disabled),
+  .button--tab:focus-visible:not(.button--disabled),
+  .button--outlined:hover:not(.button--disabled),
+  .button--outlined:focus-visible:not(.button--disabled) {
+    background-color: currentColor;
+    background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
+  }
+  .button--tab:active:not(.button--disabled):not(.button--loading),
+  .button--outlined:active:not(.button--disabled):not(.button--loading) {
     background-image: linear-gradient(var(--arc-hover-light) 0 0);
   }
 
   /* Focus outline (same for all button states) */
-  :host(:not([disabled]):not([loading])) #main:focus-visible {
+  .button:focus-visible:not(.button--disabled) {
     box-shadow: var(--arc-box-shadow-focus) var(--focus-color);
   }
 
   /* Disabled */
-  :host([disabled]) #main {
+  .button--disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
   /* Loading */
-  :host([loading]) #prefix,
-  :host([loading]) #label,
-  :host([loading]) #suffix {
+  .button--loading {
+    cursor: wait;
+  }
+
+  .button--loading #prefix,
+  .button--loading #label,
+  .button--loading #suffix {
     visibility: hidden;
   }
 

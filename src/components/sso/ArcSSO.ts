@@ -7,7 +7,6 @@ import { Configuration } from '@azure/msal-browser/dist/config/Configuration';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
-import { isExpired } from '../../internal/auth.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { DROPDOWN_PLACEMENTS } from '../dropdown/constants/DropdownConstants.js';
 import styles from './arc-sso.styles.js';
@@ -97,7 +96,7 @@ export default class ArcSSO extends LitElement {
     }
 
     /* Update the _isAuth state */
-    this._isAuth = this.isAuthenticated();
+    this._isAuth = !!this.getAccount();
   }
 
   /* Initialize the MSAL authentication context */
@@ -152,11 +151,6 @@ export default class ArcSSO extends LitElement {
   /* c8 ignore next 4 */
   signOut() {
     this._msalInstance.logoutRedirect();
-  }
-
-  /* c8 ignore next 4 */
-  isAuthenticated() {
-    return !!this.getAccount() && !isExpired(this.getAccount());
   }
 
   getAccount() {

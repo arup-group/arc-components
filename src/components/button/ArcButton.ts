@@ -3,7 +3,7 @@ import { html, literal } from 'lit/static-html.js';
 import { property, query } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { styleMap } from 'lit/directives/style-map.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { FormController } from '../../internal/form-control.js';
 import { INPUT_SIZES, InputSize, THEME_COLORS, ThemeColor } from '../../internal/constants/styleConstants.js';
 import { BUTTON_TYPES, ButtonType, ButtonTarget } from './constants/ButtonConstants.js';
@@ -37,7 +37,7 @@ export default class ArcButton extends LitElement {
   @property({ type: String, reflect: true }) size: InputSize = INPUT_SIZES.medium;
 
   /** Set the type of the button. */
-  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.pill;
+  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.filled;
 
   /** An optional name for the button. Ignored when `href` is set. */
   @property({ type: String }) name: string;
@@ -96,51 +96,30 @@ export default class ArcButton extends LitElement {
   render() {
     const isLink = !!this.href;
     const tag = isLink ? literal`a` : literal`button`;
-    const compStyles = window.getComputedStyle(this);
-    const userDefinedColor = () => compStyles.getPropertyValue('--btn-color');
-    const userDefinedBackground = () => compStyles.getPropertyValue('--btn-background');
-
-    const getColor = () => {
-      switch (this.type) {
-        case BUTTON_TYPES.outlined: {
-          return this.color === THEME_COLORS.default ? 'rgb(var(--arc-input-color))' : 'var(--btn-background)';
-        }
-        case BUTTON_TYPES.pill: {
-          if (this.color === THEME_COLORS.default) {
-            return 'rgb(var(--arc-input-color))';
-          }
-          if (this.color === THEME_COLORS.primary || this.color === THEME_COLORS.secondary) {
-            return 'rgb(var(--arc-container-color))';
-          }
-          return 'var(--btn-background)';
-        }
-        case BUTTON_TYPES.tab: {
-          return this.color === THEME_COLORS.default ? 'rgb(var(--arc-color-primary))' : 'var(--btn-background)';
-        }
-        default: {
-          return this.color === THEME_COLORS.primary || this.color === THEME_COLORS.secondary
-            ? 'rgb(var(--arc-container-color))'
-            : 'rgb(var(--arc-input-color))';
-        }
-      }
-    };
-
-    const btnStyles = {
-      height: `var(--arc-input-height-${this.size})`,
-      padding: `0 var(--arc-spacing-${this.size})`,
-      '--btn-color': userDefinedColor().length > 0 ? null : getColor(),
-      '--btn-background': userDefinedBackground().length > 0 ? null : `rgb(var(--arc-color-${this.color}))`,
-      '--focus-color':
-        this.color === THEME_COLORS.default
-          ? 'rgba(var(--arc-input-color), 0.4)'
-          : `rgba(var(--arc-color-${this.color}), 0.4)`,
-    };
 
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <${tag}
         id="main"
-        style=${styleMap(btnStyles)}
+        class=${classMap({
+          button: true,
+          'button--small': this.size === INPUT_SIZES.small,
+          'button--medium': this.size === INPUT_SIZES.medium,
+          'button--large': this.size === INPUT_SIZES.large,
+          'button--default': this.color === THEME_COLORS.default,
+          'button--primary': this.color === THEME_COLORS.primary,
+          'button--secondary': this.color === THEME_COLORS.secondary,
+          'button--error': this.color === THEME_COLORS.error,
+          'button--warning': this.color === THEME_COLORS.warning,
+          'button--info': this.color === THEME_COLORS.info,
+          'button--success': this.color === THEME_COLORS.success,
+          'button--filled': this.type === BUTTON_TYPES.filled,
+          'button--outlined': this.type === BUTTON_TYPES.outlined,
+          'button--tab': this.type === BUTTON_TYPES.tab,
+          'button--active': this.active,
+          'button--disabled': this.disabled,
+          'button--loading': this.loading,
+        })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type=${this.submit ? 'submit' : 'button'}
         name=${ifDefined(isLink ? undefined : this.name)}
@@ -157,7 +136,7 @@ export default class ArcButton extends LitElement {
         <slot id="prefix" name="prefix"></slot>
         <slot id="label"></slot>
         <slot id="suffix" name="suffix"></slot>
-        ${when(this.loading, () => html`<arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>`)}
+        ${when(this.loading, () => html`<arc-spinner id="loader"></arc-spinner>`)}
       </${tag}>
     `;
   }

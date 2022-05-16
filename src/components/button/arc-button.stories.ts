@@ -58,7 +58,9 @@ const Template: Story<ArcButton> = ({
 const WidthTemplate: Story<ArcButton> = () => html`<arc-button style="width: 10rem;">Button</arc-button>`;
 
 const defaultArgs = {
+  color: THEME_COLORS.default,
   size: INPUT_SIZES.medium,
+  type: BUTTON_TYPES.filled,
   name: '',
   value: '',
   href: '',
@@ -73,7 +75,7 @@ const defaultArgs = {
 
 /* COLORS */
 export const Default = Template.bind({});
-Default.args = { ...defaultArgs, color: THEME_COLORS.default };
+Default.args = { ...defaultArgs };
 
 export const Primary = Template.bind({});
 Primary.args = { ...defaultArgs, color: THEME_COLORS.primary };
@@ -94,14 +96,8 @@ export const Success = Template.bind({});
 Success.args = { ...defaultArgs, color: THEME_COLORS.success };
 
 /* TYPES */
-export const Pill = Template.bind({});
-Pill.args = { ...defaultArgs };
-
-export const Contained = Template.bind({});
-Contained.args = { ...defaultArgs, type: BUTTON_TYPES.contained };
-
-export const Tile = Template.bind({});
-Tile.args = { ...defaultArgs, type: BUTTON_TYPES.tile };
+export const Filled = Template.bind({});
+Filled.args = { ...defaultArgs };
 
 export const Outlined = Template.bind({});
 Outlined.args = { ...defaultArgs, type: BUTTON_TYPES.outlined };

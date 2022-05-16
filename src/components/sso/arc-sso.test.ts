@@ -73,10 +73,6 @@ describe('ArcSSO', () => {
       );
     });
 
-    it('should check if the user is authenticated', () => {
-      expect(element.isAuthenticated()).to.be.false;
-    });
-
     it('should retrieve an undefined account', () => {
       expect(element.getAccount()).to.be.undefined;
     });

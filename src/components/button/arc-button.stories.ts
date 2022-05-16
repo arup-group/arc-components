@@ -58,7 +58,7 @@ const Template: Story<ArcButton> = ({
 const WidthTemplate: Story<ArcButton> = () => html`<arc-button style="width: 10rem;">Button</arc-button>`;
 
 const defaultArgs = {
-  color: THEME_COLORS.default,
+  color: THEME_COLORS.primary,
   size: INPUT_SIZES.medium,
   type: BUTTON_TYPES.filled,
   name: '',
@@ -74,14 +74,14 @@ const defaultArgs = {
 };
 
 /* COLORS */
-export const Default = Template.bind({});
-Default.args = { ...defaultArgs };
-
 export const Primary = Template.bind({});
-Primary.args = { ...defaultArgs, color: THEME_COLORS.primary };
+Primary.args = { ...defaultArgs };
 
 export const PrimaryTwo = Template.bind({});
 PrimaryTwo.args = { ...defaultArgs, color: THEME_COLORS.secondary };
+
+export const Default = Template.bind({});
+Default.args = { ...defaultArgs, color: THEME_COLORS.default };
 
 export const Error = Template.bind({});
 Error.args = { ...defaultArgs, color: THEME_COLORS.error };

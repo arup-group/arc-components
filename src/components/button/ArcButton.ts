@@ -31,7 +31,7 @@ export default class ArcButton extends LitElement {
   private readonly formController = new FormController(this);
 
   /** Set the color of the button. */
-  @property({ type: String, reflect: true }) color: ThemeColor = THEME_COLORS.default;
+  @property({ type: String, reflect: true }) color: ThemeColor = THEME_COLORS.primary;
 
   /** Set the size of the button. */
   @property({ type: String, reflect: true }) size: InputSize = INPUT_SIZES.medium;

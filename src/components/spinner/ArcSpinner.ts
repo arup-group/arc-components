@@ -12,9 +12,9 @@ export default class ArcSpinner extends LitElement {
 
   render() {
     return html`
-      <svg class="spinner" aria-busy="true" aria-live="polite">
-        <circle class="spinner__track" cx="0.5em" cy="0.5em" r="0" />
-        <circle class="spinner__indicator" cx="0.5em" cy="0.5em" r="0" />
+      <svg id="main" aria-busy="true" aria-live="polite">
+        <circle id="track" cx="0.5em" cy="0.5em" r="0" />
+        <circle id="indicator" cx="0.5em" cy="0.5em" r="0" />
       </svg>
     `;
   }

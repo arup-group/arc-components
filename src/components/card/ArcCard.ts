@@ -110,7 +110,6 @@ export default class ArcCard extends LitElement {
           'card--has-image': this.hasSlotController.test('image'),
           'card--has-body': this.hasSlotController.test('[default]'),
           'card--has-footer': this.hasSlotController.test('footer'),
-          collapsed: this.collapsed,
         })}
       >
         <header id="header">

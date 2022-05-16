@@ -1,6 +1,7 @@
 import { LitElement } from 'lit';
 import { html, literal } from 'lit/static-html.js';
 import { property, query } from 'lit/decorators.js';
+import { when } from 'lit/directives/when.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { FormController } from '../../internal/form-control.js';
@@ -156,7 +157,7 @@ export default class ArcButton extends LitElement {
         <slot id="prefix" name="prefix"></slot>
         <slot id="label"></slot>
         <slot id="suffix" name="suffix"></slot>
-        ${this.loading ? html`<arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>` : null}
+        ${when(this.loading, () => html`<arc-spinner id="loader" style="--stroke-color: ${getColor()}"></arc-spinner>`)}
       </${tag}>
     `;
   }

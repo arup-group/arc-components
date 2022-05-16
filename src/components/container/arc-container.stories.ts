@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/web-components';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
+import { when } from 'lit/directives/when.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import type ArcContainer from './ArcContainer.js';
 import './arc-container.js';
@@ -32,13 +33,14 @@ const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
         redirect-uri=${window.location.hostname === 'localhost' ? 'http://localhost:9009/' : 'https://arc.arup.com/'}
       ></arc-sso>
     </arc-navbar>
-    ${!fullscreen
-      ? html`
-          <arc-sidebar slot="side">
-            <div></div>
-          </arc-sidebar>
-        `
-      : nothing}
+    ${when(
+      !fullscreen,
+      () => html`
+        <arc-sidebar slot="side">
+          <div></div>
+        </arc-sidebar>
+      `
+    )}
     <div style="padding: var(--arc-spacing-medium)">
       <p>The default logoutRedirect method does not work within an iframe.</p>
       <p>To work around this behaviour, use the 'hacky logout button' to sign out instead.</p>

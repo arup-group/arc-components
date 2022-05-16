@@ -21,13 +21,13 @@ export default {
 } as Meta;
 
 const Template: Story<ArcChip> = ({ size, type, clearable }) => html`
-  <arc-chip size=${size} type=${type} ?clearable=${clearable}></arc-chip>
+  <arc-chip size=${size} type=${type} ?clearable=${clearable}>Chip</arc-chip>
 `;
 
 const defaultArgs = {
   size: INPUT_SIZES.medium,
   type: CHIP_TYPES.filled,
-  pulse: false,
+  clearable: false,
 };
 
 export const Default = Template.bind({});

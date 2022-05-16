@@ -1,4 +1,4 @@
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
@@ -231,10 +231,6 @@ export default class ArcAccessibility extends LitElement {
     `;
   }
 
-  booleanTemplate() {
-    return html`${nothing}`;
-  }
-
   render() {
     return html`
       <div id="main">
@@ -255,11 +251,7 @@ export default class ArcAccessibility extends LitElement {
                   ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
                     const [userPreference, value] = option as [keyof UserPreferences, any];
 
-                    return html`${when(
-                      Array.isArray(value),
-                      () => this.radioTemplate(userPreference, value),
-                      () => this.booleanTemplate()
-                    )}`;
+                    return html`${when(Array.isArray(value), () => this.radioTemplate(userPreference, value))}`;
                   })}
                 </div>
               `

@@ -1,6 +1,7 @@
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
+import { when } from 'lit/directives/when.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -93,9 +94,10 @@ export default class ArcNavbar extends LitElement {
         this.navTabs,
         tab => html`
           <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
-            ${(tab as ArcIconButton).name
-              ? html`<arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon>`
-              : nothing}
+            ${when(
+              (tab as ArcIconButton).name,
+              () => html`<arc-icon .name=${(tab as ArcIconButton).name} slot="prefix"> }</arc-icon>`
+            )}
             ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
           </arc-menu-item>
         `
@@ -103,32 +105,37 @@ export default class ArcNavbar extends LitElement {
     `;
 
     const logoInterior = html`
-      ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
+      ${when(this.logo, () => html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`)}
       <slot id="tool-name" name="name"></slot>
     `;
 
     return html`
       <header id="main">
         <div id="left">
-          ${this.home
-            ? html`
-                <a id="logoWrapper" href=${this.home} rel="noreferrer noopener" role="button" aria-label="tool logo">
-                  ${logoInterior}
-                </a>
-              `
-            : html`<div id="logoWrapper">${logoInterior}</div>`}
+          ${when(
+            this.home,
+            () => html`<a
+              id="logoWrapper"
+              href=${this.home}
+              rel="noreferrer noopener"
+              role="button"
+              aria-label="tool logo"
+            >
+              ${logoInterior}
+            </a>`,
+            () => html`<div id="logoWrapper">${logoInterior}</div>`
+          )}
         </div>
         <div id="right">
           <nav id="tabs" aria-label="primary navigation">
             <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
-            ${this.showDropdown
-              ? html`
-                  <arc-dropdown hoist>
-                    <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
-                    <arc-menu>${menuInterior}</arc-menu>
-                  </arc-dropdown>
-                `
-              : nothing}
+            ${when(
+              this.showDropdown,
+              () => html`<arc-dropdown hoist>
+                <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
+                <arc-menu>${menuInterior}</arc-menu>
+              </arc-dropdown>`
+            )}
             <arc-icon-button
               id="accessibility"
               name=${ICON_TYPES.accessibility}
@@ -137,7 +144,7 @@ export default class ArcNavbar extends LitElement {
             ></arc-icon-button>
             <slot name="user"></slot>
           </nav>
-          ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
+          ${when(this.arup, () => html`<span id="company-logo">${arupLogo}</span>`)}
         </div>
       </header>
     `;

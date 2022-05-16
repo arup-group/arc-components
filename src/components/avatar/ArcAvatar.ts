@@ -1,6 +1,7 @@
 import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
 import { stringToInitials } from '../../internal/string.js';
 import styles from './arc-avatar.styles.js';
@@ -47,21 +48,24 @@ export default class ArcAvatar extends LitElement {
         id="main"
         role="img"
         aria-label=${this.label}
-        class=${classMap({ 'has-image': this.image && !this._hasError })}
+        class=${classMap({
+          'avatar--has-image': this.image && !this._hasError,
+        })}
       >
-        ${this.image && !this._hasError
-          ? html` <img id="avatar" src=${this.image} alt="Avatar" @error=${this._handleImageError} /> `
-          : html`
-              ${this.name
-                ? html` <div id="initials">${this.name}</div> `
-                : html`
-                    <div id="icon">
-                      <slot name="icon">
-                        <arc-icon name="user"></arc-icon>
-                      </slot>
-                    </div>
-                  `}
-            `}
+        ${when(
+          this.image && !this._hasError,
+          () => html`<img id="avatar" src=${this.image} alt="Avatar" @error=${this._handleImageError} />`,
+          () =>
+            when(
+              this.name,
+              () => html`<div id="initials">${this.name}</div>`,
+              () => html`<div id="icon">
+                <slot name="icon">
+                  <arc-icon name="user"></arc-icon>
+                </slot>
+              </div>`
+            )
+        )}
       </div>
     `;
   }

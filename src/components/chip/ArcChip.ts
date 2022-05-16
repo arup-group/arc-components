@@ -1,6 +1,7 @@
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { when } from 'lit/directives/when.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { emit } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -48,11 +49,11 @@ export default class ArcChip extends LitElement {
       <div id="chip" style=${styleMap(chipStyles)}>
         <slot name="avatar"></slot>
         <slot></slot>
-        ${this.clearable
-          ? html`
-              <arc-icon-button name="close-circle" label="Clear chip" @click=${this._handleClear}></arc-icon-button>
-            `
-          : nothing}
+        ${when(
+          this.clearable,
+          () =>
+            html`<arc-icon-button name="close-circle" label="Clear chip" @click=${this._handleClear}></arc-icon-button>`
+        )}
       </div>
     `;
   }

@@ -1,6 +1,7 @@
-import { LitElement, nothing } from 'lit';
+import { LitElement } from 'lit';
 import { html, literal } from 'lit/static-html.js';
 import { property, query } from 'lit/decorators.js';
+import { when } from 'lit/directives/when.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
 import { IconType } from '../icon/constants/IconConstants.js';
@@ -89,7 +90,7 @@ export default class ArcIconButton extends LitElement {
       >
         <span id="iconWrapper" aria-hidden="true">
           <arc-icon id="icon" part="icon" name=${ifDefined(this.name || undefined)}></arc-icon>
-          ${this.loading ? html`<arc-spinner id="loader"></arc-spinner>` : nothing}
+          ${when(this.loading, () => html`<arc-spinner id="loader"></arc-spinner>`)}
         </span>
         <span id="action"><slot></slot></span>
       </${tag}>

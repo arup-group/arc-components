@@ -18,7 +18,6 @@ export default css`
     max-width: initial;
   }
 
-  /* Caps/Corners */
   #main use {
     fill: var(--icon-color-secondary);
     stroke: var(--icon-color-secondary);

@@ -5,12 +5,12 @@ export default css`
   ${componentStyles}
 
   :host {
-    display: inline-block;
+    display: inline-flex;
     border-radius: 50%;
     --size: 3rem;
   }
 
-  #main {
+  .avatar {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -22,7 +22,7 @@ export default css`
     vertical-align: middle;
   }
 
-  #main:not(.avatar--has-image) {
+  .avatar:not(.avatar--has-image) {
     background-color: rgb(var(--arc-grey-050));
   }
 
@@ -33,7 +33,7 @@ export default css`
     overflow: hidden;
   }
 
-  #main,
+  .avatar,
   #avatar {
     border-radius: inherit;
   }

@@ -2,6 +2,7 @@ import { LitElement } from 'lit';
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import styles from './arc-hero.styles.js';
 
@@ -33,20 +34,22 @@ export default class ArcHero extends LitElement {
     const imageStyle = {
       background: `url(${this.background}) no-repeat center center`,
       backgroundSize: 'cover',
-      height: this.fullscreen ? '100%' : 'auto',
-      alignItems: this.fullscreen ? 'center' : 'normal',
     };
 
     return html`
       <header
         id="main"
+        class=${classMap({
+          hero: true,
+          'hero--fullscreen': this.fullscreen,
+        })}
+        style=${ifDefined(this.background ? styleMap(imageStyle) : undefined)}
         aria-label=${ifDefined(this.title || undefined)}
         aria-labelledby="${ifDefined(this.title ? undefined : 'title')}"
-        style=${ifDefined(this.background ? styleMap(imageStyle) : undefined)}
       >
         <div>
           <h1 id="title"><slot name="title">${this.title}</slot></h1>
-          <span id="subtitle"><slot name="subtitle">${this.subtitle}</slot></span>
+          <slot name="subtitle">${this.subtitle}</slot>
         </div>
         <h2 id="content"><slot></slot></h2>
       </header>

@@ -13,7 +13,7 @@ export default css`
     color: rgb(var(--arc-font-color));
   }
 
-  #container {
+  .container {
     flex: 1 1 100%;
     display: flex;
     overflow: hidden;
@@ -38,7 +38,7 @@ export default css`
 
   /* Medium devices and up */
   @media (min-width: ${mobileBreakpoint}rem) {
-    #container:not(.fullscreen) {
+    .container:not(.container--fullscreen) {
       gap: var(--arc-spacing-normal);
       padding: var(--arc-spacing-normal) var(--arc-spacing-medium);
     }

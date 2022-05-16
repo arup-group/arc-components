@@ -1,6 +1,6 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { emit } from '../../internal/event.js';
@@ -36,17 +36,19 @@ export default class ArcChip extends LitElement {
   }
 
   render() {
-    const chipStyles = {
-      height: `var(--arc-input-height-${this.size})`,
-      paddingLeft: this.hasSlotController.test('avatar')
-        ? `calc(var(--arc-input-height-${this.size}) * .15)`
-        : undefined,
-      borderRadius: `var(--arc-input-height-${this.size})`,
-      '--size': `calc(var(--arc-input-height-${this.size}) - .5rem)`,
-    };
-
     return html`
-      <div id="main" style=${styleMap(chipStyles)}>
+      <div
+        id="main"
+        class=${classMap({
+          chip: true,
+          'chip--small': this.size === INPUT_SIZES.small,
+          'chip--medium': this.size === INPUT_SIZES.medium,
+          'chip--large': this.size === INPUT_SIZES.large,
+          'chip--outlined': this.type === CHIP_TYPES.outlined,
+          'chip--has-avatar': this.hasSlotController.test('avatar'),
+          'chip--clearable': this.clearable,
+        })}
+      >
         <slot name="avatar"></slot>
         <slot></slot>
         ${when(

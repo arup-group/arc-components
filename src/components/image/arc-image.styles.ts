@@ -4,20 +4,20 @@ import componentStyles from '../../styles/component.styles.js';
 export default css`
   ${componentStyles}
 
-  #main {
+  .image {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  #image,
+  img,
   .image--has-image #overlay,
   .image--loading #placeholder,
   #loader {
     display: none;
   }
 
-  .image--has-image #image {
+  .image--has-image img {
     width: 100%;
     height: 100%;
     display: block;

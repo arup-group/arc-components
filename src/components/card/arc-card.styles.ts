@@ -9,11 +9,19 @@ export default css`
     width: auto;
   }
 
-  #main {
+  .card {
     display: grid;
     overflow: hidden;
     background-color: rgb(var(--arc-container-color));
     box-shadow: var(--arc-box-shadow);
+  }
+
+  /* Hide elements when they are not slotted or when the card is collapsed */
+  .card:not(.card--has-header) #header,
+  .card:not(.card--has-image) #image,
+  .card:not(.card--has-body) #body,
+  .card:not(.card--has-footer) #footer {
+    display: none;
   }
 
   #header,
@@ -24,14 +32,6 @@ export default css`
 
   #image {
     overflow: hidden;
-  }
-
-  /* Hide elements when they are not slotted or when the card is collapsed */
-  #main:not(.card--has-header) #header,
-  #main:not(.card--has-image) #image,
-  #main:not(.card--has-body) #body,
-  #main:not(.card--has-footer) #footer {
-    display: none;
   }
 
   #header ::slotted(*),

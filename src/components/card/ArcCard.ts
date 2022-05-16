@@ -106,6 +106,7 @@ export default class ArcCard extends LitElement {
       <article
         id="main"
         class=${classMap({
+          card: true,
           'card--has-header': this.hasSlotController.test('header'),
           'card--has-image': this.hasSlotController.test('image'),
           'card--has-body': this.hasSlotController.test('[default]'),

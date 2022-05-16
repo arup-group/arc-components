@@ -96,12 +96,7 @@ describe('ArcChip', () => {
     let element: ArcChip;
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <arc-chip>
-          <div slot="avatar">Some avatar</div>
-          Content
-        </arc-chip>
-      `);
+      element = await fixture(html` <arc-chip></arc-chip> `);
     });
 
     it('renders default slots to fill the component', () => {

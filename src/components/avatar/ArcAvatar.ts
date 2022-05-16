@@ -49,6 +49,7 @@ export default class ArcAvatar extends LitElement {
         role="img"
         aria-label=${this.label}
         class=${classMap({
+          avatar: true,
           'avatar--has-image': this.image && !this._hasError,
         })}
       >

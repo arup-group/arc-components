@@ -9,12 +9,18 @@ export default css`
     --content-gap: 5rem;
   }
 
-  #main {
+  .hero {
+    height: auto;
     padding: var(--arc-spacing-banner) var(--arc-spacing-medium);
     display: grid;
     align-content: start;
     grid-auto-columns: 1fr;
     gap: var(--content-gap);
+  }
+
+  .hero--fullscreen {
+    height: 100%;
+    align-items: center;
   }
 
   #title,
@@ -30,7 +36,7 @@ export default css`
   }
 
   @media (min-width: ${mobileBreakpoint}rem) {
-    #main {
+    .hero {
       padding: var(--arc-spacing-banner);
       grid-auto-flow: column;
       align-content: normal;

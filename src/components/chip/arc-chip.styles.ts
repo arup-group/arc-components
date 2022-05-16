@@ -8,7 +8,7 @@ export default css`
     display: inline-block;
   }
 
-  #main {
+  .chip {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -24,19 +24,37 @@ export default css`
     vertical-align: middle;
     background-color: rgb(var(--arc-color-default));
     border: none;
+    height: var(--chip-size);
+    border-radius: var(--chip-size);
   }
 
-  :host([type='outlined']) #chip {
+  .chip--small {
+    --chip-size: var(--arc-input-height-small);
+  }
+
+  .chip--medium {
+    --chip-size: var(--arc-input-height-medium);
+  }
+
+  .chip--large {
+    --chip-size: var(--arc-input-height-large);
+  }
+
+  .chip--has-avatar {
+    padding-left: calc(var(--chip-size) * 0.15);
+  }
+
+  .chip--outlined {
     background-color: transparent;
     border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
   }
 
-  :host([clearable]) #chip {
+  .chip--clearable {
     padding-right: 0;
     gap: 0;
   }
 
   ::slotted(arc-avatar) {
-    --size: inherit;
+    --size: calc(var(--chip-size) - 0.5rem);
   }
 `;

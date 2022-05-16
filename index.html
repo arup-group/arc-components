@@ -51,41 +51,27 @@
   </arc-sidebar>
   <section id="section" aria-label="Test section">
     <div>
-      Active filters:
-      <arc-chip clearable>Filter one</arc-chip>
-      <arc-chip clearable>Filter two</arc-chip>
-      <arc-chip clearable>Filter three</arc-chip>
-      <arc-chip clearable>Filter four</arc-chip>
+      <arc-chip clearable size="small">Chip small</arc-chip>
+      <arc-chip clearable size="medium">Chip medium</arc-chip>
+      <arc-chip clearable size="large">Chip large</arc-chip>
     </div>
-
     <div>
-      Active filters:
-      <arc-chip type="outlined">Filter one</arc-chip>
-      <arc-chip type="outlined">Filter two</arc-chip>
-      <arc-chip type="outlined">Filter three</arc-chip>
-      <arc-chip type="outlined">Filter four</arc-chip>
-    </div>
-
-    <div>
-      Active filters:
-      <arc-chip>Filter one</arc-chip>
-      <arc-chip>Filter two</arc-chip>
-      <arc-chip>Filter three</arc-chip>
-      <arc-chip>Filter four</arc-chip>
-    </div>
-
-    <div>
-      <arc-button loading>Button</arc-button>
+      <arc-chip size="small">
+        <arc-avatar slot="avatar" name="User Name"></arc-avatar>
+        Chip small
+      </arc-chip>
+      <arc-chip size="medium">
+        <arc-avatar slot="avatar" name="User Name"></arc-avatar>
+        Chip medium
+      </arc-chip>
+      <arc-chip size="large">
+        <arc-avatar slot="avatar" name="User Name"></arc-avatar>
+        Chip large
+      </arc-chip>
     </div>
   </section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
-<script type="module">
-  const chips = document.querySelectorAll('arc-chip');
-  chips.forEach(chip => chip.addEventListener('arc-clear', e => {
-    e.target.remove();
-  }))
-</script>
 </body>
 </html>

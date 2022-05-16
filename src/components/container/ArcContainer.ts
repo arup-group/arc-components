@@ -104,7 +104,13 @@ export default class ArcContainer extends LitElement {
     return html`
       <div id="main">
         <slot id="nav" name="nav" @arc-show-accessibility=${this.showAccessibility}></slot>
-        <div id="container" class=${classMap({ fullscreen: this.fullscreen })}>
+        <div
+          id="container"
+          class=${classMap({
+            container: true,
+            'container--fullscreen': this.fullscreen,
+          })}
+        >
           <slot name="side"></slot>
           <div id="content">
             <slot></slot>

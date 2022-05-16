@@ -150,6 +150,7 @@ export default class ArcImage extends LitElement {
       <div
         id="main"
         class=${classMap({
+          image: true,
           'image--has-image': this._hasImage,
           'image--loading': this._loading,
         })}

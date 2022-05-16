@@ -26,6 +26,11 @@ describe('ArcMenu', () => {
       `);
     });
 
+    /* Test default properties that reflect to the DOM */
+    it('renders the element with default properties in the dom', () => {
+      expect(element).dom.to.equal(`<arc-menu></arc-menu>`);
+    });
+
     /* Test the accessibility. */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();

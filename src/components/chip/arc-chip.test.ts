@@ -3,6 +3,8 @@ import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
+import { INPUT_SIZES } from '../../internal/constants/styleConstants.js';
+import { CHIP_TYPES } from './constants/ChipConstants.js';
 
 import type ArcChip from './ArcChip.js';
 import './arc-chip.js';
@@ -13,16 +15,12 @@ describe('ArcChip', () => {
     let element: ArcChip;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-chip></arc-chip>`);
+      element = await fixture(html`<arc-chip>Test</arc-chip>`);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      /*
-      When a component reflects to the DOM, add them within the component like so:
-      <arc-chip reflected-prop-1='' reflected-prop-2=''></arc-chip>
-      */
-      expect(element).dom.to.equal(`<arc-chip></arc-chip>`);
+      expect(element).dom.to.equal(`<arc-chip size='${INPUT_SIZES.small}' type='${CHIP_TYPES.filled}'>Test</arc-chip>`);
     });
 
     /* Test the accessibility */

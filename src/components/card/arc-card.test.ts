@@ -17,7 +17,7 @@ describe('ArcCard', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal('<arc-card></arc-card>');
+      expect(element).dom.to.equal(`<arc-card></arc-card>`);
     });
 
     /* Test the accessibility */

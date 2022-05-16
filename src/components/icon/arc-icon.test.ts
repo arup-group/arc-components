@@ -17,7 +17,7 @@ describe('ArcIcon', () => {
 
     /* Test default properties that reflect to the DOM. */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-icon name=${ICON_TYPES.fire} size=${FONT_SIZES.medium}></arc-icon>`);
+      expect(element).dom.to.equal(`<arc-icon name='${ICON_TYPES.fire}' size='${FONT_SIZES.medium}'></arc-icon>`);
     });
 
     /* Test the accessibility. */

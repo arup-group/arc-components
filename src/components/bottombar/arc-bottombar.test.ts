@@ -18,7 +18,7 @@ describe('ArcBottombar', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal('<arc-bottombar></arc-bottombar>');
+      expect(element).dom.to.equal(`<arc-bottombar></arc-bottombar>`);
     });
 
     /* Test the accessibility */

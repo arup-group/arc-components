@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 import * as Msal from '@azure/msal-browser';
@@ -8,10 +8,9 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
 import { isExpired } from '../../internal/auth.js';
-import { mobileBreakpoint } from '../../internal/preferences.js';
-import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { DROPDOWN_PLACEMENTS } from '../dropdown/constants/DropdownConstants.js';
+import styles from './arc-sso.styles.js';
 import '../button/arc-button.js';
 import '../avatar/arc-avatar.js';
 import '../dropdown/arc-dropdown.js';
@@ -27,36 +26,7 @@ import '../menu-item/arc-menu-item.js';
 export default class ArcSSO extends LitElement {
   static tag = 'arc-sso';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host,
-      #main {
-        display: inline-flex;
-      }
-
-      #desktopTrigger {
-        display: none;
-      }
-
-      arc-avatar {
-        --size: 1.5rem;
-        cursor: pointer;
-      }
-
-      /* Medium devices and up. */
-      @media (min-width: ${mobileBreakpoint}rem) {
-        #mobileTrigger {
-          display: none;
-        }
-
-        #desktopTrigger {
-          display: initial;
-          --btn-color: rgb(var(--arc-font-color));
-        }
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal
   openid - By using this permission, an app can receive a unique identifier for the user in the form of the sub claim.

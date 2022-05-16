@@ -47,6 +47,11 @@ export default function (plop) {
         templateFile: './templates/story.hbs'
       },
       {
+        type: 'add',
+        path: '../../src/components/{{ tagWithoutPrefix tag }}/{{ tag }}.styles.ts',
+        templateFile: './templates/styles.hbs'
+      },
+      {
         type: 'modify',
         path: '../../src/arc.ts',
         pattern: /\/\* plop:component-import \*\//,

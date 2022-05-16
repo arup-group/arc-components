@@ -1,10 +1,9 @@
-import { css, LitElement } from 'lit';
+import { LitElement } from 'lit';
 import { html } from 'lit/static-html.js';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { mobileBreakpoint } from '../../internal/preferences.js';
-import componentStyles from '../../styles/component.styles.js';
+import styles from './arc-hero.styles.js';
 
 /**
  * @slot default - The content of the hero.
@@ -16,42 +15,7 @@ import componentStyles from '../../styles/component.styles.js';
 export default class ArcHero extends LitElement {
   static tag = 'arc-hero';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        --content-gap: 5rem;
-      }
-
-      #main {
-        padding: var(--arc-spacing-banner) var(--arc-spacing-medium);
-        display: grid;
-        align-content: start;
-        grid-auto-columns: 1fr;
-        gap: var(--content-gap);
-      }
-
-      #title,
-      #content {
-        font-size: var(--arc-font-size-xxxx-large);
-        word-break: break-word;
-        margin: 0;
-      }
-
-      #content {
-        padding: 0;
-        font-size: var(--arc-font-size-x-large);
-      }
-
-      @media (min-width: ${mobileBreakpoint}rem) {
-        #main {
-          padding: var(--arc-spacing-banner);
-          grid-auto-flow: column;
-          align-content: normal;
-        }
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** Set the banner to full screen. */
   @property({ type: Boolean }) fullscreen: boolean = false;

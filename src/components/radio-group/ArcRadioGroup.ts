@@ -1,7 +1,6 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { mobileBreakpoint } from '../../internal/preferences.js';
-import componentStyles from '../../styles/component.styles.js';
+import styles from './arc-radio-group.styles.js';
 import type ArcRadio from '../radio/ArcRadio.js';
 
 /**
@@ -13,31 +12,7 @@ import type ArcRadio from '../radio/ArcRadio.js';
 export default class ArcRadioGroup extends LitElement {
   static tag = 'arc-radio-group';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        display: inline-flex;
-      }
-
-      #radioGroup {
-        display: grid;
-        position: relative;
-        right: var(--arc-spacing-small);
-        border: none;
-        padding: 0;
-        margin: 0;
-        min-width: 0;
-      }
-
-      /* Medium devices and up */
-      @media (min-width: ${mobileBreakpoint}rem) {
-        :host([row]) #radioGroup {
-          grid-auto-flow: column;
-        }
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;

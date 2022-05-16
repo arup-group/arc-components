@@ -1,12 +1,12 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { prefersDark, mobileBreakpoint } from '../../internal/preferences.js';
+import { prefersDark } from '../../internal/preferences.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
 import { CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme } from './constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
+import styles from './arc-container.styles.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
@@ -21,58 +21,7 @@ import '../icon-button/arc-icon-button.js';
 export default class ArcContainer extends LitElement {
   static tag = 'arc-container';
 
-  static styles = [
-    componentStyles,
-    css`
-      #main {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        background: rgb(var(--arc-background-color));
-        color: rgb(var(--arc-font-color));
-      }
-
-      #container {
-        flex: 1 1 100%;
-        display: flex;
-        overflow: hidden;
-        gap: 0;
-        padding: 0;
-      }
-
-      ::slotted(arc-sidebar) {
-        display: none;
-      }
-
-      #content {
-        flex: 1 1 100%;
-        overflow: hidden;
-        background: rgb(var(--arc-container-color));
-      }
-
-      arc-bottombar,
-      ::slotted(arc-bottombar) {
-        display: block;
-      }
-
-      /* Medium devices and up */
-      @media (min-width: ${mobileBreakpoint}rem) {
-        #container:not(.fullscreen) {
-          gap: var(--arc-spacing-normal);
-          padding: var(--arc-spacing-normal) var(--arc-spacing-medium);
-        }
-
-        ::slotted(arc-sidebar) {
-          display: block;
-        }
-
-        arc-bottombar,
-        ::slotted(arc-bottombar) {
-          display: none;
-        }
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('#main') container: HTMLElement;

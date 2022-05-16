@@ -20,7 +20,7 @@ export default class ArcIconButton extends LitElement {
   static styles = styles;
 
   /** @internal */
-  @query('#button') button: HTMLButtonElement | HTMLLinkElement;
+  @query('#main') button: HTMLButtonElement | HTMLLinkElement;
 
   /** The name of the icon to draw. */
   @property({ type: String }) name: IconType;
@@ -75,7 +75,7 @@ export default class ArcIconButton extends LitElement {
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <${tag}
-        id="button"
+        id="main"
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type="button"
         href=${ifDefined(this.href || undefined)}

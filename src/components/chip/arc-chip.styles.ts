@@ -8,7 +8,7 @@ export default css`
     display: inline-block;
   }
 
-  #chip {
+  #main {
     display: inline-flex;
     align-items: center;
     justify-content: center;

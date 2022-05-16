@@ -18,14 +18,6 @@ describe('ArcSSO', () => {
       expect(element).dom.to.equal(`<arc-sso></arc-sso>`);
     });
 
-    it('shows/hides the correct slots on initialization', () => {
-      const loginSlot = element.shadowRoot!.querySelector('slot[name="login"]')!;
-      const logoutSlot = element.shadowRoot!.querySelector('slot[name="logout"]')!;
-
-      expect(loginSlot.hasAttribute('hidden')).to.be.false;
-      expect(logoutSlot.hasAttribute('hidden')).to.be.true;
-    });
-
     /* Test the accessibility. */
     it('passes the a11y audit', async () => {
       await expect(element).shadowDom.to.be.accessible();
@@ -106,6 +98,14 @@ describe('ArcSSO', () => {
       const main = element.shadowRoot!.getElementById('main')!;
       expect(hasSlot(main, 'login')).to.be.true;
       expect(hasSlot(main, 'logout')).to.be.true;
+    });
+
+    it('shows/hides the correct slots on initialization', () => {
+      const loginSlot = element.shadowRoot!.querySelector('slot[name="login"]')!;
+      const logoutSlot = element.shadowRoot!.querySelector('slot[name="logout"]')!;
+
+      expect(loginSlot.hasAttribute('hidden')).to.be.false;
+      expect(logoutSlot.hasAttribute('hidden')).to.be.true;
     });
   });
 });

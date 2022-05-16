@@ -22,7 +22,7 @@ describe('ArcIconButton', () => {
 
     /* Test the type of the button */
     it('renders the button as a default button', () => {
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
       expect(buttonTarget.getAttribute('type')).to.equal('button');
     });
 
@@ -55,7 +55,7 @@ describe('ArcIconButton', () => {
       const element: ArcIconButton = await fixture(
         html`<arc-icon-button href="/" label="Test label">Test</arc-icon-button>`
       );
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.href).to.equal('/');
       expect(element.getAttribute('href')).to.equal('/');
@@ -71,7 +71,7 @@ describe('ArcIconButton', () => {
       const element: ArcIconButton = await fixture(
         html`<arc-icon-button href="/" target="_blank">Test</arc-icon-button>`
       );
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.target).to.equal('_blank');
       expect(element.getAttribute('target')).to.equal('_blank');
@@ -84,7 +84,7 @@ describe('ArcIconButton', () => {
       const element: ArcIconButton = await fixture(
         html`<arc-icon-button href="/" download="Filename">Test</arc-icon-button>`
       );
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.download).to.equal('Filename');
       expect(element.getAttribute('download')).to.equal('Filename');
@@ -112,7 +112,7 @@ describe('ArcIconButton', () => {
     });
 
     it('renders the button in a disabled state', async () => {
-      const buttonTarget = element.shadowRoot!.getElementById('button');
+      const buttonTarget = element.shadowRoot!.getElementById('main');
 
       expect(buttonTarget!.hasAttribute('disabled')).to.be.false;
       expect(element.disabled).to.be.false;
@@ -130,7 +130,7 @@ describe('ArcIconButton', () => {
       element.href = '/';
       await elementUpdated(element);
 
-      const anchorTarget = element.shadowRoot!.getElementById('button');
+      const anchorTarget = element.shadowRoot!.getElementById('main');
 
       expect(anchorTarget!.getAttribute('aria-disabled')).to.equal('false');
       expect(anchorTarget!.getAttribute('tabindex')).to.equal('0');
@@ -208,7 +208,7 @@ describe('ArcIconButton', () => {
     });
 
     it('renders a default slots to fill the button with a label', () => {
-      const main = element.shadowRoot!.getElementById('button')!;
+      const main = element.shadowRoot!.getElementById('main')!;
       expect(hasSlot(main)).to.be.true;
     });
   });

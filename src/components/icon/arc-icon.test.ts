@@ -37,7 +37,7 @@ describe('ArcIcon', () => {
 
     it('renders the element with a custom label property', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon label="heart"></arc-icon>`);
-      const svg = element.shadowRoot?.getElementById('icon')!;
+      const svg = element.shadowRoot?.getElementById('main')!;
 
       expect(element.label).to.equal('heart');
       expect(element.getAttribute('label')).to.equal('heart');

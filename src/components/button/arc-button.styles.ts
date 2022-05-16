@@ -12,7 +12,7 @@ export default css`
     --min-width: 0;
   }
 
-  #button {
+  #main {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -39,7 +39,7 @@ export default css`
   }
 
   /* Tile */
-  :host([type='tile']) #button {
+  :host([type='tile']) #main {
     border-radius: 0;
   }
 
@@ -48,73 +48,73 @@ export default css`
     height: 100%;
   }
 
-  :host([type='tab']) #button {
+  :host([type='tab']) #main {
     background: none;
     border-radius: 0;
   }
 
   /* Tab - Active */
-  :host([type='tab']:not([disabled])[active]) #button {
+  :host([type='tab']:not([disabled])[active]) #main {
     border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
   }
 
   /* Pill */
-  :host([type='pill'][size='small']) #button {
+  :host([type='pill'][size='small']) #main {
     border-radius: var(--arc-input-height-small);
   }
 
-  :host([type='pill'][size='medium']) #button {
+  :host([type='pill'][size='medium']) #main {
     border-radius: var(--arc-input-height-medium);
   }
 
-  :host([type='pill'][size='large']) #button {
+  :host([type='pill'][size='large']) #main {
     border-radius: var(--arc-input-height-large);
   }
 
   /* Outlined & Pill(Not primary/secondary) */
-  :host([type='outlined']) #button,
-  :host([type='pill']:not([color='primary']):not([color='secondary'])) #button {
+  :host([type='outlined']) #main,
+  :host([type='pill']:not([color='primary']):not([color='secondary'])) #main {
     border: var(--arc-border-width) var(--arc-border-style) currentColor;
     background-color: transparent;
   }
 
   /* Default - Hover & Focus */
-  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:hover,
-  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:focus-visible {
+  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #main:hover,
+  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #main:focus-visible {
     background-image: linear-gradient(var(--arc-hover-dark) 0 0);
   }
 
   /* Tab, Outlined & Pill(Not primary/secondary) - Hover & Focus */
-  :host([type='tab']:not([disabled]):not([loading])) #button:hover,
-  :host([type='outlined']:not([disabled]):not([loading])) #button:hover,
-  :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #button:hover,
-  :host([type='tab']:not([disabled]):not([loading])) #button:focus-visible,
-  :host([type='outlined']:not([disabled]):not([loading])) #button:focus-visible,
+  :host([type='tab']:not([disabled]):not([loading])) #main:hover,
+  :host([type='outlined']:not([disabled]):not([loading])) #main:hover,
+  :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #main:hover,
+  :host([type='tab']:not([disabled]):not([loading])) #main:focus-visible,
+  :host([type='outlined']:not([disabled]):not([loading])) #main:focus-visible,
   :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading]))
-    #button:focus-visible {
+    #main:focus-visible {
     background-color: currentColor;
     background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
   }
 
   /* Default - Mouse down */
-  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #button:active {
+  :host(:not([type='tab']):not([type='outlined']):not([disabled]):not([loading])) #main:active {
     background-image: linear-gradient(var(--arc-hover-darker) 0 0);
   }
 
   /* Tab, Outlined & Pill (Not primary) - Mouse down */
-  :host([type='tab']:not([disabled]):not([loading])) #button:active,
-  :host([type='outlined']:not([disabled]):not([loading])) #button:active,
-  :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #button:active {
+  :host([type='tab']:not([disabled]):not([loading])) #main:active,
+  :host([type='outlined']:not([disabled]):not([loading])) #main:active,
+  :host([type='pill']:not([color='primary']):not([color='secondary']):not([disabled]):not([loading])) #main:active {
     background-image: linear-gradient(var(--arc-hover-light) 0 0);
   }
 
   /* Focus outline (same for all button states) */
-  :host(:not([disabled]):not([loading])) #button:focus-visible {
+  :host(:not([disabled]):not([loading])) #main:focus-visible {
     box-shadow: var(--arc-box-shadow-focus) var(--focus-color);
   }
 
   /* Disabled */
-  :host([disabled]) #button {
+  :host([disabled]) #main {
     opacity: 0.5;
     cursor: not-allowed;
   }

@@ -25,7 +25,7 @@ export default class ArcButton extends LitElement {
   static styles = styles;
 
   /** @internal */
-  @query('#button') button: HTMLButtonElement | HTMLLinkElement;
+  @query('#main') button: HTMLButtonElement | HTMLLinkElement;
 
   /** @internal - Controller used to recognize form controls located inside a shadow root. */
   private readonly formController = new FormController(this);
@@ -139,7 +139,7 @@ export default class ArcButton extends LitElement {
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <${tag}
-        id="button"
+        id="main"
         style=${styleMap(btnStyles)}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type=${this.submit ? 'submit' : 'button'}

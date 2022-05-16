@@ -10,7 +10,7 @@ export default css`
     --icon-color: rgb(var(--arc-font-color));
   }
 
-  #button {
+  #main {
     display: grid;
     align-content: center;
     text-align: center;
@@ -48,23 +48,23 @@ export default css`
   }
 
   /* Hover & Focus */
-  :host(:not([disabled])) #button:hover #icon,
-  :host(:not([disabled])) #button:focus-visible #icon {
+  :host(:not([disabled])) #main:hover #icon,
+  :host(:not([disabled])) #main:focus-visible #icon {
     background-color: rgba(var(--arc-font-color), 10%);
   }
 
   /* Mouse down */
-  :host(:not([disabled])) #button:active #icon {
+  :host(:not([disabled])) #main:active #icon {
     background-color: rgba(var(--arc-font-color), 30%);
   }
 
   /* Active */
-  :host(:not([disabled])[active]) #button {
+  :host(:not([disabled])[active]) #main {
     border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
   }
 
   /* Disabled */
-  :host([disabled]) #button {
+  :host([disabled]) #main {
     opacity: 0.5;
     cursor: not-allowed;
   }

@@ -21,15 +21,15 @@ describe('ArcBottombar', () => {
       expect(element).dom.to.equal(`<arc-bottombar></arc-bottombar>`);
     });
 
-    /* Test the accessibility */
-    it('passes the a11y audit', async () => {
-      await expect(element).shadowDom.to.be.accessible();
-    });
-
     it('should be rendered as a page landmark', () => {
       const mainDiv = element.shadowRoot?.getElementById('main')!;
       expect(mainDiv.tagName).to.equal('NAV');
       expect(mainDiv.hasAttribute('aria-label')).to.be.true;
+    });
+
+    /* Test the accessibility */
+    it('passes the a11y audit', async () => {
+      await expect(element).shadowDom.to.be.accessible();
     });
   });
 

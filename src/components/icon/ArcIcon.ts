@@ -39,7 +39,7 @@ export default class ArcIcon extends LitElement {
 
     return html`
       <svg
-        id="icon"
+        id="main"
         style=${styleMap(iconStyles)}
         role=${ifDefined(this.label ? 'img' : undefined)}
         aria-label=${ifDefined(this.label || undefined)}

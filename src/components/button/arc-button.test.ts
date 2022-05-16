@@ -26,7 +26,7 @@ describe('ArcButton', () => {
 
     /* Test the type of the button */
     it('renders the button as a default button', () => {
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
       expect(buttonTarget.getAttribute('type')).to.equal('button');
     });
 
@@ -72,7 +72,7 @@ describe('ArcButton', () => {
 
     it('renders the button as an anchor', async () => {
       const element: ArcButton = await fixture(html`<arc-button href="/">Test</arc-button>`);
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.href).to.equal('/');
       expect(element.getAttribute('href')).to.equal('/');
@@ -85,7 +85,7 @@ describe('ArcButton', () => {
 
     it('renders the anchor with a target attribute', async () => {
       const element: ArcButton = await fixture(html`<arc-button href="/" target="_blank">Test</arc-button>`);
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.target).to.equal('_blank');
       expect(element.getAttribute('target')).to.equal('_blank');
@@ -96,7 +96,7 @@ describe('ArcButton', () => {
 
     it('renders the anchor with a download attribute', async () => {
       const element: ArcButton = await fixture(html`<arc-button href="/" download="Filename">Test</arc-button>`);
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.download).to.equal('Filename');
       expect(element.getAttribute('download')).to.equal('Filename');
@@ -106,7 +106,7 @@ describe('ArcButton', () => {
 
     it('renders the button as a submit button', async () => {
       const element: ArcButton = await fixture(html`<arc-button submit>Submit</arc-button>);`);
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
       expect(buttonTarget.getAttribute('type')).to.equal('submit');
     });
   });
@@ -130,7 +130,7 @@ describe('ArcButton', () => {
     });
 
     it('renders the button in a disabled state', async () => {
-      const buttonTarget = element.shadowRoot!.getElementById('button');
+      const buttonTarget = element.shadowRoot!.getElementById('main');
 
       expect(buttonTarget!.hasAttribute('disabled')).to.be.false;
       expect(element.disabled).to.be.false;
@@ -148,7 +148,7 @@ describe('ArcButton', () => {
       element.href = '/';
       await elementUpdated(element);
 
-      const anchorTarget = element.shadowRoot!.getElementById('button');
+      const anchorTarget = element.shadowRoot!.getElementById('main');
 
       expect(anchorTarget!.getAttribute('aria-disabled')).to.equal('false');
       expect(anchorTarget!.getAttribute('tabindex')).to.equal('0');
@@ -228,7 +228,7 @@ describe('ArcButton', () => {
 
     beforeEach(async () => {
       element = await fixture(html`<arc-button></arc-button>`);
-      buttonTarget = element.shadowRoot!.getElementById('button')!;
+      buttonTarget = element.shadowRoot!.getElementById('main')!;
     });
 
     it('renders a slot to fill the button with a label', async () => {

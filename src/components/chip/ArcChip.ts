@@ -46,7 +46,7 @@ export default class ArcChip extends LitElement {
     };
 
     return html`
-      <div id="chip" style=${styleMap(chipStyles)}>
+      <div id="main" style=${styleMap(chipStyles)}>
         <slot name="avatar"></slot>
         <slot></slot>
         ${when(

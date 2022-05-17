@@ -131,7 +131,7 @@ export default class ArcNavbar extends LitElement {
             <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
             ${when(
               this.showDropdown,
-              () => html`<arc-dropdown hoist>
+              () => html`<arc-dropdown id="dropdown" hoist>
                 <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
                 <arc-menu>${menuInterior}</arc-menu>
               </arc-dropdown>`

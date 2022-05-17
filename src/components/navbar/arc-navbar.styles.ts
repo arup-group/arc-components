@@ -80,6 +80,7 @@ export default css`
   }
 
   ::slotted(arc-icon-button),
+  #dropdown,
   #accessibility {
     margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
   }

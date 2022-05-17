@@ -1,67 +1,68 @@
 import { css } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
 
-export default css`
-  ${componentStyles}
+export default [
+  componentStyles,
+  css`
+    :host {
+      display: block;
+    }
 
-  :host {
-    display: block;
-  }
+    .menu-item {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      text-align: left;
+      padding: var(--arc-spacing-small) var(--arc-spacing-medium);
+      user-select: none;
+      white-space: nowrap;
+      cursor: pointer;
+    }
 
-  .menu-item {
-    position: relative;
-    display: flex;
-    align-items: stretch;
-    text-align: left;
-    padding: var(--arc-spacing-small) var(--arc-spacing-medium);
-    user-select: none;
-    white-space: nowrap;
-    cursor: pointer;
-  }
+    #prefix,
+    #label,
+    #suffix {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+    }
 
-  #prefix,
-  #label,
-  #suffix {
-    display: flex;
-    flex: 0 0 auto;
-    align-items: center;
-  }
+    #prefix ::slotted(*) {
+      margin-right: var(--arc-spacing-x-small);
+    }
 
-  #prefix ::slotted(*) {
-    margin-right: var(--arc-spacing-x-small);
-  }
+    #label {
+      flex: 1 1 auto;
+      max-width: 30ch;
+      overflow: hidden;
+    }
 
-  #label {
-    flex: 1 1 auto;
-    max-width: 30ch;
-    overflow: hidden;
-  }
+    #label * {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis ' ...';
+    }
 
-  #label * {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis ' ...';
-  }
+    #suffix ::slotted(*) {
+      margin-left: var(--arc-spacing-x-small);
+    }
 
-  #suffix ::slotted(*) {
-    margin-left: var(--arc-spacing-x-small);
-  }
+    /* Hover & Focus */
+    :host(:focus) {
+      outline: none;
+    }
 
-  /* Hover & Focus */
-  :host(:focus) {
-    outline: none;
-  }
+    .menu-item:hover:not(.menu--item--disabled),
+    .menu-item:focus-visible:not(.menu--item--disabled) {
+      background-color: currentColor;
+      background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
+    }
 
-  .menu-item:hover:not(.menu--item--disabled),
-  .menu-item:focus-visible:not(.menu--item--disabled) {
-    background-color: currentColor;
-    background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
-  }
-
-  /* Disabled */
-  .menu-item--disabled {
-    opacity: 0.5;
-    outline: none;
-    cursor: not-allowed;
-  }
-`;
+    /* Disabled */
+    .menu-item--disabled {
+      opacity: 0.5;
+      outline: none;
+      cursor: not-allowed;
+    }
+  `,
+];

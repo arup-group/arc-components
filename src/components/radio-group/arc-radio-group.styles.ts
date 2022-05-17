@@ -2,27 +2,28 @@ import { css } from 'lit';
 import { mobileBreakpoint } from '../../internal/preferences.js';
 import componentStyles from '../../styles/component.styles.js';
 
-export default css`
-  ${componentStyles}
-
-  :host {
-    display: inline-flex;
-  }
-
-  #radioGroup {
-    display: grid;
-    position: relative;
-    right: var(--arc-spacing-small);
-    border: none;
-    padding: 0;
-    margin: 0;
-    min-width: 0;
-  }
-
-  /* Medium devices and up */
-  @media (min-width: ${mobileBreakpoint}rem) {
-    :host([row]) #radioGroup {
-      grid-auto-flow: column;
+export default [
+  componentStyles,
+  css`
+    :host {
+      display: inline-flex;
     }
-  }
-`;
+
+    #radioGroup {
+      display: grid;
+      position: relative;
+      right: var(--arc-spacing-small);
+      border: none;
+      padding: 0;
+      margin: 0;
+      min-width: 0;
+    }
+
+    /* Medium devices and up */
+    @media (min-width: ${mobileBreakpoint}rem) {
+      :host([row]) #radioGroup {
+        grid-auto-flow: column;
+      }
+    }
+  `,
+];

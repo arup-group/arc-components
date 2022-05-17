@@ -1,9 +1,9 @@
 import { css } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
 
-export default css`
-  ${componentStyles}
-
+export default [
+  componentStyles,
+  css`
   :host {
     --stroke-color: rgb(var(--arc-font-color));
     --track-width: 2px;
@@ -56,4 +56,5 @@ export default css`
       transform: rotate(1080deg);
     }
   }
-`;
+`,
+];

@@ -47,12 +47,18 @@ export default class ArcChip extends LitElement {
         })}
       >
         <slot name="avatar"></slot>
-        <slot></slot>
-        ${when(
-          this.clearable,
-          () =>
-            html`<arc-icon-button name="close-circle" label="Clear chip" @click=${this._handleClear}></arc-icon-button>`
-        )}
+        <span>
+          <slot></slot>
+          ${when(
+            this.clearable,
+            () =>
+              html`<arc-icon-button
+                name="close-circle"
+                label="Clear chip"
+                @click=${this._handleClear}
+              ></arc-icon-button>`
+          )}
+        </span>
       </div>
     `;
   }

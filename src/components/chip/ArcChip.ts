@@ -12,10 +12,7 @@ import '../icon/arc-icon.js';
 
 /**
  * @slot default - The chip's label.
- * @slot prefix - Used to prepend an icon or similar element to the chip.
- * @slot suffix - Used to append an icon or similar element to the chip.
- *
- * @cssproperty --custom-color - A description of the --custom-color property.
+ * @slot avatar - Used to prepend an avatar element to the chip.
  */
 export default class ArcChip extends LitElement {
   static tag = 'arc-chip';

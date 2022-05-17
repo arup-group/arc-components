@@ -8,7 +8,7 @@ export default css`
     display: block;
   }
 
-  #main {
+  .menu-item {
     position: relative;
     display: flex;
     align-items: stretch;
@@ -51,14 +51,15 @@ export default css`
   :host(:focus) {
     outline: none;
   }
-  :host(:not([disabled]):hover) #main,
-  :host(:not([disabled]):focus-visible) #main {
+
+  .menu-item:hover:not(.menu--item--disabled),
+  .menu-item:focus-visible:not(.menu--item--disabled) {
     background-color: currentColor;
     background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
   }
 
   /* Disabled */
-  :host([disabled]) #main {
+  .menu-item--disabled {
     opacity: 0.5;
     outline: none;
     cursor: not-allowed;

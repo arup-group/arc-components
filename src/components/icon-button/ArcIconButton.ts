@@ -3,6 +3,7 @@ import { html, literal } from 'lit/static-html.js';
 import { property, query } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
 import { IconType } from '../icon/constants/IconConstants.js';
 import styles from './arc-icon-button.styles.js';
@@ -76,6 +77,12 @@ export default class ArcIconButton extends LitElement {
     return html`
       <${tag}
         id="main"
+        class=${classMap({
+          button: true,
+          'button--active': this.active,
+          'button--disabled': this.disabled,
+          'button--loading': this.loading,
+        })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type="button"
         href=${ifDefined(this.href || undefined)}

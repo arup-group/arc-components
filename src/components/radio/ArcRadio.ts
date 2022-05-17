@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
 import { emit } from '../../internal/event.js';
 import { FormController } from '../../internal/form-control.js';
@@ -141,7 +142,15 @@ export default class ArcRadio extends LitElement {
 
   render() {
     return html`
-      <label id="main" @keydown=${this.handleKeyDown}>
+      <label
+        id="main"
+        class=${classMap({
+          radio: true,
+          'radio--checked': this.checked,
+          'radio--disabled': this.disabled,
+        })}
+        @keydown=${this.handleKeyDown}
+      >
         <input
           type="radio"
           name=${ifDefined(this.name || undefined)}

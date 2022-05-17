@@ -10,7 +10,7 @@ export default css`
     --icon-color: rgb(var(--arc-font-color));
   }
 
-  #main {
+  .button {
     display: grid;
     align-content: center;
     text-align: center;
@@ -47,30 +47,32 @@ export default css`
     margin-top: -0.2rem;
   }
 
-  /* Hover & Focus */
-  :host(:not([disabled])) #main:hover #icon,
-  :host(:not([disabled])) #main:focus-visible #icon {
-    background-color: rgba(var(--arc-font-color), 10%);
-  }
-
-  /* Mouse down */
-  :host(:not([disabled])) #main:active #icon {
-    background-color: rgba(var(--arc-font-color), 30%);
-  }
-
   /* Active */
-  :host(:not([disabled])[active]) #main {
+  .button.button--active {
     border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
   }
 
+  /* Hover, Focus & Mouse down */
+  .button:hover:not(.button--disabled):not(.button--loading) #icon,
+  .button:focus-visible:not(.button--disabled):not(.button--loading) #icon {
+    background-color: rgba(var(--arc-font-color), 10%);
+  }
+  .button:active:not(.button--disabled):not(.button--loading) #icon {
+    background-color: rgba(var(--arc-font-color), 30%);
+  }
+
   /* Disabled */
-  :host([disabled]) #main {
+  .button--disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
   /* Loading */
-  :host([loading]) #icon {
+  .button--loading {
+    cursor: wait;
+  }
+
+  .button--loading #icon {
     visibility: hidden;
   }
 

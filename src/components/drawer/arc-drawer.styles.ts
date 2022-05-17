@@ -9,7 +9,7 @@ export default css`
     display: contents;
   }
 
-  #main {
+  .drawer {
     position: fixed;
     top: 0;
     left: 0;
@@ -20,10 +20,24 @@ export default css`
     z-index: var(--arc-z-index-drawer);
   }
 
-  /* Contained */
-  :host([contained]) #main {
+  .drawer--contained {
     position: absolute;
     z-index: initial;
+  }
+
+  #overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(var(--arc-darker-40) 0 0);
+    pointer-events: all;
+  }
+
+  .drawer--contained #overlay {
+    position: absolute;
   }
 
   #panel {
@@ -42,8 +56,8 @@ export default css`
     outline: none;
   }
 
-  /* Top */
-  :host([placement='top']) #panel {
+  /* Placements */
+  .drawer--top #panel {
     top: 0;
     right: auto;
     bottom: auto;
@@ -52,8 +66,7 @@ export default css`
     height: var(--size);
   }
 
-  /* End */
-  :host([placement='end']) #panel {
+  .drawer--end #panel {
     top: 0;
     right: 0;
     bottom: auto;
@@ -62,8 +75,7 @@ export default css`
     height: 100%;
   }
 
-  /* Bottom */
-  :host([placement='bottom']) #panel {
+  .drawer--bottom #panel {
     top: auto;
     right: auto;
     bottom: 0;
@@ -72,8 +84,7 @@ export default css`
     height: var(--size);
   }
 
-  /* Start */
-  :host([placement='start']) #panel {
+  .drawer--right #panel {
     top: 0;
     right: auto;
     bottom: auto;
@@ -110,20 +121,5 @@ export default css`
   #footer {
     text-align: right;
     padding: var(--arc-spacing-medium);
-  }
-
-  #overlay {
-    display: block;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(var(--arc-darker-40) 0 0);
-    pointer-events: all;
-  }
-
-  :host([contained]) #overlay {
-    position: absolute;
   }
 `;

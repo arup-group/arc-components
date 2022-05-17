@@ -12,7 +12,7 @@ export default css`
     --thumb-size: calc(var(--arc-font-size-x-large) - 4px);
   }
 
-  #main {
+  .switch {
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
@@ -33,22 +33,7 @@ export default css`
   }
 
   #control {
-    display: inline-flex;
-    align-items: center;
-    vertical-align: middle;
-    justify-content: center;
     position: absolute;
-    box-sizing: border-box;
-    background-color: transparent;
-    outline: 0;
-    border: 0;
-    margin: 0;
-    cursor: inherit;
-    user-select: none;
-    appearance: none;
-    text-decoration: none;
-    padding: var(--arc-spacing-small);
-    border-radius: 50%;
     transform: translateX(calc((var(--width) - var(--height)) / -2));
   }
 
@@ -59,34 +44,27 @@ export default css`
     border-radius: 50%;
   }
 
-  #label {
-    line-height: var(--arc-font-size-x-large);
-    user-select: none;
-  }
-
-  /* Checked */
-  :host([checked]) #base {
-    background-color: rgb(var(--arc-color-info));
-  }
-
-  :host([checked]) #control {
-    transform: translateX(calc((var(--width) - var(--height)) / 2));
-  }
-
-  /* Hover & Focus */
-  :host(:not([disabled])) input:hover + #control,
-  :host(:not([disabled])) input:focus-visible + #control {
+  /* Hover, Focus & Mouse down */
+  .switch:not(.switch--disabled) input:hover + #control,
+  .switch:not(.switch--disabled) input:focus-visible + #control {
     background-color: rgba(var(--arc-font-color), 10%);
   }
-
-  /* Mouse down */
-  :host(:not([disabled])) input:active + #control {
+  .switch:not(.switch--disabled) input:active + #control {
     background-color: rgba(var(--arc-font-color), 30%);
   }
 
   /* Disabled */
-  :host([disabled]) #main {
+  .switch--disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  /* Checked */
+  .switch--checked #base {
+    background-color: rgb(var(--arc-color-info));
+  }
+
+  .switch--checked #control {
+    transform: translateX(calc((var(--width) - var(--height)) / 2));
   }
 `;

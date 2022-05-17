@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { emit } from '../../internal/event.js';
 import { FormController } from '../../internal/form-control.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -60,7 +61,14 @@ export default class ArcSwitch extends LitElement {
 
   render() {
     return html`
-      <label id="main">
+      <label
+        id="main"
+        class=${classMap({
+          switch: true,
+          'switch--checked': this.checked,
+          'switch--disabled': this.disabled,
+        })}
+      >
         <span id="base">
           <input
             type="checkbox"

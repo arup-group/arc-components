@@ -1,5 +1,6 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
 import styles from './arc-menu-item.styles.js';
 
@@ -30,7 +31,13 @@ export default class ArcMenuItem extends LitElement {
 
   render() {
     return html`
-      <div id="main">
+      <div
+        id="main"
+        class=${classMap({
+          'menu-item': true,
+          'menu-item--disabled': this.disabled,
+        })}
+      >
         <span id="prefix">
           <slot name="prefix"></slot>
         </span>

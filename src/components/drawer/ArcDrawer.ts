@@ -1,6 +1,7 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
@@ -174,7 +175,18 @@ export default class ArcDrawer extends LitElement {
 
   render() {
     return html`
-      <div id="main" @keydown=${this.handleKeyDown}>
+      <div
+        id="main"
+        class=${classMap({
+          drawer: true,
+          'drawer--contained': this.contained,
+          'drawer--top': this.placement === DRAWER_PLACEMENTS.top,
+          'drawer--end': this.placement === DRAWER_PLACEMENTS.end,
+          'drawer--bottom': this.placement === DRAWER_PLACEMENTS.bottom,
+          'drawer--start': this.placement === DRAWER_PLACEMENTS.start,
+        })}
+        @keydown=${this.handleKeyDown}
+      >
         <div id="overlay" @click=${this._requestClose} role="presentation" tabindex="-1"></div>
         <div
           id="panel"

@@ -5,6 +5,7 @@ import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
 import { escEvent } from '../../internal/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { DRAWER_PLACEMENTS } from './constants/DrawerConstants.js';
 
 import type ArcDrawer from './ArcDrawer.js';
 import './arc-drawer.js';
@@ -19,7 +20,7 @@ describe('ArcDrawer', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal("<arc-drawer placement='end'></arc-drawer>");
+      expect(element).dom.to.equal(`<arc-drawer placement='${DRAWER_PLACEMENTS.end}'></arc-drawer>`);
     });
 
     /* Test the accessibility */

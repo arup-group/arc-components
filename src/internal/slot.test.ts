@@ -15,7 +15,7 @@ class testComponent extends LitElement {
     return this.hasSlotController.test('one');
   }
 
-  render() {
+  protected render() {
     return html`
       <slot id="empty"></slot>
       <slot id="filled" name="one"></slot>

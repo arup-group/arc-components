@@ -1,17 +1,18 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { uppercaseFirstLetter } from '../../internal/string.js';
 import { watch } from '../../internal/watch.js';
 import Modal from '../../internal/modal.js';
-import componentStyles from '../../styles/component.styles.js';
 import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
+import styles from './arc-drawer.styles.js';
 import '../icon-button/arc-icon-button.js';
 
 /**
@@ -31,133 +32,7 @@ import '../icon-button/arc-icon-button.js';
 export default class ArcDrawer extends LitElement {
   static tag = 'arc-drawer';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        --size: 25rem;
-        display: contents;
-      }
-
-      #main {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: var(--arc-z-index-drawer);
-      }
-
-      /* Contained */
-      :host([contained]) #main {
-        position: absolute;
-        z-index: initial;
-      }
-
-      #panel {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        z-index: 2;
-        max-width: 100%;
-        max-height: 100%;
-        background-color: rgb(var(--arc-container-color));
-        overflow: auto;
-        pointer-events: all;
-      }
-
-      #panel:focus {
-        outline: none;
-      }
-
-      /* Top */
-      :host([placement='top']) #panel {
-        top: 0;
-        right: auto;
-        bottom: auto;
-        left: 0;
-        width: 100%;
-        height: var(--size);
-      }
-
-      /* End */
-      :host([placement='end']) #panel {
-        top: 0;
-        right: 0;
-        bottom: auto;
-        left: auto;
-        width: var(--size);
-        height: 100%;
-      }
-
-      /* Bottom */
-      :host([placement='bottom']) #panel {
-        top: auto;
-        right: auto;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: var(--size);
-      }
-
-      /* Start */
-      :host([placement='start']) #panel {
-        top: 0;
-        right: auto;
-        bottom: auto;
-        left: 0;
-        width: var(--size);
-        height: 100%;
-      }
-
-      #header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--arc-spacing-small);
-        padding-left: var(--arc-spacing-medium);
-        user-select: none;
-      }
-
-      #header span {
-        font-size: var(--arc-font-size-large);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      #body {
-        flex: 1 1 auto;
-        padding: var(--arc-spacing-medium);
-        padding-top: var(--arc-spacing-normal);
-        border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      #footer {
-        text-align: right;
-        padding: var(--arc-spacing-medium);
-      }
-
-      #overlay {
-        display: block;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-image: linear-gradient(var(--arc-darker-40) 0 0);
-        pointer-events: all;
-      }
-
-      :host([contained]) #overlay {
-        position: absolute;
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('#main') drawer: HTMLElement;
@@ -298,9 +173,20 @@ export default class ArcDrawer extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     return html`
-      <div id="main" @keydown=${this.handleKeyDown}>
+      <div
+        id="main"
+        class=${classMap({
+          drawer: true,
+          'drawer--contained': this.contained,
+          'drawer--top': this.placement === DRAWER_PLACEMENTS.top,
+          'drawer--end': this.placement === DRAWER_PLACEMENTS.end,
+          'drawer--bottom': this.placement === DRAWER_PLACEMENTS.bottom,
+          'drawer--start': this.placement === DRAWER_PLACEMENTS.start,
+        })}
+        @keydown=${this.handleKeyDown}
+      >
         <div id="overlay" @click=${this._requestClose} role="presentation" tabindex="-1"></div>
         <div
           id="panel"

@@ -30,9 +30,9 @@ describe('ArcContainer', () => {
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       if (prefersDark() || isNight()) {
-        expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`);
+        expect(element).dom.to.equal(`<arc-container theme='${CONTAINER_THEMES.dark}'></arc-container>`);
       } else {
-        expect(element).dom.to.equal(`<arc-container theme=${CONTAINER_THEMES.light}></arc-container>`);
+        expect(element).dom.to.equal(`<arc-container theme='${CONTAINER_THEMES.light}'></arc-container>`);
       }
     });
 

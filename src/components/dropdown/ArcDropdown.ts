@@ -1,14 +1,14 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { Instance as PopperInstance, createPopper, Placement } from '@popperjs/core';
 import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { getTabbableBoundary } from '../../internal/tabbable.js';
-import componentStyles from '../../styles/component.styles.js';
 import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
+import styles from './arc-dropdown.styles.js';
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
@@ -24,59 +24,7 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 export default class ArcDropdown extends LitElement {
   static tag = 'arc-dropdown';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        display: inline-flex;
-        align-items: center;
-      }
-
-      #main,
-      #trigger {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-      }
-
-      #positioner {
-        position: absolute;
-        z-index: var(--arc-z-index-dropdown);
-      }
-
-      #panel {
-        max-height: var(--arc-panel-height);
-        min-width: var(--arc-panel-width);
-        background-color: rgb(var(--arc-container-color));
-        box-shadow: var(--arc-box-shadow);
-        overflow: auto;
-        overscroll-behavior: none;
-        pointer-events: none;
-      }
-
-      :host([open]) #panel {
-        pointer-events: all;
-      }
-
-      #positioner[data-popper-placement^='top'] #panel {
-        transform-origin: bottom;
-      }
-
-      #positioner[data-popper-placement^='bottom'] #panel {
-        transform-origin: top;
-      }
-
-      #positioner[data-popper-placement^='left'] #panel {
-        transform-origin: right;
-      }
-
-      #positioner[data-popper-placement^='right'] #panel {
-        transform-origin: left;
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('#trigger') trigger: HTMLElement;
@@ -267,8 +215,7 @@ export default class ArcDropdown extends LitElement {
 
     /*
     When space bar/enter is pressed, show the panel but don't focus on the menu.
-    This let's the user press the same
-    key again to hide the menu in case they don't want to make a selection.
+    This lets the user press the same key again to hide the menu in case they don't want to make a selection.
     */
     if ([' ', 'Enter'].includes(event.key)) {
       event.preventDefault();
@@ -375,7 +322,7 @@ export default class ArcDropdown extends LitElement {
     await waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
-  render() {
+  protected render() {
     return html`
       <div id="main">
         <span

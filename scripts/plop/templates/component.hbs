@@ -1,9 +1,9 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
+import styles from './{{ tag }}.styles.js';
 
 /**
 * @slot default - A description of the default slot.
@@ -16,20 +16,7 @@ import componentStyles from '../../styles/component.styles.js';
 export default class {{ properCase tag }} extends LitElement {
   static tag = '{{ tag }}';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        --custom-color: rgb(var(--arc-red-050));
-      }
-      #main {
-        color: var(--custom-color);
-      }
-      #main.active {
-        color: rgb(var(--arc-green-050));
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** A description of the property. */
   @property({ type: String, reflect: true }) name: string = 'Hello World';
@@ -42,7 +29,7 @@ export default class {{ properCase tag }} extends LitElement {
     emit(this, 'arc-event-name');
   }
 
-  render() {
+  protected render() {
     return html`
       <div id='main' class='${classMap({active: this.active})}'>
         <slot>${this.name}</slot>

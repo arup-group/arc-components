@@ -20,6 +20,7 @@ import './components/spinner/arc-spinner.js';
 import './components/sso/arc-sso.js';
 import './components/switch/arc-switch.js';
 import './components/avatar/arc-avatar.js';
+import './components/chip/arc-chip.js';
 /* plop:component-import */
 
 /* Types */
@@ -44,6 +45,7 @@ export { default as ArcSpinner } from './components/spinner/ArcSpinner.js';
 export { default as ArcSSO } from './components/sso/ArcSSO.js';
 export { default as ArcSwitch } from './components/switch/ArcSwitch.js';
 export { default as ArcAvatar } from './components/avatar/ArcAvatar.js';
+export { default as ArcChip } from './components/chip/ArcChip.js';
 /* plop:component-export */
 
 /* Utilities */

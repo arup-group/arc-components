@@ -1,11 +1,11 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
+import styles from './arc-sidebar.styles.js';
 import '../icon-button/arc-icon-button.js';
 
 /**
@@ -23,68 +23,7 @@ import '../icon-button/arc-icon-button.js';
 export default class ArcSidebar extends LitElement {
   static tag = 'arc-sidebar';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        --gap-distance: var(--arc-spacing-normal);
-        --sidebar-width: clamp(15rem, 30%, 23rem);
-        transform: translateX(-1.5rem);
-        transition: width 0.5s ease 0s;
-        width: 0;
-      }
-
-      :host([open]) {
-        transform: translateX(0);
-        width: var(--sidebar-width);
-        overflow: auto;
-      }
-
-      /* Open sidebar */
-      #main,
-      #content {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-      }
-
-      #header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--arc-spacing-small);
-        padding-left: var(--arc-spacing-medium);
-        user-select: none;
-      }
-
-      #header span {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      #content ::slotted(*) {
-        flex: 1 1 100%;
-      }
-
-      #content.gap {
-        gap: var(--gap-distance);
-      }
-
-      #toggleOpen::part(icon) {
-        padding: var(--arc-spacing-normal) 0.25rem var(--arc-spacing-normal) 0.25rem;
-        border-radius: 0;
-      }
-
-      /* Background */
-      ::slotted(*),
-      #header,
-      #toggleOpen {
-        background-color: rgb(var(--arc-container-color));
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('#content') content: HTMLElement;
@@ -146,7 +85,7 @@ export default class ArcSidebar extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     return this.open
       ? html`
           <aside

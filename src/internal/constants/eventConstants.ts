@@ -4,6 +4,7 @@ export declare type ArcEvent =
   | 'afterShow'
   | 'auth'
   | 'change'
+  | 'clear'
   | 'error'
   | 'hide'
   | 'initialFocus'
@@ -19,6 +20,7 @@ export const ARC_EVENTS: { [key in ArcEvent]: string } = {
   afterShow: 'arc-after-show',
   auth: 'arc-auth',
   change: 'arc-change',
+  clear: 'arc-clear',
   error: 'arc-error',
   hide: 'arc-hide',
   initialFocus: 'arc-initial-focus',

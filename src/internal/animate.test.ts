@@ -14,7 +14,7 @@ import { ARC_ANIMATION_OPTIONS } from './constants/animationConstants.js';
 
 @customElement('animation-test')
 class AnimateTest extends LitElement {
-  render() {
+  protected render() {
     return html`<div>Animation Registry Test</div>`;
   }
 }

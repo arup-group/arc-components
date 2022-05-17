@@ -28,9 +28,9 @@ export default {
 
 const Template: Story = ({ customLabel, row }) => html`
   <arc-radio-group label=${ifDefined(customLabel || undefined)} ?row=${row}>
-    <arc-radio>Item 1</arc-radio>
-    <arc-radio>Item 2</arc-radio>
-    <arc-radio>Item 3</arc-radio>
+    <arc-radio name="car" value="vw">Volkswagen</arc-radio>
+    <arc-radio name="car" value="opel">Opel</arc-radio>
+    <arc-radio name="car" value="tesla">Tesla</arc-radio>
   </arc-radio-group>
 `;
 

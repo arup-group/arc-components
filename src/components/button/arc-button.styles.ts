@@ -28,6 +28,9 @@ export default css`
     border: none;
     border-radius: var(--button-size);
     font-weight: var(--arc-font-weight-semibold);
+    font-family: var(--arc-font-button);
+    font-size: inherit;
+    letter-spacing: inherit;
     text-decoration: none;
     user-select: none;
     white-space: nowrap;

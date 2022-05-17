@@ -1,19 +1,19 @@
-import { css, html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
+import { when } from 'lit/directives/when.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import { mobileBreakpoint } from '../../internal/preferences.js';
-import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
+import styles from './arc-navbar.styles.js';
+import { arupLogo } from './arup-logo.js';
 import type ArcButton from '../button/ArcButton.js';
 import type ArcIconButton from '../icon-button/ArcIconButton.js';
 import '../dropdown/arc-dropdown.js';
+import '../icon-button/arc-icon-button.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
-import '../icon-button/arc-icon-button.js';
-import { arupLogo } from './arup-logo.js';
 
 /**
  * @slot default - This slot is used to add tabs to the navbar.
@@ -27,118 +27,7 @@ import { arupLogo } from './arup-logo.js';
 export default class ArcNavbar extends LitElement {
   static tag = 'arc-navbar';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        height: 3.5rem;
-        background-color: rgb(var(--arc-container-color));
-        z-index: 1;
-        --logo-height: var(--arc-brand-height);
-      }
-
-      /* Layout */
-      #main,
-      #left,
-      #logoWrapper,
-      #right,
-      #tabs {
-        display: grid;
-        grid-auto-flow: column;
-      }
-
-      #main {
-        height: inherit;
-        width: 100%;
-        padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
-        box-shadow: var(--arc-box-shadow);
-        user-select: none;
-      }
-
-      /* Left side */
-      #left {
-        justify-content: flex-start;
-      }
-
-      #logoWrapper {
-        align-items: center;
-        gap: var(--arc-spacing-small);
-        text-decoration: none;
-        color: inherit;
-      }
-
-      #tool-logo {
-        height: var(--logo-height);
-        width: auto;
-      }
-
-      /* Show the tool-name when there is no tool-logo */
-      #tool-name {
-        display: flex;
-        overflow: hidden;
-      }
-
-      #tool-name::slotted(*) {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-
-      /* Hide the tool-name when there is a tool-logo */
-      #tool-logo + #tool-name {
-        display: none;
-      }
-
-      /* Right side */
-      #right {
-        justify-content: flex-end;
-        gap: var(--arc-spacing-medium);
-      }
-
-      #tabSlot {
-        display: none;
-      }
-
-      ::slotted(arc-button) {
-        border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-        border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-      }
-
-      ::slotted(arc-icon-button),
-      #accessibility {
-        margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
-      }
-
-      #accessibility {
-        display: none;
-      }
-
-      #company-logo {
-        color: rgb(var(--arc-color-primary));
-        display: flex;
-        align-items: center;
-      }
-
-      #company-logo > svg {
-        height: var(--arc-brand-height);
-        width: auto;
-      }
-
-      /* Medium devices and up */
-      @media (min-width: ${mobileBreakpoint}rem) {
-        #tabSlot,
-        #tool-logo + #tool-name,
-        #accessibility {
-          display: flex;
-        }
-
-        ::slotted(arc-sso) {
-          border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-          border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-        }
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('#tabSlot') tabSlot: HTMLSlotElement;
@@ -205,9 +94,10 @@ export default class ArcNavbar extends LitElement {
         this.navTabs,
         tab => html`
           <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
-            ${(tab as ArcIconButton).name
-              ? html`<arc-icon name="${(tab as ArcIconButton).name}" slot="prefix"></arc-icon>`
-              : nothing}
+            ${when(
+              (tab as ArcIconButton).name,
+              () => html`<arc-icon .name=${(tab as ArcIconButton).name} slot="prefix"> }</arc-icon>`
+            )}
             ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
           </arc-menu-item>
         `
@@ -215,32 +105,37 @@ export default class ArcNavbar extends LitElement {
     `;
 
     const logoInterior = html`
-      ${this.logo ? html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />` : nothing}
+      ${when(this.logo, () => html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`)}
       <slot id="tool-name" name="name"></slot>
     `;
 
     return html`
       <header id="main">
         <div id="left">
-          ${this.home
-            ? html`
-                <a id="logoWrapper" href=${this.home} rel="noreferrer noopener" role="button" aria-label="tool logo">
-                  ${logoInterior}
-                </a>
-              `
-            : html`<div id="logoWrapper">${logoInterior}</div>`}
+          ${when(
+            this.home,
+            () => html`<a
+              id="logoWrapper"
+              href=${this.home}
+              rel="noreferrer noopener"
+              role="button"
+              aria-label="tool logo"
+            >
+              ${logoInterior}
+            </a>`,
+            () => html`<div id="logoWrapper">${logoInterior}</div>`
+          )}
         </div>
         <div id="right">
           <nav id="tabs" aria-label="primary navigation">
             <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
-            ${this.showDropdown
-              ? html`
-                  <arc-dropdown hoist>
-                    <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
-                    <arc-menu>${menuInterior}</arc-menu>
-                  </arc-dropdown>
-                `
-              : nothing}
+            ${when(
+              this.showDropdown,
+              () => html`<arc-dropdown hoist>
+                <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
+                <arc-menu>${menuInterior}</arc-menu>
+              </arc-dropdown>`
+            )}
             <arc-icon-button
               id="accessibility"
               name=${ICON_TYPES.accessibility}
@@ -249,7 +144,7 @@ export default class ArcNavbar extends LitElement {
             ></arc-icon-button>
             <slot name="user"></slot>
           </nav>
-          ${this.arup ? html`<span id="company-logo">${arupLogo}</span>` : nothing}
+          ${when(this.arup, () => html`<span id="company-logo">${arupLogo}</span>`)}
         </div>
       </header>
     `;

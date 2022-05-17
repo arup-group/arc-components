@@ -11,16 +11,11 @@ export default {
 } as Meta;
 
 const Template: Story<ArcMenuItem> = ({ value, disabled }) => html`
-  <arc-menu class="menu">
+  <arc-menu>
     <arc-menu-item>Label 1</arc-menu-item>
     <arc-menu-item value="${value}" ?disabled=${disabled}>Label 2</arc-menu-item>
     <arc-menu-item>Label 3</arc-menu-item>
   </arc-menu>
-  <style>
-    .menu {
-      width: 15rem;
-    }
-  </style>
 `;
 
 const PrefixSuffixTemplate: Story<ArcMenuItem> = () => html`

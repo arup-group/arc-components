@@ -15,15 +15,7 @@ describe('ArcSSO', () => {
 
     /* Test default properties that reflect to the DOM. */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal('<arc-sso></arc-sso>');
-    });
-
-    it('shows/hides the correct slots on initialization', () => {
-      const loginSlot = element.shadowRoot!.querySelector('slot[name="login"]')!;
-      const logoutSlot = element.shadowRoot!.querySelector('slot[name="logout"]')!;
-
-      expect(loginSlot.hasAttribute('hidden')).to.be.false;
-      expect(logoutSlot.hasAttribute('hidden')).to.be.true;
+      expect(element).dom.to.equal(`<arc-sso></arc-sso>`);
     });
 
     /* Test the accessibility. */
@@ -81,10 +73,6 @@ describe('ArcSSO', () => {
       );
     });
 
-    it('should check if the user is authenticated', () => {
-      expect(element.isAuthenticated()).to.be.false;
-    });
-
     it('should retrieve an undefined account', () => {
       expect(element.getAccount()).to.be.undefined;
     });
@@ -106,6 +94,14 @@ describe('ArcSSO', () => {
       const main = element.shadowRoot!.getElementById('main')!;
       expect(hasSlot(main, 'login')).to.be.true;
       expect(hasSlot(main, 'logout')).to.be.true;
+    });
+
+    it('shows/hides the correct slots on initialization', () => {
+      const loginSlot = element.shadowRoot!.querySelector('slot[name="login"]')!;
+      const logoutSlot = element.shadowRoot!.querySelector('slot[name="logout"]')!;
+
+      expect(loginSlot.hasAttribute('hidden')).to.be.false;
+      expect(logoutSlot.hasAttribute('hidden')).to.be.true;
     });
   });
 });

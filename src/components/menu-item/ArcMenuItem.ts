@@ -1,7 +1,8 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
+import styles from './arc-menu-item.styles.js';
 
 /**
  * @slot default - The menu item's label.
@@ -11,70 +12,7 @@ import componentStyles from '../../styles/component.styles.js';
 export default class ArcMenuItem extends LitElement {
   static tag = 'arc-menu-item';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        display: block;
-      }
-
-      #main {
-        position: relative;
-        display: flex;
-        align-items: stretch;
-        text-align: left;
-        padding: var(--arc-spacing-small) var(--arc-spacing-medium);
-        user-select: none;
-        white-space: nowrap;
-        cursor: pointer;
-      }
-
-      #prefix,
-      #label,
-      #suffix {
-        display: flex;
-        flex: 0 0 auto;
-        align-items: center;
-      }
-
-      #prefix ::slotted(*) {
-        margin-right: var(--arc-spacing-x-small);
-      }
-
-      #label {
-        flex: 1 1 auto;
-        max-width: 30ch;
-        overflow: hidden;
-      }
-
-      #label * {
-        display: inline-block;
-        overflow: hidden;
-        text-overflow: ellipsis ' ...';
-      }
-
-      #suffix ::slotted(*) {
-        margin-left: var(--arc-spacing-x-small);
-      }
-
-      /* Hover & Focus */
-      :host(:focus) {
-        outline: none;
-      }
-      :host(:not([disabled]):hover) #main,
-      :host(:not([disabled]):focus-visible) #main {
-        background-color: currentColor;
-        background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
-      }
-
-      /* Disabled */
-      :host([disabled]) #main {
-        opacity: 0.5;
-        outline: none;
-        cursor: not-allowed;
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** A unique value to store in the menu item. This can be used as a way to identify menu items when selected. */
   @property({ type: String }) value: string;
@@ -93,7 +31,13 @@ export default class ArcMenuItem extends LitElement {
 
   render() {
     return html`
-      <div id="main">
+      <div
+        id="main"
+        class=${classMap({
+          'menu-item': true,
+          'menu-item--disabled': this.disabled,
+        })}
+      >
         <span id="prefix">
           <slot name="prefix"></slot>
         </span>

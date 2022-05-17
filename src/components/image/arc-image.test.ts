@@ -18,7 +18,7 @@ describe('ArcImage', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-image delay="1000"></arc-image>`);
+      expect(element).dom.to.equal(`<arc-image delay='1000'></arc-image>`);
     });
 
     it('renders an overlay when no src is provided', () => {

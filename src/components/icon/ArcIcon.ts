@@ -1,11 +1,11 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { getBasePath } from '../../utilities/base-path.js';
-import componentStyles from '../../styles/component.styles.js';
 import { ICON_TYPES, IconType } from './constants/IconConstants.js';
 import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
+import styles from './arc-icon.styles.js';
 
 /**
  * @cssproperty --icon-color-primary - Set the primary color of the icon.
@@ -14,40 +14,7 @@ import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js
 export default class ArcIcon extends LitElement {
   static tag = 'arc-icon';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        display: flex;
-        --icon-color-primary: inherit;
-        --icon-color-secondary: currentColor;
-      }
-
-      #icon {
-        display: inline-block;
-        color: var(--icon-color-primary);
-        line-height: 1;
-        flex-shrink: 0;
-        max-width: initial;
-      }
-
-      /* Caps/Corners */
-      #icon use {
-        fill: var(--icon-color-secondary);
-        stroke: var(--icon-color-secondary);
-        --icon-stroke-linecap-butt: butt;
-        stroke-miterlimit: 10;
-        stroke-linecap: square;
-        stroke-linejoin: miter;
-      }
-
-      .stroke-round use {
-        --icon-stroke-linecap-butt: round;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** The name of the icon to draw. */
   @property({ type: String, reflect: true }) name: IconType = ICON_TYPES.fire;
@@ -64,7 +31,7 @@ export default class ArcIcon extends LitElement {
   render() {
     const DEFAULT_PATH: string = `${getBasePath()}/assets/icons.svg`;
 
-    const styles = {
+    const iconStyles = {
       transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
       height: `var(--arc-font-size-${this.size})`,
       width: `var(--arc-font-size-${this.size})`,
@@ -72,8 +39,8 @@ export default class ArcIcon extends LitElement {
 
     return html`
       <svg
-        id="icon"
-        style=${styleMap(styles)}
+        id="main"
+        style=${styleMap(iconStyles)}
         role=${ifDefined(this.label ? 'img' : undefined)}
         aria-label=${ifDefined(this.label || undefined)}
         aria-hidden=${ifDefined(this.label ? undefined : 'true')}

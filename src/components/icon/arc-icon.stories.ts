@@ -25,9 +25,7 @@ const AllTemplate: Story = () =>
   html`
     <p>This is a list of all the available icons within the component library.</p>
     <p>Click on an icon to copy the code to your clipboard!</p>
-    <div id="container">
-      ${Object.values(ICON_TYPES).map(icon => html`<arc-icon name=${icon} size=${FONT_SIZES.large}></arc-icon>`)}
-    </div>
+    <div id="container">${Object.values(ICON_TYPES).map(icon => html`<arc-icon name=${icon}></arc-icon>`)}</div>
     <style>
       #container {
         width: 50%;

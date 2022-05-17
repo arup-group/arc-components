@@ -3,7 +3,8 @@ import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
-import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_TYPES } from './constants/ButtonConstants.js';
+import { BUTTON_TYPES } from './constants/ButtonConstants.js';
+import { INPUT_SIZES, THEME_COLORS } from '../../internal/constants/styleConstants.js';
 
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
@@ -19,13 +20,13 @@ describe('ArcButton', () => {
     /* Test default properties that reflect to the DOM */
     it('renders the button with default properties in the dom', () => {
       expect(element).dom.to.equal(
-        `<arc-button type='${BUTTON_TYPES.pill}' color='${BUTTON_COLORS.default}' size='${BUTTON_SIZES.medium}'>Test</arc-button>`
+        `<arc-button type='${BUTTON_TYPES.filled}' color='${THEME_COLORS.primary}' size='${INPUT_SIZES.medium}'>Test</arc-button>`
       );
     });
 
     /* Test the type of the button */
     it('renders the button as a default button', () => {
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
       expect(buttonTarget.getAttribute('type')).to.equal('button');
     });
 
@@ -40,11 +41,11 @@ describe('ArcButton', () => {
     it('renders the button with a custom color, type and size property', async () => {
       const element: ArcButton = await fixture(html`<arc-button>Test</arc-button>`);
 
-      for (const buttonColor of Object.values(BUTTON_COLORS)) {
+      for (const buttonColor of Object.values(THEME_COLORS)) {
         element.color = buttonColor;
         for (const buttonType of Object.values(BUTTON_TYPES)) {
           element.type = buttonType;
-          for (const buttonSize of Object.values(BUTTON_SIZES)) {
+          for (const buttonSize of Object.values(INPUT_SIZES)) {
             element.size = buttonSize;
 
             await elementUpdated(element);
@@ -71,7 +72,7 @@ describe('ArcButton', () => {
 
     it('renders the button as an anchor', async () => {
       const element: ArcButton = await fixture(html`<arc-button href="/">Test</arc-button>`);
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.href).to.equal('/');
       expect(element.getAttribute('href')).to.equal('/');
@@ -84,7 +85,7 @@ describe('ArcButton', () => {
 
     it('renders the anchor with a target attribute', async () => {
       const element: ArcButton = await fixture(html`<arc-button href="/" target="_blank">Test</arc-button>`);
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.target).to.equal('_blank');
       expect(element.getAttribute('target')).to.equal('_blank');
@@ -95,7 +96,7 @@ describe('ArcButton', () => {
 
     it('renders the anchor with a download attribute', async () => {
       const element: ArcButton = await fixture(html`<arc-button href="/" download="Filename">Test</arc-button>`);
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.download).to.equal('Filename');
       expect(element.getAttribute('download')).to.equal('Filename');
@@ -105,7 +106,7 @@ describe('ArcButton', () => {
 
     it('renders the button as a submit button', async () => {
       const element: ArcButton = await fixture(html`<arc-button submit>Submit</arc-button>);`);
-      const buttonTarget = element.shadowRoot!.getElementById('button')!;
+      const buttonTarget = element.shadowRoot!.getElementById('main')!;
       expect(buttonTarget.getAttribute('type')).to.equal('submit');
     });
   });
@@ -129,7 +130,7 @@ describe('ArcButton', () => {
     });
 
     it('renders the button in a disabled state', async () => {
-      const buttonTarget = element.shadowRoot!.getElementById('button');
+      const buttonTarget = element.shadowRoot!.getElementById('main');
 
       expect(buttonTarget!.hasAttribute('disabled')).to.be.false;
       expect(element.disabled).to.be.false;
@@ -147,7 +148,7 @@ describe('ArcButton', () => {
       element.href = '/';
       await elementUpdated(element);
 
-      const anchorTarget = element.shadowRoot!.getElementById('button');
+      const anchorTarget = element.shadowRoot!.getElementById('main');
 
       expect(anchorTarget!.getAttribute('aria-disabled')).to.equal('false');
       expect(anchorTarget!.getAttribute('tabindex')).to.equal('0');
@@ -227,7 +228,7 @@ describe('ArcButton', () => {
 
     beforeEach(async () => {
       element = await fixture(html`<arc-button></arc-button>`);
-      buttonTarget = element.shadowRoot!.getElementById('button')!;
+      buttonTarget = element.shadowRoot!.getElementById('main')!;
     });
 
     it('renders a slot to fill the button with a label', async () => {

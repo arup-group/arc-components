@@ -1,4 +1,4 @@
-import { css, html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
@@ -12,7 +12,6 @@ import {
   uppercaseFirstLetter,
 } from '../../internal/string.js';
 import { getRootValue, setRootValue } from '../../utilities/style-utils.js';
-import componentStyles from '../../styles/component.styles.js';
 import {
   ACCESSIBILITY_OPTIONS,
   AccessibilityOption,
@@ -22,6 +21,7 @@ import {
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../internal/constants/styleConstants.js';
 import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
+import styles from './arc-accessibility.styles.js';
 import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
@@ -43,31 +43,7 @@ export declare type UserPreferences =
 export default class ArcAccessibility extends LitElement {
   static tag = 'arc-accessibility';
 
-  static styles = [
-    componentStyles,
-    css`
-      #wrapper {
-        display: grid;
-        gap: var(--arc-spacing-small);
-      }
-
-      .label {
-        display: flex;
-        align-items: center;
-        gap: var(--arc-spacing-small);
-      }
-
-      .options {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--arc-spacing-small);
-      }
-
-      .boolean-option {
-        height: 5rem;
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal - Reference to css variables that are scoped to :root. */
   private _rootCssVariables: { [key: string]: string } = {};
@@ -255,10 +231,6 @@ export default class ArcAccessibility extends LitElement {
     `;
   }
 
-  booleanTemplate() {
-    return html`${nothing}`;
-  }
-
   render() {
     return html`
       <div id="main">
@@ -279,11 +251,7 @@ export default class ArcAccessibility extends LitElement {
                   ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
                     const [userPreference, value] = option as [keyof UserPreferences, any];
 
-                    return html`${when(
-                      Array.isArray(value),
-                      () => this.radioTemplate(userPreference, value),
-                      () => this.booleanTemplate()
-                    )}`;
+                    return html`${when(Array.isArray(value), () => this.radioTemplate(userPreference, value))}`;
                   })}
                 </div>
               `

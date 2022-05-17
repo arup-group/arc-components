@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -11,9 +11,9 @@ import {
   shimKeyframesHeightAuto,
 } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
-import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
+import styles from './arc-card.styles.js';
 
 /**
  * @slot default - The card's body.
@@ -29,56 +29,7 @@ import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstan
 export default class ArcCard extends LitElement {
   static tag = 'arc-card';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        display: inline-block;
-        width: auto;
-      }
-
-      #main {
-        display: grid;
-        overflow: hidden;
-        background-color: rgb(var(--arc-container-color));
-        box-shadow: var(--arc-box-shadow);
-      }
-
-      #header,
-      #body,
-      #footer {
-        padding: var(--arc-spacing-normal);
-      }
-
-      #image {
-        overflow: hidden;
-      }
-
-      /* Hide elements when they are not slotted or when the card is collapsed */
-      #main:not(.card--has-header) #header,
-      #main:not(.card--has-image) #image,
-      #main:not(.card--has-body) #body,
-      #main:not(.card--has-footer) #footer {
-        display: none;
-      }
-
-      #header ::slotted(*),
-      #footer ::slotted(*) {
-        display: grid;
-        align-items: center;
-        grid-auto-flow: column;
-        gap: var(--arc-spacing-small);
-      }
-
-      #header ::slotted(*) {
-        justify-content: space-between;
-      }
-
-      #footer ::slotted(*) {
-        justify-content: end;
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('#content') content: HTMLElement;
@@ -155,11 +106,11 @@ export default class ArcCard extends LitElement {
       <article
         id="main"
         class=${classMap({
+          card: true,
           'card--has-header': this.hasSlotController.test('header'),
           'card--has-image': this.hasSlotController.test('image'),
           'card--has-body': this.hasSlotController.test('[default]'),
           'card--has-footer': this.hasSlotController.test('footer'),
-          collapsed: this.collapsed,
         })}
       >
         <header id="header">

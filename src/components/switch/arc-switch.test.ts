@@ -21,7 +21,6 @@ describe('ArcSwitch', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      /* Test default properties that reflect to the DOM */
       expect(element).dom.to.equal(`<arc-switch>This is test switcher</arc-switch>`);
     });
 

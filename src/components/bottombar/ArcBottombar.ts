@@ -1,6 +1,6 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { state } from 'lit/decorators.js';
-import componentStyles from '../../styles/component.styles.js';
+import styles from './arc-bottombar.styles.js';
 
 /**
  * @slot - This slot is used to add icon-buttons to the bottom bar.
@@ -8,22 +8,7 @@ import componentStyles from '../../styles/component.styles.js';
 export default class ArcBottombar extends LitElement {
   static tag = 'arc-bottombar';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        height: 4.5rem;
-        background-color: rgb(var(--arc-background-color));
-      }
-
-      #main {
-        height: inherit;
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: 1fr;
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal - State that stores the max tab count */
   @state() private tabs: number = 5;
@@ -50,7 +35,7 @@ export default class ArcBottombar extends LitElement {
     console.log(msg);
   }
 
-  render() {
+  protected render() {
     return html`
       <nav id="main" aria-label="mobile navigation">
         <slot @slotchange=${this.handleTabChange}></slot>

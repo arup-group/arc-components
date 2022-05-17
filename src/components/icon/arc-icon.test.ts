@@ -17,7 +17,7 @@ describe('ArcIcon', () => {
 
     /* Test default properties that reflect to the DOM. */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-icon name=${ICON_TYPES.fire} size=${FONT_SIZES.medium}></arc-icon>`);
+      expect(element).dom.to.equal(`<arc-icon name='${ICON_TYPES.fire}' size='${FONT_SIZES.medium}'></arc-icon>`);
     });
 
     /* Test the accessibility. */
@@ -37,7 +37,7 @@ describe('ArcIcon', () => {
 
     it('renders the element with a custom label property', async () => {
       const element: ArcIcon = await fixture(html`<arc-icon label="heart"></arc-icon>`);
-      const svg = element.shadowRoot?.getElementById('icon')!;
+      const svg = element.shadowRoot?.getElementById('main')!;
 
       expect(element.label).to.equal('heart');
       expect(element.getAttribute('label')).to.equal('heart');

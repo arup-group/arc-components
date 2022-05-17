@@ -1,12 +1,12 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
-import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import styles from './arc-image.styles.js';
 
 /**
  * @event arc-loaded - Emitted when the image is loaded.
@@ -15,54 +15,7 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 export default class ArcImage extends LitElement {
   static tag = 'arc-image';
 
-  static styles = [
-    componentStyles,
-    css`
-      #main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      #image,
-      .has-image #overlay,
-      .loading #placeholder,
-      #loader {
-        display: none;
-      }
-
-      .has-image #image {
-        width: 100%;
-        height: 100%;
-        display: block;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        object-fit: cover;
-      }
-
-      /* Loading state */
-      #overlay {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgb(var(--arc-grey-020));
-      }
-
-      .loading #loader {
-        --shadow-p: 0.6em 0.6em 0 0.3em currentcolor;
-        --shadow-n: -0.6em -0.6em 0 0.3em currentcolor;
-        --shadow-pn: 0.6em -0.6em 0 0.3em currentcolor;
-        --shadow-np: -0.6em 0.6em 0 0.3em currentcolor;
-        width: 0.3em;
-        height: 0.3em;
-        display: block;
-        color: rgb(var(--arc-grey-030));
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('#main') container: HTMLElement;
@@ -187,16 +140,24 @@ export default class ArcImage extends LitElement {
     return `${size}px`;
   }
 
-  render() {
-    const styles = {
+  protected render() {
+    const imageStyles = {
       width: this.width ? this.handleSize(this.width) : undefined,
       height: this.height ? this.handleSize(this.height) : undefined,
     };
 
     return html`
-      <div id="main" class=${classMap({ 'has-image': this._hasImage })} style=${styleMap(styles)}>
+      <div
+        id="main"
+        class=${classMap({
+          image: true,
+          'image--has-image': this._hasImage,
+          'image--loading': this._loading,
+        })}
+        style=${styleMap(imageStyles)}
+      >
         <img id="image" src="" alt=${this.alt} />
-        <div id="overlay" class=${classMap({ loading: this._loading })}>
+        <div id="overlay">
           <div id="loader"></div>
           <svg
             id="placeholder"

@@ -1,9 +1,9 @@
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { query } from 'lit/decorators.js';
 import { emit } from '../../internal/event.js';
 import { getTextContent } from '../../internal/slot.js';
-import componentStyles from '../../styles/component.styles.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import styles from './arc-menu.styles.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
 /**
@@ -14,14 +14,7 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 export default class ArcMenu extends LitElement {
   static tag = 'arc-menu';
 
-  static styles = [
-    componentStyles,
-    css`
-      :host {
-        display: block;
-      }
-    `,
-  ];
+  static styles = styles;
 
   /** @internal */
   @query('#menu') menu: HTMLElement;
@@ -160,7 +153,7 @@ export default class ArcMenu extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     return html`
       <div id="main" role="menu" @click=${this.handleClick} @keydown=${this.handleKeyDown}>
         <slot @slotchange=${this.handleSlotChange}></slot>

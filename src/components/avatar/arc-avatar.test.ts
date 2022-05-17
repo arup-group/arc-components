@@ -14,12 +14,12 @@ describe('ArcAvatar', () => {
     let element: ArcAvatar;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-avatar label="User avatar."></arc-avatar>`);
+      element = await fixture(html`<arc-avatar label="User avatar"></arc-avatar>`);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-avatar label="User avatar."></arc-avatar>`);
+      expect(element).dom.to.equal(`<arc-avatar label="User avatar"></arc-avatar>`);
     });
 
     it('renders a placeholder icon when no properties are given', () => {

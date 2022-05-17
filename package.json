@@ -1,7 +1,7 @@
 {
   "name": "@arc-web/components",
   "description": "Web-components built on the ARC design system",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "author": "arc-component",
   "license": "MIT",
   "main": "dist/arc.js",

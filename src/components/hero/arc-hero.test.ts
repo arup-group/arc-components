@@ -23,7 +23,7 @@ describe('ArcHero', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal('<arc-hero><span slot="title">Title</span><span>Content</span></arc-hero>');
+      expect(element).dom.to.equal(`<arc-hero><span slot="title">Title</span><span>Content</span></arc-hero>`);
     });
 
     /* Test the accessibility */

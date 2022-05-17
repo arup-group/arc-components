@@ -18,7 +18,7 @@ describe('ArcSidebar', () => {
 
     /* Test properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal("<arc-sidebar label='Test sidebar' open=''></arc-sidebar>");
+      expect(element).dom.to.equal(`<arc-sidebar label="Test sidebar" open=""></arc-sidebar>`);
     });
 
     /* Test the accessibility */

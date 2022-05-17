@@ -30,7 +30,7 @@ export default class ArcHero extends LitElement {
   /** Set the background of the hero. */
   @property({ type: String }) background: string;
 
-  render() {
+  protected render() {
     const imageStyle = {
       background: `url(${this.background}) no-repeat center center`,
       backgroundSize: 'cover',

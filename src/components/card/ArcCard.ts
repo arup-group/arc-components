@@ -101,7 +101,7 @@ export default class ArcCard extends LitElement {
     return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
-  render() {
+  protected render() {
     return html`
       <article
         id="main"

@@ -140,7 +140,7 @@ export default class ArcImage extends LitElement {
     return `${size}px`;
   }
 
-  render() {
+  protected render() {
     const imageStyles = {
       width: this.width ? this.handleSize(this.width) : undefined,
       height: this.height ? this.handleSize(this.height) : undefined,

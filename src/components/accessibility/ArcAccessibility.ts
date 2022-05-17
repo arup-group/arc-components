@@ -231,7 +231,7 @@ export default class ArcAccessibility extends LitElement {
     `;
   }
 
-  render() {
+  protected render() {
     return html`
       <div id="main">
         <arc-drawer id="drawer" @arc-hide=${this.hide} ?open=${this.open}>

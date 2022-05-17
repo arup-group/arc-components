@@ -59,7 +59,7 @@ export default class ArcSwitch extends LitElement {
     emit(this, ARC_EVENTS.change);
   }
 
-  render() {
+  protected render() {
     return html`
       <label
         id="main"

@@ -28,7 +28,7 @@ export default class ArcIcon extends LitElement {
   /** Set the rotation of the icon. */
   @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
 
-  render() {
+  protected render() {
     const DEFAULT_PATH: string = `${getBasePath()}/assets/icons.svg`;
 
     const iconStyles = {

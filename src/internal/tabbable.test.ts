@@ -8,7 +8,7 @@ import { getTabbableBoundary } from './tabbable.js';
 
 @customElement('tab-test')
 class TabTest extends LitElement {
-  render() {
+  protected render() {
     return html`
       <button id="button">Tabbable</button>
       <span>Not tabbable</span>

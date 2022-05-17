@@ -322,7 +322,7 @@ export default class ArcDropdown extends LitElement {
     await waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
-  render() {
+  protected render() {
     return html`
       <div id="main">
         <span

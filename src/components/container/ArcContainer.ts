@@ -100,7 +100,7 @@ export default class ArcContainer extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     return html`
       <div id="main">
         <slot id="nav" name="nav" @arc-show-accessibility=${this.showAccessibility}></slot>

@@ -10,7 +10,7 @@ export default class ArcSpinner extends LitElement {
 
   static styles = styles;
 
-  render() {
+  protected render() {
     return html`
       <svg id="main" aria-busy="true" aria-live="polite">
         <circle id="track" cx="0.5em" cy="0.5em" r="0" />

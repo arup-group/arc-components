@@ -69,7 +69,7 @@ export default class ArcIconButton extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     const isLink = !!this.href;
     const tag = isLink ? literal`a` : literal`button`;
 

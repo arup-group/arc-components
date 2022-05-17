@@ -29,7 +29,7 @@ export default class ArcMenuItem extends LitElement {
     this.setAttribute('aria-disabled', String(this.disabled));
   }
 
-  render() {
+  protected render() {
     return html`
       <div
         id="main"

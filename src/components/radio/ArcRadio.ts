@@ -140,7 +140,7 @@ export default class ArcRadio extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     return html`
       <label
         id="main"

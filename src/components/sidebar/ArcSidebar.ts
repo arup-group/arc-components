@@ -85,7 +85,7 @@ export default class ArcSidebar extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     return this.open
       ? html`
           <aside

@@ -30,7 +30,7 @@ export default class ArcRadioGroup extends LitElement {
     checkedRadio?.focus();
   }
 
-  render() {
+  protected render() {
     return html`
       <div id="main">
         <label id="label">

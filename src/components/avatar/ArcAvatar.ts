@@ -42,7 +42,7 @@ export default class ArcAvatar extends LitElement {
     this._hasError = true;
   }
 
-  render() {
+  protected render() {
     return html`
       <div
         id="main"

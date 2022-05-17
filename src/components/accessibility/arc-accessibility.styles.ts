@@ -9,7 +9,7 @@ export default css`
     gap: var(--arc-spacing-small);
   }
 
-  #wrapper .label {
+  .label {
     display: flex;
     align-items: center;
     gap: var(--arc-spacing-small);

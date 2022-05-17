@@ -173,7 +173,7 @@ export default class ArcDrawer extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     return html`
       <div
         id="main"

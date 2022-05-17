@@ -35,7 +35,7 @@ export default class ArcChip extends LitElement {
     emit(this, ARC_EVENTS.clear);
   }
 
-  render() {
+  protected render() {
     return html`
       <div
         id="main"

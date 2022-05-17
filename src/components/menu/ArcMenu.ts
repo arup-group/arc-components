@@ -153,7 +153,7 @@ export default class ArcMenu extends LitElement {
     }
   }
 
-  render() {
+  protected render() {
     return html`
       <div id="main" role="menu" @click=${this.handleClick} @keydown=${this.handleKeyDown}>
         <slot @slotchange=${this.handleSlotChange}></slot>

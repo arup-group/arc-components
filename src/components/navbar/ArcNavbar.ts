@@ -84,7 +84,7 @@ export default class ArcNavbar extends LitElement {
     emit(this, ARC_EVENTS.showAccessibility);
   }
 
-  render() {
+  protected render() {
     /*
     Template that displays all button and icon-button components inside a dropdown menu.
     Properties are derived from the button and icon-button components.

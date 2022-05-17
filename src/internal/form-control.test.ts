@@ -22,7 +22,7 @@ class InputControlTest extends LitElement {
     return this.input.reportValidity();
   }
 
-  render() {
+  protected render() {
     return html`<input id="testInput" type="text" name=${this.name} .value=${this.value} required />`;
   }
 }
@@ -46,7 +46,7 @@ class SelectControlTest extends LitElement {
     return this.select.reportValidity();
   }
 
-  render() {
+  protected render() {
     return html`
       <select id="testSelect" name=${this.name} multiple required>
         <option value="val1" selected>Val1</option>

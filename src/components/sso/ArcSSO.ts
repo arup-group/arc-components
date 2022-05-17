@@ -173,7 +173,7 @@ export default class ArcSSO extends LitElement {
       : '';
   }
 
-  render() {
+  protected render() {
     const { name } = this.getAccount() || {};
 
     return html`

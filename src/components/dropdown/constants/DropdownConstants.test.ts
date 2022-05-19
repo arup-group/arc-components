@@ -1,9 +1,8 @@
 import { expect } from '@open-wc/testing';
-
 import { DROPDOWN_PLACEMENTS } from './DropdownConstants.js';
 
 describe('DropdownConstants', () => {
-  describe('placements', () => {
+  it('should contain the correct dropdown placements', () => {
     expect(DROPDOWN_PLACEMENTS).to.exist;
     const keys = Object.keys(DROPDOWN_PLACEMENTS);
 

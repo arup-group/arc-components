@@ -8,7 +8,7 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { DROPDOWN_PLACEMENTS } from '../dropdown/constants/DropdownConstants.js';
+import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
 import styles from './arc-sso.styles.js';
 import '../button/arc-button.js';
 import '../avatar/arc-avatar.js';
@@ -182,7 +182,7 @@ export default class ArcSSO extends LitElement {
           <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
         </slot>
         <slot name="logout" ?hidden=${!this._isAuth}>
-          <arc-dropdown id="userMenu" placement=${DROPDOWN_PLACEMENTS['bottom-end']} hoist>
+          <arc-dropdown id="userMenu" placement=${FLOATING_PLACEMENTS['bottom-end']} hoist>
             <arc-button id="desktopTrigger" slot="trigger" type="tab">
               ${name}
               <arc-avatar slot="suffix" name=${name} image=${until(this._avatar, '')} label="User avatar"></arc-avatar>

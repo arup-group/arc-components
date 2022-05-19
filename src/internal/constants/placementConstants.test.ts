@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
-import { TOOLTIP_PLACEMENTS } from './TooltipConstants.js';
+import { FLOATING_PLACEMENTS } from './placementConstants.js';
 
-describe('TooltipConstants', () => {
-  it('should contain the correct tooltip placements', () => {
-    expect(TOOLTIP_PLACEMENTS).to.exist;
-    const keys = Object.keys(TOOLTIP_PLACEMENTS);
+describe('PlacementConstants', () => {
+  it('should contain the correct placements', () => {
+    expect(FLOATING_PLACEMENTS).to.exist;
+    const keys = Object.keys(FLOATING_PLACEMENTS);
 
     expect(keys.length).to.equal(12);
     expect(keys).to.contain('top');

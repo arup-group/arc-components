@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
+import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcDropdown from './ArcDropdown.js';
 import './arc-dropdown.js';
@@ -15,7 +15,7 @@ export default {
   argTypes: {
     placement: {
       control: 'select',
-      options: Object.values(DROPDOWN_PLACEMENTS),
+      options: Object.values(FLOATING_PLACEMENTS),
     },
   },
   parameters: {
@@ -57,7 +57,7 @@ Default.args = { ...defaultArgs };
 
 /* POSITIONING */
 export const Position = Template.bind({});
-Position.args = { ...defaultArgs, placement: DROPDOWN_PLACEMENTS['top-start'] };
+Position.args = { ...defaultArgs, placement: FLOATING_PLACEMENTS['top-start'] };
 
 export const Distance = Template.bind({});
 Distance.args = { ...defaultArgs, distance: 20 };

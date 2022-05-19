@@ -38,8 +38,8 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^2.22.0",
+    "@floating-ui/dom": "^0.3.1",
     "@custom-elements-manifest/analyzer": "^0.5.7",
-    "@popperjs/core": "^2.11.0",
     "concurrently": "^7.1.0",
     "date-fns": "^2.28.0",
     "lit": "^2.0.2",

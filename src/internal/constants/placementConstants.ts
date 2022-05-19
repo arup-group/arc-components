@@ -1,18 +1,6 @@
-export declare type TooltipPlacement =
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'right'
-  | 'right-start'
-  | 'right-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left'
-  | 'left-start'
-  | 'left-end';
+import { Placement } from '@floating-ui/dom';
 
-export const TOOLTIP_PLACEMENTS: { [key in TooltipPlacement]: TooltipPlacement } = {
+export const FLOATING_PLACEMENTS: { [key in Placement]: Placement } = {
   top: 'top',
   'top-start': 'top-start',
   'top-end': 'top-end',

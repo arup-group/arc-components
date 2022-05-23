@@ -18,7 +18,7 @@ describe('ArcImage', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-image delay='1000'></arc-image>`);
+      expect(element).dom.to.equal(`<arc-image></arc-image>`);
     });
 
     it('renders an overlay when no src is provided', () => {
@@ -44,16 +44,10 @@ describe('ArcImage', () => {
     });
 
     it('renders the element with a custom delay property', async () => {
-      const element: ArcImage = await fixture(html`<arc-image delay="testDelay"></arc-image>`);
+      const element: ArcImage = await fixture(html`<arc-image delay="100ms"></arc-image>`);
 
-      expect(element.delay).to.equal(1000);
-      expect(element.getAttribute('delay')).to.equal('1000');
-    });
-
-    it('renders the element with a converted delay', async () => {
-      const element: ArcImage = await fixture(html`<arc-image delay></arc-image>`);
-      expect(element.delay).to.equal(1000);
-      expect(element.getAttribute('delay')).to.equal('1000');
+      expect(element.delay).to.equal(100);
+      expect(element.getAttribute('delay')).to.equal('100ms');
     });
 
     it('renders the element with a custom width and height property', async () => {

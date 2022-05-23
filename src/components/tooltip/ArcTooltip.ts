@@ -1,6 +1,5 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { arrow, autoUpdate, computePosition, flip, offset, shift, Placement } from '@floating-ui/dom';
 import {
   setDefaultAnimation,
@@ -320,15 +319,7 @@ export default class ArcTooltip extends LitElement {
       </div>
 
       <div id="positioner">
-        <div
-          id="tooltip"
-          class=${classMap({
-            tooltip: true,
-            'tooltip--open': this.open,
-          })}
-          role="tooltip"
-          aria-hidden=${this.open ? 'false' : 'true'}
-        >
+        <div id="tooltip" role="tooltip" aria-hidden=${this.open ? 'false' : 'true'}>
           <div id="arrow"></div>
           <div id="content" aria-live=${this.open ? 'polite' : 'off'}>
             <slot name="content">${this.content}</slot>

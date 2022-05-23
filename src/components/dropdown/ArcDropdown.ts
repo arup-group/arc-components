@@ -382,8 +382,6 @@ export default class ArcDropdown extends LitElement {
           <slot id="triggerSlot" name="trigger" @slotchange=${this.updateAccessibleTrigger}></slot>
         </span>
 
-        <!-- Position the panel with a wrapper since the popover makes use of translate. This lets us add animations
-        on the panel without interfering with the position. -->
         <div id="positioner">
           <div
             id="panel"

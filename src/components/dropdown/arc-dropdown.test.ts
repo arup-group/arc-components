@@ -55,6 +55,13 @@ describe('ArcDropdown', () => {
     it('renders the element in an open state', async () => {
       const openElement: ArcDropdown = await fixture(html`<arc-dropdown open></arc-dropdown>`);
       expect(openElement.open).to.be.true;
+      expect(openElement.hasAttribute('open')).to.be.true;
+    });
+
+    it('renders the element in a hoisted state', async () => {
+      const hoistedElement: ArcDropdown = await fixture(html` <arc-dropdown hoist></arc-dropdown> `);
+      expect(hoistedElement.hoist).to.be.true;
+      expect(hoistedElement.hasAttribute('hoist')).to.be.true;
     });
 
     /* Test the accessibility */
@@ -128,19 +135,6 @@ describe('ArcDropdown', () => {
 
       expect(element.hoist).to.be.true;
       expect(element.hasAttribute('hoist')).to.be.true;
-    });
-
-    it('renders the underlying popover in a hoist state', async () => {
-      const hoistedElement: ArcDropdown = await fixture(html`
-        <arc-dropdown hoist open>
-          <arc-button slot="trigger">Button</arc-button>
-          <arc-menu>
-            <arc-menu-item>Item 1</arc-menu-item>
-          </arc-menu>
-        </arc-dropdown>
-      `);
-      expect(hoistedElement.hoist).to.be.true;
-      expect(hoistedElement.hasAttribute('hoist')).to.be.true;
     });
   });
 

@@ -43,13 +43,13 @@ export default class ArcTooltip extends LitElement {
   @query('#arrow') arrow: HTMLElement;
 
   /** @internal */
-  private target: HTMLElement;
+  private _target: HTMLElement;
+
+  /** @internal - Timeout until the hover hides. */
+  private _hoverTimeout: number;
 
   /** @internal */
-  private hoverTimeout: number;
-
-  /** @internal */
-  private positionerCleanup: ReturnType<typeof autoUpdate> | undefined;
+  private _positionerCleanup: ReturnType<typeof autoUpdate> | undefined;
 
   /** The tooltip's content. Alternatively, you can use the content slot. */
   @property({ type: String }) content: string;
@@ -66,8 +66,12 @@ export default class ArcTooltip extends LitElement {
   /** The distance in pixels from which to offset the tooltip along its target. */
   @property({ type: Number }) skidding: number = 0;
 
-  /** Set the delay before showing the tooltip. */
-  @property({ type: Number }) delay: number = 150;
+  /** Set the delay in ms before showing the tooltip. */
+  @property({
+    type: Number,
+    converter: (attrValue: string | null) => (attrValue ? parseDuration(attrValue) : 150),
+  })
+  delay: number = 150;
 
   /**
    * Controls how the tooltip is activated. Possible options include `click`, `hover`, `focus`, and `manual`. Multiple
@@ -148,7 +152,7 @@ export default class ArcTooltip extends LitElement {
       this.addEventListener('keydown', this.handleKeyDown);
       this.addEventListener('mouseover', this.handleMouseOver);
       this.addEventListener('mouseout', this.handleMouseOut);
-      this.target = this.getTarget();
+      this._target = this.getTarget();
     });
   }
 
@@ -238,15 +242,15 @@ export default class ArcTooltip extends LitElement {
 
   handleMouseOver() {
     if (this.hasTrigger('hover')) {
-      clearTimeout(this.hoverTimeout);
-      this.hoverTimeout = window.setTimeout(this.show, parseDuration(this.delay));
+      clearTimeout(this._hoverTimeout);
+      this._hoverTimeout = window.setTimeout(() => this.show(), this.delay);
     }
   }
 
   handleMouseOut() {
     if (this.hasTrigger('hover')) {
-      clearTimeout(this.hoverTimeout);
-      this.hoverTimeout = window.setTimeout(this.hide, 0);
+      clearTimeout(this._hoverTimeout);
+      this._hoverTimeout = window.setTimeout(() => this.hide(), 0);
     }
   }
 
@@ -258,15 +262,15 @@ export default class ArcTooltip extends LitElement {
   private startPositioner() {
     this.stopPositioner();
     this.updatePositioner();
-    this.positionerCleanup = autoUpdate(this.target, this.positioner, this.updatePositioner.bind(this));
+    this._positionerCleanup = autoUpdate(this._target, this.positioner, this.updatePositioner.bind(this));
   }
 
   private updatePositioner() {
-    if (!this.open || !this.target || !this.positioner) {
+    if (!this.open || !this._target || !this.positioner) {
       return;
     }
 
-    computePosition(this.target, this.positioner, {
+    computePosition(this._target, this.positioner, {
       placement: this.placement,
       middleware: [
         offset({ mainAxis: this.distance, crossAxis: this.skidding }),
@@ -302,9 +306,9 @@ export default class ArcTooltip extends LitElement {
   }
 
   private stopPositioner() {
-    if (this.positionerCleanup) {
-      this.positionerCleanup();
-      this.positionerCleanup = undefined;
+    if (this._positionerCleanup) {
+      this._positionerCleanup();
+      this._positionerCleanup = undefined;
       this.positioner.removeAttribute('data-placement');
     }
   }

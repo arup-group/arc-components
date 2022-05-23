@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { autoUpdate, computePosition, flip, offset, shift, size, Placement } from '@floating-ui/dom';
 import { classMap } from 'lit/directives/class-map.js';
+import { autoUpdate, computePosition, flip, offset, shift, size, Placement } from '@floating-ui/dom';
 import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
@@ -34,10 +34,10 @@ export default class ArcDropdown extends LitElement {
   @query('#triggerSlot') triggerSlot: HTMLSlotElement;
 
   /** @internal */
-  @query('#panel') panel: HTMLElement;
+  @query('#positioner') positioner: HTMLElement;
 
   /** @internal */
-  @query('#positioner') positioner: HTMLElement;
+  @query('#panel') panel: HTMLElement;
 
   /** @internal */
   private positionerCleanup: ReturnType<typeof autoUpdate> | undefined;
@@ -106,6 +106,13 @@ export default class ArcDropdown extends LitElement {
     this.updatePositioner();
   }
 
+  @watch('disabled')
+  handleDisabledChange() {
+    if (this.disabled && this.open) {
+      this.hide();
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.handlePanelSelect = this.handlePanelSelect.bind(this);
@@ -119,6 +126,13 @@ export default class ArcDropdown extends LitElement {
 
   async firstUpdated() {
     this.panel.hidden = !this.open;
+
+    // If the dropdown is visible on init, update its position
+    if (this.open) {
+      await this.updateComplete;
+      this.addOpenListeners();
+      this.startPositioner();
+    }
   }
 
   disconnectedCallback() {
@@ -198,34 +212,21 @@ export default class ArcDropdown extends LitElement {
 
     /* Handle tabbing */
     if (event.key === 'Tab') {
+      const activeElement =
+        this.containingElement?.getRootNode() instanceof ShadowRoot
+          ? document.activeElement?.shadowRoot?.activeElement
+          : document.activeElement;
+
       /* Tabbing within an open menu should close the dropdown and refocus the trigger */
-      if (this.open && document.activeElement?.tagName === 'ARC-MENU-ITEM') {
+      if (this.open && activeElement?.tagName === 'ARC-MENU-ITEM') {
         event.preventDefault();
         this.hide();
         this.focusOnTrigger();
       }
-
-      /*
-      Tabbing outside the containing element closes the panel.
-      If the dropdown is used within a shadow DOM, we need to obtain the activeElement within the shadowRoot.
-      */
-      setTimeout(() => {
-        const activeElement =
-          this.containingElement?.getRootNode() instanceof ShadowRoot
-            ? document.activeElement?.shadowRoot?.activeElement
-            : document.activeElement;
-
-        if (
-          !this.containingElement ||
-          activeElement?.closest(this.containingElement.tagName.toLowerCase()) !== this.containingElement
-        ) {
-          this.hide();
-        }
-      });
     }
   }
 
-  /* Close when clicking outside of the containing element */
+  /* Close when clicking outside the containing element */
   handleDocumentMouseDown(event: MouseEvent) {
     const path = event.composedPath() as Array<EventTarget>;
     if (this.containingElement && !path.includes(this.containingElement)) {
@@ -234,11 +235,6 @@ export default class ArcDropdown extends LitElement {
   }
 
   handleTriggerKeyDown(event: KeyboardEvent) {
-    const menu = this.getMenu();
-    const menuItems = menu ? ([...menu.querySelectorAll('arc-menu-item')] as ArcMenuItem[]) : [];
-    const firstMenuItem = menuItems[0];
-    const lastMenuItem = menuItems[menuItems.length - 1];
-
     /* Close when escape or tab is pressed */
     if (event.key === 'Escape') {
       this.focusOnTrigger();
@@ -255,6 +251,11 @@ export default class ArcDropdown extends LitElement {
       this.handleTriggerClick();
       return;
     }
+
+    const menu = this.getMenu();
+    const menuItems = menu ? ([...menu.querySelectorAll('arc-menu-item')] as ArcMenuItem[]) : [];
+    const firstMenuItem = menuItems[0];
+    const lastMenuItem = menuItems[menuItems.length - 1];
 
     /*
     When up/down is pressed, we make the assumption that the user is familiar with the menu and plans to make a
@@ -351,14 +352,6 @@ export default class ArcDropdown extends LitElement {
 
     this.open = false;
     await waitForEvent(this, ARC_EVENTS.afterHide);
-  }
-
-  /*
-  Instructs the dropdown menu to reposition.
-  Useful when the position or size of the trigger changes when the menu is activated.
-  */
-  reposition() {
-    this.updatePositioner();
   }
 
   addOpenListeners() {

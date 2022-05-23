@@ -182,8 +182,11 @@
   --arc-scroll-width: 21px;
 
   /* Z-indexes */
-  --arc-z-index-dropdown: 900;
   --arc-z-index-drawer: 700;
+  --arc-z-index-dialog: 800;
+  --arc-z-index-dropdown: 900;
+  --arc-z-index-toast: 950;
+  --arc-z-index-tooltip: 1000;
 
   /* Branding */
   --arc-brand-height: 1.25rem;

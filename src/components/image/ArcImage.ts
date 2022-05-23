@@ -2,7 +2,13 @@ import { html, LitElement } from 'lit';
 import { property, state, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
+import {
+  setDefaultAnimation,
+  getAnimation,
+  startAnimations,
+  stopAnimations,
+  parseDuration,
+} from '../../internal/animate.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -51,19 +57,8 @@ export default class ArcImage extends LitElement {
   /** Set the alternate text for the image. */
   @property({ type: String }) alt: string;
 
-  /** Set the delay in ms before loading the image. */
-  @property({
-    type: Number,
-    reflect: true,
-    converter: (attrValue: string | null) => {
-      if (attrValue) {
-        const delay = parseInt(attrValue, 10);
-        return Number.isNaN(delay) ? 1000 : delay;
-      }
-      return 1000;
-    },
-  })
-  delay: number = 1000;
+  /** Set the delay before loading the image. */
+  @property({ type: Number }) delay: number = 1000;
 
   /** Set the width of the image. */
   @property({ type: String }) width: string;
@@ -111,7 +106,7 @@ export default class ArcImage extends LitElement {
           this._loadTimer = null;
         }
       } else if (intersectionRatio === 1) {
-        this._loadTimer = window.setTimeout(this.loadImage.bind(this), this.delay);
+        this._loadTimer = window.setTimeout(this.loadImage.bind(this), parseDuration(this.delay));
       }
     });
   }

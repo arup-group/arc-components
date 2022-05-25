@@ -68,3 +68,6 @@ Skidding.args = { ...defaultArgs, skidding: 20 };
 /* STATES */
 export const Hoist = Template.bind({});
 Hoist.args = { ...defaultArgs, hoist: true };
+
+export const Disabled = Template.bind({});
+Disabled.args = { ...defaultArgs, disabled: true };

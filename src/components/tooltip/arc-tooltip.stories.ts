@@ -16,10 +16,14 @@ export default {
       control: 'select',
       options: Object.values(FLOATING_PLACEMENTS),
     },
+    trigger: {
+      control: 'select',
+      options: ['click', 'hover', 'focus'],
+    },
   },
   parameters: {
     actions: {
-      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide, ARC_EVENTS.select],
+      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide],
     },
   },
 } as Meta;
@@ -45,7 +49,7 @@ const defaultArgs = {
   distance: 0,
   skidding: 0,
   delay: 150,
-  trigger: 'hover focus',
+  trigger: 'hover',
   open: false,
   disabled: false,
   hoist: false,
@@ -71,3 +75,6 @@ Skidding.args = { ...defaultArgs, skidding: 20 };
 /* STATES */
 export const Hoist = Template.bind({});
 Hoist.args = { ...defaultArgs, hoist: true };
+
+export const Disabled = Template.bind({});
+Disabled.args = { ...defaultArgs, disabled: true };

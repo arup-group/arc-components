@@ -40,7 +40,7 @@ export default class ArcDropdown extends LitElement {
   @query('#panel') panel: HTMLElement;
 
   /** @internal */
-  private positionerCleanup: ReturnType<typeof autoUpdate> | undefined;
+  private _positionerCleanup: ReturnType<typeof autoUpdate> | undefined;
 
   /** The preferred placement of the dropdown panel. */
   @property({ type: String }) placement: Placement = FLOATING_PLACEMENTS['bottom-start'];
@@ -145,7 +145,7 @@ export default class ArcDropdown extends LitElement {
   private startPositioner() {
     this.stopPositioner();
     this.updatePositioner();
-    this.positionerCleanup = autoUpdate(this.trigger, this.positioner, this.updatePositioner.bind(this));
+    this._positionerCleanup = autoUpdate(this.trigger, this.positioner, this.updatePositioner.bind(this));
   }
 
   private updatePositioner() {
@@ -183,9 +183,9 @@ export default class ArcDropdown extends LitElement {
   }
 
   private stopPositioner() {
-    if (this.positionerCleanup) {
-      this.positionerCleanup();
-      this.positionerCleanup = undefined;
+    if (this._positionerCleanup) {
+      this._positionerCleanup();
+      this._positionerCleanup = undefined;
       this.positioner.removeAttribute('data-placement');
     }
   }

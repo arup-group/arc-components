@@ -150,6 +150,20 @@ describe('ArcSidebar', () => {
       await element.hide();
       expect(hideCalledOnce()).to.be.true;
     });
+
+    it('opens the sidebar when the icon-button is pressed', async () => {
+      await element.hide();
+      await elementUpdated(element);
+      element.shadowRoot!.getElementById('toggleOpen')!.click();
+      await elementUpdated(element);
+      expect(element.open).to.be.true;
+    });
+
+    it('hides the sidebar when the icon-button is pressed', async () => {
+      element.shadowRoot!.getElementById('toggleClose')!.click();
+      await elementUpdated(element);
+      expect(element.open).to.be.false;
+    });
   });
 
   /* Test whether the slots can be filled and that they exist */

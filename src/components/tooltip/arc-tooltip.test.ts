@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated } from '@open-wc/testing';
+import { expect, fixture, elementUpdated, aTimeout } from '@open-wc/testing';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
 import {
@@ -11,10 +11,14 @@ import {
   showCalledOnce,
   hideCalledOnce,
   escEvent,
+  mouseOver,
+  mouseOut,
 } from '../../internal/test-utils.js';
 import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
 import type ArcTooltip from './ArcTooltip.js';
+import type ArcIconButton from '../icon-button/ArcIconButton.js';
 import './arc-tooltip.js';
+import '../icon-button/arc-icon-button.js';
 
 describe('ArcTooltip', () => {
   /* Test the rendering of the component */
@@ -142,8 +146,8 @@ describe('ArcTooltip', () => {
     });
 
     it('renders the component in a hoist state', async () => {
-      expect(element.hoist).to.be.false;
-      expect(element.hasAttribute('hoist')).to.be.false;
+      element.open = true;
+      await elementUpdated(element);
 
       element.hoist = true;
       await elementUpdated(element);
@@ -196,11 +200,15 @@ describe('ArcTooltip', () => {
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcTooltip;
+    let iconButton: ArcIconButton;
     let tooltip: HTMLElement;
     let isOpen: Function;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-tooltip trigger="click hover focus"><span>My span</span></arc-tooltip>`);
+      element = await fixture(
+        html`<arc-tooltip trigger="click hover focus"><arc-icon-button>My button</arc-icon-button></arc-tooltip>`
+      );
+      iconButton = element.querySelector('arc-icon-button')!;
       tooltip = element.shadowRoot!.getElementById('tooltip')!;
       isOpen = () => tooltip?.getAttribute('aria-hidden') === 'false' && element.open === true;
     });
@@ -274,11 +282,37 @@ describe('ArcTooltip', () => {
       expect(isOpen()).to.be.false;
     });
 
-    it('shows the tooltip on click', async () => {});
+    it('shows/hides the tooltip on focus/blur', async () => {
+      iconButton.focus();
+      await elementUpdated(element);
+      expect(isOpen()).to.be.true;
 
-    it('shows the tooltip on hover', async () => {});
+      iconButton.blur();
+      await elementUpdated(element);
+      expect(isOpen()).to.be.false;
+    });
 
-    it('shows the tooltip on focus', async () => {});
+    it('shows/hides the tooltip on click', async () => {
+      iconButton.click();
+      await elementUpdated(element);
+      expect(isOpen()).to.be.true;
+
+      iconButton.click();
+      await elementUpdated(element);
+      expect(isOpen()).to.be.false;
+    });
+
+    it('shows/hides the tooltip on hover', async () => {
+      element.dispatchEvent(mouseOver);
+      await aTimeout(200); /* Timeout needed as the delay within the component is 150ms. */
+      await elementUpdated(element);
+      expect(isOpen()).to.be.true;
+
+      element.dispatchEvent(mouseOut);
+      await aTimeout(200); /* Timeout needed as the delay within the component is 150ms. */
+      await elementUpdated(element);
+      expect(isOpen()).to.be.false;
+    });
   });
 
   /* Test whether the slots can be filled and that they exist */

@@ -213,8 +213,8 @@ export default class ArcTooltip extends LitElement {
       });
 
       Object.assign(this.arrow.style, {
-        left: typeof arrowX === 'number' ? `${arrowX}px` : '',
-        top: typeof arrowY === 'number' ? `${arrowY}px` : '',
+        left: `${arrowX}px`,
+        top: `${arrowY}px`,
         right: '',
         bottom: '',
         [staticSide]: 'calc(var(--arrow-size) * -1)',
@@ -290,14 +290,6 @@ export default class ArcTooltip extends LitElement {
     }
   }
 
-  handleKeyDown(event: KeyboardEvent) {
-    // Pressing escape when the target element has focus should dismiss the tooltip
-    if (this.open && event.key === 'Escape') {
-      event.stopPropagation();
-      this.hide();
-    }
-  }
-
   handleMouseOver() {
     if (this.hasTrigger('hover')) {
       clearTimeout(this._hoverTimeout);
@@ -309,6 +301,14 @@ export default class ArcTooltip extends LitElement {
     if (this.hasTrigger('hover')) {
       clearTimeout(this._hoverTimeout);
       this._hoverTimeout = window.setTimeout(() => this.hide(), 0);
+    }
+  }
+
+  handleKeyDown(event: KeyboardEvent) {
+    // Pressing escape when the target element has focus should dismiss the tooltip
+    if (this.open && event.key === 'Escape') {
+      event.stopPropagation();
+      this.hide();
     }
   }
 

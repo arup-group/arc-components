@@ -66,6 +66,8 @@ const mouseEvent = new MouseEvent('click', {
   cancelable: true,
   view: window,
 });
+const mouseOver = new MouseEvent('mouseover');
+const mouseOut = new MouseEvent('mouseout');
 
 export {
   addShowListeners,
@@ -87,4 +89,6 @@ export {
   rightEvent,
   leftEvent,
   mouseEvent,
+  mouseOver,
+  mouseOut,
 };

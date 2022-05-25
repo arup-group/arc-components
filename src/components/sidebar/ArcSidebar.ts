@@ -69,6 +69,14 @@ export default class ArcSidebar extends LitElement {
     return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
+  handleClick() {
+    if (this.open) {
+      this.hide();
+    } else {
+      this.show();
+    }
+  }
+
   handleSlots(e: any) {
     const childNodes = e.target.assignedElements({ flatten: true });
 
@@ -91,7 +99,7 @@ export default class ArcSidebar extends LitElement {
                 id="toggleClose"
                 name=${ICON_TYPES['arrow-left']}
                 label="Close sidebar"
-                @click=${this.hide}
+                @click=${this.handleClick}
               ></arc-icon-button>
             </div>
             <div id="content">
@@ -104,7 +112,7 @@ export default class ArcSidebar extends LitElement {
             id="toggleOpen"
             name=${ICON_TYPES['arrow-right']}
             label="Open sidebar"
-            @click=${this.show}
+            @click=${this.handleClick}
           ></arc-icon-button>
         `;
   }

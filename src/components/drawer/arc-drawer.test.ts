@@ -3,7 +3,16 @@ import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
-import { escEvent } from '../../internal/test-utils.js';
+import {
+  addShowListeners,
+  addHideListeners,
+  clearShowHideListeners,
+  waitForShow,
+  waitForHide,
+  showCalledOnce,
+  hideCalledOnce,
+  escEvent,
+} from '../../internal/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { DRAWER_PLACEMENTS } from './constants/DrawerConstants.js';
 
@@ -92,14 +101,10 @@ describe('ArcDrawer', () => {
     let panel: HTMLElement;
     let isOpen: Function;
 
-    const showHandler: SinonSpy = sinon.spy();
-    const afterShowHandler: SinonSpy = sinon.spy();
     const initialFocusHandler: SinonSpy = sinon.spy(event => {
       event.preventDefault();
       input.focus();
     });
-    const hideHandler: SinonSpy = sinon.spy();
-    const afterHideHandler: SinonSpy = sinon.spy();
 
     beforeEach(async () => {
       element = await fixture(html`<arc-drawer id="one"><input /></arc-drawer>`);
@@ -108,105 +113,64 @@ describe('ArcDrawer', () => {
       input = element.querySelector('input') as HTMLElement;
       overlay = element.shadowRoot?.getElementById('overlay') as HTMLElement;
       panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
-      isOpen = () => panel.getAttribute('aria-hidden') === 'false';
+      isOpen = () => panel.getAttribute('aria-hidden') === 'false' && element.open === true;
     });
 
     afterEach(() => {
-      showHandler.resetHistory();
-      afterShowHandler.resetHistory();
+      clearShowHideListeners(element);
       initialFocusHandler.resetHistory();
-      hideHandler.resetHistory();
-      afterHideHandler.resetHistory();
       element.open = false;
     });
 
     it('should emit arc-show and arc-after-show when calling show()', async () => {
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       await element.show();
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
-      expect(element.open).to.be.true;
+      expect(showCalledOnce()).to.be.true;
       expect(isOpen()).to.be.true;
     });
 
     it('should emit arc-hide and arc-after-hide when calling hide()', async () => {
       await element.show();
-
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       await element.hide();
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
-      expect(element.open).to.be.false;
+      expect(hideCalledOnce()).to.be.true;
       expect(isOpen()).to.be.false;
     });
 
     it('should emit arc-show and arc-after-show when setting open = true', async () => {
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       element.open = true;
-      await waitUntil(() => showHandler.calledOnce);
-      await waitUntil(() => afterShowHandler.calledOnce);
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
-      expect(element.open).to.be.true;
+      await waitForShow();
+      expect(showCalledOnce()).to.be.true;
       expect(isOpen()).to.be.true;
     });
 
     it('should emit arc-hide and arc-after-hide when setting open = false', async () => {
       await element.show();
-
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       element.open = false;
-      await waitUntil(() => hideHandler.calledOnce);
-      await waitUntil(() => afterHideHandler.calledOnce);
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
-      expect(element.open).to.be.false;
+      await waitForHide();
+      expect(hideCalledOnce()).to.be.true;
       expect(isOpen()).to.be.false;
     });
 
     it('should prevent emitting the arc-show and arc-after-show when the drawer is already open', async () => {
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       await element.show();
       await element.show();
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(showCalledOnce()).to.be.true;
     });
 
     it('should prevent emitting the arc-hide and arc-after-hide when the drawer is not open', async () => {
-      await element.show();
-
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       await element.hide();
-      await element.hide();
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(hideCalledOnce()).to.be.false;
     });
 
     it('should not close when arc-request-close is prevented', async () => {
       await element.show();
-
       element.addEventListener(ARC_EVENTS.requestClose, event => event.preventDefault());
       overlay.click();
-
-      expect(element.open).to.be.true;
       expect(isOpen()).to.be.true;
     });
 
@@ -230,15 +194,12 @@ describe('ArcDrawer', () => {
 
     it('closes the menu when escape is pressed', async () => {
       await element.show();
-
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
+      addHideListeners(element);
 
       /* Close the menu with the Escape keypress on the overlay */
       element.handleKeyDown(escEvent);
-      await waitUntil(() => hideHandler.calledOnce);
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(element.open).to.be.false;
+      await waitForHide();
+      expect(hideCalledOnce()).to.be.true;
       expect(isOpen()).to.be.false;
     });
   });

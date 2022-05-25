@@ -7,6 +7,7 @@ import {
   getAnimation,
   startAnimations,
   stopAnimations,
+  parseDuration,
   shimKeyframesHeightAuto,
   ElementAnimation,
 } from './animate.js';
@@ -79,18 +80,6 @@ describe('AnimationRegistry', () => {
     expect(duration).to.exist;
     expect(duration).to.equal(0);
   });
-
-  it('shims/changes the `auto` height property into a calculated height', () => {
-    const keyFrames: Keyframe[] = [{ height: 'auto' }, { height: '100px' }];
-    const updatedKeyFrames = shimKeyframesHeightAuto(keyFrames, element.scrollHeight);
-
-    const oldKeys = Object.keys(keyFrames);
-    const shimmedKeys = Object.keys(updatedKeyFrames);
-
-    expect(oldKeys.length).to.equal(shimmedKeys.length);
-    expect(keyFrames[0].height).to.not.equal(updatedKeyFrames[0].height);
-    expect(keyFrames[1].height).to.equal(updatedKeyFrames[1].height);
-  });
 });
 
 describe('Animations', () => {
@@ -148,5 +137,36 @@ describe('Animations', () => {
     startAnimations(element, keyframes, options).catch(err => {
       expect(err.message).to.equal('Promise-based animations must be finite.');
     });
+  });
+});
+
+describe('parseDuration', () => {
+  it('parses an millisecond string duration and returns the number in milliseconds', () => {
+    expect(parseDuration('50ms')).to.equal(50);
+    expect(parseDuration('50MS')).to.equal(50);
+  });
+
+  it('parses a second string duration and returns the number in milliseconds', () => {
+    expect(parseDuration('5s')).to.equal(5000);
+    expect(parseDuration('5S')).to.equal(5000);
+  });
+
+  it('parses a duration in milliseconds', () => {
+    expect(parseDuration(5)).to.equal(5);
+  });
+});
+
+describe('shimKeyframesHeightAuto', () => {
+  it('shims/changes the `auto` height property into a calculated height', async () => {
+    const element: AnimateTest = await fixture('<animation-test></animation-test>');
+    const keyFrames: Keyframe[] = [{ height: 'auto' }, { height: '100px' }];
+    const updatedKeyFrames = shimKeyframesHeightAuto(keyFrames, element.scrollHeight);
+
+    const oldKeys = Object.keys(keyFrames);
+    const shimmedKeys = Object.keys(updatedKeyFrames);
+
+    expect(oldKeys.length).to.equal(shimmedKeys.length);
+    expect(keyFrames[0].height).to.not.equal(updatedKeyFrames[0].height);
+    expect(keyFrames[1].height).to.equal(updatedKeyFrames[1].height);
   });
 });

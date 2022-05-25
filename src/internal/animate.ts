@@ -84,6 +84,21 @@ function stopAnimations(el: HTMLElement) {
   );
 }
 
+/* Parses a delay and returns the number in milliseconds */
+function parseDuration(delay: number | string) {
+  const delayStr = delay.toString().toLowerCase();
+
+  if (delayStr.indexOf('ms') > -1) {
+    return parseFloat(delayStr);
+  }
+
+  if (delayStr.indexOf('s') > -1) {
+    return parseFloat(delayStr) * 1000;
+  }
+
+  return parseFloat(delayStr);
+}
+
 /*
 We can't animate `height: auto`, but we can calculate the height and shim keyframes by replacing it with the
 element's scrollHeight before the animation.
@@ -95,4 +110,12 @@ function shimKeyframesHeightAuto(keyframes: Keyframe[], calculatedHeight: number
   }));
 }
 
-export { setDefaultAnimation, setAnimation, getAnimation, startAnimations, stopAnimations, shimKeyframesHeightAuto };
+export {
+  setDefaultAnimation,
+  setAnimation,
+  getAnimation,
+  startAnimations,
+  stopAnimations,
+  parseDuration,
+  shimKeyframesHeightAuto,
+};

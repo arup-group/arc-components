@@ -52,8 +52,9 @@ export default [
       outline: none;
     }
 
-    .menu-item:hover:not(.menu--item--disabled),
-    .menu-item:focus-visible:not(.menu--item--disabled) {
+    :host(:hover:not([aria-disabled='true'])) .menu-item,
+    :host(:focus-visible:not([aria-disabled='true'])) .menu-item {
+      outline: none;
       background-color: currentColor;
       background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
     }

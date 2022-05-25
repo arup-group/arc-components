@@ -127,7 +127,7 @@ export default class ArcDropdown extends LitElement {
   async firstUpdated() {
     this.panel.hidden = !this.open;
 
-    // If the dropdown is visible on init, update its position
+    /* If the dropdown is visible on init, update its position. */
     if (this.open) {
       await this.updateComplete;
       this.addOpenListeners();
@@ -190,16 +190,64 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
-  focusOnTrigger() {
-    const trigger = this.triggerSlot.assignedElements({ flatten: true })[0] as HTMLElement | undefined;
-    if (trigger && typeof trigger.focus === 'function') {
-      trigger.focus();
+  /* Link the trigger to the dropdown panel with `aria-haspopup` and `aria-expanded`.
+  These must be applied to the "accessible trigger" so screen readers will understand them.
+  The accessible trigger could be the slotted element, a child of the slotted element, or an element in the slotted element's shadow root.
+  For example, the accessible trigger of an <arc-button> is a <button> located inside its shadow root.
+  To determine this, we assume the first tabbable element in the trigger slot is the "accessible trigger."
+  */
+  updateAccessibleTrigger() {
+    if (this.trigger) {
+      const assignedElements = this.triggerSlot.assignedElements({ flatten: true }) as HTMLElement[];
+      const accessibleTrigger = assignedElements.find(el => getTabbableBoundary(el).start);
+
+      if (accessibleTrigger) {
+        accessibleTrigger.setAttribute('aria-haspopup', 'true');
+        accessibleTrigger.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+      }
     }
+  }
+
+  addOpenListeners() {
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
+    document.addEventListener('mousedown', this.handleDocumentMouseDown);
+  }
+
+  removeOpenListeners() {
+    document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+  }
+
+  /* Shows the dropdown. */
+  show() {
+    if (this.open) {
+      return undefined;
+    }
+
+    this.open = true;
+    return waitForEvent(this, ARC_EVENTS.afterShow);
+  }
+
+  /* Hides the dropdown. */
+  hide() {
+    if (!this.open) {
+      return undefined;
+    }
+
+    this.open = false;
+    return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
   getMenu() {
     const slot = this.panel.querySelector('slot')!;
     return slot.assignedElements({ flatten: true }).filter(el => el.tagName === 'ARC-MENU')[0] as ArcMenu;
+  }
+
+  focusOnTrigger() {
+    const trigger = this.triggerSlot.assignedElements({ flatten: true })[0] as HTMLElement | undefined;
+    if (trigger && typeof trigger.focus === 'function') {
+      trigger.focus();
+    }
   }
 
   handleDocumentKeyDown(event: KeyboardEvent) {
@@ -234,6 +282,7 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
+  /* Actions when the trigger has focus */
   handleTriggerKeyDown(event: KeyboardEvent) {
     /* Close when escape or tab is pressed */
     if (event.key === 'Escape') {
@@ -298,16 +347,6 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
-  /* Hide the dropdown when a menu item is selected */
-  handlePanelSelect(event: CustomEvent) {
-    const target = event.target as HTMLElement;
-
-    if (target.tagName === 'ARC-MENU') {
-      this.hide();
-      this.focusOnTrigger();
-    }
-  }
-
   handleTriggerClick() {
     if (this.open) {
       this.hide();
@@ -316,52 +355,14 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
-  /* Link the trigger to the dropdown panel with `aria-haspopup` and `aria-expanded`.
-  These must be applied to the "accessible trigger" so screen readers will understand them.
-  The accessible trigger could be the slotted element, a child of the slotted element, or an element in the slotted element's shadow root.
-  For example, the accessible trigger of an <arc-button> is a <button> located inside its shadow root.
-  To determine this, we assume the first tabbable element in the trigger slot is the "accessible trigger."
-  */
-  updateAccessibleTrigger() {
-    if (this.trigger) {
-      const assignedElements = this.triggerSlot.assignedElements({ flatten: true }) as HTMLElement[];
-      const accessibleTrigger = assignedElements.find(el => getTabbableBoundary(el).start);
+  /* Hide the dropdown when a menu item is selected */
+  handlePanelSelect(event: CustomEvent) {
+    const target = event.target as HTMLElement;
 
-      if (accessibleTrigger) {
-        accessibleTrigger.setAttribute('aria-haspopup', 'true');
-        accessibleTrigger.setAttribute('aria-expanded', this.open ? 'true' : 'false');
-      }
+    if (target.tagName === 'ARC-MENU') {
+      this.hide();
+      this.focusOnTrigger();
     }
-  }
-
-  /* Shows the dropdown panel. */
-  async show() {
-    if (this.open) {
-      return;
-    }
-
-    this.open = true;
-    await waitForEvent(this, ARC_EVENTS.afterShow);
-  }
-
-  /* Hides the dropdown panel. */
-  async hide() {
-    if (!this.open) {
-      return;
-    }
-
-    this.open = false;
-    await waitForEvent(this, ARC_EVENTS.afterHide);
-  }
-
-  addOpenListeners() {
-    document.addEventListener('keydown', this.handleDocumentKeyDown);
-    document.addEventListener('mousedown', this.handleDocumentMouseDown);
-  }
-
-  removeOpenListeners() {
-    document.removeEventListener('keydown', this.handleDocumentKeyDown);
-    document.removeEventListener('mousedown', this.handleDocumentMouseDown);
   }
 
   protected render() {

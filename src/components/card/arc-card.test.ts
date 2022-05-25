@@ -1,9 +1,16 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
-import sinon, { SinonSpy } from 'sinon';
+import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import {
+  addShowListeners,
+  addHideListeners,
+  clearShowHideListeners,
+  waitForShow,
+  waitForHide,
+  showCalledOnce,
+  hideCalledOnce,
+} from '../../internal/test-utils.js';
 import type ArcCard from './ArcCard.js';
 import './arc-card.js';
 
@@ -49,11 +56,6 @@ describe('ArcCard', () => {
   describe('events', () => {
     let element: ArcCard;
 
-    const showHandler: SinonSpy = sinon.spy();
-    const afterShowHandler: SinonSpy = sinon.spy();
-    const hideHandler: SinonSpy = sinon.spy();
-    const afterHideHandler: SinonSpy = sinon.spy();
-
     beforeEach(async () => {
       element = await fixture(html`
         <arc-card>
@@ -63,100 +65,62 @@ describe('ArcCard', () => {
     });
 
     afterEach(async () => {
-      showHandler.resetHistory();
-      afterShowHandler.resetHistory();
-      hideHandler.resetHistory();
-      afterHideHandler.resetHistory();
+      clearShowHideListeners(element);
     });
 
     it('should emit arc-hide and arc-after-hide when calling collapse()', async () => {
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       await element.collapse();
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(hideCalledOnce()).to.be.true;
       expect(element.collapsed).to.be.true;
     });
 
     it('should emit arc-show and arc-after-show when calling expand()', async () => {
       await element.collapse();
-
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       await element.expand();
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(showCalledOnce()).to.be.true;
       expect(element.collapsed).to.be.false;
     });
 
     it('should emit arc-hide and arc-after-hide when setting collapsed = true', async () => {
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       element.collapsed = true;
-      await waitUntil(() => hideHandler.calledOnce);
-      await waitUntil(() => afterHideHandler.calledOnce);
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
+      await waitForHide();
+      expect(hideCalledOnce()).to.be.true;
       expect(element.collapsed).to.be.true;
     });
 
     it('should emit arc-show and arc-after-show when setting collapsed = false', async () => {
       await element.collapse();
-
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       element.collapsed = false;
-      await waitUntil(() => showHandler.calledOnce);
-      await waitUntil(() => afterShowHandler.calledOnce);
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      await waitForShow();
+      expect(showCalledOnce()).to.be.true;
       expect(element.collapsed).to.be.false;
     });
 
     it('should prevent emitting the arc-show and arc-after-show when the card is already expanded', async () => {
-      await element.collapse();
-
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       await element.expand();
-      await element.expand();
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(showCalledOnce()).to.be.false;
+      expect(element.collapsed).to.be.false;
     });
 
-    it('should prevent emitting the arc-hide and arc-after-hide when the cards is not expanded', async () => {
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+    it('should prevent emitting the arc-hide and arc-after-hide when the card is not expanded', async () => {
+      addHideListeners(element);
       await element.collapse();
       await element.collapse();
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(hideCalledOnce()).to.be.true;
+      expect(element.collapsed).to.be.true;
     });
 
     it('should prevent emitting the arc-hide and arc-after-hide when the card has no header', async () => {
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       element.innerHTML = '';
       await element.collapse();
-
-      element.collapsed = true;
-      await elementUpdated(element);
-
-      expect(hideHandler).to.not.have.been.calledOnce;
-      expect(afterHideHandler).to.not.have.been.calledOnce;
+      expect(hideCalledOnce()).to.be.false;
+      expect(element.collapsed).to.be.false;
     });
   });
 

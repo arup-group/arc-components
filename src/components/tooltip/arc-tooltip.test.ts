@@ -1,8 +1,17 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
-import sinon, { SinonSpy } from 'sinon';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
+import {
+  addShowListeners,
+  addHideListeners,
+  clearShowHideListeners,
+  waitForShow,
+  waitForHide,
+  showCalledOnce,
+  hideCalledOnce,
+  escEvent,
+} from '../../internal/test-utils.js';
 import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
 import type ArcTooltip from './ArcTooltip.js';
 import './arc-tooltip.js';
@@ -13,22 +22,26 @@ describe('ArcTooltip', () => {
     let element: ArcTooltip;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-tooltip></arc-tooltip>`);
+      element = await fixture(html`
+        <arc-tooltip>
+          <span>My span</span>
+        </arc-tooltip>
+      `);
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-tooltip></arc-tooltip>`);
+      expect(element).dom.to.equal(`<arc-tooltip><span>My span</span></arc-tooltip>`);
     });
 
     it('renders the element in an open state', async () => {
-      const openElement: ArcTooltip = await fixture(html`<arc-tooltip open></arc-tooltip>`);
+      const openElement: ArcTooltip = await fixture(html`<arc-tooltip open><span>My span</span></arc-tooltip>`);
       expect(openElement.open).to.be.true;
       expect(openElement.hasAttribute('open')).to.be.true;
     });
 
     it('renders the element in a hoisted state', async () => {
-      const hoistedElement: ArcTooltip = await fixture(html` <arc-tooltip hoist></arc-tooltip> `);
+      const hoistedElement: ArcTooltip = await fixture(html` <arc-tooltip hoist><span>My span</span></arc-tooltip> `);
       expect(hoistedElement.hoist).to.be.true;
       expect(hoistedElement.hasAttribute('hoist')).to.be.true;
     });
@@ -41,36 +54,47 @@ describe('ArcTooltip', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
+    it('renders the element with a custom content property', async () => {
+      const element: ArcTooltip = await fixture(
+        html`<arc-tooltip content="My tooltip"><span>My span</span></arc-tooltip>`
+      );
+
+      expect(element.content).to.equal('My tooltip');
+      expect(element.getAttribute('content')).to.equal('My tooltip');
+    });
+
     it('renders the element with a custom placement property', async () => {
-      const element: ArcTooltip = await fixture(html`<arc-tooltip placement=${FLOATING_PLACEMENTS.top}></arc-tooltip>`);
+      const element: ArcTooltip = await fixture(
+        html`<arc-tooltip placement=${FLOATING_PLACEMENTS.top}><span>My span</span></arc-tooltip>`
+      );
 
       expect(element.placement).to.equal(FLOATING_PLACEMENTS.top);
       expect(element.getAttribute('placement')).to.equal(FLOATING_PLACEMENTS.top);
     });
 
     it('renders the element with a custom distance property', async () => {
-      const element: ArcTooltip = await fixture(html`<arc-tooltip distance="5"></arc-tooltip>`);
+      const element: ArcTooltip = await fixture(html`<arc-tooltip distance="5"><span>My span</span></arc-tooltip>`);
 
       expect(element.distance).to.equal(5);
       expect(element.getAttribute('distance')).to.equal('5');
     });
 
     it('renders the element with a custom skidding property', async () => {
-      const element: ArcTooltip = await fixture(html`<arc-tooltip skidding="5"></arc-tooltip>`);
+      const element: ArcTooltip = await fixture(html`<arc-tooltip skidding="5"><span>My span</span></arc-tooltip>`);
 
       expect(element.skidding).to.equal(5);
       expect(element.getAttribute('skidding')).to.equal('5');
     });
 
     it('renders the element with a custom delay property', async () => {
-      const element: ArcTooltip = await fixture(html`<arc-tooltip delay="50ms"></arc-tooltip>`);
+      const element: ArcTooltip = await fixture(html`<arc-tooltip delay="50ms"><span>My span</span></arc-tooltip>`);
 
       expect(element.delay).to.equal(50);
       expect(element.getAttribute('delay')).to.equal('50ms');
     });
 
     it('renders the element with a custom trigger property', async () => {
-      const element: ArcTooltip = await fixture(html`<arc-tooltip trigger="click"></arc-tooltip>`);
+      const element: ArcTooltip = await fixture(html`<arc-tooltip trigger="click"><span>My span</span></arc-tooltip>`);
 
       expect(element.trigger).to.equal('click');
       expect(element.getAttribute('trigger')).to.equal('click');
@@ -82,7 +106,7 @@ describe('ArcTooltip', () => {
     let element: ArcTooltip;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-tooltip></arc-tooltip>`);
+      element = await fixture(html`<arc-tooltip><span>My span</span></arc-tooltip>`);
     });
 
     it('renders the component in an open state', async () => {
@@ -105,6 +129,16 @@ describe('ArcTooltip', () => {
 
       expect(element.disabled).to.be.true;
       expect(element.hasAttribute('disabled')).to.be.true;
+    });
+
+    it('hides the component when the disabled state is set', async () => {
+      element.open = true;
+      await elementUpdated(element);
+
+      element.disabled = true;
+      await elementUpdated(element);
+
+      expect(element.open).to.be.false;
     });
 
     it('renders the component in a hoist state', async () => {
@@ -162,31 +196,89 @@ describe('ArcTooltip', () => {
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcTooltip;
-    const showHandler: SinonSpy = sinon.spy();
-    const afterShowHandler: SinonSpy = sinon.spy();
-    const hideHandler: SinonSpy = sinon.spy();
-    const afterHideHandler: SinonSpy = sinon.spy();
+    let tooltip: HTMLElement;
+    let isOpen: Function;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-tooltip></arc-tooltip>`);
+      element = await fixture(html`<arc-tooltip trigger="click hover focus"><span>My span</span></arc-tooltip>`);
+      tooltip = element.shadowRoot!.getElementById('tooltip')!;
+      isOpen = () => tooltip?.getAttribute('aria-hidden') === 'false' && element.open === true;
     });
 
     afterEach(() => {
-      showHandler.resetHistory();
-      afterShowHandler.resetHistory();
-      hideHandler.resetHistory();
-      afterHideHandler.resetHistory();
+      clearShowHideListeners(element);
       element.open = false;
     });
 
-    // it('simulates a click on the button', async () => {
-    //   element.addEventListener('click', clickSpy);
-    //
-    //   element.click();
-    //   await waitUntil(() => clickSpy.calledOnce);
-    //
-    //   expect(clickSpy).to.have.been.calledOnce;
-    // });
+    it('should emit arc-show and arc-after-show when calling show()', async () => {
+      addShowListeners(element);
+      await element.show();
+      expect(showCalledOnce()).to.be.true;
+      expect(isOpen()).to.be.true;
+    });
+
+    it('should emit arc-hide and arc-after-hide when calling hide()', async () => {
+      await element.show();
+      addHideListeners(element);
+      await element.hide();
+      expect(hideCalledOnce()).to.be.true;
+      expect(isOpen()).to.be.false;
+    });
+
+    it('should emit arc-show and arc-after-show when setting open = true', async () => {
+      addShowListeners(element);
+      element.open = true;
+      await waitForShow();
+      expect(showCalledOnce()).to.be.true;
+      expect(isOpen()).to.be.true;
+    });
+
+    it('should emit arc-hide and arc-after-hide when setting open = false', async () => {
+      await element.show();
+      addHideListeners(element);
+      element.open = false;
+      await waitForHide();
+      expect(hideCalledOnce()).to.be.true;
+      expect(isOpen()).to.be.false;
+    });
+
+    it('should prevent emitting the arc-show and arc-after-show when the tooltip is already open', async () => {
+      addShowListeners(element);
+      await element.show();
+      await element.show();
+      expect(showCalledOnce()).to.be.true;
+    });
+
+    it('should prevent emitting the arc-hide and arc-after-hide when the tooltip is not open', async () => {
+      addHideListeners(element);
+      await element.hide();
+      expect(hideCalledOnce()).to.be.false;
+    });
+
+    it('should prevent the tooltip to be displayed when the dropdown is disabled', async () => {
+      element.disabled = true;
+      await elementUpdated(element);
+
+      addShowListeners(element);
+      element.open = true;
+      expect(showCalledOnce()).to.be.false;
+      expect(isOpen()).to.be.false;
+    });
+
+    it('closes the tooltip when escape is pressed', async () => {
+      await element.show();
+      addHideListeners(element);
+      element.handleKeyDown(escEvent);
+      await waitForHide();
+      expect(hideCalledOnce()).to.be.true;
+      expect(isOpen()).to.be.false;
+    });
+
+    it('shows the tooltip on click', async () => {});
+
+    it('shows the tooltip on hover', async () => {});
+
+    it('shows the tooltip on focus', async () => {});
   });
 
   /* Test whether the slots can be filled and that they exist */
@@ -194,7 +286,7 @@ describe('ArcTooltip', () => {
     let element: ArcTooltip;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-tooltip></arc-tooltip>`);
+      element = await fixture(html`<arc-tooltip><span>My span</span></arc-tooltip>`);
     });
 
     it('renders default slots to fill the component', () => {
@@ -212,14 +304,14 @@ describe('ArcTooltip', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcTooltip = await fixture(html`<arc-tooltip></arc-tooltip>`);
+      const element: ArcTooltip = await fixture(html`<arc-tooltip><span>My span</span></arc-tooltip>`);
       expect(getPropertyValue(element, '--max-width')).to.equal('20rem');
       expect(getPropertyValue(element, '--arrow-size')).to.equal('4px');
     });
 
     it('overwrites the css variables', async () => {
       const element: ArcTooltip = await fixture(
-        html`<arc-tooltip style="--max-width:20px; --arrow-size:10px"></arc-tooltip>`
+        html`<arc-tooltip style="--max-width:20px; --arrow-size:10px"><span>My span</span></arc-tooltip>`
       );
       expect(getPropertyValue(element, '--max-width')).to.equal('20px');
       expect(getPropertyValue(element, '--arrow-size')).to.equal('10px');

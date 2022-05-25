@@ -50,7 +50,7 @@ export default class ArcSidebar extends LitElement {
   }
 
   /* Shows the sidebar. */
-  async show() {
+  show() {
     if (this.open) {
       return undefined;
     }
@@ -60,21 +60,13 @@ export default class ArcSidebar extends LitElement {
   }
 
   /* Hides the sidebar. */
-  async hide() {
+  hide() {
     if (!this.open) {
       return undefined;
     }
 
     this.open = false;
     return waitForEvent(this, ARC_EVENTS.afterHide);
-  }
-
-  private _toggleOpenState() {
-    if (this.open) {
-      this.hide();
-    } else {
-      this.show();
-    }
   }
 
   handleSlots(e: any) {
@@ -99,7 +91,7 @@ export default class ArcSidebar extends LitElement {
                 id="toggleClose"
                 name=${ICON_TYPES['arrow-left']}
                 label="Close sidebar"
-                @click=${this._toggleOpenState}
+                @click=${this.hide}
               ></arc-icon-button>
             </div>
             <div id="content">
@@ -112,7 +104,7 @@ export default class ArcSidebar extends LitElement {
             id="toggleOpen"
             name=${ICON_TYPES['arrow-right']}
             label="Open sidebar"
-            @click=${this._toggleOpenState}
+            @click=${this.show}
           ></arc-icon-button>
         `;
   }

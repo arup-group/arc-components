@@ -155,6 +155,16 @@ export default class ArcTooltip extends LitElement {
     });
   }
 
+  async firstUpdated() {
+    this.tooltip.hidden = !this.open;
+
+    /* If the tooltip is visible on init, update its position. */
+    if (this.open) {
+      await this.updateComplete;
+      this.startPositioner();
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('blur', this.handleBlur, true);
@@ -164,98 +174,6 @@ export default class ArcTooltip extends LitElement {
     this.removeEventListener('mouseover', this.handleMouseOver);
     this.removeEventListener('mouseout', this.handleMouseOut);
     this.stopPositioner();
-  }
-
-  async firstUpdated() {
-    this.tooltip.hidden = !this.open;
-
-    // If the dropdown is visible on init, update its position
-    if (this.open) {
-      await this.updateComplete;
-      this.startPositioner();
-    }
-  }
-
-  /* Shows the tooltip. */
-  async show() {
-    if (this.open) {
-      return;
-    }
-
-    this.open = true;
-    await waitForEvent(this, ARC_EVENTS.afterShow);
-  }
-
-  /* Hides the tooltip. */
-  async hide() {
-    if (!this.open) {
-      return;
-    }
-
-    this.open = false;
-    await waitForEvent(this, ARC_EVENTS.afterHide);
-  }
-
-  getTarget() {
-    /* Get the first child that isn't a <style> or content slot */
-    const target = [...this.children].find(
-      el => el.tagName.toLowerCase() !== 'style' && el.getAttribute('slot') !== 'content'
-    );
-
-    if (!target) {
-      throw new Error('Invalid tooltip target: no child element was found.');
-    }
-
-    return target as HTMLElement;
-  }
-
-  handleBlur() {
-    if (this.hasTrigger('focus')) {
-      this.hide();
-    }
-  }
-
-  handleClick() {
-    if (this.hasTrigger('click')) {
-      if (this.open) {
-        this.hide();
-      } else {
-        this.show();
-      }
-    }
-  }
-
-  handleFocus() {
-    if (this.hasTrigger('focus')) {
-      this.show();
-    }
-  }
-
-  handleKeyDown(event: KeyboardEvent) {
-    // Pressing escape when the target element has focus should dismiss the tooltip
-    if (this.open && event.key === 'Escape') {
-      event.stopPropagation();
-      this.hide();
-    }
-  }
-
-  handleMouseOver() {
-    if (this.hasTrigger('hover')) {
-      clearTimeout(this._hoverTimeout);
-      this._hoverTimeout = window.setTimeout(() => this.show(), this.delay);
-    }
-  }
-
-  handleMouseOut() {
-    if (this.hasTrigger('hover')) {
-      clearTimeout(this._hoverTimeout);
-      this._hoverTimeout = window.setTimeout(() => this.hide(), 0);
-    }
-  }
-
-  hasTrigger(triggerType: string) {
-    const triggers = this.trigger.split(' ');
-    return triggers.includes(triggerType);
   }
 
   private startPositioner() {
@@ -309,6 +227,88 @@ export default class ArcTooltip extends LitElement {
       this._positionerCleanup();
       this._positionerCleanup = undefined;
       this.positioner.removeAttribute('data-placement');
+    }
+  }
+
+  /* Shows the tooltip. */
+  show() {
+    if (this.open) {
+      return undefined;
+    }
+
+    this.open = true;
+    return waitForEvent(this, ARC_EVENTS.afterShow);
+  }
+
+  /* Hides the tooltip. */
+  hide() {
+    if (!this.open) {
+      return undefined;
+    }
+
+    this.open = false;
+    return waitForEvent(this, ARC_EVENTS.afterHide);
+  }
+
+  getTarget() {
+    /* Get the first child that isn't a <style> or content slot */
+    const target = [...this.children].find(
+      el => el.tagName.toLowerCase() !== 'style' && el.getAttribute('slot') !== 'content'
+    );
+
+    if (!target) {
+      throw new Error('Invalid tooltip target: no child element was found.');
+    }
+
+    return target as HTMLElement;
+  }
+
+  hasTrigger(triggerType: string) {
+    const triggers = this.trigger.split(' ');
+    return triggers.includes(triggerType);
+  }
+
+  handleFocus() {
+    if (this.hasTrigger('focus')) {
+      this.show();
+    }
+  }
+
+  handleBlur() {
+    if (this.hasTrigger('focus')) {
+      this.hide();
+    }
+  }
+
+  handleClick() {
+    if (this.hasTrigger('click')) {
+      if (this.open) {
+        this.hide();
+      } else {
+        this.show();
+      }
+    }
+  }
+
+  handleKeyDown(event: KeyboardEvent) {
+    // Pressing escape when the target element has focus should dismiss the tooltip
+    if (this.open && event.key === 'Escape') {
+      event.stopPropagation();
+      this.hide();
+    }
+  }
+
+  handleMouseOver() {
+    if (this.hasTrigger('hover')) {
+      clearTimeout(this._hoverTimeout);
+      this._hoverTimeout = window.setTimeout(() => this.show(), this.delay);
+    }
+  }
+
+  handleMouseOut() {
+    if (this.hasTrigger('hover')) {
+      clearTimeout(this._hoverTimeout);
+      this._hoverTimeout = window.setTimeout(() => this.hide(), 0);
     }
   }
 

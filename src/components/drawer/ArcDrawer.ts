@@ -77,10 +77,13 @@ export default class ArcDrawer extends LitElement {
       await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
       this.drawer.hidden = false;
 
-      const arcInitialFocus = emit(this, ARC_EVENTS.initialFocus, { cancelable: true });
-      if (!arcInitialFocus.defaultPrevented) {
-        this.panel.focus({ preventScroll: true });
-      }
+      /* Set initial focus */
+      requestAnimationFrame(() => {
+        const arcInitialFocus = emit(this, ARC_EVENTS.initialFocus, { cancelable: true });
+        if (!arcInitialFocus.defaultPrevented) {
+          this.panel.focus({ preventScroll: true });
+        }
+      });
 
       const panelAnimation = getAnimation(this, `drawer.show${uppercaseFirstLetter(this.placement)}`);
       const overlayAnimation = getAnimation(this, 'drawer.overlay.show');
@@ -108,7 +111,7 @@ export default class ArcDrawer extends LitElement {
 
       /* Restore focus to the original trigger */
       const trigger = this.originalTrigger;
-      if (trigger && typeof trigger.focus === 'function') {
+      if (typeof trigger?.focus === 'function') {
         setTimeout(() => trigger.focus());
       }
 
@@ -136,7 +139,7 @@ export default class ArcDrawer extends LitElement {
   }
 
   /* Shows the drawer. */
-  async show() {
+  show() {
     if (this.open) {
       return undefined;
     }
@@ -146,7 +149,7 @@ export default class ArcDrawer extends LitElement {
   }
 
   /* Hides the drawer. */
-  async hide() {
+  hide() {
     if (!this.open) {
       return undefined;
     }

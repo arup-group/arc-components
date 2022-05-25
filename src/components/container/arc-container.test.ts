@@ -1,15 +1,19 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
-import sinon, { SinonSpy } from 'sinon';
+import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { isMobile, prefersDark } from '../../internal/preferences.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { isNight } from '../../internal/theme.js';
 import { hasSlot } from '../../internal/slot.js';
-import { createKeyEvent } from '../../internal/test-utils.js';
+import {
+  addShowListeners,
+  clearShowHideListeners,
+  waitForShow,
+  showCalledOnce,
+  createKeyEvent,
+} from '../../internal/test-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
 import type ArcContainer from './ArcContainer.js';
 import './arc-container.js';
 
@@ -95,9 +99,6 @@ describe('ArcContainer', () => {
   describe('methods', () => {
     let element: ArcContainer;
 
-    const showHandler: SinonSpy = sinon.spy();
-    const afterShowHandler: SinonSpy = sinon.spy();
-
     beforeEach(async () => {
       element = await fixture(html`
         <arc-container theme="dark">
@@ -107,8 +108,7 @@ describe('ArcContainer', () => {
     });
 
     afterEach(() => {
-      showHandler.resetHistory();
-      afterShowHandler.resetHistory();
+      clearShowHideListeners(element);
     });
 
     it('returns the correct theme when a specific date is given', async () => {
@@ -144,29 +144,19 @@ describe('ArcContainer', () => {
     });
 
     it('should emit arc-show and arc-after-show when calling showAccessibility()', async () => {
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       await element.showAccessibility();
-      await waitUntil(() => showHandler.calledOnce);
-      await waitUntil(() => afterShowHandler.calledOnce);
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      await waitForShow();
+      expect(showCalledOnce()).to.be.true;
     });
 
     it('should emit arc-show and arc-after-show when pressing the accessibility key (a)', async () => {
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
+      addShowListeners(element);
 
       /* Press the 'a' key */
       element.handleKeyDown(createKeyEvent('a'));
-
-      await waitUntil(() => showHandler.calledOnce);
-      await waitUntil(() => afterShowHandler.calledOnce);
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      await waitForShow();
+      expect(showCalledOnce()).to.be.true;
     });
   });
 

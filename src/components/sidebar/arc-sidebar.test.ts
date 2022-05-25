@@ -1,10 +1,16 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated, oneEvent, waitUntil } from '@open-wc/testing';
-import sinon, { SinonSpy } from 'sinon';
+import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-
+import {
+  addShowListeners,
+  addHideListeners,
+  clearShowHideListeners,
+  waitForShow,
+  waitForHide,
+  showCalledOnce,
+  hideCalledOnce,
+} from '../../internal/test-utils.js';
 import type ArcSidebar from './ArcSidebar.js';
 import './arc-sidebar.js';
 
@@ -92,113 +98,57 @@ describe('ArcSidebar', () => {
   describe('events', () => {
     let element: ArcSidebar;
 
-    const showHandler: SinonSpy = sinon.spy();
-    const afterShowHandler: SinonSpy = sinon.spy();
-    const hideHandler: SinonSpy = sinon.spy();
-    const afterHideHandler: SinonSpy = sinon.spy();
-
     beforeEach(async () => {
       element = await fixture(html`<arc-sidebar></arc-sidebar>`);
     });
 
     afterEach(() => {
-      showHandler.resetHistory();
-      afterShowHandler.resetHistory();
-      hideHandler.resetHistory();
-      afterHideHandler.resetHistory();
+      clearShowHideListeners(element);
     });
 
     it('should emit arc-show and arc-after-show when calling show()', async () => {
       await element.hide();
-
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       await element.show();
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(showCalledOnce()).to.be.true;
       expect(element.open).to.be.true;
     });
 
     it('should emit arc-hide and arc-after-hide when calling hide()', async () => {
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       await element.hide();
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(hideCalledOnce()).to.be.true;
       expect(element.open).to.be.false;
     });
 
     it('should emit arc-show and arc-after-show when setting open = true', async () => {
       await element.hide();
-
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       element.open = true;
-      await waitUntil(() => showHandler.calledOnce);
-      await waitUntil(() => afterShowHandler.calledOnce);
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      await waitForShow();
+      expect(showCalledOnce()).to.be.true;
       expect(element.open).to.be.true;
     });
 
     it('should emit arc-hide and arc-after-hide when setting open = false', async () => {
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       element.open = false;
-      await waitUntil(() => hideHandler.calledOnce);
-      await waitUntil(() => afterHideHandler.calledOnce);
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
+      await waitForHide();
+      expect(hideCalledOnce()).to.be.true;
       expect(element.open).to.be.false;
     });
 
     it('should prevent emitting the arc-show and arc-after-show when the sidebar is already open', async () => {
-      await element.hide();
-
-      element.addEventListener(ARC_EVENTS.show, showHandler);
-      element.addEventListener(ARC_EVENTS.afterShow, afterShowHandler);
-
+      addShowListeners(element);
       await element.show();
-      await element.show();
-
-      expect(showHandler).to.have.been.calledOnce;
-      expect(afterShowHandler).to.have.been.calledOnce;
+      expect(showCalledOnce()).to.be.false;
     });
 
     it('should prevent emitting the arc-hide and arc-after-hide when the sidebar is not open', async () => {
-      element.addEventListener(ARC_EVENTS.hide, hideHandler);
-      element.addEventListener(ARC_EVENTS.afterHide, afterHideHandler);
-
+      addHideListeners(element);
       await element.hide();
       await element.hide();
-
-      expect(hideHandler).to.have.been.calledOnce;
-      expect(afterHideHandler).to.have.been.calledOnce;
-    });
-
-    it('triggers the arc-show event', async () => {
-      element.open = false;
-      await elementUpdated(element);
-
-      const clickButton = () => element.shadowRoot!.querySelector('arc-icon-button')!.click();
-      setTimeout(clickButton);
-      await oneEvent(element, 'arc-show');
-      expect(element.open).to.be.true;
-    });
-
-    it('triggers the arc-hide event', async () => {
-      const clickButton = () => element.shadowRoot!.querySelector('arc-icon-button')!.click();
-      setTimeout(clickButton);
-      await oneEvent(element, 'arc-hide');
-      expect(element.open).to.be.false;
+      expect(hideCalledOnce()).to.be.true;
     });
   });
 

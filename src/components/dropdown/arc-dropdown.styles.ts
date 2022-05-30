@@ -36,19 +36,19 @@ export default [
       pointer-events: all;
     }
 
-    #positioner[data-popper-placement^='top'] #panel {
+    #positioner[data-placement^='top'] #panel {
       transform-origin: bottom;
     }
 
-    #positioner[data-popper-placement^='bottom'] #panel {
+    #positioner[data-placement^='bottom'] #panel {
       transform-origin: top;
     }
 
-    #positioner[data-popper-placement^='left'] #panel {
+    #positioner[data-placement^='left'] #panel {
       transform-origin: right;
     }
 
-    #positioner[data-popper-placement^='right'] #panel {
+    #positioner[data-placement^='right'] #panel {
       transform-origin: left;
     }
   `,

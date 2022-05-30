@@ -1,11 +1,12 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { Instance as PopperInstance, createPopper, Placement } from '@popperjs/core';
+import { classMap } from 'lit/directives/class-map.js';
+import { autoUpdate, computePosition, flip, offset, shift, size, Placement } from '@floating-ui/dom';
 import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { getTabbableBoundary } from '../../internal/tabbable.js';
-import { DROPDOWN_PLACEMENTS } from './constants/DropdownConstants.js';
+import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import styles from './arc-dropdown.styles.js';
@@ -33,16 +34,19 @@ export default class ArcDropdown extends LitElement {
   @query('#triggerSlot') triggerSlot: HTMLSlotElement;
 
   /** @internal */
+  @query('#positioner') positioner: HTMLElement;
+
+  /** @internal */
   @query('#panel') panel: HTMLElement;
 
   /** @internal */
-  @query('#positioner') positioner: HTMLElement;
-
-  /** @internal - Reference to the PopperJS instance. */
-  private popover: PopperInstance;
+  private _positionerCleanup: ReturnType<typeof autoUpdate> | undefined;
 
   /** The preferred placement of the dropdown panel. */
-  @property({ type: String }) placement: Placement = DROPDOWN_PLACEMENTS['bottom-start'];
+  @property({ type: String }) placement: Placement = FLOATING_PLACEMENTS['bottom-start'];
+
+  /** The dropdown will close when the user interacts outside of this element (e.g. clicking). */
+  @property({ attribute: false }) containingElement?: HTMLElement;
 
   /** The distance in pixels from which to offset the panel away from its trigger. */
   @property({ type: Number }) distance: number = 0;
@@ -56,7 +60,7 @@ export default class ArcDropdown extends LitElement {
   /** Disables the dropdown so the panel will not open. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
-  /** Enable this option to prevent the panel from being clipped when the component is placed inside a container with overflow: auto|scroll`. */
+  /** Enable this option to prevent the panel from being clipped when the component is placed inside a container with overflow: auto|hidden|scroll. */
   @property({ type: Boolean, reflect: true }) hoist: boolean = false;
 
   @watch('open', { waitUntilFirstUpdate: true })
@@ -70,11 +74,10 @@ export default class ArcDropdown extends LitElement {
     if (this.open) {
       /* Show */
       emit(this, ARC_EVENTS.show);
-      document.addEventListener('keydown', this.handleDocumentKeyDown);
-      document.addEventListener('mousedown', this.handleDocumentMouseDown);
+      this.addOpenListeners();
 
       await stopAnimations(this);
-      this.popover.update();
+      this.startPositioner();
       this.panel.hidden = false;
       const { keyframes, options } = getAnimation(this, 'dropdown.show');
       await startAnimations(this.panel, keyframes, options);
@@ -83,13 +86,13 @@ export default class ArcDropdown extends LitElement {
     } else {
       /* Hide */
       emit(this, ARC_EVENTS.hide);
-      document.removeEventListener('keydown', this.handleDocumentKeyDown);
-      document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+      this.removeOpenListeners();
 
       await stopAnimations(this);
       const { keyframes, options } = getAnimation(this, 'dropdown.hide');
       await startAnimations(this.panel, keyframes, options);
       this.panel.hidden = true;
+      this.stopPositioner();
 
       emit(this, ARC_EVENTS.afterHide);
     }
@@ -100,25 +103,13 @@ export default class ArcDropdown extends LitElement {
   @watch('placement')
   @watch('skidding')
   handlePopoverOptionsChange() {
-    if (this.popover) {
-      this.popover.setOptions({
-        placement: this.placement,
-        strategy: this.hoist ? 'fixed' : 'absolute',
-        modifiers: [
-          {
-            name: 'flip',
-            options: {
-              boundary: 'viewport',
-            },
-          },
-          {
-            name: 'offset',
-            options: {
-              offset: [this.skidding, this.distance],
-            },
-          },
-        ],
-      });
+    this.updatePositioner();
+  }
+
+  @watch('disabled')
+  handleDisabledChange() {
+    if (this.disabled && this.open) {
+      this.hide();
     }
   }
 
@@ -128,49 +119,135 @@ export default class ArcDropdown extends LitElement {
     this.handleDocumentKeyDown = this.handleDocumentKeyDown.bind(this);
     this.handleDocumentMouseDown = this.handleDocumentMouseDown.bind(this);
 
-    /* Define the accessible trigger after render */
-    this.updateComplete.then(() => {
-      this.popover = createPopper(this.trigger, this.positioner, {
-        placement: this.placement,
-        strategy: this.hoist ? 'fixed' : 'absolute',
-        modifiers: [
-          {
-            name: 'flip',
-            options: {
-              boundary: 'viewport',
-            },
-          },
-          {
-            name: 'offset',
-            options: {
-              offset: [this.skidding, this.distance],
-            },
-          },
-        ],
-      });
-    });
+    if (!this.containingElement) {
+      this.containingElement = this;
+    }
   }
 
-  firstUpdated() {
+  async firstUpdated() {
     this.panel.hidden = !this.open;
+
+    /* If the dropdown is visible on init, update its position. */
+    if (this.open) {
+      await this.updateComplete;
+      this.addOpenListeners();
+      this.startPositioner();
+    }
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    this.removeOpenListeners();
     this.hide();
-    this.popover.destroy();
+    this.stopPositioner();
   }
 
-  focusOnTrigger() {
-    const trigger = this.triggerSlot.assignedElements({ flatten: true })[0] as any;
-    if (trigger && typeof trigger.focus === 'function') {
-      trigger.focus();
+  private startPositioner() {
+    this.stopPositioner();
+    this.updatePositioner();
+    this._positionerCleanup = autoUpdate(this.trigger, this.positioner, this.updatePositioner.bind(this));
+  }
+
+  private updatePositioner() {
+    if (!this.open || !this.trigger || !this.positioner) {
+      return;
     }
+
+    computePosition(this.trigger, this.positioner, {
+      placement: this.placement,
+      middleware: [
+        offset({ mainAxis: this.distance, crossAxis: this.skidding }),
+        flip(),
+        shift(),
+        size({
+          apply: ({ width, height }) => {
+            /* Ensure the panel stays within the viewport when we have lots of menu items */
+            Object.assign(this.panel.style, {
+              maxWidth: `${width}px`,
+              maxHeight: `${height}px`,
+            });
+          },
+          padding: 8,
+        }),
+      ],
+      strategy: this.hoist ? 'fixed' : 'absolute',
+    }).then(({ x, y, placement }) => {
+      this.positioner.setAttribute('data-placement', placement);
+
+      Object.assign(this.positioner.style, {
+        position: this.hoist ? 'fixed' : 'absolute',
+        left: `${x}px`,
+        top: `${y}px`,
+      });
+    });
+  }
+
+  private stopPositioner() {
+    if (this._positionerCleanup) {
+      this._positionerCleanup();
+      this._positionerCleanup = undefined;
+      this.positioner.removeAttribute('data-placement');
+    }
+  }
+
+  /* Link the trigger to the dropdown panel with `aria-haspopup` and `aria-expanded`.
+  These must be applied to the "accessible trigger" so screen readers will understand them.
+  The accessible trigger could be the slotted element, a child of the slotted element, or an element in the slotted element's shadow root.
+  For example, the accessible trigger of an <arc-button> is a <button> located inside its shadow root.
+  To determine this, we assume the first tabbable element in the trigger slot is the "accessible trigger."
+  */
+  updateAccessibleTrigger() {
+    if (this.trigger) {
+      const assignedElements = this.triggerSlot.assignedElements({ flatten: true }) as HTMLElement[];
+      const accessibleTrigger = assignedElements.find(el => getTabbableBoundary(el).start);
+
+      if (accessibleTrigger) {
+        accessibleTrigger.setAttribute('aria-haspopup', 'true');
+        accessibleTrigger.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+      }
+    }
+  }
+
+  addOpenListeners() {
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
+    document.addEventListener('mousedown', this.handleDocumentMouseDown);
+  }
+
+  removeOpenListeners() {
+    document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+  }
+
+  /* Shows the dropdown. */
+  show() {
+    if (this.open) {
+      return undefined;
+    }
+
+    this.open = true;
+    return waitForEvent(this, ARC_EVENTS.afterShow);
+  }
+
+  /* Hides the dropdown. */
+  hide() {
+    if (!this.open) {
+      return undefined;
+    }
+
+    this.open = false;
+    return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
   getMenu() {
     const slot = this.panel.querySelector('slot')!;
     return slot.assignedElements({ flatten: true }).filter(el => el.tagName === 'ARC-MENU')[0] as ArcMenu;
+  }
+
+  focusOnTrigger() {
+    const trigger = this.triggerSlot.assignedElements({ flatten: true })[0] as HTMLElement | undefined;
+    if (trigger && typeof trigger.focus === 'function') {
+      trigger.focus();
+    }
   }
 
   handleDocumentKeyDown(event: KeyboardEvent) {
@@ -183,8 +260,13 @@ export default class ArcDropdown extends LitElement {
 
     /* Handle tabbing */
     if (event.key === 'Tab') {
+      const activeElement =
+        this.containingElement?.getRootNode() instanceof ShadowRoot
+          ? document.activeElement?.shadowRoot?.activeElement
+          : document.activeElement;
+
       /* Tabbing within an open menu should close the dropdown and refocus the trigger */
-      if (this.open && document.activeElement?.tagName === 'ARC-MENU-ITEM') {
+      if (this.open && activeElement?.tagName === 'ARC-MENU-ITEM') {
         event.preventDefault();
         this.hide();
         this.focusOnTrigger();
@@ -192,20 +274,16 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
-  /* Close when clicking outside of the containing element */
+  /* Close when clicking outside the containing element */
   handleDocumentMouseDown(event: MouseEvent) {
     const path = event.composedPath() as Array<EventTarget>;
-    if (!path.includes(this)) {
+    if (this.containingElement && !path.includes(this.containingElement)) {
       this.hide();
     }
   }
 
+  /* Actions when the trigger has focus */
   handleTriggerKeyDown(event: KeyboardEvent) {
-    const menu = this.getMenu();
-    const menuItems = menu ? ([...menu.querySelectorAll('arc-menu-item')] as ArcMenuItem[]) : [];
-    const firstMenuItem = menuItems[0];
-    const lastMenuItem = menuItems[menuItems.length - 1];
-
     /* Close when escape or tab is pressed */
     if (event.key === 'Escape') {
       this.focusOnTrigger();
@@ -219,11 +297,14 @@ export default class ArcDropdown extends LitElement {
     */
     if ([' ', 'Enter'].includes(event.key)) {
       event.preventDefault();
-
       this.handleTriggerClick();
-
       return;
     }
+
+    const menu = this.getMenu();
+    const menuItems = menu ? ([...menu.querySelectorAll('arc-menu-item')] as ArcMenuItem[]) : [];
+    const firstMenuItem = menuItems[0];
+    const lastMenuItem = menuItems[menuItems.length - 1];
 
     /*
     When up/down is pressed, we make the assumption that the user is familiar with the menu and plans to make a
@@ -266,6 +347,14 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
+  handleTriggerClick() {
+    if (this.open) {
+      this.hide();
+    } else {
+      this.show();
+    }
+  }
+
   /* Hide the dropdown when a menu item is selected */
   handlePanelSelect(event: CustomEvent) {
     const target = event.target as HTMLElement;
@@ -276,55 +365,15 @@ export default class ArcDropdown extends LitElement {
     }
   }
 
-  handleTriggerClick() {
-    if (this.open) {
-      this.hide();
-    } else {
-      this.show();
-    }
-  }
-
-  /* Link the trigger to the dropdown panel with `aria-haspopup` and `aria-expanded`.
-  These must be applied to the "accessible trigger" so screen readers will understand them.
-  The accessible trigger could be the slotted element, a child of the slotted element, or an element in the slotted element's shadow root.
-  For example, the accessible trigger of an <arc-button> is a <button> located inside its shadow root.
-  To determine this, we assume the first tabbable element in the trigger slot is the "accessible trigger."
-  */
-  updateAccessibleTrigger() {
-    if (this.trigger) {
-      const assignedElements = this.triggerSlot.assignedElements({ flatten: true }) as HTMLElement[];
-      const accessibleTrigger = assignedElements.find(el => getTabbableBoundary(el).start);
-
-      if (accessibleTrigger) {
-        accessibleTrigger.setAttribute('aria-haspopup', 'true');
-        accessibleTrigger.setAttribute('aria-expanded', this.open ? 'true' : 'false');
-      }
-    }
-  }
-
-  /* Shows the dropdown panel. */
-  async show() {
-    if (this.open) {
-      return;
-    }
-
-    this.open = true;
-    await waitForEvent(this, ARC_EVENTS.afterShow);
-  }
-
-  /* Hides the dropdown panel */
-  async hide() {
-    if (!this.open) {
-      return;
-    }
-
-    this.open = false;
-    await waitForEvent(this, ARC_EVENTS.afterHide);
-  }
-
   protected render() {
     return html`
-      <div id="main">
+      <div
+        id="main"
+        class=${classMap({
+          dropdown: true,
+          'dropdown--open': this.open,
+        })}
+      >
         <span
           id="trigger"
           @click=${this.handleTriggerClick}
@@ -334,8 +383,6 @@ export default class ArcDropdown extends LitElement {
           <slot id="triggerSlot" name="trigger" @slotchange=${this.updateAccessibleTrigger}></slot>
         </span>
 
-        <!-- Position the panel with a wrapper since the popover makes use of translate. This lets us add animations
-        on the panel without interfering with the position. -->
         <div id="positioner">
           <div
             id="panel"

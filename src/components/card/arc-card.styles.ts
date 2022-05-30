@@ -10,6 +10,7 @@ export default [
     }
 
     .card {
+      height: 100%;
       display: grid;
       overflow: hidden;
       background-color: rgb(var(--arc-container-color));

@@ -39,21 +39,28 @@
     <span slot="name">Web Components</span>
     <arc-icon-button label="Home" name="home"></arc-icon-button>
     <arc-icon-button label="Settings" name="settings"></arc-icon-button>
-    <arc-sso slot="user" client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea" redirect-uri="http://localhost:8000/"></arc-sso>
+    <arc-sso slot="user" client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
   </arc-navbar>
-  <arc-sidebar slot="side" label="Test sidebar">
-    <div slot="label">Make a selection...</div>
-    <arc-menu>
-      <arc-menu-item>Item 1</arc-menu-item>
-      <arc-menu-item>Item 2</arc-menu-item>
-      <arc-menu-item>Item 3</arc-menu-item>
-    </arc-menu>
+  <arc-sidebar slot="side">
+    <div>1</div>
+    <div>2</div>
   </arc-sidebar>
   <section id="section" aria-label="Test section">
-    Hello World!
+    <arc-tooltip content="Something funky!" hoist>
+      <arc-button>Hover me!</arc-button>
+    </arc-tooltip>
+
+
+    <arc-tooltip content="Click here to go home">
+      <arc-icon-button name="home"></arc-icon-button>
+    </arc-tooltip>
   </section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
+<script type="module">
+  const sso = document.querySelector('arc-sso');
+  sso.setAttribute('redirect-uri', window.location.href);
+</script>
 </body>
 </html>

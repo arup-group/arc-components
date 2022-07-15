@@ -28,6 +28,7 @@ export default css`
   /* Overwrite the default scrollbar */
   ::-webkit-scrollbar {
     width: var(--arc-scroll-width);
+    height: var(--arc-scroll-width);
   }
 
   ::-webkit-scrollbar-track {

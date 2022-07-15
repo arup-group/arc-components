@@ -11,7 +11,7 @@ describe('IconConstants', () => {
     expect(keys).to.contain('accessibility'); // Used in the navbar
     expect(keys).to.contain('arrow-left'); // Used in the sidebar
     expect(keys).to.contain('arrow-right'); // Used in the sidebar
-    expect(keys).to.contain('close'); // Used in the accessibility panel
+    expect(keys).to.contain('x'); // Used in the accessibility panel
     expect(keys).to.contain('bulb'); // Used in the accessibility panel
     expect(keys).to.contain('book-open'); // Used in the accessibility panel
     expect(keys).to.contain('fire'); // Used as default icon

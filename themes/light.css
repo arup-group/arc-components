@@ -7,6 +7,9 @@ arc-container[theme="light"] {
   --arc-background-color: var(--arc-grey-010);
   --arc-container-color: var(--arc-white-000);
 
+  /* Set the color scheme for native form elements */
+  color-scheme: light;
+
   /* Palette */
   --arc-color-default: var(--arc-grey-010);
   --arc-color-primary: var(--arc-red-050);

@@ -204,7 +204,7 @@ export default class ArcDrawer extends LitElement {
             <slot id="title" name="label"><span>${this.label}</span></slot>
             <arc-icon-button
               id="toggleClose"
-              name=${ICON_TYPES.close}
+              name=${ICON_TYPES.x}
               label="Close drawer"
               @click=${this._requestClose}
             ></arc-icon-button>

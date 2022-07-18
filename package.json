@@ -42,6 +42,7 @@
     "@floating-ui/dom": "^0.3.1",
     "concurrently": "^7.2.2",
     "date-fns": "^2.28.0",
+    "gridjs": "^5.0.2",
     "lit": "^2.2.7",
     "tabbable": "^5.3.3"
   },

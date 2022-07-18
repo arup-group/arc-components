@@ -212,7 +212,7 @@ body {
 
 /* Lock the body and the content within the arc-container from scrolling while an overlay is active. */
 .arc-scroll-lock,
-.arc-scroll-lock arc-container > *:not([slot="nav"]):not([slot="side"]):not([slot="bottom"]) {
+.arc-scroll-lock arc-container > *:not([slot="nav"], [slot="side"], [slot="bottom"]) {
   overflow: hidden !important;
 }
 

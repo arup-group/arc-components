@@ -10,7 +10,6 @@ export default [
       flex-direction: column;
       height: inherit;
       overflow: hidden;
-      padding: 2px;
       color: rgb(var(--arc-font-color));
       position: relative;
       z-index: 0;
@@ -19,60 +18,7 @@ export default [
     /* Header */
     .gridjs-head {
       width: 100%;
-      padding: 5px 1px;
-    }
-    .gridjs-head::after {
-      content: '';
-      display: block;
-      clear: both;
-    }
-    .gridjs-head:empty {
-      padding: 0;
-      border: none;
-    }
-
-    /* Wrapper */
-    .gridjs-wrapper {
-      position: relative;
-      z-index: 1;
-      overflow: auto;
-      width: 100%;
-      -webkit-font-smoothing: antialiased;
-      display: block;
-      border: var(--arc-border-style) var(--arc-border-width) rgb(var(--arc-color-default));
-    }
-    .gridjs-wrapper:nth-last-of-type(2) {
-      border-bottom-width: 1px;
-    }
-
-    /* Table */
-    table.gridjs-table {
-      max-width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      display: table;
-      margin: 0;
-      padding: 0;
-      overflow: auto;
-      table-layout: fixed;
-    }
-    .gridjs-tbody {
-      background-color: transparent;
-    }
-
-    /* Footer */
-    .gridjs-footer {
-      display: block;
-      position: relative;
-      width: 100%;
-      z-index: 5;
-      padding: var(--arc-spacing-small) var(--arc-spacing-medium);
-      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-      border-top: none;
-    }
-    .gridjs-footer:empty {
-      padding: 0;
-      border: none;
+      padding-bottom: var(--arc-spacing-small);
     }
     .gridjs-head button,
     .gridjs-footer button {
@@ -84,25 +30,10 @@ export default [
       border: none;
       outline: none;
     }
-
-    /* Data */
-    td.gridjs-td {
-      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-      padding: 12px 24px;
-      background-color: transparent;
-      box-sizing: content-box;
-    }
-
-    td.gridjs-td:first-child {
-      border-left: none;
-    }
-
-    td.gridjs-td:last-child {
-      border-right: none;
-    }
-
-    td.gridjs-message {
-      text-align: center;
+    .gridjs-head:empty,
+    .gridjs-footer:empty {
+      padding: 0;
+      border: none;
     }
 
     /* Headers */
@@ -156,15 +87,72 @@ export default [
       }
     }
 
+    /* Wrapper */
+    .gridjs-wrapper {
+      display: flex;
+      position: relative;
+      z-index: 1;
+      overflow: auto;
+      width: 100%;
+      -webkit-font-smoothing: antialiased;
+      border: var(--arc-border-style) var(--arc-border-width) rgb(var(--arc-color-default));
+    }
+
+    /* Table */
+    table.gridjs-table {
+      flex: 1 1 100%;
+      border-collapse: collapse;
+      text-align: left;
+      display: table;
+      table-layout: fixed;
+      overflow: auto;
+    }
+
     /* Rows */
     .gridjs-tr {
-      border: none;
+      border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-bottom: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
     }
     .gridjs-tr-selected td {
       background-color: #ebf5ff;
     }
-    .gridjs-tr:last-child td {
-      border-bottom: 0;
+    .gridjs-tr:first-child {
+      border-top: none;
+    }
+    .gridjs-tr:last-child {
+      border-bottom: none;
+    }
+
+    /* Data */
+    td.gridjs-td {
+      border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      padding: var(--arc-spacing-small) var(--arc-spacing-medium);
+      background-color: transparent;
+      box-sizing: content-box;
+    }
+    td.gridjs-td:first-child {
+      border-left: none;
+    }
+    td.gridjs-td:last-child {
+      border-right: none;
+    }
+
+    /* Footer */
+    .gridjs-footer {
+      display: block;
+      position: relative;
+      width: 100%;
+      z-index: 5;
+      padding: var(--arc-spacing-small) var(--arc-spacing-medium);
+      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-top: none;
+    }
+
+    /* Error message | Loading message */
+    td.gridjs-message {
+      color: rgb(var(--arc-grey-050));
+      text-align: center;
     }
 
     .gridjs *,
@@ -216,9 +204,7 @@ export default [
       background-color: transparent;
       color: rgb(var(--arc-font-color));
       border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-      padding: 10px 13px;
-      font-size: 14px;
-      line-height: 1.45;
+      padding: var(--arc-spacing-small) var(--arc-spacing-normal);
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;

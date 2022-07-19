@@ -4,6 +4,12 @@ import componentStyles from '../../styles/component.styles.js';
 export default [
   componentStyles,
   css`
+    .gridjs *,
+    .gridjs :after,
+    .gridjs :before {
+      box-sizing: border-box;
+    }
+
     /* Container */
     .gridjs-container {
       display: inline-flex;
@@ -15,25 +21,52 @@ export default [
       z-index: 0;
     }
 
-    /* Header */
+    /* Header (contains the search input plugin) */
     .gridjs-head {
       width: 100%;
       padding-bottom: var(--arc-spacing-small);
-    }
-    .gridjs-head button,
-    .gridjs-footer button {
-      cursor: pointer;
-      background-color: transparent;
-      background-image: none;
-      padding: 0;
-      margin: 0;
-      border: none;
-      outline: none;
     }
     .gridjs-head:empty,
     .gridjs-footer:empty {
       padding: 0;
       border: none;
+    }
+
+    /* Wrapper */
+    .gridjs-wrapper {
+      display: flex;
+      width: 100%;
+      position: relative;
+      overflow: auto;
+      border: var(--arc-border-style) var(--arc-border-width) rgb(var(--arc-color-default));
+      z-index: 1;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Table */
+    table.gridjs-table {
+      flex: 1 1 100%;
+      border-collapse: collapse;
+      text-align: left;
+      display: table;
+      table-layout: fixed;
+      overflow: auto;
+    }
+
+    /* Rows */
+    .gridjs-tr {
+      border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-bottom: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+    }
+    .gridjs-tr:hover td,
+    .gridjs-tr-selected td {
+      background-color: rgba(var(--arc-font-color), 5%);
+    }
+    .gridjs-tr:first-child {
+      border-top: none;
+    }
+    .gridjs-tr:last-child {
+      border-bottom: none;
     }
 
     /* Headers */
@@ -87,42 +120,6 @@ export default [
       }
     }
 
-    /* Wrapper */
-    .gridjs-wrapper {
-      display: flex;
-      position: relative;
-      z-index: 1;
-      overflow: auto;
-      width: 100%;
-      -webkit-font-smoothing: antialiased;
-      border: var(--arc-border-style) var(--arc-border-width) rgb(var(--arc-color-default));
-    }
-
-    /* Table */
-    table.gridjs-table {
-      flex: 1 1 100%;
-      border-collapse: collapse;
-      text-align: left;
-      display: table;
-      table-layout: fixed;
-      overflow: auto;
-    }
-
-    /* Rows */
-    .gridjs-tr {
-      border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-      border-bottom: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-    }
-    .gridjs-tr-selected td {
-      background-color: #ebf5ff;
-    }
-    .gridjs-tr:first-child {
-      border-top: none;
-    }
-    .gridjs-tr:last-child {
-      border-bottom: none;
-    }
-
     /* Data */
     td.gridjs-td {
       border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
@@ -149,16 +146,10 @@ export default [
       border-top: none;
     }
 
-    /* Error message | Loading message */
+    /* Error message */
     td.gridjs-message {
       color: rgb(var(--arc-grey-050));
       text-align: center;
-    }
-
-    .gridjs *,
-    .gridjs :after,
-    .gridjs :before {
-      box-sizing: border-box;
     }
 
     /* Loading */
@@ -258,7 +249,7 @@ export default [
     }
     .gridjs-resizable:hover {
       cursor: ew-resize;
-      background-color: #9bc2f7;
+      background-color: rgb(var(--arc-color-info));
     }
 
     /* Row selection */
@@ -270,22 +261,20 @@ export default [
 
     /* Pagination */
     .gridjs-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       color: rgb(var(--arc-grey-050));
-    }
-    .gridjs-pagination::after {
-      content: '';
-      display: block;
-      clear: both;
     }
     .gridjs-pagination .gridjs-summary {
       float: left;
-      margin-top: 5px;
     }
     .gridjs-pagination .gridjs-pages {
       float: right;
     }
     .gridjs-pagination .gridjs-pages button {
-      padding: 5px 14px;
+      cursor: pointer;
+      padding: var(--arc-spacing-x-small) var(--arc-spacing-small);
       border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       color: rgb(var(--arc-font-color));
       background-color: transparent;
@@ -321,13 +310,7 @@ export default [
       font-weight: bold;
     }
     .gridjs-pagination .gridjs-pages button:last-child {
-      border-bottom-right-radius: 6px;
-      border-top-right-radius: 6px;
       border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-    }
-    .gridjs-pagination .gridjs-pages button:first-child {
-      border-bottom-left-radius: 6px;
-      border-top-left-radius: 6px;
     }
 
     @-webkit-keyframes shimmer {

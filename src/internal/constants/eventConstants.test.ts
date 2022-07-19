@@ -12,6 +12,7 @@ describe('EventConstants', () => {
     expect(keys).to.contain('afterHide');
     expect(keys).to.contain('afterShow');
     expect(keys).to.contain('auth');
+    expect(keys).to.contain('cellClick');
     expect(keys).to.contain('change');
     expect(keys).to.contain('clear');
     expect(keys).to.contain('error');
@@ -19,6 +20,7 @@ describe('EventConstants', () => {
     expect(keys).to.contain('initialFocus');
     expect(keys).to.contain('loaded');
     expect(keys).to.contain('requestClose');
+    expect(keys).to.contain('rowClick');
     expect(keys).to.contain('select');
     expect(keys).to.contain('showAccessibility');
     expect(keys).to.contain('show');

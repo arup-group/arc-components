@@ -9,6 +9,7 @@
   ],
   "rules": {
     "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-shadow": ["error"],
     "class-methods-use-this": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "off",
@@ -19,10 +20,11 @@
         "ignorePackages": true
       }
     ],
-    "no-unused-vars": "off",
-    "no-undef": "off",
     "no-plusplus": "off",
     "no-param-reassign": [2, { "props": false }],
+    "no-shadow": "off",
+    "no-unused-vars": "off",
+    "no-undef": "off",
     "wc/guard-super-call": "off"
   },
   "overrides": [

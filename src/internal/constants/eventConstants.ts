@@ -3,6 +3,7 @@ export declare type ArcEvent =
   | 'afterHide'
   | 'afterShow'
   | 'auth'
+  | 'cellClick'
   | 'change'
   | 'clear'
   | 'error'
@@ -10,6 +11,7 @@ export declare type ArcEvent =
   | 'initialFocus'
   | 'loaded'
   | 'requestClose'
+  | 'rowClick'
   | 'select'
   | 'showAccessibility'
   | 'show';
@@ -19,6 +21,7 @@ export const ARC_EVENTS: { [key in ArcEvent]: string } = {
   afterHide: 'arc-after-hide',
   afterShow: 'arc-after-show',
   auth: 'arc-auth',
+  cellClick: 'arc-cell-click',
   change: 'arc-change',
   clear: 'arc-clear',
   error: 'arc-error',
@@ -26,6 +29,7 @@ export const ARC_EVENTS: { [key in ArcEvent]: string } = {
   initialFocus: 'arc-initial-focus',
   loaded: 'arc-loaded',
   requestClose: 'arc-request-close',
+  rowClick: 'arc-row-click',
   select: 'arc-select',
   showAccessibility: 'arc-show-accessibility',
   show: 'arc-show',

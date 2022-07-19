@@ -1,9 +1,11 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { Grid } from 'gridjs';
+import { Grid, Row } from 'gridjs';
 import { TCell, TColumn } from 'gridjs/dist/src/types';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
+import { ARC_EVENTS, ArcEvent } from '../../internal/constants/eventConstants.js';
+import { TABLE_EVENTS } from './constants/TableConstants.js';
 import styles from './arc-table.styles.js';
 
 /**
@@ -53,14 +55,30 @@ export default class ArcTable extends LitElement {
   /** Support global search on all rows and columns. */
   @property({ type: Boolean }) search: boolean = false;
 
-  @watch('active')
-  handlePropChange() {
-    emit(this, 'arc-event-name');
+  /**
+   * Whenever the columns or data changes,
+   * force a 're-render' on the GridJS table.
+   * Only do this after the first update as the GridJS instance is not available earlier.
+   * */
+  @watch('columns', { waitUntilFirstUpdate: true })
+  @watch('data', { waitUntilFirstUpdate: true })
+  handleTableDataChange() {
+    this._grid
+      .updateConfig({
+        columns: this.columns,
+        data: this.data,
+      })
+      .forceRender();
   }
 
+  /**
+   * Create a new GridJS instance.
+   * The reason this is done in the firstUpdated method,
+   * is because the reference to 'this.table' is not yet known in the connectedCallback
+   */
   firstUpdated() {
     this._grid = new Grid({
-      columns: this.columns,
+      columns: this.columns || [],
       data: this.data || [],
       fixedHeader: this.fixedHeader,
       language: this.language,
@@ -73,11 +91,29 @@ export default class ArcTable extends LitElement {
       sort: this.sort,
       search: this.search,
     }).render(this.table);
+
+    /* Add listeners to the grid */
+    this._addTableListeners();
+  }
+
+  /* Emit an event for the table (row|cell) click */
+  _emitTableClick(
+    type: ArcEvent,
+    args: [e: MouseEvent, row: Row] | [e: MouseEvent, cell: TCell, column: TColumn, row: Row]
+  ) {
+    emit(this, ARC_EVENTS[type], {
+      detail: args,
+    });
+  }
+
+  /* Add specific listeners to the table cells and rows  */
+  _addTableListeners() {
+    this._grid.on('rowClick', (...args) => this._emitTableClick(TABLE_EVENTS.ROW_CLICK, args));
+    this._grid.on('cellClick', (...args) => this._emitTableClick(TABLE_EVENTS.CELL_CLICK, args));
   }
 
   protected render() {
-    console.log(this._grid);
-    return html` <div id="main"></div> `;
+    return html`<div id="main"></div>`;
   }
 }
 

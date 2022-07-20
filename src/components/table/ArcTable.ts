@@ -81,7 +81,9 @@ export default class ArcTable extends LitElement {
       columns: this.columns || [],
       data: this.data || [],
       fixedHeader: this.fixedHeader,
-      language: this.language,
+      language: {
+        ...this.language,
+      },
       pagination: {
         enabled: this.pagination,
         limit: this.paginationLimit,

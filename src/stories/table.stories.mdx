@@ -7,7 +7,7 @@ ARC provides support for data visualization by providing a table component.
 The table component uses Grid.js and Preact under the hood to render the templates.
 
 ## Usage
-You don't need any build tools to use the ARC able component.
+You don't need any build tools to use the ARC table component.
 Simply include and add the component in your project, like so:
 ```bash
 # index.html
@@ -27,6 +27,60 @@ Simply include and add the component in your project, like so:
     }))
   </script>
 </body>
+```
+When used within a framework, the structure might look a bit different from the code example.
+All the available properties of the arc-table component can be found in the component's documentation.
+
+### Columns
+The `columns` property can be defined in one of the following ways:
+```bash
+  #Array of strings
+  columns: ["Name", "Email", "Number"];
+
+  #or
+
+  #Array of TColumn objects
+  columns: [
+    { name: 'Name', sort: true},
+    { name: 'Email', sort: false},
+    { name: 'Number', sort: false, width: '50%'},
+  ]
+```
+
+The `TColumn` object has the following available properties:
+```bash
+  id?: string,
+  data?: function or TCell,
+  name: string,
+  width?: string,
+  sort?: boolean,
+  hidden?: boolean,
+  formatter?: function,
+  attributes?: HTMLAttributes or function
+```
+
+More information on this, can be found on the official [GridJS](https://gridjs.io/docs/examples/cell-formatting) docs.
+
+### Data
+The `data` property can be defined in one of the following ways:
+```bash
+  #Array of TCell arrays
+  data: [
+    ['John', 'john@example.com', '(353) 01 222 3333'],
+    ['Mark', 'mark@gmail.com',   '(01) 22 888 4444'],
+    ['Eoin', 'eo3n@yahoo.com',   '(05) 10 878 5554'],
+    ['Nisen', 'nis900@gmail.com',   '313 333 1923']
+  ];
+
+  #or
+
+  #Array of TCell objects
+  data: [
+    { name: 'John', email: 'john@example.com' },
+    { name: 'Mark', email: 'mark@gmail.com' },
+    { name: 'Eoin', email: 'eo3n@yahoo.com' },
+    { name: 'Nisen', email: 'nis900@gmail.com' }
+  ]
 ```
 
 ## Serialization
@@ -95,3 +149,5 @@ loading: 'Loading...',
 noRecordsFound: 'No matching records found',
 error: 'An error happened while fetching the data',
 ```
+
+More information on the arc-table component, can be found on the official [GridJS](https://gridjs.io/docs/examples/cell-formatting) docs.

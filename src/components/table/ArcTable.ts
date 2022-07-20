@@ -34,6 +34,9 @@ export default class ArcTable extends LitElement {
   /** Puts the header in a fixed state. */
   @property({ type: Boolean, attribute: 'fixed-header' }) fixedHeader: boolean = false;
 
+  /** Set the height of the table. */
+  @property() height: string;
+
   /** Localize and update the messages used in the table. */
   @property() language: { [key: string]: string | ((...args: any) => string) };
 
@@ -80,8 +83,15 @@ export default class ArcTable extends LitElement {
     this._grid = new Grid({
       columns: this.columns || [],
       data: this.data || [],
+      height: this.height,
       fixedHeader: this.fixedHeader,
       language: {
+        loading: 'Retrieving your data, please wait...',
+        pagination: {
+          previous: '˂',
+          next: '˃',
+        },
+        error: 'An error occurred while fetching your data',
         ...this.language,
       },
       pagination: {

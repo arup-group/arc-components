@@ -83,6 +83,20 @@ The `data` property can be defined in one of the following ways:
   ]
 ```
 
+Data can also be fetched by using an async function for example.
+The below code adds a setTimeout function to imitate a loading state.
+```bash
+  data: () => {
+    return new Promise(resolve => {
+      setTimeout(() =>
+        resolve([
+          ['John', 'john@example.com', '(353) 01 222 3333'],
+          ['Mark', 'mark@gmail.com', '(01) 22 888 4444']
+        ]), 2000);
+    });
+  }
+```
+
 ## Serialization
 ARC provides support for various different languages:
 * en_US
@@ -136,8 +150,8 @@ sort: {
   sortDesc: 'Sort column descending',
 },
 pagination: {
-    previous: 'Previous',
-    next: 'Next',
+    previous: '˂',
+    next: '˃',
     navigate: (page, pages) => `Page ${page} of ${pages}`,
     page: (page) => `Page ${page}`,
     showing: 'Showing',
@@ -145,9 +159,9 @@ pagination: {
     to: 'to',
     results: 'results',
 },
-loading: 'Loading...',
+loading: 'Retrieving your data, please wait...',
 noRecordsFound: 'No matching records found',
-error: 'An error happened while fetching the data',
+error: 'An error occurred while fetching your data',
 ```
 
 More information on the arc-table component, can be found on the official [GridJS](https://gridjs.io/docs/examples/cell-formatting) docs.

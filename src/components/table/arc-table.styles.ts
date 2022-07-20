@@ -4,6 +4,16 @@ import componentStyles from '../../styles/component.styles.js';
 export default [
   componentStyles,
   css`
+    #main {
+      height: 100%;
+    }
+
+    /* Overwrite the scrollbar-track to display a border that matches the table */
+    ::-webkit-scrollbar-track {
+      border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-radius: 0;
+    }
+
     /* Container */
     .gridjs-container {
       display: inline-flex;
@@ -87,7 +97,6 @@ export default [
     th.gridjs-th-fixed {
       position: sticky;
       z-index: 1;
-      box-shadow: 0 1px 0 0 #e5e7eb;
     }
     th.gridjs-th:first-child {
       border-left: none;
@@ -105,11 +114,6 @@ export default [
     th.gridjs-th-sort:focus {
       background-color: currentcolor;
       background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
-    }
-    @supports (-moz-appearance: none) {
-      th.gridjs-th-fixed {
-        box-shadow: 0 0 0 1px #e5e7eb;
-      }
     }
 
     /* Data */
@@ -157,21 +161,33 @@ export default [
     }
     .gridjs-loading-bar::after {
       position: absolute;
+      content: '';
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
       transform: translateX(-100%);
-      background-image: linear-gradient(
-        90deg,
-        rgba(204, 204, 204, 0) 0,
-        rgba(204, 204, 204, 0.2) 20%,
-        rgba(204, 204, 204, 0.5) 60%,
-        rgba(204, 204, 204, 0)
-      );
-      -webkit-animation: shimmer 2s infinite;
-      animation: shimmer 2s infinite;
-      content: '';
+      background-image: linear-gradient(var(--arc-hover-dark) 0 0);
+      background-repeat: no-repeat;
+      display: inline-block;
+
+      -webkit-animation-duration: 2s;
+      -webkit-animation-fill-mode: forwards;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-name: shimmer;
+      -webkit-animation-timing-function: linear;
+    }
+
+    @-webkit-keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
     }
 
     /* PLUGINS */
@@ -236,7 +252,7 @@ export default [
       top: 0;
       bottom: 0;
       right: 0;
-      width: 5px;
+      width: 3px;
     }
     .gridjs-resizable:hover {
       cursor: ew-resize;
@@ -251,34 +267,33 @@ export default [
     }
 
     /* Pagination */
-    .gridjs-pagination {
+    .gridjs-pagination,
+    .gridjs-pagination .gridjs-pages {
       display: flex;
       align-items: center;
+    }
+    .gridjs-pagination {
       justify-content: space-between;
     }
-    .gridjs-pagination .gridjs-summary {
-      float: left;
-    }
     .gridjs-pagination .gridjs-pages {
-      float: right;
+      margin-left: auto;
     }
     .gridjs-pagination .gridjs-pages button {
       cursor: pointer;
       padding: var(--arc-spacing-x-small) var(--arc-spacing-small);
-      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border: none;
       background-color: transparent;
-      border-right: none;
       outline: none;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
     }
-    .gridjs-pagination .gridjs-pages button.gridjs-currentPage,
-    .gridjs-pagination .gridjs-pages button:focus {
-      background-image: linear-gradient(var(--arc-hover-dark) 0 0);
+    .gridjs-pagination .gridjs-pages button.gridjs-currentPage {
+      border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
     }
-    .gridjs-pagination .gridjs-pages button:hover {
+    .gridjs-pagination .gridjs-pages button:hover,
+    .gridjs-pagination .gridjs-pages button:focus-visible {
       background-color: rgba(var(--arc-font-color), 10%);
     }
     .gridjs-pagination .gridjs-pages button:disabled,
@@ -292,24 +307,6 @@ export default [
       cursor: default;
       box-shadow: none;
       background-color: transparent;
-    }
-    .gridjs-pagination .gridjs-pages button.gridjs-currentPage {
-      font-weight: bold;
-    }
-    .gridjs-pagination .gridjs-pages button:last-child {
-      border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-    }
-
-    @-webkit-keyframes shimmer {
-      100% {
-        transform: translateX(100%);
-      }
-    }
-
-    @keyframes shimmer {
-      100% {
-        transform: translateX(100%);
-      }
     }
   `,
 ];

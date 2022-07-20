@@ -47,10 +47,11 @@
   const sso = document.querySelector('arc-sso');
   sso.setAttribute('redirect-uri', window.location.href);
 
-  const columns = ["name", "lastname", "email", "phone"];
+  const columns = ["Name", "Lastname", "Email"];
   const data = [
-    ["1", "2", "3", "4"],
-    ["5", "6", "7", "8"],
+    ["Jasper", "Wieringa", "jasper.wieringa@arup.com"],
+    ["Daragh", "Anderson", "daragh.anderson@arup.com"],
+    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
   ];
 
   document.getElementById('section').appendChild(Object.assign(document.createElement('arc-table'), {
@@ -58,7 +59,6 @@
     data,
     fixedHeader: true,
     pagination: true,
-    paginationSummary: true,
     resizable: true,
     sort: true,
     search: true,

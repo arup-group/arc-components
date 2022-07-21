@@ -37,6 +37,11 @@ export default css`
     overflow: auto;
   }
 
+  /* Overwrite the white square on the bottom-right */
+  ::-webkit-scrollbar-corner {
+    background-color: rgb(var(--arc-background-color));
+  }
+
   ::-webkit-scrollbar-thumb {
     background-color: rgba(var(--arc-grey-060), 1);
     border-radius: var(--arc-scroll-width);

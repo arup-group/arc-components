@@ -8,10 +8,14 @@ export default [
       height: 100%;
     }
 
-    /* Overwrite the scrollbar-track to display a border that matches the table */
+    /* Overwrite the scrollbar-tracks to display a border that looks good with the table */
     ::-webkit-scrollbar-track {
       border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       border-radius: 0;
+    }
+    ::-webkit-scrollbar-track:horizontal {
+      border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-left: none;
     }
 
     /* Container */

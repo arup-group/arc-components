@@ -19,6 +19,7 @@ import styles from './arc-image.styles.js';
  * @event arc-error - Emitted when the image cannot be loaded.
  */
 export default class ArcImage extends LitElement {
+  /** @internal */
   static tag = 'arc-image';
 
   static styles = styles;

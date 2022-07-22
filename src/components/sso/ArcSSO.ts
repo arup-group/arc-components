@@ -23,6 +23,7 @@ import '../menu-item/arc-menu-item.js';
  * @event arc-auth - Emitted when the internal authentication state of the component changes.
  */
 export default class ArcSSO extends LitElement {
+  /** @internal */
   static tag = 'arc-sso';
 
   static styles = styles;

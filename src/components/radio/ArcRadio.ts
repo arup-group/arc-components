@@ -15,6 +15,7 @@ import styles from './arc-radio.styles.js';
  * @event arc-change - Emitted when the control's checked state changes.
  */
 export default class ArcRadio extends LitElement {
+  /** @internal */
   static tag = 'arc-radio';
 
   static styles = styles;

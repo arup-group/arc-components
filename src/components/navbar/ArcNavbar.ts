@@ -25,6 +25,7 @@ import '../menu-item/arc-menu-item.js';
  * @cssproperty --logo-height - Set the height of the tool logo.
  */
 export default class ArcNavbar extends LitElement {
+  /** @internal */
   static tag = 'arc-navbar';
 
   static styles = styles;

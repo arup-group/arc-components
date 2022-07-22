@@ -11,10 +11,9 @@ import styles from './arc-table.styles.js';
 /**
  * @event arc-row-click - Emitted when the user clicks on a row.
  * @event arc-cell-click - Emitted when the user clicks on a cell.
- *
- * @cssproperty --table-height - Set the height of the table.
  */
 export default class ArcTable extends LitElement {
+  /** @internal */
   static tag = 'arc-table';
 
   static styles = styles;
@@ -34,17 +33,17 @@ export default class ArcTable extends LitElement {
   /** Puts the header in a fixed state. */
   @property({ type: Boolean, attribute: 'fixed-header' }) fixedHeader: boolean = false;
 
-  /** Set the height of the table. */
+  /** Set the height of the table. This is useful when setting a fixed header. */
   @property() height: string;
 
   /** Localize and update the messages used in the table. */
   @property() language: { [key: string]: string | ((...args: any) => string) };
 
-  /** Add pagination. */
+  /** Show the pagination. */
   @property({ type: Boolean }) pagination: boolean = false;
 
   /** Set the pagination limit. */
-  @property({ attribute: 'pagination-limit' }) paginationLimit: number;
+  @property({ attribute: 'pagination-limit' }) paginationLimit: number = 10;
 
   /** Show the pagination summary. */
   @property({ type: Boolean, attribute: 'pagination-summary' }) paginationSummary: boolean = true;
@@ -58,20 +57,16 @@ export default class ArcTable extends LitElement {
   /** Support global search on all rows and columns. */
   @property({ type: Boolean }) search: boolean = false;
 
-  /**
-   * Whenever the columns or data changes,
-   * force a 're-render' on the GridJS table.
-   * Only do this after the first update as the GridJS instance is not available earlier.
-   * */
+  /** Whenever the columns change, update the GridJS table. */
   @watch('columns', { waitUntilFirstUpdate: true })
-  @watch('data', { waitUntilFirstUpdate: true })
   handleTableDataChange() {
-    this._grid
-      .updateConfig({
-        columns: this.columns,
-        data: this.data,
-      })
-      .forceRender();
+    this.updateConfig(this.columns);
+  }
+
+  /** Whenever the data changes, update the GridJS table. */
+  @watch('data', { waitUntilFirstUpdate: true })
+  handleDataChange() {
+    this.updateConfig(this.data);
   }
 
   /**
@@ -122,6 +117,17 @@ export default class ArcTable extends LitElement {
   _addTableListeners() {
     this._grid.on('rowClick', (...args) => this._emitTableClick(TABLE_EVENTS.ROW_CLICK, args));
     this._grid.on('cellClick', (...args) => this._emitTableClick(TABLE_EVENTS.CELL_CLICK, args));
+  }
+
+  /** Method used to update the table configuration. */
+  updateConfig(props: any) {
+    this._grid.updateConfig({ ...props });
+    this.forceUpdate();
+  }
+
+  /** Method used to re-render the table. */
+  forceUpdate() {
+    this._grid.forceRender();
   }
 
   protected render() {

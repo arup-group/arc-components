@@ -14,6 +14,7 @@ import styles from './arc-hero.styles.js';
  * @cssproperty --content-gap - Set the distance between the title and the content.
  */
 export default class ArcHero extends LitElement {
+  /** @internal */
   static tag = 'arc-hero';
 
   static styles = styles;

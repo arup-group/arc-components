@@ -70,10 +70,10 @@ export default [
     .gridjs-tr-selected {
       background-color: rgba(var(--arc-font-color), 5%);
     }
-    .gridjs-tr:first-child {
+    .gridjs-tr:first-of-type {
       border-top: none;
     }
-    .gridjs-tr:last-child {
+    .gridjs-tr:last-of-type {
       border-bottom: none;
     }
 
@@ -102,10 +102,10 @@ export default [
       position: sticky;
       z-index: 1;
     }
-    th.gridjs-th:first-child {
+    th.gridjs-th:first-of-type {
       border-left: none;
     }
-    th.gridjs-th:last-child {
+    th.gridjs-th:last-of-type {
       border-right: none;
     }
     th.gridjs-th-sort {
@@ -128,10 +128,10 @@ export default [
       background-color: transparent;
       box-sizing: content-box;
     }
-    td.gridjs-td:first-child {
+    td.gridjs-td:first-of-type {
       border-left: none;
     }
-    td.gridjs-td:last-child {
+    td.gridjs-td:last-of-type {
       border-right: none;
     }
 
@@ -204,6 +204,7 @@ export default [
     }
     input.gridjs-input {
       outline: none;
+      color: inherit;
       background-color: transparent;
       border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       padding: var(--arc-spacing-small) var(--arc-spacing-normal);
@@ -286,6 +287,7 @@ export default [
       cursor: pointer;
       padding: var(--arc-spacing-x-small) var(--arc-spacing-small);
       border: none;
+      color: inherit;
       background-color: transparent;
       outline: none;
       -webkit-user-select: none;

@@ -14,6 +14,7 @@ import styles from './arc-switch.styles.js';
  * @event arc-change - Emitted when the control's checked state changes.
  */
 export default class ArcSwitch extends LitElement {
+  /** @internal */
   static tag = 'arc-switch';
 
   static styles = styles;

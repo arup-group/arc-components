@@ -19,6 +19,7 @@ import '../icon-button/arc-icon-button.js';
  * @slot bottom - The container's bottom bar.
  */
 export default class ArcContainer extends LitElement {
+  /** @internal */
   static tag = 'arc-container';
 
   static styles = styles;

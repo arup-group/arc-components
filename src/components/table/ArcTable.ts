@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { Grid, Row, createElement } from 'gridjs';
 import { TCell, TColumn } from 'gridjs/dist/src/types';
+import { Language } from 'gridjs/dist/src/i18n/language';
 import { JSXInternal } from 'preact/src/jsx';
 import { ComponentChildren } from 'preact';
 import { emit } from '../../internal/event.js';
@@ -33,31 +34,35 @@ export default class ArcTable extends LitElement {
   @property() data: TCell[][] | { [key: string]: TCell }[];
 
   /** Puts the header in a fixed state. */
-  @property({ type: Boolean, attribute: 'fixed-header' }) fixedHeader: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'fixed-header' }) fixedHeader: boolean = false;
 
   /** Set the height of the table. This is useful when setting a fixed header. */
   @property() height: string;
 
   /** Localize and update the messages used in the table. */
-  @property() language: { [key: string]: string | ((...args: any) => string) };
+  @property() language: Language;
 
   /** Show the pagination. */
-  @property({ type: Boolean }) pagination: boolean = false;
+  @property({ type: Boolean, reflect: true }) pagination: boolean = false;
 
   /** Set the pagination limit. */
-  @property({ attribute: 'pagination-limit' }) paginationLimit: number = 10;
+  @property({ type: Number, attribute: 'pagination-limit' }) paginationLimit: number = 10;
 
-  /** Show the pagination summary. */
-  @property({ type: Boolean, attribute: 'pagination-summary' }) paginationSummary: boolean = true;
+  /**
+   * Show the pagination summary.
+   * By default, this is true when the pagination property is true.
+   * */
+  @property({ type: Boolean, reflect: true, attribute: 'pagination-summary' }) paginationSummary: boolean =
+    this.pagination;
 
   /** Allow resizing of columns. */
-  @property({ type: Boolean }) resizable: boolean = false;
+  @property({ type: Boolean, reflect: true }) resizable: boolean = false;
 
   /** Allow sorting. */
-  @property({ type: Boolean }) sort: boolean = false;
+  @property({ type: Boolean, reflect: true }) sort: boolean = false;
 
   /** Support global search on all rows and columns. */
-  @property({ type: Boolean }) search: boolean = false;
+  @property({ type: Boolean, reflect: true }) search: boolean = false;
 
   /** Whenever the columns change, update the GridJS table. */
   @watch('columns', { waitUntilFirstUpdate: true })

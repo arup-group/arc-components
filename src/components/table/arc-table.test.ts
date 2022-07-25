@@ -18,10 +18,6 @@ describe('ArcTable', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      /*
-      When a component reflects to the DOM, add them within the component like so:
-      <arc-table reflected-prop-1='' reflected-prop-2=''></arc-table>
-      */
       expect(element).dom.to.equal(`<arc-table></arc-table>`);
     });
 
@@ -33,11 +29,30 @@ describe('ArcTable', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
-    it('renders the element with a custom name property', async () => {
-      const element: ArcTable = await fixture(html`<arc-table name="testProp"></arc-table>`);
+    it('renders the element with a custom height property', async () => {
+      const element: ArcTable = await fixture(html`<arc-table height="200px"></arc-table>`);
 
-      expect(element.name).to.equal('testProp');
-      expect(element.getAttribute('name')).to.equal('testProp');
+      expect(element.height).to.equal('200px');
+      expect(element.getAttribute('height')).to.equal('200px');
+    });
+
+    it('renders the element with a custom language property', async () => {
+      const language = {
+        search: {
+          placeholder: 'Search...',
+        },
+      };
+      const element: ArcTable = await fixture(html`<arc-table .language=${language}></arc-table>`);
+      // @ts-ignore
+      const { placeholder } = element.language.search;
+      expect(placeholder).to.equal(language.search.placeholder);
+    });
+
+    it('renders the element with a custom pagination-limit property', async () => {
+      const element: ArcTable = await fixture(html`<arc-table pagination-limit="10"></arc-table>`);
+
+      expect(element.paginationLimit).to.equal(10);
+      expect(element.getAttribute('pagination-limit')).to.equal('10');
     });
   });
 
@@ -49,15 +64,72 @@ describe('ArcTable', () => {
       element = await fixture(html`<arc-table></arc-table>`);
     });
 
-    it('renders the component in an active state', async () => {
-      expect(element.active).to.be.false;
-      expect(element.hasAttribute('active')).to.be.false;
+    it('renders the component in a fixed-header state', async () => {
+      expect(element.fixedHeader).to.be.false;
+      expect(element.hasAttribute('fixed-header')).to.be.false;
 
-      element.active = true;
+      element.fixedHeader = true;
       await elementUpdated(element);
 
-      expect(element.active).to.be.true;
-      expect(element.hasAttribute('active')).to.be.true;
+      expect(element.fixedHeader).to.be.true;
+      expect(element.hasAttribute('fixed-header')).to.be.true;
+    });
+
+    it('renders the component in a state that shows pagination', async () => {
+      expect(element.pagination).to.be.false;
+      expect(element.hasAttribute('pagination')).to.be.false;
+
+      element.pagination = true;
+      await elementUpdated(element);
+
+      expect(element.pagination).to.be.true;
+      expect(element.hasAttribute('pagination')).to.be.true;
+    });
+
+    it('renders the component in a state that shows the paginationSummary', async () => {
+      /* The component reads the default value from the pagination property */
+      expect(element.paginationSummary).to.be.equal(element.pagination);
+      expect(element.paginationSummary).to.be.false;
+      expect(element.hasAttribute('pagination-summary')).to.be.false;
+
+      element.paginationSummary = true;
+      await elementUpdated(element);
+
+      expect(element.paginationSummary).to.be.true;
+      expect(element.hasAttribute('pagination-summary')).to.be.true;
+    });
+
+    it('renders the component in a resizable state', async () => {
+      expect(element.resizable).to.be.false;
+      expect(element.hasAttribute('resizable')).to.be.false;
+
+      element.resizable = true;
+      await elementUpdated(element);
+
+      expect(element.resizable).to.be.true;
+      expect(element.hasAttribute('resizable')).to.be.true;
+    });
+
+    it('renders the component in a sortable state', async () => {
+      expect(element.sort).to.be.false;
+      expect(element.hasAttribute('sort')).to.be.false;
+
+      element.sort = true;
+      await elementUpdated(element);
+
+      expect(element.sort).to.be.true;
+      expect(element.hasAttribute('sort')).to.be.true;
+    });
+
+    it('renders the component in a search state', async () => {
+      expect(element.search).to.be.false;
+      expect(element.hasAttribute('search')).to.be.false;
+
+      element.search = true;
+      await elementUpdated(element);
+
+      expect(element.search).to.be.true;
+      expect(element.hasAttribute('search')).to.be.true;
     });
   });
 

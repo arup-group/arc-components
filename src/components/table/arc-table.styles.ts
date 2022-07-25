@@ -200,7 +200,7 @@ export default [
       float: left;
     }
     .gridjs-search-input {
-      width: 250px;
+      width: 18.5rem;
     }
     input.gridjs-input {
       outline: none;

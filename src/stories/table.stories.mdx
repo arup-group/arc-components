@@ -4,7 +4,7 @@ import { Meta } from '@storybook/addon-docs';
 
 # ARC tables
 ARC provides support for data visualization by providing a table component.
-The table component uses Grid.js and Preact under the hood to render the templates.
+The table component uses Grid.js under the hood to render the templates.
 
 ## Usage
 You don't need any build tools to use the ARC table component.
@@ -13,17 +13,16 @@ Simply include and add the component in your project, like so:
 # index.html
 <body>
   <div id='app'></div>
+
   <script type='module'>
     import '@arc-web/components/dist/components/table/arc-table.js';
     const app = document.getElementById('app');
-    app.appendChild(Object.assign(document.createElement('arc-table'), {
-      columns: ["col1", "col2"],
-      data: [["data1", "data2"], ["data3", "data4"]],
-      fixedHeader: true,
-      pagination: true,
-      resizable: true,
-      sort: true,
-      search: true,
+    app.appendChild(Object.assign('arc-table', {
+      columns: ["Name", "LastName"],
+      data: [
+        ["John", "Doe"],
+        ["Jane", "Doe"]
+      ]
     }))
   </script>
 </body>
@@ -59,8 +58,6 @@ The `TColumn` object has the following available properties:
   formatter?: function,
   attributes?: HTMLAttributes or function
 ```
-
-> **Note**: More information on this, can be found on the official [GridJS](https://gridjs.io/docs/examples/cell-formatting) docs.
 
 ### Data
 The `data` property can be defined in one of the following ways:
@@ -98,6 +95,56 @@ The below code adds a setTimeout function to imitate a loading state.
   }
 ```
 
+## Customization
+ARC provides support for customizing cells at runtime by using the `format` method in the formatter property.
+
+```bash
+const app = document.getElementById('app');
+const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
+app.appendChild(Object.assign(table, {
+  columns: [
+    'Name',
+    'LastName',
+    {
+      name: 'Email',
+      formatter: (cell) => table.format('div', {
+        id: 'myDiv',
+        className: 'my-div',
+        style: 'display: flex; align-items: center;'
+      }, cell)
+    },
+  ],
+  data: [
+    ['John', 'Doe', 'john.doe@arup.com'],
+    ['Jane', 'Doe', 'jane.doe@arup.com'],
+    ['Joe', 'Doakes', 'joe.doakes@arup.com'],
+    ['Juan', 'Perez', 'juan.perez@arup.com'],
+    ['Fred', 'Nerk', 'fred.nerk@arup.com'],
+  ],
+}))
+```
+The first property of the format method is a string, which can be any HTMLElement (i.e. div, span, strong etc.).
+The second property of the format method can be used to add HTMLAttributes (i.e. className, style etc.).
+The last property of the format method can be used to render children, in case of the example the cell itself is returned.
+
+### Update
+It is also possible to create an empty arc-table instance and update the configuration later on.
+ARC provides a method to update the configuration and 're-render' the table.
+```bash
+const app = document.getElementById('app');
+const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
+app.appendChild(Object.assign(table, {
+  columns: ['Name', 'LastName','Email'],
+  data: [
+    ['John', 'Doe', 'john.doe@arup.com']
+  ],
+}))
+
+setTimeout(() => {
+  table.updateConfig( { pagination: true });
+}, 0)
+```
+
 ## Serialization
 ARC provides support for various different languages:
 * en_US
@@ -120,8 +167,8 @@ Object.assign(document.createElement('arc-table'), {
 })
 ```
 
-### Custom table messages
-ARC also provides a way to easily customize the messages and add your language.
+### Custom serialization
+ARC also provides a way to easily customize the messages and add your own language.
 Simply extend the `language` config to replace the strings:
 
 ```bash
@@ -142,7 +189,7 @@ Object.assign(document.createElement('arc-table'), {
 ```
 
 ## Properties
-Below a list of default properties that can be overwritten:
+Below a list of default properties, that can be overwritten:
 ```bash
 search: {
   placeholder: 'Type a keyword...',
@@ -166,5 +213,5 @@ noRecordsFound: 'No matching records found',
 error: 'An error occurred while fetching your data',
 ```
 
-> **Note**: More information on the available options and how to manage them,
-can be found on the official [GridJS](https://gridjs.io/docs/examples/cell-formatting) docs.
+> **Note**: For more advanced features of the arc-table component,
+check the official [GridJS](https://gridjs.io/docs/examples/cell-formatting) docs.

@@ -1,7 +1,9 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { Grid, Row } from 'gridjs';
+import { Grid, Row, createElement } from 'gridjs';
 import { TCell, TColumn } from 'gridjs/dist/src/types';
+import { JSXInternal } from 'preact/src/jsx';
+import { ComponentChildren } from 'preact';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS, ArcEvent } from '../../internal/constants/eventConstants.js';
@@ -128,6 +130,15 @@ export default class ArcTable extends LitElement {
   /** Method used to re-render the table. */
   forceUpdate() {
     this._grid.forceRender();
+  }
+
+  /** Method used to format the given column. */
+  format(
+    type: string,
+    props: (JSXInternal.HTMLAttributes & JSXInternal.SVGAttributes & Record<string, any>) | null,
+    ...children: ComponentChildren[]
+  ) {
+    return createElement(type, { ...props }, ...children);
   }
 
   protected render() {

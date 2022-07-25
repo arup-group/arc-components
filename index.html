@@ -47,60 +47,29 @@
   const sso = document.querySelector('arc-sso');
   sso.setAttribute('redirect-uri', window.location.href);
 
-  const columns = ["Name", "Lastname", "Email"];
-  const data = [
-    ["Jasper", "Wieringa", "jasper.wieringa@arup.com"],
-    ["Daragh", "Anderson", "daragh.anderson@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"],
-    ["Ikumi", "Nakanishi", "ikumi.nakanishi@arup.com"]
-  ];
-
-  document.getElementById('section').appendChild(Object.assign(document.createElement('arc-table'), {
-    columns,
-    data,
-    fixedHeader: true,
-    pagination: true,
-    paginationLimit: 30,
-    resizable: true,
-    search: true,
-    sort: true
+  const section = document.getElementById('section');
+  const table = document.createElement('arc-table');
+  section.appendChild(Object.assign(table, {
+    columns: [
+      'Name',
+      'LastName',
+      {
+        name: 'Email',
+        formatter: (cell) => table.format('strong', {}, cell)
+      },
+    ],
+    data: [
+      ['John', 'Doe', 'john.doe@arup.com'],
+      ['Jane', 'Doe', 'jane.doe@arup.com'],
+      ['Joe', 'Doakes', 'joe.doakes@arup.com'],
+      ['Juan', 'Perez', 'juan.perez@arup.com'],
+      ['Fred', 'Nerk', 'fred.nerk@arup.com'],
+    ],
   }))
+
+  setTimeout(() => {
+    table.updateConfig( { pagination: true });
+  }, 0)
 </script>
 </body>
 </html>

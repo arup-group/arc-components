@@ -82,7 +82,8 @@ export default class ArcButton extends LitElement {
     this.button.blur();
   }
 
-  handleClick(event: MouseEvent) {
+  /* Handle the click of the button */
+  private _handleClick(event: MouseEvent) {
     if (this.disabled || this.loading) {
       event.preventDefault();
       event.stopPropagation();
@@ -132,7 +133,7 @@ export default class ArcButton extends LitElement {
         role="button"
         aria-disabled=${this.disabled ? 'true' : 'false'}
         tabindex=${this.disabled ? '-1' : '0'}
-        @click=${this.handleClick}
+        @click=${this._handleClick}
       >
         <slot id="prefix" name="prefix"></slot>
         <slot id="label"></slot>

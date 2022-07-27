@@ -170,7 +170,7 @@ export default class ArcDrawer extends LitElement {
     this.hide();
   }
 
-  handleKeyDown(event: KeyboardEvent) {
+  _handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       event.stopPropagation();
       this._requestClose();
@@ -189,7 +189,7 @@ export default class ArcDrawer extends LitElement {
           'drawer--bottom': this.placement === DRAWER_PLACEMENTS.bottom,
           'drawer--start': this.placement === DRAWER_PLACEMENTS.start,
         })}
-        @keydown=${this.handleKeyDown}
+        @keydown=${this._handleKeyDown}
       >
         <div id="overlay" @click=${this._requestClose} role="presentation" tabindex="-1"></div>
         <div

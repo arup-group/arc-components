@@ -14,7 +14,8 @@ export declare type ArcEvent =
   | 'rowClick'
   | 'select'
   | 'showAccessibility'
-  | 'show';
+  | 'show'
+  | 'tableReady';
 
 export const ARC_EVENTS: { [key in ArcEvent]: string } = {
   accessibilityChange: 'arc-accessibility-change',
@@ -33,4 +34,5 @@ export const ARC_EVENTS: { [key in ArcEvent]: string } = {
   select: 'arc-select',
   showAccessibility: 'arc-show-accessibility',
   show: 'arc-show',
+  tableReady: 'arc-table-ready',
 };

@@ -1,8 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
-import { getPropertyValue } from '../../utilities/style-utils.js';
-import { hasSlot } from '../../internal/slot.js';
 
 import type ArcTable from './ArcTable.js';
 import './arc-table.js';
@@ -29,6 +27,20 @@ describe('ArcTable', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
+    it('renders the element with a custom columns property', async () => {
+      const columns = ['Name', 'LastName', 'Email'];
+      const element: ArcTable = await fixture(html`<arc-table .columns=${columns}></arc-table>`);
+      expect(element.columns.length).to.equal(columns.length);
+      expect(element.columns[0]).to.equal(columns[0]);
+    });
+
+    it('renders the element with a custom data property', async () => {
+      const data = ['John', 'Doe', 'john.doe@johndoe.com'];
+      const element: ArcTable = await fixture(html`<arc-table .data=${data}></arc-table>`);
+      expect(element.data.length).to.equal(data.length);
+      expect(element.data[0]).to.equal(data[0]);
+    });
+
     it('renders the element with a custom height property', async () => {
       const element: ArcTable = await fixture(html`<arc-table height="200px"></arc-table>`);
 
@@ -135,7 +147,16 @@ describe('ArcTable', () => {
 
   /* Test specific methods */
   describe('methods', () => {
-    /* Write the tests for specific methods here */
+    let element: ArcTable;
+
+    it('should update the configuration after initializing the table', async () => {
+      element = await fixture(html`<arc-table></arc-table>`);
+
+      expect(element.pagination).to.be.false;
+      expect(element.search).to.be.false;
+    });
+
+    it('should format a specific column through the format method', async () => {});
   });
 
   /* Test the events (click, focus, blur etc.) */
@@ -158,44 +179,6 @@ describe('ArcTable', () => {
       await waitUntil(() => clickSpy.calledOnce);
 
       expect(clickSpy).to.have.been.calledOnce;
-    });
-  });
-
-  /* Test the component responsiveness */
-  describe('responsiveness', () => {
-    /* Write tests for responsiveness here */
-  });
-
-  /* Test whether the slots can be filled and that they exist */
-  describe('slots', () => {
-    let element: ArcTable;
-
-    beforeEach(async () => {
-      element = await fixture(html`<arc-table></arc-table>`);
-    });
-
-    it('renders default slots to fill the component', () => {
-      const main = element.shadowRoot!.getElementById('main')!;
-
-      /* An empty slot is available */
-      expect(hasSlot(main)).to.be.true;
-
-      /* A specific (named) slot is available */
-      expect(hasSlot(main, 'testSlotOne')).to.be.true;
-      expect(hasSlot(main, 'testSlotTwo')).to.be.true;
-    });
-  });
-
-  /* Test the css variables that can be overwritten */
-  describe('css variables', () => {
-    it('uses the default css variables', async () => {
-      const element: ArcTable = await fixture(html`<arc-table></arc-table>`);
-      expect(getPropertyValue(element, '--custom-color')).to.equal('green');
-    });
-
-    it('overwrites the css variables', async () => {
-      const element: ArcTable = await fixture(html`<arc-table style="--custom-color:red"></arc-table>`);
-      expect(getPropertyValue(element, '--custom-color')).to.equal('red');
     });
   });
 });

@@ -24,5 +24,6 @@ describe('EventConstants', () => {
     expect(keys).to.contain('select');
     expect(keys).to.contain('showAccessibility');
     expect(keys).to.contain('show');
+    expect(keys).to.contain('tableReady');
   });
 });

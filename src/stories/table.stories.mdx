@@ -110,7 +110,7 @@ app.appendChild(Object.assign(table, {
       formatter: (cell) => table.format('div', {
         id: 'myDiv',
         className: 'my-div',
-        style: 'display: flex; align-items: center;'
+        style: 'display: flex; justify-content: center;'
       }, cell)
     },
   ],
@@ -129,7 +129,7 @@ The last property of the format method can be used to render children, in case o
 
 ### Update
 It is also possible to create an empty arc-table instance and update the configuration later on.
-ARC provides a method to update the configuration and 're-render' the table.
+ARC provides a method to update the configuration and `re-render` the table.
 ```bash
 const app = document.getElementById('app');
 const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
@@ -144,6 +144,9 @@ setTimeout(() => {
   table.updateConfig( { pagination: true });
 }, 0)
 ```
+
+Calling the updateConfig method of the arc-table component,
+will automatically update all associated properties of the arc-table component.
 
 ## Serialization
 ARC provides support for various different languages:

@@ -70,7 +70,7 @@ export default class ArcDropdown extends LitElement {
       return;
     }
 
-    this.updateAccessibleTrigger();
+    this._updateAccessibleTrigger();
 
     if (this.open) {
       /* Show */
@@ -197,7 +197,7 @@ export default class ArcDropdown extends LitElement {
   For example, the accessible trigger of an <arc-button> is a <button> located inside its shadow root.
   To determine this, we assume the first tabbable element in the trigger slot is the "accessible trigger."
   */
-  updateAccessibleTrigger() {
+  private _updateAccessibleTrigger() {
     if (this.trigger) {
       const assignedElements = this.triggerSlot.assignedElements({ flatten: true }) as HTMLElement[];
       const accessibleTrigger = assignedElements.find(el => getTabbableBoundary(el).start);
@@ -381,7 +381,7 @@ export default class ArcDropdown extends LitElement {
           @keydown=${this.handleTriggerKeyDown}
           @keyup=${this.handleTriggerKeyUp}
         >
-          <slot id="triggerSlot" name="trigger" @slotchange=${this.updateAccessibleTrigger}></slot>
+          <slot id="triggerSlot" name="trigger" @slotchange=${this._updateAccessibleTrigger}></slot>
         </span>
 
         <div id="positioner">

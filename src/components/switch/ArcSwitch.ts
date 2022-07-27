@@ -55,7 +55,8 @@ export default class ArcSwitch extends LitElement {
     this.input.blur();
   }
 
-  handleClick() {
+  /* Handle the click of the switch */
+  private _handleClick() {
     this.checked = !this.checked;
     emit(this, ARC_EVENTS.change);
   }
@@ -80,7 +81,7 @@ export default class ArcSwitch extends LitElement {
             .disabled=${this.disabled}
             aria-checked=${this.checked}
             aria-disabled=${this.disabled}
-            @click=${this.handleClick}
+            @click=${this._handleClick}
           />
           <span id="control">
             <span id="thumb"></span>

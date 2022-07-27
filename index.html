@@ -49,13 +49,18 @@
 
   const section = document.getElementById('section');
   const table = document.createElement('arc-table');
+
   section.appendChild(Object.assign(table, {
     columns: [
       'Name',
       'LastName',
       {
         name: 'Email',
-        formatter: (cell) => table.format('strong', {}, cell)
+        formatter: (cell) => table.format('strong', {
+          id: 'myDiv',
+          className: 'my-div',
+          style: 'display: flex; justify-content: center;'
+        }, cell)
       },
     ],
     data: [
@@ -65,8 +70,6 @@
       ['Juan', 'Perez', 'juan.perez@arup.com'],
       ['Fred', 'Nerk', 'fred.nerk@arup.com'],
     ],
-    fixedHeader: true,
-    paginationLimit: '5',
   }))
 </script>
 </body>

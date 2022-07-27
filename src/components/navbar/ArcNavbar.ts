@@ -58,24 +58,24 @@ export default class ArcNavbar extends LitElement {
 
   @watch('tabs', { waitUntilFirstUpdate: true })
   handleTabCountChange() {
-    this.updateTemplate();
+    this._updateTemplate();
   }
 
-  handleTabChange(e: any) {
+  /* Whenever a new arc-button or arc-icon-button gets added to the default slot. */
+  private _handleTabChange(e: any) {
     const nodes = e.target.assignedElements({ flatten: true });
 
-    /* Store a reference to the button and icon-button components for later use */
+    /* Store a reference to the button and icon-button components. */
     this.navTabs = nodes.filter((el: Element) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
-
-    this.updateTemplate();
+    this._updateTemplate();
   }
 
-  updateTemplate() {
+  /* Show/hide tabs based on the 'tabs' property and the slotted tabs */
+  private _updateTemplate() {
     this.showDropdown = this.navTabs.length > this.tabs;
 
-    /* Show or hide the button and icon-button components */
+    /* Show or hide the button and icon-button components. */
     [...this.navTabs].forEach(tab => {
-      /* eslint-disable-next-line no-param-reassign */
       tab.style.display = this.showDropdown ? 'none' : 'initial';
     });
   }
@@ -129,7 +129,7 @@ export default class ArcNavbar extends LitElement {
         </div>
         <div id="right">
           <nav id="tabs" aria-label="primary navigation">
-            <slot id="tabSlot" @slotchange=${this.handleTabChange}></slot>
+            <slot id="tabSlot" @slotchange=${this._handleTabChange}></slot>
             ${when(
               this.showDropdown,
               () => html`<arc-dropdown id="dropdown" hoist>

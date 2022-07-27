@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcTable from './ArcTable.js';
 import './arc-table.js';
@@ -78,107 +79,220 @@ describe('ArcTable', () => {
 
     it('renders the component in a fixed-header state', async () => {
       expect(element.fixedHeader).to.be.false;
-      expect(element.hasAttribute('fixed-header')).to.be.false;
-
       element.fixedHeader = true;
       await elementUpdated(element);
-
       expect(element.fixedHeader).to.be.true;
-      expect(element.hasAttribute('fixed-header')).to.be.true;
     });
 
     it('renders the component in a state that shows pagination', async () => {
       expect(element.pagination).to.be.false;
-      expect(element.hasAttribute('pagination')).to.be.false;
-
       element.pagination = true;
       await elementUpdated(element);
-
       expect(element.pagination).to.be.true;
-      expect(element.hasAttribute('pagination')).to.be.true;
     });
 
     it('renders the component in a state that shows the paginationSummary', async () => {
-      /* The component reads the default value from the pagination property */
-      expect(element.paginationSummary).to.be.equal(element.pagination);
       expect(element.paginationSummary).to.be.false;
-      expect(element.hasAttribute('pagination-summary')).to.be.false;
-
       element.paginationSummary = true;
       await elementUpdated(element);
-
       expect(element.paginationSummary).to.be.true;
-      expect(element.hasAttribute('pagination-summary')).to.be.true;
     });
 
     it('renders the component in a resizable state', async () => {
       expect(element.resizable).to.be.false;
-      expect(element.hasAttribute('resizable')).to.be.false;
-
       element.resizable = true;
       await elementUpdated(element);
-
       expect(element.resizable).to.be.true;
-      expect(element.hasAttribute('resizable')).to.be.true;
     });
 
     it('renders the component in a sortable state', async () => {
       expect(element.sort).to.be.false;
-      expect(element.hasAttribute('sort')).to.be.false;
-
       element.sort = true;
       await elementUpdated(element);
-
       expect(element.sort).to.be.true;
-      expect(element.hasAttribute('sort')).to.be.true;
     });
 
     it('renders the component in a search state', async () => {
       expect(element.search).to.be.false;
-      expect(element.hasAttribute('search')).to.be.false;
-
       element.search = true;
       await elementUpdated(element);
-
       expect(element.search).to.be.true;
-      expect(element.hasAttribute('search')).to.be.true;
     });
   });
 
   /* Test specific methods */
   describe('methods', () => {
     let element: ArcTable;
+    const tableReadySpy: SinonSpy = sinon.spy();
 
-    it('should update the configuration after initializing the table', async () => {
+    /* Due to GridJS creating the table, the reference to any DOM elements is lost after each update. */
+    const getTableBody = (): HTMLTableSectionElement => {
+      const gridTable: HTMLTableElement = element.shadowRoot?.querySelector('table.gridjs-table')!;
+      return gridTable.querySelector('tbody')!;
+    };
+
+    beforeEach(async () => {
       element = await fixture(html`<arc-table></arc-table>`);
-
-      expect(element.pagination).to.be.false;
-      expect(element.search).to.be.false;
+      element.addEventListener(ARC_EVENTS.tableReady, tableReadySpy);
     });
 
-    it('should format a specific column through the format method', async () => {});
+    afterEach(() => {
+      tableReadySpy.resetHistory();
+    });
+
+    it('should update the configuration after initializing the table', async () => {
+      /* Wait for the underlying gridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce);
+
+      /* When there is no data, there's a single row with an alert. */
+      expect(getTableBody().children.length).to.equal(1);
+      expect(element.pagination).to.be.false;
+      expect(element.search).to.be.false;
+
+      /* Update the configuration */
+      element.updateConfig({
+        data: [
+          ['one', 'two', 'three'],
+          ['four', 'five', 'six'],
+        ],
+        pagination: true,
+        search: true,
+      });
+
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledTwice);
+
+      expect(getTableBody().children.length).to.equal(2);
+      expect(element.pagination).to.be.true;
+      expect(element.search).to.be.true;
+    });
+
+    it('throws an error when updating the configuration without properties', async () => {
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce);
+
+      expect(() => element.updateConfig({})).to.throw(
+        'Missing property: Please provide at least one property to update the configuration.'
+      );
+    });
+
+    it('should prevent updating or setting arc-table properties that are not part of the API', async () => {
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce);
+
+      // @ts-ignore It is known that the property does not exist on the arc-table.
+      expect(element.autoWidth).to.be.undefined;
+
+      /* Update the GridJS configuration */
+      element.updateConfig({
+        autoWidth: true,
+      });
+
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce);
+
+      // @ts-ignore It is known that the property does not exist on the arc-table.
+      expect(element.autoWidth).to.be.undefined;
+    });
+
+    it('should format a specific column through the format method', async () => {
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce);
+
+      /* Update the configuration */
+      element.updateConfig({
+        columns: [
+          {
+            name: 'Name',
+            formatter: cell =>
+              element.format(
+                'strong',
+                {
+                  className: 'my-custom-class',
+                },
+                cell
+              ),
+          },
+          'LastName',
+        ],
+        data: [
+          ['John', 'Doe'],
+          ['Jane', 'Doe'],
+        ],
+      });
+
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledTwice);
+
+      const rows = getTableBody().children;
+      const firstRow = rows[0] as HTMLTableRowElement;
+      const columns = firstRow.children;
+      const firstColumn = columns[0] as HTMLTableCellElement;
+
+      expect(firstColumn).dom.to.equal(`<strong class="my-custom-class">John</strong>`);
+    });
   });
 
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcTable;
-    const clickSpy: SinonSpy = sinon.spy();
+    const rowClickSpy: SinonSpy = sinon.spy();
+    const cellClickSpy: SinonSpy = sinon.spy();
+    const tableReadySpy: SinonSpy = sinon.spy();
+
+    /* Due to GridJS creating the table, the reference to any DOM elements is lost after each update. */
+    const getTableBody = (): HTMLTableSectionElement => {
+      const gridTable: HTMLTableElement = element.shadowRoot?.querySelector('table.gridjs-table')!;
+      return gridTable.querySelector('tbody')!;
+    };
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-table></arc-table>`);
+      const data = ['John', 'Doe', 'john.doe@johndoe.com'];
+      element = await fixture(html`<arc-table .data=${data}></arc-table>`);
+      element.addEventListener(ARC_EVENTS.tableReady, tableReadySpy);
     });
 
     afterEach(async () => {
-      clickSpy.resetHistory();
+      rowClickSpy.resetHistory();
+      cellClickSpy.resetHistory();
+      tableReadySpy.resetHistory();
     });
 
-    it('simulates a click on the button', async () => {
-      element.addEventListener('click', clickSpy);
+    it('simulates a click on the table row', async () => {
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce);
 
-      element.click();
-      await waitUntil(() => clickSpy.calledOnce);
+      const rows = getTableBody().children;
+      const firstRow = rows[0] as HTMLTableRowElement;
+      firstRow.addEventListener('click', rowClickSpy);
 
-      expect(clickSpy).to.have.been.calledOnce;
+      firstRow.click();
+      await waitUntil(() => rowClickSpy.calledOnce);
+
+      expect(rowClickSpy).to.have.been.calledOnce;
+    });
+
+    it('simulates a click on the table cell', async () => {
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce);
+
+      const rows = getTableBody().children;
+      const firstRow = rows[0] as HTMLTableRowElement;
+      const columns = firstRow.children;
+      const firstColumn = columns[0] as HTMLTableCellElement;
+
+      firstColumn.addEventListener('click', cellClickSpy);
+
+      firstColumn.click();
+      await waitUntil(() => cellClickSpy.calledOnce);
+
+      expect(cellClickSpy).to.have.been.calledOnce;
+    });
+
+    it('emits when the table is ready', async () => {
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce);
+      expect(tableReadySpy).to.have.been.calledOnce;
     });
   });
 });

@@ -39,7 +39,7 @@ export default class ArcTable extends LitElement {
   @property() data: TCell[][] | { [key: string]: TCell }[];
 
   /** Puts the header in a fixed state. */
-  @property({ type: Boolean, reflect: true, attribute: 'fixed-header' }) fixedHeader: boolean = false;
+  @property({ type: Boolean, attribute: 'fixed-header' }) fixedHeader: boolean = false;
 
   /** Set the height of the table. This is useful when setting a fixed header. */
   @property() height: string;
@@ -48,7 +48,7 @@ export default class ArcTable extends LitElement {
   @property() language: Language;
 
   /** Show the pagination. */
-  @property({ type: Boolean, reflect: true }) pagination: boolean = false;
+  @property({ type: Boolean }) pagination: boolean = false;
 
   /** Set the pagination limit. */
   @property({ type: Number, attribute: 'pagination-limit' }) paginationLimit: number = 10;
@@ -57,13 +57,13 @@ export default class ArcTable extends LitElement {
   @property({ type: Boolean, attribute: 'pagination-summary' }) paginationSummary: boolean = false;
 
   /** Allow resizing of columns. */
-  @property({ type: Boolean, reflect: true }) resizable: boolean = false;
+  @property({ type: Boolean }) resizable: boolean = false;
 
   /** Allow sorting. */
-  @property({ type: Boolean, reflect: true }) sort: boolean = false;
+  @property({ type: Boolean }) sort: boolean = false;
 
   /** Support global search on all rows and columns. */
-  @property({ type: Boolean, reflect: true }) search: boolean = false;
+  @property({ type: Boolean }) search: boolean = false;
 
   /* Create a new GridJS instance. */
   firstUpdated() {
@@ -73,12 +73,13 @@ export default class ArcTable extends LitElement {
       height: this.height,
       fixedHeader: this.fixedHeader,
       language: {
-        loading: 'Retrieving your data, please wait...',
         pagination: {
           previous: '˂',
           next: '˃',
         },
-        error: 'An error occurred while fetching your data',
+        loading: 'Retrieving your data, please wait...',
+        noRecordsFound: 'No matching records found.',
+        error: 'An error occurred while fetching your data.',
         ...this.language,
       },
       pagination: {
@@ -121,17 +122,24 @@ export default class ArcTable extends LitElement {
     return createElement(type, { ...props }, ...children);
   }
 
-  /* Method used to update the GridJS config. */
+  /**
+   * Method to update the GridJS configuration and set the required arc-table properties.
+   * GridJS provides support for more advanced features than the arc-table requires.
+   * To allow the flexibility that GridJS provides, the given userConfig needs to be checked.
+   * */
   updateConfig(userConfig: Partial<UserConfig>) {
     const keys = Object.keys(userConfig);
 
-    /* Make sure there are actual properties given */
-    if (keys.length === 0) return;
+    /* Make sure there are actual properties given. */
+    if (keys.length === 0) {
+      throw new Error('Missing property: Please provide at least one property to update the configuration.');
+    }
 
+    /* Update the GridJS config */
     this._grid.updateConfig({ ...userConfig });
     this._grid.forceRender();
 
-    /* Each property of the component itself will also require an update. */
+    /* Each property of the component itself will also require an update, but only if they exist in the ArcTable API */
     keys.forEach((key: keyof UserConfig) => {
       if (!(key in this)) return; // Make sure that the given key exists on the ArcTable (this) class.
       (this as any)[key] = userConfig[key]; // Update the value of a given key.

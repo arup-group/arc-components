@@ -197,7 +197,7 @@ describe('ArcDrawer', () => {
       addHideListeners(element);
 
       /* Close the menu with the Escape keypress on the overlay */
-      element.handleKeyDown(escEvent);
+      element._handleKeyDown(escEvent);
       await waitForHide();
       expect(hideCalledOnce()).to.be.true;
       expect(isOpen()).to.be.false;

@@ -9,7 +9,7 @@ export default [
       height: 100%;
       display: flex;
       flex-direction: column;
-      background: rgb(var(--arc-background-color));
+      background-color: rgb(var(--arc-background-color));
       color: rgb(var(--arc-font-color));
     }
 
@@ -28,7 +28,7 @@ export default [
     #content {
       flex: 1 1 100%;
       overflow: hidden;
-      background: rgb(var(--arc-container-color));
+      background-color: rgb(var(--arc-container-color));
     }
 
     arc-bottombar,

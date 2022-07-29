@@ -121,7 +121,7 @@ describe('ArcImage', () => {
       element.src = 'https://picsum.photos/200';
       await elementUpdated(element);
 
-      /* Ensure that the image is fully intersecting */
+      /* Ensure that the image is fully intersecting. */
       await setViewport({ width: 1000, height: 1000 });
       await aTimeout(1100); /* Timeout needed as the delay within the component is 1000ms. */
 

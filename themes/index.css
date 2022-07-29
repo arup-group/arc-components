@@ -212,19 +212,25 @@ body {
 
 /* Lock the body and the content within the arc-container from scrolling while an overlay is active. */
 .arc-scroll-lock,
-.arc-scroll-lock arc-container > *:not([slot="nav"]):not([slot="side"]):not([slot="bottom"]) {
+.arc-scroll-lock arc-container > *:not([slot="nav"], [slot="side"], [slot="bottom"]) {
   overflow: hidden !important;
 }
 
 /* Overwrite the default scrollbar */
 ::-webkit-scrollbar {
   width: var(--arc-scroll-width);
+  height: var(--arc-scroll-width);
 }
 
 ::-webkit-scrollbar-track {
   background-color: var(--arc-background-color);
   border-radius: var(--arc-scroll-width);
   overflow: auto;
+}
+
+/* Overwrite the white square on the bottom-right */
+::-webkit-scrollbar-corner {
+  background-color: rgba(var(--arc-background-color), 1);
 }
 
 ::-webkit-scrollbar-thumb {

@@ -12,6 +12,7 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
  * @event arc-select - Emitted when a menu item is selected.
  */
 export default class ArcMenu extends LitElement {
+  /** @internal */
   static tag = 'arc-menu';
 
   static styles = styles;
@@ -90,10 +91,12 @@ export default class ArcMenu extends LitElement {
     }
   }
 
-  handleClick(event: MouseEvent) {
+  /* Handle the click of the menu-item */
+  private _handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
     const item = target.closest('arc-menu-item') as ArcMenuItem;
 
+    /* Emit the selected menu-item */
     if (item && !item.disabled) {
       emit(this, ARC_EVENTS.select, { detail: { item } });
     }
@@ -144,10 +147,11 @@ export default class ArcMenu extends LitElement {
     this.typeToSelect(event.key);
   }
 
-  handleSlotChange() {
+  /* Whenever a new menu-item is added to the component */
+  private _handleSlotChange() {
     const items = this.getAllItems({ includeDisabled: false });
 
-    /* Reset the roving tab index when the slotted items change */
+    /* Reset the tab index when the slotted items change */
     if (items.length) {
       this.setCurrentItem(items[0]);
     }
@@ -155,8 +159,8 @@ export default class ArcMenu extends LitElement {
 
   protected render() {
     return html`
-      <div id="main" role="menu" @click=${this.handleClick} @keydown=${this.handleKeyDown}>
-        <slot @slotchange=${this.handleSlotChange}></slot>
+      <div id="main" role="menu" @click=${this._handleClick} @keydown=${this.handleKeyDown}>
+        <slot @slotchange=${this._handleSlotChange}></slot>
       </div>
     `;
   }

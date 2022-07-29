@@ -6,6 +6,7 @@ import styles from './arc-spinner.styles.js';
  * @cssproperty --track-width - Set the thickness of the track.
  */
 export default class ArcSpinner extends LitElement {
+  /** @internal */
   static tag = 'arc-spinner';
 
   static styles = styles;

@@ -28,6 +28,7 @@ import styles from './arc-tooltip.styles.js';
  * @cssproperty --arrow-size - Overwrite the size of the arrow.
  */
 export default class ArcTooltip extends LitElement {
+  /** @internal */
   static tag = 'arc-tooltip';
 
   static styles = styles;

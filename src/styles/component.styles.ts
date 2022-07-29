@@ -28,12 +28,18 @@ export default css`
   /* Overwrite the default scrollbar */
   ::-webkit-scrollbar {
     width: var(--arc-scroll-width);
+    height: var(--arc-scroll-width);
   }
 
   ::-webkit-scrollbar-track {
     background-color: var(--arc-background-color);
     border-radius: var(--arc-scroll-width);
     overflow: auto;
+  }
+
+  /* Overwrite the white square on the bottom-right */
+  ::-webkit-scrollbar-corner {
+    background-color: rgb(var(--arc-background-color));
   }
 
   ::-webkit-scrollbar-thumb {

@@ -16,6 +16,7 @@ import '../spinner/arc-spinner.js';
  * @cssproperty --icon-color - Overwrite the color of the icon.
  */
 export default class ArcIconButton extends LitElement {
+  /** @internal */
   static tag = 'arc-icon-button';
 
   static styles = styles;
@@ -62,7 +63,8 @@ export default class ArcIconButton extends LitElement {
     this.button.blur();
   }
 
-  handleClick(event: MouseEvent) {
+  /* Handle the click of the button */
+  private _handleClick(event: MouseEvent) {
     if (this.disabled || this.loading) {
       event.preventDefault();
       event.stopPropagation();
@@ -93,7 +95,7 @@ export default class ArcIconButton extends LitElement {
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label=${this.label}
         tabindex=${this.disabled ? '-1' : '0'}
-        @click=${this.handleClick}
+        @click=${this._handleClick}
       >
         <span id="iconWrapper" aria-hidden="true">
           <arc-icon id="icon" part="icon" name=${ifDefined(this.name || undefined)}></arc-icon>

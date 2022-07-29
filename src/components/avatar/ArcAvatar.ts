@@ -13,6 +13,7 @@ import '../icon/arc-icon.js';
  * @cssproperty --size - The size of the avatar.
  */
 export default class ArcAvatar extends LitElement {
+  /** @internal */
   static tag = 'arc-avatar';
 
   static styles = styles;

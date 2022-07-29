@@ -19,6 +19,7 @@
     "custom elements",
     "components"
   ],
+  "registry": "https://registry.npmjs.org/",
   "repository": {
     "type": "git",
     "url": "https://github.com/arup-group/arc-components"
@@ -40,7 +41,6 @@
     "@azure/msal-browser": "^2.27.0",
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@floating-ui/dom": "^0.3.1",
-    "concurrently": "^7.2.2",
     "date-fns": "^2.28.0",
     "gridjs": "^5.0.2",
     "lit": "^2.2.7",
@@ -70,6 +70,7 @@
     "@web/test-runner": "^0.13.31",
     "babel-loader": "^8.2.3",
     "babel-plugin-template-html-minifier": "^4.1.0",
+    "concurrently": "^7.2.2",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-import": "^2.25.4",

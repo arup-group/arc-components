@@ -19,7 +19,6 @@
     "custom elements",
     "components"
   ],
-  "registry": "https://registry.npmjs.org/",
   "repository": {
     "type": "git",
     "url": "https://github.com/arup-group/arc-components"

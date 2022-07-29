@@ -39,18 +39,15 @@
     <arc-icon-button label="Settings" name="settings"></arc-icon-button>
     <arc-sso slot="user" client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
   </arc-navbar>
-  <section id="section" aria-label="Test section"></section>
+  <section id="section" aria-label="Test section">
+    <arc-markdown></arc-markdown>
+  </section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
 <script type="module">
   const sso = document.querySelector('arc-sso');
   sso.setAttribute('redirect-uri', window.location.href);
-
-  const section = document.getElementById('section');
-  const table = document.createElement('arc-table');
-
-  section.appendChild(Object.assign(table, {}))
 </script>
 </body>
 </html>

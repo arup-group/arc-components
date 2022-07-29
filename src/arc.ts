@@ -23,6 +23,7 @@ import './components/avatar/arc-avatar.js';
 import './components/chip/arc-chip.js';
 import './components/tooltip/arc-tooltip.js';
 import './components/table/arc-table.js';
+import './components/markdown/arc-markdown.js';
 /* plop:component-import */
 
 /* Types */
@@ -50,6 +51,7 @@ export { default as ArcAvatar } from './components/avatar/ArcAvatar.js';
 export { default as ArcChip } from './components/chip/ArcChip.js';
 export { default as ArcTooltip } from './components/tooltip/ArcTooltip.js';
 export { default as ArcTable } from './components/table/ArcTable.js';
+export { default as ArcMarkdown } from './components/markdown/ArcMarkdown.js';
 /* plop:component-export */
 
 /* Utilities */

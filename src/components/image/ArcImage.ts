@@ -19,6 +19,7 @@ import styles from './arc-image.styles.js';
  * @event arc-error - Emitted when the image cannot be loaded.
  */
 export default class ArcImage extends LitElement {
+  /** @internal */
   static tag = 'arc-image';
 
   static styles = styles;
@@ -92,7 +93,7 @@ export default class ArcImage extends LitElement {
 
   private _attachObserver() {
     this._removeObserver();
-    this._intersectionObserver = new IntersectionObserver(this.handleIntersection.bind(this), this._observerOptions);
+    this._intersectionObserver = new IntersectionObserver(this._handleIntersection.bind(this), this._observerOptions);
     this._intersectionObserver.observe(this.container);
   }
 
@@ -102,7 +103,7 @@ export default class ArcImage extends LitElement {
   }
 
   /* Callback that gets fired whenever the first or last pixel of the container is intersecting the root element */
-  handleIntersection(entries: any[]) {
+  private _handleIntersection(entries: any[]) {
     entries.forEach(({ intersectionRatio }) => {
       if (intersectionRatio === 0) {
         if (this._loadTimer) {
@@ -110,19 +111,21 @@ export default class ArcImage extends LitElement {
           this._loadTimer = null;
         }
       } else if (intersectionRatio === 1) {
-        this._loadTimer = window.setTimeout(this.loadImage.bind(this), this.delay);
+        this._loadTimer = window.setTimeout(this._loadImage.bind(this), this.delay);
       }
     });
   }
 
-  loadImage() {
+  /* Load the image and handle the response */
+  private _loadImage() {
     this._loading = true;
     this.image.src = this.src;
-    this.image.onload = this.imageResponse.bind(this);
-    this.image.onerror = this.imageResponse.bind(this);
+    this.image.onload = this._imageResponse.bind(this);
+    this.image.onerror = this._imageResponse.bind(this);
   }
 
-  imageResponse(e: any) {
+  /* Emit the response from the image */
+  private _imageResponse(e: any) {
     this._loading = false;
     this._hasImage = e.type === 'load';
     this._removeObserver();

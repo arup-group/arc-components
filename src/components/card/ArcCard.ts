@@ -27,6 +27,7 @@ import styles from './arc-card.styles.js';
  * @event arc-after-hide - Emitted after the card collapses and all animations are complete.
  */
 export default class ArcCard extends LitElement {
+  /** @internal */
   static tag = 'arc-card';
 
   static styles = styles;

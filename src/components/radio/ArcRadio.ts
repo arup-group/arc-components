@@ -15,6 +15,7 @@ import styles from './arc-radio.styles.js';
  * @event arc-change - Emitted when the control's checked state changes.
  */
 export default class ArcRadio extends LitElement {
+  /** @internal */
   static tag = 'arc-radio';
 
   static styles = styles;
@@ -107,7 +108,8 @@ export default class ArcRadio extends LitElement {
     this.input.blur();
   }
 
-  handleClick() {
+  /* Handle the click of the radio */
+  private _handleClick() {
     if (!this.checked) {
       this.checked = true;
       emit(this, ARC_EVENTS.change);
@@ -159,7 +161,7 @@ export default class ArcRadio extends LitElement {
           .disabled=${this.disabled}
           aria-checked=${this.checked}
           aria-disabled=${this.disabled}
-          @click=${this.handleClick}
+          @click=${this._handleClick}
         />
         <span id="control">
           <span id="icon">

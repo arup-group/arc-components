@@ -125,6 +125,7 @@ describe('ArcButton', () => {
 
       element.active = true;
       await elementUpdated(element);
+
       expect(element.active).to.be.true;
       expect(element.hasAttribute('active')).to.be.true;
     });

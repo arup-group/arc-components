@@ -12,6 +12,7 @@ import styles from './arc-icon.styles.js';
  * @cssproperty --icon-color-secondary - Set the secondary color of the icon (if supported).
  */
 export default class ArcIcon extends LitElement {
+  /** @internal */
   static tag = 'arc-icon';
 
   static styles = styles;

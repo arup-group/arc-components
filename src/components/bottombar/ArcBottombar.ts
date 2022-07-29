@@ -6,6 +6,7 @@ import styles from './arc-bottombar.styles.js';
  * @slot - This slot is used to add icon-buttons to the bottom bar.
  */
 export default class ArcBottombar extends LitElement {
+  /** @internal */
   static tag = 'arc-bottombar';
 
   static styles = styles;
@@ -16,7 +17,8 @@ export default class ArcBottombar extends LitElement {
   /** @internal - State that keeps track of the current tab count */
   @state() private tabCount: number;
 
-  handleTabChange(e: any) {
+  /* Whenever a tab changes, update the tabCount */
+  private _handleTabChange(e: any) {
     const isTab = (element: any) => element.tagName === 'ARC-ICON-BUTTON';
 
     const nodes = e.target.assignedElements({ flatten: true });
@@ -38,7 +40,7 @@ export default class ArcBottombar extends LitElement {
   protected render() {
     return html`
       <nav id="main" aria-label="mobile navigation">
-        <slot @slotchange=${this.handleTabChange}></slot>
+        <slot @slotchange=${this._handleTabChange}></slot>
       </nav>
     `;
   }

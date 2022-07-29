@@ -15,6 +15,7 @@ import '../icon/arc-icon.js';
  * @slot avatar - Used to prepend an avatar element to the chip.
  */
 export default class ArcChip extends LitElement {
+  /** @internal */
   static tag = 'arc-chip';
 
   static styles = styles;

@@ -21,6 +21,7 @@ import '../icon-button/arc-icon-button.js';
  * @cssproperty --sidebar-width - Set the width of the sidebar.
  */
 export default class ArcSidebar extends LitElement {
+  /** @internal */
   static tag = 'arc-sidebar';
 
   static styles = styles;
@@ -69,7 +70,8 @@ export default class ArcSidebar extends LitElement {
     return waitForEvent(this, ARC_EVENTS.afterHide);
   }
 
-  handleClick() {
+  /* Handle the click of the open/close button */
+  _handleClick() {
     if (this.open) {
       this.hide();
     } else {
@@ -99,7 +101,7 @@ export default class ArcSidebar extends LitElement {
                 id="toggleClose"
                 name=${ICON_TYPES['arrow-left']}
                 label="Close sidebar"
-                @click=${this.handleClick}
+                @click=${this._handleClick}
               ></arc-icon-button>
             </div>
             <div id="content">
@@ -112,7 +114,7 @@ export default class ArcSidebar extends LitElement {
             id="toggleOpen"
             name=${ICON_TYPES['arrow-right']}
             label="Open sidebar"
-            @click=${this.handleClick}
+            @click=${this._handleClick}
           ></arc-icon-button>
         `;
   }

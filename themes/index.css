@@ -228,6 +228,11 @@ body {
   overflow: auto;
 }
 
+/* Overwrite the white square on the bottom-right */
+::-webkit-scrollbar-corner {
+  background-color: rgba(var(--arc-background-color), 1);
+}
+
 ::-webkit-scrollbar-thumb {
   background-color: rgba(var(--arc-grey-060), 1);
   border-radius: var(--arc-scroll-width);

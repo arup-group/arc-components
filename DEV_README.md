@@ -1,10 +1,12 @@
 # TOC
 1. Requirements
 2. Start
-3. Build
+3. Create
 4. Test
 5. Documentation
 6. Iconography
+7. Build
+8. Publish
 
 ## 1. Requirements
 
@@ -60,8 +62,8 @@ yarn start
 - `lint` runs the linter for your project
 - `analyze` runs the Custom Elements Manifest analyzer to generate a custom-elements.json file
 
-## 3. Build
-In order to build a fully documented and tested web-component, the following files should be present:
+## 3. Create
+In order to create a fully documented and tested web-component, the following files should be present:
 * Web component
 * Web component registry method
 * Test file
@@ -81,7 +83,7 @@ This script takes care of the following.
 * Adds an export of the component inside the arc.ts file in the src directory
 
 Once the script is done, add your newly created web-component inside the `index.html` file.
-Goodluck!
+Good luck!
 
 ## 4. Testing
 The web-components can run unit tests with the help of [@open-wc/testing](https://open-wc.org/docs/testing/helpers/).
@@ -102,23 +104,58 @@ You are given the following options in the terminal
 - Press `Enter` to re-run all tests.
 
 ## 5. Documentation
+Every component within the ARC-ecosystem requires documentation.
+The documentation for each component is created with [Storybook](https://storybook.js.org/).
+Storybook allows users to play with the components by changing properties and seeing the results of these changes.
+This promotes the use of these components, and allows users to keep track of the available components in the library.
 
 ## 6. Iconography
-ARC uses [Nucleo](https://nucleoapp.com/) to control its icons.
+ARC uses [Nucleo](https://nucleoapp.com/) to keep track of the available icons and make an easy export of them.
 All the icons are exported as a single SVG `symbol` file, using the following preferences:
 
 If you need to add new icons to the existing library, take the following steps:
 1. Import the current icons.svg file into your [Nucleo](https://nucleoapp.com/) app.
 2. Drag and drop an svg file into the existing set.
-3. Name the icon with the `arc-` prefix (i.e. `arc-radio-checked`).
-4. Select all icons.
-5. Press the `Export` button.
+3. Select all icons.
+4. Press the `Export` button.
+5. Select the SVG <symbol> format.
 6. Make sure that the export preferences are as follows:
    1. Base class: ''
-   2. Icon ID Prefix: ''
+   2. Icon ID Prefix: 'arc-'
    3. Use external reference for `use` element: false
    4. Remove stroke-width values: true
    5. Remove `title`: true
    6. Use BEM naming convention: false
    7. Use CSS custom properties: true
 7. If everything is correct, press the `Export Icons` button.
+
+## 7. Build
+To build a production-ready bundle of ARC, you can use the GitHub workflow located in .github/workflows/main.yml.
+This workflow will automatically run when code gets merged into the `main` branch, and takes the following actions:
+* Install Yarn
+* Create a production-ready Storybook bundle
+* Clear the S3 bucket
+* Upload the Storybook bundle to S3
+
+## 8. Publish
+ARC is published as an open-source project on NPM.
+To publish a new version of ARC, you can use the GitHub workflow located in .github/workflows/publish.yml.
+This workflow will automatically run when a new release is created through GitHub, and takes the following actions:
+* Install Yarn
+* Create a production-ready ARC bundle
+* Publish the files within the `dist` folder to NPM
+
+Whenever you publish a new version of ARC, 
+it is recommended to update the version number to communicate the extent of the changes to others who rely on the code.
+To change the version number in the `package.json` file, on the command line, in the package root directory, 
+run the following command, replacing `<update_type>` with one of the semantic versioning release types (patch, major, or minor):
+
+```bash
+npm version <update_type>
+```
+
+ARC uses the following logic on making a decision for the versioning.
+
+* major - A breaking change, i.e. removed properties, deprecated component etc.
+* minor - A new component or an addition to an existing component, which does not break (or change) the functionality of the component. 
+* patch - Any patch that fixes a bug in the code and does not break (or change) the functionality of the component. 

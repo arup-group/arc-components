@@ -94,11 +94,10 @@ export default class ArcContainer extends LitElement {
     /* Make sure that no input element and/or textarea is focused */
     if (!event.composedPath().some((el: HTMLElement) => IGNORE_KEYPRESS.includes(el.tagName))) {
       /* Toggle the accessibility panel */
-      /* TODO: Uncomment. Temporarily turned off for the MDE */
-      // if (event.key === 'a') {
-      //   event.preventDefault();
-      //   this.accessibility.open = !this.accessibility.open;
-      // }
+      if (event.key === 'a') {
+        event.preventDefault();
+        this.accessibility.open = !this.accessibility.open;
+      }
     }
   }
 

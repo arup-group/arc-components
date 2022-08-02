@@ -1,18 +1,19 @@
-import { html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
 // @ts-ignore
 import type Quill from 'quill/core/quill.js';
 import 'quill';
+import { html, LitElement } from 'lit';
+import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { live } from 'lit/directives/live.js';
+import { emit } from '../../internal/event.js';
+import { watch } from '../../internal/watch.js';
 import { FormController } from '../../internal/form-control.js';
+import { OUTPUT_TYPES, MarkdownOutput } from './constants/MarkdownConstants.js';
+import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import styles from './arc-markdown.styles.js';
 
 /**
- * @slot default - A description of the default slot.
- * @slot something - A description of the something slot.
- *
- * @event arc-event-name - A description of the event.
- *
- * @cssproperty --custom-color - A description of the --custom-color property.
+ * @event arc-change - Emitted when the editor's value changes.
  */
 export default class ArcMarkdown extends LitElement {
   static tag = 'arc-markdown';
@@ -38,9 +39,6 @@ export default class ArcMarkdown extends LitElement {
   /** The editor's value attribute. */
   @property() value: string = '';
 
-  /** The editor's label. */
-  @property() label: string = '';
-
   /** Disables the editor. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
@@ -48,10 +46,31 @@ export default class ArcMarkdown extends LitElement {
   @property({ type: Boolean, reflect: true }) readonly: boolean = false;
 
   /**
-   * This will be true when the control is in an invalid state. Validity is determined by props such as `type`,
-   * `required`, `minlength` and `maxlength` using the browser's constraint validation API.
-   */
-  @property({ type: Boolean, reflect: true }) invalid = false;
+   * This will be true when the editor is in an invalid state.
+   * Validity is determined by props such as 'minlength' and 'maxlength'.
+   * */
+  @property({ type: Boolean, reflect: true }) invalid: boolean = false;
+
+  /** The minimum length of input that will be considered valid. */
+  @property({ type: Number }) minlength: number;
+
+  /** The maximum length of input that will be considered valid. */
+  @property({ type: Number }) maxlength: number;
+
+  /** The minimum lines of input that will be considered valid. */
+  @property({ type: Number }) minlines: number;
+
+  /** The maximum lines of input that will be considered valid. */
+  @property({ type: Number }) maxlines: number;
+
+  /** The type of data to output when submitting the form */
+  @property({ type: String, reflect: true }) output: MarkdownOutput = OUTPUT_TYPES.default;
+
+  /* Enable/disable the editor when the disabled property changes */
+  @watch('disabled', { waitUntilFirstUpdate: true })
+  handleDisabledChange() {
+    this._editor.enable(!this.disabled);
+  }
 
   /* Create a new Quill instance. */
   firstUpdated() {
@@ -66,19 +85,29 @@ export default class ArcMarkdown extends LitElement {
         ],
       },
       scrollingContainer: this.scrollContainer,
-      placeholder: this.readonly ? 'The editor is read-only' : undefined,
+      placeholder:
+        this.readonly || this.disabled ? `The editor is ${this.readonly ? 'read-only' : 'disabled'}` : undefined,
       theme: 'snow',
-      readOnly: this.readonly,
+      readOnly: this.readonly || this.disabled,
     });
 
     /* Make the text selection work within the Shadow DOM */
     this._replaceRange();
 
-    /* Update the editor selection */
-    document.addEventListener('selectionchange', () => this._editor.selection.update());
+    /* Add listeners to the WYSIWYG editor */
+    this._addEditorListeners();
   }
 
-  /* Method that replaces the document.getSelection with shadow.getSelection */
+  /* Method that adds a couple of necessary listeners. */
+  private _addEditorListeners() {
+    /* Update the editor selection */
+    document.addEventListener('selectionchange', () => this._editor.selection.update());
+
+    /* Listen to changes within the editor */
+    this._editor.on('text-change', this._handleChange.bind(this));
+  }
+
+  /* Method that replaces the Quill getNativeRange method with a shadowDOM equivalent. */
   private _replaceRange() {
     this._editor.selection.getNativeRange = () => {
       const selection: Selection = this._editor.root.getRootNode().getSelection();
@@ -89,11 +118,11 @@ export default class ArcMarkdown extends LitElement {
     };
   }
 
-  /**
-   * The document.getSelection model has properties startContainer and endContainer.
-   * The shadow.getSelection model has baseNode and focusNode.
-   * Unify these formats to always look like document.getSelection.
-   * */
+  /*
+  The document.getSelection model has properties startContainer and endContainer.
+  The shadow.getSelection model has baseNode and focusNode.
+  Unify these formats to always look like document.getSelection.
+  */
   private _normalizeNative(nativeRange: Range) {
     if (
       !this._editor.root.contains(nativeRange.startContainer) ||
@@ -129,15 +158,37 @@ export default class ArcMarkdown extends LitElement {
     return range;
   }
 
-  /** Method that retrieves the content */
-  getContent() {
-    const { ops } = this._editor.getContents();
-    return ops;
+  /* Emit the Quill text-change event */
+  private _handleChange() {
+    this.value = this.getOutput();
+    emit(this, ARC_EVENTS.change);
+  }
+
+  /* Method used to retrieve the required content */
+  getOutput(): string {
+    switch (this.output) {
+      case OUTPUT_TYPES.html:
+        return this.editor.querySelector('.ql-editor')?.innerHTML || '';
+      case OUTPUT_TYPES.text:
+        return this._editor.getText() || '';
+      default:
+        return JSON.stringify(this._editor.getContents().ops);
+    }
   }
 
   protected render() {
     return html`
       <div id="main">
+        <input
+          name=${ifDefined(this.name)}
+          .value=${live(this.value)}
+          ?disabled=${this.disabled}
+          ?readonly=${this.readonly}
+          minlength=${ifDefined(this.minlength)}
+          maxlength=${ifDefined(this.maxlength)}
+          aria-disabled=${this.disabled}
+          type="hidden"
+        />
         <div id="editor"></div>
       </div>
     `;

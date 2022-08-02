@@ -7,7 +7,8 @@ export default [
     #main {
       display: flex;
       flex-direction: column;
-      height: 100%;
+      height: inherit;
+      min-height: inherit;
       overflow: hidden;
     }
 
@@ -18,7 +19,8 @@ export default [
 
     .ql-container {
       box-sizing: border-box;
-      height: 100%;
+      height: inherit;
+      min-height: inherit;
       margin: 0;
       position: relative;
     }

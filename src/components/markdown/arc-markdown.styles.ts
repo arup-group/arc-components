@@ -4,6 +4,18 @@ import componentStyles from '../../styles/component.styles.js';
 export default [
   componentStyles,
   css`
+    #main {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #editor {
+      height: 100%;
+      overflow: auto;
+    }
+
     .ql-container {
       box-sizing: border-box;
       height: 100%;

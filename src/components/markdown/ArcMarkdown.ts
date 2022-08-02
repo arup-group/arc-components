@@ -3,6 +3,7 @@ import { property, query } from 'lit/decorators.js';
 // @ts-ignore
 import type Quill from 'quill/core/quill.js';
 import 'quill';
+import { FormController } from '../../internal/form-control.js';
 import styles from './arc-markdown.styles.js';
 
 /**
@@ -22,10 +23,35 @@ export default class ArcMarkdown extends LitElement {
   private _editor: Quill;
 
   /** @internal */
+  @query('#main') scrollContainer: HTMLElement;
+
+  /** @internal */
   @query('#editor') editor: HTMLElement;
 
-  /** Draws the editor in a disabled state. */
+  /** @internal - Controller used to recognize form controls located inside a shadow root. */
+  /* @ts-expect-error - Controller used to hook the component to the formData */
+  private readonly formSubmitController = new FormController(this);
+
+  /** The editor's name attribute. */
+  @property() name: string;
+
+  /** The editor's value attribute. */
+  @property() value: string = '';
+
+  /** The editor's label. */
+  @property() label: string = '';
+
+  /** Disables the editor. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /** Makes the editor readonly. */
+  @property({ type: Boolean, reflect: true }) readonly: boolean = false;
+
+  /**
+   * This will be true when the control is in an invalid state. Validity is determined by props such as `type`,
+   * `required`, `minlength` and `maxlength` using the browser's constraint validation API.
+   */
+  @property({ type: Boolean, reflect: true }) invalid = false;
 
   /* Create a new Quill instance. */
   firstUpdated() {
@@ -39,9 +65,10 @@ export default class ArcMarkdown extends LitElement {
           ['clean'],
         ],
       },
-      placeholder: this.disabled ? 'The editor is in read-only mode' : undefined,
+      scrollingContainer: this.scrollContainer,
+      placeholder: this.readonly ? 'The editor is read-only' : undefined,
       theme: 'snow',
-      readOnly: this.disabled,
+      readOnly: this.readonly,
     });
 
     /* Make the text selection work within the Shadow DOM */
@@ -100,6 +127,12 @@ export default class ArcMarkdown extends LitElement {
       position.offset = offset;
     });
     return range;
+  }
+
+  /** Method that retrieves the content */
+  getContent() {
+    const { ops } = this._editor.getContents();
+    return ops;
   }
 
   protected render() {

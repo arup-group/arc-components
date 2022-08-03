@@ -1,5 +1,4 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import type ArcButton from '../components/button/ArcButton.js';
 
 export interface FormSubmitControllerOptions {
   /** A function that returns the form containing the form control. */
@@ -87,26 +86,10 @@ export class FormController implements ReactiveController {
   Calling form.submit() seems to bypass the submit event and constraint validation.
   Instead, we can inject a native submit button into the form, click it, then remove it to simulate a standard form submission.
   */
-  submit(submitter?: HTMLInputElement | ArcButton) {
+  submit() {
+    const button = document.createElement('button');
+
     if (this.form) {
-      const button = document.createElement('button');
-      button.type = 'submit';
-      button.style.position = 'absolute';
-      button.style.width = '0';
-      button.style.height = '0';
-      button.style.clipPath = 'inset(50%)';
-      button.style.overflow = 'hidden';
-      button.style.whiteSpace = 'nowrap';
-
-      /* Pass form attributes through to the temporary button */
-      if (submitter) {
-        ['formaction', 'formmethod', 'formnovalidate', 'formtarget'].forEach(attr => {
-          if (submitter.hasAttribute(attr)) {
-            button.setAttribute(attr, submitter.getAttribute(attr)!);
-          }
-        });
-      }
-
       this.form.append(button);
       button.click();
       button.remove();

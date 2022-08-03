@@ -1,8 +1,10 @@
 import { css } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
+import controlStyles from '../../styles/control.styles.js';
 
 export default [
   componentStyles,
+  controlStyles,
   css`
     #main {
       display: flex;
@@ -10,11 +12,24 @@ export default [
       height: inherit;
       min-height: inherit;
       overflow: hidden;
+      position: relative;
+    }
+
+    /* Make sure the required input is hidden behind the editor */
+    input {
+      z-index: -1;
     }
 
     #editor {
       height: 100%;
       overflow: auto;
+    }
+
+    #status {
+      display: flex;
+      align-self: end;
+      gap: var(--arc-spacing-normal);
+      color: rgb(var(--arc-grey-050));
     }
 
     .ql-container {
@@ -77,11 +92,6 @@ export default [
       margin: 0;
       padding: 0;
       counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
-    }
-
-    .ql-editor ol,
-    .ql-editor ul {
-      padding-left: 1.5em;
     }
 
     .ql-editor ol > li,

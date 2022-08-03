@@ -2,7 +2,7 @@
 import type Quill from 'quill/core/quill.js';
 import 'quill';
 import { html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { emit } from '../../internal/event.js';
@@ -29,6 +29,9 @@ export default class ArcMarkdown extends LitElement {
   /** @internal */
   @query('#editor') editor: HTMLElement;
 
+  /** @internal */
+  @query('#input') input: HTMLInputElement;
+
   /** @internal - Controller used to recognize form controls located inside a shadow root. */
   /* @ts-expect-error - Controller used to hook the component to the formData */
   private readonly formSubmitController = new FormController(this);
@@ -45,12 +48,6 @@ export default class ArcMarkdown extends LitElement {
   /** Makes the editor readonly. */
   @property({ type: Boolean, reflect: true }) readonly: boolean = false;
 
-  /**
-   * This will be true when the editor is in an invalid state.
-   * Validity is determined by props such as 'minlength' and 'maxlength'.
-   * */
-  @property({ type: Boolean, reflect: true }) invalid: boolean = false;
-
   /** The minimum length of input that will be considered valid. */
   @property({ type: Number }) minlength: number;
 
@@ -63,17 +60,56 @@ export default class ArcMarkdown extends LitElement {
   /** The maximum lines of input that will be considered valid. */
   @property({ type: Number }) maxlines: number;
 
+  /** Makes the editor a required field. */
+  @property({ type: Boolean, reflect: true }) required = false;
+
+  /**
+   * This will be true when the editor is in an invalid state.
+   * Validity is determined by props such as 'minlength' and 'maxlength'.
+   * */
+  @property({ type: Boolean, reflect: true }) invalid: boolean = false;
+
   /** The type of data to output when submitting the form */
   @property({ type: String, reflect: true }) output: MarkdownOutput = OUTPUT_TYPES.default;
+
+  /** The length of the content. */
+  @state() length: number = 0;
+
+  /** The lines of the content. */
+  @state() lines: string[] = [];
 
   /* Enable/disable the editor when the disabled property changes */
   @watch('disabled', { waitUntilFirstUpdate: true })
   handleDisabledChange() {
+    /* Disabled form controls are always valid, so we need to recheck validity when the state changes */
+    this.input.disabled = this.disabled;
+    this.invalid = !this.input.checkValidity();
     this._editor.enable(!this.disabled);
   }
 
-  /* Create a new Quill instance. */
+  @watch('value', { waitUntilFirstUpdate: true })
+  handleValueChange() {
+    /* Update the counters */
+    this._updateStatus();
+
+    /* Check if the editor is valid */
+    this.invalid = !this.checkValidity();
+  }
+
+  /* Listen to changes on the document selection */
+  connectedCallback() {
+    super.connectedCallback();
+    document.addEventListener('selectionchange', this._updateSelection.bind(this));
+  }
+
+  /* Remove to document selection listener */
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('selectionchange', this._updateSelection.bind(this));
+  }
+
   firstUpdated() {
+    /* Create a new Quill instance. */
     this._editor = new Quill(this.editor, {
       modules: {
         toolbar: [
@@ -91,23 +127,17 @@ export default class ArcMarkdown extends LitElement {
       readOnly: this.readonly || this.disabled,
     });
 
-    /* Make the text selection work within the Shadow DOM */
     this._replaceRange();
-
-    /* Add listeners to the WYSIWYG editor */
-    this._addEditorListeners();
-  }
-
-  /* Method that adds a couple of necessary listeners. */
-  private _addEditorListeners() {
-    /* Update the editor selection */
-    document.addEventListener('selectionchange', () => this._editor.selection.update());
+    this._updateStatus();
 
     /* Listen to changes within the editor */
     this._editor.on('text-change', this._handleChange.bind(this));
+
+    /* Check if the editor is valid */
+    this.invalid = !this.checkValidity();
   }
 
-  /* Method that replaces the Quill getNativeRange method with a shadowDOM equivalent. */
+  /* Make the text selection work within the Shadow DOM */
   private _replaceRange() {
     this._editor.selection.getNativeRange = () => {
       const selection: Selection = this._editor.root.getRootNode().getSelection();
@@ -158,14 +188,19 @@ export default class ArcMarkdown extends LitElement {
     return range;
   }
 
-  /* Emit the Quill text-change event */
+  /* Whenever the selection within the document changes, update the editor selection. */
+  private _updateSelection() {
+    this._editor.selection.update();
+  }
+
+  /* Whenever the content within the editor changes. */
   private _handleChange() {
-    this.value = this.getOutput();
+    this.value = this._getOutput();
     emit(this, ARC_EVENTS.change);
   }
 
-  /* Method used to retrieve the required content */
-  getOutput(): string {
+  /* Method used to retrieve the required content. */
+  private _getOutput(): string {
     switch (this.output) {
       case OUTPUT_TYPES.html:
         return this.editor.querySelector('.ql-editor')?.innerHTML || '';
@@ -176,20 +211,103 @@ export default class ArcMarkdown extends LitElement {
     }
   }
 
+  /* Method to update the status bar. */
+  private _updateStatus(): void {
+    this.length = this._editor.getLength() - 1;
+    this.lines = this._editor.getLines();
+  }
+
+  /* Method that validates the length of the given content with the 'minlength' property */
+  private _validateMinLength(length: number): boolean {
+    const isValid = !this.minlength || length >= this.minlength;
+    this.setCustomValidity(
+      !isValid
+        ? `Please lengthen this text to ${this.minlength} characters or more (you are currently using ${length})`
+        : ''
+    );
+    return isValid;
+  }
+
+  private _validateMaxLength(length: number): boolean {
+    const isValid = !this.maxlength || length <= this.maxlength;
+    this.setCustomValidity(
+      !isValid
+        ? `Please shorten this text to ${this.maxlength} characters or less (you are currently using ${length})`
+        : ''
+    );
+    return isValid;
+  }
+
+  private _validateMinLines(lines: string[]): boolean {
+    const isValid = !this.minlines || lines.length >= this.minlines;
+    this.setCustomValidity(
+      !isValid
+        ? `Please lengthen this text to ${this.minlines} lines or more (you are currently using ${lines.length})`
+        : ''
+    );
+    return isValid;
+  }
+
+  private _validateMaxLines(lines: string[]): boolean {
+    const isValid = !this.maxlines || lines.length <= this.maxlines;
+    this.setCustomValidity(
+      !isValid
+        ? `Please shorten this text to ${this.maxlines} lines or less (you are currently using ${lines.length})`
+        : ''
+    );
+    return isValid;
+  }
+
+  /** Selects all the text in the editor. */
+  select() {
+    this._editor.setSelection(0, this._editor.getLength());
+  }
+
+  /** Checks for validity and shows the browser's validation message if the control is invalid. */
+  reportValidity() {
+    return this.input.reportValidity();
+  }
+
+  /** Sets a custom validation message. If `message` is not empty, the field will be considered invalid. */
+  setCustomValidity(message: string) {
+    this.input.setCustomValidity(message);
+    this.invalid = !this.input.checkValidity();
+  }
+
+  /** Checks for validity and adds custom validation on the input. */
+  checkValidity() {
+    /* If the field is optional, validate if the user added content. */
+    if (!this.required && this.length === 0) {
+      this.setCustomValidity('');
+      return true;
+    }
+
+    return (
+      this._validateMinLength(this.length) &&
+      this._validateMaxLength(this.length) &&
+      this._validateMinLines(this.lines) &&
+      this._validateMaxLines(this.lines)
+    );
+  }
+
   protected render() {
     return html`
       <div id="main">
         <input
+          id="input"
+          type="text"
           name=${ifDefined(this.name)}
-          .value=${live(this.value)}
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
-          minlength=${ifDefined(this.minlength)}
-          maxlength=${ifDefined(this.maxlength)}
-          aria-disabled=${this.disabled}
-          type="hidden"
+          ?required=${this.required}
+          .value=${live(this.value)}
+          aria-invalid=${this.invalid ? 'true' : 'false'}
         />
         <div id="editor"></div>
+        <div id="status">
+          <small>characters: ${this.length}</small>
+          <small>lines: ${this.lines.length}</small>
+        </div>
       </div>
     `;
   }

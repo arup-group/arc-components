@@ -40,7 +40,10 @@
     <arc-sso slot="user" client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
   </arc-navbar>
   <section id="section" aria-label="Test section">
-    <arc-markdown name="editor"></arc-markdown>
+    <form>
+      <arc-markdown name="name" minlength="2" maxlength="3" minlines="2" maxlines="3" style="height: 15rem;"></arc-markdown>
+      <arc-button submit>Submit</arc-button>
+    </form>
   </section>
 </arc-container>
 
@@ -48,6 +51,12 @@
 <script type="module">
   const sso = document.querySelector('arc-sso');
   sso.setAttribute('redirect-uri', window.location.href);
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      console.log(form.checkValidity())
+    })
 </script>
 </body>
 </html>

@@ -128,7 +128,6 @@ export default class ArcMarkdown extends LitElement {
     });
 
     this._replaceRange();
-    this._updateStatus();
 
     /* Listen to changes within the editor */
     this._editor.on('text-change', this._handleChange.bind(this));
@@ -228,6 +227,7 @@ export default class ArcMarkdown extends LitElement {
     return isValid;
   }
 
+  /* Method that validates the length of the given content with the 'maxlength' property */
   private _validateMaxLength(length: number): boolean {
     const isValid = !this.maxlength || length <= this.maxlength;
     this.setCustomValidity(
@@ -238,6 +238,7 @@ export default class ArcMarkdown extends LitElement {
     return isValid;
   }
 
+  /* Method that validates the line-count of the given content with the 'minlines' property */
   private _validateMinLines(lines: string[]): boolean {
     const isValid = !this.minlines || lines.length >= this.minlines;
     this.setCustomValidity(
@@ -248,6 +249,7 @@ export default class ArcMarkdown extends LitElement {
     return isValid;
   }
 
+  /* Method that validates the line-count of the given content with the 'maxlines' property */
   private _validateMaxLines(lines: string[]): boolean {
     const isValid = !this.maxlines || lines.length <= this.maxlines;
     this.setCustomValidity(

@@ -5,13 +5,7 @@ import { isMobile, prefersDark } from '../../internal/preferences.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { isNight } from '../../internal/theme.js';
 import { hasSlot } from '../../internal/slot.js';
-import {
-  addShowListeners,
-  clearShowHideListeners,
-  waitForShow,
-  showCalledOnce,
-  createKeyEvent,
-} from '../../internal/test-utils.js';
+import { addShowListeners, clearShowHideListeners, waitForShow, showCalledOnce } from '../../internal/test-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcContainer from './ArcContainer.js';
@@ -146,15 +140,6 @@ describe('ArcContainer', () => {
     it('should emit arc-show and arc-after-show when calling showAccessibility()', async () => {
       addShowListeners(element);
       await element.showAccessibility();
-      await waitForShow();
-      expect(showCalledOnce()).to.be.true;
-    });
-
-    it('should emit arc-show and arc-after-show when pressing the accessibility key (a)', async () => {
-      addShowListeners(element);
-
-      /* Press the 'a' key */
-      element.handleKeyDown(createKeyEvent('a'));
       await waitForShow();
       expect(showCalledOnce()).to.be.true;
     });

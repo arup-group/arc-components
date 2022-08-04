@@ -4,7 +4,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { prefersDark } from '../../internal/preferences.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
-import { CONTAINER_THEMES, IGNORE_KEYPRESS, ContainerTheme } from './constants/ContainerConstants.js';
+import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import styles from './arc-container.styles.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
@@ -50,18 +50,11 @@ export default class ArcContainer extends LitElement {
   /* Listen to keyboard input on the page */
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('keypress', this.handleKeyDown.bind(this));
 
     /* Store a reference of the app-defined theme */
     if (this.theme in CONTAINER_THEMES) {
       this._appPreferredTheme = this.theme;
     }
-  }
-
-  /* Remove to keyboard input listener on the page */
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    document.removeEventListener('keypress', this.handleKeyDown.bind(this));
   }
 
   /* Retrieve the theme based on the time of day or on the OS setting */
@@ -87,18 +80,6 @@ export default class ArcContainer extends LitElement {
   /* Trigger the show event of the arc-accessibility component */
   showAccessibility() {
     this.accessibility.open = true;
-  }
-
-  /* Handle keyboard input */
-  handleKeyDown(event: KeyboardEvent) {
-    /* Make sure that no input element and/or textarea is focused */
-    if (!event.composedPath().some((el: HTMLElement) => IGNORE_KEYPRESS.includes(el.tagName))) {
-      /* Toggle the accessibility panel */
-      if (event.key === 'a') {
-        event.preventDefault();
-        this.accessibility.open = !this.accessibility.open;
-      }
-    }
   }
 
   protected render() {

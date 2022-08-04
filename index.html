@@ -39,12 +39,7 @@
     <arc-icon-button label="Settings" name="settings"></arc-icon-button>
     <arc-sso slot="user" client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
   </arc-navbar>
-  <section id="section" aria-label="Test section">
-    <form>
-      <arc-markdown name="name" minlength="2" maxlength="3" minlines="2" maxlines="3" style="height: 15rem;"></arc-markdown>
-      <arc-button submit>Submit</arc-button>
-    </form>
-  </section>
+  <section id="section" aria-label="Test section"></section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
@@ -52,11 +47,13 @@
   const sso = document.querySelector('arc-sso');
   sso.setAttribute('redirect-uri', window.location.href);
 
-    const form = document.querySelector('form');
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      console.log(form.checkValidity())
-    })
+  const section = document.getElementById('section');
+  section.appendChild(Object.assign(document.createElement('arc-markdown'), {
+    value: '<strong>Hello world</strong>',
+    minlength: 5,
+    required: true,
+    output: 'html'
+  }))
 </script>
 </body>
 </html>

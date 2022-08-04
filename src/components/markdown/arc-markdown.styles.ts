@@ -1,11 +1,13 @@
 import { css } from 'lit';
 import componentStyles from '../../styles/component.styles.js';
-import controlStyles from '../../styles/control.styles.js';
 
 export default [
   componentStyles,
-  controlStyles,
   css`
+    :host {
+      min-height: 8rem;
+    }
+
     #main {
       display: flex;
       flex-direction: column;
@@ -15,8 +17,17 @@ export default [
       position: relative;
     }
 
-    /* Make sure the required input is hidden behind the editor */
-    input {
+    /* Hide the input */
+    #input {
+      cursor: inherit;
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
       z-index: -1;
     }
 
@@ -627,6 +638,7 @@ export default [
     .ql-snow .ql-tooltip {
       position: absolute;
       transform: translateY(10px);
+      left: 0 !important;
     }
 
     .ql-snow .ql-tooltip a {
@@ -762,11 +774,8 @@ export default [
     }
 
     .ql-snow .ql-picker {
-      color: #444;
       display: inline-block;
       float: left;
-      font-size: 14px;
-      font-weight: 500;
       height: 24px;
       position: relative;
       vertical-align: middle;
@@ -788,7 +797,7 @@ export default [
     }
 
     .ql-snow .ql-picker-options {
-      background-color: #fff;
+      background-color: rgb(var(--arc-container-color));
       display: none;
       min-width: 100%;
       padding: 4px var(--arc-spacing-x-small);
@@ -1033,11 +1042,7 @@ export default [
     }
 
     .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
-      border-color: #ccc;
-    }
-
-    .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-      border-color: #ccc;
+      border-color: rgb(var(--arc-color-default));
     }
 
     .ql-toolbar.ql-snow .ql-color-picker .ql-picker-item.ql-selected,
@@ -1065,12 +1070,15 @@ export default [
 
     .ql-snow .ql-tooltip input[type='text'] {
       display: none;
-      border: 1px solid #ccc;
-      font-size: 13px;
-      height: 26px;
-      margin: 0;
-      padding: 3px 5px;
-      width: 170px;
+      outline: none;
+      color: inherit;
+      background-color: transparent;
+      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      padding: var(--arc-spacing-x-small) var(--arc-spacing-normal);
+      line-height: inherit;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
     }
 
     .ql-snow .ql-tooltip a.ql-preview {

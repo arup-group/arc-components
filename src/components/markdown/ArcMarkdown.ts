@@ -39,8 +39,8 @@ export default class ArcMarkdown extends LitElement {
   /** The editor's name attribute. */
   @property() name: string;
 
-  /** The editor's value attribute. */
-  @property() value: string = '';
+  /** The editor's value attribute. Will automatically convert to html. */
+  @property() value: string;
 
   /** Disables the editor. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
@@ -109,6 +109,9 @@ export default class ArcMarkdown extends LitElement {
   }
 
   firstUpdated() {
+    /* If the 'value' attribute contains data, make sure to store this in the editor. */
+    if (this.value) this.editor.innerHTML = this.value;
+
     /* Create a new Quill instance. */
     this._editor = new Quill(this.editor, {
       modules: {
@@ -128,11 +131,12 @@ export default class ArcMarkdown extends LitElement {
     });
 
     this._replaceRange();
+    this._updateStatus();
 
-    /* Listen to changes within the editor */
+    /* Listen to changes within the editor. */
     this._editor.on('text-change', this._handleChange.bind(this));
 
-    /* Check if the editor is valid */
+    /* Check if the editor is valid. */
     this.invalid = !this.checkValidity();
   }
 

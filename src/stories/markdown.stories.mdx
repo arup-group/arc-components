@@ -1,0 +1,59 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Markdown"/>
+
+#ARC markdown
+ARC provides support for Markdown by providing a so called 'WYSIWYG' editor.
+The markdown component uses Guill.js under the hood to provide a powerful rich text editor.
+
+## Usage
+You don't need any build tools to use the ARC markdown component.
+Simply include and add the component in your project, like so:
+```bash
+# index.html
+<body>
+  <div id='app'></div>
+
+  <script type='module'>
+    import '@arc-web/components/dist/components/markdown/arc-markdown.js';
+    const app = document.getElementById('app');
+    app.appendChild(Object.assign('arc-markdown', { ...options }))
+  </script>
+</body>
+```
+
+> **Note**: When used within a framework, the structure might look a bit different from the code example.
+All the available properties of the arc-markdown component can be found in the component's documentation.
+
+## Configuration
+The ARC markdown component allows several ways to customize it to suit your needs.
+This section is dedicated to tweaking existing functionality.
+
+### Toolbar
+To configure the ARC markdown toolbar, pass in any of the following options:
+```bash
+const toolbarOptions = {
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']                                         // remove formatting button
+}
+
+const app = document.getElementById('app');
+app.appendChild(Object.assign('arc-markdown', {
+  toolbar: toolbarOptions
+}))
+```

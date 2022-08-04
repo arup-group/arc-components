@@ -4,10 +4,6 @@ import componentStyles from '../../styles/component.styles.js';
 export default [
   componentStyles,
   css`
-    :host {
-      min-height: 8rem;
-    }
-
     #main {
       display: flex;
       flex-direction: column;
@@ -33,12 +29,14 @@ export default [
 
     #editor {
       height: 100%;
+      min-height: 8rem;
       overflow: auto;
     }
 
     #status {
       display: flex;
       align-self: end;
+      margin-top: var(--arc-spacing-x-small);
       gap: var(--arc-spacing-normal);
       color: rgb(var(--arc-grey-050));
     }
@@ -75,6 +73,7 @@ export default [
     .ql-editor {
       box-sizing: border-box;
       height: 100%;
+      min-height: inherit;
       outline: none;
       overflow-y: auto;
       padding: 12px 15px;

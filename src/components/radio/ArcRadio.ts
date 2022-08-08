@@ -41,6 +41,12 @@ export default class ArcRadio extends LitElement {
   /** Draws the component in a checked state. */
   @property({ type: Boolean, reflect: true }) checked: boolean = false;
 
+  /**
+   * This will be true when the control is in an invalid state. Validity in radios is determined by the message provided
+   * by the `setCustomValidity` method.
+   */
+  @property({ type: Boolean, reflect: true }) invalid = false;
+
   firstUpdated() {
     this.updateComplete.then(() => {
       const radios = this.getAllRadios();
@@ -59,6 +65,14 @@ export default class ArcRadio extends LitElement {
         enabledRadios[0].input.tabIndex = 0;
       }
     });
+  }
+
+  /* Enable/disable the editor when the disabled property changes */
+  @watch('disabled', { waitUntilFirstUpdate: true })
+  handleDisabledChange() {
+    /* Disabled form controls are always valid, so we need to recheck validity when the state changes */
+    this.input.disabled = this.disabled;
+    this.invalid = !this.input.checkValidity();
   }
 
   @watch('checked', { waitUntilFirstUpdate: true })
@@ -106,6 +120,17 @@ export default class ArcRadio extends LitElement {
   /* Removes focus from the radio. */
   blur() {
     this.input.blur();
+  }
+
+  /** Checks for validity and shows the browser's validation message if the control is invalid. */
+  reportValidity() {
+    return this.input.reportValidity();
+  }
+
+  /** Sets a custom validation message. If `message` is not empty, the field will be considered invalid. */
+  setCustomValidity(message: string) {
+    this.input.setCustomValidity(message);
+    this.invalid = !this.input.checkValidity();
   }
 
   /* Handle the click of the radio */
@@ -159,8 +184,8 @@ export default class ArcRadio extends LitElement {
           .value=${ifDefined(this.value || undefined)}
           .checked=${live(this.checked)}
           .disabled=${this.disabled}
-          aria-checked=${this.checked}
-          aria-disabled=${this.disabled}
+          aria-checked=${this.checked ? 'true' : 'false'}
+          aria-disabled=${this.disabled ? 'true' : 'false'}
           @click=${this._handleClick}
         />
         <span id="control">

@@ -110,13 +110,14 @@ export default class ArcSwitch extends LitElement {
         <span id="base">
           <input
             type="checkbox"
-            role="switch"
-            name=${ifDefined(this.name || undefined)}
-            .value=${ifDefined(this.value || undefined)}
+            name=${ifDefined(this.name)}
+            .value=${ifDefined(this.value)}
             .checked=${live(this.checked)}
             .disabled=${this.disabled}
-            aria-checked=${this.checked}
-            aria-disabled=${this.disabled}
+            .required=${this.required}
+            role="switch"
+            aria-checked=${this.checked ? 'true' : 'false'}
+            aria-disabled=${this.disabled ? 'true' : 'false'}
             @click=${this._handleClick}
           />
           <span id="control">

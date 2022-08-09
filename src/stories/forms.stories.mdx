@@ -39,3 +39,18 @@ const data = serialize(form);
 This results in an object with name/value pairs that map to each form control.
 If more than one form control shares the same name, the values will be passed as an array, e.g. `{ name: ['value1', 'value2'] }`.
 
+## Form Control Validation
+Client-side validation can be enabled through the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Constraint_validation) for ARC form controls.
+You can activate it using attributes such as `required`, `minlength` and `maxlength`. ARC implements many of the same attributes as native form controls, but checks each form control's documentation for a list of all supported properties.
+
+As the user interacts with a form control, its `invalid` attribute will reflect its validity based on its current value and the constraints that have been defined.
+When a form control is invalid, the containing form will not be submitted.
+Instead, the browser will show the user a relevant error message.
+
+All form controls support validation, but not all validation props are available for every component.
+Refer to a component's documentation to see which validation props it supports.
+
+## Custom validation
+To create a custom validation error, pass a non-empty string to the `setCustomValidity()` method.
+This will override any existing validation constraints. The form will not be submitted when a custom validity is set and the browser will show a validation error when the containing form is submitted.
+To make the input valid again, call `setCustomValidity()` again with an empty string.

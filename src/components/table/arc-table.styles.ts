@@ -207,7 +207,8 @@ export default [
       color: inherit;
       background-color: transparent;
       border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-      padding: var(--arc-spacing-small) var(--arc-spacing-normal);
+      padding: var(--arc-spacing-x-small) var(--arc-spacing-normal);
+      line-height: inherit;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;

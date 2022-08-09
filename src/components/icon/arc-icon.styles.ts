@@ -5,13 +5,13 @@ export default [
   componentStyles,
   css`
     :host {
-      display: flex;
+      display: inline-flex;
       --icon-color-primary: inherit;
       --icon-color-secondary: currentColor;
     }
 
     #main {
-      display: inline-block;
+      display: block;
       color: var(--icon-color-primary);
       line-height: 1;
       flex-shrink: 0;

@@ -238,7 +238,7 @@ export default class ArcAccessibility extends LitElement {
         <arc-drawer id="drawer" @arc-hide=${this.hide} ?open=${this.open}>
           <div class="label" slot="label">
             <arc-icon name="accessibility" size="large"></arc-icon>
-            <span>Accessibility Controls (A)</span>
+            <span>Accessibility Controls</span>
           </div>
           <div id="wrapper">
             ${map(

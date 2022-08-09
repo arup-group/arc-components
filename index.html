@@ -43,14 +43,5 @@
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
-<script type="module">
-  const sso = document.querySelector('arc-sso');
-  sso.setAttribute('redirect-uri', window.location.href);
-
-  const section = document.getElementById('section');
-  const table = document.createElement('arc-table');
-
-  section.appendChild(Object.assign(table, {}))
-</script>
 </body>
 </html>

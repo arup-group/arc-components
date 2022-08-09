@@ -41,31 +41,17 @@
   </arc-navbar>
   <section id="section" aria-label="Test section">
     <form>
-      <arc-switch name="hungry"></arc-switch>
-      <arc-button submit>Submit</arc-button>
+      <arc-switch name="hungry" required></arc-switch>
+      <arc-button disabled submit>Submit</arc-button>
     </form>
   </section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
-<script type="module">
-  const sso = document.querySelector('arc-sso');
-  sso.setAttribute('redirect-uri', window.location.href);
-
-  const mySwitch = document.querySelector('arc-switch');
-  mySwitch.addEventListener('arc-change', e => {
-    const { checked } = e.target;
-    if (!checked) {
-      e.target.setCustomValidity('This should be checked man!');
-    } else {
-      e.target.setCustomValidity('');
-    }
-  })
-
-  const form = document.querySelector('form');
+<script type="module">const form = document.querySelector('form');
   form.addEventListener('submit', e => {
     e.preventDefault();
-    console.log(form.checkValidity());
+    console.log('Submitted');
   })
 </script>
 </body>

@@ -11,7 +11,7 @@
 
 ## 1. WebComponents
 
-ARC is built using [LIT](https://lit.dev/) web components and are built on top of the Web Components standards.
+ARC is built using [LIT](https://lit.dev/) web components and is built on top of the Web Components standards.
 Every component is a native web component, with the power of interoperability.
 Web components work anywhere you use HTML, with any framework, or none at all.
 This makes using ARC ideal for building shareable components, or maintainable, future-ready sites and apps.
@@ -128,13 +128,13 @@ Playing around with these components will promote the use of the components, and
 > **Note**: Storybook works well with web-components, but it lacks a massive amount of documentation.
 > Take a close look at the different components and how their `stories` are defined.
 
-By default, the `yarn run create` script creates a `.stories.ts` file. This file contains:
-- An export of the title of the component (this is shown in the sidebar on the left-hand side)
-- A reference to the component. This is needed to read the properties from the component and create the properties table
-- A template that renders the story with given properties
+By default, the `yarn run create` script creates a `.stories.ts` file, which contains:
+- An export of the title of the component (this is shown in the sidebar on the left-hand side).
+- A reference to the component. This is needed to read the properties from the component and create the properties table.
+- A template that renders the story with given properties.
 - One (or multiple) exports. Each export (i.e. export const Default) creates a separate story that a user can play around with.
-- Out-of-the box creation of a properties table
-- Out-of-the-box creation of code examples within the `Docs` tab
+- Out-of-the box creation of a properties table.
+- Out-of-the-box creation of code examples within the `Docs` tab.
 
 ### Best practices
 In general, there are two ways to create a story.
@@ -145,18 +145,48 @@ When a component is relying on third party software (i.e. the arc-table componen
 A good example of a Story that is heavily relying on third party software can be found in components like:
 - arc-table.stories.ts
 
-In the arc-table component, the underlying third party software `GridJS` has an internal state.
+In the arc-table component, the underlying third party software `GridJS` has an internal state that requires updating.
 This state should not be updated based on property changes within the `arc-table` component.
-To allow Storybook to work nicely with these kinds of components, the template can be used to return an Object instead of an html template.
+To allow Storybook to work nicely with these kinds of components, the template can be used to return an Object instead of an `html` template.
+
+```bash
+  const Template: Story<ComponentName> = (args: any) => Object.assign(document.createElement(ComponentName.tag), args);
+```
+
+This ensures that Storybook will re-render the component, causing the underlying third party software to work as expected.
+
+> **Note**: Using the above approach might seem like the fastest and perhaps cleanest way of writing your documentation.
+> However, creating a story this way creates useless code examples in the `Docs` tab.
+> Make sure to only use this approach when re-rendering the component in Storybook cannot be achieved in any other way.
 
 ### Updating the component
 Storybook does NOT refresh/update the component on every change entirely.
-A 're-render' will happen when a component when if-else constructors are being used in the Storybook template.
-Wrapping each property in an if-else constructors might become tedious and make your code look very unorganized.
+The component itself is responsible for showing the changes.
+A 're-render' will happen however when a story uses if-else constructors in the Storybook template.
 
-Good examples of enforcing this refresh to happen can be found in components like:
+```bash
+  const Template: Story<ArcComponent> = ({ prop1, prop2 }) => html`
+    ${prop1 ? hml`
+      <arc-component
+        prop1=${prop1}
+      ></arc-component>
+    ` : html`
+      <arc-component
+        prop2=${prop2}
+      ></arc-component>
+    `}
+  `;
+```
+
+Wrapping each property in an if-else constructors might become tedious and make your code look very unorganized and unreadable.
+
+Good examples of enforcing a refresh to happen can be found in components like:
 - arc-button.stories.ts
 - arc-sso.stories.ts
+
+Notice the use if the `ifDefined` LIT directive.
+This directive sets the attribute if the value is defined and removes the attribute if the value is undefined.
+This ensures that the code examples within the `Docs` tab work nicely.
 
 ## 6. Iconography
 ARC uses [Nucleo](https://nucleoapp.com/) to keep track of the available icons and make an easy export of them.

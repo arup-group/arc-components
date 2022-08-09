@@ -39,20 +39,9 @@
     <arc-icon-button label="Settings" name="settings"></arc-icon-button>
     <arc-sso slot="user" client-id="b4a4c03f-4915-42db-aa79-d49a650974c2" tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"></arc-sso>
   </arc-navbar>
-  <section id="section" aria-label="Test section">
-    <form>
-      <arc-switch name="hungry" required></arc-switch>
-      <arc-button disabled submit>Submit</arc-button>
-    </form>
-  </section>
+  <section id="section" aria-label="Test section"></section>
 </arc-container>
 
 <script type="module" src="out-tsc/arc.js" data-arc="/"></script>
-<script type="module">const form = document.querySelector('form');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    console.log('Submitted');
-  })
-</script>
 </body>
 </html>

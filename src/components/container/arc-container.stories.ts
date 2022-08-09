@@ -41,12 +41,12 @@ const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
         </arc-sidebar>
       `
     )}
-    <div style="padding: var(--arc-spacing-medium)">
+    <div style="padding: var(--arc-spacing-normal)">
       <p>The default logoutRedirect method does not work within an iframe.</p>
-      <p>To work around this behaviour, use the 'hacky logout button' to sign out instead.</p>
+      <p>To work around this behaviour, use the 'logout button' below to sign out instead.</p>
 
       <arc-button style="justify-self: flex-start" onClick="localStorage.clear(); location.reload();"
-        >Hacky logout button</arc-button
+        >Logout</arc-button
       >
     </div>
   </arc-container>

@@ -67,9 +67,9 @@ const Template: Story<ArcIcon> = ({ name, label, size, rotation }) => html`
 
 const ColorTemplate: Story<ArcIcon> = () => html`
   <div style="display: flex;">
-    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-red-060))"></arc-icon>
-    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-blue-060))"></arc-icon>
-    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-green-060))"></arc-icon>
+    <arc-icon size="large" style="color: rgb(var(--arc-red-060))"></arc-icon>
+    <arc-icon size="large" style="color: rgb(var(--arc-blue-060))"></arc-icon>
+    <arc-icon size="large" style="color: rgb(var(--arc-green-060))"></arc-icon>
   </div>
 `;
 

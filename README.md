@@ -14,7 +14,7 @@
    2. Forms
    3. FOUC
 
-# Quick start
+# 1. Quick start
 Add the following code to your page, where @x.x.x stands for the version of @arc-web/components.
 
 ```bash
@@ -29,7 +29,7 @@ Now you have access to all the ARC components.
 > **Note**: This will load all the ARC components, but you should probably only load the ones you're actually using.
 > Continue reading to learn how to cherry-pick ARC components and for other ways to install ARC.
 
-# Installation
+# 2. Installation
 
 You can use ARC by installing it locally.
 You can also cherry-pick individual components for faster load times.
@@ -340,7 +340,7 @@ Component modules include side effects for registration purposes.
 Because of this, importing directly from @arc-web/components may result in a larger bundle size than necessary. 
 For optimal tree shaking, always cherry-pick, i.e. import components and utilities from their respective files, as shown in the examples above.
 
-# TypeScript
+# 3. TypeScript
 
 TypeScript cannot type check the ARC component templates due to it not knowing how to find the CustomElement class reference for the associated tag. 
 You can add the tag(s) to the JSX.IntrinsicElements global interface, which will associate the tag to the class reference.
@@ -364,7 +364,7 @@ declare global {
 Add each component into the interface like shown above.
 More on this can be found on: https://coryrylan.com/blog/how-to-use-web-components-with-typescript-and-react
 
-# Useful utilities
+# 4. Useful utilities
 ## Setting the Base Path
 
 Some components rely on assets and ARC needs to know where they're located.

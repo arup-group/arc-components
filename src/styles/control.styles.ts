@@ -1,3 +1,16 @@
+/*
+The control styles are used for (but are not limited to) form-controls such as the arc-switch and the arc-radio.
+The approach comes from MUI, where the native input element is wrapped inside a label.
+The native input element is hidden and the elements with id #control and #label are the only visible elements in the browser.
+<label>
+  <span id="base">
+    <input>
+    <span id="control"></span>
+  </span>
+  <span id="label"></span>
+</label>
+*/
+
 import { css } from 'lit';
 
 export default css`

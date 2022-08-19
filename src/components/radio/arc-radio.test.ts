@@ -263,6 +263,7 @@ describe('ArcRadio', () => {
   /* Test form submission */
   describe('form-controls', () => {
     let form: HTMLFormElement;
+    let firstRadio: ArcRadio;
     let submitBtn: ArcButton;
     const submitSpy: SinonSpy = sinon.spy();
 
@@ -277,6 +278,7 @@ describe('ArcRadio', () => {
           <arc-button submit>Submit</arc-button>
         </form>
       `);
+      firstRadio = form.querySelector('arc-radio') as ArcRadio;
       submitBtn = form.querySelector('arc-button')!;
     });
 
@@ -297,6 +299,14 @@ describe('ArcRadio', () => {
 
       await waitUntil(() => submitSpy.calledOnce);
       form.removeEventListener('submit', formSubmit);
+    });
+
+    it('prevents submitting the form when the setCustomValidity is defined', async () => {
+      firstRadio.setCustomValidity('Custom invalid text');
+      await elementUpdated(firstRadio);
+
+      submitBtn.click();
+      expect(submitSpy).to.not.been.calledOnce;
     });
   });
 

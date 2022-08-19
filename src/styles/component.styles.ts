@@ -1,3 +1,9 @@
+/*
+Every ARC component should import these styles.
+This will make the components work much better on the page due to properties like box-sizing: border-box.
+It also ensures that all components have the proper scrollbar and are hidden when the `hidden` property is set.
+*/
+
 import { css } from 'lit';
 
 export default css`

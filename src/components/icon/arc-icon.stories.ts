@@ -25,7 +25,11 @@ const AllTemplate: Story = () =>
   html`
     <p>This is a list of all the available icons within the component library.</p>
     <p>Click on an icon to copy the code to your clipboard!</p>
-    <div id="container">${Object.values(ICON_TYPES).map(icon => html`<arc-icon name=${icon}></arc-icon>`)}</div>
+    <div id="container">
+      ${Object.values(ICON_TYPES).map(
+        icon => html`<arc-tooltip content=${icon}><arc-icon name=${icon}></arc-icon></arc-tooltip>`
+      )}
+    </div>
     <style>
       #container {
         width: 50%;
@@ -33,6 +37,10 @@ const AllTemplate: Story = () =>
         grid-template-columns: repeat(auto-fit, minmax(min(max(100% / 8 - 1rem, 1rem), 100%), 1fr));
         grid-auto-rows: max-content;
         gap: 1rem;
+      }
+
+      arc-icon {
+        justify-self: center;
       }
     </style>
     <script>
@@ -59,9 +67,9 @@ const Template: Story<ArcIcon> = ({ name, label, size, rotation }) => html`
 
 const ColorTemplate: Story<ArcIcon> = () => html`
   <div style="display: flex;">
-    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-red-060))"></arc-icon>
-    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-blue-060))"></arc-icon>
-    <arc-icon size="large" style="--icon-color-primary: rgb(var(--arc-green-060))"></arc-icon>
+    <arc-icon size="large" style="color: rgb(var(--arc-red-060))"></arc-icon>
+    <arc-icon size="large" style="color: rgb(var(--arc-blue-060))"></arc-icon>
+    <arc-icon size="large" style="color: rgb(var(--arc-green-060))"></arc-icon>
   </div>
 `;
 

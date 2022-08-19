@@ -87,6 +87,7 @@ export default class ArcButton extends LitElement {
     if (this.disabled || this.loading) {
       event.preventDefault();
       event.stopPropagation();
+      return;
     }
 
     /* Submit the surrounding form with the formSubmitController class. */

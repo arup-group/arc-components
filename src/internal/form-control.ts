@@ -87,9 +87,8 @@ export class FormController implements ReactiveController {
   Instead, we can inject a native submit button into the form, click it, then remove it to simulate a standard form submission.
   */
   submit() {
-    const button = document.createElement('button');
-
     if (this.form) {
+      const button = document.createElement('button');
       this.form.append(button);
       button.click();
       button.remove();

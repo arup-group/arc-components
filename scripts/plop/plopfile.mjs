@@ -1,3 +1,15 @@
+/*
+This file is used to run a set of actions when running the `yarn run create` script.
+Each action in the setGenerator method adds or modifies a file.
+The current actions include:
+ - Adding a web-component (templates/component.hbs)
+ - Adding a web-component registry, following the open-web approach (templates/registry.hbs)
+ - Adding a test file (templates/test.hbs)
+ - Adding a story file (templates/story.hbs)
+ - Adding a style file (templates/styles.hbs)
+ - Add import statement to the arc.ts file (src/arc.ts)
+ - Add export statement to the arc.ts file (src/arc.ts)
+*/
 export default function (plop) {
   plop.setHelper('tagWithoutPrefix', tag => tag.replace(/^arc-/, ''));
 

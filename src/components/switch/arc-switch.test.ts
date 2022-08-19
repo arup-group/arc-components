@@ -32,22 +32,16 @@ describe('ArcSwitch', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
-    it('renders the element with a custom name, value, disabled and checked property', async () => {
-      const element: ArcSwitch = await fixture(
-        html`<arc-switch name="testName" value="testVal" disabled checked></arc-switch>`
-      );
-
+    it('renders the element with a custom name property', async () => {
+      const element: ArcSwitch = await fixture(html`<arc-switch name="testName"></arc-switch>`);
       expect(element.name).to.equal('testName');
       expect(element.getAttribute('name')).to.equal('testName');
+    });
 
+    it('renders the element with a custom value property', async () => {
+      const element: ArcSwitch = await fixture(html`<arc-switch value="testVal"></arc-switch>`);
       expect(element.value).to.equal('testVal');
       expect(element.getAttribute('value')).to.equal('testVal');
-
-      expect(element.disabled).to.be.true;
-      expect(element.hasAttribute('disabled')).to.be.true;
-
-      expect(element.checked).to.be.true;
-      expect(element.hasAttribute('checked')).to.be.true;
     });
   });
   /* Test different component states (checked, disabled, etc.) */
@@ -82,6 +76,28 @@ describe('ArcSwitch', () => {
       expect(element.disabled).to.be.true;
       expect(element.hasAttribute('disabled')).to.be.true;
       expect(input.getAttribute('aria-disabled')).to.equal('true');
+    });
+
+    it('renders the component in a required state', async () => {
+      expect(element.required).to.be.false;
+      expect(element.hasAttribute('required')).to.be.false;
+      expect(input.hasAttribute('required')).to.be.false;
+
+      element.required = true;
+      await elementUpdated(element);
+      expect(element.required).to.be.true;
+      expect(element.hasAttribute('required')).to.be.true;
+      expect(input.hasAttribute('required')).to.be.true;
+    });
+
+    it('renders the component in an invalid state', async () => {
+      expect(element.invalid).to.be.false;
+      expect(element.hasAttribute('invalid')).to.be.false;
+
+      element.invalid = true;
+      await elementUpdated(element);
+      expect(element.invalid).to.be.true;
+      expect(element.hasAttribute('invalid')).to.be.true;
     });
   });
 
@@ -147,6 +163,7 @@ describe('ArcSwitch', () => {
   /* Test form submission */
   describe('form-controls', () => {
     let form: HTMLFormElement;
+    let firstSwitch: ArcSwitch;
     let submitBtn: ArcButton;
     const submitSpy: SinonSpy = sinon.spy();
 
@@ -158,6 +175,7 @@ describe('ArcSwitch', () => {
           <arc-button submit>Submit</arc-button>
         </form>
       `);
+      firstSwitch = form.children[0] as ArcSwitch;
       submitBtn = form.querySelector('arc-button')!;
     });
 
@@ -179,6 +197,23 @@ describe('ArcSwitch', () => {
 
       await waitUntil(() => submitSpy.calledOnce);
       form.removeEventListener('submit', formSubmit);
+    });
+
+    it('prevents submitting the form when the radio is invalid', async () => {
+      firstSwitch.checked = false;
+      firstSwitch.required = true;
+      await elementUpdated(firstSwitch);
+
+      submitBtn.click();
+      expect(submitSpy).to.not.been.calledOnce;
+    });
+
+    it('prevents submitting the form when the setCustomValidity is defined', async () => {
+      firstSwitch.setCustomValidity('Custom invalid text');
+      await elementUpdated(firstSwitch);
+
+      submitBtn.click();
+      expect(submitSpy).to.not.been.calledOnce;
     });
   });
 

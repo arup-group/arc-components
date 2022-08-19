@@ -18,12 +18,17 @@ export default {
 const Template: Story<ArcAccessibility> = () => html`
   <arc-container>
     <arc-navbar slot="nav"></arc-navbar>
-    <p>Press the <code class="code-block">a</code> key to toggle the built-in accessibility.</p>
-    <p>Change your personal preferences by making a selection within the accessibility panel.</p>
-    <p>
-      Check the arc-accessibility-change event being fired inside the <code class="code-block">Actions</code> tab
-      whenever a change is made.
-    </p>
+    <div style="padding: var(--arc-spacing-normal)">
+      <p>Hi there!</p>
+      <p>
+        You can click on the <arc-icon name="accessibility"></arc-icon> icon in the navbar to change your personal
+        preferences.
+      </p>
+      <p>
+        Check the arc-accessibility-change event being fired inside the <code class="code-block">Actions</code> tab
+        whenever a change is made.
+      </p>
+    </div>
   </arc-container>
 `;
 

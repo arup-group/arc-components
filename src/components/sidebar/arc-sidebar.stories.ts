@@ -50,11 +50,13 @@ const Template: Story = ({ customLabel, open }) => html`
         </arc-menu-item>
       </arc-menu>
     </arc-sidebar>
-    <p>
-      When using the <code class="code-block">fullscreen</code> property, the
-      <code class="code-block">arc-sidebar</code> component should not be used.
-    </p>
-    <p>The <code class="code-block">arc-drawer</code> component could be used instead.</p>
+    <div style="padding: var(--arc-spacing-normal)">
+      <p>
+        When using the <code class="code-block">fullscreen</code> property, the
+        <code class="code-block">arc-sidebar</code> component should not be used.
+      </p>
+      <p>The <code class="code-block">arc-drawer</code> component could be used instead.</p>
+    </div>
   </arc-container>
 `;
 

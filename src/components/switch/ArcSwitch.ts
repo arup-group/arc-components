@@ -5,6 +5,7 @@ import { live } from 'lit/directives/live.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { emit } from '../../internal/event.js';
 import { FormController } from '../../internal/form-control.js';
+import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import styles from './arc-switch.styles.js';
 
@@ -37,8 +38,32 @@ export default class ArcSwitch extends LitElement {
   /** Draws the component in a disabled state. */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
+  /** Makes the switch a required field. */
+  @property({ type: Boolean, reflect: true }) required = false;
+
   /** Draws the component in a checked state. */
   @property({ type: Boolean, reflect: true }) checked: boolean = false;
+
+  /** This will be true when the control is in an invalid state. Validity is determined by the `required` prop. */
+  @property({ type: Boolean, reflect: true }) invalid = false;
+
+  /* Enable/disable the editor when the disabled property changes */
+  @watch('disabled', { waitUntilFirstUpdate: true })
+  handleDisabledChange() {
+    /* Disabled form controls are always valid, so we need to recheck validity when the state changes */
+    this.input.disabled = this.disabled;
+    this.invalid = !this.input.checkValidity();
+  }
+
+  @watch('checked', { waitUntilFirstUpdate: true })
+  handleCheckedChange() {
+    this.input.checked = this.checked;
+    this.invalid = !this.input.checkValidity();
+  }
+
+  firstUpdated() {
+    this.invalid = !this.input.checkValidity();
+  }
 
   /* Simulates a click on the switch. */
   click() {
@@ -53,6 +78,17 @@ export default class ArcSwitch extends LitElement {
   /* Removes focus from the switch. */
   blur() {
     this.input.blur();
+  }
+
+  /** Checks for validity and shows the browser's validation message if the control is invalid. */
+  reportValidity() {
+    return this.input.reportValidity();
+  }
+
+  /** Sets a custom validation message. If `message` is not empty, the field will be considered invalid. */
+  setCustomValidity(message: string) {
+    this.input.setCustomValidity(message);
+    this.invalid = !this.input.checkValidity();
   }
 
   /* Handle the click of the switch */
@@ -74,13 +110,14 @@ export default class ArcSwitch extends LitElement {
         <span id="base">
           <input
             type="checkbox"
-            role="switch"
-            name=${ifDefined(this.name || undefined)}
-            .value=${ifDefined(this.value || undefined)}
+            name=${ifDefined(this.name)}
+            .value=${ifDefined(this.value)}
             .checked=${live(this.checked)}
             .disabled=${this.disabled}
-            aria-checked=${this.checked}
-            aria-disabled=${this.disabled}
+            .required=${this.required}
+            role="switch"
+            aria-checked=${this.checked ? 'true' : 'false'}
+            aria-disabled=${this.disabled ? 'true' : 'false'}
             @click=${this._handleClick}
           />
           <span id="control">

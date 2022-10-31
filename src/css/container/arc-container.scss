@@ -1,0 +1,48 @@
+@use '../utils/arc-component' as arc-component;
+@use '../utils/constants' as constants;
+@use 'themes' as themes;
+
+/* ARC CONTAINER */
+.arc-container {
+  @extend %arc-component;
+
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  flex: 1 1 100%;
+  overflow: hidden;
+  gap: 0;
+  padding: 0;
+  background-color: rgb(var(--arc-background-color));
+  color: rgb(var(--arc-font-color));
+
+  @media (min-width: constants.$mobileBreakpoint) {
+    .arc-bottombar {
+      display: none;
+    }
+  }
+
+  /* CHILD STYLES */
+  &--content {
+    flex: 1 1 100%;
+    overflow: hidden;
+    background-color: rgb(var(--arc-container-color));
+  }
+
+  &:not(&--fullscreen) &--content {
+    @media (min-width: constants.$mobileBreakpoint) {
+      margin: var(--arc-spacing-normal) var(--arc-spacing-medium);
+    }
+  }
+
+  /* THEMES */
+  &[theme='dark'] {
+    @include themes.dark;
+  }
+
+  &[theme='auto'] {
+    @media (prefers-color-scheme: dark) {
+      @include themes.dark;
+    }
+  }
+}

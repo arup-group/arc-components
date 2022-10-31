@@ -1,0 +1,56 @@
+@use '../utils/arc-component' as arc-component;
+
+/* ARC SPINNER */
+.arc-spinner {
+  @extend %arc-component;
+
+  /* VARIABLES */
+  --arc-spinner--indicator-color: rgb(var(--arc-font-color));
+  --arc-spinner--track-color: rgba(var(--arc-grey-050), 0.3);
+
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  flex: 1 1 auto;
+
+  /* CHILD STYLES */
+  &--track,
+  &--indicator {
+    fill: none;
+    stroke-width: 2px;
+    cx: 0.5em;
+    cy: 0.5em;
+    r: calc(0.5em - 2px / 2);
+    transform-origin: 50% 50%;
+  }
+
+  &--track {
+    stroke: var(--arc-spinner--track-color);
+    transform-origin: 0 0;
+  }
+
+  &--indicator {
+    stroke: var(--arc-spinner--indicator-color);
+    stroke-linecap: round;
+    transform-origin: 50% 50%;
+    transform: rotate(90deg);
+    animation: spin 2.5s linear infinite;
+
+    @keyframes spin {
+      0% {
+        stroke-dasharray: 0.2em 3em;
+        transform: rotate(0deg);
+      }
+
+      50% {
+        stroke-dasharray: 2.2em 3em;
+        transform: rotate(450deg);
+      }
+
+      100% {
+        stroke-dasharray: 0.2em 3em;
+        transform: rotate(1080deg);
+      }
+    }
+  }
+}

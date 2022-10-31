@@ -1,0 +1,51 @@
+@use '../utils/arc-component' as arc-component;
+
+/* ARC CHIP */
+.arc-chip {
+  @extend %arc-component;
+
+  /* VARIABLES */
+  --arc-chip--size: var(--arc-input-height-medium);
+
+  display: inline-flex;
+  border: none;
+  border-radius: var(--arc-chip--size);
+  outline: 0;
+  max-width: 100%;
+  height: var(--arc-chip--size);
+  padding: 0 var(--arc-spacing-small);
+  background: rgb(var(--arc-color-default));
+  cursor: default;
+  user-select: none;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  gap: var(--arc-spacing-small);
+  white-space: nowrap;
+  font-size: var(--arc-font-size-small);
+  text-decoration: none;
+
+  /* TYPES - DEFAULT FILLED */
+  &--type-filled {
+    background-color: rgb(var(--arc-color-default));
+    border: none;
+  }
+
+  &--type-outlined {
+    background-color: transparent;
+    border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+  }
+
+  /* SIZES - DEFAULT MEDIUM */
+  &--size-small {
+    --arc-chip--size: var(--arc-input-height-small);
+  }
+
+  &--size-medium {
+    --arc-chip--size: var(--arc-input-height-medium);
+  }
+
+  &--size-large {
+    --arc-chip--size: var(--arc-input-height-large);
+  }
+}

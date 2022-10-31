@@ -1,0 +1,73 @@
+@use '../utils/arc-component' as arc-component;
+
+/* ARC ICON */
+.arc-icon {
+  @extend %arc-component;
+
+  /* VARIABLES */
+  --arc-icon--color: currentcolor;
+  --arc-icon--size: var(--arc-font-size-medium);
+
+  display: block;
+  max-width: initial;
+  width: var(--arc-icon--size);
+  height: var(--arc-icon--size);
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--arc-icon--color);
+
+  use {
+    fill: var(--arc-icon--color);
+    stroke: var(--arc-icon--color);
+    --icon-stroke-linecap-butt: butt;
+    stroke-miterlimit: 10;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  /* SIZES - DEFAULT MEDIUM */
+  &--size-xx-small {
+    width: var(--arc-font-size-xx-small);
+    height: var(--arc-font-size-xx-small);
+  }
+
+  &--size-x-small {
+    width: var(--arc-font-size-x-small);
+    height: var(--arc-font-size-x-small);
+  }
+
+  &--size-small {
+    width: var(--arc-font-size-small);
+    height: var(--arc-font-size-small);
+  }
+
+  &--size-medium {
+    width: var(--arc-font-size-medium);
+    height: var(--arc-font-size-medium);
+  }
+
+  &--size-large {
+    width: var(--arc-font-size-large);
+    height: var(--arc-font-size-large);
+  }
+
+  &--size-x-large {
+    width: var(--arc-font-size-x-large);
+    height: var(--arc-font-size-x-large);
+  }
+
+  &--size-xx-large {
+    width: var(--arc-font-size-xx-large);
+    height: var(--arc-font-size-xx-large);
+  }
+
+  &--size-xxx-large {
+    width: var(--arc-font-size-xxx-large);
+    height: var(--arc-font-size-xxx-large);
+  }
+
+  &--size-xxxx-large {
+    width: var(--arc-font-size-xxxx-large);
+    height: var(--arc-font-size-xxxx-large);
+  }
+}

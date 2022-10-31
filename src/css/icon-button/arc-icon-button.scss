@@ -1,0 +1,79 @@
+@use '../utils/arc-component' as arc-component;
+
+/* ARC ICON BUTTON */
+.arc-icon-button {
+  @extend %arc-component;
+
+  /* VARIABLES */
+  --arc-icon--color: rgb(var(--arc-font-color));
+
+  display: grid;
+  align-content: center;
+  text-align: center;
+  border: none;
+  vertical-align: middle;
+  padding: 0;
+  background: none;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  font-family: var(--arc-font-button);
+  color: var(--icon-color);
+  text-decoration: none;
+  line-height: inherit;
+
+  /* CHILD STYLES */
+  &--icon {
+    padding: var(--arc-spacing-small);
+    border-radius: 50%;
+  }
+
+  &--action {
+    font-size: var(--arc-font-size-xx-small);
+    margin-top: -0.2rem;
+  }
+
+  &--loader {
+    display: none;
+  }
+
+  /* ACTIVE STATE */
+  &--active {
+    border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
+  }
+
+  &:not(&--disabled):not(&--loading):active &--icon {
+    background-color: rgba(var(--arc-font-color), 30%);
+  }
+
+  /* DISABLED STATE */
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* LOADING STATE */
+  &--loading {
+    cursor: wait;
+  }
+
+  &--loading &--icon {
+    visibility: hidden;
+  }
+
+  &--loading &--loader {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* HOVER STATE */
+  &:not(&--disabled):not(&--loading):hover &--icon,
+  &:not(&--disabled):not(&--loading):focus-visible &--icon {
+    background-color: rgba(var(--arc-font-color), 10%);
+  }
+}

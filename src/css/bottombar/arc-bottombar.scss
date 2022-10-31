@@ -1,0 +1,13 @@
+@use '../utils/arc-component' as arc-component;
+
+/* ARC BOTTOMBAR */
+.arc-bottombar {
+  @extend %arc-component;
+
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--arc-spacing-medium);
+  background-color: rgb(var(--arc-background-color));
+}

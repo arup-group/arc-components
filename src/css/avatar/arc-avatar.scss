@@ -1,0 +1,48 @@
+@use '../utils/arc-component' as arc-component;
+
+/* ARC AVATAR */
+.arc-avatar {
+  @extend %arc-component;
+
+  /* VARIABLES */
+  --arc-avatar--size: 3rem;
+
+  display: inline-block;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  position: relative;
+  width: var(--arc-avatar--size);
+  height: var(--arc-avatar--size);
+  color: rgb(var(--arc-grey-000));
+  background-color: rgb(var(--arc-grey-050));
+  overflow: hidden;
+  user-select: none;
+
+  /* CHILD STYLES */
+  &--image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  &--initial {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: calc(var(--arc-avatar--size) * 0.4);
+    line-height: 1;
+  }
+
+  &--icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    --arc-icon--size: calc(var(--arc-avatar--size) * 0.4) !important;
+  }
+}

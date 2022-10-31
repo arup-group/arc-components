@@ -1,0 +1,62 @@
+@use '../utils/arc-component' as arc-component;
+@use '../utils/constants' as constants;
+
+/* ARC NAVBAR */
+.arc-navbar {
+  @extend %arc-component;
+
+  display: grid;
+  grid-auto-flow: column;
+  width: 100%;
+  height: 3.5rem;
+  z-index: 1;
+  padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
+  background-color: rgb(var(--arc-container-color));
+  box-shadow: var(--arc-box-shadow);
+  user-select: none;
+
+  /* CHILD STYLES */
+  &--left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &--left &--tool-logo {
+    height: var(--arc-brand-height);
+    width: auto;
+  }
+
+  &--left &--tool-name {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &--left &--tool-logo + &--tool-name {
+    display: none;
+  }
+
+  &--right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--arc-spacing-medium);
+  }
+
+  &--right &--tabs {
+    display: none;
+    grid-auto-flow: column;
+    height: 100%;
+
+    @media (min-width: constants.$mobileBreakpoint) {
+      display: grid;
+    }
+  }
+
+  &--right &--company-logo {
+    height: var(--arc-brand-height);
+    width: auto;
+  }
+}

@@ -93,40 +93,39 @@ import '@arc-web/components/dist/components/container/arc-container.js';
 ```
 
 ### React
-#### Example at: https://github.com/jasperwieringa/arc-react-test
-```bash
-# index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
 
-import '@arc-web/components/dist/themes/index.css';
-import '@arc-web/components/dist/themes/light.css';
-import '@arc-web/components/dist/themes/dark.css';
-
-# Set the base path to the folder you copied ARC's assets to
-import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
-setBasePath('/path/to/arc/');
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App theme={'dark'} />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+#### index.js
+```diff
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import App from './components/App';
+  
++ import '@arc-web/components/dist/themes/index.css';
++ import '@arc-web/components/dist/themes/light.css';
++ import '@arc-web/components/dist/themes/dark.css';
+  
++ import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
++ setBasePath('/path/to/arc/');
+  
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  );
 ```
 
-```bash
-# App.js
-import '@arc-web/components/dist/components/container/arc-container.js';
+#### components/app.js
+```diff
++ import { ArcContainer } '@arc-web/components/dist/components/container/react';
 
-function App(props) {
+  function App(props) {
     return (
-        <arc-container theme={props.theme}></arc-container>
+-     <div>app works</div>
++     <ArcContainer></ArcContainer>
     );
-}
+  }
 
-export default App;
+  export default App;
 ```
 
 ### NextJS

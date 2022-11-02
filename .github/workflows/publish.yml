@@ -11,11 +11,8 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Install Yarn
-        uses: borales/actions-yarn@v3.0.0
-
       - name: Install node_modules
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Build ARC
         run: sudo yarn run build

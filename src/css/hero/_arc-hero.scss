@@ -1,0 +1,49 @@
+@use '../utils/arc-component' as arc-component;
+@use '../utils/constants' as constants;
+
+/* ARC HERO */
+.arc-hero {
+  @extend %arc-component;
+
+  --arc-hero--content-gap: 5rem;
+
+  display: grid;
+  align-content: start;
+  grid-auto-columns: 1fr;
+  gap: var(--arc-hero--content-gap);
+  padding: var(--arc-spacing-banner) var(--arc-spacing-medium);
+  height: auto;
+
+  @media (min-width: constants.$mobileBreakpoint) {
+    padding: var(--arc-spacing-banner);
+    grid-auto-flow: column;
+    align-content: normal;
+  }
+
+  /* STATES */
+  &--fullscreen {
+    height: 100%;
+  }
+
+  /* CHILD STYLES */
+  &--copy {
+    font-size: inherit;
+  }
+
+  &--content {
+    padding: 0;
+    font-size: var(--arc-font-size-x-large) !important;
+    font-family: var(--arc-font-headline);
+    font-weight: var(--arc-font-weight-normal);
+  }
+
+  &--copy &--title, &--content {
+    font-size: var(--arc-font-size-xxxx-large);
+    word-break: break-word;
+    margin: 0;
+  }
+
+  &--copy &--subtitle {
+    font-size: inherit;
+  }
+}

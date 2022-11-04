@@ -14,7 +14,7 @@
           <svg class="arc-icon">
             <use href="/assets/icons.svg#arc-accessibility" />
           </svg>
-          </span>
+        </span>
       </button>
     </nav>
     <svg
@@ -48,16 +48,11 @@
 ```html
 <header class="arc-navbar">
   <div class="arc-navbar--left">
-    <svg class="arc-navbar--tool-logo">
-      ...
-    </svg>
+    <svg class="arc-navbar--tool-logo">...</svg>
   </div>
-  <div class="arc-navbar--right">
-    ...
-  </div>
+  <div class="arc-navbar--right">...</div>
 </header>
 ```
-
 
 ### Adding Tabs
 

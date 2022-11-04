@@ -10,8 +10,8 @@
   </div>
   <div class="arc-hero--content">
     <!--  CONTENT EXAMPLE -->
-      <button class="arc-button arc-button--color-primary">Call To Action</button>
-    <!--  CONTENT EXAMPLE --> 
+    <button class="arc-button arc-button--color-primary">Call To Action</button>
+    <!--  CONTENT EXAMPLE -->
   </div>
 </header>
 ```

@@ -16,7 +16,7 @@
 ```html
 <svg class="arc-spinner" style="--arc-spinner--track-color: rgb(var(--arc-blue-050));">
   <circle class="arc-spinner--track" />
-  <circle class="arc-spinner--indicator" /> 
+  <circle class="arc-spinner--indicator" />
 </svg>
 ```
 
@@ -25,6 +25,6 @@
 ```html
 <svg class="arc-spinner" style="--arc-spinner--indicator-color: rgb(var(--arc-blue-050));">
   <circle class="arc-spinner--track" />
-  <circle class="arc-spinner--indicator" /> 
+  <circle class="arc-spinner--indicator" />
 </svg>
 ```

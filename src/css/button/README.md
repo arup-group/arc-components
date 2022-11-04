@@ -55,12 +55,12 @@
 ### Color
 
 ```html
-  <button class="arc-button arc-button--color-primary">primary</button>
-  <button class="arc-button arc-button--color-secondary">primary</button>
-  <button class="arc-button arc-button--color-error">primary</button>
-  <button class="arc-button arc-button--color-warning">primary</button>
-  <button class="arc-button arc-button--color-info">primary</button>
-  <button class="arc-button arc-button--color-success">primary</button>
+<button class="arc-button arc-button--color-primary">primary</button>
+<button class="arc-button arc-button--color-secondary">primary</button>
+<button class="arc-button arc-button--color-error">primary</button>
+<button class="arc-button arc-button--color-warning">primary</button>
+<button class="arc-button arc-button--color-info">primary</button>
+<button class="arc-button arc-button--color-success">primary</button>
 ```
 
 > `arc-button--type-tab` is not compatible with `arc-button--color-{color}`.

@@ -37,7 +37,8 @@
     font-weight: var(--arc-font-weight-normal);
   }
 
-  &--copy &--title, &--content {
+  &--copy &--title,
+  &--content {
     font-size: var(--arc-font-size-xxxx-large);
     word-break: break-word;
     margin: 0;

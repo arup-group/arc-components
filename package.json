@@ -5,9 +5,19 @@
   "author": "arc-component",
   "license": "MIT",
   "main": "dist/arc.js",
+  "types": "dist/arc.d.ts",
   "module": "dist/arc.js",
   "customElements": "custom-elements.json",
-  "types": "dist/arc.d.ts",
+  "exports": {
+    ".": "./dist/arc.js",
+    "./dist/*": "./dist/*",
+    "./react": "./dist/react.js"
+  },
+  "typesVersions": {
+    "*": {
+      "react": ["./dist/react.d.ts"]
+    }
+  },
   "files": [
     "dist"
   ],

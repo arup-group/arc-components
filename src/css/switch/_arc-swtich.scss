@@ -1,0 +1,67 @@
+@use '../utils/arc-component' as arc-component;
+@use '../utils/arc-control' as arc-control;
+
+/* ARC SWITCH */
+.arc-switch {
+  @extend %arc-component;
+  @include arc-control.styles(&);
+
+  --arc-swtich--height: var(--arc-font-size-x-large);
+  --arc-switch--width: calc(var(--arc-swtich--height) * 2);
+  --arc-switch--thumb-size: calc(var(--arc-font-size-x-large) - 4px);
+
+  display: inline-flex;
+  align-items: center;
+  vertical-align: center;
+  gap: var(--arc-spacing-x-small);
+  cursor: pointer;
+
+  /* CHILD STYLES */
+  &--base {
+    flex: 0 0 auto;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--arc-switch--width);
+    height: var(--arc-swtich--height);
+    background-color: rgb(var(--arc-grey-060));
+    border-radius: var(--arc-swtich--height);
+  }
+
+  &--thumb {
+    width: var(--arc-switch--thumb-size);
+    height: var(--arc-switch--thumb-size);
+    background-color: rgb(var(--arc-grey-000));
+    border-radius: 50%;
+  }
+
+  &--control {
+    display: block;
+    position: absolute;
+    transform: translateX(calc((var(--arc-switch--width) - var(--arc-swtich--height)) / -2));
+  }
+
+  /* STATES */
+  &:not(&--disabled) input:hover + &--control,
+  &:not(&--disabled) input:focus-visible + &--control {
+    background-color: rgba(var(--arc-font-color), 10%);
+  }
+
+  &:not(&--disabled) input:active + &--control {
+    background-color: rgba(var(--arc-font-color), 30%);
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--checked &--base {
+    background-color: rgb(var(--arc-color-info));
+  }
+
+  &--checked &--control {
+    transform: translateX(calc((var(--arc-switch--width) - var(--arc-swtich--height)) / 2));
+  }
+}

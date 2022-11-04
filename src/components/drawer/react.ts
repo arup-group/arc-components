@@ -2,7 +2,7 @@ import { createComponent, EventName } from '@lit-labs/react';
 import React from 'react';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import ArcDrawerWC from './ArcDrawer.js';
-import './arc-container.js';
+import './arc-drawer.js';
 
 export const ArcDrawer = createComponent(React, 'arc-container', ArcDrawerWC, {
   onArcShow: ARC_EVENTS.show as EventName<CustomEvent<never>>,

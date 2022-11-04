@@ -6,8 +6,13 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import ArcTableWC from './ArcTable.js';
 import './arc-table.js';
 
-export const ArcTable = createComponent(React, 'arc-table', ArcTableWC, {
-  onArcChange: ARC_EVENTS.change as EventName<
-    CustomEvent<[e: MouseEvent, row: Row] | [e: MouseEvent, cell: TCell, column: TColumn, row: Row] | undefined>
-  >,
+export const ArcTable = createComponent({
+  tagName: 'arc-table',
+  elementClass: ArcTableWC,
+  react: React,
+  events: {
+    onArcChange: ARC_EVENTS.change as EventName<
+      CustomEvent<[e: MouseEvent, row: Row] | [e: MouseEvent, cell: TCell, column: TColumn, row: Row] | undefined>
+    >,
+  },
 });

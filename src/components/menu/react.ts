@@ -5,6 +5,11 @@ import ArcMenuWC from './ArcMenu.js';
 import ArcMenuItem from '../menu-item/ArcMenuItem.js';
 import './arc-menu.js';
 
-export const ArcMenu = createComponent(React, 'arc-menu', ArcMenuWC, {
-  onArcSelect: ARC_EVENTS.select as EventName<CustomEvent<ArcMenuItem>>,
+export const ArcMenu = createComponent({
+  tagName: 'arc-menu',
+  elementClass: ArcMenuWC,
+  react: React,
+  events: {
+    onArcSelect: ARC_EVENTS.select as EventName<CustomEvent<ArcMenuItem>>,
+  },
 });

@@ -3,4 +3,4 @@ import React from 'react';
 import ArcAvatarWC from './ArcAvatar.js';
 import './arc-avatar.js';
 
-export const ArcAvatar = createComponent(React, 'arc-avatar', ArcAvatarWC);
+export const ArcAvatar = createComponent({ tagName: 'arc-avatar', elementClass: ArcAvatarWC, react: React });

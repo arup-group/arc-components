@@ -3,4 +3,4 @@ import React from 'react';
 import ArcHeroWC from './ArcHero.js';
 import './arc-hero.js';
 
-export const ArcHero = createComponent(React, 'arc-hero', ArcHeroWC);
+export const ArcHero = createComponent({ tagName: 'arc-hero', elementClass: ArcHeroWC, react: React });

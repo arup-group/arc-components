@@ -3,4 +3,4 @@ import React from 'react';
 import ArcIconWC from './ArcIcon.js';
 import './arc-icon.js';
 
-export const ArcIcon = createComponent(React, 'arc-icon', ArcIconWC);
+export const ArcIcon = createComponent({ tagName: 'arc-icon', elementClass: ArcIconWC, react: React });

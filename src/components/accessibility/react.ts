@@ -6,6 +6,13 @@ import './arc-accessibility.js';
 
 export { UserPreferences } from './ArcAccessibility.js';
 
-export const ArcAccessibility = createComponent(React, 'arc-accessibility', ArcAccessibilityWC, {
-  onArcAccessibilityChange: ARC_EVENTS.accessibilityChange as EventName<CustomEvent<{ preferences: UserPreferences }>>,
+export const ArcAccessibility = createComponent({
+  tagName: 'arc-accessibility',
+  elementClass: ArcAccessibilityWC,
+  react: React,
+  events: {
+    onArcAccessibilityChange: ARC_EVENTS.accessibilityChange as EventName<
+      CustomEvent<{ preferences: UserPreferences }>
+    >,
+  },
 });

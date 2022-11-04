@@ -3,4 +3,4 @@ import React from 'react';
 import ArcBottombarWC from './ArcBottombar.js';
 import './arc-bottombar.js';
 
-export const ArcBottombar = createComponent(React, 'arc-bottombar', ArcBottombarWC);
+export const ArcBottombar = createComponent({ tagName: 'arc-bottombar', elementClass: ArcBottombarWC, react: React });

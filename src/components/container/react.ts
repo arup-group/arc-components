@@ -6,5 +6,5 @@ import ArcContainerWC from './ArcContainer.js';
 import './arc-container.js';
 
 export const ArcContainer = createComponent(React, 'arc-container', ArcContainerWC, {
-  onArcAccessibilityChange: ARC_EVENTS.accessibilityChange as EventName<CustomEvent<UserPreferences>>,
+  onArcAccessibilityChange: ARC_EVENTS.accessibilityChange as EventName<CustomEvent<{ preferences: UserPreferences }>>,
 });

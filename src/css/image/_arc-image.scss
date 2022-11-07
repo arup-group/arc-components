@@ -1,0 +1,35 @@
+@use '../utils/arc-component' as arc-component;
+
+/* ARC IMAGE */
+.arc-image {
+  @extend %arc-component;
+
+  --arc-image--width: 100%;
+  --arc-image--height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(var(--arc-grey-020));
+  width: var(--arc-image--width);
+  height: var(--arc-image--height);
+
+  /* CHILD STYLES */
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: cover;
+  }
+
+  & > &--overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

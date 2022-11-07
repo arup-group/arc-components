@@ -1,0 +1,46 @@
+@use '../utils/arc-component' as arc-component;
+
+/* ARC CARD */
+.arc-card {
+  @extend %arc-component;
+
+  display: grid;
+  overflow: hidden;
+  background-color: rgb(var(--arc-container-color));
+  box-shadow: var(--arc-box-shadow);
+  height: 100%;
+
+  /* CHILD STYLES */
+  & > &--header,
+  & > &--content,
+  & > &--footer {
+    padding: var(--arc-spacing-normal);
+  }
+
+  & > &--header,
+  & > &--footer {
+    display: grid;
+    align-items: center;
+    grid-auto-flow: column;
+    gap: var(--arc-spacing-small);
+  }
+
+  & > &--header {
+    justify-content: space-between;
+  }
+
+  & > &--image {
+    overflow: hidden;
+  }
+
+  & > &--footer {
+    justify-content: end;
+  }
+
+  /* STATES */
+  &--collapsed > &--image,
+  &--collapsed > &--content,
+  &--collapsed > &--footer {
+    display: none;
+  }
+}

@@ -65,6 +65,8 @@ export default {
         {
           src: [
             'out-tsc/arc.d.ts',
+            'out-tsc/react.js',
+            'out-tsc/react.d.ts',
             'out-tsc/components/**/!(*.stories).{js,d.ts}',
             'out-tsc/internal',
             'out-tsc/styles',

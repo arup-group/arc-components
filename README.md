@@ -104,7 +104,7 @@ import '@arc-web/components/dist/components/container/arc-container.js';
 + import '@arc-web/components/dist/themes/light.css';
 + import '@arc-web/components/dist/themes/dark.css';
   
-+ import { setBasePath } from "@arc-web/components/dist/utilities/base-path.js";
++ import { setBasePath } from "@arc-web/components/react.js";
 + setBasePath('/path/to/arc/');
   
   ReactDOM.render(
@@ -116,7 +116,7 @@ import '@arc-web/components/dist/components/container/arc-container.js';
 
 #### components/app.js
 ```diff
-+ import { ArcContainer } '@arc-web/components/dist/components/container/react';
++ import { ArcContainer } '@arc-web/components/react.js';
 
   function App(props) {
     return (

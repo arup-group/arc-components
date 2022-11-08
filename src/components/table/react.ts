@@ -11,8 +11,8 @@ export const ArcTable = createComponent({
   elementClass: ArcTableWC,
   react: React,
   events: {
-    onArcChange: ARC_EVENTS.change as EventName<
-      CustomEvent<[e: MouseEvent, row: Row] | [e: MouseEvent, cell: TCell, column: TColumn, row: Row] | undefined>
-    >,
+    onArcRowClick: ARC_EVENTS.rowClick as EventName<CustomEvent<[e: MouseEvent, row: Row]>>,
+    onArcCellClick: ARC_EVENTS.cellClick as EventName<CustomEvent< [e: MouseEvent, cell: TCell, column: TColumn, row: Row]>>,
+    onArcTableReady: ARC_EVENTS.tableReady as EventName<CustomEvent<never>>,
   },
 });

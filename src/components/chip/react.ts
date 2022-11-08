@@ -9,6 +9,6 @@ export const ArcChip = createComponent({
   elementClass: ArcChipWC,
   react: React,
   events: {
-    onArcClear: ARC_EVENTS.clear as EventName<CustomEvent<never>>,
+    onArcClear: ARC_EVENTS.clear as EventName<CustomEvent<{}>>,
   },
 });

@@ -9,11 +9,11 @@ export const ArcDrawer = createComponent({
   elementClass: ArcDrawerWC,
   react: React,
   events: {
-    onArcShow: ARC_EVENTS.show as EventName<CustomEvent<never>>,
-    onArcAfterShow: ARC_EVENTS.afterShow as EventName<CustomEvent<never>>,
-    onArcHide: ARC_EVENTS.hide as EventName<CustomEvent<never>>,
-    onArcAfterHide: ARC_EVENTS.afterHide as EventName<CustomEvent<never>>,
-    onArcInitialFocus: ARC_EVENTS.initialFocus as EventName<CustomEvent<never>>,
-    onArcRequestClose: ARC_EVENTS.requestClose as EventName<CustomEvent<never>>,
+    onArcShow: ARC_EVENTS.show as EventName<CustomEvent<{}>>,
+    onArcAfterShow: ARC_EVENTS.afterShow as EventName<CustomEvent<{}>>,
+    onArcHide: ARC_EVENTS.hide as EventName<CustomEvent<{}>>,
+    onArcAfterHide: ARC_EVENTS.afterHide as EventName<CustomEvent<{}>>,
+    onArcInitialFocus: ARC_EVENTS.initialFocus as EventName<CustomEvent<{}>>,
+    onArcRequestClose: ARC_EVENTS.requestClose as EventName<CustomEvent<{}>>,
   },
 });

@@ -9,6 +9,6 @@ export const ArcNavbar = createComponent({
   elementClass: ArcNavbarWC,
   react: React,
   events: {
-    onArcShowAccessibility: ARC_EVENTS.showAccessibility as EventName<CustomEvent<never>>,
+    onArcShowAccessibility: ARC_EVENTS.showAccessibility as EventName<CustomEvent<{}>>,
   },
 });

@@ -9,6 +9,6 @@ export const ArcRadio = createComponent({
   elementClass: ArcRadioWC,
   react: React,
   events: {
-    onArcChange: ARC_EVENTS.change as EventName<CustomEvent<never>>,
+    onArcChange: ARC_EVENTS.change as EventName<CustomEvent<{}>>,
   },
 });

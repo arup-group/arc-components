@@ -13,6 +13,6 @@ export const ArcTable = createComponent({
   events: {
     onArcRowClick: ARC_EVENTS.rowClick as EventName<CustomEvent<[e: MouseEvent, row: Row]>>,
     onArcCellClick: ARC_EVENTS.cellClick as EventName<CustomEvent< [e: MouseEvent, cell: TCell, column: TColumn, row: Row]>>,
-    onArcTableReady: ARC_EVENTS.tableReady as EventName<CustomEvent<never>>,
+    onArcTableReady: ARC_EVENTS.tableReady as EventName<CustomEvent<{}>>,
   },
 });

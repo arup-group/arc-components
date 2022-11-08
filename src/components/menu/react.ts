@@ -10,6 +10,6 @@ export const ArcMenu = createComponent({
   elementClass: ArcMenuWC,
   react: React,
   events: {
-    onArcSelect: ARC_EVENTS.select as EventName<CustomEvent<ArcMenuItem>>,
+    onArcSelect: ARC_EVENTS.select as EventName<CustomEvent<{ item: ArcMenuItem }>>,
   },
 });

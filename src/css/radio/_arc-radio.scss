@@ -1,0 +1,57 @@
+@use '../utils/arc-component' as arc-component;
+@use '../utils/arc-control' as arc-control;
+
+/* ARC RADIO */
+.arc-radio {
+  @extend %arc-component;
+  @include arc-control.styles(&);
+
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+
+  /* CHILD STYLES */
+  &--icon {
+    display: flex;
+
+    svg {
+      user-select: none;
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      fill: currentcolor;
+      flex-shrink: 0;
+      font-size: var(--arc-font-size-x-large);
+    }
+  }
+
+  &--icon svg.fill {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  /* STATES */
+  #{&}:not(&--disabled) input:hover + &--control,
+  #{&}:not(&--disabled) input:focus-visible + &--control {
+    background-color: rgba(var(--arc-font-color), 10%);
+  }
+
+  #{&}:not(&--disabled) input:active + &--control {
+    background-color: rgba(var(--arc-font-color), 30%);
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--checked &--icon {
+    color: rgb(var(--arc-color-info));
+  }
+
+  &--checked &--icon svg.fill {
+    transform: scale(1);
+  }
+}

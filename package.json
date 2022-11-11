@@ -39,6 +39,7 @@
     "build": "sass --no-source-map src:out-tsc && find ./out-tsc -name '*.css' -type f | xargs node scripts/css-to-js.mjs && tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "wtr --coverage",
+    "pretest": "yarn run build",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "tsc && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"start-storybook -p 9009\"",
     "storybook:build": "tsc && yarn run analyze && build-storybook",

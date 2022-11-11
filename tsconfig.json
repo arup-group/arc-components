@@ -35,6 +35,5 @@
     "out-tsc",
     "dist",
     "node_modules",
-    "src/**/*.test.ts"
   ]
 }

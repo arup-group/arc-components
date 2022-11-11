@@ -36,7 +36,7 @@
   "scripts": {
     "prepare": "husky install",
     "start": "tsc && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js && sass --no-source-map src/css:dist/components",
+    "build": "sass --no-source-map src:out-tsc && find ./out-tsc -name '*.css' -type f | xargs node scripts/css-to-js.mjs && tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",

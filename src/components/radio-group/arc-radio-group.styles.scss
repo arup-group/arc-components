@@ -1,0 +1,22 @@
+@use '../../styles/preferences.styles' as preferences;
+
+:host {
+  display: inline-flex;
+}
+
+#radioGroup {
+  display: grid;
+  position: relative;
+  right: var(--arc-spacing-small);
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+/* Medium devices and up */
+@media (min-width: preferences.$mobileBreakpoint) {
+  :host([row]) #radioGroup {
+    grid-auto-flow: column;
+  }
+}

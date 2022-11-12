@@ -6,6 +6,9 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-navbar.styles.js';
 import { arupLogo } from './arup-logo.js';
 import type ArcButton from '../button/ArcButton.js';
@@ -28,7 +31,7 @@ export default class ArcNavbar extends LitElement {
   /** @internal */
   static tag = 'arc-navbar';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#tabSlot') tabSlot: HTMLSlotElement;

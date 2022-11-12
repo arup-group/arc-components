@@ -7,6 +7,11 @@ import { emit } from '../../internal/event.js';
 import { FormController } from '../../internal/form-control.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
+import controlsStyles from '../../styles/control.styles.js';
+// @ts-ignore
 import styles from './arc-switch.styles.js';
 
 /**
@@ -18,7 +23,7 @@ export default class ArcSwitch extends LitElement {
   /** @internal */
   static tag = 'arc-switch';
 
-  static styles = styles;
+  static styles = [componentStyles, controlsStyles, styles];
 
   /** @internal */
   @query('input[type="checkbox"]') input: HTMLInputElement;

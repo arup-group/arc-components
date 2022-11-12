@@ -12,6 +12,9 @@ import {
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-image.styles.js';
 
 /**
@@ -22,7 +25,7 @@ export default class ArcImage extends LitElement {
   /** @internal */
   static tag = 'arc-image';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#main') container: HTMLElement;

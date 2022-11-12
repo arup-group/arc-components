@@ -2,6 +2,9 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-menu-item.styles.js';
 
 /**
@@ -13,7 +16,7 @@ export default class ArcMenuItem extends LitElement {
   /** @internal */
   static tag = 'arc-menu-item';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** A unique value to store in the menu item. This can be used as a way to identify menu items when selected. */
   @property({ type: String }) value: string;

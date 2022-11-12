@@ -1,5 +1,8 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-radio-group.styles.js';
 import type ArcRadio from '../radio/ArcRadio.js';
 
@@ -13,7 +16,7 @@ export default class ArcRadioGroup extends LitElement {
   /** @internal */
   static tag = 'arc-radio-group';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;

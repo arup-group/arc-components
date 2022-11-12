@@ -4,6 +4,9 @@ import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
 import { stringToInitials } from '../../internal/string.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-avatar.styles.js';
 import '../icon/arc-icon.js';
 
@@ -16,7 +19,7 @@ export default class ArcAvatar extends LitElement {
   /** @internal */
   static tag = 'arc-avatar';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal - State that keeps track whether the given image failed to load. */
   @state() private _hasError: boolean = false;

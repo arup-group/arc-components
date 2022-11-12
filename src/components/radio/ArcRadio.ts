@@ -7,6 +7,11 @@ import { watch } from '../../internal/watch.js';
 import { emit } from '../../internal/event.js';
 import { FormController } from '../../internal/form-control.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
+import controlsStyles from '../../styles/control.styles.js';
+// @ts-ignore
 import styles from './arc-radio.styles.js';
 
 /**
@@ -18,7 +23,7 @@ export default class ArcRadio extends LitElement {
   /** @internal */
   static tag = 'arc-radio';
 
-  static styles = styles;
+  static styles = [componentStyles, controlsStyles, styles];
 
   /** @internal */
   @query('input[type="radio"]') input: HTMLInputElement;

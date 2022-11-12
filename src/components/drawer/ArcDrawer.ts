@@ -12,6 +12,9 @@ import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-drawer.styles.js';
 import '../icon-button/arc-icon-button.js';
 
@@ -33,7 +36,7 @@ export default class ArcDrawer extends LitElement {
   /** @internal */
   static tag = 'arc-drawer';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#main') drawer: HTMLElement;

@@ -1,10 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 
 function generateFileContent(css) {
-  return `import { css } from 'lit';
-
-  export default css\`${css}\`;
-  `;
+  return `import { css } from 'lit'; export default css\`${css}\`;`;
 }
 
 for (let i = 2; i < process.argv.length; i++) {

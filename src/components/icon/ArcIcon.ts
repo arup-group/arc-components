@@ -5,6 +5,9 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { getBasePath } from '../../utilities/base-path.js';
 import { ICON_TYPES, IconType } from './constants/IconConstants.js';
 import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-icon.styles.js';
 
 /**
@@ -15,7 +18,7 @@ export default class ArcIcon extends LitElement {
   /** @internal */
   static tag = 'arc-icon';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** The name of the icon to draw. */
   @property({ type: String, reflect: true }) name: IconType = ICON_TYPES.fire;

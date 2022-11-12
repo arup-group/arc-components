@@ -1,4 +1,7 @@
 import { html, LitElement } from 'lit';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-spinner.styles.js';
 
 /**
@@ -9,7 +12,7 @@ export default class ArcSpinner extends LitElement {
   /** @internal */
   static tag = 'arc-spinner';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   protected render() {
     return html`

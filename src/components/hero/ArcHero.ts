@@ -4,6 +4,9 @@ import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-hero.styles.js';
 
 /**
@@ -17,7 +20,7 @@ export default class ArcHero extends LitElement {
   /** @internal */
   static tag = 'arc-hero';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** Set the banner to full screen. */
   @property({ type: Boolean }) fullscreen: boolean = false;

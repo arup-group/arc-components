@@ -7,6 +7,9 @@ import { JSXInternal } from 'preact/src/jsx';
 import { ComponentChildren } from 'preact';
 import { emit } from '../../internal/event.js';
 import { ARC_EVENTS, ArcEvent } from '../../internal/constants/eventConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-table.styles.js';
 
 const enum TABLE_EVENTS {
@@ -24,7 +27,7 @@ export default class ArcTable extends LitElement {
   /** @internal */
   static tag = 'arc-table';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal - Reference to the GridJS table. */
   private _grid: Grid;

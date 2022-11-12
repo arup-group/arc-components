@@ -6,6 +6,9 @@ import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-container.styles.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
@@ -22,7 +25,7 @@ export default class ArcContainer extends LitElement {
   /** @internal */
   static tag = 'arc-container';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#main') container: HTMLElement;

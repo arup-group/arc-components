@@ -9,6 +9,9 @@ import { watch } from '../../internal/watch.js';
 import { stringToArray } from '../../internal/string.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.js';
+// @ts-ignore
 import styles from './arc-sso.styles.js';
 import '../button/arc-button.js';
 import '../avatar/arc-avatar.js';
@@ -26,7 +29,7 @@ export default class ArcSSO extends LitElement {
   /** @internal */
   static tag = 'arc-sso';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal
   openid - By using this permission, an app can receive a unique identifier for the user in the form of the sub claim.

@@ -19,7 +19,10 @@ import {
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../internal/constants/styleConstants.js';
 import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
-import styles from './arc-accessibility.styles.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.css.js';
+// @ts-ignore
+import styles from './arc-accessibility.styles.css.js';
 import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
@@ -44,7 +47,7 @@ export default class ArcAccessibility extends LitElement {
   /** @internal */
   static tag = 'arc-accessibility';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal - Reference to css variables that are scoped to :root. */
   private _rootCssVariables: { [key: string]: string } = {};

@@ -9,7 +9,10 @@ import { getTabbableBoundary } from '../../internal/tabbable.js';
 import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
-import styles from './arc-dropdown.styles.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.css.js';
+// @ts-ignore
+import styles from './arc-dropdown.styles.css.js';
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
@@ -26,7 +29,7 @@ export default class ArcDropdown extends LitElement {
   /** @internal */
   static tag = 'arc-dropdown';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#trigger') trigger: HTMLElement;

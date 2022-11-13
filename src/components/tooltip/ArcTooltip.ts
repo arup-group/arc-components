@@ -13,7 +13,10 @@ import { watch } from '../../internal/watch.js';
 import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
-import styles from './arc-tooltip.styles.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.css.js';
+// @ts-ignore
+import styles from './arc-tooltip.styles.css.js';
 
 /**
  * @slot default - The tooltip's target element. Only the first element will be used as the target.
@@ -31,7 +34,7 @@ export default class ArcTooltip extends LitElement {
   /** @internal */
   static tag = 'arc-tooltip';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#positioner') positioner: HTMLElement;

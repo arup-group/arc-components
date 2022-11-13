@@ -1,0 +1,27 @@
+@use '../../styles/preferences.styles' as preferances;
+
+:host,
+#main {
+  display: inline-flex;
+}
+
+#desktopTrigger {
+  display: none;
+}
+
+arc-avatar {
+  --size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Medium devices and up. */
+@media (min-width: preferances.$mobileBreakpoint) {
+  #mobileTrigger {
+    display: none;
+  }
+
+  #desktopTrigger {
+    display: initial;
+    --btn-color: rgb(var(--arc-font-color));
+  }
+}

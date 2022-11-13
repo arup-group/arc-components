@@ -1,6 +1,9 @@
 import { html, LitElement } from 'lit';
 import { state } from 'lit/decorators.js';
-import styles from './arc-bottombar.styles.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.css.js';
+// @ts-ignore
+import styles from './arc-bottombar.styles.css.js';
 
 /**
  * @slot - This slot is used to add icon-buttons to the bottom bar.
@@ -9,7 +12,7 @@ export default class ArcBottombar extends LitElement {
   /** @internal */
   static tag = 'arc-bottombar';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal - State that stores the max tab count */
   @state() private tabs: number = 5;

@@ -6,7 +6,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
 import { IconType } from '../icon/constants/IconConstants.js';
-import styles from './arc-icon-button.styles.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.css.js';
+// @ts-ignore
+import styles from './arc-icon-button.styles.css.js';
 import '../icon/arc-icon.js';
 import '../spinner/arc-spinner.js';
 
@@ -19,7 +22,7 @@ export default class ArcIconButton extends LitElement {
   /** @internal */
   static tag = 'arc-icon-button';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#main') button: HTMLButtonElement | HTMLLinkElement;

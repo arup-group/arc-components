@@ -7,7 +7,10 @@ import { classMap } from 'lit/directives/class-map.js';
 import { FormController } from '../../internal/form-control.js';
 import { INPUT_SIZES, InputSize, THEME_COLORS, ThemeColor } from '../../internal/constants/styleConstants.js';
 import { BUTTON_TYPES, ButtonType, ButtonTarget } from './constants/ButtonConstants.js';
-import styles from './arc-button.styles.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.css.js';
+// @ts-ignore
+import styles from './arc-button.styles.css.js';
 import '../spinner/arc-spinner.js';
 
 /**
@@ -23,7 +26,7 @@ export default class ArcButton extends LitElement {
   /** @internal */
   static tag = 'arc-button';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#main') button: HTMLButtonElement | HTMLLinkElement;

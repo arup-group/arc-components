@@ -5,7 +5,10 @@ import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
-import styles from './arc-sidebar.styles.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.css.js';
+// @ts-ignore
+import styles from './arc-sidebar.styles.css.js';
 import '../icon-button/arc-icon-button.js';
 
 /**
@@ -24,7 +27,7 @@ export default class ArcSidebar extends LitElement {
   /** @internal */
   static tag = 'arc-sidebar';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   /** @internal */
   @query('#content') content: HTMLElement;

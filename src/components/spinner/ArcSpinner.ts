@@ -1,5 +1,8 @@
 import { html, LitElement } from 'lit';
-import styles from './arc-spinner.styles.js';
+// @ts-ignore
+import componentStyles from '../../styles/component.styles.css.js';
+// @ts-ignore
+import styles from './arc-spinner.styles.css.js';
 
 /**
  * @cssproperty --stroke-color - Set the color of the loader.
@@ -9,7 +12,7 @@ export default class ArcSpinner extends LitElement {
   /** @internal */
   static tag = 'arc-spinner';
 
-  static styles = styles;
+  static styles = [componentStyles, styles];
 
   protected render() {
     return html`

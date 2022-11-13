@@ -1,0 +1,78 @@
+/**
+ * ArcMenuItem shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}menu-item;
+
+/* host styles */
+@mixin host-styles {
+  display: block;
+
+}
+
+/* component styles */
+@mixin component-styles {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  text-align: left;
+  padding: var(--arc-spacing-small) var(--arc-spacing-medium);
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    outline: none;
+  }
+
+  & &--prefix,
+  & &--label,
+  & &--sufix, {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+  }
+
+  & &--prefix,
+  & &--prefix ::slotted(*) {
+    margin-right: var(--arc-spacing-x-small);
+  }
+
+  & &--label {
+    flex: 1 1 auto;
+    max-width: 30ch;
+    overflow: hidden;
+
+    * {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis ' ...';
+    }
+  }
+
+  & &--suffix,
+  & &--suffix ::slotted(*) {
+    margin-left: var(--arc-spacing-x-small);
+  }
+
+  /* disabled */
+  &#{&}--disabled {
+    opacity: 0.5;
+    outline: none;
+    cursor: not-allowed;
+  }
+
+  /* hover and focus-visible */
+  &:not([aria-disabled='true']):hover, &:not([aria-disabled='true']):focus-visible {
+    outline: none;
+    background-color: currentColor;
+    background-image: linear-gradient(var(--arc-hover-lighter) 0 0);
+  }
+
+  /* focus */
+  &:focus{
+    outline: none;
+  }
+}

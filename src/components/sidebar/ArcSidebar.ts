@@ -6,8 +6,6 @@ import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-sidebar.styles.css.js';
 import '../icon-button/arc-icon-button.js';
 
@@ -27,7 +25,7 @@ export default class ArcSidebar extends LitElement {
   /** @internal */
   static tag = 'arc-sidebar';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#content') content: HTMLElement;
@@ -95,10 +93,11 @@ export default class ArcSidebar extends LitElement {
       ? html`
           <aside
             id="main"
+            class="arc-sidebar"
             aria-label=${ifDefined(this.label || undefined)}
             aria-labelledby="${ifDefined(this.label ? undefined : 'title')}"
           >
-            <div id="header">
+            <div id="header" class="arc-sidebar--header">
               <slot id="title" name="label"><span>${this.label}</span></slot>
               <arc-icon-button
                 id="toggleClose"
@@ -107,7 +106,7 @@ export default class ArcSidebar extends LitElement {
                 @click=${this._handleClick}
               ></arc-icon-button>
             </div>
-            <div id="content">
+            <div id="content" class="arc-sidebar--content">
               <slot @slotchange=${this.handleSlots}></slot>
             </div>
           </aside>
@@ -115,6 +114,7 @@ export default class ArcSidebar extends LitElement {
       : html`
           <arc-icon-button
             id="toggleOpen"
+            class="arc-sidebar--toggle-open"
             name=${ICON_TYPES['arrow-right']}
             label="Open sidebar"
             @click=${this._handleClick}

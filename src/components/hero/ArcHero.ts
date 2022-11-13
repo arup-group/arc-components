@@ -5,8 +5,6 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-hero.styles.css.js';
 
 /**
@@ -20,7 +18,7 @@ export default class ArcHero extends LitElement {
   /** @internal */
   static tag = 'arc-hero';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** Set the banner to full screen. */
   @property({ type: Boolean }) fullscreen: boolean = false;
@@ -44,18 +42,18 @@ export default class ArcHero extends LitElement {
       <header
         id="main"
         class=${classMap({
-          hero: true,
-          'hero--fullscreen': this.fullscreen,
+          'arc-hero': true,
+          'arc-hero--fullscreen': this.fullscreen,
         })}
         style=${ifDefined(this.background ? styleMap(imageStyle) : undefined)}
         aria-label=${ifDefined(this.title || undefined)}
         aria-labelledby="${ifDefined(this.title ? undefined : 'title')}"
       >
         <div>
-          <h1 id="title"><slot name="title">${this.title}</slot></h1>
+          <h1 id="title" class="arc-hero--title"><slot name="title">${this.title}</slot></h1>
           <slot name="subtitle">${this.subtitle}</slot>
         </div>
-        <h2 id="content"><slot></slot></h2>
+        <h2 id="content" class="arc-hero--content"><slot></slot></h2>
       </header>
     `;
   }

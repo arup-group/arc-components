@@ -5,8 +5,6 @@ import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
 import { stringToInitials } from '../../internal/string.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-avatar.styles.css.js';
 import '../icon/arc-icon.js';
 
@@ -19,7 +17,7 @@ export default class ArcAvatar extends LitElement {
   /** @internal */
   static tag = 'arc-avatar';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal - State that keeps track whether the given image failed to load. */
   @state() private _hasError: boolean = false;
@@ -49,8 +47,8 @@ export default class ArcAvatar extends LitElement {
         role="img"
         aria-label=${this.label}
         class=${classMap({
-          avatar: true,
-          'avatar--has-image': this.image && !this._hasError,
+          'arc-avatar': true,
+          'arc-avatar--has-image': this.image && !this._hasError,
         })}
       >
         ${when(
@@ -58,6 +56,7 @@ export default class ArcAvatar extends LitElement {
           () =>
             html`<img
               id="avatar"
+              class="arc-avatar--avatar"
               src=${this.image}
               alt="Avatar"
               @error=${() => {
@@ -67,8 +66,8 @@ export default class ArcAvatar extends LitElement {
           () =>
             when(
               this.name,
-              () => html`<div id="initials">${this.name}</div>`,
-              () => html`<div id="icon">
+              () => html`<div id="initials" class="arc-avatar--initials">${this.name}</div>`,
+              () => html`<div id="icon" class="arc-avatar--icon">
                 <slot name="icon">
                   <arc-icon name="user"></arc-icon>
                 </slot>

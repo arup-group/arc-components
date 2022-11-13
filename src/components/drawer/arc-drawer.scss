@@ -1,0 +1,183 @@
+/**
+ * ArcDrawer CSS component styles.
+ */
+@use '../../styles/preferences' as preferences;
+@use '../../styles/component.styles' as component;
+@use 'arc-drawer.shared' as arc-drawer;
+
+.#{arc-drawer.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-drawer.host-styles;
+  @include arc-drawer.component-styles;
+
+  @mixin animation($keyframes) {
+    animation-duration: map-get(preferences.$animationDuration, 'slow');
+    animation-timing-function: map-get(preferences.$animationEasing, 'slow');
+    animation-fill-mode: forwards;
+    animation-name: $keyframes;
+  }
+
+  /* display as closed by default */
+  & &--overlay, & &--pannel {
+    opacity: 0;
+  }
+
+  &#{&}--placement-top &--panel {
+    transform: translateY(-100%);
+  }
+
+  &#{&}--placement-end &--panel {
+    transform: translateX(100%);
+  }
+
+  &#{&}--placement-bottom &--panel {
+    transform: translateY(100%);
+  }
+
+  &#{&}--placement-start &--panel {
+    transform: translateX(-100%);
+  }
+
+  /* animation for overlay */
+  &#{&}--is-open &--overlay {
+    @include animation(show-overlay);
+    @keyframes show-overlay {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  &#{&}--is-closed &--overlay {
+    @include animation(hide-overlay);
+    @keyframes hide-overlay {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+
+  /* animation for top placement */
+  &#{&}--placement-top#{&}--is-open &--panel {
+    @include animation(show-top);
+    @keyframes show-top {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  &#{&}--placement-top#{&}--is-closed &--panel {
+    @include animation(hide-top);
+    @keyframes hide-top {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    }
+  }
+
+  /* animation for end placement */
+  &#{&}--placement-end#{&}--is-open &--panel {
+    @include animation(show-end);
+    @keyframes show-end {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  &#{&}--placement-end#{&}--is-closed &--panel {
+    @include animation(hide-end);
+    @keyframes hide-end {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+  }
+
+  /* animation for bottom placement */
+  &#{&}--placement-bottom#{&}--is-open &--panel {
+    @include animation(show-bottom);
+    @keyframes show-bottom {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  &#{&}--placement-bottom#{&}--is-closed &--panel {
+    @include animation(hide-bottom);
+    @keyframes hide-bottom {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+    }
+  }
+
+  /* animation for start placement */
+  &#{&}--placement-start#{&}--is-open &--panel {
+    @include animation(show-start);
+    @keyframes show-start {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  &#{&}--placement-start#{&}--is-closed &--panel {
+    @include animation(hide-start);
+    @keyframes hide-start {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    }
+  }
+}

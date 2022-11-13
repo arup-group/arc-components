@@ -7,8 +7,6 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
 import { IconType } from '../icon/constants/IconConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-icon-button.styles.css.js';
 import '../icon/arc-icon.js';
 import '../spinner/arc-spinner.js';
@@ -22,7 +20,7 @@ export default class ArcIconButton extends LitElement {
   /** @internal */
   static tag = 'arc-icon-button';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#main') button: HTMLButtonElement | HTMLLinkElement;
@@ -83,10 +81,10 @@ export default class ArcIconButton extends LitElement {
       <${tag}
         id="main"
         class=${classMap({
-          button: true,
-          'button--active': this.active,
-          'button--disabled': this.disabled,
-          'button--loading': this.loading,
+          'arc-icon-button': true,
+          'arc-icon-button--active': this.active,
+          'arc-icon-button--disabled': this.disabled,
+          'arc-icon-button--loading': this.loading,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type="button"
@@ -100,11 +98,11 @@ export default class ArcIconButton extends LitElement {
         tabindex=${this.disabled ? '-1' : '0'}
         @click=${this._handleClick}
       >
-        <span id="iconWrapper" aria-hidden="true">
-          <arc-icon id="icon" part="icon" name=${ifDefined(this.name || undefined)}></arc-icon>
-          ${when(this.loading, () => html`<arc-spinner id="loader"></arc-spinner>`)}
+        <span id="iconWrapper" class="arc-icon-button--icon-wrapper" aria-hidden="true">
+          <arc-icon id="icon" part="icon" class="arc-icon-button--icon" name=${ifDefined(this.name || undefined)}></arc-icon>
+          ${when(this.loading, () => html`<arc-spinner id="loader" class="arc-icon-button--loader"></arc-spinner>`)}
         </span>
-        <span id="action"><slot></slot></span>
+        <span id="action" class="arc-icon-button--action"><slot></slot></span>
       </${tag}>
     `;
   }

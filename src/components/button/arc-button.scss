@@ -1,0 +1,17 @@
+/**
+ * ArcButton CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-button.shared' as arc-button;
+
+.#{arc-button.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-button.host-styles;
+  @include arc-button.component-styles;
+
+  &#{&}--type-tab {
+    height: 100%;
+  }
+}

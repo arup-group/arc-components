@@ -14,8 +14,6 @@ import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-tooltip.styles.css.js';
 
 /**
@@ -34,7 +32,7 @@ export default class ArcTooltip extends LitElement {
   /** @internal */
   static tag = 'arc-tooltip';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#positioner') positioner: HTMLElement;
@@ -318,14 +316,14 @@ export default class ArcTooltip extends LitElement {
 
   protected render() {
     return html`
-      <div id="target" aria-describedby="tooltip">
+      <div id="target" class="arc-tooltip--target" aria-describedby="tooltip">
         <slot></slot>
       </div>
 
-      <div id="positioner">
-        <div id="tooltip" role="tooltip" aria-hidden=${this.open ? 'false' : 'true'}>
-          <div id="arrow"></div>
-          <div id="content" aria-live=${this.open ? 'polite' : 'off'}>
+      <div id="positioner" class="arc-tooltip--positioner">
+        <div id="tooltip" class="arc-tooltip--tooltip" role="tooltip" aria-hidden=${this.open ? 'false' : 'true'}>
+          <div id="arrow" class="arc-tooltip--arrow"></div>
+          <div id="content" class="arc-tooltip--content" aria-live=${this.open ? 'polite' : 'off'}>
             <slot name="content">${this.content}</slot>
           </div>
         </div>

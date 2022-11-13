@@ -1,0 +1,13 @@
+/**
+ * ArcSSO CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-sso.shared' as arc-sso;
+
+.#{arc-sso.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-sso.host-styles;
+  @include arc-sso.component-styles;
+}

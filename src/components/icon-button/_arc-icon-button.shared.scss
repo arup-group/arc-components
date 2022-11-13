@@ -1,0 +1,93 @@
+/**
+ * ArcIconButton shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}icon-button;
+
+/* host styles */
+@mixin host-styles {
+  display: inline-flex;
+  cursor: pointer;
+  --icon-color: rgb(var(--arc-font-color));
+}
+
+/* component styles */
+@mixin component-styles {
+  display: grid;
+  align-content: center;
+  text-align: center;
+  border: none;
+  font-family: var(--arc-font-button);
+  line-height: inherit;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  padding: 0;
+  cursor: inherit;
+  color: var(--icon-color);
+  background: none;
+  outline: none;
+  -webkit-appearance: none;
+
+  & &--icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & &--icon-wrapper &--icon {
+    padding: var(--arc-spacing-small);
+    border-radius: 50%;
+  }
+
+  & &--action {
+    font-size: var(--arc-font-size-xx-small);
+    margin-top: -0.2rem;
+  }
+
+  /* active */
+  &#{&}--active {
+    border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
+  }
+
+  /* hover and focus-visible */
+  &:hover:not(&:disabled):not(&--disabled):not(&--loading) &--icon-wrapper &--icon,
+  &:focus-visible:not(&:disabled):not(&--disabled):not(&--loading) &--icon-wrapper &--icon {
+    background-color: rgba(var(--arc-font-color), 10%);
+  }
+
+  /* active */
+  &:active:not(&:disabled):not(&--disabled):not(&--loading) &--icon-wrapper &--icon {
+    background-color: rgba(var(--arc-font-color), 30%);
+  }
+
+  /* disabled */
+  &:disabled,
+  &#{&}--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* loading */
+  &#{&}--loading {
+    cursor: wait;
+  }
+
+  &#{&}--loading &--icon-wrapper &--icon {
+    visibility: hidden;
+  }
+
+  &#{&}--loading &--icon-wrapper &--loader {
+    position: absolute;
+  }
+
+  /* prevent click events from firing on slots */
+  & &--icon-wrapper,
+  & &--icon-wrapper &--icon,
+  & &--action {
+    pointer-events: none;
+  }
+}

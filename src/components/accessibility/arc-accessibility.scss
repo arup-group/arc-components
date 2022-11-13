@@ -1,0 +1,12 @@
+/**
+ * ArcAccessibility CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-accessibility.shared' as arc-accessibility;
+
+.#{arc-accessibility.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-accessibility.component-styles;
+}

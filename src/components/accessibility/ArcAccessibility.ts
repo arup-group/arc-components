@@ -20,8 +20,6 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../internal/constants/styleConstants.js';
 import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-accessibility.styles.css.js';
 import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
@@ -47,7 +45,7 @@ export default class ArcAccessibility extends LitElement {
   /** @internal */
   static tag = 'arc-accessibility';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal - Reference to css variables that are scoped to :root. */
   private _rootCssVariables: { [key: string]: string } = {};
@@ -243,15 +241,15 @@ export default class ArcAccessibility extends LitElement {
             <arc-icon name="accessibility" size="large"></arc-icon>
             <span>Accessibility Controls</span>
           </div>
-          <div id="wrapper">
+          <div id="wrapper" class="arc-accessibility">
             ${map(
               ACCESSIBILITY_OPTIONS,
               (item: AccessibilityOption) => html`
-                <div class="label">
+                <div class="arc-accessibility--label">
                   <span>${stringToSpaceSeparated(item.name)}</span>
                   <arc-icon name=${item.icon}></arc-icon>
                 </div>
-                <div class="options">
+                <div class="arc-accessibility--options">
                   ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
                     const [userPreference, value] = option as [keyof UserPreferences, any];
 

@@ -1,7 +1,5 @@
 import { html, LitElement } from 'lit';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-spinner.styles.css.js';
 
 /**
@@ -12,13 +10,13 @@ export default class ArcSpinner extends LitElement {
   /** @internal */
   static tag = 'arc-spinner';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   protected render() {
     return html`
-      <svg id="main" aria-busy="true" aria-live="polite">
-        <circle id="track" cx="0.5em" cy="0.5em" r="0" />
-        <circle id="indicator" cx="0.5em" cy="0.5em" r="0" />
+      <svg id="main" aria-busy="true" aria-live="polite" class="arc-spinner">
+        <circle id="track" cx="0.5em" cy="0.5em" r="0" class="arc-spinner--track" />
+        <circle id="indicator" cx="0.5em" cy="0.5em" r="0" class="arc-spinner--indicator" />
       </svg>
     `;
   }

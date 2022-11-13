@@ -2,15 +2,10 @@ import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
 import { emit } from '../../internal/event.js';
 import { FormController } from '../../internal/form-control.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-// @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
-import controlsStyles from '../../styles/control.styles.css.js';
 // @ts-ignore
 import styles from './arc-radio.styles.css.js';
 
@@ -23,7 +18,7 @@ export default class ArcRadio extends LitElement {
   /** @internal */
   static tag = 'arc-radio';
 
-  static styles = [componentStyles, controlsStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('input[type="radio"]') input: HTMLInputElement;
@@ -174,52 +169,46 @@ export default class ArcRadio extends LitElement {
 
   protected render() {
     return html`
-      <label
-        id="main"
-        class=${classMap({
-          radio: true,
-          'radio--checked': this.checked,
-          'radio--disabled': this.disabled,
-        })}
-        @keydown=${this.handleKeyDown}
-      >
-        <input
-          type="radio"
-          name=${ifDefined(this.name || undefined)}
-          .value=${ifDefined(this.value || undefined)}
-          .checked=${live(this.checked)}
-          .disabled=${this.disabled}
-          aria-checked=${this.checked ? 'true' : 'false'}
-          aria-disabled=${this.disabled ? 'true' : 'false'}
-          @click=${this._handleClick}
-        />
-        <span id="control">
-          <span id="icon">
-            <svg
-              class="bg"
-              focusable="false"
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              data-testid="RadioButtonUncheckedIcon"
-            >
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-              ></path>
-            </svg>
-            <svg
-              class="fill"
-              focusable="false"
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              data-testid="RadioButtonCheckedIcon"
-            >
-              <path
-                d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
-              ></path>
-            </svg>
+      <label id="main" class="arc-radio" @keydown=${this.handleKeyDown}>
+        <div class="arc-radio--base">
+          <input
+            type="radio"
+            name=${ifDefined(this.name || undefined)}
+            .value=${ifDefined(this.value || undefined)}
+            .checked=${live(this.checked)}
+            .disabled=${this.disabled}
+            aria-checked=${this.checked ? 'true' : 'false'}
+            aria-disabled=${this.disabled ? 'true' : 'false'}
+            @click=${this._handleClick}
+          />
+          <span id="control" class="arc-radio--control">
+            <span id="icon" class="arc-radio--icon">
+              <svg
+                class="bg"
+                focusable="false"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                data-testid="RadioButtonUncheckedIcon"
+              >
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                ></path>
+              </svg>
+              <svg
+                class="fill"
+                focusable="false"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                data-testid="RadioButtonCheckedIcon"
+              >
+                <path
+                  d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                ></path>
+              </svg>
+            </span>
           </span>
-        </span>
-        <span id="label"><slot></slot></span>
+        </div>
+        <span id="label" class="arc-radio--label"><slot></slot></span>
       </label>
     `;
   }

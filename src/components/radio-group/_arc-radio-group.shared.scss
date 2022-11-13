@@ -1,0 +1,33 @@
+/**
+ * ArcSwitch shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+@use '../../styles/control.styles' as control;
+
+/* selector */
+$selector: #{preferences.$prefix}radio-group;
+
+/* host styles */
+@mixin host-styles {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+/* component styles */
+@mixin component-styles {
+  & &--radio-buttons {
+    display: grid;
+    position: relative;
+    right: var(--arc-spacing-small);
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  &#{&}--row &--radio-buttons {
+    @media (min-width: preferences.$mobileBreakpoint) {
+      grid-auto-flow: column;
+    }
+  }
+}

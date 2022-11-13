@@ -1,49 +1,17 @@
-@use '../../styles/preferences.styles' as preferences;
+/**
+ * ArcContainer LIT Web component styles.
+ */
 
-#main {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(var(--arc-background-color));
-  color: rgb(var(--arc-font-color));
-}
+@use '../../styles/preferences' as preferences;
+@use '../../styles/component.styles' as component;
+@use 'arc-container.shared' as arc-container;
 
-.container {
-  flex: 1 1 100%;
-  display: flex;
-  overflow: hidden;
-  gap: 0;
-  padding: 0;
-}
+/* base component styles */
+@include component.host;
+@include component.hidden;
+@include component.typography;
+@include component.scrollbar;
 
-::slotted(arc-sidebar) {
-  display: none;
-}
-
-#content {
-  flex: 1 1 100%;
-  overflow: hidden;
-  background-color: rgb(var(--arc-container-color));
-}
-
-arc-bottombar,
-::slotted(arc-bottombar) {
-  display: block;
-}
-
-/* Medium devices and up */
-@media (min-width: preferences.$mobileBreakpoint) {
-  .container:not(.container--fullscreen) {
-    gap: var(--arc-spacing-normal);
-    padding: var(--arc-spacing-normal) var(--arc-spacing-medium);
-  }
-
-  ::slotted(arc-sidebar) {
-    display: block;
-  }
-
-  arc-bottombar,
-  ::slotted(arc-bottombar) {
-    display: none;
-  }
+.#{arc-container.$selector} {
+  @include arc-container.component-styles;
 }

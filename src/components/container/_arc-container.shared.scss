@@ -1,0 +1,62 @@
+/**
+ * ArcContainer shared component styles.
+ */
+
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}container;
+
+/* component styles */
+@mixin component-styles {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(var(--arc-background-color));
+  color: rgb(var(--arc-font-color));
+
+  & &--container {
+    flex: 1 1 100%;
+    display: flex;
+    overflow: hidden;
+    gap: 0;
+    padding: 0;
+  }
+
+  & &--container &--content {
+    flex: 1 1 100%;
+    overflow: hidden;
+    background-color: rgb(var(--arc-container-color));
+  }
+
+  & arc-bottombar,
+  ::slotted(arc-bottombar),
+  & .arc-bottombar {
+    display: block;
+  }
+
+  & arc-sidebar,
+  ::slotted(arc-sidebar) {
+    display: none;
+  }
+
+  /* medium devices and up */
+  @media (min-width: preferences.$mobileBreakpoint) {
+    &:not(&--fullscreen) {
+      gap: var(--arc-spacing-normal);
+      padding: var(--arc-spacing-normal) var(--arc-spacing-medium);
+    }
+
+    ::slotted(arc-sidebar) {
+      display: block;
+    }
+
+    & arc-bottombar,
+    ::slotted(arc-bottombar),
+    & .arc-bottombar {
+      display: none;
+    }
+  }
+}
+
+

@@ -2,7 +2,7 @@
  * rem breakpoint for mobile devices.
  *
  * also update the exported scss const `$mobileBreakpoint`
- * in src/styles/preferences.styles.scss when updating this.
+ * in src/styles/_preferences.scss when updating this.
  */
 const mobileBreakpoint: number = 49;
 

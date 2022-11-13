@@ -8,8 +8,6 @@ import { FormController } from '../../internal/form-control.js';
 import { INPUT_SIZES, InputSize, THEME_COLORS, ThemeColor } from '../../internal/constants/styleConstants.js';
 import { BUTTON_TYPES, ButtonType, ButtonTarget } from './constants/ButtonConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-button.styles.css.js';
 import '../spinner/arc-spinner.js';
 
@@ -26,7 +24,7 @@ export default class ArcButton extends LitElement {
   /** @internal */
   static tag = 'arc-button';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#main') button: HTMLButtonElement | HTMLLinkElement;
@@ -108,23 +106,23 @@ export default class ArcButton extends LitElement {
       <${tag}
         id="main"
         class=${classMap({
-          button: true,
-          'button--small': this.size === INPUT_SIZES.small,
-          'button--medium': this.size === INPUT_SIZES.medium,
-          'button--large': this.size === INPUT_SIZES.large,
-          'button--default': this.color === THEME_COLORS.default,
-          'button--primary': this.color === THEME_COLORS.primary,
-          'button--secondary': this.color === THEME_COLORS.secondary,
-          'button--error': this.color === THEME_COLORS.error,
-          'button--warning': this.color === THEME_COLORS.warning,
-          'button--info': this.color === THEME_COLORS.info,
-          'button--success': this.color === THEME_COLORS.success,
-          'button--filled': this.type === BUTTON_TYPES.filled,
-          'button--outlined': this.type === BUTTON_TYPES.outlined,
-          'button--tab': this.type === BUTTON_TYPES.tab,
-          'button--active': this.active,
-          'button--disabled': this.disabled,
-          'button--loading': this.loading,
+          'arc-button': true,
+          'arc-button--size-small': this.size === INPUT_SIZES.small,
+          'arc-button--size-medium': this.size === INPUT_SIZES.medium,
+          'arc-button--size-large': this.size === INPUT_SIZES.large,
+          'arc-button--color-default': this.color === THEME_COLORS.default,
+          'arc-button--color-primary': this.color === THEME_COLORS.primary,
+          'arc-button--color-secondary': this.color === THEME_COLORS.secondary,
+          'arc-button--color-error': this.color === THEME_COLORS.error,
+          'arc-button--color-warning': this.color === THEME_COLORS.warning,
+          'arc-button--color-info': this.color === THEME_COLORS.info,
+          'arc-button--color-success': this.color === THEME_COLORS.success,
+          'arc-button--type-filled': this.type === BUTTON_TYPES.filled,
+          'arc-button--type-outlined': this.type === BUTTON_TYPES.outlined,
+          'arc-button--type-tab': this.type === BUTTON_TYPES.tab,
+          'arc-button--active': this.active,
+          'arc-button--disabled': this.disabled,
+          'arc-button--loading': this.loading,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
         type=${this.submit ? 'submit' : 'button'}
@@ -139,10 +137,10 @@ export default class ArcButton extends LitElement {
         tabindex=${this.disabled ? '-1' : '0'}
         @click=${this._handleClick}
       >
-        <slot id="prefix" name="prefix"></slot>
-        <slot id="label"></slot>
-        <slot id="suffix" name="suffix"></slot>
-        ${when(this.loading, () => html`<arc-spinner id="loader"></arc-spinner>`)}
+        <slot id="prefix" class="arc-button--prefix" name="prefix"></slot>
+        <slot id="label" class="arc-button--label"></slot>
+        <slot id="suffix" class="arc-button--suffix" name="suffix"></slot>
+        ${when(this.loading, () => html`<arc-spinner id="loader" class="arc-button--loader"></arc-spinner>`)}
       </${tag}>
     `;
   }

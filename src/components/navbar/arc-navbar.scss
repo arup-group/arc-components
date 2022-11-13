@@ -1,0 +1,13 @@
+/**
+ * ArcAvatar CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-navbar.shared' as arc-navbar;
+
+.#{arc-navbar.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-navbar.host-styles;
+  @include arc-navbar.component-styles;
+}

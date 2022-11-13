@@ -1,57 +1,31 @@
+/**
+ * ArcSidebar LIT Web component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-sidebar.shared' as arc-sidebar;
+
+/* base component styles */
+@include component.host;
+@include component.hidden;
+@include component.typography;
+@include component.scrollbar;
+
 :host {
-  --gap-distance: var(--arc-spacing-normal);
-  --sidebar-width: clamp(15rem, 30%, 23rem);
-  transform: translateX(-1.5rem);
-  transition: width 0.5s ease 0s;
-  width: 0;
+  @include arc-sidebar.host-styles;
 }
 
 :host([open]) {
-  transform: translateX(0);
-  width: var(--sidebar-width);
-  overflow: auto;
+  @include arc-sidebar.host-styles-open;
 }
 
-/* Open sidebar */
-#main,
-#content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+.#{arc-sidebar.$sidebar-selector} {
+  @include arc-sidebar.sidebar-component-styles;
 }
 
-#header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--arc-spacing-small);
-  padding-left: var(--arc-spacing-medium);
-  user-select: none;
+.#{arc-sidebar.$sidebar-toggle-selector}::part(icon) {
+  @include arc-sidebar.sidebar-toggle-styles;
 }
 
-#header span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-#content ::slotted(*) {
-  flex: 1 1 100%;
-}
-
-#content.gap {
-  gap: var(--gap-distance);
-}
-
-#toggleOpen::part(icon) {
-  padding: var(--arc-spacing-normal) 0.25rem var(--arc-spacing-normal) 0.25rem;
-  border-radius: 0;
-}
-
-/* Background */
-::slotted(*),
-#header,
-#toggleOpen {
+::slotted(*) {
   background-color: rgb(var(--arc-container-color));
 }

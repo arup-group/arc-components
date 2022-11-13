@@ -1,0 +1,124 @@
+/**
+ * ArcNavbar shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}navbar;
+
+/* host styles */
+@mixin host-styles {
+  height: 3.5rem;
+  background-color: rgb(var(--arc-container-color));
+  z-index: 1;
+  --logo-height: var(--arc-brand-height);
+}
+
+/* component styles */
+@mixin component-styles {
+  display: grid;
+  grid-auto-flow: column;
+  width: 100%;
+  padding: 0 var(--arc-spacing-medium) 0 var(--arc-spacing-medium);
+  box-shadow: var(--arc-box-shadow);
+  user-select: none;
+
+  /* layout */
+  & &--left,
+  & &--left &--logo-wrapper,
+  & &--right,
+  & &--right &--navigation {
+    display: grid;
+    grid-auto-flow: column;
+  }
+
+  /* left side */
+  & &--left {
+    justify-content: flex-start;
+  }
+
+  & &--left &--logo-wrapper {
+    align-items: center;
+    gap: var(--arc-spacing-small);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  & &--left &--logo-wrapper &--tool-logo {
+    height: var(--logo-height);
+    width: auto;
+  }
+
+  & &--left &--logo-wrapper &--tool-name {
+    display: flex;
+    overflow: hidden;
+  }
+
+  & &--left &--logo-wrapper &--tool-name::slotted(*) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  & &--left &--logo-wrapper &--tool-name + &--tool-name {
+    display: none;
+
+    @media (min-width: preferences.$mobileBreakpoint) {
+      display: flex;
+    }
+  }
+
+  /* right side */
+  & &--right {
+    justify-content: flex-end;
+    gap: var(--arc-spacing-medium);
+  }
+
+  & &--right &--navigation &--tabs {
+    display: none;
+
+    @media (min-width: preferences.$mobileBreakpoint) {
+      display: flex;
+    }
+  }
+
+  & &--navigation &--accessibility {
+    display: none;
+
+    @media (min-width: preferences.$mobileBreakpoint) {
+      display: flex;
+    }
+  }
+
+  & &--right &--company-logo {
+    color: rgb(var(--arc-color-primary));
+    display: flex;
+    align-items: center;
+
+    svg {
+      height: var(--arc-brand-height);
+      width: auto;
+    }
+  }
+
+  & ::slotted(arc-button),
+  & .arc-button {
+    border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+    border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+  }
+
+  & ::slotted(arc-icon-button),
+  & .arc-icon-button,
+  & &--right &--navigation &--dropdown,
+  & &--right &--navigation &--accessibility {
+    margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
+  }
+
+  @media (min-width: preferences.$mobileBreakpoint) {
+    & ::slotted(arc-sso),
+    & .arc-sso {
+      border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+    }
+  }
+}

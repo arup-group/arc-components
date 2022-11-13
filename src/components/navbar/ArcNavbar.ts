@@ -7,8 +7,6 @@ import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-navbar.styles.css.js';
 import { arupLogo } from './arup-logo.js';
 import type ArcButton from '../button/ArcButton.js';
@@ -31,7 +29,7 @@ export default class ArcNavbar extends LitElement {
   /** @internal */
   static tag = 'arc-navbar';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#tabSlot') tabSlot: HTMLSlotElement;
@@ -109,17 +107,18 @@ export default class ArcNavbar extends LitElement {
     `;
 
     const logoInterior = html`
-      ${when(this.logo, () => html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`)}
-      <slot id="tool-name" name="name"></slot>
+      ${when(this.logo, () => html`<img id="tool-logo" class="arc-navbar--tool-logo" src="${this.logo}" alt="tool-logo" />`)}
+      <slot id="tool-name" class="arc-navbar--tool-name" name="name"></slot>
     `;
 
     return html`
-      <header id="main">
-        <div id="left">
+      <header id="main" class="arc-navbar">
+        <div id="left" class="arc-navbar--left">
           ${when(
             this.home,
             () => html`<a
               id="logoWrapper"
+              class="arc-navbar--logo-wrapper"
               href=${this.home}
               rel="noreferrer noopener"
               role="button"
@@ -127,28 +126,29 @@ export default class ArcNavbar extends LitElement {
             >
               ${logoInterior}
             </a>`,
-            () => html`<div id="logoWrapper">${logoInterior}</div>`
+            () => html`<div id="logoWrapper" class="arc-navbar--logo-wrapper">${logoInterior}</div>`
           )}
         </div>
-        <div id="right">
-          <nav id="tabs" aria-label="primary navigation">
-            <slot id="tabSlot" @slotchange=${this._handleTabChange}></slot>
+        <div id="right" class="arc-navbar--right">
+          <nav id="tabs" class="arc-navbar--navigation" aria-label="primary navigation">
+            <slot id="tabSlot" class="arc-navbar--tabs" @slotchange=${this._handleTabChange}></slot>
             ${when(
               this.showDropdown,
-              () => html`<arc-dropdown id="dropdown" hoist>
+              () => html`<arc-dropdown id="dropdown" class="arc-navbar--dropdown" hoist>
                 <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
                 <arc-menu>${menuInterior}</arc-menu>
               </arc-dropdown>`
             )}
             <arc-icon-button
               id="accessibility"
+              class="arc-navbar--accessibility"
               name=${ICON_TYPES.accessibility}
               label="Accessibility panel"
               @click=${this.emitAccessibility}
             ></arc-icon-button>
             <slot name="user"></slot>
           </nav>
-          ${when(this.arup, () => html`<span id="company-logo">${arupLogo}</span>`)}
+          ${when(this.arup, () => html`<span id="company-logo" class="arc-navbar--company-logo">${arupLogo}</span>`)}
         </div>
       </header>
     `;

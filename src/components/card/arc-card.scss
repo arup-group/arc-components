@@ -1,0 +1,50 @@
+/**
+ * ArcCard CSS component styles.
+ */
+@use '../../styles/preferences' as preferences;
+@use '../../styles/component.styles' as component;
+@use 'arc-card.shared' as arc-card;
+
+.#{arc-card.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-card.host-styles;
+  @include arc-card.component-styles;
+
+  /* collapsed and expanded animations */
+  @mixin animation($keyframes) {
+    animation-duration: map-get(preferences.$animationDuration, 'slow');
+    animation-timing-function: map-get(preferences.$animationEasing, 'slow');
+    animation-fill-mode: forwards;
+    animation-name: $keyframes;
+  }
+
+  &#{&}--collapsed &--content {
+    @include animation(collapse);
+    @keyframes collapse {
+      from {
+        height: auto;
+        opacity: 1;
+      }
+      to {
+        height: 0;
+        opacity: 0;
+      }
+    }
+  }
+
+  &#{&}--expanded &--content {
+    @include animation(expand);
+    @keyframes expand {
+      from {
+        height: 0;
+        opacity: 0;
+      }
+      to {
+        height: auto;
+        opacity: 1;
+      }
+    }
+  }
+}

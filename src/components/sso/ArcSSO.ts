@@ -10,8 +10,6 @@ import { stringToArray } from '../../internal/string.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-sso.styles.css.js';
 import '../button/arc-button.js';
 import '../avatar/arc-avatar.js';
@@ -29,7 +27,7 @@ export default class ArcSSO extends LitElement {
   /** @internal */
   static tag = 'arc-sso';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal
   openid - By using this permission, an app can receive a unique identifier for the user in the form of the sub claim.
@@ -181,17 +179,18 @@ export default class ArcSSO extends LitElement {
     const { name } = this.getAccount() || {};
 
     return html`
-      <div id="main">
+      <div id="main" class="arc-sso">
         <slot name="login" ?hidden=${this._isAuth}>
           <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
         </slot>
         <slot name="logout" ?hidden=${!this._isAuth}>
           <arc-dropdown id="userMenu" placement=${FLOATING_PLACEMENTS['bottom-end']} hoist>
-            <arc-button id="desktopTrigger" slot="trigger" type="tab">
+            <arc-button id="desktopTrigger" class="arc-sso--desktop-trigger" slot="trigger" type="tab">
               ${name}
               <arc-avatar slot="suffix" name=${name} image=${until(this._avatar, '')} label="User avatar"></arc-avatar>
             </arc-button>
             <arc-avatar
+              class="arc-sso--mobile-trigger"
               id="mobileTrigger"
               slot="trigger"
               image=${until(this._avatar, '')}

@@ -36,11 +36,11 @@
   "scripts": {
     "prepare": "husky install",
     "start": "tsc && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "sass --style=compressed --no-source-map src:out-tsc && find ./out-tsc -name '*.css' -type f | xargs node scripts/css-to-js.mjs && tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js",
+    "build": "sass --style=compressed --no-source-map src:out-tsc && find ./out-tsc -name '*.styles.css' -type f | xargs node scripts/css-to-js.mjs && tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "yarn run build && wtr --coverage",
     "test:watch": "concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "tsc && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"start-storybook -p 9009\"",
+    "storybook": "yarn run build && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"start-storybook -p 9009\"",
     "storybook:build": "tsc && yarn run analyze && build-storybook",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore && stylelint \"**/*.css\" --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore && stylelint \"**/*.css\" --fix --ignore-path .gitignore",

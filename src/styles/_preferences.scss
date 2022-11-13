@@ -1,0 +1,30 @@
+/**
+ * prefix for all arc components.
+ */
+$prefix: arc-;
+
+/**
+ * rem breakpoint for mobile devices.
+ *
+ * also update the exported JS const 'mobileBreakpoint'
+ * in src/internal/preferences.ts when updating this.
+ */
+$mobileBreakpoint: 49rem;
+
+/**
+ * animation duration.
+ *
+ * also update the exported JS const 'ARC_ANIMATION_OPTIONS'
+ * in src/internal/constants/animationConstants.ts when
+ * updating this.
+ */
+$animationDuration: ('x-slow': 1000ms, 'slow': 500ms, 'medium': 250ms, 'fast': 150ms, 'x-fast': 50ms);
+
+/**
+ * animation easing.
+ *
+ * also update the exported JS const 'ARC_ANIMATION_OPTIONS'
+ * in src/internal/constants/animationConstants.ts then
+ * updating this.
+ */
+$animationEasing: ('x-slow': ease, 'slow': ease, 'medium': ease, 'fast': ease, 'x-fast': ease);

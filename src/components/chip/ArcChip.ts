@@ -8,10 +8,8 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { CHIP_TYPES, ChipType } from './constants/ChipConstants.js';
 import { INPUT_SIZES, InputSize } from '../../internal/constants/styleConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-chip.styles.css.js';
-import '../icon/arc-icon.js';
+import '../icon-button/arc-icon-button.js';
 
 /**
  * @slot default - The chip's label.
@@ -21,7 +19,7 @@ export default class ArcChip extends LitElement {
   /** @internal */
   static tag = 'arc-chip';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal - Controller that listens to slot changes within the component. */
   private readonly hasSlotController = new HasSlotController(this, 'avatar');
@@ -41,13 +39,14 @@ export default class ArcChip extends LitElement {
       <div
         id="main"
         class=${classMap({
-          chip: true,
-          'chip--small': this.size === INPUT_SIZES.small,
-          'chip--medium': this.size === INPUT_SIZES.medium,
-          'chip--large': this.size === INPUT_SIZES.large,
-          'chip--outlined': this.type === CHIP_TYPES.outlined,
-          'chip--has-avatar': this.hasSlotController.test('avatar'),
-          'chip--clearable': this.clearable,
+          'arc-chip': true,
+          'arc-chip--size-small': this.size === INPUT_SIZES.small,
+          'arc-chip--size-medium': this.size === INPUT_SIZES.medium,
+          'arc-chip--size-large': this.size === INPUT_SIZES.large,
+          'arc-chip--type-filled': this.type === CHIP_TYPES.filled,
+          'arc-chip--type-outlined': this.type === CHIP_TYPES.outlined,
+          'arc-chip--has-avatar': this.hasSlotController.test('avatar'),
+          'arc-chip--is-clearable': this.clearable,
         })}
       >
         <slot name="avatar"></slot>

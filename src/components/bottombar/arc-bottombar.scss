@@ -1,0 +1,13 @@
+/**
+ * ArcBottombar CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-bottombar.shared' as arc-bottombar;
+
+.#{arc-bottombar.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-bottombar.host-styles;
+  @include arc-bottombar.component-styles;
+}

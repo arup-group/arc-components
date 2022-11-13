@@ -1,12 +1,10 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { styleMap } from 'lit/directives/style-map.js';
+import {classMap} from 'lit/directives/class-map.js';
 import { getBasePath } from '../../utilities/base-path.js';
 import { ICON_TYPES, IconType } from './constants/IconConstants.js';
 import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
-// @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
 // @ts-ignore
 import styles from './arc-icon.styles.css.js';
 
@@ -18,7 +16,7 @@ export default class ArcIcon extends LitElement {
   /** @internal */
   static tag = 'arc-icon';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** The name of the icon to draw. */
   @property({ type: String, reflect: true }) name: IconType = ICON_TYPES.fire;
@@ -35,16 +33,25 @@ export default class ArcIcon extends LitElement {
   protected render() {
     const DEFAULT_PATH: string = `${getBasePath()}/assets/icons.svg`;
 
-    const iconStyles = {
-      transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
-      height: `var(--arc-font-size-${this.size})`,
-      width: `var(--arc-font-size-${this.size})`,
-    };
-
     return html`
       <svg
         id="main"
-        style=${styleMap(iconStyles)}
+        class=${classMap({
+          'arc-icon': true,
+          'arc-icon--rotate-0': this.rotation === 0,
+          'arc-icon--rotate-90': this.rotation === 90,
+          'arc-icon--rotate-180': this.rotation === 180,
+          'arc-icon--rotate-270': this.rotation === 270,
+          'arc-icon--size-xx-small': this.size === 'xx-small',
+          'arc-icon--size-x-small': this.size === 'x-small',
+          'arc-icon--size-small': this.size === 'small',
+          'arc-icon--size-medium': this.size === 'medium',
+          'arc-icon--size-large': this.size === 'large',
+          'arc-icon--size-x-large': this.size === 'x-large',
+          'arc-icon--size-xx-large': this.size === 'xx-large',
+          'arc-icon--size-xxx-large': this.size === 'xxx-large',
+          'arc-icon--size-xxxx-large': this.size === 'xxxx-large',
+        })}
         role=${ifDefined(this.label ? 'img' : undefined)}
         aria-label=${ifDefined(this.label || undefined)}
         aria-hidden=${ifDefined(this.label ? undefined : 'true')}

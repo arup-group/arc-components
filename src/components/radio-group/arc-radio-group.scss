@@ -1,0 +1,13 @@
+/**
+ * ArcRadioGroup CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-radio-group.shared' as arc-radio-group;
+
+.#{arc-radio-group.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-radio-group.host-styles;
+  @include arc-radio-group.component-styles;
+}

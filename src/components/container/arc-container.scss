@@ -1,0 +1,14 @@
+/**
+ * ArcContainer CSS component styles.
+ */
+
+@use 'arc-container.shared' as arc-container;
+@use '../../styles/component.styles' as component;
+
+.#{arc-container.$selector} {
+  /* base component styles */
+  @include component.typography;
+  @include component.scrollbar;
+
+  @include arc-container.component-styles;
+}

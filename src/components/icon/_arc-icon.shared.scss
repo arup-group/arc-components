@@ -1,0 +1,106 @@
+/**
+ * ArcIcon shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}icon;
+
+/* host styles */
+@mixin host-styles {
+  display: inline-flex;
+  --icon-color-primary: inherit;
+  --icon-color-secondary: currentColor;
+}
+
+/* component styles */
+@mixin component-styles {
+  display: block;
+  color: var(--icon-color-primary);
+  line-height: 1;
+  flex-shrink: 0;
+  max-width: initial;
+
+  use {
+    fill: var(--icon-color-secondary);
+    stroke: var(--icon-color-secondary);
+    --icon-stroke-linecap-butt: butt;
+    stroke-miterlimit: 10;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  /* rotate 0 degrees */
+  &#{&}--rotate-0 {
+    transform: rotate(0deg);
+  }
+
+  /* rotate 90 degrees */
+  &#{&}--rotate-90 {
+    transform: rotate(90deg);
+  }
+
+  /* rotate 180 degrees */
+  &#{&}--rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  /* rotate 270 degrees */
+  &#{&}--rotate-270 {
+    transform: rotate(270deg);
+  }
+
+  /* xx-small size */
+  &#{&}--size-xx-small {
+    width: var(--arc-font-size-xx-small);
+    height: var(--arc-font-size-xx-small);
+  }
+
+  /* x-small size */
+  &#{&}--size-x-small {
+    width: var(--arc-font-size-x-small);
+    height: var(--arc-font-size-x-small);
+  }
+
+  /* small size */
+  &#{&}--size-small {
+    width: var(--arc-font-size-small);
+    height: var(--arc-font-size-small);
+  }
+
+  /* medium size */
+  &#{&}--size-medium {
+    width: var(--arc-font-size-medium);
+    height: var(--arc-font-size-medium);
+  }
+
+  /* large size */
+  &#{&}--size-large {
+    width: var(--arc-font-size-large);
+    height: var(--arc-font-size-large);
+  }
+
+  /* x-large size */
+  &#{&}--size-x-large {
+    width: var(--arc-font-size-x-large);
+    height: var(--arc-font-size-x-large);
+  }
+
+  /* xx-large size */
+  &#{&}--size-xx-large {
+    width: var(--arc-font-size-xx-large);
+    height: var(--arc-font-size-xx-large);
+  }
+
+  /* xxx-large size */
+  &#{&}--size-xxx-large {
+    width: var(--arc-font-size-xxx-large);
+    height: var(--arc-font-size-xxx-large);
+  }
+
+  /* xxxx-large size */
+  &#{&}--size-xxxx-large {
+    width: var(--arc-font-size-xxxx-large);
+    height: var(--arc-font-size-xxxx-large);
+  }
+}

@@ -1,0 +1,13 @@
+/**
+ * ArcIcon CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-icon-button.shared' as arc-icon-button;
+
+.#{arc-icon-button.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-icon-button.host-styles;
+  @include arc-icon-button.component-styles;
+}

@@ -3,8 +3,6 @@ import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-menu-item.styles.css.js';
 
 /**
@@ -16,7 +14,7 @@ export default class ArcMenuItem extends LitElement {
   /** @internal */
   static tag = 'arc-menu-item';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** A unique value to store in the menu item. This can be used as a way to identify menu items when selected. */
   @property({ type: String }) value: string;
@@ -38,17 +36,17 @@ export default class ArcMenuItem extends LitElement {
       <div
         id="main"
         class=${classMap({
-          'menu-item': true,
-          'menu-item--disabled': this.disabled,
+          'arc-menu-item': true,
+          'arc-menu-item--disabled': this.disabled,
         })}
       >
-        <span id="prefix">
+        <span id="prefix" class="arc-menu-item--prefix">
           <slot name="prefix"></slot>
         </span>
-        <span id="label">
+        <span id="label" class="arc-menu-item--label">
           <slot></slot>
         </span>
-        <span id="suffix">
+        <span id="suffix" class="arc-menu-item--suffix">
           <slot name="suffix"></slot>
         </span>
       </div>

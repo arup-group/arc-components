@@ -1,0 +1,13 @@
+/**
+ * ArcChip CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-chip.shared' as arc-chip;
+
+.#{arc-chip.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-chip.host-styles;
+  @include arc-chip.component-styles;
+}

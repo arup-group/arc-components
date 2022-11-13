@@ -1,0 +1,72 @@
+/**
+ * ArcSidebar shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* sidebar selector */
+$sidebar-selector: #{preferences.$prefix}sidebar;
+/* toggle open selector */
+$sidebar-toggle-selector: #{preferences.$prefix}sidebar--toggle-open;
+
+/* host styles */
+@mixin host-styles {
+  --gap-distance: var(--arc-spacing-normal);
+  --sidebar-width: clamp(15rem, 30%, 23rem);
+  transform: translateX(-1.5rem);
+  transition: width 0.5s ease 0s;
+  width: 0;
+}
+
+@mixin host-styles-open {
+  transform: translateX(0);
+  width: var(--sidebar-width);
+  overflow: auto;
+}
+
+/* component styles */
+@mixin sidebar-component-styles {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  & &--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--arc-spacing-small);
+    padding-left: var(--arc-spacing-medium);
+    user-select: none;
+    background-color: rgb(var(--arc-container-color));
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  & &--content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  & &--content,
+  & &--content ::slotted(*) {
+    float: 1 1 100%;
+  }
+
+  & &--content.gap {
+    gap: var(--gap-distance);
+  }
+}
+
+/* sidebar toggle component styles */
+@mixin sidebar-toggle-styles {
+  padding: var(--arc-spacing-normal) 0.25rem var(--arc-spacing-normal) 0.25rem;
+  border-radius: 0;
+  background-color: rgb(var(--arc-container-color));
+}
+

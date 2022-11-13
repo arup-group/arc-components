@@ -1,3 +1,15 @@
+/**
+ * ArcMenu LIT Web component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-menu.shared' as arc-menu;
+
+/* base component styles */
+@include component.host;
+@include component.hidden;
+@include component.typography;
+@include component.scrollbar;
+
 :host {
-  display: block;
+  @include arc-menu.host-styles;
 }

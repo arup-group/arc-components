@@ -1,7 +1,6 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-// @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
+import { classMap } from 'lit/directives/class-map.js';
 // @ts-ignore
 import styles from './arc-radio-group.styles.css.js';
 import type ArcRadio from '../radio/ArcRadio.js';
@@ -16,7 +15,7 @@ export default class ArcRadioGroup extends LitElement {
   /** @internal */
   static tag = 'arc-radio-group';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
@@ -36,11 +35,17 @@ export default class ArcRadioGroup extends LitElement {
 
   protected render() {
     return html`
-      <div id="main">
+      <div
+        id="main"
+        class=${classMap({
+          'arc-radio-group': true,
+          'arc-radio-group--row': this.row,
+        })}
+      >
         <label id="label">
           <slot name="label">${this.label}</slot>
         </label>
-        <div id="radioGroup" role="radiogroup" @focusin=${this.handleFocusIn}>
+        <div id="radioGroup" role="radiogroup" class="arc-radio-group--radio-buttons" @focusin=${this.handleFocusIn}>
           <slot></slot>
         </div>
       </div>

@@ -13,8 +13,6 @@ import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-image.styles.css.js';
 
 /**
@@ -25,7 +23,7 @@ export default class ArcImage extends LitElement {
   /** @internal */
   static tag = 'arc-image';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#main') container: HTMLElement;
@@ -155,17 +153,18 @@ export default class ArcImage extends LitElement {
       <div
         id="main"
         class=${classMap({
-          image: true,
-          'image--has-image': this._hasImage,
-          'image--loading': this._loading,
+          'arc-image': true,
+          'arc-image--has-image': this._hasImage,
+          'arc-image--loading': this._loading,
         })}
         style=${styleMap(imageStyles)}
       >
         <img id="image" src="" alt=${this.alt} />
-        <div id="overlay">
-          <div id="loader"></div>
+        <div id="overlay" class="arc-image--overlay">
+          <div id="loader" class="arc-image--loader"></div>
           <svg
             id="placeholder"
+            class="arc-image--placeholder"
             width="100%"
             height="100%"
             viewBox="0 0 360 172"

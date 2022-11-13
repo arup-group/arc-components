@@ -1,0 +1,58 @@
+/**
+ * ArcTooltip CSS component styles.
+ */
+@use '../../styles/preferences' as preferences;
+@use 'arc-tooltip.shared' as arc-tooltip;
+
+.#{arc-tooltip.$selector} {
+  @include arc-tooltip.host-styles;
+
+  & &--target {
+    display: inherit;
+  }
+
+  & &--positioner {
+    @include arc-tooltip.component-positioner-styles;
+  }
+
+  & &--positioner &--tooltip {
+    //display: none;
+  }
+
+  @mixin animation($keyframes) {
+    animation-duration: map-get(preferences.$animationDuration, 'fast');
+    animation-timing-function: map-get(preferences.$animationEasing, 'fast');
+    animation-fill-mode: forwards;
+    animation-name: $keyframes;
+  }
+
+  /* is open */
+  &#{&}--is-open &--positioner &--tooltip {
+    @include animation(show-tooltip);
+    @keyframes show-tooltip {
+      from {
+        opacity: 0;
+        scale: 0.9;
+      }
+      to {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+  }
+
+  /* is closed */
+  &#{&}--is-closed &--positioner &--tooltip {
+    @include animation(hide-tooltip);
+    @keyframes hide-tooltip {
+      from {
+        opacity: 1;
+        scale: 1;
+      }
+      to {
+        opacity: 0;
+        scale: 0.9;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+/**
+ * ArcCard shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}card;
+
+/* host styles */
+@mixin host-styles {
+  display: inline-block;
+  width: auto;
+}
+
+/* component styles */
+@mixin component-styles {
+  display: grid;
+  overflow: hidden;
+  background-color: rgb(var(--arc-container-color));
+  box-shadow: var(--arc-box-shadow);
+
+  /* hide elements when they are not slotted or when the card is collapsed */
+  &:not(&--has-header) &--header,
+  &:not(&--has-image) &--content &--image,
+  &:not(&--has-body) &--content &--body,
+  &:not(&--has-footer) &--content &--footer {
+    display: none;
+  }
+
+  & &--header,
+  & &--content &--body,
+  & &--content &--footer {
+    padding: var(--arc-spacing-normal);
+  }
+
+  & &--content &--image {
+    overflow: hidden;
+  }
+
+  & &--header,
+  & &--header ::slotted(*),
+  & &--content &--footer,
+  & &--content &--footer ::slotted(*){
+    display: grid;
+    align-items: center;
+    grid-auto-flow: column;
+    gap: var(--arc-spacing-small);
+  }
+
+  & &--header,
+  & &--header ::slotted(*) {
+    justify-content: space-between;
+  }
+
+  & &--content &--footer,
+  & &--content &--footer ::slotted(*) {
+    justify-content: end;
+  }
+}

@@ -1,0 +1,21 @@
+/**
+ * ArcSidebar CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-sidebar.shared' as arc-sidebar;
+
+.#{arc-sidebar.$sidebar-selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-sidebar.host-styles;
+  @include arc-sidebar.sidebar-component-styles;
+}
+
+.#{arc-sidebar.$sidebar-toggle-selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-sidebar.host-styles;
+  @include arc-sidebar.sidebar-toggle-styles;
+}

@@ -1,8 +1,6 @@
 import { html, LitElement } from 'lit';
 import { state } from 'lit/decorators.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-bottombar.styles.css.js';
 
 /**
@@ -12,7 +10,7 @@ export default class ArcBottombar extends LitElement {
   /** @internal */
   static tag = 'arc-bottombar';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal - State that stores the max tab count */
   @state() private tabs: number = 5;
@@ -42,8 +40,10 @@ export default class ArcBottombar extends LitElement {
 
   protected render() {
     return html`
-      <nav id="main" aria-label="mobile navigation">
-        <slot @slotchange=${this._handleTabChange}></slot>
+      <nav id="main" class="arc-bottombar" aria-label="mobile navigation">
+        <div class="arc-bottombar--content">
+          <slot @slotchange=${this._handleTabChange}></slot>
+        </div>
       </nav>
     `;
   }

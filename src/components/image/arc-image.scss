@@ -1,0 +1,69 @@
+/**
+ * ArcImage CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-image.shared' as arc-image;
+
+.#{arc-image.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-image.component-styles;
+
+  @mixin animation($keyframes) {
+    animation-duration: 6000ms;
+    animation-iteration-count: infinite;
+    animation-name: $keyframes;
+  }
+
+  /**
+   * the timing is incorrect compared to the ArcImage web
+   * component.
+   *
+   * todo: improve (possibility? https://stackoverflow.com/a/52679073/7997640)
+   */
+  &#{&}--loading &--overlay &--loader {
+    @include animation(loader-show);
+    @keyframes loader-show {
+      from {
+        box-shadow: var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n);
+      }
+      10% {
+        box-shadow: var(--shadow-n), var(--shadow-pn), var(--shadow-pn), var(--shadow-pn);
+      }
+      20% {
+        box-shadow: var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-p);
+      }
+      30% {
+        box-shadow: var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-np);
+      }
+      40% {
+        box-shadow: var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-n);
+      }
+      45% {
+        box-shadow: var(--shadow-pn), var(--shadow-pn), var(--shadow-p), var(--shadow-pn)
+      }
+      50% {
+        box-shadow: var(--shadow-p), var(--shadow-p), var(--shadow-p), var(--shadow-p)
+      }
+      55% {
+        box-shadow: var(--shadow-np), var(--shadow-np), var(--shadow-p), var(--shadow-np)
+      }
+      60% {
+        box-shadow: var(--shadow-n), var(--shadow-n), var(--shadow-p), var(--shadow-np)
+      }
+      70% {
+        box-shadow: var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-np)
+      }
+      80% {
+        box-shadow: var(--shadow-n), var(--shadow-p), var(--shadow-p), var(--shadow-np)
+      }
+      90% {
+        box-shadow: var(--shadow-n), var(--shadow-np), var(--shadow-np), var(--shadow-np);
+      }
+      to {
+        box-shadow: var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n);
+      }
+    }
+  }
+}

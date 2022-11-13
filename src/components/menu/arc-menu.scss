@@ -1,0 +1,12 @@
+/**
+ * ArcMenu CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-menu.shared' as arc-menu;
+
+.#{arc-menu.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-menu.host-styles;
+}

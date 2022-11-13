@@ -1,22 +1,20 @@
+/**
+ * ArcIcon LIT Web component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-icon.shared' as arc-icon;
+
+/* base component styles */
+@include component.host;
+@include component.hidden;
+@include component.typography;
+@include component.scrollbar;
+
 :host {
-  display: inline-flex;
-  --icon-color-primary: inherit;
-  --icon-color-secondary: currentColor;
+  @include arc-icon.host-styles;
 }
 
-#main {
-  display: block;
-  color: var(--icon-color-primary);
-  line-height: 1;
-  flex-shrink: 0;
-  max-width: initial;
+.#{arc-icon.$selector} {
+  @include arc-icon.component-styles;
 }
 
-#main use {
-  fill: var(--icon-color-secondary);
-  stroke: var(--icon-color-secondary);
-  --icon-stroke-linecap-butt: butt;
-  stroke-miterlimit: 10;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-}

@@ -10,8 +10,6 @@ import { FLOATING_PLACEMENTS } from '../../internal/constants/placementConstants
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-dropdown.styles.css.js';
 import type ArcMenu from '../menu/ArcMenu.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
@@ -29,7 +27,7 @@ export default class ArcDropdown extends LitElement {
   /** @internal */
   static tag = 'arc-dropdown';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#trigger') trigger: HTMLElement;
@@ -374,8 +372,8 @@ export default class ArcDropdown extends LitElement {
       <div
         id="main"
         class=${classMap({
-          dropdown: true,
-          'dropdown--open': this.open,
+          'arc-dropdown': true,
+          'arc-dropdown--open': this.open,
         })}
       >
         <span
@@ -387,9 +385,10 @@ export default class ArcDropdown extends LitElement {
           <slot id="triggerSlot" name="trigger" @slotchange=${this._updateAccessibleTrigger}></slot>
         </span>
 
-        <div id="positioner">
+        <div id="positioner" class="arc-dropdown--positioner">
           <div
             id="panel"
+            class="arc-dropdown--panel"
             role="menu"
             aria-hidden=${this.open ? 'false' : 'true'}
             aria-labelledby="main"

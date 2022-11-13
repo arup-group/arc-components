@@ -1,0 +1,59 @@
+/**
+ * ArcTooltip shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector tooltip target */
+$selector: #{preferences.$prefix}tooltip;
+
+/* host styles */
+@mixin host-styles {
+  --max-width: 20rem;
+  --arrow-size: 4px;
+
+  display: contents;
+}
+
+/* component target styles */
+@mixin component-target-styles {
+  display: contents;
+}
+
+/* component position styles */
+@mixin component-positioner-styles {
+  position: absolute;
+  z-index: var(--arc-z-index-tooltip);
+  pointer-events: none;
+
+  &[data-placement^='top'] .#{preferences.$prefix}tooltip--tooltip {
+    transform-origin: bottom;
+  }
+
+  &[data-placement^='bottom'] .#{preferences.$prefix}tooltip--tooltip {
+    transform-origin: top;
+  }
+
+  &[data-placement^='left'] .#{preferences.$prefix}tooltip--tooltip {
+    transform-origin: right;
+  }
+
+  &[data-placement^='right'] .#{preferences.$prefix}tooltip--tooltip {
+    transform-origin: left;
+  }
+
+  & .#{preferences.$prefix}tooltip--arrow {
+    position: absolute;
+    background-color: rgb(var(--arc-background-color));
+    width: calc(var(--arrow-size) * 2);
+    height: calc(var(--arrow-size) * 2);
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+
+  & .#{preferences.$prefix}tooltip--content {
+    max-width: var(--max-width);
+    border-radius: var(--arc-border-radius-medium);
+    background-color: rgb(var(--arc-background-color));
+    padding: 0.25rem var(--arc-spacing-x-small);
+  }
+}

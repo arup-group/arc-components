@@ -1,0 +1,26 @@
+/**
+ * ArcBottombar shared component styles.
+ */
+
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}bottombar;
+
+/* host styles */
+@mixin host-styles {
+  height: 4.5rem;
+  background-color: rgb(var(--arc-background-color));
+}
+
+/* component styles */
+@mixin component-styles {
+  display: block;
+
+  & &--content {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    height: 100%;
+  }
+}

@@ -2,15 +2,10 @@ import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { emit } from '../../internal/event.js';
 import { FormController } from '../../internal/form-control.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-// @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
-import controlsStyles from '../../styles/control.styles.css.js';
 // @ts-ignore
 import styles from './arc-switch.styles.css.js';
 
@@ -23,7 +18,7 @@ export default class ArcSwitch extends LitElement {
   /** @internal */
   static tag = 'arc-switch';
 
-  static styles = [componentStyles, controlsStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('input[type="checkbox"]') input: HTMLInputElement;
@@ -104,15 +99,8 @@ export default class ArcSwitch extends LitElement {
 
   protected render() {
     return html`
-      <label
-        id="main"
-        class=${classMap({
-          switch: true,
-          'switch--checked': this.checked,
-          'switch--disabled': this.disabled,
-        })}
-      >
-        <span id="base">
+      <label id="main" class="arc-switch" >
+        <span id="base" class="arc-switch--base">
           <input
             type="checkbox"
             name=${ifDefined(this.name)}
@@ -125,11 +113,11 @@ export default class ArcSwitch extends LitElement {
             aria-disabled=${this.disabled ? 'true' : 'false'}
             @click=${this._handleClick}
           />
-          <span id="control">
-            <span id="thumb"></span>
+          <span id="control" class="arc-switch--control">
+            <span id="thumb" class="arc-switch--thumb"></span>
           </span>
         </span>
-        <span id="label"><slot></slot></span>
+        <span id="label" class="arc-switch--label"><slot></slot></span>
       </label>
     `;
   }

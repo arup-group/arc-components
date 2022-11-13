@@ -1,0 +1,72 @@
+/**
+ * ArcRadio shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+@use '../../styles/control.styles' as control;
+
+/* selector */
+$selector: #{preferences.$prefix}radio;
+
+/* component styles */
+@mixin component-styles {
+  @include control.styles(&);
+
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  cursor: pointer;
+
+  &--base {
+    flex: 0 0 auto;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--icon {
+    position: relative;
+    display: flex;
+
+    svg {
+      user-select: none;
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      fill: currentcolor;
+      flex-shrink: 0;
+      font-size: var(--arc-font-size-x-large);
+    }
+
+    svg.fill {
+      position: absolute;
+      transform: scale(0);
+    }
+  }
+
+  /* hover & focus-visible */
+  &:has(input:hover:not(input:disabled)) &--control,
+  &:has(input:focus-visible) &--control {
+    background-color: rgba(var(--arc-font-color), 10%);
+  }
+
+  /* active */
+  &:has(input:active:not(input:disabled)) &--control {
+    background-color: rgba(var(--arc-font-color), 30%);
+  }
+
+  /* disabled */
+  &:has(input:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* checked */
+  &:has(input:checked) &--control &--icon {
+    color: rgb(var(--arc-color-info));
+  }
+
+  &:has(input:checked) &--control &--icon svg.fill {
+    transform: scale(1);
+  }
+}

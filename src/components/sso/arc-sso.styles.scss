@@ -1,27 +1,19 @@
-@use '../../styles/preferences.styles' as preferances;
+/**
+ * ArcSSO LIT Web component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-sso.shared' as arc-sso;
 
-:host,
-#main {
-  display: inline-flex;
+/* base component styles */
+@include component.host;
+@include component.hidden;
+@include component.typography;
+@include component.scrollbar;
+
+:host {
+  @include arc-sso.host-styles;
 }
 
-#desktopTrigger {
-  display: none;
-}
-
-arc-avatar {
-  --size: 1.5rem;
-  cursor: pointer;
-}
-
-/* Medium devices and up. */
-@media (min-width: preferances.$mobileBreakpoint) {
-  #mobileTrigger {
-    display: none;
-  }
-
-  #desktopTrigger {
-    display: initial;
-    --btn-color: rgb(var(--arc-font-color));
-  }
+.#{arc-sso.$selector} {
+  @include arc-sso.component-styles;
 }

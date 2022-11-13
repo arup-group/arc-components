@@ -1,22 +1,19 @@
-@use '../../styles/preferences.styles' as preferences;
+/**
+ * ArcRadioGroup LIT Web component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-radio-group.shared' as arc-radio-group;
+
+/* base component styles */
+@include component.host;
+@include component.hidden;
+@include component.typography;
+@include component.scrollbar;
 
 :host {
-  display: inline-flex;
+  @include arc-radio-group.host-styles;
 }
 
-#radioGroup {
-  display: grid;
-  position: relative;
-  right: var(--arc-spacing-small);
-  border: none;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-}
-
-/* Medium devices and up */
-@media (min-width: preferences.$mobileBreakpoint) {
-  :host([row]) #radioGroup {
-    grid-auto-flow: column;
-  }
+.#{arc-radio-group.$selector} {
+  @include arc-radio-group.component-styles;
 }

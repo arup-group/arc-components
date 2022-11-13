@@ -14,8 +14,6 @@ import { emit, waitForEvent } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-card.styles.css.js';
 
 /**
@@ -33,7 +31,7 @@ export default class ArcCard extends LitElement {
   /** @internal */
   static tag = 'arc-card';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#content') content: HTMLElement;
@@ -110,24 +108,24 @@ export default class ArcCard extends LitElement {
       <article
         id="main"
         class=${classMap({
-          card: true,
-          'card--has-header': this.hasSlotController.test('header'),
-          'card--has-image': this.hasSlotController.test('image'),
-          'card--has-body': this.hasSlotController.test('[default]'),
-          'card--has-footer': this.hasSlotController.test('footer'),
+          'arc-card': true,
+          'arc-card--has-header': this.hasSlotController.test('header'),
+          'arc-card--has-image': this.hasSlotController.test('image'),
+          'arc-card--has-body': this.hasSlotController.test('[default]'),
+          'arc-card--has-footer': this.hasSlotController.test('footer'),
         })}
       >
-        <header id="header">
+        <header id="header" class="arc-card--header">
           <slot name="header"></slot>
         </header>
-        <div id="content">
-          <div id="image">
+        <div id="content" class="arc-card--content">
+          <div id="image" class="arc-card--image">
             <slot name="image"></slot>
           </div>
-          <div id="body">
+          <div id="body" class="arc-card--body">
             <slot></slot>
           </div>
-          <footer id="footer">
+          <footer id="footer" class="arc-card--footer">
             <slot name="footer"></slot>
           </footer>
         </div>

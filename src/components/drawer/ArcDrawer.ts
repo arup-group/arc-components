@@ -13,8 +13,6 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-drawer.styles.css.js';
 import '../icon-button/arc-icon-button.js';
 
@@ -36,7 +34,7 @@ export default class ArcDrawer extends LitElement {
   /** @internal */
   static tag = 'arc-drawer';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#main') drawer: HTMLElement;
@@ -185,18 +183,19 @@ export default class ArcDrawer extends LitElement {
       <div
         id="main"
         class=${classMap({
-          drawer: true,
-          'drawer--contained': this.contained,
-          'drawer--top': this.placement === DRAWER_PLACEMENTS.top,
-          'drawer--end': this.placement === DRAWER_PLACEMENTS.end,
-          'drawer--bottom': this.placement === DRAWER_PLACEMENTS.bottom,
-          'drawer--start': this.placement === DRAWER_PLACEMENTS.start,
+          'arc-drawer': true,
+          'arc-drawer--contained': this.contained,
+          'arc-drawer--placement-top': this.placement === DRAWER_PLACEMENTS.top,
+          'arc-drawer--placement-end': this.placement === DRAWER_PLACEMENTS.end,
+          'arc-drawer--placement-bottom': this.placement === DRAWER_PLACEMENTS.bottom,
+          'arc-drawer--placement-start': this.placement === DRAWER_PLACEMENTS.start,
         })}
         @keydown=${this._handleKeyDown}
       >
-        <div id="overlay" @click=${this._requestClose} role="presentation" tabindex="-1"></div>
+        <div id="overlay" class="arc-drawer--overlay" @click=${this._requestClose} role="presentation" tabindex="-1"></div>
         <div
           id="panel"
+          class="arc-drawer--panel"
           role="dialog"
           aria-modal="true"
           aria-hidden=${this.open ? 'false' : 'true'}
@@ -204,8 +203,8 @@ export default class ArcDrawer extends LitElement {
           aria-labelledby="${ifDefined(this.label ? undefined : 'title')}"
           tabindex="0"
         >
-          <div id="header">
-            <slot id="title" name="label"><span>${this.label}</span></slot>
+          <div id="header" class="arc-drawer--header">
+            <slot id="title" class="arc-drawer--title" name="label"><span>${this.label}</span></slot>
             <arc-icon-button
               id="toggleClose"
               name=${ICON_TYPES.x}
@@ -214,11 +213,11 @@ export default class ArcDrawer extends LitElement {
             ></arc-icon-button>
           </div>
 
-          <div id="body">
+          <div id="body" class="arc-drawer--body">
             <slot></slot>
           </div>
 
-          <footer id="footer">
+          <footer id="footer" class="arc-drawer--footer">
             <slot name="footer"></slot>
           </footer>
         </div>

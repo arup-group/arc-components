@@ -1,0 +1,13 @@
+/**
+ * ArcAvatar CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-avatar.shared' as arc-avatar;
+
+.#{arc-avatar.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-avatar.host-styles;
+  @include arc-avatar.component-styles;
+}

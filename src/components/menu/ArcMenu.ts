@@ -4,8 +4,6 @@ import { emit } from '../../internal/event.js';
 import { getTextContent } from '../../internal/slot.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-menu.styles.css.js';
 import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
 
@@ -18,7 +16,7 @@ export default class ArcMenu extends LitElement {
   /** @internal */
   static tag = 'arc-menu';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#menu') menu: HTMLElement;

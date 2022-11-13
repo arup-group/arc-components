@@ -1,0 +1,13 @@
+/**
+ * ArcSpinner CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-spinner.shared' as arc-spinner;
+
+.#{arc-spinner.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-spinner.host-styles;
+  @include arc-spinner.component-styles;
+}

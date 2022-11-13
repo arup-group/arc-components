@@ -1,0 +1,79 @@
+/**
+ * ArcChip shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}chip;
+
+/* host styles */
+@mixin host-styles {
+  display: inline-block;
+}
+
+/* component styles */
+@mixin component-styles {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  font-size: var(--arc-font-size-small);
+  white-space: nowrap;
+  cursor: default;
+  padding: 0 var(--arc-spacing-small);
+  gap: var(--arc-spacing-small);
+  outline: 0;
+  text-decoration: none;
+  user-select: none;
+  vertical-align: middle;
+  background-color: rgb(var(--arc-color-default));
+  border: none;
+  height: var(--chip-size);
+  border-radius: var(--chip-size);
+
+  & span {
+    display: inherit;
+    align-items: inherit;
+  }
+
+  & .arc-avatar,
+  ::slotted(arc-avatar) {
+    --size: calc(var(--chip-size) - 0.5rem);
+  }
+
+  /* filled type */
+  &#{&}--type-filled {
+    background-color: rgb(var(--arc-color-default));
+  }
+
+  /* outlined type */
+  &#{&}--type-outlined {
+    background-color: transparent;
+    border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+  }
+
+  /* small size */
+  &#{&}--size-small {
+    --chip-size: var(--arc-input-height-small);
+  }
+
+  /* medium size */
+  &#{&}--size-medium {
+    --chip-size: var(--arc-input-height-medium);
+  }
+
+  /* large size */
+  &#{&}--size-large {
+    --chip-size: var(--arc-input-height-large);
+  }
+
+  /* has avatar */
+  &#{&}--has-avatar {
+    padding-left: calc(var(--chip-size) * 0.15);
+  }
+
+  /* is clearable */
+  &#{&}--is-clearable {
+    padding-right: 0;
+  }
+}

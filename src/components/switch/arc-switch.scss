@@ -1,0 +1,13 @@
+/**
+ * ArcSwitch CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-switch.shared' as arc-switch;
+
+.#{arc-switch.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-switch.host-styles;
+  @include arc-switch.component-styles;
+}

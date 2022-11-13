@@ -7,8 +7,6 @@ import { watch } from '../../internal/watch.js';
 import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 // @ts-ignore
-import componentStyles from '../../styles/component.styles.css.js';
-// @ts-ignore
 import styles from './arc-container.styles.css.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
@@ -25,7 +23,7 @@ export default class ArcContainer extends LitElement {
   /** @internal */
   static tag = 'arc-container';
 
-  static styles = [componentStyles, styles];
+  static styles = styles;
 
   /** @internal */
   @query('#main') container: HTMLElement;
@@ -87,17 +85,17 @@ export default class ArcContainer extends LitElement {
 
   protected render() {
     return html`
-      <div id="main">
+      <div
+        id="main"
+        class=${classMap({
+          'arc-container': true,
+          'arc-container--fullscreen': this.fullscreen,
+        })}
+      >
         <slot id="nav" name="nav" @arc-show-accessibility=${this.showAccessibility}></slot>
-        <div
-          id="container"
-          class=${classMap({
-            container: true,
-            'container--fullscreen': this.fullscreen,
-          })}
-        >
+        <div id="container" class="arc-container--container">
           <slot name="side"></slot>
-          <div id="content">
+          <div id="content" class="arc-container--content">
             <slot></slot>
           </div>
         </div>

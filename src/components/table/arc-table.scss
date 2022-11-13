@@ -1,0 +1,25 @@
+/**
+ * ArcTable CSS component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-table.shared' as arc-table;
+
+.#{arc-table.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-table.component-styles;
+
+
+  /* overwrite the scrollbar-tracks to display a border that looks good with the table */
+  &::-webkit-scrollbar-track {
+    @include arc-table.vertical-scrollbar-styles;
+  }
+
+  &::-webkit-scrollbar-track:horizontal {
+    @include arc-table.horizontal-scrollbar-styles;
+  }
+}
+
+
+

@@ -1,11 +1,21 @@
+/**
+ * ArcBottombar LIT Web component styles.
+ */
+@use '../../styles/component.styles' as component;
+@use 'arc-bottombar.shared' as arc-bottombar;
+
+/* base component styles */
+@include component.host;
+@include component.hidden;
+@include component.typography;
+@include component.scrollbar;
+
 :host {
-  height: 4.5rem;
-  background-color: rgb(var(--arc-background-color));
+  @include arc-bottombar.host-styles;
 }
 
-#main {
+.#{arc-bottombar.$selector} {
+  @include arc-bottombar.component-styles;
+
   height: inherit;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
 }

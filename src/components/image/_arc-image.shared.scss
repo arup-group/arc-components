@@ -1,0 +1,58 @@
+/**
+ * ArcImage shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}image;
+
+/* component styles */
+@mixin component-styles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: cover;
+  }
+
+  & &--overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(var(--arc-grey-020));
+  }
+
+  /* has image */
+  &#{&}--has-image img {
+    display: block
+  }
+
+  &#{&}--has-image &--overlay {
+    display: none;
+  }
+
+  /* loading */
+  &#{&}--loading &--overlay &--placeholder {
+    display: none;
+  }
+
+  &#{&}--loading &--overlay &--loader {
+    --shadow-p: 0.6em 0.6em 0 0.3em currentcolor;
+    --shadow-n: -0.6em -0.6em 0 0.3em currentcolor;
+    --shadow-pn: 0.6em -0.6em 0 0.3em currentcolor;
+    --shadow-np: -0.6em 0.6em 0 0.3em currentcolor;
+    width: 0.3em;
+    height: 0.3em;
+    display: block;
+    color: rgb(var(--arc-grey-030));
+  }
+}

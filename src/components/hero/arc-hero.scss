@@ -1,0 +1,14 @@
+/**
+ * ArcHero CSS component styles.
+ */
+@use '../../styles/preferences' as preferences;
+@use '../../styles/component.styles' as component;
+@use 'arc-hero.shared' as arc-hero;
+
+.#{arc-hero.$selector} {
+  /* base component styles */
+  @include component.typography;
+
+  @include arc-hero.host-styles;
+  @include arc-hero.component-styles;
+}

@@ -1,0 +1,12 @@
+/**
+ * ArcMenu shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}menu;
+
+/* host styles */
+@mixin host-styles {
+  display: block;
+}

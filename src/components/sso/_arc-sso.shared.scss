@@ -1,0 +1,40 @@
+/**
+ * ArcSSO shared component styles.
+ */
+@use '../../styles/preferences' as preferences;
+
+/* selector */
+$selector: #{preferences.$prefix}sso;
+
+/* host styles */
+@mixin host-styles {
+  display: inline-flex;
+}
+
+/* component styles */
+@mixin component-styles {
+  display: inline-flex;
+
+  & &--desktop-trigger {
+    display: none;
+
+    @media (min-width: preferences.$mobileBreakpoint) {
+      display: inherit;
+      --btn-color: rgb(var(--arc-font-color));
+    }
+  }
+
+  & &--mobile-trigger {
+    display: block;
+
+    @media (min-width: preferences.$mobileBreakpoint) {
+      display: none;
+    }
+  }
+
+  .arc-avatar,
+  arc-avatar {
+    --size: 1.5rem;
+    cursor: pointer;
+  }
+}

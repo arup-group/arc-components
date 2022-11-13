@@ -1,5 +1,9 @@
 export declare type TransitionSpeed = 'x-slow' | 'slow' | 'medium' | 'fast' | 'x-fast';
 
+/**
+ * also update `$animationDuration` and `$animationEasing`
+ * in src/styles/_preferences.scss when updating this.
+ */
 export const ARC_ANIMATION_OPTIONS: { [key in TransitionSpeed]: KeyframeAnimationOptions } = {
   'x-slow': {
     duration: 1000,

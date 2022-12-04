@@ -35,7 +35,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "start": "tsc && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "start": "yarn run build && concurrently -k -r \"yarn run analyze --watch\" \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "sass --style=compressed --no-source-map src:out-tsc && find ./out-tsc -name '*.styles.css' -type f | xargs node scripts/css-to-js.mjs && tsc && yarn run analyze --outdir dist && rollup -c rollup.config.js",
     "create": "plop --plopfile scripts/plop/plopfile.mjs",
     "test": "yarn run build && wtr --coverage",
@@ -51,6 +51,7 @@
     "@custom-elements-manifest/analyzer": "^0.6.4",
     "@floating-ui/dom": "^0.3.1",
     "@lit-labs/react": "^1.1.0",
+    "@storybook/html": "^6.5.13",
     "date-fns": "^2.29.1",
     "gridjs": "^5.0.2",
     "lit": "^2.2.8",

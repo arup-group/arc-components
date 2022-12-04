@@ -60,7 +60,7 @@ $selector: #{preferences.$prefix}navbar;
     text-overflow: ellipsis;
   }
 
-  & &--left &--logo-wrapper &--tool-name + &--tool-name {
+  & &--left &--logo-wrapper &--tool-name {
     display: none;
 
     @media (min-width: preferences.$mobileBreakpoint) {

@@ -1,0 +1,121 @@
+import { createElement, CreateElement } from '../../internal/story-utils.js';
+import { ARC_ICON_BUTTON_DEFAULT_ARGS, ArcIconButton } from '../icon-button/icon-button.css.utils';
+import { ARC_BUTTON_DEFAULT_ARGS, ArcButton } from '../button/arc-button.css.utils';
+
+/**
+ * ArcNavbar default arguments.
+ */
+export const ARC_NAVBAR_DEFAULT_ARGS = {
+  arup: true,
+  home: '/',
+  logo: '/arc-red.svg',
+};
+
+/**
+ * Creates ArupLogo SVG element.
+ */
+const ArupLogo: CreateElement<void> = () => {
+  const logo = createElement(
+    'svg',
+    {},
+    {
+      width: { value: '512', set: true },
+      height: { value: '159', set: true },
+      fill: { value: 'currentColor', set: true },
+      xmlns: { value: 'http://www.w3.org/2000/svg', set: true },
+    }
+  );
+  const title = createElement('title', {}, {});
+  title.innerHTML = 'Arup Logo';
+  const a = createElement(
+    'path',
+    {},
+    {
+      d: {
+        value:
+          'M331.03 146.348C302.146 146.348 289.628 133.297 284.742 125.522C279.153 116.521 278.43 104.335 278.43 94.7163V31.8024C278.43 31.1942 278.439 30.5858 278.449 29.9586C278.554 23.4 278.658 17.2028 268.47 16.8796H265.228V11.6328H317.459L317.495 16.9176L316.565 16.9081C312.668 16.8701 309.701 17.9061 307.592 19.9877C305.093 22.4686 303.819 26.4417 303.819 31.8024V101.008C303.819 124.438 314.007 136.32 334.102 136.32C345.469 136.32 355.031 132.964 361.011 126.872C370.676 116.882 371.448 103.936 371.448 88.0436V31.6124C371.448 23.267 370.62 16.8891 360.163 16.8891H357.445V11.6328H395.97V16.8891H394.343C386.627 16.8891 382.16 19.2939 382.16 31.6124V89.0037C382.167 127.594 365.439 146.348 331.03 146.348Z',
+        set: true,
+      },
+    }
+  );
+  const r = createElement(
+    'path',
+    {},
+    {
+      d: {
+        value:
+          'M460.357 143.553H408.078V138.325L408.962 138.297C421.216 137.945 421.842 134.029 421.842 122.775V31.7264C421.842 20.0162 421.386 17.2408 409.476 16.8891L408.592 16.8606V11.6328H461.926C493.434 11.6328 509.916 30.1011 509.916 48.3411C509.916 69.2143 491.305 85.5629 467.552 85.5629L455.785 85.3918V76.1529C455.785 76.1529 460.243 76.1054 461.867 76.1054C476.486 76.1054 484.005 65.0511 484.005 48.5978C484.005 31.4602 473.018 19.9402 456.669 19.9402L446.157 19.9117V124.895C446.157 135.92 448.152 137.916 459.483 138.287L460.367 138.316V143.553H460.357Z',
+        set: true,
+      },
+    }
+  );
+  const u = createElement(
+    'path',
+    {},
+    {
+      d: {
+        value:
+          'M268.611 143.553H230.943L190.642 82.2647V74.7842L191.459 74.6987C205.593 73.2064 218.862 65.0701 218.862 46.6968C218.862 31.2797 207.77 20.5201 191.887 20.5201H181.013V124.895C181.013 136.263 186.232 137.394 193.608 137.736L194.472 137.774V143.544H143.364V138.24L144.229 138.192C155.312 137.574 156.88 134.799 156.88 124.885V30.2816C156.471 18.5715 155.749 17.0697 144.267 16.8891L143.373 16.8796V11.6328H198.427C219.423 11.6328 243.945 20.8621 243.945 46.887C243.945 62.3991 234.546 73.5296 215.991 79.9834L236.903 110.856C239.183 114.354 247.567 124.524 251.322 128.668C258.479 136.367 263.63 137.432 267.043 138.135L268.611 138.468V143.553Z',
+        set: true,
+      },
+    }
+  );
+  const p = createElement(
+    'path',
+    {},
+    {
+      d: {
+        value:
+          'M134.287 143.553H84.4139V138.401L85.2978 138.373C91.3906 138.164 95.164 136.833 95.164 130.883C95.164 128.221 93.0825 123.013 91.9608 120.209L83.8532 100.818H38.8088L30.5299 119.676C27.783 125.902 26.9846 128.155 26.9846 131.073C26.9846 135.36 26.9846 138.192 37.0123 138.373L37.9059 138.392V143.563H1.93879V138.401L2.83226 138.382C9.96102 138.221 13.668 134.599 18.7057 122.88L67.495 11.6328H72.5042L72.7417 12.1841L121.674 127.404C125.2 135.987 126.036 138.021 133.422 138.325L134.296 138.363V143.553H134.287ZM42.5062 91.8932H80.2031L61.7729 47.1817L42.5062 91.8932Z',
+        set: true,
+      },
+    }
+  );
+  logo.append(title, a, r, u, p);
+  return logo;
+};
+
+/**
+ * Creates ArcNavbar element.
+ */
+export const ArcNavbar: CreateElement<typeof ARC_NAVBAR_DEFAULT_ARGS> = ({ arup, home, logo }) => {
+  const arcNavbar = createElement('header', { 'arc-navbar': true });
+  const left = createElement('div', { 'arc-navbar--left': true });
+  const logoWrapper = createElement(
+    home.length > 0 ? 'a' : 'span',
+    { 'arc-navbar--logo-wrapper': true },
+    { href: { value: home, set: home.length > 0 } }
+  );
+  if (logo.length > 0) {
+    const toolLogo = createElement(
+      'img',
+      { 'arc-navbar--tool-logo': true },
+      { src: { value: logo, set: true }, alt: { value: 'tool-logo', set: true } }
+    );
+    logoWrapper.append(toolLogo);
+  }
+  const toolName = createElement('span', { 'arc-navbar--tool-name': true }, { name: { value: 'name', set: true } });
+  toolName.innerHTML = 'Web Components';
+  logoWrapper.append(toolName);
+  left.append(logoWrapper);
+  const right = createElement('div', { 'arc-navbar--right': true });
+  const navigation = createElement('nav', { 'arc-navbar--navigation': true });
+  const tabs = createElement('div', { 'arc-navbar--tabs': true });
+  const tab1 = ArcButton({ ...ARC_BUTTON_DEFAULT_ARGS, type: 'tab' });
+  tab1.innerHTML = 'Tab 1';
+  const tab2 = ArcButton({ ...ARC_BUTTON_DEFAULT_ARGS, type: 'tab' });
+  tab2.innerHTML = 'Tab 2';
+  const tab3 = ArcButton({ ...ARC_BUTTON_DEFAULT_ARGS, type: 'tab' });
+  tab3.innerHTML = 'Tab 3';
+  tabs.append(tab1, tab2, tab3);
+  const accessibility = ArcIconButton({ ...ARC_ICON_BUTTON_DEFAULT_ARGS, name: 'accessibility', label: '' });
+  navigation.append(tabs, accessibility);
+  right.append(navigation);
+  if (arup) {
+    const companyLogo = createElement('span', { 'arc-navbar--company-logo': true });
+    companyLogo.append(ArupLogo());
+    right.append(companyLogo);
+  }
+  arcNavbar.append(left, right);
+  return arcNavbar;
+};

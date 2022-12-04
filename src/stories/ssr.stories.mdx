@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="SSR" />
+
+# Server Side Rendering
+
+Server Side Rendering (SSR) is a technique for rendering a web page on the server instead of the client. This is useful for SEO and performance reasons.
+Currently, rendering web components on the server is not supported by any major framework. If SSR is a strict requirement for your project, you should use
+the **CSS** implementation of the ARC Components.
+
+## ARC Components (Pure CSS)
+
+### Installation
+
+Install the `@arc-web/components` package as a dependency of your project:
+
+``` bash
+npm i @arc-web/components@latest
+```
+
+It's up to you to make the source theme and components files available to your app.
+
+``` html
+<link rel="stylesheet" href="/arc/dist/themes/index.css">
+<link rel="stylesheet" href="/arc/dist/themes/light.css">
+<link rel="stylesheet" href="/arc/dist/themes/dark.css">
+```
+
+Each component's styles are available as a separate file:
+
+``` html
+<link rel="stylesheet" href="/arc/dist/components/button/arc-button.css">
+```
+
+### Usage
+
+Usage examples can be found in the individual storybook component documentation under the CSS section.
+
+### Caveats
+
+Some components require JavaScript to function properly. These components will not work in a pure CSS implementation.
+- **@floating-ui/dom** is required for computing positing unit values for DOM elements within the `ArcDropdown` and `ArcTooltip` components.
+See the internal implementation of these components and the [**@floating-ui/dom** documentation](https://floating-ui.com/) for more details.
+- **gridjs** is required for the `ArcTable` component. See the internal implmeneation of the component and [**gridjs** documentation](https://gridjs.io/) for more details.

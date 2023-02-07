@@ -3,7 +3,7 @@ import { ARC_TOOLTIP_DEFAULT_ARGS, ArcTooltip } from './arc-tooltip.css.utils.js
 import './arc-tooltip.css';
 
 export default {
-  title: 'CSS/Tooltip',
+  title: 'CSS/ArcTooltip',
 } as Meta;
 
 const Template: Story<typeof ARC_TOOLTIP_DEFAULT_ARGS> = args => ArcTooltip(args);

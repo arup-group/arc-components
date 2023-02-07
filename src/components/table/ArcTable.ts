@@ -3,8 +3,7 @@ import { property, query } from 'lit/decorators.js';
 import { Grid, Row, createElement, UserConfig } from 'gridjs';
 import { TCell, TColumn } from 'gridjs/dist/src/types';
 import { Language } from 'gridjs/dist/src/i18n/language';
-import { JSXInternal } from 'preact/src/jsx';
-import { ComponentChildren } from 'preact';
+import { ComponentChildren, ComponentType, Attributes } from 'preact';
 import { emit } from '../../internal/event.js';
 import { ARC_EVENTS, ArcEvent } from '../../internal/constants/eventConstants.js';
 // @ts-ignore
@@ -115,12 +114,8 @@ export default class ArcTable extends LitElement {
   }
 
   /* Method used to format a table cell. */
-  format(
-    type: string,
-    props: (JSXInternal.HTMLAttributes & JSXInternal.SVGAttributes & Record<string, any>) | null,
-    ...children: ComponentChildren[]
-  ) {
-    return createElement(type, { ...props }, ...children);
+  format(type: ComponentType<string>, props: (Attributes & string) | null, ...children: ComponentChildren[]) {
+    return createElement(type, props, ...children);
   }
 
   /**

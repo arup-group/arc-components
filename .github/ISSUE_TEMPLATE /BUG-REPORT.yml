@@ -1,0 +1,91 @@
+name: 'Bug Report'
+description: Create a new issue for a bug.
+labels: ['bug']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 'Detailed Description'
+      description: 'A clear and concise description of what the bug is.'
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: packages
+    attributes:
+      label: 'Components'
+      description: 'What component is the bug effecting?'
+      options:
+        - label: 'accessibility'
+        - label: 'avatar'
+        - label: 'bottombar'
+        - label: 'button'
+        - label: 'card'
+        - label: 'chip'
+        - label: 'container'
+        - label: 'drawer'
+        - label: 'dropdown'
+        - label: 'hero'
+        - label: 'icon'
+        - label: 'icon-button'
+        - label: 'image'
+        - label: 'menu'
+        - label: 'menu-item'
+        - label: 'navbar'
+        - label: 'radio'
+        - label: 'radio-group'
+        - label: 'sidebar'
+        - label: 'spinner'
+        - label: 'switch'
+        - label: 'table'
+        - label: 'tooltip'
+
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: 'Expected Behaviour'
+      description: 'A clear and concise description of what you expected to happen.'
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behaviour
+    attributes:
+      label: 'Actual Behaviour'
+      description: 'A clear and concise description of what actually happened.'
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: 'Steps to Reproduce'
+      description: 'Steps to reproduce the behaviour.'
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: application-framework
+    attributes:
+      label: 'Rending or Application Framework/Library'
+      description: 'What rending or application framework/library are you using?'
+      options:
+        - label: 'Angular'
+        - label: 'React'
+        - label: 'Vue'
+        - label: 'Vanilla JS'
+
+  - type: input
+    id: arc-version
+    attributes:
+      label: 'Arc Version'
+      description: 'What version of Arc are you using?'
+      placeholder: 'e.g. 2.0.0'
+    validations:
+      required: true
+
+

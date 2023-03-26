@@ -11,7 +11,7 @@ body:
       required: true
 
   - type: checkboxes
-    id: packages
+    id: components
     attributes:
       label: 'Components'
       description: 'What component is the bug effecting?'
@@ -71,13 +71,9 @@ body:
   - type: checkboxes
     id: application-framework
     attributes:
-      label: 'Rending or Application Framework/Library'
+      label: 'Application Framework/Library'
       description: 'What rending or application framework/library are you using?'
-      options:
-        - label: 'Angular'
-        - label: 'React'
-        - label: 'Vue'
-        - label: 'Vanilla JS'
+      placeholder: 'e.g. Angular v15.0.0 / React 18.0.0 / Vue 3.0.0'
 
   - type: input
     id: arc-version
@@ -87,5 +83,3 @@ body:
       placeholder: 'e.g. 2.0.0'
     validations:
       required: true
-
-

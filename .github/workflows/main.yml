@@ -34,7 +34,7 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
 
       - name: Upload Storybook to S3
-        uses: shallwefootball/upload-s3-action@v1.1.3
+        uses: shallwefootball/upload-s3-action@v1.3.3
         with:
           aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -43,7 +43,7 @@ jobs:
           destination_dir: .
 
       - name: Upload assets to S3
-        uses: shallwefootball/upload-s3-action@v1.1.3
+        uses: shallwefootball/upload-s3-action@v1.3.3
         with:
           aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}

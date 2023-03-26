@@ -68,7 +68,7 @@ body:
     validations:
       required: true
 
-  - type: checkboxes
+  - type: input
     id: application-framework
     attributes:
       label: 'Application Framework/Library'

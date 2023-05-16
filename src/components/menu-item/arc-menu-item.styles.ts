@@ -14,9 +14,11 @@ export default [
       align-items: stretch;
       text-align: left;
       padding: var(--arc-spacing-small) var(--arc-spacing-medium);
+      text-decoration: none;
       user-select: none;
       white-space: nowrap;
       cursor: pointer;
+      color: inherit;
     }
 
     #prefix,

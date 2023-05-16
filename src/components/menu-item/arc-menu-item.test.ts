@@ -1,5 +1,6 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { elementUpdated, expect, fixture, waitUntil } from '@open-wc/testing';
+import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../internal/slot.js';
 
 import type ArcMenuItem from './ArcMenuItem.js';
@@ -43,6 +44,40 @@ describe('ArcMenuItem', () => {
       expect(element.value).to.equal('testProp');
       expect(element.getAttribute('value')).to.equal('testProp');
     });
+
+    it('renders the menu item as an anchor', async () => {
+      const element: ArcMenuItem = await fixture(html`<arc-menu-item href="/">Test</arc-menu-item>`);
+      const menuItemTarget = element.shadowRoot!.getElementById('main')!;
+
+      expect(element.href).to.equal('/');
+      expect(element.getAttribute('href')).to.equal('/');
+
+      expect(menuItemTarget.tagName).to.equal('A');
+      expect(menuItemTarget.getAttribute('href')).to.equal('/');
+      expect(menuItemTarget.hasAttribute('target')).to.be.false;
+      expect(menuItemTarget.hasAttribute('rel')).to.be.false;
+    });
+
+    it('renders the anchor with a target attribute', async () => {
+      const element: ArcMenuItem = await fixture(html`<arc-menu-item href="/" target="_blank">Test</arc-menu-item>`);
+      const menuItemTarget = element.shadowRoot!.getElementById('main')!;
+
+      expect(element.target).to.equal('_blank');
+      expect(element.getAttribute('target')).to.equal('_blank');
+
+      expect(menuItemTarget.getAttribute('target')).to.equal('_blank');
+      expect(menuItemTarget.getAttribute('rel')).to.equal('noreferrer noopener');
+    });
+
+    it('renders the anchor with a download attribute', async () => {
+      const element: ArcMenuItem = await fixture(html`<arc-menu-item href="/" download="Filename">Test</arc-menu-item>`);
+      const menuItemTarget = element.shadowRoot!.getElementById('main')!;
+
+      expect(element.download).to.equal('Filename');
+      expect(element.getAttribute('download')).to.equal('Filename');
+
+      expect(menuItemTarget.getAttribute('download')).to.equal('Filename');
+    });
   });
 
   /* Test different component states (active, disabled, loading etc.) */
@@ -63,6 +98,55 @@ describe('ArcMenuItem', () => {
       expect(element.disabled).to.be.true;
       expect(element.hasAttribute('disabled')).to.be.true;
       expect(element.getAttribute('aria-disabled')).to.equal('true');
+    });
+
+    it('renders the anchor in a disabled state', async () => {
+      element.href = '/';
+      await elementUpdated(element);
+
+      const anchorTarget = element.shadowRoot!.getElementById('main');
+
+      expect(element.disabled).to.be.false;
+      expect(element.hasAttribute('disabled')).to.be.false;
+      expect(element.getAttribute('aria-disabled')).to.equal('false');
+      expect(anchorTarget!.getAttribute('tabindex')).to.equal('0');
+
+      element.disabled = true;
+      await elementUpdated(element);
+
+      expect(element.disabled).to.be.true;
+      expect(element.hasAttribute('disabled')).to.be.true;
+      expect(element.getAttribute('aria-disabled')).to.equal('true');
+      expect(anchorTarget!.getAttribute('tabindex')).to.equal('-1');
+    });
+  });
+
+  /* Test the events (click etc.) */
+  describe('events', () => {
+    let element: ArcMenuItem;
+    const clickSpy: SinonSpy = sinon.spy();
+
+    beforeEach(async () => {
+      element = await fixture(html`<arc-menu-item></arc-menu-item>`);
+      element.addEventListener('click', clickSpy);
+    });
+
+    afterEach(() => {
+      clickSpy.resetHistory();
+    });
+
+    it('simulates a click on the menu item', async () => {
+      element.click();
+      await waitUntil(() => clickSpy.calledOnce);
+      expect(clickSpy).to.have.been.calledOnce;
+    });
+
+    it('suppresses a click on the menu item while in a disabled state', async () => {
+      element.disabled = true;
+      await elementUpdated(element);
+
+      element.click();
+      expect(clickSpy).to.have.not.been.called;
     });
   });
 

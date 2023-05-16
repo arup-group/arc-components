@@ -10,10 +10,10 @@ export default {
   component: 'arc-menu-item',
 } as Meta;
 
-const Template: Story<ArcMenuItem> = ({ value, disabled }) => html`
+const Template: Story<ArcMenuItem> = ({ value, href, disabled }) => html`
   <arc-menu>
     <arc-menu-item>Label 1</arc-menu-item>
-    <arc-menu-item value="${value}" ?disabled=${disabled}>Label 2</arc-menu-item>
+    <arc-menu-item value="${value}" href="${href}" ?disabled=${disabled}>Label 2</arc-menu-item>
     <arc-menu-item>Label 3</arc-menu-item>
   </arc-menu>
 `;
@@ -43,12 +43,18 @@ const PrefixSuffixTemplate: Story<ArcMenuItem> = () => html`
 
 const defaultArgs = {
   value: 'Menu item',
+  href: '',
+  target: '',
+  download: '',
   disabled: false,
 };
 
 /* TYPES */
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
+
+export const Link = Template.bind({});
+Link.args = { ...defaultArgs, href: '/' };
 
 /* STATES */
 export const Disabled = Template.bind({});

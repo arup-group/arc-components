@@ -50,7 +50,6 @@ export default class ArcMenuItem extends LitElement {
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
-      return;
     }
   }
 
@@ -63,6 +62,7 @@ export default class ArcMenuItem extends LitElement {
     const isLink = !!this.href;
     const tag = isLink ? literal`a` : literal`div`;
 
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <${tag}
         id="main"

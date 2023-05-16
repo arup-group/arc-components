@@ -70,7 +70,9 @@ describe('ArcMenuItem', () => {
     });
 
     it('renders the anchor with a download attribute', async () => {
-      const element: ArcMenuItem = await fixture(html`<arc-menu-item href="/" download="Filename">Test</arc-menu-item>`);
+      const element: ArcMenuItem = await fixture(
+        html`<arc-menu-item href="/" download="Filename">Test</arc-menu-item>`
+      );
       const menuItemTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.download).to.equal('Filename');

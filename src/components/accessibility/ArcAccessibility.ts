@@ -12,10 +12,7 @@ import {
   uppercaseFirstLetter,
 } from '../../internal/string.js';
 import { getRootValue, setRootValue } from '../../utilities/style-utils.js';
-import {
-  ACCESSIBILITY_OPTIONS,
-  AccessibilityOption,
-} from './constants/AccessibilityConstants.js';
+import { ACCESSIBILITY_OPTIONS, AccessibilityOption } from './constants/AccessibilityConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../internal/constants/styleConstants.js';
 import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
@@ -28,14 +25,14 @@ import '../icon/arc-icon.js';
 import '../button/arc-button.js';
 
 export declare type UserPreferences = {
-  theme: ContainerTheme,
-  fontSize: FontSize,
-  lineHeight: FontSpacing,
-  letterSpacing:FontSpacing,
-  highLegibilityFonts: boolean,
-  highlightLinks: boolean,
-  plainText: boolean,
-  };
+  theme: ContainerTheme;
+  fontSize: FontSize;
+  lineHeight: FontSpacing;
+  letterSpacing: FontSpacing;
+  highLegibilityFonts: boolean;
+  highlightLinks: boolean;
+  plainText: boolean;
+};
 
 /**
  * @event arc-accessibility-change - Emitted when the user preferences change.

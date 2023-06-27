@@ -1,0 +1,27 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+      - uses: nrwl/nx-set-shas@v3
+      - run: npm ci
+      - run: npx nx format:check --verbose
+      - run: npx nx run-many --target=lint --parallel=3
+      - run: npx nx run-many --target=build --parallel=3
+      - run: npx nx run-many --target=test --parallel=3

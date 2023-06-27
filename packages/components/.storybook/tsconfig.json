@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "../stories/**/*.mdx",
+    "../stories/**/*.stories.ts",
+    "../src/**/*.stories.ts",
+    "../src/**/*.mdx",
+    "*.ts"
+  ]
+}

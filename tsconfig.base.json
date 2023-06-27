@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "module": "ES6",
+    "target": "ES6",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@arc-web/components": ["packages/components/src/index.js"],
+      "@arc-web/components/*": ["packages/components/*"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

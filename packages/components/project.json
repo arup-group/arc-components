@@ -1,0 +1,78 @@
+{
+  "name": "components",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/components/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/components/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx web-test-runner --config packages/components/web-test-runner.config.mjs"
+      }
+    },
+    "transpile": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/components",
+        "main": "packages/components/src/index.ts",
+        "tsConfig": "packages/components/tsconfig.json",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "peerDependencies",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "packages/components/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "packages/components/themes",
+            "output": "themes"
+          }
+        ]
+      }
+    },
+    "analyze": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx custom-elements-manifest analyze --litelement --globs \"dist/packages/components/src/**/*.js\" --outdir dist/packages/components"
+      },
+      "dependsOn": ["transpile"]
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["cp LICENSE README.md dist/packages/components"]
+      },
+      "dependsOn": ["transpile", "analyze"]
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "packages/components/.storybook"
+      },
+      "dependsOn": ["build"]
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "options": {
+        "outputDir": "dist/packages/storybook",
+        "configDir": "packages/components/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      },
+      "dependsOn": ["build"]
+    }
+  }
+}

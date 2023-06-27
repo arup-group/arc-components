@@ -1,0 +1,14 @@
+{
+  "name": "@arc-web/components",
+  "description": "Web-components built on the ARC design system",
+  "version": "2.3.1",
+  "author": "Arup (https://www.arup.com)",
+  "type": "module",
+  "customElements": "custom-elements.json",
+  "dependencies": {
+    "@azure/msal-browser": "^2.28.0",
+    "@floating-ui/dom": "^0.3.0",
+    "gridjs": "^5.0.0",
+    "tabbable": "^5.3.0"
+  }
+}

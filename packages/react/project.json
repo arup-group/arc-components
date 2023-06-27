@@ -1,0 +1,39 @@
+{
+  "name": "react",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/react/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/react/**/*.ts"]
+      }
+    },
+    "transpile": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/react",
+        "main": "packages/react/src/index.ts",
+        "tsConfig": "packages/react/tsconfig.json",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "peerDependencies"
+      },
+      "dependOn": [
+        {
+          "target": "package",
+          "projects": "dependencies"
+        }
+      ]
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["cp LICENSE README.md dist/packages/react"]
+      },
+      "dependsOn": ["transpile"]
+    }
+  },
+  "implicitDependencies": ["components"]
+}

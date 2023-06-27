@@ -1,0 +1,11 @@
+{
+  "name": "@arc-web/react",
+  "description": "React wrapper around the web-components built on the ARC design system",
+  "version": "2.3.1",
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "@lit-labs/react": "^1.1.0"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "../../.eslintrc.json",
+    "plugin:storybook/recommended",
+    "@open-wc"
+  ],
+  "ignorePatterns": ["!**/*"],
+  "overrides": []
+}

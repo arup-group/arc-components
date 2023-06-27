@@ -1,0 +1,6 @@
+#playground {
+  padding: var(--arc-spacing-medium);
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+}

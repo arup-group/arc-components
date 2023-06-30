@@ -47,15 +47,11 @@ describe('string', () => {
     });
 
     it('should return a camelCaseString into a space separated string', () => {
-      expect(stringToSpaceSeparated('testOptionTwo')).to.equal(
-        'Test Option Two'
-      );
+      expect(stringToSpaceSeparated('testOptionTwo')).to.equal('Test Option Two');
     });
 
     it('should return PascalCaseString into a space separated string', () => {
-      expect(stringToSpaceSeparated('TestOptionTwo')).to.equal(
-        'Test Option Two'
-      );
+      expect(stringToSpaceSeparated('TestOptionTwo')).to.equal('Test Option Two');
     });
 
     it('should return the original string when a faulty string is provided', () => {
@@ -74,24 +70,16 @@ describe('string', () => {
     });
 
     it('should return a camelCaseString into a hyphen separated string', () => {
-      expect(stringToHyphenSeparated('testOptionTwo')).to.equal(
-        'test-option-two'
-      );
+      expect(stringToHyphenSeparated('testOptionTwo')).to.equal('test-option-two');
     });
 
     it('should return a PascalCaseString into a hyphen separated string', () => {
-      expect(stringToHyphenSeparated('TestOptionTwo')).to.equal(
-        'test-option-two'
-      );
+      expect(stringToHyphenSeparated('TestOptionTwo')).to.equal('test-option-two');
     });
 
     it('should return the original string when a faulty string is provided', () => {
-      expect(stringToHyphenSeparated('testoptiontwo')).to.equal(
-        'testoptiontwo'
-      );
-      expect(stringToHyphenSeparated('TESTOPTIONTWO')).to.equal(
-        'TESTOPTIONTWO'
-      );
+      expect(stringToHyphenSeparated('testoptiontwo')).to.equal('testoptiontwo');
+      expect(stringToHyphenSeparated('TESTOPTIONTWO')).to.equal('TESTOPTIONTWO');
     });
   });
 

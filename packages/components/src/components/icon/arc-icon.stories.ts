@@ -23,26 +23,18 @@ export default {
 
 const AllTemplate: Story = () =>
   html`
-    <p>
-      This is a list of all the available icons within the component library.
-    </p>
+    <p>This is a list of all the available icons within the component library.</p>
     <p>Click on an icon to copy the code to your clipboard!</p>
     <div id="container">
       ${Object.values(ICON_TYPES).map(
-        (icon) =>
-          html`<arc-tooltip content=${icon}
-            ><arc-icon name=${icon}></arc-icon
-          ></arc-tooltip>`
+        icon => html`<arc-tooltip content=${icon}><arc-icon name=${icon}></arc-icon></arc-tooltip>`
       )}
     </div>
     <style>
       #container {
         width: 50%;
         display: grid;
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(min(max(100% / 8 - 1rem, 1rem), 100%), 1fr)
-        );
+        grid-template-columns: repeat(auto-fit, minmax(min(max(100% / 8 - 1rem, 1rem), 100%), 1fr));
         grid-auto-rows: max-content;
         gap: 1rem;
       }
@@ -55,8 +47,8 @@ const AllTemplate: Story = () =>
       document
         .getElementById('container')
         .querySelectorAll('arc-icon')
-        .forEach((icon) => {
-          icon.addEventListener('click', (e) => {
+        .forEach(icon => {
+          icon.addEventListener('click', e => {
             const { target } = e;
             navigator.clipboard.writeText(target.outerHTML);
           });

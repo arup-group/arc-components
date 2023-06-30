@@ -5,12 +5,7 @@ import { isMobile, prefersDark } from '../../internal/preferences.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
 import { isNight } from '../../internal/theme.js';
 import { hasSlot } from '../../internal/slot.js';
-import {
-  addShowListeners,
-  clearShowHideListeners,
-  waitForShow,
-  showCalledOnce,
-} from '../../internal/test-utils.js';
+import { addShowListeners, clearShowHideListeners, waitForShow, showCalledOnce } from '../../internal/test-utils.js';
 import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcContainer from './ArcContainer.js';
@@ -33,13 +28,9 @@ describe('ArcContainer', () => {
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
       if (prefersDark() || isNight()) {
-        expect(element).dom.to.equal(
-          `<arc-container theme='${CONTAINER_THEMES.dark}'></arc-container>`
-        );
+        expect(element).dom.to.equal(`<arc-container theme='${CONTAINER_THEMES.dark}'></arc-container>`);
       } else {
-        expect(element).dom.to.equal(
-          `<arc-container theme='${CONTAINER_THEMES.light}'></arc-container>`
-        );
+        expect(element).dom.to.equal(`<arc-container theme='${CONTAINER_THEMES.light}'></arc-container>`);
       }
     });
 
@@ -57,9 +48,7 @@ describe('ArcContainer', () => {
     });
 
     it('prevents the element from having a non-existing theme', async () => {
-      const element: ArcContainer = await fixture(
-        html`<arc-container theme="test-theme"></arc-container>`
-      );
+      const element: ArcContainer = await fixture(html`<arc-container theme="test-theme"></arc-container>`);
 
       if (isNight()) {
         expect(element.theme).to.equal(CONTAINER_THEMES.dark);
@@ -69,9 +58,7 @@ describe('ArcContainer', () => {
     });
 
     it('renders a theme based on the time of day', async () => {
-      const element: ArcContainer = await fixture(
-        html`<arc-container theme="auto"></arc-container>`
-      );
+      const element: ArcContainer = await fixture(html`<arc-container theme="auto"></arc-container>`);
 
       if (isNight()) {
         expect(element.theme).to.equal(CONTAINER_THEMES.dark);
@@ -81,9 +68,7 @@ describe('ArcContainer', () => {
     });
 
     it('removes the gap and padding properties when the fullscreen property is set', async () => {
-      const element: ArcContainer = await fixture(
-        html`<arc-container fullscreen></arc-container>`
-      );
+      const element: ArcContainer = await fixture(html`<arc-container fullscreen></arc-container>`);
       const container = element.shadowRoot!.getElementById('container');
 
       expect(element.fullscreen).to.equal(true);
@@ -93,9 +78,7 @@ describe('ArcContainer', () => {
     });
 
     it('removes the gap and padding properties when the fullscreen property is set', async () => {
-      const element: ArcContainer = await fixture(
-        html`<arc-container></arc-container>`
-      );
+      const element: ArcContainer = await fixture(html`<arc-container></arc-container>`);
       const container = element.shadowRoot!.getElementById('container');
 
       element.fullscreen = true;
@@ -230,16 +213,12 @@ describe('ArcContainer', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcContainer = await fixture(
-        html`<arc-container></arc-container>`
-      );
+      const element: ArcContainer = await fixture(html`<arc-container></arc-container>`);
 
       expect(getPropertyValue(element, '--bottom-height')).to.equal('');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcContainer = await fixture(
-        html`<arc-container style="--bottom-height:30rem"></arc-container>`
-      );
+      const element: ArcContainer = await fixture(html`<arc-container style="--bottom-height:30rem"></arc-container>`);
 
       expect(getPropertyValue(element, '--bottom-height')).to.equal('30rem');
     });

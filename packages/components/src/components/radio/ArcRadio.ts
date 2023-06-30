@@ -50,10 +50,10 @@ export default class ArcRadio extends LitElement {
   firstUpdated() {
     this.updateComplete.then(() => {
       const radios = this.getAllRadios();
-      const checkedRadio = radios.find((radio) => radio.checked);
+      const checkedRadio = radios.find(radio => radio.checked);
 
       /* Set the tabindex of all radios to -1. */
-      radios.forEach((radio) => {
+      radios.forEach(radio => {
         radio.input.tabIndex = -1;
       });
 
@@ -81,34 +81,30 @@ export default class ArcRadio extends LitElement {
     if (this.checked) {
       this.input.tabIndex = 0;
 
-      this.getSiblingRadios().forEach((radio) => {
+      this.getSiblingRadios().forEach(radio => {
         radio.input.tabIndex = -1;
         radio.checked = false;
       });
     }
   }
 
-  getAllRadios(
-    options: { includeDisabled: boolean } = { includeDisabled: true }
-  ) {
+  getAllRadios(options: { includeDisabled: boolean } = { includeDisabled: true }) {
     const radioGroup = this.closest('arc-radio-group');
     const { includeDisabled } = options;
 
     /* Radios must be part of a radio group. */
     if (!radioGroup) return [this];
 
-    return [...radioGroup.querySelectorAll('arc-radio')].filter(
-      (radio: ArcRadio) => {
-        if (radio.name !== this.name) return false;
+    return [...radioGroup.querySelectorAll('arc-radio')].filter((radio: ArcRadio) => {
+      if (radio.name !== this.name) return false;
 
-        /* Are disabled items included? return true, else false. */
-        return !(!includeDisabled && radio.disabled);
-      }
-    ) as ArcRadio[];
+      /* Are disabled items included? return true, else false. */
+      return !(!includeDisabled && radio.disabled);
+    }) as ArcRadio[];
   }
 
   getSiblingRadios() {
-    return this.getAllRadios().filter((radio) => radio !== this) as ArcRadio[];
+    return this.getAllRadios().filter(radio => radio !== this) as ArcRadio[];
   }
 
   /* Simulates a click on the radio. */
@@ -147,9 +143,7 @@ export default class ArcRadio extends LitElement {
 
   handleKeyDown(event: KeyboardEvent) {
     /* Move the selection when pressing down, up, left or right. */
-    if (
-      ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(event.key)
-    ) {
+    if (['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
       const radios = this.getAllRadios({ includeDisabled: false });
       const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
       let index = radios.indexOf(this) + incr;
@@ -157,7 +151,7 @@ export default class ArcRadio extends LitElement {
       if (index > radios.length - 1) index = 0;
 
       /* Remove the checked state of all radio buttons. */
-      this.getAllRadios().forEach((radio) => {
+      this.getAllRadios().forEach(radio => {
         radio.checked = false;
         radio.input.tabIndex = -1;
       });

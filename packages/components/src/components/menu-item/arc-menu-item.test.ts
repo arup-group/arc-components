@@ -39,18 +39,14 @@ describe('ArcMenuItem', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom value property', async () => {
-      const element: ArcMenuItem = await fixture(
-        html`<arc-menu-item value="testProp"></arc-menu-item>`
-      );
+      const element: ArcMenuItem = await fixture(html`<arc-menu-item value="testProp"></arc-menu-item>`);
 
       expect(element.value).to.equal('testProp');
       expect(element.getAttribute('value')).to.equal('testProp');
     });
 
     it('renders the menu item as an anchor', async () => {
-      const element: ArcMenuItem = await fixture(
-        html`<arc-menu-item href="/">Test</arc-menu-item>`
-      );
+      const element: ArcMenuItem = await fixture(html`<arc-menu-item href="/">Test</arc-menu-item>`);
       const menuItemTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.href).to.equal('/');
@@ -63,18 +59,14 @@ describe('ArcMenuItem', () => {
     });
 
     it('renders the anchor with a target attribute', async () => {
-      const element: ArcMenuItem = await fixture(
-        html`<arc-menu-item href="/" target="_blank">Test</arc-menu-item>`
-      );
+      const element: ArcMenuItem = await fixture(html`<arc-menu-item href="/" target="_blank">Test</arc-menu-item>`);
       const menuItemTarget = element.shadowRoot!.getElementById('main')!;
 
       expect(element.target).to.equal('_blank');
       expect(element.getAttribute('target')).to.equal('_blank');
 
       expect(menuItemTarget.getAttribute('target')).to.equal('_blank');
-      expect(menuItemTarget.getAttribute('rel')).to.equal(
-        'noreferrer noopener'
-      );
+      expect(menuItemTarget.getAttribute('rel')).to.equal('noreferrer noopener');
     });
 
     it('renders the anchor with a download attribute', async () => {

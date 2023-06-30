@@ -2,24 +2,13 @@ import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
-import {
-  setDefaultAnimation,
-  getAnimation,
-  startAnimations,
-  stopAnimations,
-} from '../../internal/animate.js';
+import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
-import {
-  lockBodyScrolling,
-  unlockBodyScrolling,
-} from '../../internal/scroll.js';
+import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { uppercaseFirstLetter } from '../../internal/string.js';
 import { watch } from '../../internal/watch.js';
 import Modal from '../../internal/modal.js';
-import {
-  DRAWER_PLACEMENTS,
-  DrawerPlacements,
-} from './constants/DrawerConstants.js';
+import { DRAWER_PLACEMENTS, DrawerPlacements } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
@@ -68,8 +57,7 @@ export default class ArcDrawer extends LitElement {
   @property({ type: Boolean, reflect: true }) contained: boolean = false;
 
   /** The direction from which the drawer will open. */
-  @property({ type: String, reflect: true }) placement: DrawerPlacements =
-    DRAWER_PLACEMENTS.end;
+  @property({ type: String, reflect: true }) placement: DrawerPlacements = DRAWER_PLACEMENTS.end;
 
   /** The drawer label. Required for proper accessibility. Alternatively, the label slot can be used. */
   @property({ type: String }) label: string;
@@ -87,38 +75,22 @@ export default class ArcDrawer extends LitElement {
         lockBodyScrolling(this);
       }
 
-      await Promise.all([
-        stopAnimations(this.drawer),
-        stopAnimations(this.overlay),
-      ]);
+      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
       this.drawer.hidden = false;
 
       /* Set initial focus */
       requestAnimationFrame(() => {
-        const arcInitialFocus = emit(this, ARC_EVENTS.initialFocus, {
-          cancelable: true,
-        });
+        const arcInitialFocus = emit(this, ARC_EVENTS.initialFocus, { cancelable: true });
         if (!arcInitialFocus.defaultPrevented) {
           this.panel.focus({ preventScroll: true });
         }
       });
 
-      const panelAnimation = getAnimation(
-        this,
-        `drawer.show${uppercaseFirstLetter(this.placement)}`
-      );
+      const panelAnimation = getAnimation(this, `drawer.show${uppercaseFirstLetter(this.placement)}`);
       const overlayAnimation = getAnimation(this, 'drawer.overlay.show');
       await Promise.all([
-        startAnimations(
-          this.panel,
-          panelAnimation.keyframes,
-          panelAnimation.options
-        ),
-        startAnimations(
-          this.overlay,
-          overlayAnimation.keyframes,
-          overlayAnimation.options
-        ),
+        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
+        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options),
       ]);
 
       emit(this, ARC_EVENTS.afterShow);
@@ -128,26 +100,12 @@ export default class ArcDrawer extends LitElement {
       this.modal.deactivate();
       unlockBodyScrolling(this);
 
-      await Promise.all([
-        stopAnimations(this.drawer),
-        stopAnimations(this.overlay),
-      ]);
-      const panelAnimation = getAnimation(
-        this,
-        `drawer.hide${uppercaseFirstLetter(this.placement)}`
-      );
+      await Promise.all([stopAnimations(this.drawer), stopAnimations(this.overlay)]);
+      const panelAnimation = getAnimation(this, `drawer.hide${uppercaseFirstLetter(this.placement)}`);
       const overlayAnimation = getAnimation(this, 'drawer.overlay.hide');
       await Promise.all([
-        startAnimations(
-          this.panel,
-          panelAnimation.keyframes,
-          panelAnimation.options
-        ),
-        startAnimations(
-          this.overlay,
-          overlayAnimation.keyframes,
-          overlayAnimation.options
-        ),
+        startAnimations(this.panel, panelAnimation.keyframes, panelAnimation.options),
+        startAnimations(this.overlay, overlayAnimation.keyframes, overlayAnimation.options),
       ]);
 
       this.drawer.hidden = true;
@@ -202,9 +160,7 @@ export default class ArcDrawer extends LitElement {
   }
 
   private _requestClose() {
-    const arcRequestClose = emit(this, ARC_EVENTS.requestClose, {
-      cancelable: true,
-    });
+    const arcRequestClose = emit(this, ARC_EVENTS.requestClose, { cancelable: true });
     if (arcRequestClose.defaultPrevented) {
       const animation = getAnimation(this, 'drawer.denyClose');
       startAnimations(this.panel, animation.keyframes, animation.options);
@@ -235,12 +191,7 @@ export default class ArcDrawer extends LitElement {
         })}
         @keydown=${this._handleKeyDown}
       >
-        <div
-          id="overlay"
-          @click=${this._requestClose}
-          role="presentation"
-          tabindex="-1"
-        ></div>
+        <div id="overlay" @click=${this._requestClose} role="presentation" tabindex="-1"></div>
         <div
           id="panel"
           role="dialog"
@@ -343,11 +294,7 @@ setDefaultAnimation('drawer.hideStart', {
 
 /* Deny close */
 setDefaultAnimation('drawer.denyClose', {
-  keyframes: [
-    { transform: 'scale(1)' },
-    { transform: 'scale(1.01)' },
-    { transform: 'scale(1)' },
-  ],
+  keyframes: [{ transform: 'scale(1)' }, { transform: 'scale(1.01)' }, { transform: 'scale(1)' }],
   options: ARC_ANIMATION_OPTIONS.slow,
 });
 

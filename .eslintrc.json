@@ -4,10 +4,23 @@
   "plugins": ["@nx", "@typescript-eslint"],
   "overrides": [
     {
+      "files": ["*.json"],
+      "parser": "jsonc-eslint-parser",
+      "rules": {
+        "@nx/dependency-checks": "error"
+      }
+    },
+    {
       "files": ["./package.json"],
       "parser": "jsonc-eslint-parser",
       "rules": {
         "@nx/nx-plugin-checks": "error"
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "@nx/enforce-module-boundaries": "error"
       }
     }
   ]

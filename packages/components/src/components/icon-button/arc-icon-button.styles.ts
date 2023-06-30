@@ -49,8 +49,7 @@ export default [
 
     /* Active */
     .button.button--active {
-      border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
-        currentColor;
+      border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
     }
 
     /* Hover, Focus & Mouse down */

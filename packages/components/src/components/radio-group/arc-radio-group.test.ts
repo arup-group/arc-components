@@ -29,9 +29,7 @@ describe('ArcRadioGroup', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(
-        `<arc-radio-group><arc-radio>1</arc-radio></arc-radio-group>`
-      );
+      expect(element).dom.to.equal(`<arc-radio-group><arc-radio>1</arc-radio></arc-radio-group>`);
     });
 
     /* Test the accessibility */
@@ -43,9 +41,7 @@ describe('ArcRadioGroup', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom label and row property', async () => {
-      const element: ArcRadioGroup = await fixture(
-        html`<arc-radio-group label="Test label" row></arc-radio-group>`
-      );
+      const element: ArcRadioGroup = await fixture(html`<arc-radio-group label="Test label" row></arc-radio-group>`);
 
       expect(element.label).to.equal('Test label');
       expect(element.row).to.be.true;
@@ -101,9 +97,7 @@ describe('ArcRadioGroup', () => {
       expect(isMobile()).to.be.false;
 
       expect(getPropertyValue(radioWrapper, 'display')).to.equal('grid');
-      expect(getPropertyValue(radioWrapper, 'grid-auto-flow')).to.equal(
-        'column'
-      );
+      expect(getPropertyValue(radioWrapper, 'grid-auto-flow')).to.equal('column');
     });
 
     it('shows correct styling on a phone when the row property is set', async () => {

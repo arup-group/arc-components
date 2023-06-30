@@ -20,9 +20,7 @@ describe('ArcNavbar', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(
-        `<arc-navbar arup='' tabs='5'></arc-navbar>`
-      );
+      expect(element).dom.to.equal(`<arc-navbar arup='' tabs='5'></arc-navbar>`);
     });
 
     /* Test the accessibility */
@@ -42,9 +40,7 @@ describe('ArcNavbar', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the navbar with a custom home property', async () => {
-      const element: ArcNavbar = await fixture(
-        html`<arc-navbar home="myURL"></arc-navbar>`
-      );
+      const element: ArcNavbar = await fixture(html`<arc-navbar home="myURL"></arc-navbar>`);
       const logoWrapper = element.shadowRoot!.querySelector('#logoWrapper')!;
 
       expect(element.home).to.equal('myURL');
@@ -60,9 +56,7 @@ describe('ArcNavbar', () => {
     });
 
     it('renders the navbar with a custom logo property', async () => {
-      const element: ArcNavbar = await fixture(
-        html`<arc-navbar logo="myURL"></arc-navbar>`
-      );
+      const element: ArcNavbar = await fixture(html`<arc-navbar logo="myURL"></arc-navbar>`);
       const toolLogo = element.shadowRoot!.querySelector('#tool-logo')!;
       expect(toolLogo).to.exist;
 
@@ -72,9 +66,7 @@ describe('ArcNavbar', () => {
     });
 
     it('renders the navbar without an Arup logo', async () => {
-      const element: ArcNavbar = await fixture(
-        html`<arc-navbar arup="false"></arc-navbar>`
-      );
+      const element: ArcNavbar = await fixture(html`<arc-navbar arup="false"></arc-navbar>`);
       const companyLogo = element.shadowRoot!.querySelector('#company-logo')!;
       expect(companyLogo).to.be.null;
 
@@ -83,9 +75,7 @@ describe('ArcNavbar', () => {
     });
 
     it('renders the navbar with a custom tabs property', async () => {
-      const element: ArcNavbar = await fixture(
-        html`<arc-navbar tabs="3"></arc-navbar>`
-      );
+      const element: ArcNavbar = await fixture(html`<arc-navbar tabs="3"></arc-navbar>`);
 
       expect(element.tabs).to.equal(3);
       expect(element.getAttribute('tabs')).to.equal('3');
@@ -125,12 +115,8 @@ describe('ArcNavbar', () => {
     /* Function that returns hidden and untouched elements when the slotted button and icon-button components exceed the tab limit */
     function retrieveElements() {
       return {
-        hiddenTabs: [...element.children].filter(
-          (el) => (el as HTMLElement).style.display === 'none'
-        ),
-        untouchedElements: [...element.children].filter(
-          (el) => (el as HTMLElement).style.display === ''
-        ),
+        hiddenTabs: [...element.children].filter(el => (el as HTMLElement).style.display === 'none'),
+        untouchedElements: [...element.children].filter(el => (el as HTMLElement).style.display === ''),
       };
     }
 
@@ -214,38 +200,14 @@ describe('ArcNavbar', () => {
       const menu = dropdown.querySelector('arc-menu')!;
 
       /* Validate the properties of the menu-items with the button or icon-button components */
-      expect(
-        menu.children[0].textContent?.includes(
-          `${element.children[3].textContent}`
-        )
-      ).to.be.true;
-      expect(
-        menu.children[1].textContent?.includes(
-          `${element.children[4].textContent}`
-        )
-      ).to.be.true;
-      expect(menu.children[1].hasAttribute('disabled')).to.equal(
-        element.children[4].hasAttribute('disabled')
-      );
-      expect(menu.children[2].textContent?.includes('Invalid label')).to.be
-        .true;
-      expect(
-        menu.children[3].textContent?.includes(
-          `${element.children[6].textContent}`
-        )
-      ).to.be.true;
-      expect(
-        menu.children[4].textContent?.includes(
-          `${element.children[7].getAttribute('label')}`
-        )
-      ).to.be.true;
-      expect(
-        menu.children[5].textContent?.includes(
-          `${element.children[8].getAttribute('name')}`
-        )
-      ).to.be.true;
-      expect(menu.children[6].textContent?.includes('Invalid label')).to.be
-        .true;
+      expect(menu.children[0].textContent?.includes(`${element.children[3].textContent}`)).to.be.true;
+      expect(menu.children[1].textContent?.includes(`${element.children[4].textContent}`)).to.be.true;
+      expect(menu.children[1].hasAttribute('disabled')).to.equal(element.children[4].hasAttribute('disabled'));
+      expect(menu.children[2].textContent?.includes('Invalid label')).to.be.true;
+      expect(menu.children[3].textContent?.includes(`${element.children[6].textContent}`)).to.be.true;
+      expect(menu.children[4].textContent?.includes(`${element.children[7].getAttribute('label')}`)).to.be.true;
+      expect(menu.children[5].textContent?.includes(`${element.children[8].getAttribute('name')}`)).to.be.true;
+      expect(menu.children[6].textContent?.includes('Invalid label')).to.be.true;
     });
   });
 
@@ -274,9 +236,7 @@ describe('ArcNavbar', () => {
       expect(getPropertyValue(element, 'height')).to.equal('56px');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcNavbar = await fixture(
-        html`<arc-navbar style="height:30px"></arc-navbar>`
-      );
+      const element: ArcNavbar = await fixture(html`<arc-navbar style="height:30px"></arc-navbar>`);
 
       expect(getPropertyValue(element, 'height')).to.equal('30px');
     });

@@ -23,8 +23,8 @@ function getTabbableBoundary(root: HTMLElement | ShadowRoot) {
   walk(root);
 
   /* Find the first and last tabbable elements. */
-  const start = allElements.find((el) => isTabbable(el)) || null;
-  const end = allElements.reverse().find((el) => isTabbable(el)) || null;
+  const start = allElements.find(el => isTabbable(el)) || null;
+  const end = allElements.reverse().find(el => isTabbable(el)) || null;
 
   return { start, end };
 }

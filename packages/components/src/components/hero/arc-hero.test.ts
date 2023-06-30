@@ -23,9 +23,7 @@ describe('ArcHero', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(
-        `<arc-hero><span slot="title">Title</span><span>Content</span></arc-hero>`
-      );
+      expect(element).dom.to.equal(`<arc-hero><span slot="title">Title</span><span>Content</span></arc-hero>`);
     });
 
     /* Test the accessibility */
@@ -37,9 +35,7 @@ describe('ArcHero', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the hero with custom properties', async () => {
-      const element: ArcHero = await fixture(
-        html`<arc-hero fullscreen title="Title" subtitle="SubTitle"></arc-hero>`
-      );
+      const element: ArcHero = await fixture(html`<arc-hero fullscreen title="Title" subtitle="SubTitle"></arc-hero>`);
 
       expect(element.fullscreen).to.be.true;
       expect(element.hasAttribute('fullscreen')).to.be.true;
@@ -51,16 +47,12 @@ describe('ArcHero', () => {
 
     it('renders the hero with a custom background property', async () => {
       const arcRed = new URL('../../../assets/arc-red.svg', import.meta.url);
-      const element: ArcHero = await fixture(
-        html`<arc-hero background=${arcRed}></arc-hero>`
-      );
+      const element: ArcHero = await fixture(html`<arc-hero background=${arcRed}></arc-hero>`);
       const heroTarget = element.shadowRoot?.getElementById('main')!;
 
       expect(element.background).to.contain('arc-red.svg');
       expect(element.getAttribute('background')).to.contain('arc-red.svg');
-      expect(getPropertyValue(heroTarget, 'background')).to.contain(
-        'arc-red.svg'
-      );
+      expect(getPropertyValue(heroTarget, 'background')).to.contain('arc-red.svg');
       expect(getPropertyValue(heroTarget, 'background-size')).to.equal('cover');
       expect(getPropertyValue(heroTarget, 'align-items')).to.equal('normal');
 
@@ -118,9 +110,7 @@ describe('ArcHero', () => {
     });
 
     it('overwrites the css variables', async () => {
-      const element: ArcHero = await fixture(
-        html`<arc-hero style="--content-gap:red"></arc-hero>`
-      );
+      const element: ArcHero = await fixture(html`<arc-hero style="--content-gap:red"></arc-hero>`);
       expect(getPropertyValue(element, '--content-gap')).to.equal('red');
     });
   });

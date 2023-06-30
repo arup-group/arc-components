@@ -30,8 +30,7 @@ export default class ArcAvatar extends LitElement {
   /** Name to use as a fallback when no image is available. */
   @property({
     type: String,
-    converter: (attrValue: string | null) =>
-      attrValue ? stringToInitials(attrValue) : '',
+    converter: (attrValue: string | null) => (attrValue ? stringToInitials(attrValue) : ''),
   })
   name: string;
 

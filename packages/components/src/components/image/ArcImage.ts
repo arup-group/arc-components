@@ -61,8 +61,7 @@ export default class ArcImage extends LitElement {
   /** Set the delay in ms before loading the image. */
   @property({
     type: Number,
-    converter: (attrValue: string | null) =>
-      attrValue ? parseDuration(attrValue) : 1000,
+    converter: (attrValue: string | null) => (attrValue ? parseDuration(attrValue) : 1000),
   })
   delay: number = 1000;
 
@@ -94,10 +93,7 @@ export default class ArcImage extends LitElement {
 
   private _attachObserver() {
     this._removeObserver();
-    this._intersectionObserver = new IntersectionObserver(
-      this._handleIntersection.bind(this),
-      this._observerOptions
-    );
+    this._intersectionObserver = new IntersectionObserver(this._handleIntersection.bind(this), this._observerOptions);
     this._intersectionObserver.observe(this.container);
   }
 
@@ -115,10 +111,7 @@ export default class ArcImage extends LitElement {
           this._loadTimer = null;
         }
       } else if (intersectionRatio === 1) {
-        this._loadTimer = window.setTimeout(
-          this._loadImage.bind(this),
-          this.delay
-        );
+        this._loadTimer = window.setTimeout(this._loadImage.bind(this), this.delay);
       }
     });
   }
@@ -176,18 +169,9 @@ export default class ArcImage extends LitElement {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M182.36 55L216.446 114.04H148.273L182.36 55Z"
-              fill="rgb(var(--arc-grey-030))"
-            />
+            <path d="M182.36 55L216.446 114.04H148.273L182.36 55Z" fill="rgb(var(--arc-grey-030))" />
             <circle cx="236" cy="55" r="17" fill="rgb(var(--arc-grey-030))" />
-            <rect
-              x="122"
-              y="87"
-              width="27"
-              height="27"
-              fill="rgb(var(--arc-grey-030))"
-            />
+            <rect x="122" y="87" width="27" height="27" fill="rgb(var(--arc-grey-030))" />
           </svg>
         </div>
       </div>
@@ -197,58 +181,19 @@ export default class ArcImage extends LitElement {
 
 setDefaultAnimation('loader.show', {
   keyframes: [
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-pn), var(--shadow-pn), var(--shadow-pn)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-p)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-np)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-n)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-pn), var(--shadow-pn), var(--shadow-p), var(--shadow-pn)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-p), var(--shadow-p), var(--shadow-p), var(--shadow-p)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-np), var(--shadow-np), var(--shadow-p), var(--shadow-np)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-n), var(--shadow-p), var(--shadow-np)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-np)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-p), var(--shadow-p), var(--shadow-np)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-np), var(--shadow-np), var(--shadow-np)',
-    },
-    {
-      boxShadow:
-        'var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n)',
-    },
+    { boxShadow: 'var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-pn), var(--shadow-pn)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-p)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-n)' },
+    { boxShadow: 'var(--shadow-pn), var(--shadow-pn), var(--shadow-p), var(--shadow-pn)' },
+    { boxShadow: 'var(--shadow-p), var(--shadow-p), var(--shadow-p), var(--shadow-p)' },
+    { boxShadow: 'var(--shadow-np), var(--shadow-np), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-n), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-pn), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-p), var(--shadow-p), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-np), var(--shadow-np), var(--shadow-np)' },
+    { boxShadow: 'var(--shadow-n), var(--shadow-n), var(--shadow-n), var(--shadow-n)' },
   ],
   options: {
     duration: 6000,

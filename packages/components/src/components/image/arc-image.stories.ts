@@ -15,13 +15,7 @@ export default {
 } as Meta;
 
 const Template: Story<ArcImage> = ({ src, alt, delay, width, height }) => html`
-  <arc-image
-    src=${src}
-    alt=${alt}
-    delay=${delay}
-    width=${width}
-    height=${height}
-  ></arc-image>
+  <arc-image src=${src} alt=${alt} delay=${delay} width=${width} height=${height}></arc-image>
 `;
 
 const defaultArgs = {

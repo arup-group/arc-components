@@ -1,8 +1,11 @@
 import { setCustomElementsManifest, Preview } from '@storybook/web-components';
+import { html } from 'lit';
 import { setBasePath } from '../src/utilities/base-path';
 import '../themes/index.css';
 import '../themes/light.css';
 import '../themes/dark.css';
+import '../src/index';
+
 // @ts-ignore
 import CUSTOM_ELEMENTS from '../../../dist/packages/components/custom-elements.json';
 
@@ -11,23 +14,34 @@ setBasePath('/');
 
 const PREVIEW: Preview = {
   parameters: {
-    docs: {
-      transformSource: (source) =>
-        source
-          .replace(/<!--\?lit\$[0-9]+\$-->|<!--\??-->/g, '')
-          .replace(/=\"\"/g, ''),
-    },
-    viewMode: 'docs',
     layout: 'centered',
+    viewMode: 'docs',
+    controls: {
+      hideNoControlsWarning: true,
+    },
     options: {
       storySort: {
         order: [
+          'Forms',
           'Introduction',
-          'Guides',
-          ['Getting Started', 'Basic Container App'],
-          'Theme',
-          ['Typography', 'Colour', 'Iconography'],
+          'Getting Started',
+          ['Vanilla', 'Angular', 'React', 'Vue'],
+          'Migration',
           'Components',
+          [
+            'Application Shell',
+            [
+              'ArcContainer',
+              'ArcNavbar',
+              'ArcBottombar',
+              'ArcSidebar',
+              'ArcDrawer',
+            ],
+            'User Interface',
+            'Controls',
+            'Utilities',
+          ],
+          'Utilities',
         ],
       },
     },

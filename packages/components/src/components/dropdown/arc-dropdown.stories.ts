@@ -20,25 +20,12 @@ export default {
   },
   parameters: {
     actions: {
-      handles: [
-        ARC_EVENTS.show,
-        ARC_EVENTS.afterShow,
-        ARC_EVENTS.hide,
-        ARC_EVENTS.afterHide,
-        ARC_EVENTS.select,
-      ],
+      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide, ARC_EVENTS.select],
     },
   },
 } as Meta;
 
-const Template: Story<ArcDropdown> = ({
-  placement,
-  distance,
-  skidding,
-  open,
-  disabled,
-  hoist,
-}) => html`
+const Template: Story<ArcDropdown> = ({ placement, distance, skidding, open, disabled, hoist }) => html`
   <arc-dropdown
     placement=${ifDefined(placement || undefined)}
     distance=${ifDefined(distance || undefined)}

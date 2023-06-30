@@ -1,3 +1,4 @@
+/* Components */
 import './components/accessibility/arc-accessibility.js';
 import './components/bottombar/arc-bottombar.js';
 import './components/button/arc-button.js';
@@ -23,6 +24,7 @@ import './components/chip/arc-chip.js';
 import './components/tooltip/arc-tooltip.js';
 import './components/table/arc-table.js';
 
+/* Types */
 export { default as ArcAccessibility } from './components/accessibility/ArcAccessibility.js';
 export { default as ArcBottombar } from './components/bottombar/ArcBottombar.js';
 export { default as ArcButton } from './components/button/ArcButton.js';
@@ -48,6 +50,7 @@ export { default as ArcChip } from './components/chip/ArcChip.js';
 export { default as ArcTooltip } from './components/tooltip/ArcTooltip.js';
 export { default as ArcTable } from './components/table/ArcTable.js';
 
+/* Utilities */
 export * from './utilities/base-path.js';
 export * from './utilities/form-utils.js';
 export * from './utilities/style-utils.js';

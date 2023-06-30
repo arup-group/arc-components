@@ -8,7 +8,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/components/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/components/package.json",
+          "packages/components/**/*.ts"
+        ]
       }
     },
     "test": {
@@ -17,15 +20,15 @@
         "command": "npx web-test-runner --config packages/components/web-test-runner.config.mjs"
       }
     },
-    "transpile": {
+    "build-typescript": {
       "executor": "@nx/js:tsc",
       "options": {
         "outputPath": "dist/packages/components",
         "main": "packages/components/src/index.ts",
         "tsConfig": "packages/components/tsconfig.json",
-        "updateBuildableProjectDepsInPackageJson": true,
-        "buildableProjectDepsInPackageJsonType": "peerDependencies",
         "assets": [
+          "README.md",
+          "LICENSE",
           {
             "glob": "**/*",
             "input": "packages/components/assets",
@@ -39,19 +42,12 @@
         ]
       }
     },
-    "analyze": {
+    "build": {
       "executor": "nx:run-commands",
       "options": {
         "command": "npx custom-elements-manifest analyze --litelement --globs \"dist/packages/components/src/**/*.js\" --outdir dist/packages/components"
       },
-      "dependsOn": ["transpile"]
-    },
-    "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["cp LICENSE README.md dist/packages/components"]
-      },
-      "dependsOn": ["transpile", "analyze"]
+      "dependsOn": ["build-typescript"]
     },
     "storybook": {
       "executor": "@nx/storybook:storybook",

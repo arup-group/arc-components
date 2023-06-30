@@ -1,0 +1,55 @@
+{
+  "name": "vue-playground",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "playgrounds/vue/src",
+  "tags": ["playground"],
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["playground/vue/**/*.ts"]
+      }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/playgrounds/vue"
+      },
+      "configurations": {
+        "local": {
+          "mode": "development"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "vue-playground:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "vue-playground:build:local",
+          "hmr": true
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "local",
+      "options": {
+        "buildTarget": "vue-playground:build"
+      },
+      "configurations": {
+        "local": {
+          "buildTarget": "vue-playground:build:local"
+        }
+      }
+    }
+  }
+}

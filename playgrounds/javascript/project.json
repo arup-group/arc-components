@@ -1,0 +1,55 @@
+{
+  "name": "javascript-playground",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "playgrounds/javascript/src",
+  "tags": ["playground"],
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["playground/javascript/**/*.ts"]
+      }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "local",
+      "options": {
+        "outputPath": "dist/playgrounds/javascript"
+      },
+      "configurations": {
+        "local": {
+          "mode": "development"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "javascript-playground:build"
+      },
+      "configurations": {
+        "local": {
+          "buildTarget": "javascript-playground:build:local",
+          "hmr": true
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "local",
+      "options": {
+        "buildTarget": "javascript-playground:build"
+      },
+      "configurations": {
+        "local": {
+          "buildTarget": "javascript-playground:build:local"
+        }
+      }
+    }
+  }
+}

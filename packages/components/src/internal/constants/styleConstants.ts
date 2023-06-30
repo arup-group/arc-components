@@ -13,14 +13,7 @@ export declare type FontSpacing = 'dense' | 'normal' | 'loose';
 
 export declare type InputSize = 'small' | 'medium' | 'large';
 
-export declare type ThemeColor =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'error'
-  | 'warning'
-  | 'info'
-  | 'success';
+export declare type ThemeColor = 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
 
 export const FONT_SIZES: { [key in FontSize]: FontSize } = {
   'xx-small': 'xx-small',

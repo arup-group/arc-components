@@ -56,8 +56,7 @@ export default [
       border-radius: 0;
     }
     .button--tab.button--active {
-      border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
-        currentColor;
+      border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
     }
 
     /* Sizes */

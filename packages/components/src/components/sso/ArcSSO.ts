@@ -2,11 +2,7 @@ import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 import * as Msal from '@azure/msal-browser';
-import {
-  AccountInfo,
-  PublicClientApplication,
-  EventType,
-} from '@azure/msal-browser';
+import { AccountInfo, PublicClientApplication, EventType } from '@azure/msal-browser';
 import { Configuration } from '@azure/msal-browser/dist/config/Configuration';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
@@ -70,8 +66,7 @@ export default class ArcSSO extends LitElement {
   /** A comma separated string that allows for additional permissions on how your app must interact with the Microsoft identity platform. More about this can be found on https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent. */
   @property({
     type: Array,
-    converter: (attrValue: string | null) =>
-      attrValue ? stringToArray(attrValue) : [],
+    converter: (attrValue: string | null) => (attrValue ? stringToArray(attrValue) : []),
   })
   scopes: string;
 
@@ -110,9 +105,7 @@ export default class ArcSSO extends LitElement {
     const msalConfig: Configuration = {
       auth: {
         clientId: this.clientId,
-        authority: `https://login.microsoftonline.com/${
-          this.tenantId ? this.tenantId : 'common/'
-        }`,
+        authority: `https://login.microsoftonline.com/${this.tenantId ? this.tenantId : 'common/'}`,
         redirectUri: this.redirectUri,
       },
       cache: {
@@ -135,15 +128,13 @@ export default class ArcSSO extends LitElement {
 
     /* c8 ignore next 5 */
     return account
-      ? this._msalInstance
-          .acquireTokenSilent(accessTokenRequest)
-          .then((resp) => resp.accessToken)
+      ? this._msalInstance.acquireTokenSilent(accessTokenRequest).then(resp => resp.accessToken)
       : undefined;
   }
 
   /* c8 ignore next 19 */
   signIn() {
-    this._msalInstance.addEventCallback((event) => {
+    this._msalInstance.addEventCallback(event => {
       if (event.eventType === EventType.LOGIN_SUCCESS && !!event.payload) {
         this._msalInstance.setActiveAccount(event.payload as AccountInfo);
         this._isAuth = true;
@@ -178,8 +169,8 @@ export default class ArcSSO extends LitElement {
             'Content-Type': 'image/jpg',
           },
         })
-          .then((resp) => resp.blob())
-          .then((resp) => URL.createObjectURL(resp))
+          .then(resp => resp.blob())
+          .then(resp => URL.createObjectURL(resp))
       : '';
   }
 
@@ -192,19 +183,10 @@ export default class ArcSSO extends LitElement {
           <arc-button type="tab" @click=${this.signIn}>Login</arc-button>
         </slot>
         <slot name="logout" ?hidden=${!this._isAuth}>
-          <arc-dropdown
-            id="userMenu"
-            placement=${FLOATING_PLACEMENTS['bottom-end']}
-            hoist
-          >
+          <arc-dropdown id="userMenu" placement=${FLOATING_PLACEMENTS['bottom-end']} hoist>
             <arc-button id="desktopTrigger" slot="trigger" type="tab">
               ${name}
-              <arc-avatar
-                slot="suffix"
-                name=${name}
-                image=${until(this._avatar, '')}
-                label="User avatar"
-              ></arc-avatar>
+              <arc-avatar slot="suffix" name=${name} image=${until(this._avatar, '')} label="User avatar"></arc-avatar>
             </arc-button>
             <arc-avatar
               id="mobileTrigger"

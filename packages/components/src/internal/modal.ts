@@ -20,7 +20,7 @@ export default class Modal {
   }
 
   deactivate() {
-    activeModals = activeModals.filter((modal) => modal !== this.element);
+    activeModals = activeModals.filter(modal => modal !== this.element);
     document.removeEventListener('focusin', this.handleFocusIn);
     document.removeEventListener('keydown', this.handleKeyDown);
   }

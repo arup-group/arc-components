@@ -35,23 +35,17 @@ describe('ArcTooltip', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(
-        `<arc-tooltip><span>My span</span></arc-tooltip>`
-      );
+      expect(element).dom.to.equal(`<arc-tooltip><span>My span</span></arc-tooltip>`);
     });
 
     it('renders the element in an open state', async () => {
-      const openElement: ArcTooltip = await fixture(
-        html`<arc-tooltip open><span>My span</span></arc-tooltip>`
-      );
+      const openElement: ArcTooltip = await fixture(html`<arc-tooltip open><span>My span</span></arc-tooltip>`);
       expect(openElement.open).to.be.true;
       expect(openElement.hasAttribute('open')).to.be.true;
     });
 
     it('renders the element in a hoisted state', async () => {
-      const hoistedElement: ArcTooltip = await fixture(
-        html` <arc-tooltip hoist><span>My span</span></arc-tooltip> `
-      );
+      const hoistedElement: ArcTooltip = await fixture(html` <arc-tooltip hoist><span>My span</span></arc-tooltip> `);
       expect(hoistedElement.hoist).to.be.true;
       expect(hoistedElement.hasAttribute('hoist')).to.be.true;
     });
@@ -66,9 +60,7 @@ describe('ArcTooltip', () => {
   describe('setters/getters', () => {
     it('renders the element with a custom content property', async () => {
       const element: ArcTooltip = await fixture(
-        html`<arc-tooltip content="My tooltip"
-          ><span>My span</span></arc-tooltip
-        >`
+        html`<arc-tooltip content="My tooltip"><span>My span</span></arc-tooltip>`
       );
 
       expect(element.content).to.equal('My tooltip');
@@ -77,48 +69,36 @@ describe('ArcTooltip', () => {
 
     it('renders the element with a custom placement property', async () => {
       const element: ArcTooltip = await fixture(
-        html`<arc-tooltip placement=${FLOATING_PLACEMENTS.top}
-          ><span>My span</span></arc-tooltip
-        >`
+        html`<arc-tooltip placement=${FLOATING_PLACEMENTS.top}><span>My span</span></arc-tooltip>`
       );
 
       expect(element.placement).to.equal(FLOATING_PLACEMENTS.top);
-      expect(element.getAttribute('placement')).to.equal(
-        FLOATING_PLACEMENTS.top
-      );
+      expect(element.getAttribute('placement')).to.equal(FLOATING_PLACEMENTS.top);
     });
 
     it('renders the element with a custom distance property', async () => {
-      const element: ArcTooltip = await fixture(
-        html`<arc-tooltip distance="5"><span>My span</span></arc-tooltip>`
-      );
+      const element: ArcTooltip = await fixture(html`<arc-tooltip distance="5"><span>My span</span></arc-tooltip>`);
 
       expect(element.distance).to.equal(5);
       expect(element.getAttribute('distance')).to.equal('5');
     });
 
     it('renders the element with a custom skidding property', async () => {
-      const element: ArcTooltip = await fixture(
-        html`<arc-tooltip skidding="5"><span>My span</span></arc-tooltip>`
-      );
+      const element: ArcTooltip = await fixture(html`<arc-tooltip skidding="5"><span>My span</span></arc-tooltip>`);
 
       expect(element.skidding).to.equal(5);
       expect(element.getAttribute('skidding')).to.equal('5');
     });
 
     it('renders the element with a custom delay property', async () => {
-      const element: ArcTooltip = await fixture(
-        html`<arc-tooltip delay="50ms"><span>My span</span></arc-tooltip>`
-      );
+      const element: ArcTooltip = await fixture(html`<arc-tooltip delay="50ms"><span>My span</span></arc-tooltip>`);
 
       expect(element.delay).to.equal(50);
       expect(element.getAttribute('delay')).to.equal('50ms');
     });
 
     it('renders the element with a custom trigger property', async () => {
-      const element: ArcTooltip = await fixture(
-        html`<arc-tooltip trigger="click"><span>My span</span></arc-tooltip>`
-      );
+      const element: ArcTooltip = await fixture(html`<arc-tooltip trigger="click"><span>My span</span></arc-tooltip>`);
 
       expect(element.trigger).to.equal('click');
       expect(element.getAttribute('trigger')).to.equal('click');
@@ -130,9 +110,7 @@ describe('ArcTooltip', () => {
     let element: ArcTooltip;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`<arc-tooltip><span>My span</span></arc-tooltip>`
-      );
+      element = await fixture(html`<arc-tooltip><span>My span</span></arc-tooltip>`);
     });
 
     it('renders the component in an open state', async () => {
@@ -199,11 +177,9 @@ describe('ArcTooltip', () => {
 
     it('throws an error when there are no children', () => {
       /* Remove all children from the tooltip */
-      [...element.children].forEach((child) => child.remove());
+      [...element.children].forEach(child => child.remove());
 
-      expect(() => element.getTarget()).to.throw(
-        'Invalid tooltip target: no child element was found.'
-      );
+      expect(() => element.getTarget()).to.throw('Invalid tooltip target: no child element was found.');
     });
 
     it('should retrieve the trigger types', async () => {
@@ -230,15 +206,11 @@ describe('ArcTooltip', () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`<arc-tooltip trigger="click hover focus"
-          ><arc-icon-button>My button</arc-icon-button></arc-tooltip
-        >`
+        html`<arc-tooltip trigger="click hover focus"><arc-icon-button>My button</arc-icon-button></arc-tooltip>`
       );
       iconButton = element.querySelector('arc-icon-button')!;
       tooltip = element.shadowRoot!.getElementById('tooltip')!;
-      isOpen = () =>
-        tooltip?.getAttribute('aria-hidden') === 'false' &&
-        element.open === true;
+      isOpen = () => tooltip?.getAttribute('aria-hidden') === 'false' && element.open === true;
     });
 
     afterEach(() => {
@@ -332,16 +304,12 @@ describe('ArcTooltip', () => {
 
     it('shows/hides the tooltip on hover', async () => {
       element.dispatchEvent(mouseOver);
-      await aTimeout(
-        200
-      ); /* Timeout needed as the delay within the component is 150ms. */
+      await aTimeout(200); /* Timeout needed as the delay within the component is 150ms. */
       await elementUpdated(element);
       expect(isOpen()).to.be.true;
 
       element.dispatchEvent(mouseOut);
-      await aTimeout(
-        200
-      ); /* Timeout needed as the delay within the component is 150ms. */
+      await aTimeout(200); /* Timeout needed as the delay within the component is 150ms. */
       await elementUpdated(element);
       expect(isOpen()).to.be.false;
     });
@@ -352,9 +320,7 @@ describe('ArcTooltip', () => {
     let element: ArcTooltip;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`<arc-tooltip><span>My span</span></arc-tooltip>`
-      );
+      element = await fixture(html`<arc-tooltip><span>My span</span></arc-tooltip>`);
     });
 
     it('renders default slots to fill the component', () => {
@@ -372,18 +338,14 @@ describe('ArcTooltip', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcTooltip = await fixture(
-        html`<arc-tooltip><span>My span</span></arc-tooltip>`
-      );
+      const element: ArcTooltip = await fixture(html`<arc-tooltip><span>My span</span></arc-tooltip>`);
       expect(getPropertyValue(element, '--max-width')).to.equal('20rem');
       expect(getPropertyValue(element, '--arrow-size')).to.equal('4px');
     });
 
     it('overwrites the css variables', async () => {
       const element: ArcTooltip = await fixture(
-        html`<arc-tooltip style="--max-width:20px; --arrow-size:10px"
-          ><span>My span</span></arc-tooltip
-        >`
+        html`<arc-tooltip style="--max-width:20px; --arrow-size:10px"><span>My span</span></arc-tooltip>`
       );
       expect(getPropertyValue(element, '--max-width')).to.equal('20px');
       expect(getPropertyValue(element, '--arrow-size')).to.equal('10px');

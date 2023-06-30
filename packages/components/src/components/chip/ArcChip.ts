@@ -6,10 +6,7 @@ import { HasSlotController } from '../../internal/slot.js';
 import { emit } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { CHIP_TYPES, ChipType } from './constants/ChipConstants.js';
-import {
-  INPUT_SIZES,
-  InputSize,
-} from '../../internal/constants/styleConstants.js';
+import { INPUT_SIZES, InputSize } from '../../internal/constants/styleConstants.js';
 import styles from './arc-chip.styles.js';
 import '../icon/arc-icon.js';
 
@@ -26,8 +23,7 @@ export default class ArcChip extends LitElement {
   /** @internal - Controller that listens to slot changes within the component. */
   private readonly hasSlotController = new HasSlotController(this, 'avatar');
 
-  @property({ type: String, reflect: true }) size: InputSize =
-    INPUT_SIZES.small;
+  @property({ type: String, reflect: true }) size: InputSize = INPUT_SIZES.small;
 
   @property({ type: String, reflect: true }) type: ChipType = CHIP_TYPES.filled;
 

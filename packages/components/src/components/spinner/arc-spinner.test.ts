@@ -63,17 +63,13 @@ describe('ArcSpinner', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcSpinner = await fixture(
-        html`<arc-spinner></arc-spinner>`
-      );
+      const element: ArcSpinner = await fixture(html`<arc-spinner></arc-spinner>`);
 
       expect(getPropertyValue(element, '--track-width')).to.equal('2px');
     });
     it('overwrites the css variables', async () => {
       const element: ArcSpinner = await fixture(
-        html`<arc-spinner
-          style="--track-width:5px; --stroke-color:red;"
-        ></arc-spinner>`
+        html`<arc-spinner style="--track-width:5px; --stroke-color:red;"></arc-spinner>`
       );
 
       expect(getPropertyValue(element, '--track-width')).to.equal('5px');

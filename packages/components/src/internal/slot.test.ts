@@ -5,11 +5,7 @@ import { HasSlotController, getInnerHTML, getTextContent } from './slot.js';
 
 @customElement('test-component')
 class testComponent extends LitElement {
-  private readonly hasSlotController = new HasSlotController(
-    this,
-    '[default]',
-    'one'
-  );
+  private readonly hasSlotController = new HasSlotController(this, '[default]', 'one');
 
   hasDefault() {
     return this.hasSlotController.test('[default]');
@@ -29,17 +25,13 @@ class testComponent extends LitElement {
 
 describe('HasSlotController', () => {
   it('has no filled slots', async () => {
-    const element: testComponent = await fixture(
-      html`<test-component></test-component>`
-    );
+    const element: testComponent = await fixture(html`<test-component></test-component>`);
     expect(element.hasDefault()).to.be.false;
     expect(element.hasNamed()).to.be.false;
   });
 
   it('has a default slot', async () => {
-    const element: testComponent = await fixture(
-      html`<test-component><div>Test unnamed</div></test-component>`
-    );
+    const element: testComponent = await fixture(html`<test-component><div>Test unnamed</div></test-component>`);
     expect(element.hasDefault()).to.be.true;
     expect(element.hasNamed()).to.be.false;
   });
@@ -53,9 +45,7 @@ describe('HasSlotController', () => {
   });
 
   it('has slotted text', async () => {
-    const element: testComponent = await fixture(
-      html`<test-component>Test named</test-component>`
-    );
+    const element: testComponent = await fixture(html`<test-component>Test named</test-component>`);
     expect(element.hasDefault()).to.be.true;
     expect(element.hasNamed()).to.be.false;
   });
@@ -68,12 +58,8 @@ describe('getSlotContent', async () => {
 
   beforeEach(async () => {
     component = await fixture(html`<test-component></test-component>`);
-    emptySlot = component.shadowRoot!.getElementById(
-      'empty'
-    )! as HTMLSlotElement;
-    filledSlot = component.shadowRoot!.getElementById(
-      'filled'
-    )! as HTMLSlotElement;
+    emptySlot = component.shadowRoot!.getElementById('empty')! as HTMLSlotElement;
+    filledSlot = component.shadowRoot!.getElementById('filled')! as HTMLSlotElement;
   });
 
   it('returns an empty string', async () => {
@@ -92,9 +78,7 @@ describe('getSlotContent', async () => {
       innerHTML: 'Hello World',
     });
     component.appendChild(newEl);
-    expect(getInnerHTML(filledSlot)).to.equal(
-      '<div slot="one">Hello World</div>'
-    );
+    expect(getInnerHTML(filledSlot)).to.equal('<div slot="one">Hello World</div>');
   });
 
   it('returns an empty string', async () => {

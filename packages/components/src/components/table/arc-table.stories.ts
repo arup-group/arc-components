@@ -7,8 +7,7 @@ export default {
   component: 'arc-table',
 } as Meta;
 
-const Template: Story<ArcTable> = (args: any) =>
-  Object.assign(document.createElement(ArcTable.tag), args);
+const Template: Story<ArcTable> = (args: any) => Object.assign(document.createElement(ArcTable.tag), args);
 
 const defaultArgs = {
   columns: ['Name', 'Lastname', 'Email'],

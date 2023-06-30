@@ -41,10 +41,7 @@ describe('event', () => {
       })
     );
 
-    const { bubbles, cancelable, composed, detail } = await oneEvent(
-      element,
-      'event-test'
-    );
+    const { bubbles, cancelable, composed, detail } = await oneEvent(element, 'event-test');
 
     expect(element.done).to.be.true;
     expect(bubbles).to.be.false;

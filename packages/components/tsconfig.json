@@ -6,7 +6,6 @@
     "lib": ["ES6", "DOM", "DOM.Iterable"],
     "declaration": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,

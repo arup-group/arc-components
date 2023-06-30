@@ -75,10 +75,8 @@ export default [
     }
 
     ::slotted(arc-button) {
-      border-left: var(--arc-border-width) var(--arc-border-style)
-        rgb(var(--arc-color-default));
-      border-right: var(--arc-border-width) var(--arc-border-style)
-        rgb(var(--arc-color-default));
+      border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
     }
 
     ::slotted(arc-icon-button),
@@ -111,10 +109,8 @@ export default [
       }
 
       ::slotted(arc-sso) {
-        border-left: var(--arc-border-width) var(--arc-border-style)
-          rgb(var(--arc-color-default));
-        border-right: var(--arc-border-width) var(--arc-border-style)
-          rgb(var(--arc-color-default));
+        border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+        border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
       }
     }
   `,

@@ -1,14 +1,6 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import {
-  arrow,
-  autoUpdate,
-  computePosition,
-  flip,
-  offset,
-  shift,
-  Placement,
-} from '@floating-ui/dom';
+import { arrow, autoUpdate, computePosition, flip, offset, shift, Placement } from '@floating-ui/dom';
 import {
   setDefaultAnimation,
   getAnimation,
@@ -77,8 +69,7 @@ export default class ArcTooltip extends LitElement {
   /** Set the delay in ms before showing the tooltip. */
   @property({
     type: Number,
-    converter: (attrValue: string | null) =>
-      attrValue ? parseDuration(attrValue) : 150,
+    converter: (attrValue: string | null) => (attrValue ? parseDuration(attrValue) : 150),
   })
   delay: number = 150;
 
@@ -189,11 +180,7 @@ export default class ArcTooltip extends LitElement {
   private startPositioner() {
     this.stopPositioner();
     this.updatePositioner();
-    this._positionerCleanup = autoUpdate(
-      this._target,
-      this.positioner,
-      this.updatePositioner.bind(this)
-    );
+    this._positionerCleanup = autoUpdate(this._target, this.positioner, this.updatePositioner.bind(this));
   }
 
   private updatePositioner() {
@@ -216,12 +203,7 @@ export default class ArcTooltip extends LitElement {
     }).then(({ x, y, middlewareData, placement }) => {
       const arrowX = middlewareData.arrow!.x;
       const arrowY = middlewareData.arrow!.y;
-      const staticSide = {
-        top: 'bottom',
-        right: 'left',
-        bottom: 'top',
-        left: 'right',
-      }[placement.split('-')[0]]!;
+      const staticSide = { top: 'bottom', right: 'left', bottom: 'top', left: 'right' }[placement.split('-')[0]]!;
 
       this.positioner.setAttribute('data-placement', placement);
 
@@ -272,9 +254,7 @@ export default class ArcTooltip extends LitElement {
   getTarget() {
     /* Get the first child that isn't a <style> or content slot */
     const target = [...this.children].find(
-      (el) =>
-        el.tagName.toLowerCase() !== 'style' &&
-        el.getAttribute('slot') !== 'content'
+      el => el.tagName.toLowerCase() !== 'style' && el.getAttribute('slot') !== 'content'
     );
 
     if (!target) {
@@ -340,11 +320,7 @@ export default class ArcTooltip extends LitElement {
       </div>
 
       <div id="positioner">
-        <div
-          id="tooltip"
-          role="tooltip"
-          aria-hidden=${this.open ? 'false' : 'true'}
-        >
+        <div id="tooltip" role="tooltip" aria-hidden=${this.open ? 'false' : 'true'}>
           <div id="arrow"></div>
           <div id="content" aria-live=${this.open ? 'polite' : 'off'}>
             <slot name="content">${this.content}</slot>

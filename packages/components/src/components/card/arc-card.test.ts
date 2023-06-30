@@ -152,9 +152,7 @@ describe('ArcCard', () => {
       expect(getPropertyValue(element, 'width')).to.equal('0px');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcCard = await fixture(
-        html`<arc-card style="width:30px"></arc-card>`
-      );
+      const element: ArcCard = await fixture(html`<arc-card style="width:30px"></arc-card>`);
 
       expect(getPropertyValue(element, 'width')).to.equal('30px');
     });

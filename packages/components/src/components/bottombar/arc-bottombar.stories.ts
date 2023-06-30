@@ -13,9 +13,7 @@ const Template: Story<ArcBottombar> = () => html`
   <arc-bottombar class="bottom-bar">
     <arc-icon-button name="home" label="Back to home">Home</arc-icon-button>
     <arc-icon-button name="menu" label="Change settings">More</arc-icon-button>
-    <arc-icon-button name="accessibility" label="Accessibility control"
-      >Accessibility</arc-icon-button
-    >
+    <arc-icon-button name="accessibility" label="Accessibility control">Accessibility</arc-icon-button>
   </arc-bottombar>
   <style>
     .bottom-bar {
@@ -27,9 +25,7 @@ const HeightTemplate: Story<ArcBottombar> = () => html`
   <arc-bottombar class="bottom-bar" style="height: 8rem;">
     <arc-icon-button name="home" label="Back to home">Home</arc-icon-button>
     <arc-icon-button name="menu" label="Change settings">More</arc-icon-button>
-    <arc-icon-button name="accessibility" label="Accessibility control"
-      >Accessibility</arc-icon-button
-    >
+    <arc-icon-button name="accessibility" label="Accessibility control">Accessibility</arc-icon-button>
   </arc-bottombar>
   <style>
     .bottom-bar {

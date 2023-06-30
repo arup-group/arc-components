@@ -75,6 +75,7 @@ export default class ArcIconButton extends LitElement {
     const isLink = !!this.href;
     const tag = isLink ? literal`a` : literal`button`;
 
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <${tag}
         id="main"
@@ -97,13 +98,8 @@ export default class ArcIconButton extends LitElement {
         @click=${this._handleClick}
       >
         <span id="iconWrapper" aria-hidden="true">
-          <arc-icon id="icon" part="icon" name=${ifDefined(
-            this.name || undefined
-          )}></arc-icon>
-          ${when(
-            this.loading,
-            () => html`<arc-spinner id="loader"></arc-spinner>`
-          )}
+          <arc-icon id="icon" part="icon" name=${ifDefined(this.name || undefined)}></arc-icon>
+          ${when(this.loading, () => html`<arc-spinner id="loader"></arc-spinner>`)}
         </span>
         <span id="action"><slot></slot></span>
       </${tag}>

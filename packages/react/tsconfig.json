@@ -1,11 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "module": "ES6",
-    "target": "ES2015",
-    "lib": ["ES6", "DOM"],
-    "declaration": true,
-    "allowSyntheticDefaultImports": true
-  },
   "include": ["src/**/*.ts"]
 }

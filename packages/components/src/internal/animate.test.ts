@@ -50,18 +50,14 @@ describe('AnimationRegistry', () => {
 
   it('registered a default animation for all components', () => {
     expect(getAnimation(element, 'animation.show')).to.equal(defaultAnimation);
-    expect(getAnimation(elementTwo, 'animation.show')).to.equal(
-      defaultAnimation
-    );
+    expect(getAnimation(elementTwo, 'animation.show')).to.equal(defaultAnimation);
   });
 
   it('registers a custom animation for a single component', () => {
     setAnimation(element, 'animation.show', customAnimation);
 
     expect(getAnimation(element, 'animation.show')).to.equal(customAnimation);
-    expect(getAnimation(elementTwo, 'animation.show')).to.equal(
-      defaultAnimation
-    );
+    expect(getAnimation(elementTwo, 'animation.show')).to.equal(defaultAnimation);
   });
 
   it('returns a fallback animation when a non-existing animation is requested', () => {
@@ -76,10 +72,7 @@ describe('AnimationRegistry', () => {
 
   it('returns a fallback animation when a faulty animation is requested', () => {
     setDefaultAnimation('faulty.animation', null);
-    const faultyAnimation: ElementAnimation = getAnimation(
-      element,
-      'faulty.animation'
-    );
+    const faultyAnimation: ElementAnimation = getAnimation(element, 'faulty.animation');
     const { keyframes, options } = faultyAnimation;
     const { duration } = options!;
 
@@ -141,7 +134,7 @@ describe('Animations', () => {
     const { keyframes, options } = getAnimation(element, 'animation.expand');
     options!.duration = Infinity;
 
-    startAnimations(element, keyframes, options).catch((err) => {
+    startAnimations(element, keyframes, options).catch(err => {
       expect(err.message).to.equal('Promise-based animations must be finite.');
     });
   });
@@ -165,14 +158,9 @@ describe('parseDuration', () => {
 
 describe('shimKeyframesHeightAuto', () => {
   it('shims/changes the `auto` height property into a calculated height', async () => {
-    const element: AnimateTest = await fixture(
-      '<animation-test></animation-test>'
-    );
+    const element: AnimateTest = await fixture('<animation-test></animation-test>');
     const keyFrames: Keyframe[] = [{ height: 'auto' }, { height: '100px' }];
-    const updatedKeyFrames = shimKeyframesHeightAuto(
-      keyFrames,
-      element.scrollHeight
-    );
+    const updatedKeyFrames = shimKeyframesHeightAuto(keyFrames, element.scrollHeight);
 
     const oldKeys = Object.keys(keyFrames);
     const shimmedKeys = Object.keys(updatedKeyFrames);

@@ -1,10 +1,5 @@
 import { expect } from '@open-wc/testing';
-import {
-  FONT_SIZES,
-  FONT_SPACING,
-  INPUT_SIZES,
-  THEME_COLORS,
-} from './styleConstants.js';
+import { FONT_SIZES, FONT_SPACING, INPUT_SIZES, THEME_COLORS } from './styleConstants.js';
 
 describe('StyleConstants', () => {
   describe('FONT_SIZES', () => {

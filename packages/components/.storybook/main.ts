@@ -1,9 +1,8 @@
 import { StorybookConfig } from '@storybook/web-components-vite';
 
 const STORYBOOK_CONFIGURATION: StorybookConfig = {
-  features: {
-    storyStoreV7: true,
-  },
+  features: { storyStoreV7: true },
+  framework: '@storybook/web-components-vite',
   stories: [
     '../stories/**/*.mdx',
     '../stories/**/*.ts',
@@ -13,19 +12,10 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   staticDirs: ['./assets', '../../playground/assets'],
   addons: [
     '@storybook/addon-links',
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false,
-        viewport: false,
-        toolbars: false,
-        actions: false,
-      },
-    },
+    '@storybook/addon-essentials',
+    '@storybook/addon-docs',
   ],
-  docs: { defaultName: 'Documentation', autodocs: true, docsMode: true },
-  framework: '@storybook/web-components-vite',
-  core: { disableTelemetry: true },
+  docs: { autodocs: true, docsMode: false },
   previewHead: (head) => `
     ${head}
     <style>

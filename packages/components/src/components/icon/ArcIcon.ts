@@ -4,10 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { getBasePath } from '../../utilities/base-path.js';
 import { ICON_TYPES, IconType } from './constants/IconConstants.js';
-import {
-  FONT_SIZES,
-  FontSize,
-} from '../../internal/constants/styleConstants.js';
+import { FONT_SIZES, FontSize } from '../../internal/constants/styleConstants.js';
 import styles from './arc-icon.styles.js';
 
 /**
@@ -49,10 +46,7 @@ export default class ArcIcon extends LitElement {
         aria-label=${ifDefined(this.label || undefined)}
         aria-hidden=${ifDefined(this.label ? undefined : 'true')}
       >
-        <use
-          href="${DEFAULT_PATH}#arc-${this.name}"
-          xlink:href="${DEFAULT_PATH}#arc-${this.name}"
-        />
+        <use href="${DEFAULT_PATH}#arc-${this.name}" xlink:href="${DEFAULT_PATH}#arc-${this.name}" />
       </svg>
     `;
   }

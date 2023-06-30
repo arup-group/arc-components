@@ -1,14 +1,11 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { Grid, Row, createElement, UserConfig } from 'gridjs';
+import { Grid, Row, createElement, Config } from 'gridjs';
 import { TCell, TColumn } from 'gridjs/dist/src/types';
 import { Language } from 'gridjs/dist/src/i18n/language';
 import { ComponentChildren, ComponentType, Attributes } from 'preact';
 import { emit } from '../../internal/event.js';
-import {
-  ARC_EVENTS,
-  ArcEvent,
-} from '../../internal/constants/eventConstants.js';
+import { ARC_EVENTS, ArcEvent } from '../../internal/constants/eventConstants.js';
 import styles from './arc-table.styles.js';
 
 const enum TABLE_EVENTS {
@@ -41,8 +38,7 @@ export default class ArcTable extends LitElement {
   @property() data: TCell[][] | { [key: string]: TCell }[];
 
   /** Puts the header in a fixed state. */
-  @property({ type: Boolean, attribute: 'fixed-header' }) fixedHeader: boolean =
-    false;
+  @property({ type: Boolean, attribute: 'fixed-header' }) fixedHeader: boolean = false;
 
   /** Set the height of the table. This is useful when setting a fixed header. */
   @property() height: string;
@@ -54,12 +50,10 @@ export default class ArcTable extends LitElement {
   @property({ type: Boolean }) pagination: boolean = false;
 
   /** Set the pagination limit. */
-  @property({ type: Number, attribute: 'pagination-limit' })
-  paginationLimit: number = 10;
+  @property({ type: Number, attribute: 'pagination-limit' }) paginationLimit: number = 10;
 
   /** Show the pagination summary. */
-  @property({ type: Boolean, attribute: 'pagination-summary' })
-  paginationSummary: boolean = false;
+  @property({ type: Boolean, attribute: 'pagination-summary' }) paginationSummary: boolean = false;
 
   /** Allow resizing of columns. */
   @property({ type: Boolean }) resizable: boolean = false;
@@ -87,11 +81,10 @@ export default class ArcTable extends LitElement {
         error: 'An error occurred while fetching your data.',
         ...this.language,
       },
-      pagination: {
-        enabled: this.pagination,
+      pagination: this.pagination ? {
         limit: this.paginationLimit,
         summary: this.paginationSummary,
-      },
+      } : false,
       resizable: this.resizable,
       sort: this.sort,
       search: this.search,
@@ -104,9 +97,7 @@ export default class ArcTable extends LitElement {
   /* Emit the GridJS events, so the user can listen to arc-specific events instead. */
   private _emitTableEvent(
     type: ArcEvent,
-    args?:
-      | [e: MouseEvent, row: Row]
-      | [e: MouseEvent, cell: TCell, column: TColumn, row: Row]
+    args?: [e: MouseEvent, row: Row] | [e: MouseEvent, cell: TCell, column: TColumn, row: Row]
   ) {
     emit(this, ARC_EVENTS[type], {
       detail: args,
@@ -115,23 +106,21 @@ export default class ArcTable extends LitElement {
 
   /* Add specific listeners to the table instance. */
   private _addTableListeners() {
-    this._grid.on('rowClick', (...args) =>
-      this._emitTableEvent(TABLE_EVENTS.ROW_CLICK, args)
-    );
-    this._grid.on('cellClick', (...args) =>
-      this._emitTableEvent(TABLE_EVENTS.CELL_CLICK, args)
-    );
-    this._grid.on('ready', () =>
-      this._emitTableEvent(TABLE_EVENTS.TABLE_READY)
-    );
+    this._grid.on('rowClick', (...args) => this._emitTableEvent(TABLE_EVENTS.ROW_CLICK, args));
+    this._grid.on('cellClick', (...args) => this._emitTableEvent(TABLE_EVENTS.CELL_CLICK, args));
+    this._grid.config.store.subscribe((state, prevState) => {
+      const status: number = state?.status as number ?? 0;
+      const prevStatus: number = prevState?.status as number ?? 0;
+      if (prevStatus < status) {
+        if (prevStatus === 2 && status === 3) {
+          this._emitTableEvent(TABLE_EVENTS.TABLE_READY);
+        }
+      }
+    });
   }
 
   /* Method used to format a table cell. */
-  format(
-    type: ComponentType<string>,
-    props: (Attributes & string) | null,
-    ...children: ComponentChildren[]
-  ) {
+  format(type: ComponentType<string>, props: (Attributes & string) | null, ...children: ComponentChildren[]) {
     return createElement(type, props, ...children);
   }
 
@@ -140,14 +129,12 @@ export default class ArcTable extends LitElement {
    * GridJS provides support for more advanced features than the arc-table requires.
    * To allow the flexibility that GridJS provides, the given userConfig needs to be checked.
    * */
-  updateConfig(userConfig: Partial<UserConfig>) {
+  updateConfig(userConfig: Partial<Config>) {
     const keys = Object.keys(userConfig);
 
     /* Make sure there are actual properties given. */
     if (keys.length === 0) {
-      throw new Error(
-        'Missing property: Please provide at least one property to update the configuration.'
-      );
+      throw new Error('Missing property: Please provide at least one property to update the configuration.');
     }
 
     /* Update the GridJS config */
@@ -155,7 +142,7 @@ export default class ArcTable extends LitElement {
     this._grid.forceRender();
 
     /* Each property of the component itself will also require an update, but only if they exist in the ArcTable API */
-    keys.forEach((key: keyof UserConfig) => {
+    keys.forEach((key: keyof Config) => {
       if (!(key in this)) return; // Make sure that the given key exists on the ArcTable (this) class.
       (this as any)[key] = userConfig[key]; // Update the value of a given key.
     });

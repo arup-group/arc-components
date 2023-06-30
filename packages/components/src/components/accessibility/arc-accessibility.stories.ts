@@ -21,12 +21,12 @@ const Template: Story<ArcAccessibility> = () => html`
     <div style="padding: var(--arc-spacing-normal)">
       <p>Hi there!</p>
       <p>
-        You can click on the <arc-icon name="accessibility"></arc-icon> icon in
-        the navbar to change your personal preferences.
+        You can click on the <arc-icon name="accessibility"></arc-icon> icon in the navbar to change your personal
+        preferences.
       </p>
       <p>
-        Check the arc-accessibility-change event being fired inside the
-        <code class="code-block">Actions</code> tab whenever a change is made.
+        Check the arc-accessibility-change event being fired inside the <code class="code-block">Actions</code> tab
+        whenever a change is made.
       </p>
     </div>
   </arc-container>

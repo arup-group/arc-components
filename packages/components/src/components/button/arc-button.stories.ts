@@ -1,10 +1,7 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import {
-  INPUT_SIZES,
-  THEME_COLORS,
-} from '../../internal/constants/styleConstants.js';
+import { INPUT_SIZES, THEME_COLORS } from '../../internal/constants/styleConstants.js';
 import { BUTTON_TYPES } from './constants/ButtonConstants.js';
 import type ArcButton from './ArcButton.js';
 import './arc-button.js';
@@ -58,8 +55,7 @@ const Template: Story<ArcButton> = ({
     >Button</arc-button
   >
 `;
-const WidthTemplate: Story<ArcButton> = () =>
-  html`<arc-button style="width: 10rem;">Button</arc-button>`;
+const WidthTemplate: Story<ArcButton> = () => html`<arc-button style="width: 10rem;">Button</arc-button>`;
 
 const defaultArgs = {
   color: THEME_COLORS.primary,

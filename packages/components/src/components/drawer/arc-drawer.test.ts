@@ -29,9 +29,7 @@ describe('ArcDrawer', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(
-        `<arc-drawer placement='${DRAWER_PLACEMENTS.end}'></arc-drawer>`
-      );
+      expect(element).dom.to.equal(`<arc-drawer placement='${DRAWER_PLACEMENTS.end}'></arc-drawer>`);
     });
 
     /* Test the accessibility */
@@ -43,9 +41,7 @@ describe('ArcDrawer', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom placement and label property', async () => {
-      const element: ArcDrawer = await fixture(
-        html`<arc-drawer placement="top" label="Test label"></arc-drawer>`
-      );
+      const element: ArcDrawer = await fixture(html`<arc-drawer placement="top" label="Test label"></arc-drawer>`);
 
       expect(element.placement).to.equal('top');
       expect(element.getAttribute('placement')).to.equal('top');
@@ -55,9 +51,7 @@ describe('ArcDrawer', () => {
     });
 
     it('activates the drawer when the open state is set', async () => {
-      const element: ArcDrawer = await fixture(
-        html`<arc-drawer open></arc-drawer>`
-      );
+      const element: ArcDrawer = await fixture(html`<arc-drawer open></arc-drawer>`);
       const panel = element.shadowRoot?.getElementById('panel');
       const isOpen = () => panel?.getAttribute('aria-hidden') === 'false';
 
@@ -107,24 +101,19 @@ describe('ArcDrawer', () => {
     let panel: HTMLElement;
     let isOpen: Function;
 
-    const initialFocusHandler: SinonSpy = sinon.spy((event) => {
+    const initialFocusHandler: SinonSpy = sinon.spy(event => {
       event.preventDefault();
       input.focus();
     });
 
     beforeEach(async () => {
-      element = await fixture(
-        html`<arc-drawer id="one"><input /></arc-drawer>`
-      );
-      elementTwo = await fixture(
-        html`<arc-drawer id="two"><input /></arc-drawer>`
-      );
+      element = await fixture(html`<arc-drawer id="one"><input /></arc-drawer>`);
+      elementTwo = await fixture(html`<arc-drawer id="two"><input /></arc-drawer>`);
 
       input = element.querySelector('input') as HTMLElement;
       overlay = element.shadowRoot?.getElementById('overlay') as HTMLElement;
       panel = element.shadowRoot?.getElementById('panel') as HTMLElement;
-      isOpen = () =>
-        panel.getAttribute('aria-hidden') === 'false' && element.open === true;
+      isOpen = () => panel.getAttribute('aria-hidden') === 'false' && element.open === true;
     });
 
     afterEach(() => {
@@ -180,9 +169,7 @@ describe('ArcDrawer', () => {
 
     it('should not close when arc-request-close is prevented', async () => {
       await element.show();
-      element.addEventListener(ARC_EVENTS.requestClose, (event) =>
-        event.preventDefault()
-      );
+      element.addEventListener(ARC_EVENTS.requestClose, event => event.preventDefault());
       overlay.click();
       expect(isOpen()).to.be.true;
     });
@@ -244,9 +231,7 @@ describe('ArcDrawer', () => {
       expect(getPropertyValue(element, '--size')).to.equal('25rem');
     });
     it('overwrites the css variables', async () => {
-      const element: ArcDrawer = await fixture(
-        html`<arc-drawer style="--size:5px"></arc-drawer>`
-      );
+      const element: ArcDrawer = await fixture(html`<arc-drawer style="--size:5px"></arc-drawer>`);
 
       expect(getPropertyValue(element, '--size')).to.equal('5px');
     });

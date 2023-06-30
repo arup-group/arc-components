@@ -1,13 +1,5 @@
-import {
-  CONTAINER_THEMES,
-  ContainerTheme,
-} from '../../container/constants/ContainerConstants.js';
-import {
-  FONT_SIZES,
-  FONT_SPACING,
-  FontSize,
-  FontSpacing,
-} from '../../../internal/constants/styleConstants.js';
+import { CONTAINER_THEMES, ContainerTheme } from '../../container/constants/ContainerConstants.js';
+import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../../internal/constants/styleConstants.js';
 import { IconType } from '../../icon/constants/IconConstants.js';
 
 export declare type ColourPreference = 'theme';
@@ -19,9 +11,7 @@ export declare type ContentPreference =
   | 'highlightLinks'
   | 'plainText';
 
-export declare type AccessibilityKey =
-  | 'colourAdjustments'
-  | 'contentAdjustments';
+export declare type AccessibilityKey = 'colourAdjustments' | 'contentAdjustments';
 export declare type AccessibilityOption = {
   name: AccessibilityKey;
   icon: IconType;
@@ -44,11 +34,7 @@ export const ACCESSIBILITY_OPTIONS: AccessibilityOption[] = [
     options: {
       fontSize: [FONT_SIZES.medium, FONT_SIZES.large, FONT_SIZES['x-large']],
       lineHeight: [FONT_SPACING.dense, FONT_SPACING.normal, FONT_SPACING.loose],
-      letterSpacing: [
-        FONT_SPACING.dense,
-        FONT_SPACING.normal,
-        FONT_SPACING.loose,
-      ],
+      letterSpacing: [FONT_SPACING.dense, FONT_SPACING.normal, FONT_SPACING.loose],
       highLegibilityFonts: null,
       highlightLinks: null,
       plainText: null,

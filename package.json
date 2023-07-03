@@ -51,7 +51,7 @@
   "dependencies": {
     "@azure/msal-browser": "^2.28.1",
     "@custom-elements-manifest/analyzer": "^0.6.4",
-    "@floating-ui/dom": "^0.3.1",
+    "@floating-ui/dom": "^1.4.3",
     "@lit-labs/react": "^1.1.0",
     "date-fns": "^2.29.1",
     "gridjs": "^5.0.2",

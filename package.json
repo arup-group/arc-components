@@ -82,6 +82,7 @@
     "@web/dev-server-rollup": "^0.3.19",
     "@web/rollup-plugin-html": "^1.10.1",
     "@web/test-runner": "^0.13.31",
+    "@web/test-runner-playwright": "^0.10.1",
     "babel-loader": "^8.2.3",
     "babel-plugin-template-html-minifier": "^4.1.0",
     "concurrently": "^7.3.0",

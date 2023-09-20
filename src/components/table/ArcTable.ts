@@ -108,7 +108,15 @@ export default class ArcTable extends LitElement {
   private _addTableListeners() {
     this._grid.on('rowClick', (...args) => this._emitTableEvent(TABLE_EVENTS.ROW_CLICK, args));
     this._grid.on('cellClick', (...args) => this._emitTableEvent(TABLE_EVENTS.CELL_CLICK, args));
-    this._grid.on('ready', () => this._emitTableEvent(TABLE_EVENTS.TABLE_READY));
+    this._grid.config.store.subscribe((state, prevState) => {
+      const status: number = state?.status as number ?? 0;
+      const prevStatus: number = prevState?.status as number ?? 0;
+      if (prevStatus < status) {
+        if (prevStatus === 2 && status === 3) {
+          this._emitTableEvent(TABLE_EVENTS.TABLE_READY);
+        }
+      }
+    });
   }
 
   /* Method used to format a table cell. */

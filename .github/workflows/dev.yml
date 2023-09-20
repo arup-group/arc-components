@@ -20,7 +20,10 @@ jobs:
         uses: borales/actions-yarn@v3.0.0
 
       - name: Install node_modules
-        run: yarn install
+        run: yarn install --forzen-lockfile
+
+      - name: Install playwright browsers
+        run: yarn playwright install
 
       - name: Format the code
         run: yarn run format

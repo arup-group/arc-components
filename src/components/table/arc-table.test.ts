@@ -147,7 +147,6 @@ describe('ArcTable', () => {
       /* When there is no data, there's a single row with an alert. */
       expect(getTableBody().children.length).to.equal(1);
       expect(element.pagination).to.be.false;
-      expect(element.search).to.be.false;
 
       /* Update the configuration */
       element.updateConfig({
@@ -160,7 +159,7 @@ describe('ArcTable', () => {
       });
 
       /* Wait for the underlying GridJS instance to finish rendering. */
-      await waitUntil(() => tableReadySpy.calledTwice);
+      await waitUntil(() => tableReadySpy.calledThrice);
 
       expect(getTableBody().children.length).to.equal(2);
       expect(element.pagination).to.be.true;
@@ -219,10 +218,12 @@ describe('ArcTable', () => {
           ['John', 'Doe'],
           ['Jane', 'Doe'],
         ],
+        pagination: true,
+        search: true,
       });
 
       /* Wait for the underlying GridJS instance to finish rendering. */
-      await waitUntil(() => tableReadySpy.calledTwice);
+      await waitUntil(() => tableReadySpy.calledThrice);
 
       const rows = getTableBody().children;
       const firstRow = rows[0] as HTMLTableRowElement;

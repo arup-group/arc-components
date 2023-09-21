@@ -1,6 +1,6 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { Grid, Row, createElement, UserConfig } from 'gridjs';
+import { Grid, Row, createElement, Config } from 'gridjs';
 import { TCell, TColumn } from 'gridjs/dist/src/types';
 import { Language } from 'gridjs/dist/src/i18n/language';
 import { ComponentChildren, ComponentType, Attributes } from 'preact';
@@ -81,11 +81,10 @@ export default class ArcTable extends LitElement {
         error: 'An error occurred while fetching your data.',
         ...this.language,
       },
-      pagination: {
-        enabled: this.pagination,
+      pagination: this.pagination ? {
         limit: this.paginationLimit,
         summary: this.paginationSummary,
-      },
+      } : false,
       resizable: this.resizable,
       sort: this.sort,
       search: this.search,
@@ -109,7 +108,15 @@ export default class ArcTable extends LitElement {
   private _addTableListeners() {
     this._grid.on('rowClick', (...args) => this._emitTableEvent(TABLE_EVENTS.ROW_CLICK, args));
     this._grid.on('cellClick', (...args) => this._emitTableEvent(TABLE_EVENTS.CELL_CLICK, args));
-    this._grid.on('ready', () => this._emitTableEvent(TABLE_EVENTS.TABLE_READY));
+    this._grid.config.store.subscribe((state, prevState) => {
+      const status: number = state?.status as number ?? 0;
+      const prevStatus: number = prevState?.status as number ?? 0;
+      if (prevStatus < status) {
+        if (prevStatus === 2 && status === 3) {
+          this._emitTableEvent(TABLE_EVENTS.TABLE_READY);
+        }
+      }
+    });
   }
 
   /* Method used to format a table cell. */
@@ -122,7 +129,7 @@ export default class ArcTable extends LitElement {
    * GridJS provides support for more advanced features than the arc-table requires.
    * To allow the flexibility that GridJS provides, the given userConfig needs to be checked.
    * */
-  updateConfig(userConfig: Partial<UserConfig>) {
+  updateConfig(userConfig: Partial<Config>) {
     const keys = Object.keys(userConfig);
 
     /* Make sure there are actual properties given. */
@@ -135,7 +142,7 @@ export default class ArcTable extends LitElement {
     this._grid.forceRender();
 
     /* Each property of the component itself will also require an update, but only if they exist in the ArcTable API */
-    keys.forEach((key: keyof UserConfig) => {
+    keys.forEach((key: keyof Config) => {
       if (!(key in this)) return; // Make sure that the given key exists on the ArcTable (this) class.
       (this as any)[key] = userConfig[key]; // Update the value of a given key.
     });

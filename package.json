@@ -54,7 +54,7 @@
     "@floating-ui/dom": "^0.3.1",
     "@lit-labs/react": "^1.1.0",
     "date-fns": "^2.29.1",
-    "gridjs": "^5.0.2",
+    "gridjs": "6.0.6",
     "lit": "^2.4.1",
     "react": "^18.2.0",
     "tabbable": "^5.3.3"
@@ -82,6 +82,7 @@
     "@web/dev-server-rollup": "^0.3.19",
     "@web/rollup-plugin-html": "^1.10.1",
     "@web/test-runner": "^0.13.31",
+    "@web/test-runner-playwright": "^0.10.1",
     "babel-loader": "^8.2.3",
     "babel-plugin-template-html-minifier": "^4.1.0",
     "concurrently": "^7.3.0",

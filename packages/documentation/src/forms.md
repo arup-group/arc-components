@@ -1,7 +1,3 @@
-import { Meta } from '@storybook/addon-docs';
-
-<Meta title="Forms" />
-
 # Form Controls
 
 Every ARC component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles and behavior.
@@ -19,7 +15,7 @@ However, most modern apps use the Fetch API or a library such as axios to submit
 The [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) interface offers a standard way to serialize forms in the browser.
 You can create a `FormData` object from any `<form>` element like this.
 
-```bash
+```js
 const form = document.querySelector('form');
 const data = new FormData(form);
 
@@ -29,7 +25,7 @@ const data = new FormData(form);
 However, if you find `FormData` tricky to work with, or need to pass a JSON payload to the server,
 ARC offers a serialization utility that gathers form data and returns a simple JavaScript object instead.
 
-```bash
+```js
 import { serialize } from '@arc-web/components/dist/utilities/form-utils.js';
 
 const form = document.querySelector('form');
@@ -46,7 +42,7 @@ If more than one form control shares the same name, the values will be passed as
 Client-side validation can be enabled through the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Constraint_validation) for ARC form controls.
 You can activate it using attributes such as `required`, `minlength` and `maxlength`. ARC implements many of the same attributes as native form controls, but checks each form control's documentation for a list of all supported properties.
 
-```bash
+```html
 <form>
   <arc-switch name="arc_is_great" value="true" required>Do you love arc?</arc-switch>
   <arc-button submit>Submit</arc-button>
@@ -66,7 +62,7 @@ You can also report the validity of the input element, by calling `reportValidit
 Calling the `reportValidity()` method on the component itself, will return `true` or `false`.
 If the component is `invalid`, the browser will show the user a relevant error message.
 
-```bash
+```html
 <form>
   <arc-switch name="arc_is_great" value="true" required>Do you love arc?</arc-switch>
   <arc-button submit>Submit</arc-button>
@@ -92,7 +88,7 @@ This will override any existing validation constraints.
 The form will not be submitted when a custom validity is set and the browser will show a validation error when the containing form is submitted.
 To make the input valid again, call `setCustomValidity()` again with an empty string.
 
-```bash
+```html
 <form>
   <arc-switch name="arc_is_great" value="true">Do you love arc?</arc-switch>
   <arc-button submit>Submit</arc-button>

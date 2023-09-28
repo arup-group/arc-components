@@ -5,7 +5,7 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   framework: '@storybook/web-components-vite',
   stories: [
     '../../components/src/**/*.stories.ts',
-    '../src/**/*.mdx',
+    '../stories/**/*.mdx',
   ],
   staticDirs: [
     {

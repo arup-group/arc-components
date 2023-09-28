@@ -1,7 +1,3 @@
-import { Meta } from '@storybook/addon-docs';
-
-<Meta title="Tables" />
-
 # ARC tables
 
 ARC provides support for data visualization by providing a table component.
@@ -12,8 +8,7 @@ The table component uses Grid.js under the hood to render the templates.
 You don't need any build tools to use the ARC table component.
 Simply include and add the component in your project, like so:
 
-```bash
-# index.html
+```html
 <body>
   <div id='app'></div>
 
@@ -39,30 +34,30 @@ Simply include and add the component in your project, like so:
 The `columns` property can be defined in one of the following ways:
 
 ```bash
-  #Array of strings
-  columns: ["Name", "Email", "Number"];
+#Array of strings
+columns: ["Name", "Email", "Number"];
 
-  #or
+#or
 
-  #Array of TColumn objects
-  columns: [
-    { name: 'Name', sort: true},
-    { name: 'Email', sort: false},
-    { name: 'Number', sort: false, width: '50%'},
-  ]
+#Array of TColumn objects
+columns: [
+  { name: 'Name', sort: true },
+  { name: 'Email', sort: false },
+  { name: 'Number', sort: false, width: '50%' },
+]
 ```
 
 The `TColumn` object has the following available properties:
 
 ```bash
-  id?: string,
-  data?: function or TCell,
-  name: string,
-  width?: string,
-  sort?: boolean,
-  hidden?: boolean,
-  formatter?: function,
-  attributes?: HTMLAttributes or function
+id?: string,
+data?: function or TCell,
+name: string,
+width?: string,
+sort?: boolean,
+hidden?: boolean,
+formatter?: function,
+attributes?: HTMLAttributes or function
 ```
 
 ### Data
@@ -70,29 +65,30 @@ The `TColumn` object has the following available properties:
 The `data` property can be defined in one of the following ways:
 
 ```bash
-  #Array of TCell arrays
-  data: [
-    ['John', 'john@example.com', '(353) 01 222 3333'],
-    ['Mark', 'mark@gmail.com',   '(01) 22 888 4444'],
-    ['Eoin', 'eo3n@yahoo.com',   '(05) 10 878 5554'],
-    ['Nisen', 'nis900@gmail.com',   '313 333 1923']
-  ];
+#Array of TCell arrays
+data: [
+  ['John', 'john@example.com', '(353) 01 222 3333'],
+  ['Mark', 'mark@gmail.com',   '(01) 22 888 4444'],
+  ['Eoin', 'eo3n@yahoo.com',   '(05) 10 878 5554'],
+  ['Nisen', 'nis900@gmail.com',   '313 333 1923']
+];
 
-  #or
+#or
 
-  #Array of TCell objects
-  data: [
-    { name: 'John', email: 'john@example.com' },
-    { name: 'Mark', email: 'mark@gmail.com' },
-    { name: 'Eoin', email: 'eo3n@yahoo.com' },
-    { name: 'Nisen', email: 'nis900@gmail.com' }
-  ]
+#Array of TCell objects
+data: [
+  { name: 'John', email: 'john@example.com' },
+  { name: 'Mark', email: 'mark@gmail.com' },
+  { name: 'Eoin', email: 'eo3n@yahoo.com' },
+  { name: 'Nisen', email: 'nis900@gmail.com' }
+]
 ```
 
 Data can also be fetched by using an async function for example.
 The below code adds a setTimeout function to imitate a loading state.
 
-```bash
+```js
+{
   data: () => {
     return new Promise(resolve => {
       setTimeout(() =>
@@ -102,13 +98,14 @@ The below code adds a setTimeout function to imitate a loading state.
         ]), 2000);
     });
   }
+}
 ```
 
 ## Customization
 
 ARC provides support for customizing cells at runtime by using the `format` method in the formatter property.
 
-```bash
+```js
 const app = document.getElementById('app');
 const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
 app.appendChild(Object.assign(table, {
@@ -143,7 +140,7 @@ The last property of the format method can be used to render children, in case o
 It is also possible to create an empty arc-table instance and update the configuration later on.
 ARC provides a method to update the configuration and `re-render` the table.
 
-```bash
+```js
 const app = document.getElementById('app');
 const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
 app.appendChild(Object.assign(table, {
@@ -175,13 +172,13 @@ ARC provides support for various different languages:
 
 Import your language file first;
 
-```bash
+```js
 import { frFR } from "gridjs/l10n";
 ```
 
 then pass it to the `language` setting of the arc-table component.
 
-```bash
+```js
 Object.assign(document.createElement('arc-table'), {
   ...allProps,
   language: frFR
@@ -193,7 +190,7 @@ Object.assign(document.createElement('arc-table'), {
 ARC also provides a way to easily customize the messages and add your own language.
 Simply extend the `language` config to replace the strings:
 
-```bash
+```js
 Object.assign(document.createElement('arc-table'), {
   ...allProps,
   language: {
@@ -214,27 +211,29 @@ Object.assign(document.createElement('arc-table'), {
 
 Below, a list of the default language configurations that can be overwritten:
 
-```bash
-search: {
-  placeholder: 'Type a keyword...',
-},
-sort: {
-  sortAsc: 'Sort column ascending',
-  sortDesc: 'Sort column descending',
-},
-pagination: {
-    previous: '˂',
-    next: '˃',
-    navigate: (page, pages) => `Page ${page} of ${pages}`,
-    page: (page) => `Page ${page}`,
-    showing: 'Showing',
-    of: 'of',
-    to: 'to',
-    results: 'results',
-},
-loading: 'Retrieving your data, please wait...',
-noRecordsFound: 'No matching records found.',
-error: 'An error occurred while fetching your data.',
+```js
+{
+  search: {
+    placeholder: 'Type a keyword...',
+  },
+  sort: {
+    sortAsc: 'Sort column ascending',
+    sortDesc: 'Sort column descending',
+  },
+  pagination: {
+      previous: '˂',
+      next: '˃',
+      navigate: (page, pages) => `Page ${page} of ${pages}`,
+      page: (page) => `Page ${page}`,
+      showing: 'Showing',
+      of: 'of',
+      to: 'to',
+      results: 'results',
+  },
+  loading: 'Retrieving your data, please wait...',
+  noRecordsFound: 'No matching records found.',
+  error: 'An error occurred while fetching your data.',
+}
 ```
 
 > **Note**: For more advanced features of the arc-table component,

@@ -1,7 +1,3 @@
-import { Meta } from '@storybook/addon-docs';
-
-<Meta title="Customizing" />
-
 # Customizing
 
 ARC components can be customized at a high level through design tokens.
@@ -22,9 +18,7 @@ Because design tokens live at the page level, they're prefixed with `--arc-` to 
 To customize a design token, simply override it in your stylesheet using a `:root` block.
 Here's an example that changes the primary color of the light theme.
 
-```bash
-custom.css
-
+```css
 :root,
 :host,
 arc-container[theme="light"] {
@@ -39,9 +33,7 @@ These are not design tokens, nor do they have the same `--arc-` prefix since the
 
 You can set custom properties on a component in your stylesheet.
 
-```bash
-custom.css
-
+```css
 arc-button {
   --btn-color: green;
 }
@@ -49,9 +41,7 @@ arc-button {
 
 This will also work if you need to target a subset of components with a specific class.
 
-```bash
-custom.css
-
+```css
 arc-button.green {
   --btn-color: rgb(var(--arc-green-050));
 }
@@ -63,7 +53,7 @@ arc-button.blue {
 
 Alternatively, you can set them inline directly on the component.
 
-```bash
+```css
 <arc-button style='--btn-color=rgb(var(--arc-green-050))'>My Button</arc-button>
 ```
 

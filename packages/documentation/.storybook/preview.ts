@@ -18,6 +18,16 @@ const PREVIEW: Preview = {
         date: /Date$/,
       },
     },
+    options: {
+      storySort: {
+        order: [
+          'README',
+          'CONTRIBUTING',
+          ['Components', 'Login', 'Admin'],
+          'LICENCE'
+        ],
+      },
+    },
   }
 };
 

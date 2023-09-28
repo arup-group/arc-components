@@ -1,22 +1,8 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@nx", "@typescript-eslint"],
+  "plugins": ["@nx", "@typescript-eslint", "html"],
   "overrides": [
-    {
-      "files": ["*.json"],
-      "parser": "jsonc-eslint-parser",
-      "rules": {
-        "@nx/dependency-checks": "error"
-      }
-    },
-    {
-      "files": ["./package.json"],
-      "parser": "jsonc-eslint-parser",
-      "rules": {
-        "@nx/nx-plugin-checks": "error"
-      }
-    },
     {
       "files": ["*.ts"],
       "rules": {

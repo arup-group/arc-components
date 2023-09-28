@@ -75,7 +75,6 @@ export default class ArcIconButton extends LitElement {
     const isLink = !!this.href;
     const tag = isLink ? literal`a` : literal`button`;
 
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <${tag}
         id="main"

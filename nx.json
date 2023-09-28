@@ -16,7 +16,7 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "lint", "test"]
     },
     "serve": {
       "dependsOn": ["^build"]

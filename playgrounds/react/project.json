@@ -10,7 +10,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["playground/react/**/*.ts"]
+        "lintFilePatterns": ["playgrounds/react/**/*.tsx"]
       }
     },
     "build": {

@@ -1,5 +1,3 @@
-/* eslint-disable lit-a11y/anchor-is-valid */
-
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { expect, fixture } from '@open-wc/testing';

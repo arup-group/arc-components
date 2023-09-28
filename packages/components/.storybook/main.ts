@@ -8,7 +8,12 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
     '../src/**/*.stories.ts',
     '../src/**/*.mdx',
   ],
-  staticDirs: ['./assets', '../../../playgrounds/assets'],
+  staticDirs: [
+    {
+      from: '../../../assets',
+      to: 'assets',
+    },
+  ],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',

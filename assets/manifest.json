@@ -1,8 +1,8 @@
 {
-  "short_name": "ARC",
-  "name": "ARC Web Components",
+  "short_name": "ARC Playground",
+  "name": "ARC Web Components Playground",
   "id": "/index.html",
-  "description": "Web-components built on the ARC design system",
+  "description": "Playground application for the ARC Web Components",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#FFFFFF",

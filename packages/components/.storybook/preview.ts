@@ -17,13 +17,6 @@ const PREVIEW: Preview = {
         date: /Date$/,
       },
     },
-    options: {
-      storySort: {
-        order: [
-          'Introduction',
-        ],
-      },
-    },
   }
 };
 

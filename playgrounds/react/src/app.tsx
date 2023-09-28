@@ -5,7 +5,7 @@ export function App() {
   return (
     <ArcContainer>
       <ArcNavbar slot="nav" logo="/arc-red.svg" tabs={0}>
-        <span slot="name">Web Components</span>
+        <span slot="name">ARC Playground</span>
 
         <ArcIconButton label="Home" name="home"></ArcIconButton>
         <ArcIconButton label="Settings" name="settings"></ArcIconButton>

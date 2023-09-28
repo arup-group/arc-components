@@ -5,7 +5,7 @@
       logo="/arc-red.svg"
       tabs="0"
     >
-      <span slot="name">Web Components</span>
+      <span slot="name">ARC Playground</span>
 
       <arc-icon-button
         label="Home"

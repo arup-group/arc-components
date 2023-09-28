@@ -4,9 +4,8 @@ import '@arc-web/components';
 @Component({
   standalone: true,
   selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: `
-    <arc-container></arc-container>
-  `,
 })
 export class AppComponent {}

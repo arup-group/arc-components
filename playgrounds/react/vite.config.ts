@@ -25,7 +25,7 @@ export default defineConfig({
     react(),
 
     DynamicPublicDirectory([
-      'playgrounds/assets',
+      'assets',
 
       // ARC component assets are required for components
       // to load any static assets required such as icons.

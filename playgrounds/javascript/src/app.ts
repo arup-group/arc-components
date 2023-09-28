@@ -7,7 +7,7 @@ export class App extends HTMLElement {
           logo="/arc-red.svg"
           tabs="0"
         >
-          <span slot="name">Web Components</span>
+          <span slot="name">ARC Playground</span>
 
           <arc-icon-button label="Home" name="home"></arc-icon-button>
           <arc-icon-button label="Settings" name="settings"></arc-icon-button>

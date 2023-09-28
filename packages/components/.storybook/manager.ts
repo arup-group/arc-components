@@ -1,6 +1,6 @@
 import { addons } from '@storybook/addons';
 import { create } from '@storybook/theming';
-import arcLogo from './assets/arc-storybook.svg';
+import arcLogo from '../../../assets/arc-storybook.svg';
 
 const THEME = create({
   base: 'light',

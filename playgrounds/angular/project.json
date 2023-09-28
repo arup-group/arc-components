@@ -43,7 +43,7 @@
           "assets": [
             {
               "glob": "**/*",
-              "input": "packages/components/assets",
+              "input": "assets",
               "output": "/assets/"
             }
           ]

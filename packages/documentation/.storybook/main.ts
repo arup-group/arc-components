@@ -4,11 +4,14 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   features: { storyStoreV7: true },
   framework: '@storybook/web-components-vite',
   stories: [
-    '../stories/**/*.mdx',
-    '../src/**/*.stories.ts',
+    '../../components/src/**/*.stories.ts',
     '../src/**/*.mdx',
   ],
   staticDirs: [
+    {
+      from: '../../../dist/packages/components/assets',
+      to: 'assets',
+    },
     {
       from: '../../../assets',
       to: 'assets',

@@ -2,7 +2,7 @@
   <arc-container>
     <arc-navbar
       slot="nav"
-      logo="/arc-red.svg"
+      logo="assets/arc-red.svg"
       tabs="0"
     >
       <span slot="name">ARC Playground</span>

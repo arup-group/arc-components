@@ -10,7 +10,7 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["lint", "test", "build"]
+        "cacheableOperations": ["lint", "test", "build", "preview"]
       }
     }
   },
@@ -18,8 +18,8 @@
     "build": {
       "dependsOn": ["^build", "lint", "test"]
     },
-    "serve": {
-      "dependsOn": ["^build"]
+    "preview": {
+      "dependsOn": ["build"]
     }
   }
 }

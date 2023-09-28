@@ -1,0 +1,47 @@
+{
+  "name": "documentation",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/documentation/src",
+  "projectType": "library",
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/documentation/**/*.ts",
+
+        ]
+      }
+    },
+    "build": {
+      "executor": "@nx/storybook:build",
+      "options": {
+        "outputDir": "dist/packages/documentation",
+        "configDir": "packages/documentation/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @web/dev-server --root-dir dist/packages/documentation --port 4200",
+        "cwd": ".",
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "packages/documentation/.storybook"
+      },
+      "dependsOn": ["build"]
+    }
+  }
+}

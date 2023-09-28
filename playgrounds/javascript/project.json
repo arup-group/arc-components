@@ -26,6 +26,14 @@
         }
       }
     },
+   "preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @web/dev-server --root-dir dist/playgrounds/javascript --port 4200",
+        "cwd": ".",
+        "parallel": false
+      }
+    },
     "serve": {
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
@@ -36,18 +44,6 @@
         "local": {
           "buildTarget": "javascript-playground:build:local",
           "hmr": true
-        }
-      }
-    },
-    "preview": {
-      "executor": "@nx/vite:preview-server",
-      "defaultConfiguration": "local",
-      "options": {
-        "buildTarget": "javascript-playground:build"
-      },
-      "configurations": {
-        "local": {
-          "buildTarget": "javascript-playground:build:local"
         }
       }
     }

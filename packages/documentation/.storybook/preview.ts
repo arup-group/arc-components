@@ -1,9 +1,10 @@
 import { setCustomElementsManifest, Preview } from '@storybook/web-components';
-import '../themes/index.css';
-import '../themes/light.css';
-import '../themes/dark.css';
-import '../src/index';
+import '@arc-web/components/themes/index.css';
+import '@arc-web/components/themes/light.css';
+import '@arc-web/components/themes/dark.css';
+import '@arc-web/components/src/index';
 
+// @ts-ignore
 import CUSTOM_ELEMENTS from '../../../dist/packages/components/custom-elements.json';
 
 setCustomElementsManifest(CUSTOM_ELEMENTS);

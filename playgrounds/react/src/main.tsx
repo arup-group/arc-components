@@ -7,4 +7,4 @@ import '@arc-web/components/themes/dark.css';
 import { createRoot } from 'react-dom/client';
 import { App } from './app';
 
-createRoot(document.createElement('app-root')).render(<App />);
+createRoot(document.querySelector('app-root')!).render(<App />);

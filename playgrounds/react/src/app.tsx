@@ -4,7 +4,7 @@ import { ArcContainer, ArcNavbar, ArcIconButton, ArcSSO } from '@arc-web/react';
 export function App() {
   return (
     <ArcContainer>
-      <ArcNavbar slot="nav" logo="/arc-red.svg" tabs={0}>
+      <ArcNavbar slot="nav" logo="assets/arc-red.svg" tabs={0}>
         <span slot="name">ARC Playground</span>
 
         <ArcIconButton label="Home" name="home"></ArcIconButton>

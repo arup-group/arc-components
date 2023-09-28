@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    ".storybook/**/*.ts",
+    "../components/src/**/*.stories.ts",
+    "src/**/**.mdx"
+  ]
+}

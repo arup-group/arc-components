@@ -3,10 +3,6 @@ import '@arc-web/components/themes/light.css';
 import '@arc-web/components/themes/dark.css';
 import '@arc-web/components';
 
-import { setBasePath } from '@arc-web/components';
-
-setBasePath('/playgrounds/assets');
-
 import { createApp } from 'vue';
 import App from './app.vue';
 

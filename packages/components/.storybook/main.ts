@@ -5,17 +5,16 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   framework: '@storybook/web-components-vite',
   stories: [
     '../stories/**/*.mdx',
-    '../stories/**/*.ts',
     '../src/**/*.stories.ts',
     '../src/**/*.mdx',
   ],
-  staticDirs: ['./assets', '../../playground/assets'],
+  staticDirs: ['./assets', '../../../playgrounds/assets'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-docs',
+    '@storybook/addon-storysource',
+    '@storybook/addon-interactions',
   ],
-  docs: { autodocs: true, docsMode: false },
   previewHead: (head) => `
     ${head}
     <style>

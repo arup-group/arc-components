@@ -1,10 +1,7 @@
 {
   "name": "@arc-web/components",
   "version": "2.3.1",
-  "workspaces": [
-    "packages/*",
-    "playgrounds/*"
-  ],
+  "workspaces": ["packages/*"],
   "devDependencies": {
     "@angular-devkit/build-angular": "16.2.0",
     "@angular-devkit/core": "16.2.0",
@@ -51,9 +48,9 @@
     "@types/react-dom": "18.2.7",
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
-    "@vitejs/plugin-react": "^4.1.0",
-    "@vitejs/plugin-vue": "^4.3.4",
-    "@web/dev-server": "^0.2.3",
+    "@vitejs/plugin-react": "4.1.0",
+    "@vitejs/plugin-vue": "4.3.4",
+    "@web/dev-server": "0.2.3",
     "@web/dev-server-esbuild": "0.2.16",
     "@web/test-runner": "0.13.31",
     "@web/test-runner-playwright": "0.10.1",
@@ -63,7 +60,7 @@
     "jsonc-eslint-parser": "2.1.0",
     "nx": "16.9.1",
     "prettier": "3.0.3",
-    "react": "^18.2.0",
+    "react": "18.2.0",
     "react-dom": "18.2.0",
     "rxjs": "7.8.1",
     "sinon": "14.0.2",

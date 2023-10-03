@@ -1,0 +1,80 @@
+{
+  "name": "node-ssr",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "playgrounds/node-ssr/src",
+  "projectType": "application",
+  "tags": ["playground"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["playgrounds/node-ssr/**/*.ts"]
+      }
+    },
+    "prebuild": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "local",
+      "options": {
+        "deleteOutputPath": true,
+        "platform": "node",
+        "outputPath": "dist/playgrounds/node-ssr",
+        "format": ["esm"],
+        "bundle": false,
+        "main": "playgrounds/node-ssr/src/main.ts",
+        "tsConfig": "playgrounds/node-ssr/tsconfig.json",
+        "generatePackageJson": false,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        },
+        "configurations": {
+          "local": {}
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "local",
+      "options": {
+        "deleteOutputPath": false,
+        "platform": "node",
+        "outputPath": "dist/playgrounds/node-ssr",
+        "format": ["esm"],
+        "bundle": true,
+        "main": "playgrounds/node-ssr/src/main.ts",
+        "outputFileName": "bundle.js",
+        "tsConfig": "playgrounds/node-ssr/tsconfig.json",
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "local": {}
+      },
+      "dependsOn": ["prebuild"]
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "local",
+      "options": {
+        "buildTarget": "node-ssr:build"
+      },
+      "configurations": {
+        "lcoal": {
+          "buildTarget": "node-ssr:build:local",
+          "waitUntilTargets": ["node-ssr:build:local", "node-ssr:prebuild:local"]
+        }
+      },
+      "dependsOn": ["build"]
+    }
+  },
+}

@@ -1,11 +1,15 @@
-# ARC tables
+import { Meta } from '@storybook/blocks';
+import Table from '../src/table.md?raw';
 
-ARC provides support for data visualization by providing a table component.
-The table component uses Grid.js under the hood to render the templates.
+<Meta title="Components/ArcTable/Documentation" />
+
+# `ArcTable`
+
+**ARC** provides support for data visualization by providing an `ArcTable` wapper component around [Grid.js](https://gridjs.io/).
 
 ## Usage
 
-You don't need any build tools to use the ARC table component.
+You don't need any build tools to use the **ARC** table component.
 Simply include and add the component in your project, like so:
 
 ```html
@@ -25,9 +29,6 @@ Simply include and add the component in your project, like so:
   </script>
 </body>
 ```
-
-> **Note**: When used within a framework, the structure might look a bit different from the code example.
-> All the available properties of the arc-table component can be found in the component's documentation.
 
 ### Columns
 
@@ -103,7 +104,7 @@ The below code adds a setTimeout function to imitate a loading state.
 
 ## Customization
 
-ARC provides support for customizing cells at runtime by using the `format` method in the formatter property.
+**ARC** provides support for customizing cells at runtime by using the `format` method in the formatter property.
 
 ```js
 const app = document.getElementById('app');
@@ -138,7 +139,7 @@ The last property of the format method can be used to render children, in case o
 ### Update
 
 It is also possible to create an empty arc-table instance and update the configuration later on.
-ARC provides a method to update the configuration and `re-render` the table.
+**ARC** provides a method to update the configuration and `re-render` the table.
 
 ```js
 const app = document.getElementById('app');
@@ -160,7 +161,7 @@ will automatically update all associated properties of the arc-table component.
 
 ## Serialization
 
-ARC provides support for various different languages:
+**ARC** provides support for various different languages:
 
 - en_US
 - es_ES
@@ -187,7 +188,7 @@ Object.assign(document.createElement('arc-table'), {
 
 ### Custom serialization
 
-ARC also provides a way to easily customize the messages and add your own language.
+**ARC** also provides a way to easily customize the messages and add your own language.
 Simply extend the `language` config to replace the strings:
 
 ```js

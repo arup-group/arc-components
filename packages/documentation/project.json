@@ -38,7 +38,7 @@
     "serve": {
       "executor": "@nx/storybook:storybook",
       "options": {
-        "port": 4400,
+        "port": 4200,
         "configDir": "packages/documentation/.storybook"
       }
     }

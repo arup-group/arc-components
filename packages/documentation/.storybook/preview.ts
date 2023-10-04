@@ -12,6 +12,7 @@ setCustomElementsManifest(CUSTOM_ELEMENTS);
 const PREVIEW: Preview = {
   parameters: {
     layout: 'fullscreen',
+    actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(colorPrimary|colorSecondary|btnColor|btnBackground|iconColor|strokeColor)$/i,
@@ -20,12 +21,7 @@ const PREVIEW: Preview = {
     },
     options: {
       storySort: {
-        order: [
-          'README',
-          'CONTRIBUTING',
-          ['Components', 'Login', 'Admin'],
-          'LICENCE'
-        ],
+        order: [],
       },
     },
   }

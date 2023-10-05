@@ -13,7 +13,7 @@ class WatchTest extends LitElement {
     this.dispatchEvent(
       new CustomEvent('watch-changed', {
         detail: [oldVal, newVal],
-      })
+      }),
     );
   };
 
@@ -22,7 +22,7 @@ class WatchTest extends LitElement {
     this.dispatchEvent(
       new CustomEvent('watch-waited', {
         detail: [oldVal, newVal],
-      })
+      }),
     );
   };
 
@@ -32,7 +32,7 @@ class WatchTest extends LitElement {
       this.dispatchEvent(
         new CustomEvent('watch-waited-two', {
           detail: [oldVal, newVal],
-        })
+        }),
       );
     }
   };

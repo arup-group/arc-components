@@ -10,7 +10,14 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["lint", "test", "build", "preview"]
+        "cacheableOperations": [
+          "lint",
+          "test",
+          "build",
+          "preview",
+          "storybook:build",
+          "storybook:serve"
+        ]
       }
     }
   },
@@ -19,6 +26,12 @@
       "dependsOn": ["^build", "lint", "test"]
     },
     "preview": {
+      "dependsOn": ["build"]
+    },
+    "storybook:build": {
+      "dependsOn": ["build"]
+    },
+    "storybook:serve": {
       "dependsOn": ["build"]
     }
   }

@@ -11,7 +11,12 @@ export default {
   component: 'arc-card',
   parameters: {
     actions: {
-      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide],
+      handles: [
+        ARC_EVENTS.show,
+        ARC_EVENTS.afterShow,
+        ARC_EVENTS.hide,
+        ARC_EVENTS.afterHide,
+      ],
     },
   },
 } as Meta;

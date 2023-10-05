@@ -4,8 +4,9 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   features: { storyStoreV7: true },
   framework: '@storybook/web-components-vite',
   stories: [
-    '../../components/src/**/*.stories.ts',
-    '../src/**/*.mdx',
+    '../src/**/*.stories.ts',
+    '../src/**/*.stories.tsx',
+    '../stories/*.mdx',
   ],
   staticDirs: [
     {
@@ -17,9 +18,11 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
       to: 'assets',
     },
   ],
-  addons: [
-    '@storybook/addon-essentials',
-  ],
+  addons: ['@storybook/addon-essentials'],
+  docs: {
+    autodocs: true,
+    defaultName: 'Documentation',
+  },
   previewHead: (head) => `
     ${head}
     <style>
@@ -36,13 +39,6 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
     </style>
   `,
   viteFinal: (config) => {
-    config.optimizeDeps!.include = [
-      ...(config.optimizeDeps?.include ?? []),
-      '@storybook/web-components',
-    ]
-    config.optimizeDeps!.exclude = [
-      ...(config.optimizeDeps?.exclude ?? []),
-    ]
     config.cacheDir = '../../../node_modules/.vite/storybook';
     return config;
   },

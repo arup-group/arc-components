@@ -16,12 +16,16 @@ describe('ArcSwitch', () => {
     let element: ArcSwitch;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-switch> This is test switcher </arc-switch>`);
+      element = await fixture(
+        html`<arc-switch> This is test switcher </arc-switch>`,
+      );
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-switch>This is test switcher</arc-switch>`);
+      expect(element).dom.to.equal(
+        `<arc-switch>This is test switcher</arc-switch>`,
+      );
     });
 
     /* Test the accessibility */
@@ -33,13 +37,17 @@ describe('ArcSwitch', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom name property', async () => {
-      const element: ArcSwitch = await fixture(html`<arc-switch name="testName"></arc-switch>`);
+      const element: ArcSwitch = await fixture(
+        html`<arc-switch name="testName"></arc-switch>`,
+      );
       expect(element.name).to.equal('testName');
       expect(element.getAttribute('name')).to.equal('testName');
     });
 
     it('renders the element with a custom value property', async () => {
-      const element: ArcSwitch = await fixture(html`<arc-switch value="testVal"></arc-switch>`);
+      const element: ArcSwitch = await fixture(
+        html`<arc-switch value="testVal"></arc-switch>`,
+      );
       expect(element.value).to.equal('testVal');
       expect(element.getAttribute('value')).to.equal('testVal');
     });
@@ -170,8 +178,12 @@ describe('ArcSwitch', () => {
     beforeEach(async () => {
       form = await fixture(html`
         <form>
-          <arc-switch name="dogs" value="likes_dogs" checked>Do you like dogs?</arc-switch>
-          <arc-switch name="cats" value="likes_cats">Do you like cats?</arc-switch>
+          <arc-switch name="dogs" value="likes_dogs" checked
+            >Do you like dogs?</arc-switch
+          >
+          <arc-switch name="cats" value="likes_cats"
+            >Do you like cats?</arc-switch
+          >
           <arc-button submit>Submit</arc-button>
         </form>
       `);

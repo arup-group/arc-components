@@ -97,8 +97,13 @@ export default class ArcIconButton extends LitElement {
         @click=${this._handleClick}
       >
         <span id="iconWrapper" aria-hidden="true">
-          <arc-icon id="icon" part="icon" name=${ifDefined(this.name || undefined)}></arc-icon>
-          ${when(this.loading, () => html`<arc-spinner id="loader"></arc-spinner>`)}
+          <arc-icon id="icon" part="icon" name=${ifDefined(
+            this.name || undefined,
+          )}></arc-icon>
+          ${when(
+            this.loading,
+            () => html`<arc-spinner id="loader"></arc-spinner>`,
+          )}
         </span>
         <span id="action"><slot></slot></span>
       </${tag}>

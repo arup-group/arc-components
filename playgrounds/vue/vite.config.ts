@@ -23,13 +23,13 @@ export default defineConfig({
       targets: [
         {
           src: '../../assets',
-          dest: ''
+          dest: '',
         },
         {
           src: '../../dist/packages/components/assets',
-          dest: ''
-        }
-      ]
+          dest: '',
+        },
+      ],
     }),
   ],
 });

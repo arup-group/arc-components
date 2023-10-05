@@ -51,7 +51,8 @@ export default [
 
     .chip--outlined {
       background-color: transparent;
-      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
     }
 
     .chip--clearable {

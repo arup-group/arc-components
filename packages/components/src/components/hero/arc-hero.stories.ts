@@ -10,7 +10,8 @@ export default {
     customTitle: {
       name: 'title',
       control: 'text',
-      description: 'The title of the hero. Alternatively, the title slot can be used.',
+      description:
+        'The title of the hero. Alternatively, the title slot can be used.',
       table: {
         category: 'properties',
       },
@@ -18,7 +19,8 @@ export default {
     customSubTitle: {
       name: 'subtitle',
       control: 'text',
-      description: 'The subtitle of the hero. Alternatively, the subtitle slot can be used.',
+      description:
+        'The subtitle of the hero. Alternatively, the subtitle slot can be used.',
       table: {
         category: 'properties',
       },
@@ -26,7 +28,12 @@ export default {
   },
 } as Meta;
 
-const Template: Story = ({ background, fullscreen, customTitle, customSubTitle }) => html`
+const Template: Story = ({
+  background,
+  fullscreen,
+  customTitle,
+  customSubTitle,
+}) => html`
   <arc-hero
     background=${ifDefined(background || undefined)}
     title=${ifDefined(customTitle || undefined)}
@@ -35,8 +42,9 @@ const Template: Story = ({ background, fullscreen, customTitle, customSubTitle }
     style=${ifDefined(background ? 'color: white;' : undefined)}
   >
     <span>
-      Creating a prototype website that also contains copy and images is the best way to help the client understand what
-      the concept behind your design is.
+      Creating a prototype website that also contains copy and images is the
+      best way to help the client understand what the concept behind your design
+      is.
     </span>
   </arc-hero>
 `;

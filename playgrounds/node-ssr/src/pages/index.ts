@@ -1,7 +1,7 @@
 import { render } from '@lit-labs/ssr';
 import { html } from 'lit';
 
-import '../../../../dist/packages/components/src/components/chip/arc-chip.js';
+import '../../../../dist/packages/components/src/components/spinner/arc-spinner.js';
 
 export interface IndexProps {
   name: string;
@@ -34,9 +34,7 @@ export function* renderIndex({ name }: IndexProps) {
       </script>
   `;
 
-  yield* render(html`
-     <arc-chip>Hello ${ name }</arc-chip>
-  `);
+  yield* render(html`<p>Hello, ${name}! <arc-spinner></arc-spinner></p>`);
 
   yield `
       <script type="module">
@@ -50,7 +48,7 @@ export function* renderIndex({ name }: IndexProps) {
         document.body.removeAttribute('hydration-pending');
 
         // IMPORT ROOT COMPONENTS
-        import('./dist/packages/components/src/components/card/arc-card.js');
+        import('./dist/packages/components/src/components/spinner/arc-spinner.js');
       </script>
     </body>
   </html>

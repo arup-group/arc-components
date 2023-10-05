@@ -16,7 +16,8 @@ export default {
     customLabel: {
       name: 'label',
       control: 'text',
-      description: 'The drawer label. Required for proper accessibility. Alternatively, the label slot can be used.',
+      description:
+        'The drawer label. Required for proper accessibility. Alternatively, the label slot can be used.',
       table: {
         category: 'properties',
       },
@@ -75,7 +76,12 @@ const SizeTemplate: Story = () => html`
     }
   </style>
 `;
-const LockedTemplate: Story = ({ open, contained, placement, customLabel }) => html`
+const LockedTemplate: Story = ({
+  open,
+  contained,
+  placement,
+  customLabel,
+}) => html`
   <div class="wrapper">
     <arc-drawer
       ?open=${open}
@@ -109,16 +115,32 @@ export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
 
 export const Top = Template.bind({});
-Top.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.top, customLabel: 'Drawer top' };
+Top.args = {
+  ...defaultArgs,
+  placement: DRAWER_PLACEMENTS.top,
+  customLabel: 'Drawer top',
+};
 
 export const End = Template.bind({});
-End.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.end, customLabel: 'Drawer end' };
+End.args = {
+  ...defaultArgs,
+  placement: DRAWER_PLACEMENTS.end,
+  customLabel: 'Drawer end',
+};
 
 export const Bottom = Template.bind({});
-Bottom.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.bottom, customLabel: 'Drawer bottom' };
+Bottom.args = {
+  ...defaultArgs,
+  placement: DRAWER_PLACEMENTS.bottom,
+  customLabel: 'Drawer bottom',
+};
 
 export const Start = Template.bind({});
-Start.args = { ...defaultArgs, placement: DRAWER_PLACEMENTS.start, customLabel: 'Drawer start' };
+Start.args = {
+  ...defaultArgs,
+  placement: DRAWER_PLACEMENTS.start,
+  customLabel: 'Drawer start',
+};
 
 /* SIZES */
 export const CustomSize = SizeTemplate.bind({});

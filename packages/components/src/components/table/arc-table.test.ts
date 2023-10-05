@@ -30,20 +30,26 @@ describe('ArcTable', () => {
   describe('setters/getters', () => {
     it('renders the element with a custom columns property', async () => {
       const columns = ['Name', 'LastName', 'Email'];
-      const element: ArcTable = await fixture(html`<arc-table .columns=${columns}></arc-table>`);
+      const element: ArcTable = await fixture(
+        html`<arc-table .columns=${columns}></arc-table>`,
+      );
       expect(element.columns.length).to.equal(columns.length);
       expect(element.columns[0]).to.equal(columns[0]);
     });
 
     it('renders the element with a custom data property', async () => {
       const data = ['John', 'Doe', 'john.doe@johndoe.com'];
-      const element: ArcTable = await fixture(html`<arc-table .data=${data}></arc-table>`);
+      const element: ArcTable = await fixture(
+        html`<arc-table .data=${data}></arc-table>`,
+      );
       expect(element.data.length).to.equal(data.length);
       expect(element.data[0]).to.equal(data[0]);
     });
 
     it('renders the element with a custom height property', async () => {
-      const element: ArcTable = await fixture(html`<arc-table height="200px"></arc-table>`);
+      const element: ArcTable = await fixture(
+        html`<arc-table height="200px"></arc-table>`,
+      );
 
       expect(element.height).to.equal('200px');
       expect(element.getAttribute('height')).to.equal('200px');
@@ -55,14 +61,18 @@ describe('ArcTable', () => {
           placeholder: 'Search...',
         },
       };
-      const element: ArcTable = await fixture(html`<arc-table .language=${language}></arc-table>`);
+      const element: ArcTable = await fixture(
+        html`<arc-table .language=${language}></arc-table>`,
+      );
       // @ts-ignore
       const { placeholder } = element.language.search;
       expect(placeholder).to.equal(language.search.placeholder);
     });
 
     it('renders the element with a custom pagination-limit property', async () => {
-      const element: ArcTable = await fixture(html`<arc-table pagination-limit="10"></arc-table>`);
+      const element: ArcTable = await fixture(
+        html`<arc-table pagination-limit="10"></arc-table>`,
+      );
 
       expect(element.paginationLimit).to.equal(10);
       expect(element.getAttribute('pagination-limit')).to.equal('10');
@@ -127,7 +137,8 @@ describe('ArcTable', () => {
 
     /* Due to GridJS creating the table, the reference to any DOM elements is lost after each update. */
     const getTableBody = (): HTMLTableSectionElement => {
-      const gridTable: HTMLTableElement = element.shadowRoot?.querySelector('table.gridjs-table')!;
+      const gridTable: HTMLTableElement =
+        element.shadowRoot?.querySelector('table.gridjs-table')!;
       return gridTable.querySelector('tbody')!;
     };
 
@@ -171,7 +182,7 @@ describe('ArcTable', () => {
       await waitUntil(() => tableReadySpy.calledOnce);
 
       expect(() => element.updateConfig({})).to.throw(
-        'Missing property: Please provide at least one property to update the configuration.'
+        'Missing property: Please provide at least one property to update the configuration.',
       );
     });
 
@@ -203,13 +214,13 @@ describe('ArcTable', () => {
         columns: [
           {
             name: 'Name',
-            formatter: cell =>
+            formatter: (cell) =>
               element.format(
                 'strong',
                 {
                   className: 'my-custom-class',
                 },
-                cell
+                cell,
               ),
           },
           'LastName',
@@ -230,7 +241,9 @@ describe('ArcTable', () => {
       const columns = firstRow.children;
       const firstColumn = columns[0] as HTMLTableCellElement;
 
-      expect(firstColumn).dom.to.equal(`<strong class="my-custom-class">John</strong>`);
+      expect(firstColumn).dom.to.equal(
+        `<strong class="my-custom-class">John</strong>`,
+      );
     });
   });
 
@@ -243,7 +256,8 @@ describe('ArcTable', () => {
 
     /* Due to GridJS creating the table, the reference to any DOM elements is lost after each update. */
     const getTableBody = (): HTMLTableSectionElement => {
-      const gridTable: HTMLTableElement = element.shadowRoot?.querySelector('table.gridjs-table')!;
+      const gridTable: HTMLTableElement =
+        element.shadowRoot?.querySelector('table.gridjs-table')!;
       return gridTable.querySelector('tbody')!;
     };
 

@@ -24,7 +24,10 @@ export class FormController implements ReactiveController {
 
   options: FormSubmitControllerOptions;
 
-  constructor(host: ReactiveControllerHost & Element, options?: Partial<FormSubmitControllerOptions>) {
+  constructor(
+    host: ReactiveControllerHost & Element,
+    options?: Partial<FormSubmitControllerOptions>,
+  ) {
     (this.host = host).addController(this);
     this.options = {
       form: (input: HTMLInputElement) => input.closest('form'),
@@ -32,7 +35,9 @@ export class FormController implements ReactiveController {
       value: (input: HTMLInputElement) => input.value,
       disabled: (input: HTMLInputElement) => input.disabled,
       reportValidity: (input: HTMLInputElement) =>
-        typeof input.reportValidity === 'function' ? input.reportValidity() : true,
+        typeof input.reportValidity === 'function'
+          ? input.reportValidity()
+          : true,
       ...options,
     };
     this.handleFormData = this.handleFormData.bind(this);
@@ -63,11 +68,17 @@ export class FormController implements ReactiveController {
 
     if (!disabled && !!name && !!value) {
       if (Array.isArray(value)) {
-        (value as unknown[]).forEach(val => {
-          event.formData.append(name, (val as string | number | boolean).toString());
+        (value as unknown[]).forEach((val) => {
+          event.formData.append(
+            name,
+            (val as string | number | boolean).toString(),
+          );
         });
       } else {
-        event.formData.append(name, (value as string | number | boolean).toString());
+        event.formData.append(
+          name,
+          (value as string | number | boolean).toString(),
+        );
       }
     }
   }
@@ -76,7 +87,12 @@ export class FormController implements ReactiveController {
     const disabled = this.options.disabled(this.host);
     const { reportValidity } = this.options;
 
-    if (this.form && !this.form.noValidate && !disabled && !reportValidity(this.host)) {
+    if (
+      this.form &&
+      !this.form.noValidate &&
+      !disabled &&
+      !reportValidity(this.host)
+    ) {
       event.preventDefault();
       event.stopImmediatePropagation();
     }

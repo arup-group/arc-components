@@ -1,8 +1,21 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { autoUpdate, computePosition, flip, offset, shift, size, Placement } from '@floating-ui/dom';
-import { setDefaultAnimation, getAnimation, startAnimations, stopAnimations } from '../../internal/animate.js';
+import {
+  autoUpdate,
+  computePosition,
+  flip,
+  offset,
+  shift,
+  size,
+  Placement,
+} from '@floating-ui/dom';
+import {
+  setDefaultAnimation,
+  getAnimation,
+  startAnimations,
+  stopAnimations,
+} from '../../internal/animate.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { getTabbableBoundary } from '../../internal/tabbable.js';
@@ -44,7 +57,8 @@ export default class ArcDropdown extends LitElement {
   private _positionerCleanup: ReturnType<typeof autoUpdate> | undefined;
 
   /** The preferred placement of the dropdown panel. */
-  @property({ type: String }) placement: Placement = FLOATING_PLACEMENTS['bottom-start'];
+  @property({ type: String }) placement: Placement =
+    FLOATING_PLACEMENTS['bottom-start'];
 
   /** The dropdown will close when the user interacts outside of this element (e.g. clicking). */
   @property({ attribute: false }) containingElement?: HTMLElement;
@@ -146,7 +160,11 @@ export default class ArcDropdown extends LitElement {
   private startPositioner() {
     this.stopPositioner();
     this.updatePositioner();
-    this._positionerCleanup = autoUpdate(this.trigger, this.positioner, this.updatePositioner.bind(this));
+    this._positionerCleanup = autoUpdate(
+      this.trigger,
+      this.positioner,
+      this.updatePositioner.bind(this),
+    );
   }
 
   private updatePositioner() {
@@ -199,12 +217,19 @@ export default class ArcDropdown extends LitElement {
   */
   private _updateAccessibleTrigger() {
     if (this.trigger) {
-      const assignedElements = this.triggerSlot.assignedElements({ flatten: true }) as HTMLElement[];
-      const accessibleTrigger = assignedElements.find(el => getTabbableBoundary(el).start);
+      const assignedElements = this.triggerSlot.assignedElements({
+        flatten: true,
+      }) as HTMLElement[];
+      const accessibleTrigger = assignedElements.find(
+        (el) => getTabbableBoundary(el).start,
+      );
 
       if (accessibleTrigger) {
         accessibleTrigger.setAttribute('aria-haspopup', 'true');
-        accessibleTrigger.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+        accessibleTrigger.setAttribute(
+          'aria-expanded',
+          this.open ? 'true' : 'false',
+        );
       }
     }
   }
@@ -241,11 +266,15 @@ export default class ArcDropdown extends LitElement {
 
   getMenu() {
     const slot = this.panel.querySelector('slot')!;
-    return slot.assignedElements({ flatten: true }).filter(el => el.tagName === 'ARC-MENU')[0] as ArcMenu;
+    return slot
+      .assignedElements({ flatten: true })
+      .filter((el) => el.tagName === 'ARC-MENU')[0] as ArcMenu;
   }
 
   focusOnTrigger() {
-    const trigger = this.triggerSlot.assignedElements({ flatten: true })[0] as HTMLElement | undefined;
+    const trigger = this.triggerSlot.assignedElements({ flatten: true })[0] as
+      | HTMLElement
+      | undefined;
     if (trigger && typeof trigger.focus === 'function') {
       trigger.focus();
     }
@@ -303,7 +332,9 @@ export default class ArcDropdown extends LitElement {
     }
 
     const menu = this.getMenu();
-    const menuItems = menu ? ([...menu.querySelectorAll('arc-menu-item')] as ArcMenuItem[]) : [];
+    const menuItems = menu
+      ? ([...menu.querySelectorAll('arc-menu-item')] as ArcMenuItem[])
+      : [];
     const firstMenuItem = menuItems[0];
     const lastMenuItem = menuItems[menuItems.length - 1];
 
@@ -381,7 +412,11 @@ export default class ArcDropdown extends LitElement {
           @keydown=${this.handleTriggerKeyDown}
           @keyup=${this.handleTriggerKeyUp}
         >
-          <slot id="triggerSlot" name="trigger" @slotchange=${this._updateAccessibleTrigger}></slot>
+          <slot
+            id="triggerSlot"
+            name="trigger"
+            @slotchange=${this._updateAccessibleTrigger}
+          ></slot>
         </span>
 
         <div id="positioner">

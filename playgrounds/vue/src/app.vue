@@ -1,20 +1,10 @@
 <template>
   <arc-container>
-    <arc-navbar
-      slot="nav"
-      logo="assets/arc-red.svg"
-      tabs="0"
-    >
+    <arc-navbar slot="nav" logo="assets/arc-red.svg" tabs="0">
       <span slot="name">ARC Playground</span>
 
-      <arc-icon-button
-        label="Home"
-        name="home"
-      />
-      <arc-icon-button
-        label="Settings"
-        name="settings"
-      />
+      <arc-icon-button label="Home" name="home" />
+      <arc-icon-button label="Settings" name="settings" />
 
       <arc-sso
         slot="user"

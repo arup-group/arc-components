@@ -19,7 +19,7 @@ describe('IconConstants', () => {
 
   it('should not contain any duplicate icons', () => {
     const keys = Object.keys(ICON_TYPES);
-    const duplicates = keys.filter(key => key.slice(-1) === '1');
+    const duplicates = keys.filter((key) => key.slice(-1) === '1');
 
     /* There is one icon that is called volume-1 (which is allowed) */
     expect(duplicates.length).to.equal(1);

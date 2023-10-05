@@ -19,11 +19,20 @@ const Template: Story<ArcAvatar> = ({ name, image, label }) => html`
 
 const GroupTemplate: Story<ArcAvatar> = () => html`
   <div class="avatar-group">
-    <arc-avatar image="https://picsum.photos/200" label="First avatar in avatar group."></arc-avatar>
+    <arc-avatar
+      image="https://picsum.photos/200"
+      label="First avatar in avatar group."
+    ></arc-avatar>
 
-    <arc-avatar image="https://picsum.photos/300" label="Second avatar in avatar group."></arc-avatar>
+    <arc-avatar
+      image="https://picsum.photos/300"
+      label="Second avatar in avatar group."
+    ></arc-avatar>
 
-    <arc-avatar image="https://picsum.photos/400" label="Third avatar in avatar group."></arc-avatar>
+    <arc-avatar
+      image="https://picsum.photos/400"
+      label="Third avatar in avatar group."
+    ></arc-avatar>
   </div>
   <style>
     .avatar-group arc-avatar:not(:first-of-type) {

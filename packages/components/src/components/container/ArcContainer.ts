@@ -4,7 +4,10 @@ import { classMap } from 'lit/directives/class-map.js';
 import { prefersDark } from '../../internal/preferences.js';
 import { isNight } from '../../internal/theme.js';
 import { watch } from '../../internal/watch.js';
-import { CONTAINER_THEMES, ContainerTheme } from './constants/ContainerConstants.js';
+import {
+  CONTAINER_THEMES,
+  ContainerTheme,
+} from './constants/ContainerConstants.js';
 import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import styles from './arc-container.styles.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
@@ -34,7 +37,8 @@ export default class ArcContainer extends LitElement {
   private _appPreferredTheme: ContainerTheme;
 
   /** Set the starting theme for the container. Once loaded, the built-in accessibility will be responsible for this property. */
-  @property({ type: String, reflect: true }) theme: ContainerTheme = CONTAINER_THEMES.auto;
+  @property({ type: String, reflect: true }) theme: ContainerTheme =
+    CONTAINER_THEMES.auto;
 
   /** Set the container to fullscreen mode. This hides the padding, margin and gap values. */
   @property({ type: Boolean }) fullscreen: boolean = false;
@@ -42,7 +46,10 @@ export default class ArcContainer extends LitElement {
   @watch('theme')
   handleThemeChange() {
     /* If the given theme is auto or if the given theme does not exist in the CONTAINER_THEMES */
-    if (CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto || !(this.theme in CONTAINER_THEMES)) {
+    if (
+      CONTAINER_THEMES[this.theme] === CONTAINER_THEMES.auto ||
+      !(this.theme in CONTAINER_THEMES)
+    ) {
       this.theme = this.getTheme();
     }
   }
@@ -59,7 +66,9 @@ export default class ArcContainer extends LitElement {
 
   /* Retrieve the theme based on the time of day or on the OS setting */
   getTheme(date?: Date) {
-    return isNight(date) || prefersDark() ? CONTAINER_THEMES.dark : CONTAINER_THEMES.light;
+    return isNight(date) || prefersDark()
+      ? CONTAINER_THEMES.dark
+      : CONTAINER_THEMES.light;
   }
 
   /* Update the theme when the @arc-accessibility-change event emits */
@@ -85,7 +94,11 @@ export default class ArcContainer extends LitElement {
   protected render() {
     return html`
       <div id="main">
-        <slot id="nav" name="nav" @arc-show-accessibility=${this.showAccessibility}></slot>
+        <slot
+          id="nav"
+          name="nav"
+          @arc-show-accessibility=${this.showAccessibility}
+        ></slot>
         <div
           id="container"
           class=${classMap({
@@ -104,7 +117,12 @@ export default class ArcContainer extends LitElement {
         ></arc-accessibility>
         <slot name="bottom">
           <arc-bottombar>
-            <arc-icon-button name=${ICON_TYPES.home} href="/" label="Return home">Home</arc-icon-button>
+            <arc-icon-button
+              name=${ICON_TYPES.home}
+              href="/"
+              label="Return home"
+              >Home</arc-icon-button
+            >
             <arc-icon-button
               name=${ICON_TYPES.accessibility}
               label="Accessibility panel"

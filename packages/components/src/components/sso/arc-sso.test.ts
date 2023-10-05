@@ -27,28 +27,36 @@ describe('ArcSSO', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom client-id', async () => {
-      const element: ArcSSO = await fixture(html`<arc-sso client-id="1"></arc-sso>`);
+      const element: ArcSSO = await fixture(
+        html`<arc-sso client-id="1"></arc-sso>`,
+      );
 
       expect(element.clientId).to.equal('1');
       expect(element.getAttribute('client-id')).to.equal('1');
     });
 
     it('renders the element with a custom tenant-id', async () => {
-      const element: ArcSSO = await fixture(html`<arc-sso tenant-id="2"></arc-sso>`);
+      const element: ArcSSO = await fixture(
+        html`<arc-sso tenant-id="2"></arc-sso>`,
+      );
 
       expect(element.tenantId).to.equal('2');
       expect(element.getAttribute('tenant-id')).to.equal('2');
     });
 
     it('renders the element with a custom redirect-uri', async () => {
-      const element: ArcSSO = await fixture(html`<arc-sso redirect-uri="/"></arc-sso>`);
+      const element: ArcSSO = await fixture(
+        html`<arc-sso redirect-uri="/"></arc-sso>`,
+      );
 
       expect(element.redirectUri).to.equal('/');
       expect(element.getAttribute('redirect-uri')).to.equal('/');
     });
 
     it('renders the element with custom scopes', async () => {
-      const element: ArcSSO = await fixture(html`<arc-sso scopes="one,two, three"></arc-sso>`);
+      const element: ArcSSO = await fixture(
+        html`<arc-sso scopes="one,two, three"></arc-sso>`,
+      );
 
       /* The scopes are being converted into an array */
       expect(element.scopes.length).to.equal(3);
@@ -69,7 +77,7 @@ describe('ArcSSO', () => {
         html`<arc-sso
           client-id="b4a4c03f-4915-42db-aa79-d49a650974c2"
           tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"
-        ></arc-sso> `
+        ></arc-sso> `,
       );
     });
 
@@ -97,8 +105,11 @@ describe('ArcSSO', () => {
     });
 
     it('shows/hides the correct slots on initialization', () => {
-      const loginSlot = element.shadowRoot!.querySelector('slot[name="login"]')!;
-      const logoutSlot = element.shadowRoot!.querySelector('slot[name="logout"]')!;
+      const loginSlot =
+        element.shadowRoot!.querySelector('slot[name="login"]')!;
+      const logoutSlot = element.shadowRoot!.querySelector(
+        'slot[name="logout"]',
+      )!;
 
       expect(loginSlot.hasAttribute('hidden')).to.be.false;
       expect(logoutSlot.hasAttribute('hidden')).to.be.true;

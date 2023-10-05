@@ -36,7 +36,13 @@ export default class ArcCard extends LitElement {
   @query('#content') content: HTMLElement;
 
   /** @internal - Controller that listens to slot changes within the component. */
-  private readonly hasSlotController = new HasSlotController(this, 'header', 'image', '[default]', 'footer');
+  private readonly hasSlotController = new HasSlotController(
+    this,
+    'header',
+    'image',
+    '[default]',
+    'footer',
+  );
 
   /** Indicates whether the card is collapsed. This can be used instead of the expand/collapse methods. Ignored when the `header` slot is not filled. */
   @property({ type: Boolean, reflect: true }) collapsed: boolean = false;
@@ -51,8 +57,11 @@ export default class ArcCard extends LitElement {
       const cardAnimation = getAnimation(this, 'card.expand');
       await startAnimations(
         this.content,
-        shimKeyframesHeightAuto(cardAnimation.keyframes, this.content.scrollHeight),
-        cardAnimation.options
+        shimKeyframesHeightAuto(
+          cardAnimation.keyframes,
+          this.content.scrollHeight,
+        ),
+        cardAnimation.options,
       );
 
       this.content.style.height = 'auto';
@@ -67,7 +76,11 @@ export default class ArcCard extends LitElement {
       await stopAnimations(this);
 
       const { keyframes, options } = getAnimation(this, 'card.collapse');
-      await startAnimations(this.content, shimKeyframesHeightAuto(keyframes, this.content.scrollHeight), options);
+      await startAnimations(
+        this.content,
+        shimKeyframesHeightAuto(keyframes, this.content.scrollHeight),
+        options,
+      );
 
       this.content.hidden = true;
       this.content.style.height = 'auto';

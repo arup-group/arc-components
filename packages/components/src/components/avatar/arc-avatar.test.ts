@@ -14,12 +14,16 @@ describe('ArcAvatar', () => {
     let element: ArcAvatar;
 
     beforeEach(async () => {
-      element = await fixture(html`<arc-avatar label="User avatar"></arc-avatar>`);
+      element = await fixture(
+        html`<arc-avatar label="User avatar"></arc-avatar>`,
+      );
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-avatar label="User avatar"></arc-avatar>`);
+      expect(element).dom.to.equal(
+        `<arc-avatar label="User avatar"></arc-avatar>`,
+      );
     });
 
     it('renders a placeholder icon when no properties are given', () => {
@@ -53,21 +57,27 @@ describe('ArcAvatar', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom image property', async () => {
-      const element: ArcAvatar = await fixture(html`<arc-avatar image="testProp"></arc-avatar>`);
+      const element: ArcAvatar = await fixture(
+        html`<arc-avatar image="testProp"></arc-avatar>`,
+      );
 
       expect(element.image).to.equal('testProp');
       expect(element.getAttribute('image')).to.equal('testProp');
     });
 
     it('renders the element with a custom label property', async () => {
-      const element: ArcAvatar = await fixture(html`<arc-avatar label="testProp"></arc-avatar>`);
+      const element: ArcAvatar = await fixture(
+        html`<arc-avatar label="testProp"></arc-avatar>`,
+      );
 
       expect(element.label).to.equal('testProp');
       expect(element.getAttribute('label')).to.equal('testProp');
     });
 
     it('renders the element with a custom name property', async () => {
-      const element: ArcAvatar = await fixture(html`<arc-avatar name="Some Username"></arc-avatar>`);
+      const element: ArcAvatar = await fixture(
+        html`<arc-avatar name="Some Username"></arc-avatar>`,
+      );
 
       expect(element.name).to.equal('SU');
       expect(element.getAttribute('name')).to.equal('Some Username');
@@ -98,7 +108,9 @@ describe('ArcAvatar', () => {
     });
 
     it('overwrites the css variables', async () => {
-      const element: ArcAvatar = await fixture(html`<arc-avatar style="--size:5px"></arc-avatar>`);
+      const element: ArcAvatar = await fixture(
+        html`<arc-avatar style="--size:5px"></arc-avatar>`,
+      );
       expect(getPropertyValue(element, '--size')).to.equal('5px');
     });
   });

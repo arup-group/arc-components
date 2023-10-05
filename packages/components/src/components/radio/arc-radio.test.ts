@@ -3,7 +3,12 @@ import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../internal/slot.js';
 import { serialize } from '../../utilities/form-utils.js';
-import { upEvent, downEvent, leftEvent, rightEvent } from '../../internal/test-utils.js';
+import {
+  upEvent,
+  downEvent,
+  leftEvent,
+  rightEvent,
+} from '../../internal/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcRadioGroup from '../radio-group/ArcRadioGroup.js';
@@ -47,7 +52,12 @@ describe('ArcRadio', () => {
   describe('setters/getters', () => {
     it('renders the element with a custom name, value, disabled and checked property', async () => {
       const element: ArcRadio = await fixture(
-        html`<arc-radio name="testName" value="testVal" disabled checked></arc-radio>`
+        html`<arc-radio
+          name="testName"
+          value="testVal"
+          disabled
+          checked
+        ></arc-radio>`,
       );
 
       expect(element.name).to.equal('testName');
@@ -137,7 +147,9 @@ describe('ArcRadio', () => {
       expect(radioButtons[0].getAllRadios().length).to.equal(3);
 
       /* Exclude disabled radio buttons */
-      expect(radioButtons[0].getAllRadios({ includeDisabled: false }).length).to.equal(2);
+      expect(
+        radioButtons[0].getAllRadios({ includeDisabled: false }).length,
+      ).to.equal(2);
 
       /* Only one radio with the name 'two' */
       expect(radioButtons[3].getAllRadios().length).to.equal(1);
@@ -176,7 +188,8 @@ describe('ArcRadio', () => {
           <arc-radio>Charlie</arc-radio>
         </arc-radio-group>
       `);
-      const radioButtonsTwo: NodeListOf<ArcRadio> = elementTwo.querySelectorAll('arc-radio');
+      const radioButtonsTwo: NodeListOf<ArcRadio> =
+        elementTwo.querySelectorAll('arc-radio');
 
       expect(getIndex(radioButtonsTwo[0])).to.equal('-1');
       expect(getIndex(radioButtonsTwo[1])).to.equal('0');
@@ -191,7 +204,8 @@ describe('ArcRadio', () => {
           <arc-radio>Charlie</arc-radio>
         </arc-radio-group>
       `);
-      const radioButtonsTwo: NodeListOf<ArcRadio> = elementTwo.querySelectorAll('arc-radio');
+      const radioButtonsTwo: NodeListOf<ArcRadio> =
+        elementTwo.querySelectorAll('arc-radio');
 
       expect(getIndex(radioButtonsTwo[0])).to.equal('-1');
       expect(getIndex(radioButtonsTwo[1])).to.equal('-1');
@@ -206,7 +220,8 @@ describe('ArcRadio', () => {
           <arc-radio>Charlie</arc-radio>
         </arc-radio-group>
       `);
-      const radioButtonsTwo: NodeListOf<ArcRadio> = elementTwo.querySelectorAll('arc-radio');
+      const radioButtonsTwo: NodeListOf<ArcRadio> =
+        elementTwo.querySelectorAll('arc-radio');
 
       expect(getIndex(radioButtonsTwo[0])).to.equal('0');
       expect(getIndex(radioButtonsTwo[1])).to.equal('-1');

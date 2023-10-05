@@ -19,12 +19,16 @@ describe('ArcSidebar', () => {
   describe('rendering', () => {
     let element: ArcSidebar;
     beforeEach(async () => {
-      element = await fixture(html`<arc-sidebar label="Test sidebar"></arc-sidebar>`);
+      element = await fixture(
+        html`<arc-sidebar label="Test sidebar"></arc-sidebar>`,
+      );
     });
 
     /* Test properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-sidebar label="Test sidebar" open=""></arc-sidebar>`);
+      expect(element).dom.to.equal(
+        `<arc-sidebar label="Test sidebar" open=""></arc-sidebar>`,
+      );
     });
 
     /* Test the accessibility */
@@ -42,7 +46,9 @@ describe('ArcSidebar', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom label property', async () => {
-      const element: ArcSidebar = await fixture(html`<arc-sidebar label="Test label"></arc-sidebar>`);
+      const element: ArcSidebar = await fixture(
+        html`<arc-sidebar label="Test label"></arc-sidebar>`,
+      );
 
       expect(element.label).to.equal('Test label');
       expect(element.getAttribute('label')).to.equal('Test label');
@@ -169,7 +175,9 @@ describe('ArcSidebar', () => {
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {
     it('renders default slots to fill the component', async () => {
-      const element: ArcSidebar = await fixture(html`<arc-sidebar></arc-sidebar>`);
+      const element: ArcSidebar = await fixture(
+        html`<arc-sidebar></arc-sidebar>`,
+      );
       const main: HTMLElement = element.shadowRoot!.getElementById('main')!;
 
       /* An empty slot is available */
@@ -195,14 +203,20 @@ describe('ArcSidebar', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcSidebar = await fixture(html`<arc-sidebar></arc-sidebar>`);
+      const element: ArcSidebar = await fixture(
+        html`<arc-sidebar></arc-sidebar>`,
+      );
 
       expect(getPropertyValue(element, '--gap-distance')).to.equal('');
-      expect(getPropertyValue(element, '--sidebar-width')).to.equal('clamp(15rem, 30%, 23rem)');
+      expect(getPropertyValue(element, '--sidebar-width')).to.equal(
+        'clamp(15rem, 30%, 23rem)',
+      );
     });
     it('overwrites the css variables', async () => {
       const element: ArcSidebar = await fixture(html`
-        <arc-sidebar style="--gap-distance:5px; --sidebar-width:368px"></arc-sidebar>
+        <arc-sidebar
+          style="--gap-distance:5px; --sidebar-width:368px"
+        ></arc-sidebar>
       `);
 
       expect(getPropertyValue(element, '--gap-distance')).to.equal('5px');

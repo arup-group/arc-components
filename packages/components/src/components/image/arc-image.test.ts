@@ -1,5 +1,11 @@
 import { html } from 'lit';
-import { elementUpdated, expect, fixture, waitUntil, aTimeout } from '@open-wc/testing';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  waitUntil,
+  aTimeout,
+} from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { setViewport } from '@web/test-runner-commands';
 import { getPropertyValue } from '../../utilities/style-utils.js';
@@ -37,21 +43,27 @@ describe('ArcImage', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom alt property', async () => {
-      const element: ArcImage = await fixture(html`<arc-image alt="testAlt"></arc-image>`);
+      const element: ArcImage = await fixture(
+        html`<arc-image alt="testAlt"></arc-image>`,
+      );
 
       expect(element.alt).to.equal('testAlt');
       expect(element.getAttribute('alt')).to.equal('testAlt');
     });
 
     it('renders the element with a custom delay property', async () => {
-      const element: ArcImage = await fixture(html`<arc-image delay="100ms"></arc-image>`);
+      const element: ArcImage = await fixture(
+        html`<arc-image delay="100ms"></arc-image>`,
+      );
 
       expect(element.delay).to.equal(100);
       expect(element.getAttribute('delay')).to.equal('100ms');
     });
 
     it('renders the element with a custom width and height property', async () => {
-      const element: ArcImage = await fixture(html`<arc-image width="50" height="50"></arc-image>`);
+      const element: ArcImage = await fixture(
+        html`<arc-image width="50" height="50"></arc-image>`,
+      );
       const main = element.shadowRoot!.getElementById('main');
 
       expect(element.width).to.equal('50');
@@ -89,7 +101,9 @@ describe('ArcImage', () => {
 
     beforeEach(async () => {
       await setViewport({ width: 100, height: 100 });
-      element = await fixture(html`<arc-image width="500px" height="500px" delay="1000"></arc-image>`);
+      element = await fixture(
+        html`<arc-image width="500px" height="500px" delay="1000"></arc-image>`,
+      );
       image = element.shadowRoot!.getElementById('image')!;
       overlay = element.shadowRoot!.getElementById('overlay')!;
     });
@@ -123,7 +137,9 @@ describe('ArcImage', () => {
 
       /* Ensure that the image is fully intersecting. */
       await setViewport({ width: 1000, height: 1000 });
-      await aTimeout(1100); /* Timeout needed as the delay within the component is 1000ms. */
+      await aTimeout(
+        1100,
+      ); /* Timeout needed as the delay within the component is 1000ms. */
 
       await waitUntil(() => loadHandler.calledOnce);
 
@@ -143,7 +159,9 @@ describe('ArcImage', () => {
 
       /* Ensure that the image is fully intersecting */
       await setViewport({ width: 1000, height: 1000 });
-      await aTimeout(1100); /* Timeout needed as the delay within the component is 1000ms. */
+      await aTimeout(
+        1100,
+      ); /* Timeout needed as the delay within the component is 1000ms. */
 
       await waitUntil(() => errorHandler.calledOnce);
 

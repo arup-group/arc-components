@@ -12,10 +12,21 @@ import {
   uppercaseFirstLetter,
 } from '../../internal/string.js';
 import { getRootValue, setRootValue } from '../../utilities/style-utils.js';
-import { ACCESSIBILITY_OPTIONS, AccessibilityOption } from './constants/AccessibilityConstants.js';
+import {
+  ACCESSIBILITY_OPTIONS,
+  AccessibilityOption,
+} from './constants/AccessibilityConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { FONT_SIZES, FONT_SPACING, FontSize, FontSpacing } from '../../internal/constants/styleConstants.js';
-import { CONTAINER_THEMES, ContainerTheme } from '../container/constants/ContainerConstants.js';
+import {
+  FONT_SIZES,
+  FONT_SPACING,
+  FontSize,
+  FontSpacing,
+} from '../../internal/constants/styleConstants.js';
+import {
+  CONTAINER_THEMES,
+  ContainerTheme,
+} from '../container/constants/ContainerConstants.js';
 import styles from './arc-accessibility.styles.js';
 import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
@@ -73,11 +84,14 @@ export default class ArcAccessibility extends LitElement {
   @watch('_userPreferences')
   async handlePreferenceChange() {
     /* Store the new preferences in the localStore */
-    localStorage.setItem(ArcAccessibility.tag, stringifyObject(this._userPreferences));
+    localStorage.setItem(
+      ArcAccessibility.tag,
+      stringifyObject(this._userPreferences),
+    );
 
     /* Update the :root values */
     Object.keys(this._userPreferences).forEach((key: keyof UserPreferences) =>
-      this.updateRootValue(key, this._userPreferences[key])
+      this.updateRootValue(key, this._userPreferences[key]),
     );
 
     emit(this, ARC_EVENTS.accessibilityChange, {
@@ -91,7 +105,9 @@ export default class ArcAccessibility extends LitElement {
     super.connectedCallback();
 
     /* Store a reference of default :root values */
-    Object.keys(this._defaultPreferences).forEach((key: keyof UserPreferences) => this.storeRootValues(key));
+    Object.keys(this._defaultPreferences).forEach(
+      (key: keyof UserPreferences) => this.storeRootValues(key),
+    );
 
     /* Check for cached preferences in the localStore and update the state. */
     const cachedPreferences = localStorage.getItem(ArcAccessibility.tag);
@@ -117,7 +133,8 @@ export default class ArcAccessibility extends LitElement {
 
   /* Method used to grab the theme property from the arc-container */
   getTheme() {
-    const arcContainer: ArcContainer | null = document.querySelector('arc-container');
+    const arcContainer: ArcContainer | null =
+      document.querySelector('arc-container');
     return arcContainer ? arcContainer.theme : CONTAINER_THEMES.auto;
   }
 
@@ -148,7 +165,8 @@ export default class ArcAccessibility extends LitElement {
   /* Update an array of :root values */
   updateRootValue(key: keyof UserPreferences, newValue: any) {
     /* Make sure that the provided key is a UserPreference */
-    if (!(key in this._defaultPreferences)) throw new Error('The provided key is not a valid UserPreference');
+    if (!(key in this._defaultPreferences))
+      throw new Error('The provided key is not a valid UserPreference');
 
     /*
     Make sure that the provided key has available :root values associated with it in the index.css.
@@ -166,11 +184,16 @@ export default class ArcAccessibility extends LitElement {
     When the incr === 0, all values will be set to default.
     */
     const options: FontSize[] | FontSpacing[] = this._availableRootValues[key];
-    const rootIndex = options.findIndex(option => option === this._defaultPreferences[key]);
-    const newFontIndex = options.findIndex(option => option === newValue);
+    const rootIndex = options.findIndex(
+      (option) => option === this._defaultPreferences[key],
+    );
+    const newFontIndex = options.findIndex((option) => option === newValue);
 
     /* Make sure that the given newValue exists in the availableRootValues */
-    if (newFontIndex < 0) throw new Error('The provided value does not exist as an available root value');
+    if (newFontIndex < 0)
+      throw new Error(
+        'The provided value does not exist as an available root value',
+      );
 
     const incr = newFontIndex - rootIndex;
 
@@ -183,7 +206,9 @@ export default class ArcAccessibility extends LitElement {
 
       /* Set the css variable to look for */
       const oldVar = `--arc-${stringToHyphenSeparated(key)}-${value}`;
-      const newVar = `--arc-${stringToHyphenSeparated(key)}-${options[newIndex]}`;
+      const newVar = `--arc-${stringToHyphenSeparated(key)}-${
+        options[newIndex]
+      }`;
 
       /* Overwrite the :root value with the new value */
       setRootValue(oldVar, getRootValue(newVar));
@@ -193,7 +218,9 @@ export default class ArcAccessibility extends LitElement {
   /* Restore all default root values */
   restoreRootDefaults() {
     /* Restore default values */
-    Object.keys(this._defaultPreferences).forEach((key: keyof UserPreferences) => this.restoreRootValues(key));
+    Object.keys(this._defaultPreferences).forEach(
+      (key: keyof UserPreferences) => this.restoreRootValues(key),
+    );
 
     /* Update the state of the user preferences */
     this._userPreferences = this._defaultPreferences;
@@ -209,13 +236,16 @@ export default class ArcAccessibility extends LitElement {
     this._userPreferences = { ...this._userPreferences, [key]: value };
   }
 
-  radioTemplate(key: keyof UserPreferences, values: ContainerTheme[] | FontSize[]) {
+  radioTemplate(
+    key: keyof UserPreferences,
+    values: ContainerTheme[] | FontSize[],
+  ) {
     return html`
       <arc-radio-group id=${key}>
         <span slot="label">${stringToSpaceSeparated(key)}</span>
         ${map(
           values,
-          value => html`
+          (value) => html`
             <arc-radio
               name=${key}
               value=${value}
@@ -223,7 +253,7 @@ export default class ArcAccessibility extends LitElement {
               @arc-change=${this.handleOptionChange}
               >${uppercaseFirstLetter(value)}
             </arc-radio>
-          `
+          `,
         )}
       </arc-radio-group>
     `;
@@ -246,16 +276,29 @@ export default class ArcAccessibility extends LitElement {
                   <arc-icon name=${item.icon}></arc-icon>
                 </div>
                 <div class="options">
-                  ${map(Object.entries(item.options), (option: [keyof UserPreferences, any]) => {
-                    const [userPreference, value] = option as [keyof UserPreferences, any];
+                  ${map(
+                    Object.entries(item.options),
+                    (option: [keyof UserPreferences, any]) => {
+                      const [userPreference, value] = option as [
+                        keyof UserPreferences,
+                        any,
+                      ];
 
-                    return html`${when(Array.isArray(value), () => this.radioTemplate(userPreference, value))}`;
-                  })}
+                      return html`${when(Array.isArray(value), () =>
+                        this.radioTemplate(userPreference, value),
+                      )}`;
+                    },
+                  )}
                 </div>
-              `
+              `,
             )}
           </div>
-          <arc-button type="tab" slot="footer" @click=${this.restoreRootDefaults}>Restore defaults</arc-button>
+          <arc-button
+            type="tab"
+            slot="footer"
+            @click=${this.restoreRootDefaults}
+            >Restore defaults</arc-button
+          >
         </arc-drawer>
       </div>
     `;

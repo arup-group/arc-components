@@ -113,7 +113,8 @@ export default [
       flex: 1 1 auto;
       padding: var(--arc-spacing-medium);
       padding-top: var(--arc-spacing-normal);
-      border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-top: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
       overflow: auto;
       -webkit-overflow-scrolling: touch;
     }

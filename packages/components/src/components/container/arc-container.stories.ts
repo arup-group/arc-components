@@ -30,7 +30,9 @@ const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
         slot="user"
         client-id="b4a4c03f-4915-42db-aa79-d49a650974c2"
         tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"
-        redirect-uri=${window.location.hostname === 'localhost' ? 'http://localhost:9009/' : 'https://arc.arup.com/'}
+        redirect-uri=${window.location.hostname === 'localhost'
+          ? 'http://localhost:9009/'
+          : 'https://arc.arup.com/'}
       ></arc-sso>
     </arc-navbar>
     ${when(
@@ -39,13 +41,18 @@ const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
         <arc-sidebar slot="side">
           <div></div>
         </arc-sidebar>
-      `
+      `,
     )}
     <div style="padding: var(--arc-spacing-normal)">
       <p>The default logoutRedirect method does not work within an iframe.</p>
-      <p>To work around this behaviour, use the 'logout button' below to sign out instead.</p>
+      <p>
+        To work around this behaviour, use the 'logout button' below to sign out
+        instead.
+      </p>
 
-      <arc-button style="justify-self: flex-start" onClick="localStorage.clear(); location.reload();"
+      <arc-button
+        style="justify-self: flex-start"
+        onClick="localStorage.clear(); location.reload();"
         >Logout</arc-button
       >
     </div>

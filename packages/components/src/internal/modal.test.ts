@@ -28,7 +28,7 @@ describe('methods', () => {
       new KeyboardEvent('keydown', {
         key: 'Tab',
         shiftKey: true,
-      })
+      }),
     );
 
     expect(modal?.tabDirection).to.equal('backward');

@@ -26,8 +26,12 @@ export default class ArcRadioGroup extends LitElement {
 
   /* When tabbing into the fieldset, make sure it lands on the checked radio */
   handleFocusIn() {
-    const slottedChildren = this.defaultSlot.assignedElements({ flatten: true });
-    const checkedRadio = [...(slottedChildren as ArcRadio[])].find(el => el.tagName === 'ARC-RADIO' && el.checked);
+    const slottedChildren = this.defaultSlot.assignedElements({
+      flatten: true,
+    });
+    const checkedRadio = [...(slottedChildren as ArcRadio[])].find(
+      (el) => el.tagName === 'ARC-RADIO' && el.checked,
+    );
     checkedRadio?.focus();
   }
 

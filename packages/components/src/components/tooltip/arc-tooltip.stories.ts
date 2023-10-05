@@ -23,12 +23,26 @@ export default {
   },
   parameters: {
     actions: {
-      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide],
+      handles: [
+        ARC_EVENTS.show,
+        ARC_EVENTS.afterShow,
+        ARC_EVENTS.hide,
+        ARC_EVENTS.afterHide,
+      ],
     },
   },
 } as Meta;
 
-const Template: Story<ArcTooltip> = ({ placement, distance, skidding, delay, trigger, open, disabled, hoist }) => html`
+const Template: Story<ArcTooltip> = ({
+  placement,
+  distance,
+  skidding,
+  delay,
+  trigger,
+  open,
+  disabled,
+  hoist,
+}) => html`
   <arc-tooltip
     placement=${ifDefined(placement || undefined)}
     distance=${ifDefined(distance || undefined)}

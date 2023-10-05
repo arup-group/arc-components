@@ -52,7 +52,8 @@ export default class ArcNavbar extends LitElement {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (attrValue: string | null) => (attrValue ? attrValue !== 'false' : true),
+    converter: (attrValue: string | null) =>
+      attrValue ? attrValue !== 'false' : true,
   })
   arup: boolean = true;
 
@@ -66,7 +67,10 @@ export default class ArcNavbar extends LitElement {
     const nodes = e.target.assignedElements({ flatten: true });
 
     /* Store a reference to the button and icon-button components. */
-    this.navTabs = nodes.filter((el: Element) => el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON');
+    this.navTabs = nodes.filter(
+      (el: Element) =>
+        el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON',
+    );
     this._updateTemplate();
   }
 
@@ -75,7 +79,7 @@ export default class ArcNavbar extends LitElement {
     this.showDropdown = this.navTabs.length > this.tabs;
 
     /* Show or hide the button and icon-button components. */
-    [...this.navTabs].forEach(tab => {
+    [...this.navTabs].forEach((tab) => {
       tab.style.display = this.showDropdown ? 'none' : 'initial';
     });
   }
@@ -93,20 +97,35 @@ export default class ArcNavbar extends LitElement {
     const menuInterior = html`
       ${map(
         this.navTabs,
-        tab => html`
-          <arc-menu-item ?disabled="${tab.disabled}" @click="${() => tab.click()}">
+        (tab) => html`
+          <arc-menu-item
+            ?disabled="${tab.disabled}"
+            @click="${() => tab.click()}"
+          >
             ${when(
               (tab as ArcIconButton).name,
-              () => html`<arc-icon .name=${(tab as ArcIconButton).name} slot="prefix"> }</arc-icon>`
+              () =>
+                html`<arc-icon
+                  .name=${(tab as ArcIconButton).name}
+                  slot="prefix"
+                >
+                  }</arc-icon
+                >`,
             )}
-            ${tab.textContent || (tab as ArcIconButton).label || (tab as ArcIconButton).name || 'Invalid label'}
+            ${tab.textContent ||
+            (tab as ArcIconButton).label ||
+            (tab as ArcIconButton).name ||
+            'Invalid label'}
           </arc-menu-item>
-        `
+        `,
       )}
     `;
 
     const logoInterior = html`
-      ${when(this.logo, () => html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`)}
+      ${when(
+        this.logo,
+        () => html`<img id="tool-logo" src="${this.logo}" alt="tool-logo" />`,
+      )}
       <slot id="tool-name" name="name"></slot>
     `;
 
@@ -115,16 +134,17 @@ export default class ArcNavbar extends LitElement {
         <div id="left">
           ${when(
             this.home,
-            () => html`<a
-              id="logoWrapper"
-              href=${this.home}
-              rel="noreferrer noopener"
-              role="button"
-              aria-label="tool logo"
-            >
-              ${logoInterior}
-            </a>`,
-            () => html`<div id="logoWrapper">${logoInterior}</div>`
+            () =>
+              html`<a
+                id="logoWrapper"
+                href=${this.home}
+                rel="noreferrer noopener"
+                role="button"
+                aria-label="tool logo"
+              >
+                ${logoInterior}
+              </a>`,
+            () => html`<div id="logoWrapper">${logoInterior}</div>`,
           )}
         </div>
         <div id="right">
@@ -132,10 +152,14 @@ export default class ArcNavbar extends LitElement {
             <slot id="tabSlot" @slotchange=${this._handleTabChange}></slot>
             ${when(
               this.showDropdown,
-              () => html`<arc-dropdown id="dropdown" hoist>
-                <arc-icon-button slot="trigger" name=${ICON_TYPES.menu}></arc-icon-button>
-                <arc-menu>${menuInterior}</arc-menu>
-              </arc-dropdown>`
+              () =>
+                html`<arc-dropdown id="dropdown" hoist>
+                  <arc-icon-button
+                    slot="trigger"
+                    name=${ICON_TYPES.menu}
+                  ></arc-icon-button>
+                  <arc-menu>${menuInterior}</arc-menu>
+                </arc-dropdown>`,
             )}
             <arc-icon-button
               id="accessibility"
@@ -145,7 +169,10 @@ export default class ArcNavbar extends LitElement {
             ></arc-icon-button>
             <slot name="user"></slot>
           </nav>
-          ${when(this.arup, () => html`<span id="company-logo">${arupLogo}</span>`)}
+          ${when(
+            this.arup,
+            () => html`<span id="company-logo">${arupLogo}</span>`,
+          )}
         </div>
       </header>
     `;

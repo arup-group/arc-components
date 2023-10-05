@@ -18,7 +18,9 @@ class TabTest extends LitElement {
 
 describe('getTabbableBoundary', () => {
   it('should return the first and last tabbable items', async () => {
-    const element: TabTest = await fixture(html`<tab-test>Not Tabbable</tab-test>`);
+    const element: TabTest = await fixture(
+      html`<tab-test>Not Tabbable</tab-test>`,
+    );
     const button = element.shadowRoot?.getElementById('button');
     const anchor = element.shadowRoot?.getElementById('anchor');
 

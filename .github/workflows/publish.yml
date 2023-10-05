@@ -17,4 +17,5 @@ jobs:
           node-version: lts/*
           registry-url: 'https://registry.npmjs.org'
       - uses: nrwl/nx-set-shas@v3
-      - run: npm install --include-workspace-root --workspaces
+      - run: npm ci
+      - run: npx nx run components:storybook:build

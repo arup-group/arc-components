@@ -26,7 +26,8 @@ export default class ArcSwitch extends LitElement {
   /** @internal - Controller used to recognize form controls located inside a shadow root. */
   /* @ts-expect-error - Controller used to hook the component to the formData */
   private readonly formController = new FormController(this, {
-    value: (control: ArcSwitch) => (control.checked ? control.value : undefined),
+    value: (control: ArcSwitch) =>
+      control.checked ? control.value : undefined,
   });
 
   /** The name used to reference the value of the control. */

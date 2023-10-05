@@ -20,7 +20,9 @@ describe('ArcChip', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-chip size='${INPUT_SIZES.small}' type='${CHIP_TYPES.filled}'>Test</arc-chip>`);
+      expect(element).dom.to.equal(
+        `<arc-chip size='${INPUT_SIZES.small}' type='${CHIP_TYPES.filled}'>Test</arc-chip>`,
+      );
     });
 
     /* Test the accessibility */
@@ -32,14 +34,18 @@ describe('ArcChip', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom size property', async () => {
-      const element: ArcChip = await fixture(html`<arc-chip size="testProp"></arc-chip>`);
+      const element: ArcChip = await fixture(
+        html`<arc-chip size="testProp"></arc-chip>`,
+      );
 
       expect(element.size).to.equal('testProp');
       expect(element.getAttribute('size')).to.equal('testProp');
     });
 
     it('renders the element with a custom type property', async () => {
-      const element: ArcChip = await fixture(html`<arc-chip type="testProp"></arc-chip>`);
+      const element: ArcChip = await fixture(
+        html`<arc-chip type="testProp"></arc-chip>`,
+      );
 
       expect(element.type).to.equal('testProp');
       expect(element.getAttribute('type')).to.equal('testProp');

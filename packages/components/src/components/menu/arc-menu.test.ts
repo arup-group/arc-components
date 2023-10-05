@@ -1,7 +1,14 @@
 import { html } from 'lit';
 import { expect, fixture, oneEvent } from '@open-wc/testing';
 import { hasSlot } from '../../internal/slot.js';
-import { homeEvent, endEvent, enterEvent, spaceEvent, upEvent, downEvent } from '../../internal/test-utils.js';
+import {
+  homeEvent,
+  endEvent,
+  enterEvent,
+  spaceEvent,
+  upEvent,
+  downEvent,
+} from '../../internal/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 import type ArcMenu from './ArcMenu.js';
@@ -53,7 +60,9 @@ describe('ArcMenu', () => {
       expect(element.getAllItems().length).to.equal(4);
 
       /* Exclude disabled items */
-      expect(element.getAllItems({ includeDisabled: false }).length).to.equal(3);
+      expect(element.getAllItems({ includeDisabled: false }).length).to.equal(
+        3,
+      );
     });
 
     it('retrieves the current menu item', () => {
@@ -70,7 +79,7 @@ describe('ArcMenu', () => {
       const selectedItem = element.children[2] as ArcMenuItem;
       element.setCurrentItem(selectedItem);
 
-      [...allActiveItems].forEach(item => {
+      [...allActiveItems].forEach((item) => {
         if (item === selectedItem) {
           expect(getIndex(item)).to.equal('0');
         } else {
@@ -88,7 +97,7 @@ describe('ArcMenu', () => {
       element.setCurrentItem(disabledItem);
 
       /* Selecting a disabled menu-item should active the first (not disabled) menu item */
-      [...allItems].forEach(item => {
+      [...allItems].forEach((item) => {
         if (item === disabledItem) {
           expect(item.hasAttribute('tabindex')).to.be.false;
         } else if (item === allActiveItems[0]) {
@@ -106,7 +115,7 @@ describe('ArcMenu', () => {
 
       /* Method to await the built-in typeToSelectTimeout */
       function typeToSelectTimeout() {
-        return new Promise(resolve => setTimeout(resolve, 750));
+        return new Promise((resolve) => setTimeout(resolve, 750));
       }
 
       element.typeToSelect('C');
@@ -241,7 +250,7 @@ describe('ArcMenu', () => {
 
       tempElement.handleKeyDown(downEvent);
 
-      [...menuItems].forEach(item => {
+      [...menuItems].forEach((item) => {
         expect(getIndex(item as ArcMenuItem)).to.equal(null);
       });
     });

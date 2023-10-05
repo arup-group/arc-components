@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   main:
@@ -20,9 +19,9 @@ jobs:
         with:
           node-version: lts/*
       - uses: nrwl/nx-set-shas@v3
-      - run: npm install --include-workspace-root --workspaces
+      - run: npm ci
       - run: npx playwright install --with-deps
       - run: npx nx format:check --verbose
-      - run: npx nx run-many --target=lint --parallel=3
-      - run: npx nx run-many --target=build --parallel=3
-      - run: npx nx run-many --target=test --parallel=3
+      - run: npx nx affected --target=lint --parallel=3
+      - run: npx nx affected --target=build --parallel=3
+      - run: npx nx affected --target=test --parallel=3

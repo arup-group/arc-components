@@ -1,13 +1,20 @@
 import { Meta, Story } from '@storybook/web-components';
+import ArcTableDocumentation from './arc-table.documentation.mdx';
 import ArcTable from './ArcTable.js';
 import './arc-table.js';
 
 export default {
   title: 'Components/ArcTable',
   component: 'arc-table',
+  parameters: {
+    docs: {
+      page: ArcTableDocumentation,
+    },
+  },
 } as Meta;
 
-const Template: Story<ArcTable> = (args: any) => Object.assign(document.createElement(ArcTable.tag), args);
+const Template: Story<ArcTable> = (args: any) =>
+  Object.assign(document.createElement(ArcTable.tag), args);
 
 const defaultArgs = {
   columns: ['Name', 'Lastname', 'Email'],

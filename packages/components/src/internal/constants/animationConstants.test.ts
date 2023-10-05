@@ -18,7 +18,7 @@ describe('AnimationConstants', () => {
   it('should have the correct animation options', () => {
     const values = Object.values(ARC_ANIMATION_OPTIONS);
 
-    values.forEach(value => {
+    values.forEach((value) => {
       expect(value.duration).to.exist;
       expect(value.easing).to.exist;
     });

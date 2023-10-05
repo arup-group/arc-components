@@ -12,12 +12,16 @@ describe('ArcIconButton', () => {
   describe('rendering', () => {
     let element: ArcIconButton;
     beforeEach(async () => {
-      element = await fixture(html`<arc-icon-button label="Some label"></arc-icon-button>`);
+      element = await fixture(
+        html`<arc-icon-button label="Some label"></arc-icon-button>`,
+      );
     });
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(`<arc-icon-button label='Some label'></arc-icon-button>`);
+      expect(element).dom.to.equal(
+        `<arc-icon-button label='Some label'></arc-icon-button>`,
+      );
     });
 
     /* Test the type of the button */
@@ -35,14 +39,18 @@ describe('ArcIconButton', () => {
   /* Test the setters/getters */
   describe('setters/getters', () => {
     it('renders the element with a custom name property', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button name="heart"></arc-icon-button>`);
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button name="heart"></arc-icon-button>`,
+      );
 
       expect(element.name).to.equal('heart');
       expect(element.getAttribute('name')).to.equal('heart');
     });
 
     it('renders the element with a custom label property', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button label="Test label"></arc-icon-button>`);
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button label="Test label"></arc-icon-button>`,
+      );
       const buttonTarget = element.shadowRoot!.querySelector('button')!;
 
       expect(element.label).to.equal('Test label');
@@ -53,7 +61,9 @@ describe('ArcIconButton', () => {
 
     it('renders the button as an anchor', async () => {
       const element: ArcIconButton = await fixture(
-        html`<arc-icon-button href="/" label="Test label">Test</arc-icon-button>`
+        html`<arc-icon-button href="/" label="Test label"
+          >Test</arc-icon-button
+        >`,
       );
       const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
@@ -69,7 +79,7 @@ describe('ArcIconButton', () => {
 
     it('renders the anchor with a target attribute', async () => {
       const element: ArcIconButton = await fixture(
-        html`<arc-icon-button href="/" target="_blank">Test</arc-icon-button>`
+        html`<arc-icon-button href="/" target="_blank">Test</arc-icon-button>`,
       );
       const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
@@ -82,7 +92,9 @@ describe('ArcIconButton', () => {
 
     it('renders the anchor with a download attribute', async () => {
       const element: ArcIconButton = await fixture(
-        html`<arc-icon-button href="/" download="Filename">Test</arc-icon-button>`
+        html`<arc-icon-button href="/" download="Filename"
+          >Test</arc-icon-button
+        >`,
       );
       const buttonTarget = element.shadowRoot!.getElementById('main')!;
 
@@ -216,14 +228,18 @@ describe('ArcIconButton', () => {
   /* Test the css variables that can be overwritten */
   describe('css variables', () => {
     it('uses the default css variables', async () => {
-      const element: ArcIconButton = await fixture(html`<arc-icon-button>Test</arc-icon-button>`);
+      const element: ArcIconButton = await fixture(
+        html`<arc-icon-button>Test</arc-icon-button>`,
+      );
 
       expect(getPropertyValue(element, '--icon-color')).to.equal('');
     });
 
     it('overwrites the css variables', async () => {
       const element: ArcIconButton = await fixture(
-        html`<arc-icon-button style="--icon-color: green;">Test</arc-icon-button>`
+        html`<arc-icon-button style="--icon-color: green;"
+          >Test</arc-icon-button
+        >`,
       );
 
       expect(getPropertyValue(element, '--icon-color')).to.equal('green');

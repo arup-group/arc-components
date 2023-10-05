@@ -19,7 +19,7 @@ export async function getFilePaths(dir) {
     subdirs.map(async (subdir) => {
       const res = resolve(dir, subdir);
       return (await stat(res)).isDirectory() ? getFilePaths(res) : res;
-    })
+    }),
   );
   return files.reduce((a, f) => a.concat(f), []);
 }

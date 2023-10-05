@@ -71,10 +71,13 @@
       "configurations": {
         "lcoal": {
           "buildTarget": "node-ssr:build:local",
-          "waitUntilTargets": ["node-ssr:build:local", "node-ssr:prebuild:local"]
+          "waitUntilTargets": [
+            "node-ssr:build:local",
+            "node-ssr:prebuild:local"
+          ]
         }
       },
       "dependsOn": ["build"]
     }
-  },
+  }
 }

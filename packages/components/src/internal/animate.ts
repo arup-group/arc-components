@@ -23,13 +23,23 @@ function ensureAnimation(animation: ElementAnimation | null) {
 Sets a default animation. Components should use the `name.animation` for primary animations and `name.part.animation`
 for secondary animations, e.g. `dialog.show` and `dialog.overlay.show`. For modifiers, use `drawer.showTop`.
 */
-function setDefaultAnimation(animationName: string, animation: ElementAnimation | null) {
+function setDefaultAnimation(
+  animationName: string,
+  animation: ElementAnimation | null,
+) {
   defaultAnimationRegistry.set(animationName, ensureAnimation(animation));
 }
 
 /* Sets a custom animation for the specified element. */
-function setAnimation(el: Element, animationName: string, animation: ElementAnimation | null) {
-  customAnimationRegistry.set(el, { ...customAnimationRegistry.get(el), [animationName]: ensureAnimation(animation) });
+function setAnimation(
+  el: Element,
+  animationName: string,
+  animation: ElementAnimation | null,
+) {
+  customAnimationRegistry.set(el, {
+    ...customAnimationRegistry.get(el),
+    [animationName]: ensureAnimation(animation),
+  });
 }
 
 /* Retrieves an element's animation. Falls back to the default if no animation is found. */
@@ -52,8 +62,12 @@ function getAnimation(el: Element, animationName: string) {
 }
 
 /* Animates an element using keyframes. Returns a promise that resolves after the animation completes or gets canceled. */
-function startAnimations(el: HTMLElement, keyframes: Keyframe[], options?: KeyframeAnimationOptions) {
-  return new Promise(resolve => {
+function startAnimations(
+  el: HTMLElement,
+  keyframes: Keyframe[],
+  options?: KeyframeAnimationOptions,
+) {
+  return new Promise((resolve) => {
     if (options?.duration === Infinity) {
       throw new Error('Promise-based animations must be finite.');
     }
@@ -73,14 +87,16 @@ function startAnimations(el: HTMLElement, keyframes: Keyframe[], options?: Keyfr
 function stopAnimations(el: HTMLElement) {
   return Promise.all(
     el.getAnimations().map(
-      animation =>
-        new Promise(resolve => {
+      (animation) =>
+        new Promise((resolve) => {
           const handleAnimationEvent = requestAnimationFrame(resolve);
 
-          animation.addEventListener('cancel', () => handleAnimationEvent, { once: true });
+          animation.addEventListener('cancel', () => handleAnimationEvent, {
+            once: true,
+          });
           animation.cancel();
-        })
-    )
+        }),
+    ),
   );
 }
 
@@ -103,10 +119,14 @@ function parseDuration(delay: number | string) {
 We can't animate `height: auto`, but we can calculate the height and shim keyframes by replacing it with the
 element's scrollHeight before the animation.
  */
-function shimKeyframesHeightAuto(keyframes: Keyframe[], calculatedHeight: number) {
-  return keyframes.map(keyframe => ({
+function shimKeyframesHeightAuto(
+  keyframes: Keyframe[],
+  calculatedHeight: number,
+) {
+  return keyframes.map((keyframe) => ({
     ...keyframe,
-    height: keyframe.height === 'auto' ? `${calculatedHeight}px` : keyframe.height,
+    height:
+      keyframe.height === 'auto' ? `${calculatedHeight}px` : keyframe.height,
   }));
 }
 

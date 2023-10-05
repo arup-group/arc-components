@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/blocks';
-import Table from '../src/table.md?raw';
 
 <Meta title="Components/ArcTable/Documentation" />
 
@@ -14,18 +13,20 @@ Simply include and add the component in your project, like so:
 
 ```html
 <body>
-  <div id='app'></div>
+  <div id="app"></div>
 
-  <script type='module'>
+  <script type="module">
     import '@arc-web/components/dist/components/table/arc-table.js';
     const app = document.getElementById('app');
-    app.appendChild(Object.assign('arc-table', {
-      columns: ["Name", "LastName"],
-      data: [
-        ["John", "Doe"],
-        ["Jane", "Doe"]
-      ]
-    }))
+    app.appendChild(
+      Object.assign('arc-table', {
+        columns: ['Name', 'LastName'],
+        data: [
+          ['John', 'Doe'],
+          ['Jane', 'Doe'],
+        ],
+      }),
+    );
   </script>
 </body>
 ```
@@ -91,14 +92,17 @@ The below code adds a setTimeout function to imitate a loading state.
 ```js
 {
   data: () => {
-    return new Promise(resolve => {
-      setTimeout(() =>
-        resolve([
-          ['John', 'john@example.com', '(353) 01 222 3333'],
-          ['Mark', 'mark@gmail.com', '(01) 22 888 4444']
-        ]), 2000);
+    return new Promise((resolve) => {
+      setTimeout(
+        () =>
+          resolve([
+            ['John', 'john@example.com', '(353) 01 222 3333'],
+            ['Mark', 'mark@gmail.com', '(01) 22 888 4444'],
+          ]),
+        2000,
+      );
     });
-  }
+  };
 }
 ```
 
@@ -109,27 +113,34 @@ The below code adds a setTimeout function to imitate a loading state.
 ```js
 const app = document.getElementById('app');
 const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
-app.appendChild(Object.assign(table, {
-  columns: [
-    'Name',
-    'LastName',
-    {
-      name: 'Email',
-      formatter: (cell) => table.format('div', {
-        id: 'myDiv',
-        className: 'my-div',
-        style: 'display: flex; justify-content: center;'
-      }, cell)
-    },
-  ],
-  data: [
-    ['John', 'Doe', 'john.doe@arup.com'],
-    ['Jane', 'Doe', 'jane.doe@arup.com'],
-    ['Joe', 'Doakes', 'joe.doakes@arup.com'],
-    ['Juan', 'Perez', 'juan.perez@arup.com'],
-    ['Fred', 'Nerk', 'fred.nerk@arup.com'],
-  ],
-}))
+app.appendChild(
+  Object.assign(table, {
+    columns: [
+      'Name',
+      'LastName',
+      {
+        name: 'Email',
+        formatter: (cell) =>
+          table.format(
+            'div',
+            {
+              id: 'myDiv',
+              className: 'my-div',
+              style: 'display: flex; justify-content: center;',
+            },
+            cell,
+          ),
+      },
+    ],
+    data: [
+      ['John', 'Doe', 'john.doe@arup.com'],
+      ['Jane', 'Doe', 'jane.doe@arup.com'],
+      ['Joe', 'Doakes', 'joe.doakes@arup.com'],
+      ['Juan', 'Perez', 'juan.perez@arup.com'],
+      ['Fred', 'Nerk', 'fred.nerk@arup.com'],
+    ],
+  }),
+);
 ```
 
 The first property of the format method is a string, which can be any HTMLElement (i.e. div, span, strong etc.).
@@ -144,16 +155,16 @@ It is also possible to create an empty arc-table instance and update the configu
 ```js
 const app = document.getElementById('app');
 const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
-app.appendChild(Object.assign(table, {
-  columns: ['Name', 'LastName','Email'],
-  data: [
-    ['John', 'Doe', 'john.doe@arup.com']
-  ],
-}))
+app.appendChild(
+  Object.assign(table, {
+    columns: ['Name', 'LastName', 'Email'],
+    data: [['John', 'Doe', 'john.doe@arup.com']],
+  }),
+);
 
 setTimeout(() => {
-  table.updateConfig( { pagination: true });
-}, 0)
+  table.updateConfig({ pagination: true });
+}, 0);
 ```
 
 Calling the updateConfig method of the arc-table component,
@@ -174,7 +185,7 @@ will automatically update all associated properties of the arc-table component.
 Import your language file first;
 
 ```js
-import { frFR } from "gridjs/l10n";
+import { frFR } from 'gridjs/l10n';
 ```
 
 then pass it to the `language` setting of the arc-table component.
@@ -182,8 +193,8 @@ then pass it to the `language` setting of the arc-table component.
 ```js
 Object.assign(document.createElement('arc-table'), {
   ...allProps,
-  language: frFR
-})
+  language: frFR,
+});
 ```
 
 ### Custom serialization
@@ -195,17 +206,17 @@ Simply extend the `language` config to replace the strings:
 Object.assign(document.createElement('arc-table'), {
   ...allProps,
   language: {
-    'search': {
-      'placeholder': '🔍 Search...'
+    search: {
+      placeholder: '🔍 Search...',
     },
-    'pagination': {
-      'previous': '⬅️',
-      'next': '➡️',
-      'showing': '😃 Displaying',
-      'results': 'Records'
-    }
-  }
-})
+    pagination: {
+      previous: '⬅️',
+      next: '➡️',
+      showing: '😃 Displaying',
+      results: 'Records',
+    },
+  },
+});
 ```
 
 ### Properties

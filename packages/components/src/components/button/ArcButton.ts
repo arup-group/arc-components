@@ -5,8 +5,17 @@ import { when } from 'lit/directives/when.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormController } from '../../internal/form-control.js';
-import { INPUT_SIZES, InputSize, THEME_COLORS, ThemeColor } from '../../internal/constants/styleConstants.js';
-import { BUTTON_TYPES, ButtonType, ButtonTarget } from './constants/ButtonConstants.js';
+import {
+  INPUT_SIZES,
+  InputSize,
+  THEME_COLORS,
+  ThemeColor,
+} from '../../internal/constants/styleConstants.js';
+import {
+  BUTTON_TYPES,
+  ButtonType,
+  ButtonTarget,
+} from './constants/ButtonConstants.js';
 import styles from './arc-button.styles.js';
 import '../spinner/arc-spinner.js';
 
@@ -32,13 +41,16 @@ export default class ArcButton extends LitElement {
   private readonly formController = new FormController(this);
 
   /** Set the color of the button. */
-  @property({ type: String, reflect: true }) color: ThemeColor = THEME_COLORS.primary;
+  @property({ type: String, reflect: true }) color: ThemeColor =
+    THEME_COLORS.primary;
 
   /** Set the size of the button. */
-  @property({ type: String, reflect: true }) size: InputSize = INPUT_SIZES.medium;
+  @property({ type: String, reflect: true }) size: InputSize =
+    INPUT_SIZES.medium;
 
   /** Set the type of the button. */
-  @property({ type: String, reflect: true }) type: ButtonType = BUTTON_TYPES.filled;
+  @property({ type: String, reflect: true }) type: ButtonType =
+    BUTTON_TYPES.filled;
 
   /** An optional name for the button. Ignored when `href` is set. */
   @property({ type: String }) name: string;
@@ -138,7 +150,10 @@ export default class ArcButton extends LitElement {
         <slot id="prefix" name="prefix"></slot>
         <slot id="label"></slot>
         <slot id="suffix" name="suffix"></slot>
-        ${when(this.loading, () => html`<arc-spinner id="loader"></arc-spinner>`)}
+        ${when(
+          this.loading,
+          () => html`<arc-spinner id="loader"></arc-spinner>`,
+        )}
       </${tag}>
     `;
   }

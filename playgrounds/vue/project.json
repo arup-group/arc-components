@@ -10,7 +10,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["playgrounds/vue/**/*.ts", "playgrounds/vue/**/*.vue"]
+        "lintFilePatterns": [
+          "playgrounds/vue/**/*.ts",
+          "playgrounds/vue/**/*.vue"
+        ]
       }
     },
     "build": {

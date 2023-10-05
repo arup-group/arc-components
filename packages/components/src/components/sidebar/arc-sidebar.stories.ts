@@ -16,7 +16,8 @@ export default {
     customLabel: {
       name: 'label',
       control: 'text',
-      description: 'The sidebar label. Required for proper accessibility. Alternatively, the label slot can be used.',
+      description:
+        'The sidebar label. Required for proper accessibility. Alternatively, the label slot can be used.',
       table: {
         category: 'properties',
       },
@@ -24,7 +25,12 @@ export default {
   },
   parameters: {
     actions: {
-      handles: [ARC_EVENTS.show, ARC_EVENTS.afterShow, ARC_EVENTS.hide, ARC_EVENTS.afterHide],
+      handles: [
+        ARC_EVENTS.show,
+        ARC_EVENTS.afterShow,
+        ARC_EVENTS.hide,
+        ARC_EVENTS.afterHide,
+      ],
     },
   },
 } as Meta;
@@ -32,7 +38,11 @@ export default {
 const Template: Story = ({ customLabel, open }) => html`
   <arc-container>
     <arc-navbar slot="nav" logo="/arc-red.svg"></arc-navbar>
-    <arc-sidebar slot="side" label=${ifDefined(customLabel || undefined)} ?open=${open}>
+    <arc-sidebar
+      slot="side"
+      label=${ifDefined(customLabel || undefined)}
+      ?open=${open}
+    >
       <arc-menu>
         <arc-menu-item value="home">
           <arc-icon name="home" slot="prefix"></arc-icon>
@@ -53,9 +63,13 @@ const Template: Story = ({ customLabel, open }) => html`
     <div style="padding: var(--arc-spacing-normal)">
       <p>
         When using the <code class="code-block">fullscreen</code> property, the
-        <code class="code-block">arc-sidebar</code> component should not be used.
+        <code class="code-block">arc-sidebar</code> component should not be
+        used.
       </p>
-      <p>The <code class="code-block">arc-drawer</code> component could be used instead.</p>
+      <p>
+        The <code class="code-block">arc-drawer</code> component could be used
+        instead.
+      </p>
     </div>
   </arc-container>
 `;

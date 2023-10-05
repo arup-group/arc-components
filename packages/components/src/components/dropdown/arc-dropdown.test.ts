@@ -58,13 +58,17 @@ describe('ArcDropdown', () => {
     });
 
     it('renders the element in an open state', async () => {
-      const openElement: ArcDropdown = await fixture(html`<arc-dropdown open></arc-dropdown>`);
+      const openElement: ArcDropdown = await fixture(
+        html`<arc-dropdown open></arc-dropdown>`,
+      );
       expect(openElement.open).to.be.true;
       expect(openElement.hasAttribute('open')).to.be.true;
     });
 
     it('renders the element in a hoisted state', async () => {
-      const hoistedElement: ArcDropdown = await fixture(html` <arc-dropdown hoist></arc-dropdown> `);
+      const hoistedElement: ArcDropdown = await fixture(html`
+        <arc-dropdown hoist></arc-dropdown>
+      `);
       expect(hoistedElement.hoist).to.be.true;
       expect(hoistedElement.hasAttribute('hoist')).to.be.true;
     });
@@ -79,22 +83,30 @@ describe('ArcDropdown', () => {
   describe('setters/getters', () => {
     it('renders the element with a custom placement property', async () => {
       const element: ArcDropdown = await fixture(
-        html`<arc-dropdown placement=${FLOATING_PLACEMENTS.top}></arc-dropdown>`
+        html`<arc-dropdown
+          placement=${FLOATING_PLACEMENTS.top}
+        ></arc-dropdown>`,
       );
 
       expect(element.placement).to.equal(FLOATING_PLACEMENTS.top);
-      expect(element.getAttribute('placement')).to.equal(FLOATING_PLACEMENTS.top);
+      expect(element.getAttribute('placement')).to.equal(
+        FLOATING_PLACEMENTS.top,
+      );
     });
 
     it('renders the element with a custom distance property', async () => {
-      const element: ArcDropdown = await fixture(html`<arc-dropdown distance="5"></arc-dropdown>`);
+      const element: ArcDropdown = await fixture(
+        html`<arc-dropdown distance="5"></arc-dropdown>`,
+      );
 
       expect(element.distance).to.equal(5);
       expect(element.getAttribute('distance')).to.equal('5');
     });
 
     it('renders the element with a custom skidding property', async () => {
-      const element: ArcDropdown = await fixture(html`<arc-dropdown skidding="5"></arc-dropdown>`);
+      const element: ArcDropdown = await fixture(
+        html`<arc-dropdown skidding="5"></arc-dropdown>`,
+      );
 
       expect(element.skidding).to.equal(5);
       expect(element.getAttribute('skidding')).to.equal('5');
@@ -197,7 +209,9 @@ describe('ArcDropdown', () => {
       `);
       trigger = element.children[0] as ArcButton;
       menu = element.children[1] as ArcMenu;
-      isOpen = () => trigger.getAttribute('aria-expanded') === 'true' && element.open === true;
+      isOpen = () =>
+        trigger.getAttribute('aria-expanded') === 'true' &&
+        element.open === true;
     });
 
     afterEach(() => {
@@ -298,9 +312,13 @@ describe('ArcDropdown', () => {
     });
 
     it('returns focus to parent element when used inside a shadow DOM', async () => {
-      const elementInSD: DropdownInShadowDOM = await fixture(html`<shadow-dropdown></shadow-dropdown>`);
-      const dropdownInSD: ArcDropdown = elementInSD.shadowRoot!.querySelector('arc-dropdown')!;
-      const menuInSD: ArcMenu = elementInSD.shadowRoot!.querySelector('arc-menu')!;
+      const elementInSD: DropdownInShadowDOM = await fixture(
+        html`<shadow-dropdown></shadow-dropdown>`,
+      );
+      const dropdownInSD: ArcDropdown =
+        elementInSD.shadowRoot!.querySelector('arc-dropdown')!;
+      const menuInSD: ArcMenu =
+        elementInSD.shadowRoot!.querySelector('arc-menu')!;
 
       await dropdownInSD.show();
       addHideListeners(dropdownInSD);

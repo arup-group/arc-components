@@ -16,7 +16,7 @@ class HasSlotController implements ReactiveController {
   }
 
   private hasDefaultSlot() {
-    return [...this.host.childNodes].some(node => {
+    return [...this.host.childNodes].some((node) => {
       if (node.nodeType === node.TEXT_NODE && node.textContent!.trim() !== '') {
         return true;
       }
@@ -37,7 +37,9 @@ class HasSlotController implements ReactiveController {
   }
 
   test(slotName: string) {
-    return slotName === '[default]' ? this.hasDefaultSlot() : this.hasNamedSlot(slotName);
+    return slotName === '[default]'
+      ? this.hasDefaultSlot()
+      : this.hasNamedSlot(slotName);
   }
 
   hostConnected() {
@@ -45,7 +47,10 @@ class HasSlotController implements ReactiveController {
   }
 
   hostDisconnected() {
-    this.host.shadowRoot!.removeEventListener('slotchange', this.handleSlotChange);
+    this.host.shadowRoot!.removeEventListener(
+      'slotchange',
+      this.handleSlotChange,
+    );
   }
 
   handleSlotChange(event: Event) {
@@ -55,7 +60,10 @@ class HasSlotController implements ReactiveController {
     If an unnamed slot is given, ensure that the array contains the [default],
     if a named slot is given, ensure that the array contains the named slot.
     */
-    if ((!slot.name && this.slotNames.includes('[default]')) || (!!slot.name && this.slotNames.includes(slot.name))) {
+    if (
+      (!slot.name && this.slotNames.includes('[default]')) ||
+      (!!slot.name && this.slotNames.includes(slot.name))
+    ) {
       this.host.requestUpdate();
     }
   }
@@ -69,7 +77,7 @@ function getInnerHTML(slot: HTMLSlotElement): string {
   const nodes = slot.assignedNodes({ flatten: true });
   let html = '';
 
-  [...nodes].forEach(node => {
+  [...nodes].forEach((node) => {
     if (node.nodeType === Node.ELEMENT_NODE) {
       html += (node as HTMLElement).outerHTML;
     }
@@ -90,7 +98,7 @@ function getTextContent(slot: HTMLSlotElement): string {
   const nodes = slot.assignedNodes({ flatten: true });
   let text = '';
 
-  [...nodes].forEach(node => {
+  [...nodes].forEach((node) => {
     if (node.nodeType === Node.TEXT_NODE) {
       text += node.textContent;
     }
@@ -111,7 +119,9 @@ function hasSlot(el: HTMLElement, name?: string) {
   }
 
   /* Look for a default slot. */
-  return [...el.querySelectorAll('slot')].some(node => !node.hasAttribute('name'));
+  return [...el.querySelectorAll('slot')].some(
+    (node) => !node.hasAttribute('name'),
+  );
 }
 
 export { HasSlotController, getInnerHTML, getTextContent, hasSlot };

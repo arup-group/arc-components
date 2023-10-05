@@ -17,13 +17,21 @@ export default {
 
 const Template: Story<ArcRadio> = ({ name, value, checked, disabled }) => html`
   <arc-radio-group label="Radio Group">
-    <arc-radio name=${name} value=${value} ?disabled=${disabled} ?checked=${checked}>Option 1</arc-radio>
+    <arc-radio
+      name=${name}
+      value=${value}
+      ?disabled=${disabled}
+      ?checked=${checked}
+      >Option 1</arc-radio
+    >
     <arc-radio name=${name} value="option_2">Option 2</arc-radio>
     <arc-radio name=${name} value="option_3">Option 3</arc-radio>
   </arc-radio-group>
   <p>
-    For demoing purposes, only the first item responds to the <code class="code-block">checked</code>,
-    <code class="code-block">disabled</code> and <code class="code-block">value</code> properties.
+    For demoing purposes, only the first item responds to the
+    <code class="code-block">checked</code>,
+    <code class="code-block">disabled</code> and
+    <code class="code-block">value</code> properties.
   </p>
 `;
 

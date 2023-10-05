@@ -30,7 +30,8 @@ export default class ArcAvatar extends LitElement {
   /** Name to use as a fallback when no image is available. */
   @property({
     type: String,
-    converter: (attrValue: string | null) => (attrValue ? stringToInitials(attrValue) : ''),
+    converter: (attrValue: string | null) =>
+      attrValue ? stringToInitials(attrValue) : '',
   })
   name: string;
 
@@ -65,12 +66,13 @@ export default class ArcAvatar extends LitElement {
             when(
               this.name,
               () => html`<div id="initials">${this.name}</div>`,
-              () => html`<div id="icon">
-                <slot name="icon">
-                  <arc-icon name="user"></arc-icon>
-                </slot>
-              </div>`
-            )
+              () =>
+                html`<div id="icon">
+                  <slot name="icon">
+                    <arc-icon name="user"></arc-icon>
+                  </slot>
+                </div>`,
+            ),
         )}
       </div>
     `;

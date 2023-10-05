@@ -16,7 +16,16 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcIconButton> = ({ name, label, href, target, download, active, disabled, loading }) => html`
+const Template: Story<ArcIconButton> = ({
+  name,
+  label,
+  href,
+  target,
+  download,
+  active,
+  disabled,
+  loading,
+}) => html`
   <arc-icon-button
     name="${name}"
     label="${label}"

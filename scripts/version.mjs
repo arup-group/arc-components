@@ -38,7 +38,10 @@ if (!VERSION) {
 /**
  * Ensure version is valid.
  */
-if (!/^\d+\.\d+\.\d+$/.test(VERSION) || !['major', 'minor', 'patch'].includes(VERSION)) {
+if (
+  !/^\d+\.\d+\.\d+$/.test(VERSION) ||
+  !['major', 'minor', 'patch'].includes(VERSION)
+) {
   console.log('Must provide a valid version.');
   process.exit(1);
 }
@@ -48,8 +51,11 @@ if (!/^\d+\.\d+\.\d+$/.test(VERSION) || !['major', 'minor', 'patch'].includes(VE
  */
 
 const filesPaths = await getFilePaths(`${devkit.workspaceRoot}/packages`);
-const packageJsonPaths = filesPaths.filter((filePath) => filePath.endsWith('package.json') && !filePath.includes('node_modules'));
+const packageJsonPaths = filesPaths.filter(
+  (filePath) =>
+    filePath.endsWith('package.json') && !filePath.includes('node_modules'),
+);
 const packageJsons = packageJsonPaths.map(async (packageJsonPath) => {
-  const packageJson = await rad
+  const packageJson = await rad;
   return { packageJsonPath, packageJson };
 });

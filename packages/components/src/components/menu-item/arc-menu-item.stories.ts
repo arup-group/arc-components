@@ -13,7 +13,9 @@ export default {
 const Template: Story<ArcMenuItem> = ({ value, href, disabled }) => html`
   <arc-menu>
     <arc-menu-item>Label 1</arc-menu-item>
-    <arc-menu-item value="${value}" href="${href}" ?disabled=${disabled}>Label 2</arc-menu-item>
+    <arc-menu-item value="${value}" href="${href}" ?disabled=${disabled}
+      >Label 2</arc-menu-item
+    >
     <arc-menu-item>Label 3</arc-menu-item>
   </arc-menu>
 `;

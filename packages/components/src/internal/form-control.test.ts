@@ -23,7 +23,13 @@ class InputControlTest extends LitElement {
   }
 
   protected render() {
-    return html`<input id="testInput" type="text" name=${this.name} .value=${this.value} required />`;
+    return html`<input
+      id="testInput"
+      type="text"
+      name=${this.name}
+      .value=${this.value}
+      required
+    />`;
   }
 }
 
@@ -83,13 +89,13 @@ describe('FormController', () => {
 
     it('should submit the form with values from within the ShadowDOM', async () => {
       /* Prevent default form behaviour and create the FormData object. */
-      element.addEventListener('submit', e => {
+      element.addEventListener('submit', (e) => {
         e.preventDefault();
         new FormData(element); // eslint-disable-line no-new
       });
 
       /* When the FormData object is created, it should contain the input field from within the web-component. */
-      element.addEventListener('formdata', e => {
+      element.addEventListener('formdata', (e) => {
         const data = [...e.formData.values()];
         expect(data.length).to.equal(1);
         expect(data[0]).to.equal(shadowInput.value);
@@ -130,13 +136,13 @@ describe('FormController', () => {
 
     it('should submit the form with an array of values from within the ShadowDOM', async () => {
       /* Prevent default form behaviour and create the FormData object. */
-      element.addEventListener('submit', e => {
+      element.addEventListener('submit', (e) => {
         e.preventDefault();
         new FormData(element); // eslint-disable-line no-new
       });
 
       /* When the FormData object is created, it should contain the values from within the web-component. */
-      element.addEventListener('formdata', e => {
+      element.addEventListener('formdata', (e) => {
         const data = [...e.formData.values()];
         expect(data.length).to.equal(2);
         expect(data[0]).to.equal(selectControl.value[0]);

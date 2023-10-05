@@ -48,15 +48,17 @@ You can activate it using attributes such as `required`, `minlength` and `maxlen
 
 ```html
 <form>
-  <arc-switch name="arc_is_great" value="true" required>Do you love arc?</arc-switch>
+  <arc-switch name="arc_is_great" value="true" required
+    >Do you love arc?</arc-switch
+  >
   <arc-button submit>Submit</arc-button>
 </form>
 <script type="module">
   const form = document.querySelector('form');
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     console.log(form.checkValidity());
-  })
+  });
 </script>
 ```
 
@@ -68,7 +70,9 @@ If the component is `invalid`, the browser will show the user a relevant error m
 
 ```html
 <form>
-  <arc-switch name="arc_is_great" value="true" required>Do you love arc?</arc-switch>
+  <arc-switch name="arc_is_great" value="true" required
+    >Do you love arc?</arc-switch
+  >
   <arc-button submit>Submit</arc-button>
 </form>
 
@@ -103,9 +107,9 @@ To make the input valid again, call `setCustomValidity()` again with an empty st
   arcSwitch.setCustomValidity('This will never submit the form!');
 
   const form = document.querySelector('form');
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     console.log(form.checkValidity());
-  })
+  });
 </script>
 ```

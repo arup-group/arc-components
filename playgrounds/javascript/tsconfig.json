@@ -5,5 +5,5 @@
     "module": "ESNext",
     "types": ["vite/client"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts"]
 }

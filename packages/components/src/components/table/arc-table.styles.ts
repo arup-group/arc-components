@@ -10,11 +10,13 @@ export default [
 
     /* Overwrite the scrollbar-tracks to display a border that looks good with the table */
     ::-webkit-scrollbar-track {
-      border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-left: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
       border-radius: 0;
     }
     ::-webkit-scrollbar-track:horizontal {
-      border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-top: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
       border-left: none;
     }
 
@@ -46,7 +48,8 @@ export default [
       width: 100%;
       position: relative;
       overflow: auto;
-      border: var(--arc-border-style) var(--arc-border-width) rgb(var(--arc-color-default));
+      border: var(--arc-border-style) var(--arc-border-width)
+        rgb(var(--arc-color-default));
       z-index: 1;
       -webkit-font-smoothing: antialiased;
     }
@@ -63,8 +66,10 @@ export default [
 
     /* Rows */
     .gridjs-tr {
-      border-top: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-      border-bottom: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-top: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
+      border-bottom: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
     }
     .gridjs-tr:hover,
     .gridjs-tr-selected {
@@ -82,7 +87,8 @@ export default [
       position: relative;
       padding: var(--arc-spacing-small) var(--arc-spacing-medium);
       background-color: rgb(var(--arc-container-color));
-      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
       border-top: none;
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -122,8 +128,10 @@ export default [
 
     /* Data */
     td.gridjs-td {
-      border-left: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
-      border-right: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border-left: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
+      border-right: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
       padding: var(--arc-spacing-small) var(--arc-spacing-medium);
       background-color: transparent;
       box-sizing: content-box;
@@ -142,7 +150,8 @@ export default [
       width: 100%;
       z-index: 5;
       padding: var(--arc-spacing-small) var(--arc-spacing-medium);
-      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
       border-top: none;
     }
 
@@ -206,7 +215,8 @@ export default [
       outline: none;
       color: inherit;
       background-color: transparent;
-      border: var(--arc-border-width) var(--arc-border-style) rgb(var(--arc-color-default));
+      border: var(--arc-border-width) var(--arc-border-style)
+        rgb(var(--arc-color-default));
       padding: var(--arc-spacing-x-small) var(--arc-spacing-normal);
       line-height: inherit;
       -webkit-appearance: none;
@@ -297,7 +307,8 @@ export default [
       user-select: none;
     }
     .gridjs-pagination .gridjs-pages button.gridjs-currentPage {
-      border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style) currentColor;
+      border-bottom: calc(var(--arc-border-width) * 2) var(--arc-border-style)
+        currentColor;
     }
     .gridjs-pagination .gridjs-pages button:hover,
     .gridjs-pagination .gridjs-pages button:focus-visible {

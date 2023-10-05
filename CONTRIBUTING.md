@@ -2,33 +2,105 @@
 
 > This document outlines the guidlines and best practices to get started contributing to **ARC**.
 
+We welcome all contributions and engement with the ARC design system.
+
+## Local Development
+
 **ARC** is built using [LIT](https://lit.dev/) web components and is built on top of the Web Components standards. Every component is a native web component, with the power of interoperability. Web components work anywhere you use HTML, with any framework, or none at all. This makes using ARC ideal for building shareable components, or maintainable, future-ready sites and apps.
 
-## Getting Started
+### Development Enviroment
 
-Install all required dependecies ussing `npm`:
+If you are using [NIX](https://nixos.org/) simply use the provided `shell.nix` file to get started with a development shell:
 
 ```sh
-npm install --include-workspace-root --ws
+nix-shell
 ```
 
-## Playgrounds
+Else you will need to following prerequisites installed locally:
 
-> todo
+- [Node.js](https://nodejs.org/en/)
 
-## Testing
+Next Install the dependencies required for local development:
 
-The web-components can run unit tests with the help of [@open-wc/testing](https://open-wc.org/docs/testing/helpers/) and playwright.
+```sh
+npm install
+```
 
-> todo finish
+This repository is a monorepo containg all packages and playgrounds that relate to the ARC design system. The following directoty structure is used:
 
-## Documentation
+```
+├── assets              # Shared assets for stroybook and playgrounds
+├── packages
+│   ├── components      # @arc-web/components package source
+│   └── react           # @arc-web/react package srouce
+└── playgrounds
+    ├── angular         # Angular + ARC playground
+    ├── jacascript      # Vanilla Javascript + ARC playground
+    ├── node-ssr        # NodeJs SSR + ARC playground
+    ├── react           # React + ARC playground
+    └── vue             # Vue + ARC playground
+```
 
-Every component within the ARC-ecosystem requires documentation.
+[NX](https://nx.dev/) is used as a build system and tasks are run using its [run tasks](https://nx.dev/core-features/run-tasks) core functionality:
 
-> todo finish
+```sh
+npx nx <target name> <project name> <option overrides>
+```
 
-## Iconography
+### Develment Guidlines
+
+The following directory structure should be followed when creating simple components:
+
+```
+└── packages
+    └── components
+        └─── src
+           └── components
+               └── foo
+                   ├── ArcFoo.ts              # Component class implmentation
+                   ├── arc-foo.stories.ts     # Storybook stories for component
+                   ├── arc-foo.styles.ts      # Styles for component
+                   ├── arc-foo.test.ts        # Tests for component
+                   └── arc-foo.ts             # Component element registation
+```
+
+More complex compnents may also adher to the following:
+
+```
+└── packages
+    └── components
+        └─── src
+           └── components
+               └── foo
+                   ├── constants
+                   │   ├── FooConstants.test.ts    # Tests for constants
+                   │   └── FooConstants.ts         # Constants for component
+                   ├── ArcFoo.ts                   # Component class implmentation
+                   ├── arc-foo.documentation.mdx   # Storybook documentation for component
+                   ├── arc-foo.stories.tsx         # Storybook stories for component
+                   ├── arc-foo.styles.ts           # Styles for component
+                   ├── arc-foo.test.ts             # Tests for component
+                   └── arc-foo.ts                  # Component element registation
+```
+
+During development use the following command to start a local development server in any of the playgrounds or storybook:
+
+```sh
+npx nx serve <playground name>
+npx nx storybook:serve components
+```
+
+Unit tests must be written for all components and can be run using the following command:
+
+```sh
+npx nx test components
+```
+
+Every component requires the following documentation:
+
+- Docstrings for all public methods and properties
+- Storybook stories for all use cases
+- Storybook documentation (auto generated from stories for simple components)
 
 ARC uses [Nucleo](https://nucleoapp.com/) to keep track of the available icons and make an easy export of them.
 All the icons are exported as a single SVG `symbol` file, using the following preferences:

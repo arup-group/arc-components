@@ -4,6 +4,7 @@
   "sourceRoot": "playgrounds/node-ssr/src",
   "projectType": "application",
   "tags": ["playground"],
+  "implicitDependencies": ["components"],
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",

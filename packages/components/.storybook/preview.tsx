@@ -27,7 +27,10 @@ const PREVIEW: Preview = {
     },
     options: {
       storySort: {
-        order: [],
+        order: [
+          'Getting Started',
+          'Components',
+        ],
       },
     },
   },

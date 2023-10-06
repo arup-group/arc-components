@@ -2,11 +2,11 @@
 
 > This document outlines the guidlines and best practices to get started contributing to **ARC**.
 
-We welcome all contributions and engement with the ARC design system.
+We welcome all contributions and engement with the **ARC** design system.
 
 ## Local Development
 
-**ARC** is built using [LIT](https://lit.dev/) web components and is built on top of the Web Components standards. Every component is a native web component, with the power of interoperability. Web components work anywhere you use HTML, with any framework, or none at all. This makes using ARC ideal for building shareable components, or maintainable, future-ready sites and apps.
+**ARC** is built using [LIT](https://lit.dev/) web components and is built on top of the Web Components standards. Every component is a native web component, with the power of interoperability. Web components work anywhere you use HTML, with any framework, or none at all. This makes using **ARC** ideal for building shareable components, or maintainable, future-ready sites and apps.
 
 ### Development Enviroment
 
@@ -26,7 +26,7 @@ Next Install the dependencies required for local development:
 npm install
 ```
 
-This repository is a monorepo containg all packages and playgrounds that relate to the ARC design system. The following directoty structure is used:
+This repository is a monorepo containg all packages and playgrounds that relate to the **ARC** design system. The following directoty structure is used:
 
 ```
 ├── assets              # Shared assets for stroybook and playgrounds
@@ -102,7 +102,7 @@ Every component requires the following documentation:
 - Storybook stories for all use cases
 - Storybook documentation (auto generated from stories for simple components)
 
-ARC uses [Nucleo](https://nucleoapp.com/) to keep track of the available icons and make an easy export of them.
+**ARC** uses [Nucleo](https://nucleoapp.com/) to keep track of the available icons and make an easy export of them.
 All the icons are exported as a single SVG `symbol` file, using the following preferences:
 
 If you need to add new icons to the existing library, take the following steps:
@@ -144,11 +144,3 @@ In order to make the icons work in any theme, the `fill` and/or `stroke` attribu
 
 In the code example above, the `fill` attribute is provided with the `currentColor` value,
 this ensures that the SVG is no longer responsible for the colors.
-
-## Build
-
-> todo
-
-## Publish
-
-> todo

@@ -22,3 +22,5 @@ export class App extends LitElement {
     </arc-container>`;
   }
 }
+
+const foo = '';

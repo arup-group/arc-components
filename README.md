@@ -52,68 +52,70 @@ Some **ARC** components depend upon static assets being avaiable to load at runt
 <details>
   <summary>Shell Build Script</summary>
 
-  Add a step to your build script that coppies the contents of the `@arc-web/components/assets` directory into a diectory that is served by your applications web server:
+Add a step to your build script that coppies the contents of the `@arc-web/components/assets` directory into a diectory that is served by your applications web server:
 
-  ```diff
-  + cp -r node_modules/@arc-web/components/assets <public directory>
-  ```
+```diff
++ cp -r node_modules/@arc-web/components/assets <public directory>
+```
+
 </details>
 
 <details>
   <summary>Angular CLI</summary>
 
-  Add the `@arc-web/components/assets` directory to the `assets` array in your `angular.json` file:
+Add the `@arc-web/components/assets` directory to the `assets` array in your `angular.json` file:
 
-  ```diff
-    {
-      ...
-      "assets": [
-      ...
-  +     {
-  +       "glob": "**/*",
-  +       "input": "node_modules/@arc-web/components/assets",
-  +       "output": "assets"
-  +     }
-      ],
-      ...
-    }
-  ```
+```diff
+  {
+    ...
+    "assets": [
+    ...
++     {
++       "glob": "**/*",
++       "input": "node_modules/@arc-web/components/assets",
++       "output": "assets"
++     }
+    ],
+    ...
+  }
+```
+
 </details>
 
 <details>
   <summary>Vite</summary>
 
-  Install the `vite-plugin-static-copy` package from npm:
+Install the `vite-plugin-static-copy` package from npm:
 
-  ```sh
-  npm install --save-dev vite-plugin-static-copy
-  ```
+```sh
+npm install --save-dev vite-plugin-static-copy
+```
 
-  Use `vite-plugin-static-copy` to copy the contents of the `@arc-web/components/assets` directory:
+Use `vite-plugin-static-copy` to copy the contents of the `@arc-web/components/assets` directory:
 
-  ```diff
-  + import { viteStaticCopy } from 'vite-plugin-static-copy';
+```diff
++ import { viteStaticCopy } from 'vite-plugin-static-copy';
 
-    export default {
+  export default {
+    ...
+    plugins: [
       ...
-      plugins: [
-        ...
-  +     viteStaticCopy({
-  +       targets: [
-  +         {
-  +           src: 'node_modules/@arc-web/components/assets',
-  +           dest: '',
-  +         }
-  +       ]
-  +     }),
-      ],
-      ...
-    }
-  ```
++     viteStaticCopy({
++       targets: [
++         {
++           src: 'node_modules/@arc-web/components/assets',
++           dest: '',
++         }
++       ]
++     }),
+    ],
+    ...
+  }
+```
+
 </details>
 
 **ARC** components load the `@arc-web/components` assets useing a base path of `/assets`. If required its possiable to change this using the `setBasePath` function exported by `@arc-web/components`:
-
 
 ```ts
 import { setBasePath } from '@arc-web/components';
@@ -136,7 +138,7 @@ To customize a design token, simply override it in your stylesheet using a `:roo
 ```css
 :root,
 :host,
-arc-container[theme="light"] {
+arc-container[theme='light'] {
   --arc-color-primary: var(--arc-green-050);
 }
 ```
@@ -168,7 +170,7 @@ arc-button.blue {
 Alternatively, you can set them inline directly on the component.
 
 ```html
-<arc-button style='--btn-color=rgb(var(--arc-green-050))'>My Button</arc-button>
+<arc-button style="--btn-color=rgb(var(--arc-green-050))">My Button</arc-button>
 ```
 
 Not all components expose CSS custom properties. For those that do, they can be found in the component's API documentation. In the properties table, these can be found under the `CSS CUSTOM PROPERTIES` row.
@@ -212,9 +214,7 @@ Client-side validation can be enabled through the browser's [Constraint Validati
 
 ```html
 <form>
-  <arc-switch name="arc_is_great" value="true" required
-    >Do you love arc?</arc-switch
-  >
+  <arc-switch name="arc_is_great" value="true" required>Do you love arc?</arc-switch>
   <arc-button submit>Submit</arc-button>
 </form>
 <script type="module">
@@ -230,9 +230,7 @@ When the switch does NOT have the `checked` state, it will be invalid, as the `r
 
 ```html
 <form>
-  <arc-switch name="arc_is_great" value="true" required
-    >Do you love arc?</arc-switch
-  >
+  <arc-switch name="arc_is_great" value="true" required>Do you love arc?</arc-switch>
   <arc-button submit>Submit</arc-button>
 </form>
 
@@ -300,10 +298,11 @@ Prebuild playgrounds provide examples of how to use **ARC** components in variou
 <details>
   <summary>Running a playground locally</summary>
 
-  To run a playground locally, clone the repository and run the following commands:
+To run a playground locally, clone the repository and run the following commands:
 
-  ```sh
-  npm install
-  npx nx run <angular-playground | react-playground | vue-playground | vanilla-playgrond | node-playground>:serve
-  ```
+```sh
+npm install
+npx nx run <angular-playground | react-playground | vue-playground | vanilla-playgrond | node-playground>:serve
+```
+
 </details>

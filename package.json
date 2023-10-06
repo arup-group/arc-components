@@ -62,7 +62,7 @@
     "@webcomponents/template-shadowroot": "0.2.1",
     "esbuild": "0.19.4",
     "eslint": "8.41.0",
-    "eslint-config-prettier": "8.8.0",
+    "eslint-config-prettier": "9.0.0",
     "eslint-plugin-html": "7.1.0",
     "eslint-plugin-storybook": "0.6.12",
     "eslint-plugin-vue": "9.17.0",

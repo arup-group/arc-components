@@ -22,7 +22,7 @@
     "@angular/platform-browser": "16.2.0",
     "@angular/platform-browser-dynamic": "16.2.0",
     "@angular/router": "16.2.0",
-    "@commitlint/cli": "17.6.5",
+    "@commitlint/cli": "17.7.2",
     "@commitlint/config-conventional": "17.6.5",
     "@custom-elements-manifest/analyzer": "0.8.3",
     "@lit-labs/ssr": "3.1.7",

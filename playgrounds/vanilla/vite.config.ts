@@ -4,7 +4,7 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/playgrounds/javascript',
+  cacheDir: '../../node_modules/.vite/playgrounds/vanilla',
 
   server: {
     port: 4200,

@@ -1,10 +1,11 @@
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import '@arc-web/components/themes/index.css';
+import '@arc-web/components/themes/light.css';
+import '@arc-web/components/themes/dark.css';
+import '@arc-web/components';
 
-@customElement('app-root')
-export class App extends LitElement {
-  render() {
-    return html`<arc-container>
+class AppComponent extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `<arc-container>
       <arc-navbar slot="nav" logo="assets/arc-red.svg" tabs="0">
         <span slot="name">ARC Playground</span>
 
@@ -23,4 +24,4 @@ export class App extends LitElement {
   }
 }
 
-const foo = '';
+customElements.define('app-root', AppComponent);

@@ -1,8 +1,8 @@
 {
-  "name": "javascript-playground",
+  "name": "vanilla-playground",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "playgrounds/javascript/src",
+  "sourceRoot": "playgrounds/vanilla/src",
   "tags": ["playground"],
   "implicitDependencies": ["components"],
   "targets": {
@@ -10,7 +10,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["playgrounds/javascript/**/*.ts"]
+        "lintFilePatterns": ["playgrounds/vanilla/**/*.ts"]
       }
     },
     "build": {
@@ -18,7 +18,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "local",
       "options": {
-        "outputPath": "dist/playgrounds/javascript"
+        "outputPath": "dist/playgrounds/vanilla"
       },
       "configurations": {
         "local": {
@@ -29,20 +29,20 @@
     "preview": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx @web/dev-server --root-dir dist/playgrounds/javascript --port 4200",
+        "command": "npx @web/dev-server --root-dir dist/playgrounds/vanilla --port 4200",
         "cwd": ".",
         "parallel": false
       }
     },
     "serve": {
       "executor": "@nx/vite:dev-server",
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "local",
       "options": {
-        "buildTarget": "javascript-playground:build"
+        "buildTarget": "vanilla-playground:build"
       },
       "configurations": {
         "local": {
-          "buildTarget": "javascript-playground:build:local",
+          "buildTarget": "vanilla-playground:build:local",
           "hmr": true
         }
       }

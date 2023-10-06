@@ -1,0 +1,51 @@
+{
+  "name": "react-playground",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "playgrounds/react/src",
+  "tags": ["playground"],
+  "implicitDependencies": ["components", "react"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["playgrounds/react/**/*.tsx"]
+      }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "local",
+      "options": {
+        "outputPath": "dist/playgrounds/react"
+      },
+      "configurations": {
+        "local": {
+          "mode": "development"
+        }
+      }
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @web/dev-server --root-dir dist/playgrounds/react --port 4200",
+        "cwd": ".",
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "react-playground:build"
+      },
+      "configurations": {
+        "local": {
+          "buildTarget": "react-playground:build:local",
+          "hmr": true
+        }
+      }
+    }
+  }
+}

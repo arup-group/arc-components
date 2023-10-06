@@ -1,0 +1,51 @@
+{
+  "name": "vanilla-playground",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "playgrounds/vanilla/src",
+  "tags": ["playground"],
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["playgrounds/vanilla/**/*.ts"]
+      }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "local",
+      "options": {
+        "outputPath": "dist/playgrounds/vanilla"
+      },
+      "configurations": {
+        "local": {
+          "mode": "development"
+        }
+      }
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @web/dev-server --root-dir dist/playgrounds/vanilla --port 4200",
+        "cwd": ".",
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "local",
+      "options": {
+        "buildTarget": "vanilla-playground:build"
+      },
+      "configurations": {
+        "local": {
+          "buildTarget": "vanilla-playground:build:local",
+          "hmr": true
+        }
+      }
+    }
+  }
+}

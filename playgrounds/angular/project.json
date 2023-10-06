@@ -1,0 +1,78 @@
+{
+  "name": "angular-playground",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "arc",
+  "sourceRoot": "playgrounds/angular/src",
+  "tags": ["playgrounds"],
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "playgrounds/angular/**/*.ts",
+          "playgrounds/angular/**/*.html"
+        ]
+      }
+    },
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/playgrounds/angular",
+        "index": "playgrounds/angular/src/index.html",
+        "main": "playgrounds/angular/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "playgrounds/angular/tsconfig.json",
+        "styles": [
+          "packages/components/themes/index.css",
+          "packages/components/themes/light.css",
+          "packages/components/themes/dark.css",
+          "playgrounds/angular/src/styles.css"
+        ]
+      },
+      "configurations": {
+        "local": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "assets",
+              "output": "/assets"
+            },
+            {
+              "glob": "**/*",
+              "input": "packages/components/assets",
+              "output": "/assets"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "local"
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @web/dev-server --root-dir dist/playgrounds/angular --port 4200",
+        "cwd": ".",
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "local": {
+          "browserTarget": "angular-playground:build:local"
+        }
+      },
+      "defaultConfiguration": "local"
+    }
+  }
+}

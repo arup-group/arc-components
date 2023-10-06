@@ -3,6 +3,11 @@
   "description": "Web-components built on the ARC design system",
   "version": "2.3.1",
   "author": "Arup (https://www.arup.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arup-group/arc-components.git",
+    "directory": "packages/react"
+  },
   "type": "module",
   "customElements": "custom-elements.json",
   "dependencies": {

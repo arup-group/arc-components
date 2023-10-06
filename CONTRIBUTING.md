@@ -144,3 +144,13 @@ In order to make the icons work in any theme, the `fill` and/or `stroke` attribu
 
 In the code example above, the `fill` attribute is provided with the `currentColor` value,
 this ensures that the SVG is no longer responsible for the colors.
+
+## Release
+
+Use the `arc-release` script to set a new version for all packages within the workspace with:
+
+```sh
+npx nx run arc-release
+```
+
+Packages and storybook documentation for the release are built and published using the [publish](./.github/workflows/publish.yml) workflow upon a GitHub release being created.

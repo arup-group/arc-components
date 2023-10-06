@@ -4,9 +4,7 @@
 
 [Storybook](https://arc.arup.com) | [Documentation](#documentation) | [Playgrounds](#playgrounds)
 
-Thanks to the popularity of frameworks such as Angular, Vue, and React, component-driven development has become a part of our every day lives.
-Components help us encapsulate styles and behaviors into reusable building blocks.
-They make a lot of sense in terms of design, development, and testing.
+Thanks to the popularity of frameworks such as Angular, Vue, and React, component-driven development has become a part of our every day lives. Components help us encapsulate styles and behaviors into reusable building blocks. They make a lot of sense in terms of design, development, and testing.
 
 Unfortunately, framework-specific components fail us in a number of ways:
 
@@ -14,16 +12,11 @@ Unfortunately, framework-specific components fail us in a number of ways:
 - Their lifespan is limited to that of the framework's
 - New frameworks/versions can lead to breaking changes, requiring substantial effort to update components
 
-**ARC** is built with Web Components.
-These are sharable and standalone pieces of code (HTML/JS/CSS) that offer visual style and interactivity out of the box.
-They're supported by all [modern browsers](https://caniuse.com/custom-elementsv1), they're framework-agnostic, and they're [part of the standard](https://developer.mozilla.org/en-US/docs/Web/Web_Components),
-so we know they'll be supported for many years to come.
+**ARC** is built with Web Components. These are sharable and standalone pieces of code (HTML/JS/CSS) that offer visual style and interactivity out of the box. They're supported by all [modern browsers](https://caniuse.com/custom-elementsv1), they're framework-agnostic, and they're [part of the standard](https://developer.mozilla.org/en-US/docs/Web/Web_Components), so we know they'll be supported for many years to come.
 
 ## What problem does this solve?
 
-**ARC** provides a collection of professionally designed UI components built on a framework-agnostic technology.
-Why spend hundreds of hours (or more) building a design system from scratch?
-Why make a component library that only works with one framework?
+**ARC** provides a collection of professionally designed UI components built on a framework-agnostic technology. Why spend hundreds of hours (or more) building a design system from scratch? Why make a component library that only works with one framework?
 
 With **ARC**, you can:
 
@@ -35,19 +28,20 @@ With **ARC**, you can:
 
 ## Documentation
 
-- [Getting Started](#getting-started)
-- [Customization](#customization)
-- [Forms](#forms)
-- [Flash of unstyled content (FOUC)](#flash-of-unstyled-content-fouc)
-- [Playgrounds](#playgrounds)
-- [Issues](https://github.com/arup-group/arc-components/issues)
-- [Discussions](https://github.com/arup-group/arc-components/discussions)
-- [Contributing](https://github.com/arup-group/arc-components/blob/main/CONTRIBUTING.md)
-- [License](https://github.com/arup-group/arc-components/blob/main/LICENSE)
+- [Getting Started](#getting-started): Install and configure **ARC** components
+- [Customization](#customization): Customize **ARC** components
+- [Forms](#forms): Form control validation and serialization
+- [Flash of unstyled content (FOUC)](#flash-of-unstyled-content-fouc): Prevent FOUC
+- [Playgrounds](#playgrounds): Prebuild playground examples
+- [Storybook](https://arc.arup.com): Interactive component documentation
+- [Issues](https://github.com/arup-group/arc-components/issues): Report bugs and issues
+- [Discussions](https://github.com/arup-group/arc-components/discussions): Ask questions and share ideas with the community
+- [Contributing](https://github.com/arup-group/arc-components/blob/main/CONTRIBUTING.md): Contribute to **ARC**
+- [License](https://github.com/arup-group/arc-components/blob/main/LICENSE): **ARC** is released under the **MIT** open-source license
 
 ### Getting Started
 
-Install the latest version of the `@arc-web/components` package from npm:
+Install the `@arc-web/components` package from npm:
 
 ```sh
 npm install @arc-web/components@latest
@@ -129,24 +123,67 @@ setBasePath('/assets');
 
 ### Customization
 
-> todo
+**ARC** components can be customized at a high level through design tokens. This gives you control over theme colors and general styling. For more advanced customizations, web-components can expose something called css `parts`. To ensure that each application looks and feels the same, these `parts` are not being exposed from the **ARC** components.
+
+#### Design Tokens
+
+**ARC** makes use of several design tokens to provide a consistent appearance across components. You can customize them and use them in your own application with pure CSS. Design tokens offer a high-level approach to customizing your components, with minimal effort. There are no component-specific variables, however, as design tokens are intended to be generic and highly reusable.
+
+Design tokens are accessed through CSS custom properties that are defined within the theme. Because design tokens live at the page level, they're prefixed with `--arc-` to avoid collisions with other libraries.
+
+To customize a design token, simply override it in your stylesheet using a `:root` block. Here's an example that changes the primary color of the light theme.
+
+```css
+:root,
+:host,
+arc-container[theme="light"] {
+  --arc-color-primary: var(--arc-green-050);
+}
+```
+
+#### Custom Properties
+
+For convenience, some components expose CSS custom properties you can override. These are not design tokens, nor do they have the same `--arc-` prefix since they're scoped to a component.
+
+You can set custom properties on a component in your stylesheet.
+
+```css
+arc-button {
+  --btn-color: green;
+}
+```
+
+This will also work if you need to target a subset of components with a specific class.
+
+```css
+arc-button.green {
+  --btn-color: rgb(var(--arc-green-050));
+}
+
+arc-button.blue {
+  --btn-color: rgb(var(--arc-blue-050));
+}
+```
+
+Alternatively, you can set them inline directly on the component.
+
+```html
+<arc-button style='--btn-color=rgb(var(--arc-green-050))'>My Button</arc-button>
+```
+
+Not all components expose CSS custom properties. For those that do, they can be found in the component's API documentation. In the properties table, these can be found under the `CSS CUSTOM PROPERTIES` row.
 
 ### Forms
 
-Every ARC component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles and behavior.
-One caveat of this approach is that native `form` elements do not recognize form controls located inside a shadow root.
+Every **ARC** component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles and behavior. One caveat of this approach is that native `form` elements do not recognize form controls located inside a shadow root.
 
-ARC solves this problem by using the [formData](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event) event, which is available in all [modern browsers](https://caniuse.com/mdn-api_htmlformelement_formdata_event).
-This means, when a form is submitted, ARC form controls (i.e. arc-radio) will automatically append their values to the `FormData` object that is used to submit the form.
-In most cases, things will 'just work.' However, if you are using a form serialization library, it might need to be adapted to recognize ARC form controls.
+**ARC** solves this problem by using the [formData](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event) event, which is available in all [modern browsers](https://caniuse.com/mdn-api_htmlformelement_formdata_event). This means, when a form is submitted, **ARC** form controls (i.e. arc-radio) will automatically append their values to the `FormData` object that is used to submit the form. In most cases, things will 'just work.' However, if you are using a form serialization library, it might need to be adapted to recognize **ARC** form controls.
 
 #### Form Serialization
 
-When you are relying on standard form submissions, e.g. `<form action="...">`, you can probably skip this section.
-However, most modern apps use the Fetch API or a library such as axios to submit forms using JavaScript.
+When you are relying on standard form submissions, e.g. `<form action="...">`, you can probably skip this section. However, most modern apps use the Fetch API or a library such as axios to submit forms using JavaScript.
 
-The [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) interface offers a standard way to serialize forms in the browser.
-You can create a `FormData` object from any `<form>` element like this.
+The [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) interface offers a standard way to serialize forms in the browser. You can create a `FormData` object from any `<form>` element like this.
 
 ```js
 const form = document.querySelector('form');
@@ -156,7 +193,7 @@ const data = new FormData(form);
 ```
 
 However, if you find `FormData` tricky to work with, or need to pass a JSON payload to the server,
-ARC offers a serialization utility that gathers form data and returns a simple JavaScript object instead.
+**ARC** offers a serialization utility that gathers form data and returns a simple JavaScript object instead.
 
 ```js
 import { serialize } from '@arc-web/components/utilities/form-utils.js';
@@ -167,13 +204,11 @@ const data = serialize(form);
 // All form control data is available in a plain object
 ```
 
-This results in an object with name/value pairs that map to each form control.
-If more than one form control shares the same name, the values will be passed as an array, e.g. `{ name: ['value1', 'value2'] }`.
+This results in an object with name/value pairs that map to each form control. If more than one form control shares the same name, the values will be passed as an array, e.g. `{ name: ['value1', 'value2'] }`.
 
 #### Form Control Validation
 
-Client-side validation can be enabled through the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Constraint_validation) for ARC form controls.
-You can activate it using attributes such as `required`, `minlength` and `maxlength`. ARC implements many of the same attributes as native form controls, but checks each form control's documentation for a list of all supported properties.
+Client-side validation can be enabled through the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Constraint_validation) for ARC form controls. You can activate it using attributes such as `required`, `minlength` and `maxlength`. **ARC** implements many of the same attributes as native form controls, but checks each form control's documentation for a list of all supported properties.
 
 ```html
 <form>
@@ -191,11 +226,7 @@ You can activate it using attributes such as `required`, `minlength` and `maxlen
 </script>
 ```
 
-When the switch does NOT have the `checked` state, it will be invalid, as the `required` property is defined on the component.
-You can log the validity of the form by calling `checkValidity()`.
-You can also report the validity of the input element, by calling `reportValidity()`.
-Calling the `reportValidity()` method on the component itself, will return `true` or `false`.
-If the component is `invalid`, the browser will show the user a relevant error message.
+When the switch does NOT have the `checked` state, it will be invalid, as the `required` property is defined on the component. You can log the validity of the form by calling `checkValidity()`. You can also report the validity of the input element, by calling `reportValidity()`. Calling the `reportValidity()` method on the component itself, will return `true` or `false`. If the component is `invalid`, the browser will show the user a relevant error message.
 
 ```html
 <form>
@@ -211,19 +242,13 @@ If the component is `invalid`, the browser will show the user a relevant error m
 </script>
 ```
 
-As the user interacts with a form control, its `invalid` attribute will reflect its validity based on its current value and the constraints that have been defined.
-When a form control is invalid, the containing form will not be submitted.
-Instead, the browser will show the user a relevant error message.
+As the user interacts with a form control, its `invalid` attribute will reflect its validity based on its current value and the constraints that have been defined. When a form control is invalid, the containing form will not be submitted. Instead, the browser will show the user a relevant error message.
 
-All form controls support validation, but not all validation props are available for every component.
-Refer to a component's documentation to see which validation props it supports.
+All form controls support validation, but not all validation props are available for every component. Refer to a component's documentation to see which validation props it supports.
 
 #### Custom validation
 
-To create a custom validation error, pass a non-empty string to the `setCustomValidity()` method.
-This will override any existing validation constraints.
-The form will not be submitted when a custom validity is set and the browser will show a validation error when the containing form is submitted.
-To make the input valid again, call `setCustomValidity()` again with an empty string.
+To create a custom validation error, pass a non-empty string to the `setCustomValidity()` method. This will override any existing validation constraints. The form will not be submitted when a custom validity is set and the browser will show a validation error when the containing form is submitted. To make the input valid again, call `setCustomValidity()` again with an empty string.
 
 ```html
 <form>

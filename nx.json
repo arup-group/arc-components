@@ -25,6 +25,9 @@
     "build": {
       "dependsOn": ["^build", "lint", "test"]
     },
+    "serve": {
+      "dependsOn": ["^build"]
+    },
     "preview": {
       "dependsOn": ["build"]
     },

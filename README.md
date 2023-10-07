@@ -37,6 +37,7 @@ With **ARC**, you can:
 - [Issues](https://github.com/arup-group/arc-components/issues): Report bugs and issues
 - [Discussions](https://github.com/arup-group/arc-components/discussions): Ask questions and share ideas with the community
 - [Contributing](https://github.com/arup-group/arc-components/blob/main/CONTRIBUTING.md): Contribute to **ARC**
+- [Code Of Conduct](https://github/com/arup-group/arc-components/blob/main/CODE_OF_CONDUCT.md): **ARC** community code of conduct
 - [License](https://github.com/arup-group/arc-components/blob/main/LICENSE): **ARC** is released under the **MIT** open-source license
 
 ### Getting Started

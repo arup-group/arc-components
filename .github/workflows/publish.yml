@@ -22,7 +22,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v3
       - run: npm ci
       - run: npx nx run-many --targets=build,storybook:build --projects=tags:package
-      - run: npx nx run arc-publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - run: npx nx run arc-publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: aws s3 sync ./dist/packages/storybook s3://${{ secrets.S3_BUCKET }}

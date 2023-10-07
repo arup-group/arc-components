@@ -1,53 +1,78 @@
 # Contributing
 
-> This document outlines the guidlines and best practices to get started contributing to **ARC**.
+> This document outlines the guidelines and best practices to get started contributing to **ARC**.
 
-We welcome all contributions and engement with the **ARC** design system.
-
-## Local Development
+We welcome all contributions and engagement with the **ARC** design system.
 
 **ARC** is built using [LIT](https://lit.dev/) web components and is built on top of the Web Components standards. Every component is a native web component, with the power of interoperability. Web components work anywhere you use HTML, with any framework, or none at all. This makes using **ARC** ideal for building shareable components, or maintainable, future-ready sites and apps.
 
-### Development Enviroment
+- [Development Environment](#development-environment)
+- [Dependencies](#dependencies)
+- [Workspace](#workspace)
+- [Build System](#build-system)
+- [Development Guidelines](#development-guidelines)
+  - [Directory Structure](#directory-structure)
+  - [Local Development Server](#local-development-server)
+  - [Unit Tests](#unit-tests)
+  - [Documentation](#documentation)
+  - [Formatting and Linting](#formatting-and-linting)
+- [Guides](#guides)
 
-If you are using [NIX](https://nixos.org/) simply use the provided `shell.nix` file to get started with a development shell:
+## Development Environment
+
+The following system native build dependencies are required for a local development environment:
+
+- [Node.js](https://nodejs.org/en/)
+
+<details>
+  <summary>NIX</summary>
+
+If you are using [NIX](https://nixos.org/) switch to the the provided development shell with:
 
 ```sh
 nix-shell
 ```
 
-Else you will need to following prerequisites installed locally:
+</details>
 
-- [Node.js](https://nodejs.org/en/)
+## Dependencies
 
-Next Install the dependencies required for local development:
+Install all package dependencies using npm:
 
 ```sh
-npm install
+npm ci
 ```
 
-This repository is a monorepo containg all packages and playgrounds that relate to the **ARC** design system. The following directoty structure is used:
+## Workspace
+
+This worksapce is a monorepo containing all packages and playgrounds that relate to the **ARC** design system. The following directory structure is used:
 
 ```
-├── assets              # Shared assets for stroybook and playgrounds
+├── assets              # Shared assets for storybook and playgrounds
 ├── packages
 │   ├── components      # @arc-web/components package source
-│   └── react           # @arc-web/react package srouce
+│   └── react           # @arc-web/react package source
 └── playgrounds
     ├── angular         # Angular + ARC playground
-    ├── jacascript      # Vanilla Javascript + ARC playground
+    ├── javascript      # Vanilla Javascript + ARC playground
     ├── node-ssr        # NodeJs SSR + ARC playground
     ├── react           # React + ARC playground
     └── vue             # Vue + ARC playground
 ```
 
+## Build System
+
 [NX](https://nx.dev/) is used as a build system and tasks are run using its [run tasks](https://nx.dev/core-features/run-tasks) core functionality:
 
 ```sh
-npx nx <target name> <project name> <option overrides>
+npx nx run <project>:<target>:<configuration>
 ```
 
-### Develment Guidlines
+## Development Guidelines
+
+All development contributions should adhere to the following guidelines:
+
+### Directory Structure
 
 The following directory structure should be followed when creating simple components:
 
@@ -80,28 +105,57 @@ More complex compnents may also adher to the following:
                    ├── arc-foo.stories.tsx         # Storybook stories for component
                    ├── arc-foo.styles.ts           # Styles for component
                    ├── arc-foo.test.ts             # Tests for component
-                   └── arc-foo.ts                  # Component element registation
+                   └── arc-foo.ts                  # Component element registration
 ```
 
-During development use the following command to start a local development server in any of the playgrounds or storybook:
+### Local Development Server
+
+During development use the following command to start a local development server in any of the playgrounds:
 
 ```sh
-npx nx serve <playground name>
-npx nx storybook:serve components
+npx nx run <angular-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
 ```
+
+Or start the storybook development server with:
+
+```sh
+npx nx run components:storybook:serve
+```
+
+### Unit Tests
 
 Unit tests must be written for all components and can be run using the following command:
 
 ```sh
-npx nx test components
+npx nx run-many --target test
 ```
+
+### Documentation
 
 Every component requires the following documentation:
 
 - Docstrings for all public methods and properties
 - Storybook stories for all use cases
-- Storybook documentation (auto generated from stories for simple components)
+- Storybook documentation (auto-generated from stories for simple components)
 
+### Formatting and Linting
+
+Workspace files must adhere to the formatting and linting rules. You can run the formatter with the command:
+
+```sh
+npx nx format
+```
+
+And the linter for all projects with:
+
+```sh
+npx nx run-many --target lint
+```
+
+## Guides
+
+<details>
+  <summary>Icons</summary>
 **ARC** uses [Nucleo](https://nucleoapp.com/) to keep track of the available icons and make an easy export of them.
 All the icons are exported as a single SVG `symbol` file, using the following preferences:
 
@@ -125,7 +179,7 @@ If you need to add new icons to the existing library, take the following steps:
 Most SVG icons that are exported contain a `fill` or a `stroke` color like `#1C1C1C` or `#fff`.
 The `arc-icon` component inherits the color(s) from its parent to style the SVG,
 so you can set the color property on the `arc-icon` element or an ancestor to change the color.
-In order to make the icons work in any theme, the `fill` and/or `stroke` attributes of the exported icons.svg need to be replaced with the `currentColor` value.
+In order to make the icons work in any theme, the `fill` and/or `stroke` attributes of the exported icons.svg needs to be replaced with the `currentColor` value.
 
 ```html
 <symbol id="arc-action-undo" viewBox="0 0 31 28">
@@ -143,10 +197,12 @@ In order to make the icons work in any theme, the `fill` and/or `stroke` attribu
 ```
 
 In the code example above, the `fill` attribute is provided with the `currentColor` value,
-this ensures that the SVG is no longer responsible for the colors.
+this ensures that the SVG is no longer responsible for the colours.
 
-## Release
+</details>
 
+<details>
+  <summary>Release</summary>
 Use the `arc-release` script to set a new version for all packages within the workspace with:
 
 ```sh
@@ -154,3 +210,5 @@ npx nx run arc-release
 ```
 
 Packages and storybook documentation for the release are built and published using the [publish](./.github/workflows/publish.yml) workflow upon a GitHub release being created.
+
+</details>

@@ -11,7 +11,7 @@ export default [
       cursor: pointer;
       --min-width: 0;
       --btn-color: rgb(var(--arc-input-color));
-      --btn-background: initial;
+      --btn-background: rgb(var(--arc-color-default));
     }
 
     :host([type='tab']) {
@@ -78,7 +78,6 @@ export default [
 
     /* Colors */
     .button--filled.button--default {
-      --btn-background: rgb(var(--arc-color-default));
       --focus-color: rgba(var(--arc-input-color), 0.4);
     }
 

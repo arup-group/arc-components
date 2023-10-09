@@ -431,6 +431,7 @@ noFOUC();
 Prebuild playgrounds provide examples of how to use **ARC** components in various frameworks and environments:
 
 - [Angular](https://github.com/arup-group/arc-components/tree/main/playgrounds/angular)
+- [LIT](https://github.com/arup-group/arc-components/tree/main/playgrounds/lit)
 - [React](https://github.com/arup-group/arc-components/tree/main/playgrounds/react)
 - [Vue](https://github.com/arup-group/arup-components/tree/main/playgrounds/vue)
 - [Vanilla JS](https://github.com/arup-group/arup-components/tree/main/playgrounds/vanilla)
@@ -443,7 +444,7 @@ To run a playground locally, clone the repository and run the following commands
 
 ```sh
 npm ci
-npx nx run <angular-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
+npx nx run <angular-playground | lit-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
 ```
 
 </details>

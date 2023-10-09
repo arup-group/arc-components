@@ -113,7 +113,7 @@ More complex compnents may also adher to the following:
 During development use the following command to start a local development server in any of the playgrounds:
 
 ```sh
-npx nx run <angular-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
+npx nx run <angular-playground | lit-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
 ```
 
 Or start the storybook development server with:

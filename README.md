@@ -1,10 +1,10 @@
 <h1><img src="/assets/arc-red.svg" style="height: 1em;" /> ARC </h1>
 
-> Arup Reuseable Components
+> Arup Reusable Components
 
 [Storybook](https://arc.arup.com) | [Documentation](#documentation) | [Playgrounds](#playgrounds)
 
-Thanks to the popularity of frameworks such as Angular, Vue, and React, component-driven development has become a part of our every day lives. Components help us encapsulate styles and behaviors into reusable building blocks. They make a lot of sense in terms of design, development, and testing.
+Thanks to the popularity of frameworks such as Angular, Vue, and React, component-driven development has become a part of our everyday lives. Components help us encapsulate styles and behaviours into reusable building blocks. They make a lot of sense in terms of design, development, and testing.
 
 Unfortunately, framework-specific components fail us in a number of ways:
 
@@ -28,7 +28,15 @@ With **ARC**, you can:
 
 ## Documentation
 
-- [Getting Started](#getting-started): Install and configure **ARC** components
+- [Getting Started](#getting-started): Install and setup **ARC**
+  - [1: Installation](#1-installation): Install the latest version of **ARC**
+  - [2: Setup Stylesheets](#2-setup-stylesheets): Setup **ARC** stylesheets
+  - [3: Setup Static Assets](#3-setup-static-assets): Setup **ARC** static assets
+  - [4: Import and Use Components](#4-import-and-use-components): Import and use **ARC** components
+- [Migration Guides](https://github.com/arup-group/arc-components/blob/main/MIGRATION_GUIDES.md): Migrate to the latest version of **ARC**
+  - [v2 to v3](https://github.com/arup-group/arc-components/blob/main/MIGRATION_GUIDES.md#v2-to-v3): Migrate from **ARC** v2 to v3
+- [Typescript](#typescript): Use **ARC** components in a Typescript project
+- [React](#react): Use **ARC** components in a React project
 - [Customization](#customization): Customize **ARC** components
 - [Forms](#forms): Form control validation and serialization
 - [Flash of unstyled content (FOUC)](#flash-of-unstyled-content-fouc): Prevent FOUC
@@ -42,18 +50,79 @@ With **ARC**, you can:
 
 ### Getting Started
 
-Install the `@arc-web/components` package from npm:
+#### 1: Installation
+
+Install the latest version of the `@arc-web/components` package from [npm](https://www.npmjs.com/package/@arc-web/components):
 
 ```sh
 npm install @arc-web/components@latest
 ```
 
-Some **ARC** components depend upon static assets being avaiable to load at runtime, such as the SVG icons file required for the `ArcIcon` component. Ensure that the `@arc-web/components` assets are avaiable to your application.
+#### 2: Setup Stylesheets
+
+**ARC** components depend upon the stylesheets in the themes directory `@arc-web/components/themes` to be loaded at runtime. Ensure that the following stylesheets are loaded by your application:
 
 <details>
-  <summary>Shell Build Script</summary>
+<summary>Shell Build Script</summary>
 
-Add a step to your build script that coppies the contents of the `@arc-web/components/assets` directory into a diectory that is served by your applications web server:
+Add a step to your build script that copies the contents of the `@arc-web/components/themes` directory into a directory that is served by your applications web server:
+
+```diff
++ cp -r node_modules/@arc-web/components/themes <public directory>
+```
+
+Load the stylesheets in your application:
+
+```diff
++ <link rel="stylesheet" href="<public directory>/themes/index.css" />
++ <link rel="stylesheet" href="<public directory>/themes/light.css" />
++ <link rel="stylesheet" href="<public directory>/themes/dark.css" />
+```
+
+</details>
+
+<details>
+<summary>Angular CLI</summary>
+
+Add the stylesheets directly to the `styles` array in your `angular.json` file:
+
+```diff
+  {
+    ...
+    "styles": [
++     "node_modules/@arc-web/components/themes/index.css",
++     "node_modules/@arc-web/components/themes/light.css",
++     "node_modules/@arc-web/components/themes/dark.css",
+      ...
+    ]
+    ...
+  }
+```
+
+</details>
+
+<details>
+<summary>As CSS imports</summary>
+
+If you are using a bundler that supports CSS imports, import the stylesheets directly into your application's entry point:
+
+```diff
++ import '@arc-web/components/themes/index.css';
++ import '@arc-web/components/themes/light.css';
++ import '@arc-web/components/themes/dark.css';
+...
+```
+
+</details>
+
+#### 3: Setup Static Assets
+
+Some **ARC** components depend upon static assets being available to load at runtime, such as the SVG icons file required for the `ArcIcon` component. Ensure that the `@arc-web/components/assets` directory contents are available to be loaded by your application.
+
+<details>
+<summary>Shell Build Script</summary>
+
+Add a step to your build script that copies the contents of the `@arc-web/components/assets` directory into a directory that is served by your applications web server:
 
 ```diff
 + cp -r node_modules/@arc-web/components/assets <public directory>
@@ -62,7 +131,7 @@ Add a step to your build script that coppies the contents of the `@arc-web/compo
 </details>
 
 <details>
-  <summary>Angular CLI</summary>
+<summary>Angular CLI</summary>
 
 Add the `@arc-web/components/assets` directory to the `assets` array in your `angular.json` file:
 
@@ -84,7 +153,7 @@ Add the `@arc-web/components/assets` directory to the `assets` array in your `an
 </details>
 
 <details>
-  <summary>Vite</summary>
+<summary>Vite</summary>
 
 Install the `vite-plugin-static-copy` package from npm:
 
@@ -116,7 +185,14 @@ Use `vite-plugin-static-copy` to copy the contents of the `@arc-web/components/a
 
 </details>
 
-**ARC** components load the `@arc-web/components` assets useing a base path of `/assets`. If required its possiable to change this using the `setBasePath` function exported by `@arc-web/components`:
+<details>
+<summary>Webpack</summary>
+
+> todo
+
+</details>
+
+**ARC** components load the `@arc-web/components` assets using a base path of `/assets`. If required its possible to change this using the `setBasePath` utility function exported by `@arc-web/components`:
 
 ```ts
 import { setBasePath } from '@arc-web/components';
@@ -124,9 +200,73 @@ import { setBasePath } from '@arc-web/components';
 setBasePath('/assets');
 ```
 
+#### 4: Import and Use Components
+
+Import the `@arc-web/components` package:
+
+```ts
+import '@arc-web/components';
+```
+
+Components should now be available to use in your application:
+
+```html
+<arc-button>Click Me</arc-button>
+```
+
+<details>
+<summary>Cherry Pick Components</summary>
+
+Import only required components individually over importing the entire `@arc-web/components` package to reduce the bundle size of your application:
+
+```ts
+import `@arc-web/components/src/components/button/arc-button`;
+```
+
+</details>
+
+### Typescript
+
+**ARC** components are written in Typescript and come with their own type definitions. This means you can use them in a Typescript project without any additional setup. Import an **ARC** component and its type definition:
+
+```ts
+import type { ArcButton } from '@arc-web/components';
+import '@arc-web/components;
+```
+
+<details>
+<summary>Cherry Pick Components</summary>
+
+```ts
+import type { ArcButtton } from '@arc-web/components/src/components/button/arc-button';
+import '@arc-web/components/src/components/button/arc-button';
+```
+
+</details>
+
+### React
+
+React can render web components, however, makes assumptions about HTML elements that don't always hold for custom elements, while also treating lower-case tag names differently from upper-cased. This makes working with web components harder than necessary to use. React is working on fixes to these issues, but in the meantime, the `@arc-web/react` provides a wrapper that takes care of setting properties and listening to events for you. Read more about why we need this wrapper [here](https://lit.dev/docs/frameworks/react/#why-are-wrappers-needed)
+
+Install both the `@arc-web/components` and `@arc-web/react` packages from npm:
+
+```sh
+npm install @arc-web/components@latest @arc-web/react@latest
+```
+
+Setup the `@arc-web/components` package as described above, however, import components from the `@arc-web/react` package instead:
+
+```tsx
+import { ArcButton } from '@arc-web/react';
+
+export const App = () => {
+  return <ArcButton>Click Me</ArcButton>;
+};
+```
+
 ### Customization
 
-**ARC** components can be customized at a high level through design tokens. This gives you control over theme colors and general styling. For more advanced customizations, web-components can expose something called css `parts`. To ensure that each application looks and feels the same, these `parts` are not being exposed from the **ARC** components.
+**ARC** components can be customized at a high level through design tokens. This gives you control over theme colours and general styling. For more advanced customizations, web-components can expose something called CSS `parts`. To ensure that each application looks and feels the same, these `parts` are not being exposed from the **ARC** components.
 
 #### Design Tokens
 
@@ -178,7 +318,7 @@ Not all components expose CSS custom properties. For those that do, they can be 
 
 ### Forms
 
-Every **ARC** component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles and behavior. One caveat of this approach is that native `form` elements do not recognize form controls located inside a shadow root.
+Every **ARC** component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles and behaviour. One caveat of this approach is that native `form` elements do not recognize form controls located inside a shadow root.
 
 **ARC** solves this problem by using the [formData](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event) event, which is available in all [modern browsers](https://caniuse.com/mdn-api_htmlformelement_formdata_event). This means, when a form is submitted, **ARC** form controls (i.e. arc-radio) will automatically append their values to the `FormData` object that is used to submit the form. In most cases, things will 'just work.' However, if you are using a form serialization library, it might need to be adapted to recognize **ARC** form controls.
 
@@ -227,7 +367,7 @@ Client-side validation can be enabled through the browser's [Constraint Validati
 </script>
 ```
 
-When the switch does NOT have the `checked` state, it will be invalid, as the `required` property is defined on the component. You can log the validity of the form by calling `checkValidity()`. You can also report the validity of the input element, by calling `reportValidity()`. Calling the `reportValidity()` method on the component itself, will return `true` or `false`. If the component is `invalid`, the browser will show the user a relevant error message.
+When the switch does NOT have the `checked` state, it will be invalid, as the `required` property is defined on the component. You can log the validity of the form by calling `checkValidity()`. You can also report the validity of the input element, by calling `reportValidity()`. Calling the `reportValidity()` method on the component itself will return `true` or `false`. If the component is `invalid`, the browser will show the user a relevant error message.
 
 ```html
 <form>
@@ -275,7 +415,7 @@ A flash of unstyled content (FOUC, also flash of unstyled text) is an instance w
 <body>
   <arc-container></arc-container>
   <script>
-    import '@arc-web/components';
+    import '@arc-web/components;
   </script>
 </body>
 ```
@@ -288,7 +428,7 @@ noFOUC();
 
 ### Playgrounds
 
-Prebuild playgrounds provide examples of how to use **ARC** components in various frameworks.
+Prebuild playgrounds provide examples of how to use **ARC** components in various frameworks and environments:
 
 - [Angular](https://github.com/arup-group/arc-components/tree/main/playgrounds/angular)
 - [React](https://github.com/arup-group/arc-components/tree/main/playgrounds/react)
@@ -297,13 +437,13 @@ Prebuild playgrounds provide examples of how to use **ARC** components in variou
 - [Node SSR](https://github.com/arup-group/arup-components/tree/main/playgrounds/node)
 
 <details>
-  <summary>Running a playground locally</summary>
+<summary>Running Playgrounds Locally</summary>
 
 To run a playground locally, clone the repository and run the following commands:
 
 ```sh
-npm install
-npx nx run <angular-playground | react-playground | vue-playground | vanilla-playgrond | node-playground>:serve
+npm ci
+npx nx run <angular-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
 ```
 
 </details>

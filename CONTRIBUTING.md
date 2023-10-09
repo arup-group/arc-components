@@ -40,7 +40,7 @@ nix-shell
 Install all package dependencies using npm:
 
 ```sh
-npm ci
+npm ci && npx playwright install --with-deps
 ```
 
 ## Workspace
@@ -154,8 +154,8 @@ npx nx run-many --target lint
 
 ## Guides
 
-<details>
-  <summary>Icons</summary>
+### Icons
+
 **ARC** uses [Nucleo](https://nucleoapp.com/) to keep track of the available icons and make an easy export of them.
 All the icons are exported as a single SVG `symbol` file, using the following preferences:
 
@@ -199,10 +199,8 @@ In order to make the icons work in any theme, the `fill` and/or `stroke` attribu
 In the code example above, the `fill` attribute is provided with the `currentColor` value,
 this ensures that the SVG is no longer responsible for the colours.
 
-</details>
+### Release
 
-<details>
-  <summary>Release</summary>
 Use the `arc-release` script to set a new version for all packages within the workspace with:
 
 ```sh
@@ -210,5 +208,3 @@ npx nx run arc-release
 ```
 
 Packages and storybook documentation for the release are built and published using the [publish](./.github/workflows/publish.yml) workflow upon a GitHub release being created.
-
-</details>

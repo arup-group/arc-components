@@ -1,0 +1,51 @@
+{
+  "name": "lit-playground",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "playgrounds/lit/src",
+  "tags": ["playground"],
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["playgrounds/lit/**/*.ts"]
+      }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "local",
+      "options": {
+        "outputPath": "dist/playgrounds/lit"
+      },
+      "configurations": {
+        "local": {
+          "mode": "development"
+        }
+      }
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @web/dev-server --root-dir dist/playgrounds/lit --port 4200",
+        "cwd": ".",
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "local",
+      "options": {
+        "buildTarget": "lit-playground:build"
+      },
+      "configurations": {
+        "local": {
+          "buildTarget": "lit-playground:build:local",
+          "hmr": true
+        }
+      }
+    }
+  }
+}

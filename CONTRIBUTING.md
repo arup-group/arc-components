@@ -152,6 +152,14 @@ And the linter for all projects with:
 npx nx run-many --target lint
 ```
 
+### Commit Messages, Branches and Pull Requests
+
+Commit messages must adhere to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification and branches much follow the [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) branching model.
+
+Pull requests will be squash merged by default the core maintainers, once accepted and approved, please ensure your PR title and description follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification to ensure the correct changelog is generated. More complex PR's may be merged using the merge commit strategy.
+
+Link any commits, issues and pull requests to the relevant Jira ticket, if applicable.
+
 ## Guides
 
 ### Icons

@@ -1,0 +1,13 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@nx", "@typescript-eslint", "html"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "@nx/enforce-module-boundaries": "error"
+      }
+    }
+  ]
+}

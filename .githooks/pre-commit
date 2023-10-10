@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+npx nx format:check
+npx nx run-many --target=lint

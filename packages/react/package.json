@@ -1,0 +1,20 @@
+{
+  "name": "@arc-web/react",
+  "description": "React wrapper around the web-components built on the ARC design system",
+  "version": "2.3.1",
+  "author": "Arup (https://www.arup.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arup-group/arc-components.git",
+    "directory": "packages/react"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@arc-web/components": "2.3.1",
+    "react": "^18.0.0"
+  },
+  "dependencies": {
+    "@lit-labs/react": "^1.1.0",
+    "tslib": "2.3.1"
+  }
+}

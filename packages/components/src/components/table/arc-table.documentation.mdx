@@ -1,0 +1,252 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Components/ArcTable/Documentation" />
+
+# `ArcTable`
+
+**ARC** provides support for data visualization by providing an `ArcTable` wapper component around [Grid.js](https://gridjs.io/).
+
+## Usage
+
+You don't need any build tools to use the **ARC** table component.
+Simply include and add the component in your project, like so:
+
+```html
+<body>
+  <div id="app"></div>
+
+  <script type="module">
+    import '@arc-web/components/dist/components/table/arc-table.js';
+    const app = document.getElementById('app');
+    app.appendChild(
+      Object.assign('arc-table', {
+        columns: ['Name', 'LastName'],
+        data: [
+          ['John', 'Doe'],
+          ['Jane', 'Doe'],
+        ],
+      }),
+    );
+  </script>
+</body>
+```
+
+### Columns
+
+The `columns` property can be defined in one of the following ways:
+
+```bash
+#Array of strings
+columns: ["Name", "Email", "Number"];
+
+#or
+
+#Array of TColumn objects
+columns: [
+  { name: 'Name', sort: true },
+  { name: 'Email', sort: false },
+  { name: 'Number', sort: false, width: '50%' },
+]
+```
+
+The `TColumn` object has the following available properties:
+
+```bash
+id?: string,
+data?: function or TCell,
+name: string,
+width?: string,
+sort?: boolean,
+hidden?: boolean,
+formatter?: function,
+attributes?: HTMLAttributes or function
+```
+
+### Data
+
+The `data` property can be defined in one of the following ways:
+
+```bash
+#Array of TCell arrays
+data: [
+  ['John', 'john@example.com', '(353) 01 222 3333'],
+  ['Mark', 'mark@gmail.com',   '(01) 22 888 4444'],
+  ['Eoin', 'eo3n@yahoo.com',   '(05) 10 878 5554'],
+  ['Nisen', 'nis900@gmail.com',   '313 333 1923']
+];
+
+#or
+
+#Array of TCell objects
+data: [
+  { name: 'John', email: 'john@example.com' },
+  { name: 'Mark', email: 'mark@gmail.com' },
+  { name: 'Eoin', email: 'eo3n@yahoo.com' },
+  { name: 'Nisen', email: 'nis900@gmail.com' }
+]
+```
+
+Data can also be fetched by using an async function for example.
+The below code adds a setTimeout function to imitate a loading state.
+
+```js
+{
+  data: () => {
+    return new Promise((resolve) => {
+      setTimeout(
+        () =>
+          resolve([
+            ['John', 'john@example.com', '(353) 01 222 3333'],
+            ['Mark', 'mark@gmail.com', '(01) 22 888 4444'],
+          ]),
+        2000,
+      );
+    });
+  };
+}
+```
+
+## Customization
+
+**ARC** provides support for customizing cells at runtime by using the `format` method in the formatter property.
+
+```js
+const app = document.getElementById('app');
+const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
+app.appendChild(
+  Object.assign(table, {
+    columns: [
+      'Name',
+      'LastName',
+      {
+        name: 'Email',
+        formatter: (cell) =>
+          table.format(
+            'div',
+            {
+              id: 'myDiv',
+              className: 'my-div',
+              style: 'display: flex; justify-content: center;',
+            },
+            cell,
+          ),
+      },
+    ],
+    data: [
+      ['John', 'Doe', 'john.doe@arup.com'],
+      ['Jane', 'Doe', 'jane.doe@arup.com'],
+      ['Joe', 'Doakes', 'joe.doakes@arup.com'],
+      ['Juan', 'Perez', 'juan.perez@arup.com'],
+      ['Fred', 'Nerk', 'fred.nerk@arup.com'],
+    ],
+  }),
+);
+```
+
+The first property of the format method is a string, which can be any HTMLElement (i.e. div, span, strong etc.).
+The second property of the format method can be used to add HTMLAttributes (i.e. className, style etc.).
+The last property of the format method can be used to render children, in case of the example the cell itself is returned.
+
+### Update
+
+It is also possible to create an empty arc-table instance and update the configuration later on.
+**ARC** provides a method to update the configuration and `re-render` the table.
+
+```js
+const app = document.getElementById('app');
+const table = document.createElement('arc-table'); // Create a reference to the arc-table to get access to the built-in methods.
+app.appendChild(
+  Object.assign(table, {
+    columns: ['Name', 'LastName', 'Email'],
+    data: [['John', 'Doe', 'john.doe@arup.com']],
+  }),
+);
+
+setTimeout(() => {
+  table.updateConfig({ pagination: true });
+}, 0);
+```
+
+Calling the updateConfig method of the arc-table component,
+will automatically update all associated properties of the arc-table component.
+
+## Serialization
+
+**ARC** provides support for various different languages:
+
+- en_US
+- es_ES
+- fr_FR
+- it_IT
+- tr_TR
+
+### Installing a locale
+
+Import your language file first;
+
+```js
+import { frFR } from 'gridjs/l10n';
+```
+
+then pass it to the `language` setting of the arc-table component.
+
+```js
+Object.assign(document.createElement('arc-table'), {
+  ...allProps,
+  language: frFR,
+});
+```
+
+### Custom serialization
+
+**ARC** also provides a way to easily customize the messages and add your own language.
+Simply extend the `language` config to replace the strings:
+
+```js
+Object.assign(document.createElement('arc-table'), {
+  ...allProps,
+  language: {
+    search: {
+      placeholder: '🔍 Search...',
+    },
+    pagination: {
+      previous: '⬅️',
+      next: '➡️',
+      showing: '😃 Displaying',
+      results: 'Records',
+    },
+  },
+});
+```
+
+### Properties
+
+Below, a list of the default language configurations that can be overwritten:
+
+```js
+{
+  search: {
+    placeholder: 'Type a keyword...',
+  },
+  sort: {
+    sortAsc: 'Sort column ascending',
+    sortDesc: 'Sort column descending',
+  },
+  pagination: {
+      previous: '˂',
+      next: '˃',
+      navigate: (page, pages) => `Page ${page} of ${pages}`,
+      page: (page) => `Page ${page}`,
+      showing: 'Showing',
+      of: 'of',
+      to: 'to',
+      results: 'results',
+  },
+  loading: 'Retrieving your data, please wait...',
+  noRecordsFound: 'No matching records found.',
+  error: 'An error occurred while fetching your data.',
+}
+```
+
+> **Note**: For more advanced features of the arc-table component,
+> check the official [GridJS](https://gridjs.io/docs/examples/cell-formatting) docs.

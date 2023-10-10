@@ -1,26 +1,28 @@
-name: publish
+name: Publish
+
 on:
   release:
-    types: [created]
+    types: [published]
+
 jobs:
-  publish:
+  main:
     runs-on: ubuntu-latest
     steps:
+      # - uses: aws-actions/configure-aws-credentials@master
+      #   with:
+      #     role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 'lts/*'
-
-      - name: Install Yarn
-        uses: borales/actions-yarn@v3.0.0
-
-      - name: Install node_modules
-        run: yarn install --frozen-lockfile
-
-      - name: Build ARC
-        run: sudo yarn run build
-
-      - name: Publish
-        run: npm publish --access public
+          node-version: lts/*
+          registry-url: https://registry.npmjs.org
+      - uses: nrwl/nx-set-shas@v3
+      - run: npm ci
+      - run: npx nx run-many --targets=build,storybook:build --projects=tags:package
+      - run: npx nx run arc-publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - run: aws s3 sync ./dist/packages/storybook s3://${{ secrets.S3_BUCKET }}

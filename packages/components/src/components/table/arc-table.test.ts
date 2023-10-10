@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
+import { ComponentType } from 'preact';
 import sinon, { SinonSpy } from 'sinon';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
@@ -206,44 +207,56 @@ describe('ArcTable', () => {
     });
 
     it('should format a specific column through the format method', async () => {
-      /* Wait for the underlying GridJS instance to finish rendering. */
-      await waitUntil(() => tableReadySpy.calledOnce);
+      const firstColumn = () => {
+        const rows = getTableBody().children;
+        const firstRow = rows[0] as HTMLTableRowElement;
+        const columns = firstRow.children;
+        return columns[0] as HTMLTableCellElement;
+      };
 
-      /* Update the configuration */
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(() => tableReadySpy.calledOnce, 'Table did not render');
+
+      /* Update the GridJS configuration */
+      element.updateConfig({
+        columns: ['Name', 'LastName'],
+        data: [
+          ['John', 'Doe'],
+          ['Jane', 'Doe'],
+        ],
+      });
+
+      /* Wait for the underlying GridJS instance to finish rendering. */
+      await waitUntil(
+        () => tableReadySpy.calledTwice,
+        'Table did not update with date',
+      );
+
+      expect(firstColumn()).dom.to.equal('John');
+
+      /* Format the first column */
       element.updateConfig({
         columns: [
           {
             name: 'Name',
             formatter: (cell) =>
               element.format(
-                'strong',
-                {
-                  className: 'my-custom-class',
-                },
+                'strong' as unknown as ComponentType<string>,
+                '',
                 cell,
               ),
           },
           'LastName',
         ],
-        data: [
-          ['John', 'Doe'],
-          ['Jane', 'Doe'],
-        ],
-        pagination: true,
-        search: true,
       });
 
       /* Wait for the underlying GridJS instance to finish rendering. */
-      await waitUntil(() => tableReadySpy.calledThrice);
-
-      const rows = getTableBody().children;
-      const firstRow = rows[0] as HTMLTableRowElement;
-      const columns = firstRow.children;
-      const firstColumn = columns[0] as HTMLTableCellElement;
-
-      expect(firstColumn).dom.to.equal(
-        `<strong class="my-custom-class">John</strong>`,
+      await waitUntil(
+        () => tableReadySpy.calledThrice,
+        'Table did not update with formatter',
       );
+
+      expect(firstColumn()).dom.to.equal('<strong>John</strong>');
     });
   });
 

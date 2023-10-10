@@ -1,4 +1,4 @@
-import { ArcCheckBox } from './../../react/src/components/arc-checkbox';
+
 /* Components */
 import './components/accessibility/arc-accessibility.js';
 import './components/bottombar/arc-bottombar.js';

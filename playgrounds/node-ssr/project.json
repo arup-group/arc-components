@@ -60,8 +60,7 @@
       },
       "configurations": {
         "local": {}
-      },
-      "dependsOn": ["prebuild"]
+      }
     },
     "serve": {
       "executor": "@nx/js:node",

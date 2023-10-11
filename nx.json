@@ -13,10 +13,10 @@
         "cacheableOperations": [
           "lint",
           "test",
+          "build-typescript",
           "build",
-          "preview",
-          "storybook:build",
-          "storybook:serve"
+          "components:storybook:build",
+          "components:storybook:serve"
         ]
       }
     }
@@ -29,12 +29,6 @@
       "dependsOn": ["^build"]
     },
     "preview": {
-      "dependsOn": ["build"]
-    },
-    "storybook:build": {
-      "dependsOn": ["build"]
-    },
-    "storybook:serve": {
       "dependsOn": ["build"]
     }
   }

@@ -3,3 +3,5 @@ node_modules
 coverage
 tmp
 .angular
+.terraform
+terraform.tfvars

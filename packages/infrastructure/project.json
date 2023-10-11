@@ -1,0 +1,60 @@
+{
+  "name": "infrastructure",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/infrastructure/src",
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx-extend/terraform:fmt",
+      "configurations": {
+        "ci": {
+          "options": {
+            "ciMode": true,
+            "formatWrite": false
+          }
+        },
+        "fix": {
+          "executor": "@nx-extend/terraform:fmt",
+          "options": {
+            "formatWrite": true
+          }
+        }
+      }
+    },
+    "init": {
+      "executor": "@nx-extend/terraform:init",
+      "configurations": {
+        "ci": {
+          "options": {
+            "ciMode": true
+          }
+        }
+      },
+      "dependsOn": ["lint", "^build", "^storybook:build"]
+    },
+    "plan": {
+      "executor": "@nx-extend/terraform:plan",
+      "configurations": {
+        "ci": {
+          "options": {
+            "ciMode": true
+          }
+        }
+      },
+      "dependsOn": ["init"]
+    },
+    "apply": {
+      "executor": "@nx-extend/terraform:apply",
+      "configurations": {
+        "ci": {
+          "options": {
+            "autoApprove": true,
+            "ciMode": true
+          }
+        }
+      },
+      "dependsOn": ["plan"]
+    }
+  }
+}

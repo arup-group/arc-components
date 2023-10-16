@@ -1,21 +1,23 @@
-/*
-Retrieves the computed value of a component.
-i.e. <component style='--my-var: 30px;'></component>
-getPropertyValue(element, '--my-var') will return 30px
-*/
+/**
+ * Returns the computed value of a component.
+ */
 function getPropertyValue(element: any, property: string) {
   const computedStyles = window.getComputedStyle(element);
   return computedStyles.getPropertyValue(property).trim();
 }
 
-/* Retrieves the computed value of an ARC :root property. */
+/**
+ * Returns the computed value of an ARC :root property.
+ */
 function getRootValue(property: string) {
   const root: HTMLElement = document.querySelector(':root')!;
   const computedStyles = getComputedStyle(root);
   return computedStyles.getPropertyValue(property).trim();
 }
 
-/* Sets the computed value of an ARC :root property. */
+/**
+ * Sets the computed value of an ARC :root property.
+ */
 function setRootValue(variable: string, newVal: string) {
   const root: HTMLElement = document.querySelector(':root')!;
 
@@ -28,6 +30,11 @@ function setRootValue(variable: string, newVal: string) {
 /*
 Calling this method will resolve the flash-of-unstyled-content (FOUC)
 */
+
+/**
+ * Adds a CSS class to the documentElement to prevent a flash of unstyled content (FOUC)
+ * and removes it when the document is loaded.
+ */
 function noFOUC() {
   document.documentElement.className = 'no-fouc';
 
@@ -35,7 +42,6 @@ function noFOUC() {
     document.documentElement.classList.remove('no-fouc');
   }
 
-  /* c8 ignore next 5 */
   document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
       document.documentElement.classList.remove('no-fouc');

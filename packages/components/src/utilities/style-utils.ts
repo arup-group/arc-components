@@ -1,7 +1,10 @@
+import { isServer } from 'lit';
+
 /**
  * Returns the computed value of a component.
  */
-function getPropertyValue(element: any, property: string) {
+function getPropertyValue(element: any, property: string): string {
+  if (isServer) return '';
   const computedStyles = window.getComputedStyle(element);
   return computedStyles.getPropertyValue(property).trim();
 }
@@ -9,7 +12,8 @@ function getPropertyValue(element: any, property: string) {
 /**
  * Returns the computed value of an ARC :root property.
  */
-function getRootValue(property: string) {
+function getRootValue(property: string): string {
+  if (isServer) return '';
   const root: HTMLElement = document.querySelector(':root')!;
   const computedStyles = getComputedStyle(root);
   return computedStyles.getPropertyValue(property).trim();
@@ -18,7 +22,8 @@ function getRootValue(property: string) {
 /**
  * Sets the computed value of an ARC :root property.
  */
-function setRootValue(variable: string, newVal: string) {
+function setRootValue(variable: string, newVal: string): void {
+  if (isServer) return;
   const root: HTMLElement = document.querySelector(':root')!;
 
   /* Only overwrite when the css variable changed. */
@@ -27,15 +32,12 @@ function setRootValue(variable: string, newVal: string) {
   }
 }
 
-/*
-Calling this method will resolve the flash-of-unstyled-content (FOUC)
-*/
-
 /**
  * Adds a CSS class to the documentElement to prevent a flash of unstyled content (FOUC)
  * and removes it when the document is loaded.
  */
-function noFOUC() {
+function noFOUC(): void {
+  if (isServer) return;
   document.documentElement.className = 'no-fouc';
 
   if (document.readyState === 'complete') {

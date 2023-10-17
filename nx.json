@@ -21,9 +21,6 @@
     }
   },
   "targetDefaults": {
-    "prebuild": {
-      "dependsOn": ["^lint", "^test", "lint", "test"]
-    },
     "build": {
       "dependsOn": ["^build", "prebuild"]
     },

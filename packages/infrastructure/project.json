@@ -42,7 +42,6 @@
           }
         }
       },
-      "dependsOn": ["init"]
     },
     "apply": {
       "executor": "@nx-extend/terraform:apply",

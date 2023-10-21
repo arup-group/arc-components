@@ -30,8 +30,7 @@
             "ciMode": true
           }
         }
-      },
-      "dependsOn": ["lint", "^build", "^storybook:build"]
+      }
     },
     "plan": {
       "executor": "@nx-extend/terraform:plan",
@@ -41,8 +40,7 @@
             "ciMode": true
           }
         }
-      },
-      "dependsOn": ["init"]
+      }
     },
     "apply": {
       "executor": "@nx-extend/terraform:apply",
@@ -53,8 +51,7 @@
             "ciMode": true
           }
         }
-      },
-      "dependsOn": ["plan"]
+      }
     }
   }
 }

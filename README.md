@@ -66,9 +66,9 @@ npm install @arc-web/components@latest
 **ARC** components depend upon the stylesheets in the themes directory `@arc-web/components/themes` to be loaded at runtime. Ensure that the following stylesheets are loaded by your application:
 
 <details>
-<summary>Shell Build Script</summary>
+<summary>Build Script</summary>
 
-Add a step to your build script that copies the contents of the `@arc-web/components/themes` directory into a directory that is served by your applications web server:
+Add a step to your build script that copies the contents of the `@arc-web/components/themes` directory into a directory that serves static assets by your applications web server:
 
 ```diff
 + cp -r node_modules/@arc-web/components/themes <public directory>
@@ -77,9 +77,15 @@ Add a step to your build script that copies the contents of the `@arc-web/compon
 Load the stylesheets in your application:
 
 ```diff
-+ <link rel="stylesheet" href="<public directory>/themes/index.css" />
-+ <link rel="stylesheet" href="<public directory>/themes/light.css" />
-+ <link rel="stylesheet" href="<public directory>/themes/dark.css" />
+  <html>
+    <head>
+    ...
++   <link rel="stylesheet" href="<public directory>/themes/index.css" />
++   <link rel="stylesheet" href="<public directory>/themes/light.css" />
++   <link rel="stylesheet" href="<public directory>/themes/dark.css" />
+    ...
+    </head>
+  </html>
 ```
 
 </details>
@@ -87,7 +93,7 @@ Load the stylesheets in your application:
 <details>
 <summary>Angular CLI</summary>
 
-Add the stylesheets directly to the `styles` array in your `angular.json` file:
+Add the stylesheets directly to the `styles` array in your `angular.json` configuration file:
 
 ```diff
   {
@@ -105,9 +111,9 @@ Add the stylesheets directly to the `styles` array in your `angular.json` file:
 </details>
 
 <details>
-<summary>As CSS imports</summary>
+<summary>CSS Imports</summary>
 
-If you are using a bundler that supports CSS imports, import the stylesheets directly into your application's entry point:
+Bunderlers that support CSS imports allow you to import CSS files directly into your application's entry point. This is the recommended approach as it allows the bundler to optimize the CSS and remove any unused styles:
 
 ```diff
 + import '@arc-web/components/themes/index.css';
@@ -123,9 +129,9 @@ If you are using a bundler that supports CSS imports, import the stylesheets dir
 Some **ARC** components depend upon static assets being available to load at runtime, such as the SVG icons file required for the `ArcIcon` component. Ensure that the `@arc-web/components/assets` directory contents are available to be loaded by your application.
 
 <details>
-<summary>Shell Build Script</summary>
+<summary>Build Script</summary>
 
-Add a step to your build script that copies the contents of the `@arc-web/components/assets` directory into a directory that is served by your applications web server:
+Add a step to your build script that copies the contents of the `@arc-web/components/assets` directory into a directory that serves assets for by your applications web server:
 
 ```diff
 + cp -r node_modules/@arc-web/components/assets <public directory>
@@ -188,13 +194,6 @@ Use `vite-plugin-static-copy` to copy the contents of the `@arc-web/components/a
 
 </details>
 
-<details>
-<summary>Webpack</summary>
-
-> todo
-
-</details>
-
 **ARC** components load the `@arc-web/components` assets using a base path of `/assets`. If required its possible to change this using the `setBasePath` utility function exported by `@arc-web/components`:
 
 ```ts
@@ -211,7 +210,7 @@ Import the `@arc-web/components` package:
 import '@arc-web/components';
 ```
 
-Components should now be available to use in your application:
+Components are now be available to use in your application:
 
 ```html
 <arc-button>Click Me</arc-button>

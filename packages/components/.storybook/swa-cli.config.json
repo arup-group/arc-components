@@ -1,0 +1,12 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "arc-components": {
+      "appLocation": "../../../",
+      "outputLocation": "dist/packages/storybook",
+      "appBuildCommand": "npx nx run components:storybook:build",
+      "run": "echo 'No run command specified' && exit 1",
+      "appDevserverUrl": "http://localhost:4200"
+    }
+  }
+}

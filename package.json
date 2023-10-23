@@ -26,6 +26,7 @@
     "@angular/platform-browser": "16.2.0",
     "@angular/platform-browser-dynamic": "16.2.0",
     "@angular/router": "16.2.0",
+    "@azure/static-web-apps-cli": "1.1.4",
     "@commitlint/cli": "17.6.5",
     "@commitlint/config-conventional": "17.6.5",
     "@custom-elements-manifest/analyzer": "0.8.3",

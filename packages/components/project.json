@@ -47,7 +47,8 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npx custom-elements-manifest analyze --litelement --globs \"dist/packages/components/src/**/*.js\" --outdir dist/packages/components"
-      }
+      },
+      "dependsOn": ["prebuild"]
     },
     "storybook:build": {
       "executor": "@nx/storybook:build",
@@ -77,6 +78,15 @@
         "port": 4200,
         "configDir": "packages/components/.storybook"
       }
+    },
+    "storybook:deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx swa deploy --config packages/components/.storybook/swa-cli.config.json --env production",
+        "cwd": ".",
+        "parallel": false
+      },
+      "dependsOn": ["storybook:build"]
     }
   }
 }

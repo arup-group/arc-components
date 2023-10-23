@@ -31,3 +31,18 @@ resource "azurerm_resource_group" "arup-arc-infra-prod-rg" {
     Source             = "Terraform"
   }
 }
+
+resource "azurerm_static_site" "arup-arc-infra-prod-documentation" {
+  name                = "arup-arc-prod-documentation"
+  resource_group_name = azurerm_resource_group.arup-arc-infra-prod-rg.name
+  location            = "westeurope"
+  sku_tier            = "Free"
+  sku_size            = "Free"
+  tags = {
+    CostCenter   = "01-89915"
+    Environment  = "Production"
+    FinanceAdmin = "liz.lane@arup.com"
+    JobNumber    = "071101-42"
+    Owner        = "daragh.anderson@arup.com"
+  }
+}

@@ -1,2 +1,4 @@
 dist
 .angular
+terraform.tfstate
+.terraform.lock.hcl

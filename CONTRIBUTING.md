@@ -16,13 +16,17 @@ We welcome all contributions and engagement with the **ARC** design system.
   - [Unit Tests](#unit-tests)
   - [Documentation](#documentation)
   - [Formatting and Linting](#formatting-and-linting)
+- [Infrastructure](#infrastructure)
 - [Guides](#guides)
 
 ## Development Environment
 
 The following system native build dependencies are required for a local development environment:
 
+- [git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
+- [Terraform](https://www.terraform.io/)
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)
 
 <details>
   <summary>NIX</summary>
@@ -43,12 +47,24 @@ Install all package dependencies using npm:
 npm ci && npx playwright install --with-deps
 ```
 
+<details>
+  <summary>NIX</summary>
+
+If you are using [NIX](https://nixos.org/) use the `[clean-install](https://github.com/arup-group/arc-components/blob/main/shell.nix#L4C3-L18)` shell application:
+
+```sh
+clean-install
+```
+
+</details>
+
 ## Workspace
 
 This worksapce is a monorepo containing all packages and playgrounds that relate to the **ARC** design system. The following directory structure is used:
 
 ```
 ├── assets              # Shared assets for storybook and playgrounds
+├── infrastructure      # Infrastructure managed by Terraform
 ├── packages
 │   ├── components      # @arc-web/components package source
 │   └── react           # @arc-web/react package source
@@ -160,6 +176,24 @@ Pull requests will be squash merged by default the core maintainers, once accept
 
 Link any commits, issues and pull requests to the relevant Jira ticket, if applicable.
 
+### Infrastructure
+
+The **ARC** project infrastucture is spread across the following deployment nodes:
+
+```mermaid
+C4Deployment
+  Deployment_Node(browser, "Web Browser"){
+    Container(browser-documentation, "Documentation", "Storybook")
+  }
+
+  Deployment_Node(azure, "Azure") {
+    Deployment_Node(azure-resource-group-arc, "Azure Resource Group - ARC") {
+      Container(azure-static-site-documentation, "S3 - Frontend", "Azure Static Site")
+      Rel(browser-documentation, azure-static-site-documentation, "")
+    }
+  }
+```
+
 ## Guides
 
 ### Icons
@@ -216,3 +250,12 @@ npx nx run arc-release
 ```
 
 Packages and storybook documentation for the release are built and published using the [publish](./.github/workflows/publish.yml) workflow upon a GitHub release being created.
+
+### Updating Infrastucture
+
+To update infrastructure:
+
+1. Make changes to the [infrastructure](./infrastructure) terraform files.
+2. Run `npx nx run infrastructure:plan` to see the changes that will be applied.
+3. Submit a pull request with the changes. Include the output of `npx nx run infrastructure:plan` in the pull request description.
+4. Once the pull request is approved and merged into main run the `npx nx run infrastructure:apply` to apply chanages.

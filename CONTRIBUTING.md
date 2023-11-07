@@ -34,7 +34,7 @@ The following system native build dependencies are required for a local developm
 If you are using [NIX](https://nixos.org/) switch to the the provided development shell with:
 
 ```sh
-nix-shell
+nix develop
 ```
 
 </details>
@@ -50,7 +50,7 @@ npm ci && npx playwright install --with-deps
 <details>
   <summary>NIX</summary>
 
-If you are using [NIX](https://nixos.org/) use the `[clean-install](https://github.com/arup-group/arc-components/blob/main/shell.nix#L4C3-L18)` shell application:
+If you are using [NIX](https://nixos.org/) use the `[clean-install](https://github.com/arup-group/arc-components/blob/main/flake.nix#L19-L31)` deerivation:
 
 ```sh
 clean-install

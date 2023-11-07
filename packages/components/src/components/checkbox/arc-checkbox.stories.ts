@@ -1,39 +1,21 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import type ArcCheckBox from './ArcCheckBox.js';
-import '../radio-group/arc-radio-group.js';
-import './arc-radio.js';
+import ArcCheckBox from './ArcCheckBox.js';
+import './arc-checkbox.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 export default {
-  title: 'Components/ArcRadio',
-  component: 'arc-radio',
-  parameters: {
-    actions: {
-      handles: [ARC_EVENTS.change],
-    },
-  },
+  title: 'Components/ArcCheckbox',
+  component: 'arc-checkbox',
 } as Meta;
 
-const Template: Story<ArcCheckBox> = ({ name, value, checked, disabled }) => html`
-  <arc-radio-group label="Radio Group">
-    <arc-radio
-      name=${name}
-      value=${value}
-      ?disabled=${disabled}
-      ?checked=${checked}
-      >Option 1</arc-radio
-    >
-    <arc-radio name=${name} value="option_2">Option 2</arc-radio>
-    <arc-radio name=${name} value="option_3">Option 3</arc-radio>
-  </arc-radio-group>
-  <p>
-    For demoing purposes, only the first item responds to the
-    <code class="code-block">checked</code>,
-    <code class="code-block">disabled</code> and
-    <code class="code-block">value</code> properties.
-  </p>
-`;
+const Template: Story<ArcCheckBox> = ({ name, value, checked, disabled }) =>
+  html`<arc-checkbox
+    name=${ifDefined(name || undefined)}
+    checked=${ifDefined(checked || undefined)}
+    disabled=${ifDefined(disabled || undefined)}
+    >checkbox</arc-checkbox
+  >`;
 
 const defaultArgs = {
   name: 'arc-test',

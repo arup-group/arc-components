@@ -26,7 +26,8 @@ export default class ArcCheckBox extends LitElement {
   /** @internal - Controller used to recognize form controls located inside a shadow root. */
   /* @ts-expect-error - Controller used to hook the component to the formData */
   private readonly formController = new FormController(this, {
-    value: (control: ArcCheckBox) => (control.checked ? control.value : undefined),
+    value: (control: ArcCheckBox) =>
+      control.checked ? control.value : undefined,
   });
 
   /** The name used to reference the value of the control. */
@@ -47,7 +48,6 @@ export default class ArcCheckBox extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) invalid = false;
 
-
   /* Enable/disable the editor when the disabled property changes */
   @watch('disabled', { waitUntilFirstUpdate: true })
   handleDisabledChange() {
@@ -59,10 +59,60 @@ export default class ArcCheckBox extends LitElement {
   @watch('checked', { waitUntilFirstUpdate: true })
   handleCheckedChange() {
     if (this.value == undefined) {
-      this.value = !!this.checked? "on": "off"; 
+      this.value = !!this.checked ? 'on' : 'off';
     }
   }
 
+  getAllCheckboxes(
+    options: { includeDisabled: boolean } = { includeDisabled: true },
+  ) {
+    const checkboxGroup = this.closest('arc-checkbox-group');
+    const { includeDisabled } = options;
+
+    if (!checkboxGroup) return [this];
+
+    return [...checkboxGroup.querySelectorAll('arc-checkbox')].filter(
+      (checkbox: ArcCheckBox) => {
+        if (checkbox.name !== this.name) return false;
+
+        /* Are disabled items included? return true, else false. */
+        return !(!includeDisabled && checkbox.disabled);
+      },
+    ) as ArcCheckBox[];
+  }
+
+  getSiblingCheckboxes() {
+    return this.getAllCheckboxes().filter(
+      (checkboxes) => checkboxes !== this,
+    ) as ArcCheckBox[];
+  }
+
+  handleKeyDown(event: KeyboardEvent) {
+    /* Move the selection when pressing down, up, left or right. */
+    if (
+      ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(event.key)
+    ) {
+      const checkbox = this.getAllCheckboxes({ includeDisabled: false });
+      const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
+      let index = checkbox.indexOf(this) + incr;
+      if (index < 0) index = checkbox.length - 1;
+      if (index > checkbox.length - 1) index = 0;
+
+      /* Remove the checked state of all radio buttons. */
+      this.getAllCheckboxes().forEach((checkbox) => {
+        checkbox.checked = false;
+        checkbox.input.tabIndex = -1;
+      });
+      /* Set focus on the checkbox. */
+      checkbox[index].input.focus();
+      checkbox[index].checked = true;
+      checkbox[index].input.tabIndex = 0;
+
+      emit(checkbox[index], ARC_EVENTS.change);
+
+      event.preventDefault();
+    }
+  }
 
   /* Simulates a click on the radio. */
   click() {
@@ -95,10 +145,9 @@ export default class ArcCheckBox extends LitElement {
     if (!this.checked) {
       this.checked = true;
       emit(this, ARC_EVENTS.change);
-    }
-    else{
-    this.checked = false
-    emit(this, ARC_EVENTS.change);
+    } else {
+      this.checked = false;
+      emit(this, ARC_EVENTS.change);
     }
   }
 
@@ -125,25 +174,31 @@ export default class ArcCheckBox extends LitElement {
         <span id="control">
           <span id="icon">
             <svg
+              width="42"
+              height="42"
               class="bg"
               focusable="false"
               aria-hidden="true"
-              viewBox="0 0 24 24"
-              data-testid="RadioButtonUncheckedIcon"
+              viewBox="9 10 24 24"
+              data-testid="CheckboxButtonUncheckedIcon"
             >
               <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-              ></path>
+                d="M28.5 12.1875H13.5C13.1519 12.1875 12.8181 12.3258 12.5719 12.5719C12.3258 12.8181 12.1875 13.1519 12.1875 13.5V28.5C12.1875 28.8481 12.3258 29.1819 12.5719 29.4281C12.8181 29.6742 13.1519 29.8125 13.5 29.8125H28.5C28.8481 29.8125 29.1819 29.6742 29.4281 29.4281C29.6742 29.1819 29.8125 28.8481 29.8125 28.5V13.5C29.8125 13.1519 29.6742 12.8181 29.4281 12.5719C29.1819 12.3258 28.8481 12.1875 28.5 12.1875ZM28.6875 28.5C28.6875 28.5497 28.6677 28.5974 28.6326 28.6326C28.5974 28.6677 28.5497 28.6875 28.5 28.6875H13.5C13.4503 28.6875 13.4026 28.6677 13.3674 28.6326C13.3323 28.5974 13.3125 28.5497 13.3125 28.5V13.5C13.3125 13.4503 13.3323 13.4026 13.3674 13.3674C13.4026 13.3323 13.4503 13.3125 13.5 13.3125H28.5C28.5497 13.3125 28.5974 13.3323 28.6326 13.3674C28.6677 13.4026 28.6875 13.4503 28.6875 13.5V28.5Z"
+                fill="black"
+                fill-opacity="0.6"
+              />
             </svg>
             <svg
+              width="42"
+              height="42"
               class="fill"
               focusable="false"
               aria-hidden="true"
-              viewBox="0 0 24 24"
-              data-testid="RadioButtonCheckedIcon"
+              viewBox="9 10 24 24"
+              data-testid="CheckboxButtonCheckedIcon"
             >
               <path
-                d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                d="M28.5 12H13.5C13.1022 12 12.7206 12.158 12.4393 12.4393C12.158 12.7206 12 13.1022 12 13.5V28.5C12 28.8978 12.158 29.2794 12.4393 29.5607C12.7206 29.842 13.1022 30 13.5 30H28.5C28.8978 30 29.2794 29.842 29.5607 29.5607C29.842 29.2794 30 28.8978 30 28.5V13.5C30 13.1022 29.842 12.7206 29.5607 12.4393C29.2794 12.158 28.8978 12 28.5 12ZM25.2806 19.2806L20.0306 24.5306C19.961 24.6004 19.8783 24.6557 19.7872 24.6934C19.6962 24.7312 19.5986 24.7506 19.5 24.7506C19.4014 24.7506 19.3038 24.7312 19.2128 24.6934C19.1217 24.6557 19.039 24.6004 18.9694 24.5306L16.7194 22.2806C16.5786 22.1399 16.4996 21.949 16.4996 21.75C16.4996 21.551 16.5786 21.3601 16.7194 21.2194C16.8601 21.0786 17.051 20.9996 17.25 20.9996C17.449 20.9996 17.6399 21.0786 17.7806 21.2194L19.5 22.9397L24.2194 18.2194C24.2891 18.1497 24.3718 18.0944 24.4628 18.0567C24.5539 18.019 24.6515 17.9996 24.75 17.9996C24.8485 17.9996 24.9461 18.019 25.0372 18.0567C25.1282 18.0944 25.2109 18.1497 25.2806 18.2194C25.3503 18.2891 25.4056 18.3718 25.4433 18.4628C25.481 18.5539 25.5004 18.6515 25.5004 18.75C25.5004 18.8485 25.481 18.9461 25.4433 19.0372C25.4056 19.1282 25.3503 19.2109 25.2806 19.2806Z"
               ></path>
             </svg>
           </span>

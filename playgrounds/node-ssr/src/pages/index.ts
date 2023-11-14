@@ -2,6 +2,7 @@ import { render } from '@lit-labs/ssr';
 import { html } from 'lit';
 
 import '../../../../dist/packages/components/src/components/spinner/arc-spinner.js';
+import '../../../../dist/packages/components/src/components/button/arc-button.js';
 
 export interface IndexProps {
   name: string;
@@ -34,7 +35,12 @@ export function* renderIndex({ name }: IndexProps) {
       </script>
   `;
 
-  yield* render(html`<p>Hello, ${name}! <arc-spinner></arc-spinner></p>`);
+  yield* render(html`
+    <section id="playground" style="padding: var(--arc-spacing-small)">
+      <p>Hello ${name}!</p>
+      <arc-button color="primary">open alert</arc-button>
+    </section>
+  `);
 
   yield `
       <script type="module">
@@ -49,6 +55,14 @@ export function* renderIndex({ name }: IndexProps) {
 
         // IMPORT ROOT COMPONENTS
         import('./dist/packages/components/src/components/spinner/arc-spinner.js');
+        import('./dist/packages/components/src/components/button/arc-button.js');
+
+        // APP
+        const playground = document.getElementById('playground');
+        const button = playground.querySelector('arc-button');
+        button.addEventListener('click', () => {
+          alert('Hello ${name}');
+        });
       </script>
     </body>
   </html>

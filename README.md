@@ -440,43 +440,43 @@ You can use SSR for a variety of reasons:
 
 For a deeper dive into server-side rendering concepts and techniques generally, see [Rendering on the Web](https://web.dev/articles/rendering-on-the-web) on web.dev.
 
-| Component          | Current Support Level |
-| ------------------ | --------------------- |
-| `ArcAccessibility` | No current support    |
-| `ArcAvatar`        | No current support    |
-| `ArcBottombar`     | No current support    |
-| `ArcButton`        | Full support          |
-| `ArcChip`          | No current support    |
-| `ArcContainer`     | No current support    |
-| `ArcDrawer`        | No current support    |
-| `ArcDropdown`      | No current support    |
-| `ArcHero`          | No current support    |
-| `ArcIcon`          | No current support    |
-| `ArcIconButton`    | No current support    |
-| `ArcImage`         | No current support    |
-| `ArcMenu`          | No current support    |
-| `ArcMenuItem`      | No current support    |
-| `ArcNavbar`        | No current support    |
-| `ArcRadio`         | No current support    |
-| `ArcRadioGroup`    | No current support    |
-| `ArcSidebar`       | No current support    |
-| `ArcSpinner`       | Full support          |
-| `ArcSso`           | No current support    |
-| `ArcSwitch`        | No current support    |
-| `ArcTable`         | No current support    |
-| `ArcTooltip`       | No current support    |
+| Component          | Current Support Level | Comments |
+| ------------------ | --------------------- | -------- |
+| `ArcAccessibility` | No current support    |          |
+| `ArcAvatar`        | No current support    |          |
+| `ArcBottombar`     | No current support    |          |
+| `ArcButton`        | Full support          |          |
+| `ArcChip`          | No current support    |          |
+| `ArcContainer`     | No current support    |          |
+| `ArcDrawer`        | No current support    |          |
+| `ArcDropdown`      | No current support    |          |
+| `ArcHero`          | No current support    |          |
+| `ArcIcon`          | No current support    |          |
+| `ArcIconButton`    | No current support    |          |
+| `ArcImage`         | No current support    |          |
+| `ArcMenu`          | No current support    |          |
+| `ArcMenuItem`      | No current support    |          |
+| `ArcNavbar`        | No current support    |          |
+| `ArcRadio`         | No current support    |          |
+| `ArcRadioGroup`    | No current support    |          |
+| `ArcSidebar`       | No current support    |          |
+| `ArcSpinner`       | Full support          |          |
+| `ArcSso`           | No current support    |          |
+| `ArcSwitch`        | No current support    |          |
+| `ArcTable`         | No current support    |          |
+| `ArcTooltip`       | No current support    |          |
 
 ### Playgrounds
 
 Prebuild playgrounds provide examples of how to use **ARC** components in various frameworks and environments:
 
-- [Angular](https://github.com/arup-group/arc-components/tree/main/playgrounds/angular)
-- [LIT](https://github.com/arup-group/arc-components/tree/main/playgrounds/lit)
-- [React](https://github.com/arup-group/arc-components/tree/main/playgrounds/react)
-- [Vue](https://github.com/arup-group/arup-components/tree/main/playgrounds/vue)
-- [Vanilla JS](https://github.com/arup-group/arup-components/tree/main/playgrounds/vanilla)
-- [Node SSR](https://github.com/arup-group/arup-components/tree/main/playgrounds/node-ssr)
-- [Node Prerender](https://github.com/arup-group/arup-components/tree/main/playgrounds/node-prerender)
+- [Angular](https://github.com/arup-group/arc-components/tree/main/playgrounds/angular) An Angular application build with the Angular CLI.
+- [LIT](https://github.com/arup-group/arc-components/tree/main/playgrounds/lit) A LIT application build and bundled with Vite.
+- [React](https://github.com/arup-group/arc-components/tree/main/playgrounds/react) A React application build and bundled with Vite.
+- [Vue](https://github.com/arup-group/arup-components/tree/main/playgrounds/vue) A Vue application build and bundled with Vite.
+- [Vanilla JS](https://github.com/arup-group/arup-components/tree/main/playgrounds/vanilla) A Vanilla JS application build and bundled with Vite.
+- [Node SSR](https://github.com/arup-group/arup-components/tree/main/playgrounds/node-ssr) A Node application that uses The Koa framework to server side render and hydrate **ARC** components.
+- [Node Prerender](https://github.com/arup-group/arup-components/tree/main/playgrounds/node-prerender) A Node application that prerenders a static index.html file that included \*_ARC_ components.
 
 <details>
 <summary>Running Playgrounds Locally</summary>
@@ -485,7 +485,7 @@ To run a playground locally, clone the repository and run the following commands
 
 ```sh
 npm ci
-npx nx run <angular-playground | lit-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
+npx nx run <playground-name>:serve
 ```
 
 </details>

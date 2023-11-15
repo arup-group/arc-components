@@ -428,6 +428,44 @@ import { noFOUC } from '@arc-web/components/utilities/style-utils.js';
 noFOUC();
 ```
 
+### Server Side Rendering (SSR)
+
+Server-side rendering (SSR) is a technique for generating and serving the HTML of your components, including shadow DOM and styles, before their JavaScript implementations have loaded and executed.
+
+You can use SSR for a variety of reasons:
+
+- Performance. Some sites can render faster if they render static HTML first without waiting for JavaScript to load, then (optionally) load the page's JavaScript and hydrate the components.
+- SEO and web crawlers. While the major search-engine web crawlers render pages with full JavaScript-enabled browsers, not all web crawlers support JavaScript.
+- Robustness. Static HTML renders even if the JavaScript fails to load or the user has JavaScript disabled.
+
+For a deeper dive into server-side rendering concepts and techniques generally, see [Rendering on the Web](https://web.dev/articles/rendering-on-the-web) on web.dev.
+
+| Component          | Current Support Level |
+| ------------------ | --------------------- |
+| `ArcAccessibility` | No current support    |
+| `ArcAvatar`        | No current support    |
+| `ArcBottombar`     | No current support    |
+| `ArcButton`        | Full support          |
+| `ArcChip`          | No current support    |
+| `ArcContainer`     | No current support    |
+| `ArcDrawer`        | No current support    |
+| `ArcDropdown`      | No current support    |
+| `ArcHero`          | No current support    |
+| `ArcIcon`          | No current support    |
+| `ArcIconButton`    | No current support    |
+| `ArcImage`         | No current support    |
+| `ArcMenu`          | No current support    |
+| `ArcMenuItem`      | No current support    |
+| `ArcNavbar`        | No current support    |
+| `ArcRadio`         | No current support    |
+| `ArcRadioGroup`    | No current support    |
+| `ArcSidebar`       | No current support    |
+| `ArcSpinner`       | Full support          |
+| `ArcSso`           | No current support    |
+| `ArcSwitch`        | No current support    |
+| `ArcTable`         | No current support    |
+| `ArcTooltip`       | No current support    |
+
 ### Playgrounds
 
 Prebuild playgrounds provide examples of how to use **ARC** components in various frameworks and environments:

@@ -475,7 +475,8 @@ Prebuild playgrounds provide examples of how to use **ARC** components in variou
 - [React](https://github.com/arup-group/arc-components/tree/main/playgrounds/react)
 - [Vue](https://github.com/arup-group/arup-components/tree/main/playgrounds/vue)
 - [Vanilla JS](https://github.com/arup-group/arup-components/tree/main/playgrounds/vanilla)
-- [Node SSR](https://github.com/arup-group/arup-components/tree/main/playgrounds/node)
+- [Node SSR](https://github.com/arup-group/arup-components/tree/main/playgrounds/node-ssr)
+- [Node Prerender](https://github.com/arup-group/arup-components/tree/main/playgrounds/node-prerender)
 
 <details>
 <summary>Running Playgrounds Locally</summary>

@@ -440,31 +440,31 @@ You can use SSR for a variety of reasons:
 
 For a deeper dive into server-side rendering concepts and techniques generally, see [Rendering on the Web](https://web.dev/articles/rendering-on-the-web) on web.dev.
 
-| Component          | Current Support Level | Comments |
-| ------------------ | --------------------- | -------- |
-| `ArcAccessibility` | No current support    |          |
-| `ArcAvatar`        | No current support    |          |
-| `ArcBottombar`     | No current support    |          |
-| `ArcButton`        | Full support          |          |
-| `ArcChip`          | No current support    |          |
-| `ArcContainer`     | No current support    |          |
-| `ArcDrawer`        | No current support    |          |
-| `ArcDropdown`      | No current support    |          |
-| `ArcHero`          | No current support    |          |
-| `ArcIcon`          | No current support    |          |
-| `ArcIconButton`    | No current support    |          |
-| `ArcImage`         | No current support    |          |
-| `ArcMenu`          | No current support    |          |
-| `ArcMenuItem`      | No current support    |          |
-| `ArcNavbar`        | No current support    |          |
-| `ArcRadio`         | No current support    |          |
-| `ArcRadioGroup`    | No current support    |          |
-| `ArcSidebar`       | No current support    |          |
-| `ArcSpinner`       | Full support          |          |
-| `ArcSso`           | No current support    |          |
-| `ArcSwitch`        | No current support    |          |
-| `ArcTable`         | No current support    |          |
-| `ArcTooltip`       | No current support    |          |
+| Component          | Current Support Level | Comments                                |
+| ------------------ | --------------------- | --------------------------------------- |
+| `ArcAccessibility` | No current support    |                                         |
+| `ArcAvatar`        | No current support    |                                         |
+| `ArcBottombar`     | No current support    |                                         |
+| `ArcButton`        | Full support          |                                         |
+| `ArcChip`          | No current support    |                                         |
+| `ArcContainer`     | No current support    |                                         |
+| `ArcDrawer`        | No current support    |                                         |
+| `ArcDropdown`      | No current support    |                                         |
+| `ArcHero`          | No current support    |                                         |
+| `ArcIcon`          | Support               | Arc assets must be available at runtime |
+| `ArcIconButton`    | Support               | Arc asets must be available at runtime  |
+| `ArcImage`         | No current support    |                                         |
+| `ArcMenu`          | No current support    |                                         |
+| `ArcMenuItem`      | No current support    |                                         |
+| `ArcNavbar`        | No current support    |                                         |
+| `ArcRadio`         | No current support    |                                         |
+| `ArcRadioGroup`    | No current support    |                                         |
+| `ArcSidebar`       | No current support    |                                         |
+| `ArcSpinner`       | Full support          |                                         |
+| `ArcSso`           | No current support    |                                         |
+| `ArcSwitch`        | No current support    |                                         |
+| `ArcTable`         | No current support    |                                         |
+| `ArcTooltip`       | No current support    |                                         |
 
 ### Playgrounds
 

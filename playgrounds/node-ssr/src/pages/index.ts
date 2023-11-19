@@ -3,6 +3,8 @@ import { html } from 'lit';
 
 import '../../../../dist/packages/components/src/components/spinner/arc-spinner.js';
 import '../../../../dist/packages/components/src/components/button/arc-button.js';
+import '../../../../dist/packages/components/src/components/icon/arc-icon.js';
+import '../../../../dist/packages/components/src/components/icon-button/arc-icon-button.js';
 
 export interface IndexProps {
   name: string;
@@ -36,14 +38,29 @@ export function* renderIndex({ name }: IndexProps) {
   `;
 
   yield* render(html`
-    <section id="playground" style="padding: var(--arc-spacing-small)">
-      <p>Hello ${name}!</p>
-      <arc-button color="primary">open alert</arc-button>
+    <section
+      id="playground"
+      style="
+        display: grid; 
+        gap: var(--arc-spacing-small); 
+        padding: var(--arc-spacing-small);
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <arc-button color="primary">arc-button</arc-button>
+      <arc-icon-button>arc-icon-button</arc-icon-button>
+      <arc-spinner></arc-spinner>
+      <arc-icon></arc-icon>
     </section>
   `);
 
   yield `
       <script type="module">
+        import { setBasePath, noFOUC } from './dist/packages/components/src/index.js';
+        setBasePath('/dist/packages/components');
+        noFOUC();
+
         const hydrateSupport = import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
         if (!HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
           const { hydrateShadowRoots } = await import('@webcomponents/template-shadowroot/template-shadowroot.js');
@@ -56,6 +73,7 @@ export function* renderIndex({ name }: IndexProps) {
         // IMPORT ROOT COMPONENTS
         import('./dist/packages/components/src/components/spinner/arc-spinner.js');
         import('./dist/packages/components/src/components/button/arc-button.js');
+        import('./dist/packages/components/src/components/icon-button/arc-icon-button.js');
 
         // APP
         const playground = document.getElementById('playground');

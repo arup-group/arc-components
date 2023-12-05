@@ -3,33 +3,31 @@ import { expect, fixture, elementUpdated, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { hasSlot } from '../../internal/slot.js';
 import { serialize } from '../../utilities/form-utils.js';
-import {
-  upEvent,
-  downEvent,
-  leftEvent,
-  rightEvent,
-} from '../../internal/test-utils.js';
+// import {
+//   upEvent,
+//   downEvent,
+//   leftEvent,
+//   rightEvent,
+// } from '../../internal/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
-import type ArcCheckboxGroup from '../checkbox-group/ArcCheckboxGroup.js';
+
 import type ArcCheckBox from './ArcCheckBox.js';
 import type ArcButton from '../button/ArcButton.ts';
-import '../checkbox-group/arc-checkbox-group.js';
+// import '../checkbox-group/arc-checkbox-group.js';
 import './arc-checkbox.js';
 import '../button/arc-button.js';
 
 describe('ArcCheckbox', () => {
   /* Test the rendering of the component. */
   describe('rendering', () => {
-    let element: ArcCheckboxGroup;
+    let element: ArcCheckBox;
     let checkbox: ArcCheckBox;
     beforeEach(async () => {
       element = await fixture(html`
-        <arc-checkbox-group>
           <arc-checkbox>1</arc-checkbox>
-        </arc-checkbox-group>
       `);
-      checkbox = element.querySelector('arc-checkbox')!;
+      checkbox = element
     });
 
     /* Test default properties that reflect to the DOM */
@@ -102,17 +100,17 @@ describe('ArcCheckbox', () => {
 
   /* Test specific methods */
   describe('methods', () => {
-    let element: ArcCheckboxGroup;
+    let element: ArcCheckBox;
     let checkboxButtons: NodeListOf<ArcCheckBox>;
 
     beforeEach(async () => {
       element = await fixture(html`
-        <arc-checkbox-group>
+      <div>
           <arc-checkbox name="one" disabled>Alpha</arc-checkbox>
-          <arc-checkbox name="one" checked>Bravo</arc-checkbox>
-          <arc-checkbox name="one">Charlie</arc-checkbox>
-          <arc-checkbox name="two">Delta</arc-checkbox>
-        </arc-checkbox-group>
+          <arc-checkbox name="two" checked>Bravo</arc-checkbox>
+          <arc-checkbox name="three">Charlie</arc-checkbox>
+          <arc-checkbox name="four">Delta</arc-checkbox>
+        </div>
       `);
       checkboxButtons = element.querySelectorAll('arc-checkbox');
     });
@@ -133,43 +131,43 @@ describe('ArcCheckbox', () => {
       expect(checkboxButtons[3].checked).to.be.false;
     });
 
-    it('retrieves checkbox buttons within the same named group', () => {
+    // it('retrieves checkbox buttons within the same named group', () => {
       /* By default, disabled radio buttons are included */
-      expect(checkboxButtons[0].getAllCheckboxes().length).to.equal(3);
+      // expect(checkboxButtons[0].getAllCheckboxes().length).to.equal(3);
 
       /* Exclude disabled radio buttons */
-      expect(
-        checkboxButtons[0].getAllCheckboxes({ includeDisabled: false }).length,
-      ).to.equal(2);
+    //   expect(
+    //     checkboxButtons[0].getAllCheckboxes({ includeDisabled: false }).length,
+    //   ).to.equal(2);
 
-      /* Only one radio with the name 'two' */
-      expect(checkboxButtons[3].getAllCheckboxes().length).to.equal(1);
-    });
+    //   /* Only one radio with the name 'two' */
+    //   expect(checkboxButtons[3].getAllCheckboxes().length).to.equal(1);
+    // });
 
-    it('retrieves the sibling radio buttons in the Checkbox group', () => {
-      expect(checkboxButtons[0].getSiblingCheckboxes().length).to.equal(2);
-    });
+    // it('retrieves the sibling radio buttons in the Checkbox group', () => {
+    //   expect(checkboxButtons[0].getSiblingCheckboxes().length).to.equal(2);
+    // });
 
-    it('makes a selection based on keyboard input within the same named group', () => {
-      /* Set focus to the checked radio */
-      checkboxButtons[1].focus();
+  //   it('makes a selection based on keyboard input within the same named group', () => {
+  //     /* Set focus to the checked radio */
+  //     checkboxButtons[1].focus();
 
-      /* From 2nd to 3rd as the 1st is disabled */
-      checkboxButtons[1].handleKeyDown(upEvent);
-      expect(checkboxButtons[2].checked).to.be.true;
+  //     /* From 2nd to 3rd as the 1st is disabled */
+  //     checkboxButtons[1].handleKeyDown(upEvent);
+  //     expect(checkboxButtons[2].checked).to.be.true;
 
-      /* From 3rd to 2nd */
-      checkboxButtons[2].handleKeyDown(leftEvent);
-      expect(checkboxButtons[1].checked).to.be.true;
+  //     /* From 3rd to 2nd */
+  //     checkboxButtons[2].handleKeyDown(leftEvent);
+  //     expect(checkboxButtons[1].checked).to.be.true;
 
-      /* From 2nd to 3rd */
-      checkboxButtons[1].handleKeyDown(downEvent);
-      expect(checkboxButtons[2].checked).to.be.true;
+  //     /* From 2nd to 3rd */
+  //     checkboxButtons[1].handleKeyDown(downEvent);
+  //     expect(checkboxButtons[2].checked).to.be.true;
 
-      /* From 3rd to 2nd as the 1st is disabled */
-      checkboxButtons[2].handleKeyDown(rightEvent);
-      expect(checkboxButtons[1].checked).to.be.true;
-    });
+  //     /* From 3rd to 2nd as the 1st is disabled */
+  //     checkboxButtons[2].handleKeyDown(rightEvent);
+  //     expect(checkboxButtons[1].checked).to.be.true;
+  //   });
   });
 
   /* Test the events (click, focus, blur etc.) */
@@ -228,11 +226,9 @@ describe('ArcCheckbox', () => {
     beforeEach(async () => {
       form = await fixture(html`
         <form>
-          <arc-checkbox-group>
             <arc-checkbox name="car" value="audi">Audi</arc-checkbox>
             <arc-checkbox name="car" value="opel" checked>Opel</arc-checkbox>
             <arc-checkbox name="car" value="vw">Volkswagen</arc-checkbox>
-          </arc-checkbox-group>
           <arc-button submit>Submit</arc-button>
         </form>
       `);

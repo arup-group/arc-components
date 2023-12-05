@@ -63,52 +63,52 @@ export default class ArcCheckBox extends LitElement {
     }
   }
 
-  getAllCheckboxes(
-    options: { includeDisabled: boolean } = { includeDisabled: true },
-  ) {
-    const checkboxGroup = this.closest('arc-checkbox-group');
-    const { includeDisabled } = options;
+  // getAllCheckboxes(
+  //   options: { includeDisabled: boolean } = { includeDisabled: true },
+  // ) {
+  //   const checkboxGroup = this.closest('arc-checkbox-group');
+  //   const { includeDisabled } = options;
 
-    if (!checkboxGroup) return [this];
+  //   if (!checkboxGroup) return [this];
 
-    return [...checkboxGroup.querySelectorAll('arc-checkbox')].filter(
-      (checkbox: ArcCheckBox) => {
-        if (checkbox.name !== this.name) return false;
+  //   return [...checkboxGroup.querySelectorAll('arc-checkbox')].filter(
+  //     (checkbox: ArcCheckBox) => {
+  //       if (checkbox.name !== this.name) return false;
 
-        /* Are disabled items included? return true, else false. */
-        return !(!includeDisabled && checkbox.disabled);
-      },
-    ) as ArcCheckBox[];
-  }
+  //       /* Are disabled items included? return true, else false. */
+  //       return !(!includeDisabled && checkbox.disabled);
+  //     },
+  //   ) as ArcCheckBox[];
+  // }
 
-  getSiblingCheckboxes() {
-    return this.getAllCheckboxes().filter(
-      (checkboxes) => checkboxes !== this,
-    ) as ArcCheckBox[];
-  }
+  // getSiblingCheckboxes() {
+  //   return this.getAllCheckboxes().filter(
+  //     (checkboxes) => checkboxes !== this,
+  //   ) as ArcCheckBox[];
+  // }
 
   handleKeyDown(event: KeyboardEvent) {
     /* Move the selection when pressing down, up, left or right. */
     if (
       ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(event.key)
     ) {
-      const checkbox = this.getAllCheckboxes({ includeDisabled: false });
-      const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
-      let index = checkbox.indexOf(this) + incr;
-      if (index < 0) index = checkbox.length - 1;
-      if (index > checkbox.length - 1) index = 0;
+      // const checkbox = this.getAllCheckboxes({ includeDisabled: false });
+      // const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
+      // let index = checkbox.indexOf(this) + incr;
+      // if (index < 0) index = checkbox.length - 1;
+      // if (index > checkbox.length - 1) index = 0;
 
       /* Remove the checked state of all radio buttons. */
-      this.getAllCheckboxes().forEach((checkbox) => {
-        checkbox.checked = false;
-        checkbox.input.tabIndex = -1;
-      });
-      /* Set focus on the checkbox. */
-      checkbox[index].input.focus();
-      checkbox[index].checked = true;
-      checkbox[index].input.tabIndex = 0;
+      // this.getAllCheckboxes().forEach((checkbox) => {
+      //   checkbox.checked = false;
+      //   checkbox.input.tabIndex = -1;
+      // });
+      // /* Set focus on the checkbox. */
+      // checkbox[index].input.focus();
+      // checkbox[index].checked = true;
+      // checkbox[index].input.tabIndex = 0;
 
-      emit(checkbox[index], ARC_EVENTS.change);
+      // emit(checkbox[index], ARC_EVENTS.change);
 
       event.preventDefault();
     }

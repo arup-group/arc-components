@@ -11,7 +11,6 @@ import { serialize } from '../../utilities/form-utils.js';
 // } from '../../internal/test-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
-
 import type ArcCheckBox from './ArcCheckBox.js';
 import type ArcButton from '../button/ArcButton.ts';
 // import '../checkbox-group/arc-checkbox-group.js';
@@ -24,10 +23,8 @@ describe('ArcCheckbox', () => {
     let element: ArcCheckBox;
     let checkbox: ArcCheckBox;
     beforeEach(async () => {
-      element = await fixture(html`
-          <arc-checkbox>1</arc-checkbox>
-      `);
-      checkbox = element
+      element = await fixture(html` <arc-checkbox>1</arc-checkbox> `);
+      checkbox = element;
     });
 
     /* Test default properties that reflect to the DOM */
@@ -105,7 +102,7 @@ describe('ArcCheckbox', () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-      <div>
+        <div>
           <arc-checkbox name="one" disabled>Alpha</arc-checkbox>
           <arc-checkbox name="two" checked>Bravo</arc-checkbox>
           <arc-checkbox name="three">Charlie</arc-checkbox>
@@ -132,10 +129,10 @@ describe('ArcCheckbox', () => {
     });
 
     // it('retrieves checkbox buttons within the same named group', () => {
-      /* By default, disabled radio buttons are included */
-      // expect(checkboxButtons[0].getAllCheckboxes().length).to.equal(3);
+    /* By default, disabled radio buttons are included */
+    // expect(checkboxButtons[0].getAllCheckboxes().length).to.equal(3);
 
-      /* Exclude disabled radio buttons */
+    /* Exclude disabled radio buttons */
     //   expect(
     //     checkboxButtons[0].getAllCheckboxes({ includeDisabled: false }).length,
     //   ).to.equal(2);
@@ -148,26 +145,26 @@ describe('ArcCheckbox', () => {
     //   expect(checkboxButtons[0].getSiblingCheckboxes().length).to.equal(2);
     // });
 
-  //   it('makes a selection based on keyboard input within the same named group', () => {
-  //     /* Set focus to the checked radio */
-  //     checkboxButtons[1].focus();
+    //   it('makes a selection based on keyboard input within the same named group', () => {
+    //     /* Set focus to the checked radio */
+    //     checkboxButtons[1].focus();
 
-  //     /* From 2nd to 3rd as the 1st is disabled */
-  //     checkboxButtons[1].handleKeyDown(upEvent);
-  //     expect(checkboxButtons[2].checked).to.be.true;
+    //     /* From 2nd to 3rd as the 1st is disabled */
+    //     checkboxButtons[1].handleKeyDown(upEvent);
+    //     expect(checkboxButtons[2].checked).to.be.true;
 
-  //     /* From 3rd to 2nd */
-  //     checkboxButtons[2].handleKeyDown(leftEvent);
-  //     expect(checkboxButtons[1].checked).to.be.true;
+    //     /* From 3rd to 2nd */
+    //     checkboxButtons[2].handleKeyDown(leftEvent);
+    //     expect(checkboxButtons[1].checked).to.be.true;
 
-  //     /* From 2nd to 3rd */
-  //     checkboxButtons[1].handleKeyDown(downEvent);
-  //     expect(checkboxButtons[2].checked).to.be.true;
+    //     /* From 2nd to 3rd */
+    //     checkboxButtons[1].handleKeyDown(downEvent);
+    //     expect(checkboxButtons[2].checked).to.be.true;
 
-  //     /* From 3rd to 2nd as the 1st is disabled */
-  //     checkboxButtons[2].handleKeyDown(rightEvent);
-  //     expect(checkboxButtons[1].checked).to.be.true;
-  //   });
+    //     /* From 3rd to 2nd as the 1st is disabled */
+    //     checkboxButtons[2].handleKeyDown(rightEvent);
+    //     expect(checkboxButtons[1].checked).to.be.true;
+    //   });
   });
 
   /* Test the events (click, focus, blur etc.) */
@@ -226,9 +223,9 @@ describe('ArcCheckbox', () => {
     beforeEach(async () => {
       form = await fixture(html`
         <form>
-            <arc-checkbox name="car" value="audi">Audi</arc-checkbox>
-            <arc-checkbox name="car" value="opel" checked>Opel</arc-checkbox>
-            <arc-checkbox name="car" value="vw">Volkswagen</arc-checkbox>
+          <arc-checkbox name="car" value="audi">Audi</arc-checkbox>
+          <arc-checkbox name="car" value="opel" checked>Opel</arc-checkbox>
+          <arc-checkbox name="car" value="vw">Volkswagen</arc-checkbox>
           <arc-button submit>Submit</arc-button>
         </form>
       `);

@@ -1,13 +1,12 @@
-/*
-Serializes a form and returns a plain object.
-If a form control with the same name appears more than once, the property will be converted to an array.
-*/
+/**
+ * Serializes a form and returns a plain object. If a form contol with the same
+ * name appears more than once, the property will be converted to an array.
+ */
 function serialize(form: HTMLFormElement) {
   const formData = new FormData(form);
   const object: Record<string, unknown> = {};
 
   formData.forEach((value, key) => {
-    /* Form controls that share the same name */
     if (Reflect.has(object, key)) {
       const entry = object[key];
       if (Array.isArray(entry)) {

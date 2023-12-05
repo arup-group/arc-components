@@ -1,17 +1,14 @@
-name: Publish
+name: Continous Deployment
 
 on:
   release:
-    types: [published]
+    types:
+      - published
 
 jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: aws-actions/configure-aws-credentials@master
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -22,7 +19,9 @@ jobs:
       - uses: nrwl/nx-set-shas@v3
       - run: npm ci
       - run: npx nx run-many --targets=build,storybook:build --projects=tags:package
-      # - run: npx nx run arc-publish
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: aws s3 sync ./dist/packages/storybook s3://${{ secrets.S3_BUCKET }}
+      - run: npx nx run arc-publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npx nx run components:storybook:deploy
+        env:
+          SWA_CLI_DEPLOYMENT_TOKEN: ${{ secrets.SWA_CLI_DEPLOYMENT_TOKEN }}

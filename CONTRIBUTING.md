@@ -16,13 +16,17 @@ We welcome all contributions and engagement with the **ARC** design system.
   - [Unit Tests](#unit-tests)
   - [Documentation](#documentation)
   - [Formatting and Linting](#formatting-and-linting)
+- [Infrastructure](#infrastructure)
 - [Guides](#guides)
 
 ## Development Environment
 
 The following system native build dependencies are required for a local development environment:
 
+- [git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
+- [Terraform](https://www.terraform.io/)
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)
 
 <details>
   <summary>NIX</summary>
@@ -30,7 +34,7 @@ The following system native build dependencies are required for a local developm
 If you are using [NIX](https://nixos.org/) switch to the the provided development shell with:
 
 ```sh
-nix-shell
+nix develop
 ```
 
 </details>
@@ -40,8 +44,19 @@ nix-shell
 Install all package dependencies using npm:
 
 ```sh
-npm ci
+npm ci && npx playwright install --with-deps
 ```
+
+<details>
+  <summary>NIX</summary>
+
+If you are using [NIX](https://nixos.org/) use the `[clean-install](https://github.com/arup-group/arc-components/blob/main/flake.nix#L19-L31)` deerivation:
+
+```sh
+clean-install
+```
+
+</details>
 
 ## Workspace
 
@@ -49,6 +64,7 @@ This worksapce is a monorepo containing all packages and playgrounds that relate
 
 ```
 ├── assets              # Shared assets for storybook and playgrounds
+├── infrastructure      # Infrastructure managed by Terraform
 ├── packages
 │   ├── components      # @arc-web/components package source
 │   └── react           # @arc-web/react package source
@@ -113,7 +129,7 @@ More complex compnents may also adher to the following:
 During development use the following command to start a local development server in any of the playgrounds:
 
 ```sh
-npx nx run <angular-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
+npx nx run <angular-playground | lit-playground | react-playground | vue-playground | vanilla-playground | node-playground>:serve
 ```
 
 Or start the storybook development server with:
@@ -152,10 +168,36 @@ And the linter for all projects with:
 npx nx run-many --target lint
 ```
 
+### Commit Messages, Branches and Pull Requests
+
+Commit messages must adhere to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification and branches much follow the [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) branching model.
+
+Pull requests will be squash merged by default the core maintainers, once accepted and approved, please ensure your PR title and description follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification to ensure the correct changelog is generated. More complex PR's may be merged using the merge commit strategy.
+
+Link any commits, issues and pull requests to the relevant Jira ticket, if applicable.
+
+### Infrastructure
+
+The **ARC** project infrastucture is spread across the following deployment nodes:
+
+```mermaid
+C4Deployment
+  Deployment_Node(browser, "Web Browser"){
+    Container(browser-documentation, "Documentation", "Storybook")
+  }
+
+  Deployment_Node(azure, "Azure") {
+    Deployment_Node(azure-resource-group-arc, "Azure Resource Group - ARC") {
+      Container(azure-static-site-documentation, "S3 - Frontend", "Azure Static Site")
+      Rel(browser-documentation, azure-static-site-documentation, "")
+    }
+  }
+```
+
 ## Guides
 
-<details>
-  <summary>Icons</summary>
+### Icons
+
 **ARC** uses [Nucleo](https://nucleoapp.com/) to keep track of the available icons and make an easy export of them.
 All the icons are exported as a single SVG `symbol` file, using the following preferences:
 
@@ -199,10 +241,8 @@ In order to make the icons work in any theme, the `fill` and/or `stroke` attribu
 In the code example above, the `fill` attribute is provided with the `currentColor` value,
 this ensures that the SVG is no longer responsible for the colours.
 
-</details>
+### Release
 
-<details>
-  <summary>Release</summary>
 Use the `arc-release` script to set a new version for all packages within the workspace with:
 
 ```sh
@@ -211,4 +251,11 @@ npx nx run arc-release
 
 Packages and storybook documentation for the release are built and published using the [publish](./.github/workflows/publish.yml) workflow upon a GitHub release being created.
 
-</details>
+### Updating Infrastucture
+
+To update infrastructure:
+
+1. Make changes to the [infrastructure](./infrastructure) terraform files.
+2. Run `npx nx run infrastructure:plan` to see the changes that will be applied.
+3. Submit a pull request with the changes. Include the output of `npx nx run infrastructure:plan` in the pull request description.
+4. Once the pull request is approved and merged into main run the `npx nx run infrastructure:apply` to apply chanages.

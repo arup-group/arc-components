@@ -1,0 +1,67 @@
+{
+  "name": "node-prerender",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "playgrounds/node-prerender/src",
+  "projectType": "application",
+  "tags": ["playground"],
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["playgrounds/node-prerender/**/*.ts"]
+      }
+    },
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "local",
+      "options": {
+        "deleteOutputPath": true,
+        "platform": "node",
+        "outputPath": "dist/playgrounds/node-prerender",
+        "format": ["esm"],
+        "bundle": true,
+        "main": "playgrounds/node-prerender/src/main.ts",
+        "tsConfig": "playgrounds/node-prerender/tsconfig.json",
+        "generatePackageJson": true,
+        "configurations": {
+          "local": {}
+        }
+      }
+    },
+    "prerender": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node dist/playgrounds/node-prerender/main.js",
+        "cwd": ".",
+        "parallel": false
+      },
+      "dependsOn": ["build"]
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @web/dev-server --root-dir dist/playgrounds/node-prerender/dist --port 4200 --node-resolve",
+        "cwd": ".",
+        "parallel": false
+      },
+      "dependsOn": ["build", "prerender"]
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "local",
+      "options": {
+        "buildTarget": "node-prerender:build"
+      },
+      "configurations": {
+        "lcoal": {
+          "buildTarget": "node-prerender:build:local",
+          "waitUntilTargets": ["node-prerender:build:local"]
+        }
+      },
+      "dependsOn": ["build"]
+    }
+  }
+}

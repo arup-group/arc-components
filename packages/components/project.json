@@ -77,7 +77,8 @@
       "options": {
         "port": 4200,
         "configDir": "packages/components/.storybook"
-      }
+      },
+      "dependsOn": ["build"]
     },
     "storybook:deploy": {
       "executor": "nx:run-commands",

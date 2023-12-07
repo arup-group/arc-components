@@ -16,9 +16,11 @@
           config.allowUnfree = true;
         };
 
+        nodejs = pkgs.nodejs_18;
+
         clean-install = pkgs.writeShellApplication {
           name = "clean-install";
-          runtimeInputs = with pkgs; [nodejs_18];
+          runtimeInputs = [nodejs];
           text = ''
             rm -rf node_modules
             rm -rf .angular
@@ -34,12 +36,11 @@
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            git
+            nodejs
             terraform
             azure-cli
             clean-install
           ];
-          nativeBuildInputs = with pkgs; [nodejs_18];
           shellHook = ''export PATH=$PATH:$(npm bin)'';
         };
       }

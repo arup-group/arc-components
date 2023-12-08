@@ -29,6 +29,16 @@ const INDEX_PATH = path.join(
 );
 
 /**
+ * React Index Path.
+ *
+ * Path to the index file of the arc-icon folder.
+ */
+const REACT_INDEX_PATH = path.join(
+  __dirname,
+  '../packages/react/src/components/arc-icon/index.ts',
+);
+
+/**
  * Assets Path.
  *
  * Path to the assets folder of the phosphor icons.
@@ -46,6 +56,16 @@ const ASSETS_PATH = path.join(
 const COMPONENTS_PATH = path.join(
   __dirname,
   '../packages/components/src/components/arc-icon',
+);
+
+/**
+  * React Components Path.
+  *
+  * Path to the write components source.
+  */
+const REACT_COMPONENTS_PATH = path.join(
+  __dirname,
+  '../packages/react/src/components/arc-icon',
 );
 
 /**
@@ -123,6 +143,10 @@ function generateIconSourceFiles() {
     fs.rmSync(COMPONENTS_PATH, { recursive: true });
   }
   fs.mkdirSync(COMPONENTS_PATH);
+  if (fs.existsSync(REACT_COMPONENTS_PATH)) {
+    fs.rmSync(REACT_COMPONENTS_PATH, { recursive: true });
+  }
+  fs.mkdirSync(REACT_COMPONENTS_PATH);
 
   for (let key in ICONS) {
     const icon = ICONS[key];
@@ -241,6 +265,20 @@ declare global {
 }
 `;
 
+    const reactComponentString = `\
+/* GENERATED FILE */
+import { createComponent } from '@lit-labs/react';
+import React from 'react';
+import ArcIcon${name}WC from '@arc-web/components/src/components/arc-icon/${key}/arc-icon-${key}.js';
+import '@arc-web/components/src/components/arc-icon/${key}/arc-icon-${key}.js';
+
+export const ArcIcon${name} = createComponent({
+  tagName: 'arc-icon-${key}',
+  elementClass: ArcIcon${name}WC,
+  react: React,
+});
+`;
+
     const storyString = `\
 /* GENERATED FILE */
 import { Meta, Story } from '@storybook/web-components';
@@ -298,6 +336,7 @@ Color.args = { ...defaultArgs };
     try {
       console.log(`Generating ${key}...`);
       fs.mkdirSync(path.join(COMPONENTS_PATH, key));
+      fs.mkdirSync(path.join(REACT_COMPONENTS_PATH, key));
       fs.writeFileSync(
         path.join(COMPONENTS_PATH, key, `arc-icon-${key}.styles.ts`),
         stylesString,
@@ -308,6 +347,13 @@ Color.args = { ...defaultArgs };
       fs.writeFileSync(
         path.join(COMPONENTS_PATH, key, `arc-icon-${key}.ts`),
         componentString,
+        {
+          flag: 'w',
+        },
+      );
+      fs.writeFileSync(
+        path.join(REACT_COMPONENTS_PATH, key, `arc-icon-${key}.ts`),
+        reactComponentString,
         {
           flag: 'w',
         },
@@ -337,15 +383,24 @@ function generateExports() {
 /* GENERATED FILE */
 `;
   for (let key in ICONS) {
-    const name = pascalize(key);
-
     indexString += `\
-import './${key}/arc-icon-${key}.js';
-export { default as ArcIcon${name} } from './${key}/arc-icon-${key}.js';
+export * from './${key}/arc-icon-${key}';
+`;
+  }
+
+  let reactIndexString = `\
+/* GENERATED FILE */
+`;
+  for (let key in ICONS) {
+    reactIndexString += `\
+export * from './${key}/arc-icon-${key}.js';
 `;
   }
   try {
     fs.writeFileSync(INDEX_PATH, indexString, {
+      flag: "w",
+    });
+    fs.writeFileSync(REACT_INDEX_PATH, reactIndexString, {
       flag: "w",
     });
     console.log("Export success");

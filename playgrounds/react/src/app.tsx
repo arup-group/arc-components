@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArcContainer, ArcNavbar, ArcIconButton, ArcSSO } from '@arc-web/react';
+import { ArcContainer, ArcNavbar, ArcIconButton, ArcSSO, ArcIconHouse } from '@arc-web/react';
 
 export function App() {
   return (

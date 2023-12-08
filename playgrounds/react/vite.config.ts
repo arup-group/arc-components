@@ -25,10 +25,6 @@ export default defineConfig({
           src: '../../assets',
           dest: '',
         },
-        {
-          src: '../../dist/packages/components/assets',
-          dest: '',
-        },
       ],
     }),
   ],

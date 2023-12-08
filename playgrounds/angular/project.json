@@ -47,11 +47,6 @@
               "input": "assets",
               "output": "/assets"
             },
-            {
-              "glob": "**/*",
-              "input": "packages/components/assets",
-              "output": "/assets"
-            }
           ]
         }
       },

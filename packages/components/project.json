@@ -41,11 +41,6 @@
           "LICENSE",
           {
             "glob": "**/*",
-            "input": "packages/components/assets",
-            "output": "assets"
-          },
-          {
-            "glob": "**/*",
             "input": "packages/components/themes",
             "output": "themes"
           }

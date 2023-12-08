@@ -13,6 +13,7 @@
   "dependencies": {
     "@azure/msal-browser": "^2.28.1",
     "@floating-ui/dom": "^0.3.1",
+    "@phosphor-icons/core": "2.0.3",
     "date-fns": "^2.29.1",
     "gridjs": "6.0.6",
     "lit": "^2.4.1",

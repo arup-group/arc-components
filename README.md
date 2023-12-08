@@ -33,8 +33,7 @@ With **ARC**, you can:
 - [Getting Started](#getting-started): Install and setup **ARC**
   - [1: Installation](#1-installation): Install the latest version of **ARC**
   - [2: Setup Stylesheets](#2-setup-stylesheets): Setup **ARC** stylesheets
-  - [3: Setup Static Assets](#3-setup-static-assets): Setup **ARC** static assets
-  - [4: Import and Use Components](#4-import-and-use-components): Import and use **ARC** components
+  - [3: Import and Use Components](#4-import-and-use-components): Import and use **ARC** components
 - [Migration Guides](https://github.com/arup-group/arc-components/blob/main/MIGRATION_GUIDES.md): Migrate to the latest version of **ARC**
   - [v2 to v3](https://github.com/arup-group/arc-components/blob/main/MIGRATION_GUIDES.md#v2-to-v3): Migrate from **ARC** v2 to v3
 - [Typescript](#typescript): Use **ARC** components in a Typescript project
@@ -124,85 +123,7 @@ Bunderlers that support CSS imports allow you to import CSS files directly into 
 
 </details>
 
-#### 3: Setup Static Assets
-
-Some **ARC** components depend upon static assets being available to load at runtime, such as the SVG icons file required for the `ArcIcon` component. Ensure that the `@arc-web/components/assets` directory contents are available to be loaded by your application.
-
-<details>
-<summary>Build Script</summary>
-
-Add a step to your build script that copies the contents of the `@arc-web/components/assets` directory into a directory that serves assets for by your applications web server:
-
-```diff
-+ cp -r node_modules/@arc-web/components/assets <public directory>
-```
-
-</details>
-
-<details>
-<summary>Angular CLI</summary>
-
-Add the `@arc-web/components/assets` directory to the `assets` array in your `angular.json` file:
-
-```diff
-  {
-    ...
-    "assets": [
-    ...
-+     {
-+       "glob": "**/*",
-+       "input": "node_modules/@arc-web/components/assets",
-+       "output": "assets"
-+     }
-    ],
-    ...
-  }
-```
-
-</details>
-
-<details>
-<summary>Vite</summary>
-
-Install the `vite-plugin-static-copy` package from npm:
-
-```sh
-npm install --save-dev vite-plugin-static-copy
-```
-
-Use `vite-plugin-static-copy` to copy the contents of the `@arc-web/components/assets` directory:
-
-```diff
-+ import { viteStaticCopy } from 'vite-plugin-static-copy';
-
-  export default {
-    ...
-    plugins: [
-      ...
-+     viteStaticCopy({
-+       targets: [
-+         {
-+           src: 'node_modules/@arc-web/components/assets',
-+           dest: '',
-+         }
-+       ]
-+     }),
-    ],
-    ...
-  }
-```
-
-</details>
-
-**ARC** components load the `@arc-web/components` assets using a base path of `/assets`. If required its possible to change this using the `setBasePath` utility function exported by `@arc-web/components`:
-
-```ts
-import { setBasePath } from '@arc-web/components';
-
-setBasePath('/assets');
-```
-
-#### 4: Import and Use Components
+#### 3: Import and Use Components
 
 Import the `@arc-web/components` package:
 

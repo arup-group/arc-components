@@ -3,7 +3,9 @@ import { html } from 'lit';
 import type ArcMenuItem from './ArcMenuItem.js';
 import '../menu/arc-menu.js';
 import './arc-menu-item.js';
-import '../icon/arc-icon.js';
+import '../arc-icon/house/arc-icon-house.js';
+import '../arc-icon/paper-plane-tilt/arc-icon-paper-plane-tilt.js';
+import '../arc-icon/gear/arc-icon-gear.js';
 
 export default {
   title: 'Components/ArcMenuItem',
@@ -23,15 +25,15 @@ const Template: Story<ArcMenuItem> = ({ value, href, disabled }) => html`
 const PrefixSuffixTemplate: Story<ArcMenuItem> = () => html`
   <arc-menu class="menu">
     <arc-menu-item>
-      <arc-icon name="home" slot="prefix"></arc-icon>
+      <arc-icon-house slot="prefix"></arc-icon-house>
       Home
     </arc-menu-item>
     <arc-menu-item>
-      <arc-icon name="speech" slot="prefix"></arc-icon>
+      <arc-icon-paper-plane-tilt slot="prefix"></arc-icon-paper-plane-tilt>
       Messages
     </arc-menu-item>
     <arc-menu-item>
-      <arc-icon name="settings" slot="prefix"></arc-icon>
+      <arc-icon-gear slot="prefix"></arc-icon-gear>
       Settings
       <arc-icon name="arrow-right" slot="suffix"></arc-icon>
     </arc-menu-item>

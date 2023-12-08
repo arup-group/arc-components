@@ -5,9 +5,8 @@ import { when } from 'lit/directives/when.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
-import { IconType } from '../icon/constants/IconConstants.js';
 import styles from './arc-icon-button.styles.js';
-import '../icon/arc-icon.js';
+import '../arc-icon/lightning/arc-icon-lightning.js';
 import '../spinner/arc-spinner.js';
 
 /**
@@ -23,9 +22,6 @@ export default class ArcIconButton extends LitElement {
 
   /** @internal */
   @query('#main') button: HTMLButtonElement | HTMLLinkElement;
-
-  /** The name of the icon to draw. */
-  @property({ type: String }) name: IconType;
 
   /** When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`. */
   @property({ type: String }) href: string;
@@ -97,9 +93,11 @@ export default class ArcIconButton extends LitElement {
         @click=${this._handleClick}
       >
         <span id="iconWrapper" aria-hidden="true">
-          <arc-icon id="icon" part="icon" name=${ifDefined(
-            this.name || undefined,
-          )}></arc-icon>
+          <span id="icon">
+            <slot name="icon">
+              <arc-icon-lightning></arc-icon-lightning>
+            </slot>
+          </span>
           ${when(
             this.loading,
             () => html`<arc-spinner id="loader"></arc-spinner>`,

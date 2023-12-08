@@ -5,7 +5,6 @@ import { when } from 'lit/directives/when.js';
 import { emit } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import styles from './arc-navbar.styles.js';
 import { arupLogo } from './arup-logo.js';
 import type ArcButton from '../button/ArcButton.js';
@@ -14,6 +13,8 @@ import '../dropdown/arc-dropdown.js';
 import '../icon-button/arc-icon-button.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
+import '../arc-icon/list/arc-icon-list.js';
+import '../arc-icon/wheelchair/arc-icon-wheelchair.js';
 
 /**
  * @slot default - This slot is used to add tabs to the navbar.
@@ -102,19 +103,8 @@ export default class ArcNavbar extends LitElement {
             ?disabled="${tab.disabled}"
             @click="${() => tab.click()}"
           >
-            ${when(
-              (tab as ArcIconButton).name,
-              () =>
-                html`<arc-icon
-                  .name=${(tab as ArcIconButton).name}
-                  slot="prefix"
-                >
-                  }</arc-icon
-                >`,
-            )}
             ${tab.textContent ||
             (tab as ArcIconButton).label ||
-            (tab as ArcIconButton).name ||
             'Invalid label'}
           </arc-menu-item>
         `,
@@ -154,19 +144,19 @@ export default class ArcNavbar extends LitElement {
               this.showDropdown,
               () =>
                 html`<arc-dropdown id="dropdown" hoist>
-                  <arc-icon-button
-                    slot="trigger"
-                    name=${ICON_TYPES.menu}
-                  ></arc-icon-button>
+                  <arc-icon-button slot="trigger">
+                    <arc-icon-list slot="icon"></arc-icon-list>
+                  </arc-icon-button>
                   <arc-menu>${menuInterior}</arc-menu>
                 </arc-dropdown>`,
             )}
             <arc-icon-button
               id="accessibility"
-              name=${ICON_TYPES.accessibility}
               label="Accessibility panel"
               @click=${this.emitAccessibility}
-            ></arc-icon-button>
+            >
+              <arc-icon-wheelchair slot="icon"></arc-icon-wheelchair>
+            </arc-icon-button>
             <slot name="user"></slot>
           </nav>
           ${when(

@@ -5,6 +5,12 @@
   "projectType": "library",
   "tags": ["package"],
   "targets": {
+    "arc-icon-assemble": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node --project scripts/tsconfig.scripts.json scripts/arc-icon-assemble.ts"
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -18,7 +24,10 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx web-test-runner --config packages/components/web-test-runner.config.mjs"
+        "commands": [
+          "npx web-test-runner --config packages/components/web-test-runner.config.mjs",
+          "npx prettier packages/components/src/arc-icon --write"
+        ]
       }
     },
     "prebuild": {
@@ -41,7 +50,8 @@
             "output": "themes"
           }
         ]
-      }
+      },
+      "dependsOn": ["arc-icon-assemble"]
     },
     "build": {
       "executor": "nx:run-commands",

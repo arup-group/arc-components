@@ -11,29 +11,30 @@ export default {
 } as Meta;
 
 const Template: Story<ArcNavbar> = ({ arup, home, logo, tabs }) => html`
-  <arc-navbar
-    home=${ifDefined(home || undefined)}
-    logo=${ifDefined(logo || undefined)}
-    tabs=${ifDefined(tabs || undefined)}
-    arup=${arup}
-  >
-    <span slot="name">Web Components</span>
-    <arc-button type="tab">Menu</arc-button>
-    <arc-button type="tab">User</arc-button>
-    <arc-button type="tab">Map</arc-button>
-    <arc-button type="tab">Other</arc-button>
-    <arc-sso
-      slot="user"
-      client-id="b4a4c03f-4915-42db-aa79-d49a650974c2"
-      tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"
-      redirect-uri=${window.location.hostname === 'localhost'
-        ? 'http://localhost:9009/'
-        : 'https://arc.arup.com/'}
-    ></arc-sso>
-  </arc-navbar>
+  <arc-container>
+    <arc-navbar
+      slot="nav"
+      home=${ifDefined(home || undefined)}
+      logo=${ifDefined(logo || undefined)}
+      tabs=${ifDefined(tabs || undefined)}
+      arup=${arup}
+    >
+      <span slot="name">Web Components</span>
+      <arc-button type="tab">Menu</arc-button>
+      <arc-button type="tab">User</arc-button>
+      <arc-button type="tab">Map</arc-button>
+      <arc-button type="tab">Other</arc-button>
+      <arc-sso
+        slot="user"
+        client-id="b4a4c03f-4915-42db-aa79-d49a650974c2"
+        tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"
+        redirect-uri=${window.location.hostname === 'localhost'
+          ? 'http://localhost:9009/'
+          : 'https://arc.arup.com/'}
+      ></arc-sso>
+     </arc-container>
+ </arc-navbar>
 `;
-const HeightTemplate: Story<ArcNavbar> = () =>
-  html`<arc-navbar logo="/arc-red.svg" style="height: 5rem;"></arc-navbar>`;
 
 const defaultArgs = {
   arup: true,
@@ -44,5 +45,3 @@ const defaultArgs = {
 
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
-
-export const CustomHeight = HeightTemplate.bind({});

@@ -7,6 +7,7 @@ import './components/container/arc-container.js';
 import './components/drawer/arc-drawer.js';
 import './components/dropdown/arc-dropdown.js';
 import './components/hero/arc-hero.js';
+import './components/arc-icon/index.js';
 import './components/icon-button/arc-icon-button.js';
 import './components/image/arc-image.js';
 import './components/menu/arc-menu.js';
@@ -32,6 +33,7 @@ export { default as ArcContainer } from './components/container/ArcContainer.js'
 export { default as ArcDrawer } from './components/drawer/ArcDrawer.js';
 export { default as ArcDropdown } from './components/dropdown/ArcDropdown.js';
 export { default as ArcHero } from './components/hero/ArcHero.js';
+export * from './components/arc-icon/index.js';
 export { default as ArcIconButton } from './components/icon-button/ArcIconButton.js';
 export { default as ArcImage } from './components/image/ArcImage.js';
 export { default as ArcMenu } from './components/menu/ArcMenu.js';

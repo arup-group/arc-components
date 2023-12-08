@@ -29,6 +29,15 @@ const Template: Story<ArcIcon> = ({ label, size, rotation }) => html`
   ></arc-icon-cell-signal-low>
 `;
 
+const ColorTemplate: Story<ArcIcon> = ({ label, size, rotation }) => html`
+  <arc-icon-cell-signal-low
+    label=${ifDefined(label || undefined)}
+    size=${ifDefined(size || undefined)}
+    rotation=${ifDefined(rotation || undefined)}
+    style="--icon-color-primary: rgb(var(--arc-pink-050))">
+  </arc-icon-cell-signal-low>
+`;
+
 const defaultArgs = {
   label: '',
   size: FONT_SIZES.large,
@@ -37,3 +46,6 @@ const defaultArgs = {
 
 export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
+
+export const Color = ColorTemplate.bind({});
+Color.args = { ...defaultArgs };

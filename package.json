@@ -31,6 +31,7 @@
     "@commitlint/config-conventional": "17.6.5",
     "@custom-elements-manifest/analyzer": "0.8.3",
     "@lit-labs/ssr": "3.1.7",
+    "@microsoft/applicationinsights-web": "3.0.6",
     "@nx-extend/terraform": "^3.2.0",
     "@nx/devkit": "16.8.1",
     "@nx/esbuild": "16.9.1",

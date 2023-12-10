@@ -46,3 +46,16 @@ resource "azurerm_static_site" "arup-arc-infra-prod-documentation" {
     Owner        = "daragh.anderson@arup.com"
   }
 }
+
+resource "azurerm_application_insights" "arup-arc-infra-prod-appinsights" {
+  name                = "arup-arc-infra-prod-appinsights"
+  location            = azurerm_resource_group.arup-arc-infra-prod-rg.location
+  resource_group_name = azurerm_resource_group.arup-arc-infra-prod-rg.name
+  application_type    = "web"
+  tags = {
+    CostCenter   = "01-89915"
+    FinanceAdmin = "liz.lane@arup.com"
+    JobNumber    = "071101-42"
+    Owner        = "daragh.anderson@arup.com"
+  }
+}

@@ -9,7 +9,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx ts-node --project scripts/tsconfig.scripts.json scripts/arc-icon-assemble.ts",
+          "npx ts-node --project scripts/tsconfig.scripts.json scripts/ph-icon-assemble.ts",
           "npx prettier --write packages/components/src/components/arc-icon",
           "npx eslint --fix packages/components/src/components/arc-icon"
         ],

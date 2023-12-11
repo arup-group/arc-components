@@ -254,6 +254,7 @@ export default class ArcAccessibility extends LitElement {
                 </div>
               `
             )}
+            <slot name="options"></slot>
           </div>
           <arc-button type="tab" slot="footer" @click=${this.restoreRootDefaults}>Restore defaults</arc-button>
         </arc-drawer>

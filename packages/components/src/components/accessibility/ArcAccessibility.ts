@@ -292,6 +292,7 @@ export default class ArcAccessibility extends LitElement {
                 </div>
               `,
             )}
+            <slot name="options"></slot>
           </div>
           <arc-button
             type="tab"

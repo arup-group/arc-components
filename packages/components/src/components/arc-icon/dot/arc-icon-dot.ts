@@ -24,12 +24,30 @@ export default class ArcIconDot extends LitElement {
 
   /** @internal */
   static weightsMap = new Map<IconWeight, ReturnType<typeof svg>>([
-    [IconWeight.THIN, svg`<path d="M136,128a8,8,0,1,1-8-8A8,8,0,0,1,136,128Z"/>`],
-    [IconWeight.LIGHT, svg`<path d="M138,128a10,10,0,1,1-10-10A10,10,0,0,1,138,128Z"/>`],
-    [IconWeight.REGULAR, svg`<path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Z"/>`],
-    [IconWeight.BOLD, svg`<path d="M144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128Z"/>`],
-    [IconWeight.FILL, svg`<path d="M128,80a48,48,0,1,0,48,48A48,48,0,0,0,128,80Zm0,60a12,12,0,1,1,12-12A12,12,0,0,1,128,140Z"/>`],
-    [IconWeight.DUOTONE, svg`<path d="M176,128a48,48,0,1,1-48-48A48,48,0,0,1,176,128Z" opacity="0.2"/><path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Z"/>`],
+    [
+      IconWeight.THIN,
+      svg`<path d="M136,128a8,8,0,1,1-8-8A8,8,0,0,1,136,128Z"/>`,
+    ],
+    [
+      IconWeight.LIGHT,
+      svg`<path d="M138,128a10,10,0,1,1-10-10A10,10,0,0,1,138,128Z"/>`,
+    ],
+    [
+      IconWeight.REGULAR,
+      svg`<path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Z"/>`,
+    ],
+    [
+      IconWeight.BOLD,
+      svg`<path d="M144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128Z"/>`,
+    ],
+    [
+      IconWeight.FILL,
+      svg`<path d="M128,80a48,48,0,1,0,48,48A48,48,0,0,0,128,80Zm0,60a12,12,0,1,1,12-12A12,12,0,0,1,128,140Z"/>`,
+    ],
+    [
+      IconWeight.DUOTONE,
+      svg`<path d="M176,128a48,48,0,1,1-48-48A48,48,0,0,1,176,128Z" opacity="0.2"/><path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Z"/>`,
+    ],
   ]);
 
   /** The weight of the icon. */
@@ -68,6 +86,6 @@ export default class ArcIconDot extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "arc-icon-dot": ArcIconDot;
+    'arc-icon-dot': ArcIconDot;
   }
 }

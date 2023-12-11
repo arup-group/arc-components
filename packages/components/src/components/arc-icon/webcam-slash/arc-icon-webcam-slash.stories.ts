@@ -34,7 +34,8 @@ const ColorTemplate: Story<ArcIcon> = ({ label, size, rotation }) => html`
     label=${ifDefined(label || undefined)}
     size=${ifDefined(size || undefined)}
     rotation=${ifDefined(rotation || undefined)}
-    style="--icon-color-primary: rgb(var(--arc-pink-050))">
+    style="--icon-color-primary: rgb(var(--arc-pink-050))"
+  >
   </arc-icon-webcam-slash>
 `;
 

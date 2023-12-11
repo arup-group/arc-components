@@ -46,7 +46,7 @@
               "glob": "**/*",
               "input": "assets",
               "output": "/assets"
-            },
+            }
           ]
         }
       },

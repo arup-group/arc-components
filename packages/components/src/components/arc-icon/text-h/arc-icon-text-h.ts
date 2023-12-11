@@ -24,12 +24,30 @@ export default class ArcIconTextH extends LitElement {
 
   /** @internal */
   static weightsMap = new Map<IconWeight, ReturnType<typeof svg>>([
-    [IconWeight.THIN, svg`<path d="M204,56V200a4,4,0,0,1-8,0V132H60v68a4,4,0,0,1-8,0V56a4,4,0,0,1,8,0v68H196V56a4,4,0,0,1,8,0Z"/>`],
-    [IconWeight.LIGHT, svg`<path d="M206,56V200a6,6,0,0,1-12,0V134H62v66a6,6,0,0,1-12,0V56a6,6,0,0,1,12,0v66H194V56a6,6,0,0,1,12,0Z"/>`],
-    [IconWeight.REGULAR, svg`<path d="M208,56V200a8,8,0,0,1-16,0V136H64v64a8,8,0,0,1-16,0V56a8,8,0,0,1,16,0v64H192V56a8,8,0,0,1,16,0Z"/>`],
-    [IconWeight.BOLD, svg`<path d="M212,56V200a12,12,0,0,1-24,0V140H68v60a12,12,0,0,1-24,0V56a12,12,0,0,1,24,0v60H188V56a12,12,0,0,1,24,0Z"/>`],
-    [IconWeight.FILL, svg`<path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,176a8,8,0,0,1-16,0V136H88v40a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0v40h80V80a8,8,0,0,1,16,0Z"/>`],
-    [IconWeight.DUOTONE, svg`<path d="M200,56V200H56V56Z" opacity="0.2"/><path d="M208,56V200a8,8,0,0,1-16,0V136H64v64a8,8,0,0,1-16,0V56a8,8,0,0,1,16,0v64H192V56a8,8,0,0,1,16,0Z"/>`],
+    [
+      IconWeight.THIN,
+      svg`<path d="M204,56V200a4,4,0,0,1-8,0V132H60v68a4,4,0,0,1-8,0V56a4,4,0,0,1,8,0v68H196V56a4,4,0,0,1,8,0Z"/>`,
+    ],
+    [
+      IconWeight.LIGHT,
+      svg`<path d="M206,56V200a6,6,0,0,1-12,0V134H62v66a6,6,0,0,1-12,0V56a6,6,0,0,1,12,0v66H194V56a6,6,0,0,1,12,0Z"/>`,
+    ],
+    [
+      IconWeight.REGULAR,
+      svg`<path d="M208,56V200a8,8,0,0,1-16,0V136H64v64a8,8,0,0,1-16,0V56a8,8,0,0,1,16,0v64H192V56a8,8,0,0,1,16,0Z"/>`,
+    ],
+    [
+      IconWeight.BOLD,
+      svg`<path d="M212,56V200a12,12,0,0,1-24,0V140H68v60a12,12,0,0,1-24,0V56a12,12,0,0,1,24,0v60H188V56a12,12,0,0,1,24,0Z"/>`,
+    ],
+    [
+      IconWeight.FILL,
+      svg`<path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,176a8,8,0,0,1-16,0V136H88v40a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0v40h80V80a8,8,0,0,1,16,0Z"/>`,
+    ],
+    [
+      IconWeight.DUOTONE,
+      svg`<path d="M200,56V200H56V56Z" opacity="0.2"/><path d="M208,56V200a8,8,0,0,1-16,0V136H64v64a8,8,0,0,1-16,0V56a8,8,0,0,1,16,0v64H192V56a8,8,0,0,1,16,0Z"/>`,
+    ],
   ]);
 
   /** The weight of the icon. */
@@ -68,6 +86,6 @@ export default class ArcIconTextH extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "arc-icon-text-h": ArcIconTextH;
+    'arc-icon-text-h': ArcIconTextH;
   }
 }

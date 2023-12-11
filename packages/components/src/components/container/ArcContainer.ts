@@ -114,11 +114,13 @@ export default class ArcContainer extends LitElement {
         </div>
         <slot
           name="accessibility"
-          @arc-accessibility-change=${this.handleAccessibilityChange}>
-            <arc-accessibility
+          @arc-accessibility-change=${this.handleAccessibilityChange}
+        >
+          <arc-accessibility
             id="accessibility"
-            @arc-accessibility-change=${this.handleAccessibilityChange}>
-            </arc-accessibility>
+            @arc-accessibility-change=${this.handleAccessibilityChange}
+          >
+          </arc-accessibility>
         </slot>
         <slot name="bottom">
           <arc-bottombar>

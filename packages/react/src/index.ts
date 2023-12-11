@@ -9,7 +9,6 @@ export * from './components/arc-drawer.js';
 export * from './components/arc-dropdown.js';
 export * from './components/arc-hero.js';
 export * from './components/arc-icon-button.js';
-export * from './components/arc-icon/index.js';
 export * from './components/arc-image.js';
 export * from './components/arc-menu-item.js';
 export * from './components/arc-menu.js';

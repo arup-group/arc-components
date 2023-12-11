@@ -8,7 +8,12 @@
     "arc-icon-assemble": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx ts-node --project scripts/tsconfig.scripts.json scripts/arc-icon-assemble.ts"
+        "commands": [
+          "npx ts-node --project scripts/tsconfig.scripts.json scripts/arc-icon-assemble.ts",
+          "npx prettier --write packages/components/src/components/arc-icon",
+          "npx eslint --fix packages/components/src/components/arc-icon"
+        ],
+        "parallel": false
       }
     },
     "lint": {
@@ -24,10 +29,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "npx web-test-runner --config packages/components/web-test-runner.config.mjs",
-          "npx prettier packages/components/src/arc-icon --write"
-        ]
+        "command": "npx web-test-runner --config packages/components/web-test-runner.config.mjs"
       }
     },
     "prebuild": {

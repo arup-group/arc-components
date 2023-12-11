@@ -59,10 +59,10 @@ const COMPONENTS_PATH = path.join(
 );
 
 /**
-  * React Components Path.
-  *
-  * Path to the write components source.
-  */
+ * React Components Path.
+ *
+ * Path to the write components source.
+ */
 const REACT_COMPONENTS_PATH = path.join(
   __dirname,
   '../packages/react/src/components/arc-icon',
@@ -371,10 +371,10 @@ Color.args = { ...defaultArgs };
     }
   }
   if (passes > 0) {
-    console.log(`${passes} component${passes > 1 ? "s" : ""} generated`);
+    console.log(`${passes} component${passes > 1 ? 's' : ''} generated`);
   }
   if (fails > 0) {
-    console.log(`${fails} component${fails > 1 ? "s" : ""} failed`);
+    console.log(`${fails} component${fails > 1 ? 's' : ''} failed`);
   }
 }
 
@@ -398,14 +398,14 @@ export * from './${key}/arc-icon-${key}.js';
   }
   try {
     fs.writeFileSync(INDEX_PATH, indexString, {
-      flag: "w",
+      flag: 'w',
     });
     fs.writeFileSync(REACT_INDEX_PATH, reactIndexString, {
-      flag: "w",
+      flag: 'w',
     });
-    console.log("Export success");
+    console.log('Export success');
   } catch (err) {
-    console.error("Export failed");
+    console.error('Export failed');
     console.group();
     console.error(err);
     console.groupEnd();

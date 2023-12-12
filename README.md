@@ -39,6 +39,7 @@ With **ARC**, you can:
 - [Typescript](#typescript): Use **ARC** components in a Typescript project
 - [React](#react): Use **ARC** components in a React project
 - [Customization](#customization): Customize **ARC** components
+- [Icons](#icons): Icon components
 - [Forms](#forms): Form control validation and serialization
 - [Flash of unstyled content (FOUC)](#flash-of-unstyled-content-fouc): Prevent FOUC
 - [Playgrounds](#playgrounds): Prebuild playground examples

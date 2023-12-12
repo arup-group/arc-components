@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArcContainer, ArcNavbar } from '@arc-web/react';
-import { PhIconGear, PhIconHouse } from '@arc-web/react/src/components/ph-icon';
 
 export function App() {
   return (

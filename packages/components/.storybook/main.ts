@@ -11,10 +11,6 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   ],
   staticDirs: [
     {
-      from: '../../../dist/packages/components/assets',
-      to: 'assets',
-    },
-    {
       from: '../../../assets',
       to: 'assets',
     },

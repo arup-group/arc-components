@@ -5,6 +5,17 @@
   "projectType": "library",
   "tags": ["package"],
   "targets": {
+    "ph-icon-assemble": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node --project scripts/tsconfig.scripts.json scripts/ph-icon-assemble.ts",
+          "npx prettier --write packages/components/src/components/ph-icon",
+          "npx prettier --write packages/react/src/components/ph-icon"
+        ],
+        "parallel": false
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -30,11 +41,6 @@
         "assets": [
           "README.md",
           "LICENSE",
-          {
-            "glob": "**/*",
-            "input": "packages/components/assets",
-            "output": "assets"
-          },
           {
             "glob": "**/*",
             "input": "packages/components/themes",

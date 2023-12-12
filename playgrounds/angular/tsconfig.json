@@ -1,7 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*.ts"],
-  "files": ["src/main.ts", "../../packages/components/src/index.ts"],
+  "include": ["src/**/*.ts", "../../packages/components/src/**/*.ts"],
+  "exclude": [
+    "../../packages/components/src/**/*.test.ts",
+    "../../packages/components/src/**/*.stories.ts"
+  ],
+  "files": ["src/main.ts"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

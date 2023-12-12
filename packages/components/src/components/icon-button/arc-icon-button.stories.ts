@@ -1,19 +1,12 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import type ArcIconButton from './ArcIconButton.js';
 import './arc-icon-button.js';
 
 export default {
   title: 'Components/ArcIconButton',
   component: 'arc-icon-button',
-  argTypes: {
-    name: {
-      control: 'select',
-      options: Object.values(ICON_TYPES),
-    },
-  },
 } as Meta;
 
 const Template: Story<ArcIconButton> = ({
@@ -27,7 +20,6 @@ const Template: Story<ArcIconButton> = ({
   loading,
 }) => html`
   <arc-icon-button
-    name="${name}"
     label="${label}"
     href=${ifDefined(href || undefined)}
     target=${ifDefined(target || undefined)}
@@ -40,7 +32,6 @@ const Template: Story<ArcIconButton> = ({
 `;
 
 const defaultArgs = {
-  name: ICON_TYPES.fire,
   label: 'Icon button',
   href: '',
   target: '',
@@ -55,7 +46,7 @@ export const Default = Template.bind({});
 Default.args = { ...defaultArgs };
 
 export const Link = Template.bind({});
-Link.args = { ...defaultArgs, name: ICON_TYPES.link, href: '/' };
+Link.args = { ...defaultArgs, href: '/' };
 
 export const LinkNewWindow = Template.bind({});
 LinkNewWindow.args = { ...Link.args, target: '_blank' };

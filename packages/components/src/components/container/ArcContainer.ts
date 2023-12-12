@@ -8,12 +8,13 @@ import {
   CONTAINER_THEMES,
   ContainerTheme,
 } from './constants/ContainerConstants.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import styles from './arc-container.styles.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import '../icon-button/arc-icon-button.js';
+import '../icon/accessibility/arc-icon-accessibility.js';
+import '../ph-icon/house/ph-icon-house.js';
 
 /**
  * @slot default - The container's content.
@@ -113,25 +114,26 @@ export default class ArcContainer extends LitElement {
         </div>
         <slot
           name="accessibility"
-          @arc-accessibility-change=${this.handleAccessibilityChange}>
-            <arc-accessibility
+          @arc-accessibility-change=${this.handleAccessibilityChange}
+        >
+          <arc-accessibility
             id="accessibility"
-            @arc-accessibility-change=${this.handleAccessibilityChange}>
-            </arc-accessibility>
+            @arc-accessibility-change=${this.handleAccessibilityChange}
+          >
+          </arc-accessibility>
         </slot>
         <slot name="bottom">
           <arc-bottombar>
+            <arc-icon-button href="/" label="Return home">
+              <ph-icon-house slot="icon"></ph-icon-house>
+              Home
+            </arc-icon-button>
             <arc-icon-button
-              name=${ICON_TYPES.home}
-              href="/"
-              label="Return home"
-              >Home</arc-icon-button
-            >
-            <arc-icon-button
-              name=${ICON_TYPES.accessibility}
               label="Accessibility panel"
               @click=${this.showAccessibility}
-              >Accessibility
+            >
+              <arc-icon-accessibility slot="icon"></arc-icon-accessibility>
+              Accessibility
             </arc-icon-button>
           </arc-bottombar>
         </slot>

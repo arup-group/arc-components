@@ -5,7 +5,7 @@ import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
 import { stringToInitials } from '../../internal/string.js';
 import styles from './arc-avatar.styles.js';
-import '../icon/arc-icon.js';
+import '../ph-icon/user/ph-icon-user.js';
 
 /**
  * @slot icon - The default icon to use when no image or initials are present.
@@ -69,7 +69,7 @@ export default class ArcAvatar extends LitElement {
               () =>
                 html`<div id="icon">
                   <slot name="icon">
-                    <arc-icon name="user"></arc-icon>
+                    <ph-icon-user></ph-icon-user>
                   </slot>
                 </div>`,
             ),

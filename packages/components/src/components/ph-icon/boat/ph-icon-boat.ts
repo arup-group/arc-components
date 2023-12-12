@@ -1,0 +1,60 @@
+/* GENERATED FILE */
+import { html, svg, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import {
+  FONT_SIZES,
+  FontSize,
+} from '../../../internal/constants/styleConstants.js';
+import styles from '../../icon/icon.styles.js';
+
+/**
+ * @cssproperty --icon-color - Set the color of the icon.
+ */
+@customElement('ph-icon-boat')
+export default class PhIconBoat extends LitElement {
+  /** @internal */
+  static tag = 'ph-icon-boat';
+
+  /** @internal */
+  static styles = styles;
+
+  /** @internal */
+  static svg = svg`<path d="M221.06,110.63,208,106.27V56a16,16,0,0,0-16-16H136V24a8,8,0,0,0-16,0V40H64A16,16,0,0,0,48,56v50.27l-13.06,4.36A16,16,0,0,0,24,125.82V160.1a7.73,7.73,0,0,0,.31,2.19c15.72,55.09,86.12,74.06,100.07,77.3a16.19,16.19,0,0,0,7.24,0c13.95-3.24,84.35-22.21,100.07-77.3a7.73,7.73,0,0,0,.31-2.19V125.82A16,16,0,0,0,221.06,110.63ZM64,56H192v44.93L130.53,80.41a8,8,0,0,0-5.06,0L64,100.93ZM216,158.94c-5.78,19-20.55,35.17-43.95,48.12A181.7,181.7,0,0,1,128,224a181.7,181.7,0,0,1-44-16.94C60.56,194.11,45.78,177.93,40,158.94V125.81l80-26.7V168a8,8,0,0,0,16,0V99.11l80,26.71Z"/>`;
+
+  /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
+  @property({ type: String }) label: string;
+
+  /** Set the size of the icon. */
+  @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;
+
+  /** Set the rotation of the icon. */
+  @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
+
+  protected render() {
+    return html`
+      <svg
+        id="main"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 256 256"
+        role=${ifDefined(this.label ? 'img' : undefined)}
+        aria-label=${ifDefined(this.label || undefined)}
+        aria-hidden=${ifDefined(this.label ? undefined : 'true')}
+        style=${styleMap({
+          transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
+          height: `var(--arc-font-size-${this.size})`,
+          width: `var(--arc-font-size-${this.size})`,
+        })}
+      >
+        ${PhIconBoat.svg}
+      </svg>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ph-icon-boat': PhIconBoat;
+  }
+}

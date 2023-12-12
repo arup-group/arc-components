@@ -2,33 +2,56 @@
 
 ## v2 to v3
 
-#### `ArcButton` color property
+In version 3 we have taken the opportunity to make serval important breaking changes to the library. Please take care to read the following migration guide before upgrading.
 
-The `ArcButton` components' default color property has been updated from `primary` to `default`. This change has been made to facilitate a fix for setting the `--btn-background` CSS variable when the color property was not set to an empty string, see (#174)[https://github.com/arup-group/arc-components/pull/174]. Update any `ArcButton` components with no color property set to `primary` if you wish to maintain the same appearance.
+#### Breaking Changes
+
+- `ArcIcon` has been replaced with genorated components.
+- `ArcButton` color property has been updated from `primary` to `default`.
+- Cerry-picking components from the `@arc-web/components` package has changed from importing from the `/dist/src` directory to importing from the `/src` directory.
+- React component wrappers have been moved from the `@arc-web/components` package to the `@arc-web/react` package.
+
+#### Upgrade Steps
+
+1. Replace all instances of `ArcIcon` with the new genorated components.
+
+```diff
+- import '@arc-web/components/src/components/icon/arc-icon';
+- <arc-icon name="home"></arc-icon>
+
++ import '@arc-web/components/src/components/icon/house/arc-icon-house';
++ <arc-icon-house></arc-icon-house>
+
+```
+
+2. Update all `ArcButton` components with no color property set to `primary` if you wish to maintain the same appearance.
 
 ```diff
 - <arc-button>Click Me</arc-button>
 + <arc-button color="primary">Click Me</arc-button>
 ```
 
-#### Cherry-picking components
-
-Cherry-picking components from the `@arc-web/components` package has changed from importing from the `/dist` directory to importing from the `/src` directory:
+3. Update all cherry-picked components from the `@arc-web/components` package to import from the `/src` directory.
 
 ```diff
 - import '@arc-web/components/dist/src/components/button/arc-button';
 + import '@arc-web/components/src/components/button/arc-button';
 ```
 
-#### React component wrappers
+<details>
+<summary>React Only</summary>
 
-React component wrappers have been moved from the `@arc-web/components` package to the `@arc-web/react` package. Ensure you install this package and update any imports from the `@arc-web/components` package to the `@arc-web/react` package:
+4. Install the new `@arc-web/react` package.
 
 ```sh
-npm install @arc-web/components @arc-web/react@latest
+npm i @arc-web/components@latest @arc-web/react@latest
 ```
+
+5. Update all imports from the `@arc-web/components` package to the `@arc-web/react` package.
 
 ```diff
 - import { ArcButton } from '@arc-web/components/react';
 + import { ArcButton } from '@arc-web/react';
 ```
+
+</details>

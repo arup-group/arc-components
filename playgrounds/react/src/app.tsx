@@ -4,7 +4,6 @@ import {
   ArcNavbar,
   ArcIconButton,
   ArcSSO,
-  ArcIconHouse,
 } from '@arc-web/react';
 
 export function App() {

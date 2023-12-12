@@ -11,7 +11,7 @@ import {
   InputSize,
 } from '../../internal/constants/styleConstants.js';
 import styles from './arc-chip.styles.js';
-import '../arc-icon/x/arc-icon-x.js';
+import '../ph-icon/x/ph-icon-x.js';
 
 /**
  * @slot default - The chip's label.
@@ -61,7 +61,7 @@ export default class ArcChip extends LitElement {
                 label="Clear chip"
                 @click=${this._handleClear}
               >
-                <arc-icon-x slot="icon"></arc-icon-x>
+                <ph-icon-x slot="icon"></ph-icon-x>
               </arc-icon-button>`,
           )}
         </span>

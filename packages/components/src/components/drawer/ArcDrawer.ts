@@ -24,7 +24,7 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
 import styles from './arc-drawer.styles.js';
 import '../icon-button/arc-icon-button.js';
-import '../arc-icon/x/arc-icon-x.js';
+import '../ph-icon/x/ph-icon-x.js';
 
 /**
  * @slot default - The drawer's content.
@@ -257,7 +257,7 @@ export default class ArcDrawer extends LitElement {
               label="Close drawer"
               @click=${this._requestClose}
             >
-              <arc-icon-x slot="icon"></arc-icon-x>
+              <ph-icon-x slot="icon"></ph-icon-x>
             </arc-icon-button>
           </div>
 

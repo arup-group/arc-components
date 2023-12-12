@@ -25,7 +25,7 @@ const WEIGHTS: IconStyle[] = Object.values(IconStyle);
  */
 const INDEX_PATH = path.join(
   __dirname,
-  '../packages/components/src/components/arc-icon/index.ts',
+  '../packages/components/src/components/ph-icon/index.ts',
 );
 
 /**
@@ -35,7 +35,7 @@ const INDEX_PATH = path.join(
  */
 const REACT_INDEX_PATH = path.join(
   __dirname,
-  '../packages/react/src/components/arc-icon/index.ts',
+  '../packages/react/src/components/ph-icon/index.ts',
 );
 
 /**
@@ -55,7 +55,7 @@ const ASSETS_PATH = path.join(
  */
 const COMPONENTS_PATH = path.join(
   __dirname,
-  '../packages/components/src/components/arc-icon',
+  '../packages/components/src/components/ph-icon',
 );
 
 /**
@@ -65,7 +65,7 @@ const COMPONENTS_PATH = path.join(
  */
 const REACT_COMPONENTS_PATH = path.join(
   __dirname,
-  '../packages/react/src/components/arc-icon',
+  '../packages/react/src/components/ph-icon',
 );
 
 /**
@@ -157,76 +157,31 @@ function generateIconSourceFiles() {
       continue;
     }
 
-    const stylesString = `\
-/* GENERATED FILE */
-import { css } from 'lit';
-import componentStyles from '../../../styles/component.styles.js';
-
-
-export default [
-  componentStyles,
-  css\`
-    :host {
-      display: inline-flex;
-      --icon-color-primary: inherit;
-      --icon-color-secondary: currentColor;
-    }
-
-    #main {
-      display: block;
-      color: var(--icon-color-primary);
-      line-height: 1;
-      flex-shrink: 0;
-      max-width: initial;
-      fill: var(--icon-color-secondary);
-      stroke: var(--icon-color-secondary);
-      --icon-stroke-linecap-butt: butt;
-      stroke-miterlimit: 10;
-      stroke-linecap: square;
-      stroke-linejoin: miter;
-    }
-  \`,
-];
-`;
-
     const componentString = `\
 /* GENERATED FILE */
 import { html, svg, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { IconStyle as IconWeight } from '@phosphor-icons/core';
 import {
   FONT_SIZES,
   FontSize,
 } from '../../../internal/constants/styleConstants.js';
-import styles from './arc-icon-${key}.styles.js';
+import styles from '../../icon/icon.styles.js';
 
 /**
- * @cssproperty --icon-color-primary - Set the primary color of the icon.
- * @cssproperty --icon-color-secondary - Set the secondary color of the icon (if supported).
+ * @cssproperty --icon-color - Set the color of the icon.
  */
-@customElement('arc-icon-${key}')
-export default class ArcIcon${name} extends LitElement {
+@customElement('ph-icon-${key}')
+export default class PhIcon${name} extends LitElement {
   /** @internal */
-  static tag = 'arc-icon-${key}';
+  static tag = 'ph-icon-${key}';
 
   /** @internal */
   static styles = styles;
 
   /** @internal */
-  static weightsMap = new Map<IconWeight, ReturnType<typeof svg>>([
-    [IconWeight.THIN, svg\`${icon.thin}\`],
-    [IconWeight.LIGHT, svg\`${icon.light}\`],
-    [IconWeight.REGULAR, svg\`${icon.regular}\`],
-    [IconWeight.BOLD, svg\`${icon.bold}\`],
-    [IconWeight.FILL, svg\`${icon.fill}\`],
-    [IconWeight.DUOTONE, svg\`${icon.duotone}\`],
-  ]);
-
-  /** The weight of the icon. */
-  @property({ type: String })
-  weight: IconWeight = IconWeight.REGULAR;
+  static svg = svg\`${icon.regular}\`;
 
   /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
   @property({ type: String }) label: string;
@@ -252,7 +207,7 @@ export default class ArcIcon${name} extends LitElement {
           width: \`var(--arc-font-size-\${this.size})\`,
         })}
       >
-        \${ArcIcon${name}.weightsMap.get(this.weight)}
+        \${PhIcon${name}.svg}
       </svg>
     \`;
   }
@@ -260,7 +215,7 @@ export default class ArcIcon${name} extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "arc-icon-${key}": ArcIcon${name};
+    "ph-icon-${key}": PhIcon${name};
   }
 }
 `;
@@ -269,12 +224,12 @@ declare global {
 /* GENERATED FILE */
 import { createComponent } from '@lit-labs/react';
 import React from 'react';
-import ArcIcon${name}WC from '@arc-web/components/src/components/arc-icon/${key}/arc-icon-${key}.js';
-import '@arc-web/components/src/components/arc-icon/${key}/arc-icon-${key}.js';
+import PhIcon${name}WC from '@arc-web/components/src/components/ph-icon/${key}/ph-icon-${key}.js';
+import '@arc-web/components/src/components/ph-icon/${key}/ph-icon-${key}.js';
 
-export const ArcIcon${name} = createComponent({
-  tagName: 'arc-icon-${key}',
-  elementClass: ArcIcon${name}WC,
+export const PhIcon${name} = createComponent({
+  tagName: 'ph-icon-${key}',
+  elementClass: PhIcon${name}WC,
   react: React,
 });
 `;
@@ -286,11 +241,11 @@ import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { FONT_SIZES } from '../../../internal/constants/styleConstants.js';
 import { icons } from '@phosphor-icons/core';
-import './arc-icon-${key}.js';
+import './ph-icon-${key}.js';
 
 export default {
-  title: 'Components/Icons/ArcIcon${name}',
-  component: 'arc-icon-${key}',
+  title: 'Components/Icons/PhIcon${name}',
+  component: 'ph-icon-${key}',
   argTypes: {
     size: {
       control: 'select',
@@ -304,20 +259,20 @@ export default {
 } as Meta;
 
 const Template: Story<ArcIcon> = ({ label, size, rotation }) => html\`
-  <arc-icon-${key}
+  <ph-icon-${key}
     label=\${ifDefined(label || undefined)}
     size=\${ifDefined(size || undefined)}
     rotation=\${ifDefined(rotation || undefined)}
-  ></arc-icon-${key}>
+  ></ph-icon-${key}>
 \`;
 
 const ColorTemplate: Story<ArcIcon> = ({ label, size, rotation }) => html\`
-  <arc-icon-${key}
+  <ph-icon-${key}
     label=\${ifDefined(label || undefined)}
     size=\${ifDefined(size || undefined)}
     rotation=\${ifDefined(rotation || undefined)}
-    style="--icon-color-primary: rgb(var(--arc-pink-050))">
-  </arc-icon-${key}>
+    style="--icon-color: rgb(var(--arc-red-050))">
+  </ph-icon-${key}>
 \`;
 
 const defaultArgs = {
@@ -338,28 +293,21 @@ Color.args = { ...defaultArgs };
       fs.mkdirSync(path.join(COMPONENTS_PATH, key));
       fs.mkdirSync(path.join(REACT_COMPONENTS_PATH, key));
       fs.writeFileSync(
-        path.join(COMPONENTS_PATH, key, `arc-icon-${key}.styles.ts`),
-        stylesString,
-        {
-          flag: 'w',
-        },
-      );
-      fs.writeFileSync(
-        path.join(COMPONENTS_PATH, key, `arc-icon-${key}.ts`),
+        path.join(COMPONENTS_PATH, key, `ph-icon-${key}.ts`),
         componentString,
         {
           flag: 'w',
         },
       );
       fs.writeFileSync(
-        path.join(REACT_COMPONENTS_PATH, key, `arc-icon-${key}.ts`),
+        path.join(REACT_COMPONENTS_PATH, key, `ph-icon-${key}.ts`),
         reactComponentString,
         {
           flag: 'w',
         },
       );
       fs.writeFileSync(
-        path.join(COMPONENTS_PATH, key, `arc-icon-${key}.stories.ts`),
+        path.join(COMPONENTS_PATH, key, `ph-icon-${key}.stories.ts`),
         storyString,
         {
           flag: 'w',
@@ -384,7 +332,7 @@ function generateExports() {
 `;
   for (let key in ICONS) {
     indexString += `\
-export * from './${key}/arc-icon-${key}';
+export * from './${key}/ph-icon-${key}.js';
 `;
   }
 
@@ -393,7 +341,7 @@ export * from './${key}/arc-icon-${key}';
 `;
   for (let key in ICONS) {
     reactIndexString += `\
-export * from './${key}/arc-icon-${key}.js';
+export * from './${key}/ph-icon-${key}.js';
 `;
   }
   try {

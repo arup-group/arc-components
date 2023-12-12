@@ -4,8 +4,8 @@ import type ArcBottombar from './ArcBottombar.js';
 import '../container/arc-container.js';
 import './arc-bottombar.js';
 import '../icon-button/arc-icon-button.js';
-import '../arc-icon/house/arc-icon-house.js';
-import '../arc-icon/wheelchair/arc-icon-wheelchair.js';
+import '../ph-icon/house/ph-icon-house.js';
+import '../icon/accessibility/arc-icon-accessibility.js';
 
 export default {
   title: 'Components/ArcBottombar',
@@ -25,11 +25,11 @@ const Template: Story<ArcBottombar> = () => html`
 
     <arc-bottombar slot="bottom" class="bottom-bar">
       <arc-icon-button label="Back to home">
-        <arc-icon-house slot="icon"></arc-icon-house>
+        <ph-icon-house slot="icon"></ph-icon-house>
         Home
       </arc-icon-button>
       <arc-icon-button label="Accessibility control">
-        <arc-icon-wheelchair slot="icon"></arc-icon-wheelchair>
+        <arc-icon-accessibility slot="icon"></arc-icon-accessibility>
         Accessibility
       </arc-icon-button>
     </arc-bottombar>

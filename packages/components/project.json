@@ -5,13 +5,13 @@
   "projectType": "library",
   "tags": ["package"],
   "targets": {
-    "arc-icon-assemble": {
+    "ph-icon-assemble": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
           "npx ts-node --project scripts/tsconfig.scripts.json scripts/ph-icon-assemble.ts",
-          "npx prettier --write packages/components/src/components/arc-icon",
-          "npx eslint --fix packages/components/src/components/arc-icon"
+          "npx prettier --write packages/components/src/components/ph-icon",
+          "npx prettier --write packages/react/src/components/ph-icon"
         ],
         "parallel": false
       }
@@ -47,8 +47,7 @@
             "output": "themes"
           }
         ]
-      },
-      "dependsOn": ["arc-icon-assemble"]
+      }
     },
     "build": {
       "executor": "nx:run-commands",

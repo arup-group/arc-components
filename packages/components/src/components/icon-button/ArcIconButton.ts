@@ -6,7 +6,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
 import styles from './arc-icon-button.styles.js';
-import '../arc-icon/lightning/arc-icon-lightning.js';
+import '../ph-icon/lightning/ph-icon-lightning.js';
 import '../spinner/arc-spinner.js';
 
 /**
@@ -95,7 +95,7 @@ export default class ArcIconButton extends LitElement {
         <span id="iconWrapper" aria-hidden="true">
           <span id="icon">
             <slot name="icon">
-              <arc-icon-lightning></arc-icon-lightning>
+              <ph-icon-lightning></ph-icon-lightning>
             </slot>
           </span>
           ${when(

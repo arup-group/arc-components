@@ -6,8 +6,8 @@ import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import styles from './arc-sidebar.styles.js';
 import '../icon-button/arc-icon-button.js';
-import '../arc-icon/x/arc-icon-x.js';
-import '../arc-icon/arrow-right/arc-icon-arrow-right.js';
+import '../ph-icon/x/ph-icon-x.js';
+import '../ph-icon/arrow-right/ph-icon-arrow-right.js';
 
 /**
  * @slot default - The sidebar's content.
@@ -103,7 +103,7 @@ export default class ArcSidebar extends LitElement {
                 label="Close sidebar"
                 @click=${this._handleClick}
               >
-                <arc-icon-x slot="icon"></arc-icon-x>
+                <ph-icon-x slot="icon"></ph-icon-x>
               </arc-icon-button>
             </div>
             <div id="content">
@@ -117,7 +117,7 @@ export default class ArcSidebar extends LitElement {
             label="Open sidebar"
             @click=${this._handleClick}
           >
-            <arc-icon-arrow-right slot="icon"></arc-icon-arrow-right>
+            <ph-icon-arrow-right slot="icon"></ph-icon-arrow-right>
           </arc-icon-button>
         `;
   }

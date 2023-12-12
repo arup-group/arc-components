@@ -13,8 +13,8 @@ import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import '../icon-button/arc-icon-button.js';
-import '../arc-icon/wheelchair/arc-icon-wheelchair.js';
-import '../arc-icon/house/arc-icon-house.js';
+import '../icon/accessibility/arc-icon-accessibility.js';
+import '../ph-icon/house/ph-icon-house.js';
 
 /**
  * @slot default - The container's content.
@@ -125,14 +125,14 @@ export default class ArcContainer extends LitElement {
         <slot name="bottom">
           <arc-bottombar>
             <arc-icon-button href="/" label="Return home">
-              <arc-icon-house slot="icon"></arc-icon-house>
+              <ph-icon-house slot="icon"></ph-icon-house>
               Home
             </arc-icon-button>
             <arc-icon-button
               label="Accessibility panel"
               @click=${this.showAccessibility}
             >
-              <arc-icon-wheelchair slot="icon"></arc-icon-wheelchair>
+              <arc-icon-accessibility slot="icon"></arc-icon-accessibility>
               Accessibility
             </arc-icon-button>
           </arc-bottombar>

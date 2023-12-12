@@ -1,0 +1,60 @@
+/* GENERATED FILE */
+import { html, svg, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import {
+  FONT_SIZES,
+  FontSize,
+} from '../../../internal/constants/styleConstants.js';
+import styles from '../../icon/icon.styles.js';
+
+/**
+ * @cssproperty --icon-color - Set the color of the icon.
+ */
+@customElement('ph-icon-money')
+export default class PhIconMoney extends LitElement {
+  /** @internal */
+  static tag = 'ph-icon-money';
+
+  /** @internal */
+  static styles = styles;
+
+  /** @internal */
+  static svg = svg`<path d="M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152ZM240,56H16a8,8,0,0,0-8,8V192a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V64A8,8,0,0,0,240,56ZM193.65,184H62.35A56.78,56.78,0,0,0,24,145.65v-35.3A56.78,56.78,0,0,0,62.35,72h131.3A56.78,56.78,0,0,0,232,110.35v35.3A56.78,56.78,0,0,0,193.65,184ZM232,93.37A40.81,40.81,0,0,1,210.63,72H232ZM45.37,72A40.81,40.81,0,0,1,24,93.37V72ZM24,162.63A40.81,40.81,0,0,1,45.37,184H24ZM210.63,184A40.81,40.81,0,0,1,232,162.63V184Z"/>`;
+
+  /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
+  @property({ type: String }) label: string;
+
+  /** Set the size of the icon. */
+  @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;
+
+  /** Set the rotation of the icon. */
+  @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
+
+  protected render() {
+    return html`
+      <svg
+        id="main"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 256 256"
+        role=${ifDefined(this.label ? 'img' : undefined)}
+        aria-label=${ifDefined(this.label || undefined)}
+        aria-hidden=${ifDefined(this.label ? undefined : 'true')}
+        style=${styleMap({
+          transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
+          height: `var(--arc-font-size-${this.size})`,
+          width: `var(--arc-font-size-${this.size})`,
+        })}
+      >
+        ${PhIconMoney.svg}
+      </svg>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ph-icon-money': PhIconMoney;
+  }
+}

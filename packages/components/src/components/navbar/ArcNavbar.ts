@@ -13,8 +13,8 @@ import '../dropdown/arc-dropdown.js';
 import '../icon-button/arc-icon-button.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
-import '../arc-icon/list/arc-icon-list.js';
-import '../arc-icon/wheelchair/arc-icon-wheelchair.js';
+import '../ph-icon/list/ph-icon-list.js';
+import '../icon/accessibility/arc-icon-accessibility.js';
 
 /**
  * @slot default - This slot is used to add tabs to the navbar.
@@ -145,7 +145,7 @@ export default class ArcNavbar extends LitElement {
               () =>
                 html`<arc-dropdown id="dropdown" hoist>
                   <arc-icon-button slot="trigger">
-                    <arc-icon-list slot="icon"></arc-icon-list>
+                    <ph-icon-list slot="icon"></ph-icon-list>
                   </arc-icon-button>
                   <arc-menu>${menuInterior}</arc-menu>
                 </arc-dropdown>`,
@@ -155,7 +155,7 @@ export default class ArcNavbar extends LitElement {
               label="Accessibility panel"
               @click=${this.emitAccessibility}
             >
-              <arc-icon-wheelchair slot="icon"></arc-icon-wheelchair>
+              <arc-icon-accessibility slot="icon"></arc-icon-accessibility>
             </arc-icon-button>
             <slot name="user"></slot>
           </nav>

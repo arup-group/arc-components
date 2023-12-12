@@ -7,9 +7,9 @@ import '../navbar/arc-navbar.js';
 import './arc-sidebar.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
-import '../arc-icon/house/arc-icon-house.js';
-import '../arc-icon/paper-plane-tilt/arc-icon-paper-plane-tilt.js';
-import '../arc-icon/gear/arc-icon-gear.js';
+import '../ph-icon/house/ph-icon-house.js';
+import '../ph-icon/paper-plane-tilt/ph-icon-paper-plane-tilt.js';
+import '../ph-icon/gear/ph-icon-gear.js';
 
 export default {
   title: 'Components/ArcSidebar',
@@ -48,17 +48,17 @@ const Template: Story = ({ customLabel, open }) => html`
     >
       <arc-menu>
         <arc-menu-item value="home">
-          <arc-icon-house slot="prefix"></arc-icon-house>
+          <ph-icon-house slot="prefix"></ph-icon-house>
           Home
         </arc-menu-item>
         <arc-menu-item value="messages">
-          <arc-icon-paper-plane-tilt slot="prefix"></arc-icon-paper-plane-tilt>
+          <ph-icon-paper-plane-tilt slot="prefix"></ph-icon-paper-plane-tilt>
           Messages
         </arc-menu-item>
       </arc-menu>
       <arc-menu>
         <arc-menu-item value="settings">
-          <arc-icon-gear slot="prefix"></arc-icon-gear>
+          <ph-icon-gear slot="prefix"></ph-icon-gear>
           Settings
         </arc-menu-item>
       </arc-menu>

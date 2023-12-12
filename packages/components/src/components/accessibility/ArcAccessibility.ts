@@ -32,7 +32,7 @@ import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
-import '../arc-icon/wheelchair/arc-icon-wheelchair.ts';
+import '../icon/accessibility/arc-icon-accessibility.js';
 import '../button/arc-button.js';
 
 export declare type UserPreferences = {
@@ -264,7 +264,7 @@ export default class ArcAccessibility extends LitElement {
       <div id="main">
         <arc-drawer id="drawer" @arc-hide=${this.hide} ?open=${this.open}>
           <div class="label" slot="label">
-            <arc-icon-wheelchair size="large"></arc-icon-wheelchair>
+            <arc-icon-accessibility size="large"></arc-icon-accessibility>
             <span>Accessibility Controls</span>
           </div>
           <div id="wrapper">

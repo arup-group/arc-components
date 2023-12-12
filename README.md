@@ -148,6 +148,11 @@ import `@arc-web/components/src/components/button/arc-button`;
 
 </details>
 
+See the [Storybook](https://arc.arup.com) for a full list of available components and their documentation.
+
+> [!IMPORTANT]
+> Icons are not imported by default and must be cherry picked.
+
 ### Typescript
 
 **ARC** components are written in Typescript and come with their own type definitions. This means you can use them in a Typescript project without any additional setup. Import an **ARC** component and its type definition:
@@ -238,6 +243,18 @@ Alternatively, you can set them inline directly on the component.
 ```
 
 Not all components expose CSS custom properties. For those that do, they can be found in the component's API documentation. In the properties table, these can be found under the `CSS CUSTOM PROPERTIES` row.
+
+### Icons
+
+ARC used the [Phosphor Icons](https://phosphoricons.com/) icon set and provides a web component for each icon. To use an icon, import the icon component and use it in your application as you would any other component cherry picked as follows:
+
+```js
+import '@arc-web/components/src/components/ph-{icon-name}/ph-icon-{icon-name}.js';
+```
+
+```html
+<ph-icon-{icon-name}></ph-icon-{icon-name}>
+```
 
 ### Forms
 

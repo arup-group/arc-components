@@ -5,6 +5,7 @@ import {
   ArcIconButton,
   ArcSSO,
 } from '@arc-web/react';
+import { PhIconGear, PhIconHouse } from '@arc-web/react/src/components/ph-icon';
 
 export function App() {
   return (
@@ -12,8 +13,12 @@ export function App() {
       <ArcNavbar slot="nav" logo="assets/arc-red.svg" tabs={0}>
         <span slot="name">ARC Playground</span>
 
-        <ArcIconButton label="Home" name="home"></ArcIconButton>
-        <ArcIconButton label="Settings" name="settings"></ArcIconButton>
+        <ArcIconButton label="Home">
+          <PhIconHouse></PhIconHouse>
+        </ArcIconButton>
+        <ArcIconButton label="Settings">
+          <PhIconGear></PhIconGear>
+        </ArcIconButton>
 
         <ArcSSO
           slot="user"

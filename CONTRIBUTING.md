@@ -138,6 +138,8 @@ Or start the storybook development server with:
 npx nx run components:storybook:serve
 ```
 
+Source code chanages will be hot reloaded in the browser making any of the above commands ideal for local component development.
+
 ### Unit Tests
 
 Unit tests must be written for all components and can be run using the following command:

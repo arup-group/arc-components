@@ -4,7 +4,7 @@
 
 > Arup Reusable Components
 
-[Storybook](https://arc.arup.com) | [Documentation](#documentation) | [Playgrounds](#playgrounds) | [Sharepoint (Arup Internal)](https://arup.sharepoint.com/:u:/r/sites/ARCDesignSystem/SitePages/ARC-Design-System.aspx?csf=1&web=1&e=bkD3kw)
+[Storybook](https://arc.arup.com) | [Documentation](#documentation) | [Playgrounds](#playgrounds) | [Sharepoint (Arup Internal)](https://arup.sharepoint.com/:u:/r/sites/ARCDesignSystem/SitePages/ARC-Design-System.aspx?csf=1&web=1&e=bkD3kw) | [Jira (Arup Internal)](https://arupdigital.atlassian.net/jira/software/projects/ARC/boards/564)
 
 Thanks to the popularity of frameworks such as Angular, Vue, and React, component-driven development has become a part of our everyday lives. Components help us encapsulate styles and behaviours into reusable building blocks. They make a lot of sense in terms of design, development, and testing.
 

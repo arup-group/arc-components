@@ -24,6 +24,8 @@ import '../icon/accessibility/arc-icon-accessibility.js';
  * @event arc-show-accessibility - Emitted when the built-in accessibility button is pressed.
  *
  * @cssproperty --logo-height - Set the height of the tool logo.
+ *
+ * @ssr - True
  */
 export default class ArcNavbar extends LitElement {
   /** @internal */

@@ -11,6 +11,8 @@ import styles from '../../icon/icon.styles.js';
 
 /**
  * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
  */
 @customElement('ph-icon-folder-notch-minus')
 export default class PhIconFolderNotchMinus extends LitElement {

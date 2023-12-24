@@ -11,6 +11,8 @@ import styles from '../../icon/icon.styles.js';
 
 /**
  * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
  */
 @customElement('ph-icon-microsoft-powerpoint-logo')
 export default class PhIconMicrosoftPowerpointLogo extends LitElement {

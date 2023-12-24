@@ -11,6 +11,8 @@ import styles from '../../icon/icon.styles.js';
 
 /**
  * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
  */
 @customElement('ph-icon-git-merge')
 export default class PhIconGitMerge extends LitElement {

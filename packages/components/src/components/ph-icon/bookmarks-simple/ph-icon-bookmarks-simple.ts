@@ -11,6 +11,8 @@ import styles from '../../icon/icon.styles.js';
 
 /**
  * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
  */
 @customElement('ph-icon-bookmarks-simple')
 export default class PhIconBookmarksSimple extends LitElement {

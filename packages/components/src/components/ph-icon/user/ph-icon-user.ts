@@ -11,6 +11,8 @@ import styles from '../../icon/icon.styles.js';
 
 /**
  * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
  */
 @customElement('ph-icon-user')
 export default class PhIconUser extends LitElement {

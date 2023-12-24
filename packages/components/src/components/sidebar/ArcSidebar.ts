@@ -20,6 +20,8 @@ import '../ph-icon/arrow-right/ph-icon-arrow-right.js';
  *
  * @cssproperty --gap-distance - Set the distance between sidebar elements.
  * @cssproperty --sidebar-width - Set the width of the sidebar.
+ *
+ * @ssr - True
  */
 export default class ArcSidebar extends LitElement {
   /** @internal */

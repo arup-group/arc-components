@@ -21,6 +21,8 @@ const enum TABLE_EVENTS {
  * @event arc-cell-click - Emitted when the user clicks on a cell.
  * @event arc-row-click - Emitted when the user clicks on a row.
  * @event arc-table-ready - Emitted when the table is ready.
+ *
+ * @ssr - True
  */
 export default class ArcTable extends LitElement {
   /** @internal */

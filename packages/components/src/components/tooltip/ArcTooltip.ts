@@ -34,6 +34,8 @@ import styles from './arc-tooltip.styles.js';
  *
  * @cssproperty --max-width - Set the max width of the tooltip.
  * @cssproperty --arrow-size - Overwrite the size of the arrow.
+ *
+ * @ssr - True
  */
 export default class ArcTooltip extends LitElement {
   /** @internal */

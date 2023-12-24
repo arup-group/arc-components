@@ -4,6 +4,8 @@ import styles from './arc-bottombar.styles.js';
 
 /**
  * @slot - This slot is used to add icon-buttons to the bottom bar.
+ *
+ * @ssr - True
  */
 export default class ArcBottombar extends LitElement {
   /** @internal */

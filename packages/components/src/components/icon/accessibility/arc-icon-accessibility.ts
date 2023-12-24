@@ -10,6 +10,8 @@ import styles from '../icon.styles.js';
 
 /**
  * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
  */
 @customElement('arc-icon-accessibility')
 export default class ArcIconAccessibility extends LitElement {

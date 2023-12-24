@@ -10,6 +10,8 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
  * @slot default - The menu's content, including menu items.
  *
  * @event arc-select - Emitted when a menu item is selected.
+ *
+ * ssr - True
  */
 export default class ArcMenu extends LitElement {
   /** @internal */

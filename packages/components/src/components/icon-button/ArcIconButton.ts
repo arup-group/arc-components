@@ -13,6 +13,8 @@ import '../spinner/arc-spinner.js';
  * @slot default - The button's label.
  *
  * @cssproperty --icon-color - Overwrite the color of the icon.
+ *
+ * @ssr - True
  */
 export default class ArcIconButton extends LitElement {
   /** @internal */

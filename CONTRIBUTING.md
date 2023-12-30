@@ -50,10 +50,10 @@ npm ci && npx playwright install --with-deps
 <details>
   <summary>NIX</summary>
 
-If you are using [NIX](https://nixos.org/) use the `[clean-install](https://github.com/arup-group/arc-components/blob/main/flake.nix#L19-L31)` deerivation:
+If you are using [NIX](https://nixos.org/) use the `clean-install` deerivation:
 
 ```sh
-clean-install
+nix run .#utils.[host platform].clean-install
 ```
 
 </details>

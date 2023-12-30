@@ -51,6 +51,8 @@
       in {
         formatter = formatter;
 
+        utils.clean-install = clean-install;
+
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs

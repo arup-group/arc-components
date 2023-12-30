@@ -31,8 +31,25 @@
             npx playwright install-deps
           '';
         };
+
+        formatter = pkgs.writeShellApplication {
+          name = "formatter";
+          runtimeInputs = with pkgs; [
+            alejandra
+            nodejs_18
+            terraform
+            terraform-ls
+          ];
+
+          text = ''
+            alejandra format . --exclude node_modules
+            npm install
+            npx nx format:write
+            npx nx run-many --target=lint:fix,fmt
+          '';
+        };
       in {
-        formatter = pkgs.alejandra;
+        formatter = formatter;
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [

@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/23.11";
   inputs.systems.url = "github:nix-systems/default";
 
   outputs = {
@@ -28,7 +28,6 @@
             rm -rf dist
             rm -rf tmp
             npm ci
-            npx playwright install-deps
           '';
         };
 
@@ -59,6 +58,7 @@
             terraform
             azure-cli
             clean-install
+            google-chrome
           ];
           shellHook = ''export PATH=$PATH:$(npm bin)'';
         };

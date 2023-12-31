@@ -23,8 +23,9 @@ We welcome all contributions and engagement with the **ARC** design system.
 
 The following system native build dependencies are required for a local development environment:
 
-- [git](https://git-scm.com/)
+- [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
+- [Google Chrome](https://www.google.com/chrome/)
 - [Terraform](https://www.terraform.io/)
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)
 

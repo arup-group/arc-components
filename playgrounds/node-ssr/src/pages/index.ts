@@ -1,7 +1,7 @@
 import { render } from '@lit-labs/ssr';
 import { html } from 'lit';
 
-import '../../../../dist/packages/components/src/index.js';
+import '@arc-web/components';
 
 export interface IndexProps {
   name: string;
@@ -35,9 +35,11 @@ export function* renderIndex({ name }: IndexProps) {
   `;
 
   yield* render(html`
-    <section id="playground" style="padding: var(--arc-spacing-small)">
-      <p>Hello ${name}!</p>
-    </section>
+    <arc-container>
+      <section id="playground" style="padding: var(--arc-spacing-small)">
+        <p>Hello ${name}!</p>
+      </section>
+    </arc-container>
   `);
 
   yield `

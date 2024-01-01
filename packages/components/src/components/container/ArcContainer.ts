@@ -10,6 +10,9 @@ import {
 } from './constants/ContainerConstants.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import styles from './arc-container.styles.js';
+import '../navbar/arc-navbar.js';
+import '../accessibility/arc-accessibility.js';
+import '../bottombar/arc-bottombar.js';
 
 /**
  * @slot default - The container's content.
@@ -18,7 +21,7 @@ import styles from './arc-container.styles.js';
  * @slot side - The container's sidebar.
  * @slot bottom - The container's bottom bar.
  *
- * @ssr - True 
+ * @ssr - True
  */
 export default class ArcContainer extends LitElement {
   /** @internal */
@@ -98,7 +101,11 @@ export default class ArcContainer extends LitElement {
           id="nav"
           name="nav"
           @arc-show-accessibility=${this.showAccessibility}
-        ></slot>
+        >
+          <arc-navbar
+            @arc-show-accessibility=${this.showAccessibility}
+          ></arc-navbar>
+        </slot>
         <div
           id="container"
           class=${classMap({
@@ -114,8 +121,17 @@ export default class ArcContainer extends LitElement {
         <slot
           name="accessibility"
           @arc-accessibility-change=${this.handleAccessibilityChange}
-        ></slot>
-        <slot name="bottom"></slot>
+        >
+          <arc-accessibility
+            id="accessibility"
+            @arc-accessibility-change=${this.handleAccessibilityChange}
+          ></arc-accessibility>
+        </slot>
+        <slot name="bottom">
+          <arc-bottombar
+            @arc-show-accessibility=${this.showAccessibility}
+          ></arc-bottombar>
+        </slot>
       </div>
     `;
   }

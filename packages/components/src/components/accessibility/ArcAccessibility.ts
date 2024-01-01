@@ -138,7 +138,8 @@ export default class ArcAccessibility extends LitElement {
     /* When the component is rendered on the server, return the auto theme */
     if (isServer) return CONTAINER_THEMES.auto;
 
-    const arcContainer: ArcContainer | null = document.querySelector('arc-container');
+    const arcContainer: ArcContainer | null =
+      document.querySelector('arc-container');
     return arcContainer ? arcContainer.theme : CONTAINER_THEMES.auto;
   }
 

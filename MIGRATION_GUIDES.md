@@ -6,6 +6,8 @@ In version 3 we have taken the opportunity to make serval important breaking cha
 
 #### Breaking Changes
 
+- `ArcContainer` now renders an `ArcNavbar` component within its 'nav' slot by default.
+- `ArcBottombar` now renders an `ArcIconButton` component by default to open the `ArcAccessibility` panel and emits an `arc-accessibility-open` event when clicked.
 - `ArcIcon` has been replaced with genorated components.
 - `ArcButton` color property has been updated from `primary` to `default`.
 - Cerry-picking components from the `@arc-web/components` package has changed from importing from the `/dist/src` directory to importing from the `/src` directory.

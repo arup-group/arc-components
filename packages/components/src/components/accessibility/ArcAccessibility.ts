@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { html, LitElement, isServer } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
@@ -47,6 +47,8 @@ export declare type UserPreferences = {
 
 /**
  * @event arc-accessibility-change - Emitted when the user preferences change.
+ *
+ * @ssr - True
  */
 export default class ArcAccessibility extends LitElement {
   /** @internal */
@@ -133,6 +135,9 @@ export default class ArcAccessibility extends LitElement {
 
   /* Method used to grab the theme property from the arc-container */
   getTheme() {
+    /* When the component is rendered on the server, return the auto theme */
+    if (isServer) return CONTAINER_THEMES.auto;
+
     const arcContainer: ArcContainer | null =
       document.querySelector('arc-container');
     return arcContainer ? arcContainer.theme : CONTAINER_THEMES.auto;

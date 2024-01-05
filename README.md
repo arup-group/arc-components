@@ -42,6 +42,7 @@ With **ARC**, you can:
 - [Icons](#icons): Icon components
 - [Forms](#forms): Form control validation and serialization
 - [Flash of unstyled content (FOUC)](#flash-of-unstyled-content-fouc): Prevent FOUC
+- [Server Side Rendering (SSR)](#server-side-rendering-ssr): Server side render the **ARC** components
 - [Playgrounds](#playgrounds): Prebuild playground examples
 - [Storybook](https://arc.arup.com): Interactive component documentation
 - [Issues](https://github.com/arup-group/arc-components/issues): Report bugs and issues
@@ -378,32 +379,6 @@ You can use SSR for a variety of reasons:
 - Robustness. Static HTML renders even if the JavaScript fails to load or the user has JavaScript disabled.
 
 For a deeper dive into server-side rendering concepts and techniques generally, see [Rendering on the Web](https://web.dev/articles/rendering-on-the-web) on web.dev.
-
-| Component          | Current Support Level | Comments |
-| ------------------ | --------------------- | -------- |
-| `ArcAccessibility` | No current support    |          |
-| `ArcAvatar`        | No current support    |          |
-| `ArcBottombar`     | No current support    |          |
-| `ArcButton`        | Full support          |          |
-| `ArcChip`          | No current support    |          |
-| `ArcContainer`     | No current support    |          |
-| `ArcDrawer`        | No current support    |          |
-| `ArcDropdown`      | No current support    |          |
-| `ArcHero`          | No current support    |          |
-| `ArcIcon`          | No current support    |          |
-| `ArcIconButton`    | No current support    |          |
-| `ArcImage`         | No current support    |          |
-| `ArcMenu`          | No current support    |          |
-| `ArcMenuItem`      | No current support    |          |
-| `ArcNavbar`        | No current support    |          |
-| `ArcRadio`         | No current support    |          |
-| `ArcRadioGroup`    | No current support    |          |
-| `ArcSidebar`       | No current support    |          |
-| `ArcSpinner`       | Full support          |          |
-| `ArcSso`           | No current support    |          |
-| `ArcSwitch`        | No current support    |          |
-| `ArcTable`         | No current support    |          |
-| `ArcTooltip`       | No current support    |          |
 
 ### Playgrounds
 

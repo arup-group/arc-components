@@ -16,6 +16,8 @@ import '../ph-icon/x/ph-icon-x.js';
 /**
  * @slot default - The chip's label.
  * @slot avatar - Used to prepend an avatar element to the chip.
+ *
+ * @ssr - True
  */
 export default class ArcChip extends LitElement {
   /** @internal */

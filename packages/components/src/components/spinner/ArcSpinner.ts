@@ -4,6 +4,8 @@ import styles from './arc-spinner.styles.js';
 /**
  * @cssproperty --stroke-color - Set the color of the loader.
  * @cssproperty --track-width - Set the thickness of the track.
+ *
+ * @ssr - True
  */
 export default class ArcSpinner extends LitElement {
   /** @internal */

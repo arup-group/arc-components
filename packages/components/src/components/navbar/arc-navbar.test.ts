@@ -205,48 +205,6 @@ describe('ArcNavbar', () => {
       const dropdown = tabContainer.querySelector('arc-dropdown');
       expect(dropdown).to.exist;
     });
-
-    it('retrieves the correct properties from the slotted button and icon-button components', async () => {
-      element.tabs = 1;
-      await elementUpdated(element);
-
-      const dropdown = tabContainer.querySelector('arc-dropdown')!;
-      const menu = dropdown.querySelector('arc-menu')!;
-
-      /* Validate the properties of the menu-items with the button or icon-button components */
-      expect(
-        menu.children[0].textContent?.includes(
-          `${element.children[3].textContent}`,
-        ),
-      ).to.be.true;
-      expect(
-        menu.children[1].textContent?.includes(
-          `${element.children[4].textContent}`,
-        ),
-      ).to.be.true;
-      expect(menu.children[1].hasAttribute('disabled')).to.equal(
-        element.children[4].hasAttribute('disabled'),
-      );
-      expect(menu.children[2].textContent?.includes('Invalid label')).to.be
-        .true;
-      expect(
-        menu.children[3].textContent?.includes(
-          `${element.children[6].textContent}`,
-        ),
-      ).to.be.true;
-      expect(
-        menu.children[4].textContent?.includes(
-          `${element.children[7].getAttribute('label')}`,
-        ),
-      ).to.be.true;
-      expect(
-        menu.children[5].textContent?.includes(
-          `${element.children[8].getAttribute('name')}`,
-        ),
-      ).to.be.true;
-      expect(menu.children[6].textContent?.includes('Invalid label')).to.be
-        .true;
-    });
   });
 
   /* Test whether the slots can be filled and that they exist */

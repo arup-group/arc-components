@@ -8,24 +8,26 @@ import {
   CONTAINER_THEMES,
   ContainerTheme,
 } from './constants/ContainerConstants.js';
-import styles from './arc-container.styles.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
+import styles from './arc-container.styles.js';
+import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
-import '../icon-button/arc-icon-button.js';
-import '../icon/accessibility/arc-icon-accessibility.js';
-import '../ph-icon/house/ph-icon-house.js';
 
 /**
  * @slot default - The container's content.
  * @slot nav - The container's navbar.
+ * @slot accessibility - The accessibility drawer.
  * @slot side - The container's sidebar.
  * @slot bottom - The container's bottom bar.
+ *
+ * @ssr - True
  */
 export default class ArcContainer extends LitElement {
   /** @internal */
   static tag = 'arc-container';
 
+  /** @internal */
   static styles = styles;
 
   /** @internal */
@@ -99,7 +101,11 @@ export default class ArcContainer extends LitElement {
           id="nav"
           name="nav"
           @arc-show-accessibility=${this.showAccessibility}
-        ></slot>
+        >
+          <arc-navbar
+            @arc-show-accessibility=${this.showAccessibility}
+          ></arc-navbar>
+        </slot>
         <div
           id="container"
           class=${classMap({
@@ -119,23 +125,12 @@ export default class ArcContainer extends LitElement {
           <arc-accessibility
             id="accessibility"
             @arc-accessibility-change=${this.handleAccessibilityChange}
-          >
-          </arc-accessibility>
+          ></arc-accessibility>
         </slot>
         <slot name="bottom">
-          <arc-bottombar>
-            <arc-icon-button href="/" label="Return home">
-              <ph-icon-house slot="icon"></ph-icon-house>
-              Home
-            </arc-icon-button>
-            <arc-icon-button
-              label="Accessibility panel"
-              @click=${this.showAccessibility}
-            >
-              <arc-icon-accessibility slot="icon"></arc-icon-accessibility>
-              Accessibility
-            </arc-icon-button>
-          </arc-bottombar>
+          <arc-bottombar
+            @arc-show-accessibility=${this.showAccessibility}
+          ></arc-bottombar>
         </slot>
       </div>
     `;

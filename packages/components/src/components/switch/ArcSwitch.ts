@@ -13,6 +13,8 @@ import styles from './arc-switch.styles.js';
  * @slot default - The checkbox' label.
  *
  * @event arc-change - Emitted when the control's checked state changes.
+ *
+ * @ssr - True
  */
 export default class ArcSwitch extends LitElement {
   /** @internal */

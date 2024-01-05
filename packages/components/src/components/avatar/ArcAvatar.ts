@@ -11,6 +11,8 @@ import '../ph-icon/user/ph-icon-user.js';
  * @slot icon - The default icon to use when no image or initials are present.
  *
  * @cssproperty --size - The size of the avatar.
+ *
+ * @ssr - True
  */
 export default class ArcAvatar extends LitElement {
   /** @internal */

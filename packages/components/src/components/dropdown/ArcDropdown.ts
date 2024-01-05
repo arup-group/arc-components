@@ -34,6 +34,8 @@ import type ArcMenuItem from '../menu-item/ArcMenuItem.js';
  * @event arc-after-show - Emitted after the dropdown opens and all animations are complete.
  * @event arc-hide - Emitted when the dropdown closes.
  * @event arc-after-hide - Emitted after the dropdown closes and all animations are complete.
+ *
+ * @ssr - True
  */
 export default class ArcDropdown extends LitElement {
   /** @internal */

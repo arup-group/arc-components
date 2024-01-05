@@ -35,7 +35,6 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "node dist/playgrounds/node-prerender/main.js",
-        "cwd": ".",
         "parallel": false
       },
       "dependsOn": ["build"]
@@ -44,24 +43,9 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npx @web/dev-server --root-dir dist/playgrounds/node-prerender/dist --port 4200 --node-resolve",
-        "cwd": ".",
         "parallel": false
       },
       "dependsOn": ["build", "prerender"]
-    },
-    "serve": {
-      "executor": "@nx/js:node",
-      "defaultConfiguration": "local",
-      "options": {
-        "buildTarget": "node-prerender:build"
-      },
-      "configurations": {
-        "lcoal": {
-          "buildTarget": "node-prerender:build:local",
-          "waitUntilTargets": ["node-prerender:build:local"]
-        }
-      },
-      "dependsOn": ["build"]
     }
   }
 }

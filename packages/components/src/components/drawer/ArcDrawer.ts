@@ -39,6 +39,8 @@ import '../ph-icon/x/ph-icon-x.js';
  * @event arc-request-close - Emitted when the user attempts to close the drawer by clicking the close button, clicking the overlay, or pressing the escape key. Calling event.preventDefault() will prevent the drawer from closing. Avoid using this unless closing the drawer will result in destructive behavior such as data loss.
  *
  * @cssproperty --size - The preferred size of the drawer. This will be applied to either the width or height depending on its placement.
+ *
+ * @ssr - True
  */
 export default class ArcDrawer extends LitElement {
   /** @internal */

@@ -17,7 +17,6 @@ describe('AccessibilityOptions', () => {
     /* Each AccessibilityOption requires a name, icon and a set of options */
     values.forEach((value: AccessibilityOption) => {
       expect(value.name).to.exist;
-      expect(value.icon).to.exist;
       expect(value.options).to.exist;
     });
   });

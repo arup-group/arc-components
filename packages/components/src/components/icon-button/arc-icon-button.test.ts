@@ -38,15 +38,6 @@ describe('ArcIconButton', () => {
 
   /* Test the setters/getters */
   describe('setters/getters', () => {
-    it('renders the element with a custom name property', async () => {
-      const element: ArcIconButton = await fixture(
-        html`<arc-icon-button name="heart"></arc-icon-button>`,
-      );
-
-      expect(element.name).to.equal('heart');
-      expect(element.getAttribute('name')).to.equal('heart');
-    });
-
     it('renders the element with a custom label property', async () => {
       const element: ArcIconButton = await fixture(
         html`<arc-icon-button label="Test label"></arc-icon-button>`,

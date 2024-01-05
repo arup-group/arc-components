@@ -4,9 +4,7 @@ import { getPropertyValue } from '../../utilities/style-utils.js';
 import { hasSlot } from '../../internal/slot.js';
 
 import type ArcAvatar from './ArcAvatar.js';
-import type ArcIcon from '../icon/ArcIcon.js';
 import './arc-avatar.js';
-import '../icon/arc-icon.js';
 
 describe('ArcAvatar', () => {
   /* Test the rendering of the component */
@@ -28,10 +26,9 @@ describe('ArcAvatar', () => {
 
     it('renders a placeholder icon when no properties are given', () => {
       const icon = element.shadowRoot!.getElementById('icon')!;
-      const defaultIcon: ArcIcon = icon.querySelector('arc-icon')!;
+      const defaultIcon = icon.querySelector('ph-icon-user')!;
 
       expect(defaultIcon).to.exist;
-      expect(defaultIcon.name).to.equal('user');
       expect(defaultIcon.size).to.equal('medium');
     });
 

@@ -1,18 +1,11 @@
 import { html, LitElement } from 'lit';
-import { property, state, query } from 'lit/decorators.js';
-import { map } from 'lit/directives/map.js';
+import { property } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { emit } from '../../internal/event.js';
-import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import styles from './arc-navbar.styles.js';
 import { arupLogo } from './arup-logo.js';
-import type ArcButton from '../button/ArcButton.js';
-import type ArcIconButton from '../icon-button/ArcIconButton.js';
-import '../dropdown/arc-dropdown.js';
+import styles from './arc-navbar.styles.js';
 import '../icon-button/arc-icon-button.js';
-import '../menu/arc-menu.js';
-import '../menu-item/arc-menu-item.js';
 import '../ph-icon/list/ph-icon-list.js';
 import '../icon/accessibility/arc-icon-accessibility.js';
 
@@ -20,6 +13,7 @@ import '../icon/accessibility/arc-icon-accessibility.js';
  * @slot default - This slot is used to add tabs to the navbar.
  * @slot name - This slot is used to add a tool name or sub branding.
  * @slot user - This slot should be used to display the signed-in user.
+ * @slot company-logo - This slot should be used to display the company logo.
  *
  * @event arc-show-accessibility - Emitted when the built-in accessibility button is pressed.
  *
@@ -31,16 +25,8 @@ export default class ArcNavbar extends LitElement {
   /** @internal */
   static tag = 'arc-navbar';
 
-  static styles = styles;
-
   /** @internal */
-  @query('#tabSlot') tabSlot: HTMLSlotElement;
-
-  /** @internal - State that tracks whether a dropdown component should be visible. */
-  @state() private showDropdown: boolean = false;
-
-  /** @internal - State that keeps track of the current (slotted) tabs. */
-  @state() private navTabs: (ArcButton | ArcIconButton)[] = [];
+  static styles = styles;
 
   /** When set, the underlying logoWrapper will be rendered as an anchor with this property. */
   @property({ type: String }) home: string;
@@ -48,71 +34,12 @@ export default class ArcNavbar extends LitElement {
   /** The url for the logo of the application. */
   @property({ type: String }) logo: string;
 
-  /** The amount of tabs allowed before collapsing into a dropdown. */
-  @property({ type: Number, reflect: true }) tabs: number = 5;
-
-  /** Show/hide the Arup logo. Can be useful for non-Arup applications. */
-  @property({
-    type: Boolean,
-    reflect: true,
-    converter: (attrValue: string | null) =>
-      attrValue ? attrValue !== 'false' : true,
-  })
-  arup: boolean = true;
-
-  @watch('tabs', { waitUntilFirstUpdate: true })
-  handleTabCountChange() {
-    this._updateTemplate();
-  }
-
-  /* Whenever a new arc-button or arc-icon-button gets added to the default slot. */
-  private _handleTabChange(e: any) {
-    const nodes = e.target.assignedElements({ flatten: true });
-
-    /* Store a reference to the button and icon-button components. */
-    this.navTabs = nodes.filter(
-      (el: Element) =>
-        el.tagName === 'ARC-BUTTON' || el.tagName === 'ARC-ICON-BUTTON',
-    );
-    this._updateTemplate();
-  }
-
-  /* Show/hide tabs based on the 'tabs' property and the slotted tabs */
-  private _updateTemplate() {
-    this.showDropdown = this.navTabs.length > this.tabs;
-
-    /* Show or hide the button and icon-button components. */
-    [...this.navTabs].forEach((tab) => {
-      tab.style.display = this.showDropdown ? 'none' : 'initial';
-    });
-  }
-
   /* Emit an event to show the accessibility panel */
   emitAccessibility() {
     emit(this, ARC_EVENTS.showAccessibility);
   }
 
   protected render() {
-    /*
-    Template that displays all button and icon-button components inside a dropdown menu.
-    Properties are derived from the button and icon-button components.
-    */
-    const menuInterior = html`
-      ${map(
-        this.navTabs,
-        (tab) => html`
-          <arc-menu-item
-            ?disabled="${tab.disabled}"
-            @click="${() => tab.click()}"
-          >
-            ${tab.textContent ||
-            (tab as ArcIconButton).label ||
-            'Invalid label'}
-          </arc-menu-item>
-        `,
-      )}
-    `;
-
     const logoInterior = html`
       ${when(
         this.logo,
@@ -141,17 +68,7 @@ export default class ArcNavbar extends LitElement {
         </div>
         <div id="right">
           <nav id="tabs" aria-label="primary navigation">
-            <slot id="tabSlot" @slotchange=${this._handleTabChange}></slot>
-            ${when(
-              this.showDropdown,
-              () =>
-                html`<arc-dropdown id="dropdown" hoist>
-                  <arc-icon-button slot="trigger">
-                    <ph-icon-list slot="icon"></ph-icon-list>
-                  </arc-icon-button>
-                  <arc-menu>${menuInterior}</arc-menu>
-                </arc-dropdown>`,
-            )}
+            <slot id="tabSlot"></slot>
             <arc-icon-button
               id="accessibility"
               label="Accessibility panel"
@@ -161,10 +78,7 @@ export default class ArcNavbar extends LitElement {
             </arc-icon-button>
             <slot name="user"></slot>
           </nav>
-          ${when(
-            this.arup,
-            () => html`<span id="company-logo">${arupLogo}</span>`,
-          )}
+          <slot name="company-logo" id="company-logo">${arupLogo}</slot>,
         </div>
       </header>
     `;

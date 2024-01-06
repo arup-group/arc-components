@@ -20,9 +20,7 @@ describe('ArcNavbar', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      expect(element).dom.to.equal(
-        `<arc-navbar></arc-navbar>`,
-      );
+      expect(element).dom.to.equal(`<arc-navbar></arc-navbar>`);
     });
 
     /* Test the accessibility */

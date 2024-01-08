@@ -20,7 +20,7 @@ jobs:
       - uses: DeterminateSystems/flake-checker-action@main
       - uses: nrwl/nx-set-shas@v3
       - run: nix develop
-      - run: nix run .#utils.x86_64-linux.clean-install
+      - run: nix run .#packages.x86_64-linux.clean-install
       - run: nix fmt && git diff --exit-code
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --targets=build,build:storybook --parallel=3

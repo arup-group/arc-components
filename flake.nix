@@ -11,16 +11,25 @@
   }:
     flake-utils.lib.eachSystem (import systems) (
       system: let
+        inherit (pkgs.stdenv) isLinux;
+        inherit (pkgs.lib) optional;
+
+        # Import nix packages for system
         pkgs = import nixpkgs {
           inherit system;
+
+          # Allow unfree packages
+          # Required for google-chrome
           config.allowUnfree = true;
         };
 
-        nodejs = pkgs.nodejs_18;
+        # Set nodejs version
+        node = pkgs.nodejs_18;
 
+        # Derivation to install dependencies required for development
         clean-install = pkgs.writeShellApplication {
           name = "clean-install";
-          runtimeInputs = [nodejs];
+          runtimeInputs = [node];
           text = ''
             rm -rf node_modules
             rm -rf .angular
@@ -31,15 +40,15 @@
           '';
         };
 
+        # Derivation to format all workspace files
         formatter = pkgs.writeShellApplication {
           name = "formatter";
           runtimeInputs = with pkgs; [
             alejandra
-            nodejs_18
+            node
             terraform
             terraform-ls
           ];
-
           text = ''
             alejandra format . --exclude node_modules
             npm install
@@ -48,18 +57,24 @@
           '';
         };
       in {
+        # Formatter to format all workspace files
         formatter = formatter;
 
-        utils.clean-install = clean-install;
+        # Buildable packages
+        packages = {
+          clean-install = clean-install;
+        };
 
+        # Development shell
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            nodejs
-            terraform
-            azure-cli
-            clean-install
-            google-chrome
-          ];
+          packages = with pkgs;
+            [
+              node
+              terraform
+              azure-cli
+              clean-install
+            ]
+            ++ optional isLinux [google-chrome];
           shellHook = ''export PATH=$PATH:$(npm bin)'';
         };
       }

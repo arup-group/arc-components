@@ -78,7 +78,7 @@ export default class ArcNavbar extends LitElement {
             </arc-icon-button>
             <slot name="user"></slot>
           </nav>
-          <slot name="company-logo" id="company-logo">${arupLogo}</slot>,
+          <slot name="company-logo" id="company-logo">${arupLogo}</slot>
         </div>
       </header>
     `;

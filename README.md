@@ -4,7 +4,7 @@
 
 > Arup Reusable Components
 
-[Storybook](https://arc.arup.com) | [Documentation](#documentation) | [Playgrounds](#playgrounds) | [Sharepoint (Arup Internal)](https://arup.sharepoint.com/:u:/r/sites/ARCDesignSystem/SitePages/ARC-Design-System.aspx?csf=1&web=1&e=bkD3kw) | [Jira (Arup Internal)](https://arupdigital.atlassian.net/jira/software/projects/ARC/boards/564)
+[Storybook](https://arc.arup.com) | [Documentation](#documentation) | [Playgrounds](#playgrounds) | [Issues](https://github.com/arup-group/arc-components/issues) | [Discussions](https://github.com/arup-group/arc-components/discussions) | [Contributing](https://github.com/arup-group/arc-components/blob/main/CONTRIBUTING.md) | [Code Of Conduct](https://github.com/arup-group/arc-components/blob/main/CODE_OF_CONDUCT.md) | [Security](https://github.com/arup-group/arc-components/blob/main/SECURITY.md) | [License](https://github.com/arup-group/arc-components/blob/main/LICENSE) |[Sharepoint (Arup Internal)](https://arup.sharepoint.com/:u:/r/sites/ARCDesignSystem/SitePages/ARC-Design-System.aspx?csf=1&web=1&e=bkD3kw) | [Jira (Arup Internal)](https://arupdigital.atlassian.net/jira/software/projects/ARC/boards/564)
 
 Thanks to the popularity of frameworks such as Angular, Vue, and React, component-driven development has become a part of our everyday lives. Components help us encapsulate styles and behaviours into reusable building blocks. They make a lot of sense in terms of design, development, and testing.
 
@@ -29,28 +29,6 @@ With **ARC**, you can:
 - Upgrade or switch frameworks without rebuilding foundational components
 
 ## Documentation
-
-- [Getting Started](#getting-started): Install and setup **ARC**
-  - [1: Installation](#1-installation): Install the latest version of **ARC**
-  - [2: Setup Stylesheets](#2-setup-stylesheets): Setup **ARC** stylesheets
-  - [3: Import and Use Components](#4-import-and-use-components): Import and use **ARC** components
-- [Migration Guides](https://github.com/arup-group/arc-components/blob/main/MIGRATION_GUIDES.md): Migrate to the latest version of **ARC**
-  - [v2 to v3](https://github.com/arup-group/arc-components/blob/main/MIGRATION_GUIDES.md#v2-to-v3): Migrate from **ARC** v2 to v3
-- [Typescript](#typescript): Use **ARC** components in a Typescript project
-- [React](#react): Use **ARC** components in a React project
-- [Customization](#customization): Customize **ARC** components
-- [Icons](#icons): Icon components
-- [Forms](#forms): Form control validation and serialization
-- [Flash of unstyled content (FOUC)](#flash-of-unstyled-content-fouc): Prevent FOUC
-- [Server Side Rendering (SSR)](#server-side-rendering-ssr): Server side render the **ARC** components
-- [Playgrounds](#playgrounds): Prebuild playground examples
-- [Storybook](https://arc.arup.com): Interactive component documentation
-- [Issues](https://github.com/arup-group/arc-components/issues): Report bugs and issues
-- [Discussions](https://github.com/arup-group/arc-components/discussions): Ask questions and share ideas with the community
-- [Contributing](https://github.com/arup-group/arc-components/blob/main/CONTRIBUTING.md): Contribute to **ARC**
-- [Code Of Conduct](https://github.com/arup-group/arc-components/blob/main/CODE_OF_CONDUCT.md): **ARC** community code of conduct
-- [Security](https://github.com/arup-group/arc-components/blob/main/SECURITY.md): Security policy
-- [License](https://github.com/arup-group/arc-components/blob/main/LICENSE): **ARC** is released under the **MIT** open-source license
 
 ### Getting Started
 

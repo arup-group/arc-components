@@ -1,9 +1,8 @@
 import { html } from 'lit';
 import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
-import { isMobile, prefersDark } from '../../internal/preferences.js';
+import { isMobile } from '../../internal/preferences.js';
 import { getPropertyValue } from '../../utilities/style-utils.js';
-import { isNight } from '../../internal/theme.js';
 import { hasSlot } from '../../internal/slot.js';
 import {
   addShowListeners,
@@ -11,7 +10,7 @@ import {
   waitForShow,
   showCalledOnce,
 } from '../../internal/test-utils.js';
-import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
+import { CONTAINER_THEME_PREFERENCES } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcContainer from './ArcContainer.js';
 import './arc-container.js';
@@ -32,15 +31,9 @@ describe('ArcContainer', () => {
 
     /* Test default properties that reflect to the DOM */
     it('renders the element with default properties in the dom', () => {
-      if (prefersDark() || isNight()) {
-        expect(element).dom.to.equal(
-          `<arc-container theme='${CONTAINER_THEMES.dark}'></arc-container>`,
-        );
-      } else {
-        expect(element).dom.to.equal(
-          `<arc-container theme='${CONTAINER_THEMES.light}'></arc-container>`,
-        );
-      }
+      expect(element).dom.to.equal(
+        `<arc-container theme='${CONTAINER_THEME_PREFERENCES.auto}'></arc-container>`,
+      );
     });
 
     /* Test the accessibility */
@@ -61,23 +54,7 @@ describe('ArcContainer', () => {
         html`<arc-container theme="test-theme"></arc-container>`,
       );
 
-      if (isNight()) {
-        expect(element.theme).to.equal(CONTAINER_THEMES.dark);
-      } else {
-        expect(element.theme).to.equal(CONTAINER_THEMES.light);
-      }
-    });
-
-    it('renders a theme based on the time of day', async () => {
-      const element: ArcContainer = await fixture(
-        html`<arc-container theme="auto"></arc-container>`,
-      );
-
-      if (isNight()) {
-        expect(element.theme).to.equal(CONTAINER_THEMES.dark);
-      } else {
-        expect(element.theme).to.equal(CONTAINER_THEMES.light);
-      }
+      expect(element.theme).to.equal(CONTAINER_THEME_PREFERENCES.auto);
     });
 
     it('removes the gap and padding properties when the fullscreen property is set', async () => {
@@ -122,14 +99,6 @@ describe('ArcContainer', () => {
       clearShowHideListeners(element);
     });
 
-    it('returns the correct theme when a specific date is given', async () => {
-      const dayTime: Date = new Date('January 15, 2021 15:00:00');
-      const nightTime: Date = new Date('January 15, 2021 03:00:00');
-
-      expect(element.getTheme(dayTime)).to.equal(CONTAINER_THEMES.light);
-      expect(element.getTheme(nightTime)).to.equal(CONTAINER_THEMES.dark);
-    });
-
     it('should update the theme when the user-preferences change', async () => {
       const theme = 'light';
 
@@ -151,7 +120,7 @@ describe('ArcContainer', () => {
       );
       await elementUpdated(element);
 
-      expect(element.theme).to.equal(CONTAINER_THEMES.dark);
+      expect(element.theme).to.equal(CONTAINER_THEME_PREFERENCES.dark);
     });
 
     it('should emit arc-show and arc-after-show when calling showAccessibility()', async () => {

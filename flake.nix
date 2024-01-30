@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   inputs.systems.url = "github:nix-systems/default";
 
   outputs = {
@@ -14,33 +14,77 @@
         inherit (pkgs.stdenv) isLinux;
         inherit (pkgs.lib) optional;
 
-        # Import nix packages for system
         pkgs = import nixpkgs {
           inherit system;
-
-          # Allow unfree packages
-          # Required for google-chrome
+          # allow unfree packages required for:
+          # - terraform
+          # - google-chrome
           config.allowUnfree = true;
         };
 
-        # Set nodejs version
         node = pkgs.nodejs_18;
 
-        # Derivation to install dependencies required for development
-        clean-install = pkgs.writeShellApplication {
-          name = "clean-install";
-          runtimeInputs = [node];
-          text = ''
-            rm -rf node_modules
-            rm -rf .angular
-            rm -rf coverage
-            rm -rf dist
-            rm -rf tmp
-            npm ci
+        src = ./.;
+
+        package = builtins.fromJSON (builtins.readFile (src + "/package.json"));
+        package-lock = builtins.fromJSON (builtins.readFile (src + "/package-lock.json"));
+        componentsPackage = builtins.fromJSON (builtins.readFile (src + "/packages/components/package.json"));
+        reactPackage = builtins.fromJSON (builtins.readFile (src + "/packages/react/package.json"));
+        name = "arc";
+
+        deps = pkgs.lib.attrValues (removeAttrs package-lock.packages [
+          ""
+          # remove local dependencies
+          "node_modules/@arc-web/components"
+          "node_modules/@arc-web/react"
+          "@arc-web/components"
+          "@arc-web/react"
+          "packages/components"
+          "packages/react"
+        ]);
+
+        tarballs = map (dep:
+          pkgs.fetchurl {
+            url = dep.resolved;
+            hash = dep.integrity;
+          })
+        deps;
+
+        cacache =
+          pkgs.runCommand "${name}-cacache" {
+            passAsFile = ["tarballs"];
+            tarballs = pkgs.lib.concatLines tarballs;
+          }
+          ''
+            while read -r tarball; do
+              echo "caching $tarball" >&2
+              ${node}/bin/npm cache add --cache . "$tarball"
+            done < "$tarballsPath"
+            ${pkgs.coreutils}/bin/cp -r _cacache $out
+          '';
+
+        node_modules = pkgs.stdenv.mkDerivation {
+          name = "${name}-node_modules";
+          src = pkgs.runCommand "${name}-node-modules-src" {} ''
+            mkdir -p $out/.npm
+            ln -s ${src} $out/
+            ln -s ${cacache} $out/.npm/_cacache
+            ln -s ${src + "/package-lock.json"} $out/package-lock.json
+          '';
+          buildInputs = [node];
+          outputs = ["out" "dev"];
+          buildPhase = ''
+            export HOME=$PWD
+            export PATH=$PATH:$PWD/node_modules/.bin
+            npm ci --ignore-scripts --no-audit
+            mv node_modules $dev
+            npm ci --ignore-scripts --no-audit -omit=dev
+            mv node_modules $out
+            chmod -R +w $out
+            chmod -R +w $dev
           '';
         };
 
-        # Derivation to format all workspace files
         formatter = pkgs.writeShellApplication {
           name = "formatter";
           runtimeInputs = with pkgs; [
@@ -57,25 +101,92 @@
           '';
         };
       in {
-        # Formatter to format all workspace files
-        formatter = formatter;
+        formatter = pkgs.alejandra;
 
-        # Buildable packages
-        packages = {
-          clean-install = clean-install;
+        packages = let
+          buildInputs = [node];
+          pre-build = ''
+            rm -fR node_modules
+            cp -r ${node_modules.dev} node_modules
+            chmod -R +w node_modules
+            export PATH=$PATH:$PWD/node_modules/.bin
+          '';
+        in {
+            # default = pkgs.stdenv.mkDerivation {
+            #   inherit src;
+            #   pname = "${name}-packages";
+            #   version = "v${componentsPackage.version}";
+            #   buildInputs = [node];
+            #   buildPhase = ''
+            #     ${pre-build}
+            #     npx nx run-many --target=build --projects=components,react
+            #   '';
+            #   installPhase = ''
+            #     mkdir $out
+            #     cp -r dist $out
+            #     chmod -R +w $out
+            #   '';
+            # };
+
+            components = pkgs.stdenv.mkDerivation {
+              inherit src buildInputs;
+              pname = "${name}-components";
+              version = "v${componentsPackage.version}";
+              buildPhase = ''
+                ${pre-build}
+                npx nx run components:build
+              '';
+              installPhase = ''
+                mkdir $out
+                cp -r dist $out
+                chmod -R +w $out
+              '';
+            };
+
+            react = pkgs.stdenv.mkDerivation {
+              inherit src buildInputs;
+              pname = "${name}-react";
+              version = "v${reactPackage.version}";
+              buildPhase = ''
+                ${pre-build}
+                npx nx run react:build
+              '';
+              installPhase = ''
+                mkdir $out
+                cp -r dist $out
+                chmod -R +w $out
+              '';
+            };
         };
 
-        # Development shell
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs;
-            [
+        scripts = {};
+
+        devShells = let
+          shellHook = ''
+              rm -fR node_modules
+              cp -r ${node_modules.dev} node_modules
+              chmod -R +w node_modules
+              export PATH=$PATH:$PWD/node_modules/.bin
+              echo "Welcome to the ${name} dev shell!"
+              echo "Please read the CONTRIBUTING.md file before making changes."
+          '';
+        in {
+          default = pkgs.mkShell {
+            inherit shellHook;
+            packages = with pkgs;
+              [node]
+              ++ optional isLinux [google-chrome];
+          };
+
+          infratructure = pkgs.mkShell {
+            inherit shellHook;
+            packages = with pkgs; [
               node
               terraform
+              terraform-ls
               azure-cli
-              clean-install
-            ]
-            ++ optional isLinux [google-chrome];
-          shellHook = ''export PATH=$PATH:$(npm bin)'';
+            ];
+          };
         };
       }
     );

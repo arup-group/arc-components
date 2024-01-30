@@ -22,6 +22,19 @@ export declare type ThemeColor =
   | 'info'
   | 'success';
 
+export declare type Color =
+  | 'white'
+  | 'black'
+  | 'blue'
+  | 'green'
+  | 'grey'
+  | 'orange'
+  | 'pink'
+  | 'purple'
+  | 'red'
+  | 'teal'
+  | 'yellow';
+
 export const FONT_SIZES: { [key in FontSize]: FontSize } = {
   'xx-small': 'xx-small',
   'x-small': 'x-small',
@@ -54,4 +67,18 @@ export const THEME_COLORS: { [key in ThemeColor]: ThemeColor } = {
   warning: 'warning',
   info: 'info',
   success: 'success',
+};
+
+export const COLORS: { [key in Color]: Color } = {
+  white: 'white',
+  black: 'black',
+  blue: 'blue',
+  green: 'green',
+  grey: 'grey',
+  orange: 'orange',
+  pink: 'pink',
+  purple: 'purple',
+  red: 'red',
+  teal: 'teal',
+  yellow: 'yellow',
 };

@@ -85,22 +85,6 @@
           '';
         };
 
-        formatter = pkgs.writeShellApplication {
-          name = "formatter";
-          runtimeInputs = with pkgs; [
-            alejandra
-            node
-            terraform
-            terraform-ls
-          ];
-          text = ''
-            alejandra format . --exclude node_modules
-            npm install
-            npx nx format:write
-            npx nx run-many --target=lint:fix,fmt
-          '';
-        };
-
         copyNodeModules = ''
           rm -fR node_modules
           cp -r ${node_modules.dev} node_modules
@@ -108,8 +92,6 @@
           export PATH=$PATH:$PWD/node_modules/.bin
         '';
       in {
-        formatter = pkgs.alejandra;
-
         packages = let
           buildInputs = [node];
         in {
@@ -163,7 +145,8 @@
             runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
             text = ''
               ${copyNodeModules}
-              alejandra . --exclude node_modules
+              alejandra --check . --exclude node_modules
+              npx nx format:check
               npx nx run-many --target=lint
             '';
           };
@@ -173,7 +156,7 @@
             runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
             text = ''
               ${copyNodeModules}
-              alejandra format . --exclude node_modules
+              alejandra . --exclude node_modules
               npx nx format:write
               npx nx run-many --target=lint:fix,fmt
             '';
@@ -194,6 +177,8 @@
             '';
           };
         };
+
+        formatter = self.packages.formatter;
 
         devShells = let
           shellHook = ''

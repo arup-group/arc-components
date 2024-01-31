@@ -99,7 +99,7 @@
           runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
           text = ''
             ${copyNodeModules}
-            alejandra --exclude node_modules .
+            alejandra --exclude ./node_modules .
             npx nx format:write
             npx nx run-many --target=lint:fix,fmt
           '';
@@ -156,7 +156,7 @@
             runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
             text = ''
               ${copyNodeModules}
-              alejandra --check --exclude node_modules .
+              alejandra --check --exclude ./node_modules .
               npx nx format:check
               npx nx run-many --target=lint
             '';

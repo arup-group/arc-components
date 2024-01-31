@@ -162,6 +162,15 @@
             '';
           };
 
+          test = pkgs.writeShellApplication {
+            name = "${name}-test";
+            runtimeInputs = buildInputs;
+            text = ''
+              ${copyNodeModules}
+              npx nx run-many --target=test
+            '';
+          };
+
           playgrounds = pkgs.stdenv.mkDerivation {
             inherit src buildInputs;
             pname = "${name}-playgrounds";

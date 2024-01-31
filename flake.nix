@@ -91,74 +91,74 @@
           chmod -R +w node_modules
           export PATH=$PATH:$PWD/node_modules/.bin
         '';
+
+        buildInputs = [node];
       in {
-        packages = let
-          buildInputs = [node];
-        in {
-            components = pkgs.stdenv.mkDerivation {
-              inherit src buildInputs;
-              pname = "${name}-components";
-              version = "v${componentsPackage.version}";
-              buildPhase = ''
-                ${copyNodeModules}
-                npx nx run components:build
-              '';
-              installPhase = ''
-                mkdir $out
-                cp -r dist/packages/components/components $out
-                chmod -R +w $out
-              '';
-            };
+        formatter = pkgs.writeShellApplication {
+          name = "${name}-formatter";
+          runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
+          text = ''
+            ${copyNodeModules}
+            alejandra --exclude node_modules .
+            npx nx format:write
+            npx nx run-many --target=lint:fix,fmt
+          '';
+        };
 
-            react = pkgs.stdenv.mkDerivation {
-              inherit src buildInputs;
-              pname = "${name}-react";
-              version = "v${reactPackage.version}";
-              buildPhase = ''
-                ${copyNodeModules}
-                npx nx run react:build
-              '';
-              installPhase = ''
-                mkdir $out
-                cp -r dist/packages/react/react $out
-                chmod -R +w $out
-              '';
-            };
+        packages = {
+          components = pkgs.stdenv.mkDerivation {
+            inherit src buildInputs;
+            pname = "${name}-components";
+            version = "v${componentsPackage.version}";
+            buildPhase = ''
+              ${copyNodeModules}
+              npx nx run components:build
+            '';
+            installPhase = ''
+              mkdir $out
+              cp -r dist/packages/components/components $out
+              chmod -R +w $out
+            '';
+          };
 
-            storybook = pkgs.stdenv.mkDerivation {
-              inherit src buildInputs;
-              pname = "${name}-storybook";
-              version = "v${componentsPackage.version}";
-              buildPhase = ''
-                ${copyNodeModules}
-                npx nx run components:storybook:build
-              '';
-              installPhase = ''
-                mkdir $out
-                cp -r dist/packages/components/storybook-static $out
-                chmod -R +w $out
-              '';
-            };
+          react = pkgs.stdenv.mkDerivation {
+            inherit src buildInputs;
+            pname = "${name}-react";
+            version = "v${reactPackage.version}";
+            buildPhase = ''
+              ${copyNodeModules}
+              npx nx run react:build
+            '';
+            installPhase = ''
+              mkdir $out
+              cp -r dist/packages/react/react $out
+              chmod -R +w $out
+            '';
+          };
+
+          storybook = pkgs.stdenv.mkDerivation {
+            inherit src buildInputs;
+            pname = "${name}-storybook";
+            version = "v${componentsPackage.version}";
+            buildPhase = ''
+              ${copyNodeModules}
+              npx nx run components:storybook:build
+            '';
+            installPhase = ''
+              mkdir $out
+              cp -r dist/packages/components/storybook-static $out
+              chmod -R +w $out
+            '';
+          };
 
           linter = pkgs.writeShellApplication {
             name = "${name}-linter";
             runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
             text = ''
               ${copyNodeModules}
-              alejandra --check . --exclude node_modules
+              alejandra --check --exclude node_modules .
               npx nx format:check
               npx nx run-many --target=lint
-            '';
-          };
-
-          formatter = pkgs.writeShellApplication {
-            name = "${name}-formatter";
-            runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
-            text = ''
-              ${copyNodeModules}
-              alejandra . --exclude node_modules
-              npx nx format:write
-              npx nx run-many --target=lint:fix,fmt
             '';
           };
 
@@ -178,13 +178,11 @@
           };
         };
 
-        formatter = self.packages.formatter;
-
         devShells = let
           shellHook = ''
-              ${copyNodeModules}
-              echo "Welcome to the ${name}!"
-              echo "Please read the CONTRIBUTING.md file before making changes."
+            ${copyNodeModules}
+            echo "Welcome to the ${name}!"
+            echo "Please read the CONTRIBUTING.md file before making changes."
           '';
         in {
           default = pkgs.mkShell {

@@ -19,9 +19,9 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: DeterminateSystems/flake-checker-action@main
       - uses: nrwl/nx-set-shas@v3
-      - run: nix develop
-      - run: nix run .#packages.x86_64-linux.clean-install
-      - run: nix fmt && git diff --exit-code
-      - run: npx nx affected --target=lint --parallel=3
-      - run: npx nx affected --targets=build,build:storybook --parallel=3
-      - run: npx nx affected --target=test --parallel=3
+      - run: nix run .#linter
+      - run: nix run .#test
+      - run: nix build .#components
+      - run: nix build .#react
+      - run: nix build .#storybook
+      - run: nix build .#playgrounds

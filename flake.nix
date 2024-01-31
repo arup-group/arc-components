@@ -100,45 +100,30 @@
             npx nx run-many --target=lint:fix,fmt
           '';
         };
+
+        copyNodeModules = ''
+          rm -fR node_modules
+          cp -r ${node_modules.dev} node_modules
+          chmod -R +w node_modules
+          export PATH=$PATH:$PWD/node_modules/.bin
+        '';
       in {
         formatter = pkgs.alejandra;
 
         packages = let
           buildInputs = [node];
-          pre-build = ''
-            rm -fR node_modules
-            cp -r ${node_modules.dev} node_modules
-            chmod -R +w node_modules
-            export PATH=$PATH:$PWD/node_modules/.bin
-          '';
         in {
-            # default = pkgs.stdenv.mkDerivation {
-            #   inherit src;
-            #   pname = "${name}-packages";
-            #   version = "v${componentsPackage.version}";
-            #   buildInputs = [node];
-            #   buildPhase = ''
-            #     ${pre-build}
-            #     npx nx run-many --target=build --projects=components,react
-            #   '';
-            #   installPhase = ''
-            #     mkdir $out
-            #     cp -r dist $out
-            #     chmod -R +w $out
-            #   '';
-            # };
-
             components = pkgs.stdenv.mkDerivation {
               inherit src buildInputs;
               pname = "${name}-components";
               version = "v${componentsPackage.version}";
               buildPhase = ''
-                ${pre-build}
+                ${copyNodeModules}
                 npx nx run components:build
               '';
               installPhase = ''
                 mkdir $out
-                cp -r dist $out
+                cp -r dist/packages/components/components $out
                 chmod -R +w $out
               '';
             };
@@ -148,34 +133,93 @@
               pname = "${name}-react";
               version = "v${reactPackage.version}";
               buildPhase = ''
-                ${pre-build}
+                ${copyNodeModules}
                 npx nx run react:build
               '';
               installPhase = ''
                 mkdir $out
-                cp -r dist $out
+                cp -r dist/packages/react/react $out
                 chmod -R +w $out
               '';
             };
-        };
 
-        scripts = {};
+            storybook = pkgs.stdenv.mkDerivation {
+              inherit src buildInputs;
+              pname = "${name}-storybook";
+              version = "v${componentsPackage.version}";
+              buildPhase = ''
+                ${copyNodeModules}
+                npx nx run components:storybook:build
+              '';
+              installPhase = ''
+                mkdir $out
+                cp -r dist/packages/components/storybook-static $out
+                chmod -R +w $out
+              '';
+            };
+
+          linter = pkgs.writeShellApplication {
+            name = "${name}-linter";
+            runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
+            text = ''
+              ${copyNodeModules}
+              alejandra . --exclude node_modules
+              npx nx run-many --target=lint
+            '';
+          };
+
+          formatter = pkgs.writeShellApplication {
+            name = "${name}-formatter";
+            runtimeInputs = with pkgs; [alejandra] ++ buildInputs;
+            text = ''
+              ${copyNodeModules}
+              alejandra format . --exclude node_modules
+              npx nx format:write
+              npx nx run-many --target=lint:fix,fmt
+            '';
+          };
+
+          playgrounds = pkgs.stdenv.mkDerivation {
+            inherit src buildInputs;
+            pname = "${name}-playgrounds";
+            version = "v${componentsPackage.version}";
+            buildPhase = ''
+              ${copyNodeModules}
+              npx nx run-many --target=build --projects=playgrounds
+            '';
+            installPhase = ''
+              mkdir $out
+              cp -r dist/packages/components/playgrounds $out
+              chmod -R +w $out
+            '';
+          };
+        };
 
         devShells = let
           shellHook = ''
-              rm -fR node_modules
-              cp -r ${node_modules.dev} node_modules
-              chmod -R +w node_modules
-              export PATH=$PATH:$PWD/node_modules/.bin
-              echo "Welcome to the ${name} dev shell!"
+              ${copyNodeModules}
+              echo "Welcome to the ${name}!"
               echo "Please read the CONTRIBUTING.md file before making changes."
           '';
         in {
           default = pkgs.mkShell {
-            inherit shellHook;
+            # todo: add dep for google-chrome
+            # on darwin hosts
             packages = with pkgs;
               [node]
               ++ optional isLinux [google-chrome];
+
+            shellHook = ''
+              ${shellHook}
+              # todo: remove once google-chrome is added as a dep
+              if [[ $(uname) == "Darwin" ]]; then
+                # if google-chrome is not installed
+                if ! command -v google-chrome &> /dev/null; then
+                  echo "Please install google-chrome to run the ${name} dev shell."
+                  echo "https://www.google.com/chrome/"
+                fi
+              fi
+            '';
           };
 
           infratructure = pkgs.mkShell {

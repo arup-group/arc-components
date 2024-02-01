@@ -164,7 +164,7 @@
 
           test = pkgs.writeShellApplication {
             name = "${name}-test";
-            runtimeInputs = buildInputs;
+            runtimeInputs = buildInputs ++ optional isLinux [pkgs.google-chrome];
             text = ''
               ${copyNodeModules}
               npx nx run-many --target=test

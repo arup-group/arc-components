@@ -22,7 +22,7 @@ export default [
       text-decoration: none;
       user-select: none;
       vertical-align: middle;
-      color:rgb(var(--arc-font-color));
+      color: rgb(var(--arc-font-color));
       background-color: rgb(var(--arc-color-default));
       border: none;
       height: var(--chip-size);

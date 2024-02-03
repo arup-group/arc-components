@@ -183,34 +183,34 @@ describe('ArcContainer', () => {
   describe('themes', () => {
     let element: ArcContainer;
     let container: HTMLElement;
-    const lightBackgroundColor = 'rgb(239, 239, 239)' // --arc-grey-010
-    const darkBackgroundColor = 'rgb(53, 53, 53)' // --arc-grey-090
+    const lightBackgroundColor = 'rgb(239, 239, 239)'; // --arc-grey-010
+    const darkBackgroundColor = 'rgb(53, 53, 53)'; // --arc-grey-090
     beforeEach(async () => {
       element = await fixture(html`<arc-container></arc-container>`);
       container = element.shadowRoot!.getElementById('main')!;
     });
 
     it('switches between light and dark theme based on prefers-color-scheme by default', async () => {
-      let containerBgColor = getComputedStyle(container).backgroundColor
-      expect(containerBgColor).to.equal(lightBackgroundColor)
+      let containerBgColor = getComputedStyle(container).backgroundColor;
+      expect(containerBgColor).to.equal(lightBackgroundColor);
 
-      await emulateMedia({colorScheme: 'dark'})
-      containerBgColor = getComputedStyle(container).backgroundColor
-      expect(containerBgColor).to.equal(darkBackgroundColor)
-    })
+      await emulateMedia({ colorScheme: 'dark' });
+      containerBgColor = getComputedStyle(container).backgroundColor;
+      expect(containerBgColor).to.equal(darkBackgroundColor);
+    });
 
     it('ignores prefers-color-scheme if theme attr is set to light or dark', async () => {
-      await emulateMedia({colorScheme: 'light'})
-      element.setAttribute('theme','dark')
-      let containerBgColor = getComputedStyle(container).backgroundColor
-      expect(containerBgColor).to.equal(darkBackgroundColor)
+      await emulateMedia({ colorScheme: 'light' });
+      element.setAttribute('theme', 'dark');
+      let containerBgColor = getComputedStyle(container).backgroundColor;
+      expect(containerBgColor).to.equal(darkBackgroundColor);
 
-      await emulateMedia({colorScheme: 'dark'})
-      element.setAttribute('theme','light')
-      containerBgColor = getComputedStyle(container).backgroundColor
-      expect(containerBgColor).to.equal(lightBackgroundColor)
-    })
-  })
+      await emulateMedia({ colorScheme: 'dark' });
+      element.setAttribute('theme', 'light');
+      containerBgColor = getComputedStyle(container).backgroundColor;
+      expect(containerBgColor).to.equal(lightBackgroundColor);
+    });
+  });
 
   /* Test whether the slots can be filled and that they exist */
   describe('slots', () => {

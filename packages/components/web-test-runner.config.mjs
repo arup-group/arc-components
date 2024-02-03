@@ -17,7 +17,7 @@ const CONFIG = {
     }
     return true;
   },
-  testRunnerHtml: testFramework =>
+  testRunnerHtml: (testFramework) =>
     `<html>
       <head>
         <link rel="stylesheet" href="./packages/components/themes/index.css">
@@ -27,6 +27,7 @@ const CONFIG = {
       <body>
         <script type="module" src="${testFramework}"></script>
       </body>
-    </html>`};
+    </html>`,
+};
 
 export default CONFIG;

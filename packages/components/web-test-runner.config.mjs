@@ -23,6 +23,15 @@ const CONFIG = {
         <link rel="stylesheet" href="./packages/components/themes/index.css">
         <link rel="stylesheet" href="./packages/components/themes/light.css">
         <link rel="stylesheet" href="./packages/components/themes/dark.css">
+        <style>
+          /**
+           * Reset styles which cause ResizeOberver loop in tests
+           * The issue has not been reproducible in browsers
+           **/
+           html, body {
+            height: 100px !important;
+           }
+        </style>
       </head>
       <body>
         <script type="module" src="${testFramework}"></script>

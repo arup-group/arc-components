@@ -16,7 +16,7 @@
     "@phosphor-icons/core": "2.0.3",
     "date-fns": "^2.29.1",
     "gridjs": "6.0.6",
-    "lit": "^2.4.1",
+    "lit": "^3.1.2",
     "react": "^18.2.0",
     "tabbable": "^5.3.3",
     "tslib": "2.3.1"

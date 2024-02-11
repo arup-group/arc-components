@@ -4,10 +4,10 @@ import { isTabbable } from 'tabbable';
 Returns the first and last bounding elements that are tabbable. This is more performant than checking every single
 element because it short-circuits after finding the first and last ones.
 */
-function getTabbableBoundary(root: HTMLElement | ShadowRoot) {
+function getTabbableBoundary(root: HTMLElement | DocumentFragment) {
   const allElements: HTMLElement[] = [];
 
-  function walk(el: HTMLElement | ShadowRoot) {
+  function walk(el: HTMLElement | DocumentFragment) {
     if (el instanceof HTMLElement) {
       allElements.push(el);
 

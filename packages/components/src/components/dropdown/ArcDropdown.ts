@@ -293,7 +293,7 @@ export default class ArcDropdown extends LitElement {
     /* Handle tabbing */
     if (event.key === 'Tab') {
       const activeElement =
-        this.containingElement?.getRootNode() instanceof ShadowRoot
+        this.containingElement?.getRootNode() instanceof DocumentFragment
           ? document.activeElement?.shadowRoot?.activeElement
           : document.activeElement;
 

@@ -28,6 +28,7 @@
         packages = {
           components = napalm.legacyPackages.${system}.buildPackage ./. {
             inherit nodejs;
+            npmCommands = [ "npm ci --ignore-scripts" ];
             installPhase = ''
               npx nx run components:build
               ${pkgs.coreutils}/bin/mkdir -p $out

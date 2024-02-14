@@ -34,8 +34,7 @@
               echo "Prebuilding components"
               npx nx run components:prebuild
               echo "Building components"
-              npx nx run components:prebuild
-              npx custom-elements-manifest analyze --litelement --globs \"dist/packages/components/src/**/*.js\" --outdir \"dist/packages/components\"
+              npx nx run components:build
 
               ${pkgs.coreutils}/bin/mkdir -p $out
               ${pkgs.coreutils}/bin/mv dist $out

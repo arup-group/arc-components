@@ -30,7 +30,8 @@
             inherit nodejs;
             npmCommands = [ "npm ci --ignore-scripts" ];
             installPhase = ''
-              npx nx run components:build
+              echo '<html><body><h1>hello world</h1></body></html>' > dist/index.html
+
               ${pkgs.coreutils}/bin/mkdir -p $out
               ${pkgs.coreutils}/bin/mv dist/packages/components $out
             '';

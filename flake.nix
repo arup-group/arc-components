@@ -31,6 +31,9 @@
             npmCommands = [ "npm ci --ignore-scripts" ];
             installPhase = ''
               ${pkgs.coreutils}/bin/mkdir -p dist
+              echo "Prebuilding components"
+              npx nx run components:prebuild
+              echo "Building components"
               npx nx run components:build
 
               ${pkgs.coreutils}/bin/mkdir -p $out

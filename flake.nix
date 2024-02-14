@@ -28,7 +28,6 @@
         packages = {
           components = napalm.legacyPackages.${system}.buildPackage ./. {
             inherit nodejs;
-            npmCommands = [ "npm ci --ignore-scripts" ];
             installPhase = ''
               ${pkgs.coreutils}/bin/mkdir -p dist
               echo "Prebuilding components"

@@ -1,8 +1,5 @@
 {
   "name": "@arc-web/components",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "arc-release": "ts-node ./scripts/arc-release.ts",
     "arc-publish": "ts-node ./scripts/arc-publish.ts"

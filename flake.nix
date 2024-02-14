@@ -31,7 +31,7 @@
             npmCommands = [ "npm ci --ignore-scripts" ];
             installPhase = ''
               ${pkgs.coreutils}/bin/mkdir -p dist
-              npx nx run-many --target=build --projects=components,react
+              npx nx run components:prebuild
 
               ${pkgs.coreutils}/bin/mkdir -p $out
               ${pkgs.coreutils}/bin/mv dist $out

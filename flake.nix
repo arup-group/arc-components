@@ -30,10 +30,12 @@
             inherit nodejs;
             npmCommands = [ "npm ci --ignore-scripts" ];
             installPhase = ''
+              ${pkgs.coreutils}/bin/mkdir -p dist
+              ${pkgs.coreutils}/bin/touch dist/index.html
               echo '<html><body><h1>hello world</h1></body></html>' > dist/index.html
 
               ${pkgs.coreutils}/bin/mkdir -p $out
-              ${pkgs.coreutils}/bin/mv dist/packages/components $out
+              ${pkgs.coreutils}/bin/mv dist $out
             '';
           };
         };

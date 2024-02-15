@@ -11,19 +11,19 @@ The `ArcAccessibility` component is included with the the the `ArcContainer` com
 
 <Primary />
 
-Listen to the *arc-accessibility-chanage* event for when the user updates an accessibility features setting.
+Listen to the _arc-accessibility-chanage_ event for when the user updates an accessibility features setting.
 
 <Canvas of={AccessibilityStories.ListenToChanages} />
 
 To open the `ArcAccessibility` pannel with custom application logic create your own instance of the component
-and provide it to the `ArcContainer`'s *accessibility* slot. Use the `ArcAccessibility.open` property to open
+and provide it to the `ArcContainer`'s _accessibility_ slot. Use the `ArcAccessibility.open` property to open
 or close the pannel. It is required that you also add an even listern to the `ArcContainer` to listen for the
-*arc-show-accessibility` event, and open your instance of the `ArcAccessibility` accordingly:
+\*arc-show-accessibility`event, and open your instance of the`ArcAccessibility` accordingly:
 
 <Canvas of={AccessibilityStories.OpenWithCustomButton} />
 
 To extend the `ArcAccessibility` component with custom features, provide your own instance of the component to
-the `ArcContainer`'s *accessibility* slot. Use the `ArcAccessibility`'s *options* slot to provide your own
+the `ArcContainer`'s _accessibility_ slot. Use the `ArcAccessibility`'s _options_ slot to provide your own
 control elements elements:
 
 <Canvas of={AccessibilityStories.ExtendWithCustomControls} />

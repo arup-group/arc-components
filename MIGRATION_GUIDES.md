@@ -12,6 +12,7 @@ In version 3 we have taken the opportunity to make serval important breaking cha
 - `ArcButton` color property has been updated from `primary` to `default`.
 - Cerry-picking components from the `@arc-web/components` package has changed from importing from the `/dist/src` directory to importing from the `/src` directory.
 - React component wrappers have been moved from the `@arc-web/components` package to the `@arc-web/react` package.
+- Auto theme now tracks system preference. It responds in real time to changes in system preference (i.e. even after the page loads) and ignores the time of day.
 
 #### Upgrade Steps
 
@@ -57,3 +58,17 @@ npm i @arc-web/components@latest @arc-web/react@latest
 ```
 
 </details>
+
+6. Adjust dark or light theme overrides.
+
+```diff
+- :root,
+- :host,
+- arc-container[theme='light'] {
+-   --arc-color-primary: var(--arc-green-050);
+- }
+
++ :root {
++   --arc-light-color-primary: var(--arc-green-050);
++ }
+```

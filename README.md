@@ -42,7 +42,7 @@ npm install @arc-web/components@latest
 
 #### 2: Setup Stylesheets
 
-**ARC** components depend upon the stylesheets in the themes directory `@arc-web/components/themes` to be loaded at runtime. Ensure that the following stylesheets are loaded by your application:
+**ARC** components depend upon the stylesheet in the themes directory `@arc-web/components/themes` to be loaded at runtime. Ensure that the stylesheet is loaded by your application:
 
 <details>
 <summary>Build Script</summary>
@@ -53,15 +53,13 @@ Add a step to your build script that copies the contents of the `@arc-web/compon
 + cp -r node_modules/@arc-web/components/themes <public directory>
 ```
 
-Load the stylesheets in your application:
+Load the stylesheet in your application:
 
 ```diff
   <html>
     <head>
     ...
 +   <link rel="stylesheet" href="<public directory>/themes/index.css" />
-+   <link rel="stylesheet" href="<public directory>/themes/light.css" />
-+   <link rel="stylesheet" href="<public directory>/themes/dark.css" />
     ...
     </head>
   </html>
@@ -72,15 +70,13 @@ Load the stylesheets in your application:
 <details>
 <summary>Angular CLI</summary>
 
-Add the stylesheets directly to the `styles` array in your `angular.json` configuration file:
+Add the stylesheet directly to the `styles` array in your `angular.json` configuration file:
 
 ```diff
   {
     ...
     "styles": [
 +     "node_modules/@arc-web/components/themes/index.css",
-+     "node_modules/@arc-web/components/themes/light.css",
-+     "node_modules/@arc-web/components/themes/dark.css",
       ...
     ]
     ...
@@ -96,8 +92,6 @@ Bundlers that support CSS imports allow you to import CSS files directly into yo
 
 ```diff
 + import '@arc-web/components/themes/index.css';
-+ import '@arc-web/components/themes/light.css';
-+ import '@arc-web/components/themes/dark.css';
 ...
 ```
 

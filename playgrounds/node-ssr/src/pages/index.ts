@@ -23,8 +23,6 @@ export function* renderIndex({ name }: IndexProps) {
       <link rel="icon" href="assets/icons/152x152.png" />
       <link rel="icon" type="image/x-icon" href="assets/icons/favicon_96.ico" />
       <link rel="stylesheet" href="dist/packages/components/themes/index.css" />
-      <link rel="stylesheet" href="dist/packages/components/themes/light.css" />
-      <link rel="stylesheet" href="dist/packages/components/themes/dark.css" />
     <head>
     <body hydration-pending>
       <script>

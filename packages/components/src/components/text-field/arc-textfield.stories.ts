@@ -20,6 +20,10 @@ export default {
       control: 'select',
       options: Object.values(THEME_COLORS),
     },
+    focusColor: {
+      control: 'select',
+      options: Object.values(THEME_COLORS),
+    },
     type: {
       control: 'select',
       options: Object.values(TEXT_BOX_TYPES),
@@ -29,10 +33,10 @@ export default {
       description: 'Marks the input field as required',
     },
     helperText: {
-       control: 'text' 
+      control: 'text',
     },
     errorText: {
-       control: 'text' 
+      control: 'text',
     },
     value: {
       control: 'text',
@@ -53,6 +57,7 @@ const Template: Story<ArcTextField> = (args) => html`
   <arc-textfield
     .size="${args.size}"
     .color="${args.color}"
+    .focusColor="${args.focusColor}"
     .type="${args.type}"
     .value="${args.value}"
     .defaultValue="${args.defaultValue}"
@@ -69,6 +74,7 @@ export const Default = Template.bind({});
 Default.args = {
   size: 'medium',
   color: 'default',
+  focusColor: 'primary',
   type: 'standard',
   value: '',
   defaultValue: 'Placeholder text',
@@ -132,7 +138,35 @@ export const WithAdornments = Template.bind({});
 WithAdornments.args = {
   ...Default.args,
   adornments: {
-    start: html`<arc-spinner></arc-spinner>`,
-    end: html`<arc-spinner></arc-spinner>`,
+    start: html`<svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="7" cy="7" r="6.5" stroke="black" stroke-width="1" />
+      <path
+        d="M7,1 A6,6 0 0,1 13,7"
+        fill="none"
+        stroke="black"
+        stroke-width="1"
+      />
+    </svg>`,
+    end: html`<svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="7" cy="7" r="6.5" stroke="black" stroke-width="1" />
+      <path
+        d="M7,1 A6,6 0 0,1 13,7"
+        fill="none"
+        stroke="black"
+        stroke-width="1"
+      />
+    </svg>`,
   },
 };

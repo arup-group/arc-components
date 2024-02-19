@@ -87,6 +87,7 @@ npm i @arc-web/components@latest @arc-web/react@latest
   }
 
 // If loaded by bundler
+import '@arc-web/components/themes/index.css';
 - import '@arc-web/components/themes/light.css';
 - import '@arc-web/components/themes/dark.css';
 

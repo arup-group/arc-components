@@ -26,8 +26,10 @@ export default [
     }
 
     .helper-text {
-      margin-top: 4px;
-      font-size: 14px;
+      padding: 10px;
+      font-size: 12px;
+      margin-top: 0px;
+      margin-bottom: 0px;
       visibility: hidden; /* Hide helper text by default */
     }
 
@@ -51,7 +53,7 @@ export default [
       --textfield-size: var(--arc-input-height-large);
     }
 
-    /* Color modifiers */ 
+    /* Color modifiers */
     .text-field--primary {
       border-color: rgb(var(--arc-color-primary));
     }
@@ -85,7 +87,7 @@ export default [
       border: 1px solid;
     }
 
-    /* Focus and Hover States */ 
+    /* Focus and Hover States */
     .text-field--primary:hover {
       border-color: rgba(var(--arc-color-primary), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-primary), 0.2);
@@ -146,7 +148,7 @@ export default [
       box-shadow: 0 2px 4px rgba(var(--arc-color-success), 0.3);
     }
 
-    /* Disabled and loading */ 
+    /* Disabled and loading */
     .text-field--disabled {
       background-color: #f0f0f0;
       color: #a8a8a8;

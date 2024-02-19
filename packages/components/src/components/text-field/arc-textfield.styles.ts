@@ -12,7 +12,7 @@ export default [
 
     .input-container {
       display: flex;
-      align-items: center; 
+      align-items: center;
       position: relative;
       padding: 10px;
       border: none;
@@ -29,8 +29,8 @@ export default [
     .adornment {
       display: flex;
       align-items: center;
-      flex: 1; 
-      max-width: 16.666%; 
+      flex: 1;
+      max-width: 16.666%;
       width: auto;
     }
 
@@ -55,6 +55,7 @@ export default [
       padding-left: 5px;
       font-size: 12px;
       margin-top: 2px;
+      height: 16px;
       margin-bottom: 2px;
       color: rgb(var(--arc-grey-060));
     }

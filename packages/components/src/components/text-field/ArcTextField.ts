@@ -8,6 +8,7 @@ import {
   THEME_COLORS,
   INPUT_SIZES,
 } from '../../internal/constants/styleConstants';
+import { FormController } from '../../internal/form-control.js';
 
 
 export default class ArcTextField extends LitElement {
@@ -29,6 +30,13 @@ export default class ArcTextField extends LitElement {
   @property({ type: String }) helperText = '';
   @property({ type: String }) errorText = '';
   @property({ type: Object }) adornments = { start: null, end: null };
+
+  /** @internal - Controller used to recognize form controls located inside a shadow root. */
+  /* @ts-expect-error - Controller used to hook the component to the formData */
+  private readonly formController = new FormController(this, {
+    value: (control: ArcTextField) =>
+      control.value ? control.value : undefined,
+  });
 
   protected render() {
     const fieldContainerClasses = classMap({

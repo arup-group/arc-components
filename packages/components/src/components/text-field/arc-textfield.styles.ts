@@ -12,8 +12,8 @@ export default [
 
     .input-container {
       display: flex;
-      align-items: center; /* Center items vertically */
-      position: relative; /* Essential for positioning elements like the spinner */
+      align-items: center; 
+      position: relative;
       padding: 10px;
       border: none;
       border-color: rgb(var(--arc-input-color));
@@ -31,7 +31,6 @@ export default [
       align-items: center;
       flex: 1; 
       max-width: 16.666%; 
-      min-width: 0;
       width: auto;
     }
 

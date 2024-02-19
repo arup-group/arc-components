@@ -30,25 +30,30 @@ export default class ArcTextField extends LitElement {
   @property({ type: Object }) adornments = { start: null, end: null };
 
   protected render() {
-    const inputClasses = classMap({
+    const fieldContainerClasses = classMap({
       'text-field': true,
-      'text-field--small': this.size === INPUT_SIZES.small,
-      'text-field--medium': this.size === INPUT_SIZES.medium,
-      'text-field--large': this.size === INPUT_SIZES.large,
-      'text-field--default': this.color === THEME_COLORS.default,
-      'text-field--primary': this.color === THEME_COLORS.primary,
-      'text-field--secondary': this.color === THEME_COLORS.secondary,
-      'text-field--error': this.color === THEME_COLORS.error,
-      'text-field--warning': this.color === THEME_COLORS.warning,
-      'text-field--info': this.color === THEME_COLORS.info,
-      'text-field--success': this.color === THEME_COLORS.success,
       'text-field--disabled': this.disabled,
-      'text-field--loading': this.loading,
-      'text-field--filled': this.type === TEXT_BOX_TYPES.filled,
-      'text-field--outlined': this.type === TEXT_BOX_TYPES.outlined,
-      'text-field--standard': this.type === TEXT_BOX_TYPES.standard,
-      'text-field--invalid': !this.isValid,
+      
     });
+
+      const inputContainerClasses = classMap({
+        'input-container': true,
+        'input-container--small': this.size === INPUT_SIZES.small,
+        'input-container--medium': this.size === INPUT_SIZES.medium,
+        'input-container--large': this.size === INPUT_SIZES.large,
+        'input-container--default': this.color === THEME_COLORS.default,
+        'input-container--primary': this.color === THEME_COLORS.primary,
+        'input-container--secondary': this.color === THEME_COLORS.secondary,
+        'input-container--error': this.color === THEME_COLORS.error,
+        'input-container--warning': this.color === THEME_COLORS.warning,
+        'input-container--info': this.color === THEME_COLORS.info,
+        'input-container--success': this.color === THEME_COLORS.success,
+        'input-container--disabled': this.disabled,
+        'input-container--loading': this.loading,
+        'input-container--filled': this.type === TEXT_BOX_TYPES.filled,
+        'input-container--outlined': this.type === TEXT_BOX_TYPES.outlined,
+        'input-container--standard': this.type === TEXT_BOX_TYPES.standard,
+      });
 
     const helperTextClasses = classMap({
       'helper-text': true,
@@ -57,30 +62,40 @@ export default class ArcTextField extends LitElement {
 
     return html`
       <div class="text-field-container">
-          ${this.adornments?.start
-            ? html`<div class="adornment start">${this.adornments.start}</div>`
-          : null}
-          <input
-            type="text"
-            class=${inputClasses}
-            .value=${this.value}
-            @input=${this.handleInput}
-            ?disabled=${this.disabled}
-            placeholder=${this.defaultValue}
-            ?required=${this.required}
-            .helperText="${this.helperText}"
-            .errorText="${this.errorText}"
-          />
-          ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
-          ${this.adornments?.end
-            ? html`<div class="adornment end">${this.adornments.end}</div>`
-            : null}
+          <div class=${inputContainerClasses}>
+            ${
+              this.adornments?.start
+                ? html`<div class="adornment start">
+                    ${this.adornments.start}
+                  </div>`
+                : null
+            }
+            <input
+              type="text"
+              class=${fieldContainerClasses}
+              .value=${this.value}
+              @input=${this.handleInput}
+              ?disabled=${this.disabled}
+              placeholder=${this.defaultValue}
+              ?required=${this.required}
+              .helperText="${this.helperText}"
+              .errorText="${this.errorText}"
+            />
+            ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
+            ${
+              this.adornments?.end
+                ? html`<div class="adornment end">${this.adornments.end}</div>`
+                : null
+            }
+          </div>
           <p class=${helperTextClasses}>
-            ${!this.isValid
-              ? this.errorText
+            ${
+              !this.isValid
                 ? this.errorText
-                : 'Invalid'
-              : this.helperText}
+                  ? this.errorText
+                  : 'Invalid'
+                : this.helperText
+            }
           </p>
         </div>
       </div>

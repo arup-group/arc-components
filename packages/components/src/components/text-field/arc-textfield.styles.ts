@@ -91,6 +91,10 @@ export default [
     }
 
     /* Focus and Hover States */
+    .text-field--default:hover {
+      border-color: rgba(var(--arc-color-default), 0.9);
+      box-shadow: 0 2px 4px rgba(var(--arc-color-default), 0.9);
+    }
     .text-field--primary:hover {
       border-color: rgba(var(--arc-color-primary), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-primary), 0.2);
@@ -119,6 +123,11 @@ export default [
     .text-field--success:hover {
       border-color: rgba(var(--arc-color-success), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-success), 0.2);
+    }
+
+    .text-field--default:focus {
+      border-color: rgba(var(--arc-color-default), 0.9);
+      box-shadow: 0 2px 4px rgba(var(--arc-color-default), 0.3);
     }
 
     .text-field--primary:focus {

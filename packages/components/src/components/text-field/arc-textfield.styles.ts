@@ -29,6 +29,10 @@ export default [
     .adornment {
       display: flex;
       align-items: center;
+      flex: 1; 
+      max-width: 16.666%; 
+      min-width: 0;
+      width: auto;
     }
 
     .adornment.start {
@@ -40,12 +44,12 @@ export default [
     }
 
     .text-field {
+      flex-grow: 2;
       font-size: 16px;
       border: none;
       background-color: transparent;
       outline: none;
-      width: auto;
-      min-width: 0;
+      width: 100%;
     }
 
     .helper-text {

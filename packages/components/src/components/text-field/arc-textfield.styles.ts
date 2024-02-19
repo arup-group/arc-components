@@ -5,7 +5,7 @@ export default [
   componentStyles,
   css`
     .text-field-container {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       position: relative;
     }
@@ -15,7 +15,7 @@ export default [
       font-size: 16px;
       border: none;
       border-color: rgb(var(--arc-input-color));
-      border-radius: 4px;
+      border-radius: 4px 4px 0 0;
       height: var(--textfield-size);
       width: calc(var(--textfield-size) * 5);
       outline: none;
@@ -31,6 +31,7 @@ export default [
       margin-top: 2px;
       margin-bottom: 2px;
       visibility: hidden; /* Hide helper text by default */
+      color: rgb(var(--arc-grey-060));
     }
 
     .helper-text--error {
@@ -54,6 +55,7 @@ export default [
 
     .text-field--outlined {
       border: 1px solid;
+      border-radius: 4px;
     }
 
     /* Size modifiers */

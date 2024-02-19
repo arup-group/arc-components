@@ -114,71 +114,70 @@ export default [
     }
 
     /* Focus and Hover States */
-    .input-container--default:hover {
+    .input-container--default:hover:not(:focus-within) {
       border-color: rgba(var(--arc-color-default), 0.9);
       box-shadow: 0 2px 4px rgba(var(--arc-color-default), 0.9);
     }
-    .input-container--primary:hover {
-      border-color: rgba(var(--arc-color-primary), 0.7);
-      box-shadow: 0 2px 4px rgba(var(--arc-color-primary), 0.2);
+
+    .input-container--primary:hover:not(:focus-within) {
+      border-color: rgba(var(--arc-color-primary), 0.9);
+      box-shadow: 0 2px 4px rgba(var(--arc-color-primary), 0.9);
     }
 
-    .input-container--secondary:hover {
+    .input-container--secondary:hover:not(:focus-within) {
       border-color: rgba(var(--arc-color-secondary), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-secondary), 0.2);
     }
 
-    .input-container--error:hover {
+    .input-container--error:hover:not(:focus-within) {
       border-color: rgba(var(--arc-color-error), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-error), 0.2);
     }
 
-    .input-container--warning:hover {
+    .input-container--warning:hover:not(:focus-within) {
       border-color: rgba(var(--arc-color-warning), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-warning), 0.2);
     }
 
-    .input-container--info:hover {
+    .input-container--info:hover:not(:focus-within) {
       border-color: rgba(var(--arc-color-info), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-info), 0.2);
     }
 
-    .input-container--success:hover {
+    .input-container--success:hover:not(:focus-within) {
       border-color: rgba(var(--arc-color-success), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-success), 0.2);
     }
 
-    .input-container--default:focus {
+    .input-container--focus-default:focus-within {
       border-color: rgba(var(--arc-color-default), 0.9);
       box-shadow: 0 2px 4px rgba(var(--arc-color-default), 0.3);
     }
-
-    .input-container--primary:focus {
+    .input-container--focus-primary:focus-within {
       border-color: rgba(var(--arc-color-primary), 0.9);
       box-shadow: 0 2px 4px rgba(var(--arc-color-primary), 0.3);
     }
-
-    .input-container--secondary:focus {
+    .input-container--focus-default:focus-within {
+      border-color: rgba(var(--arc-color-default), 0.9);
+      box-shadow: 0 2px 4px rgba(var(--arc-color-default), 0.3);
+    }
+    .input-container--focus-secondary:focus-within {
       border-color: rgba(var(--arc-color-secondary), 0.9);
       box-shadow: 0 2px 4px rgba(var(--arc-color-secondary), 0.3);
     }
-
-    .input-container--error:focus {
+    .input-container--focus-error:focus-within {
       border-color: rgba(var(--arc-color-error), 0.9);
       box-shadow: 0 2px 4px rgba(var(--arc-color-error), 0.3);
     }
-
-    .input-container--warning:focus {
+    .input-container--focus-warning:focus-within {
       border-color: rgba(var(--arc-color-warning), 0.9);
       box-shadow: 0 2px 4px rgba(var(--arc-color-warning), 0.3);
     }
-
-    .input-container--info:focus {
+    .input-container--focus-info:focus-within {
       border-color: rgba(var(--arc-color-info), 0.9);
       box-shadow: 0 2px 4px rgba(var(--arc-color-info), 0.3);
     }
-
-    .input-container--success:focus {
+    .input-container--focus-success:focus-within {
       border-color: rgba(var(--arc-color-success), 0.9);
       box-shadow: 0 2px 4px rgba(var(--arc-color-success), 0.3);
     }

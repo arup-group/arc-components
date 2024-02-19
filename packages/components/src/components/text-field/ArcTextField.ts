@@ -22,6 +22,7 @@ export default class ArcTextField extends LitElement {
   @property({ type: String }) defaultValue = '';
   @property({ type: String }) size = INPUT_SIZES.medium;
   @property({ type: String }) color = THEME_COLORS.default;
+  @property({ type: String }) focusColor = THEME_COLORS.primary;
   @property({ type: String }) type = TEXT_BOX_TYPES.standard;
   @property({ type: Boolean, reflect: true }) required = false;
   @property({ type: Boolean }) isValid = true; // Tracks validity of field if required prop enabled
@@ -33,27 +34,21 @@ export default class ArcTextField extends LitElement {
     const fieldContainerClasses = classMap({
       'text-field': true,
       'text-field--disabled': this.disabled,
-      
     });
 
-      const inputContainerClasses = classMap({
-        'input-container': true,
-        'input-container--small': this.size === INPUT_SIZES.small,
-        'input-container--medium': this.size === INPUT_SIZES.medium,
-        'input-container--large': this.size === INPUT_SIZES.large,
-        'input-container--default': this.color === THEME_COLORS.default,
-        'input-container--primary': this.color === THEME_COLORS.primary,
-        'input-container--secondary': this.color === THEME_COLORS.secondary,
-        'input-container--error': this.color === THEME_COLORS.error,
-        'input-container--warning': this.color === THEME_COLORS.warning,
-        'input-container--info': this.color === THEME_COLORS.info,
-        'input-container--success': this.color === THEME_COLORS.success,
-        'input-container--disabled': this.disabled,
-        'input-container--loading': this.loading,
-        'input-container--filled': this.type === TEXT_BOX_TYPES.filled,
-        'input-container--outlined': this.type === TEXT_BOX_TYPES.outlined,
-        'input-container--standard': this.type === TEXT_BOX_TYPES.standard,
-      });
+    const inputContainerClasses = classMap({
+      'input-container': true,
+      'input-container--small': this.size === INPUT_SIZES.small,
+      'input-container--medium': this.size === INPUT_SIZES.medium,
+      'input-container--large': this.size === INPUT_SIZES.large,
+      [`input-container--${this.color}`]: true,
+      [`input-container--focus-${this.focusColor}`]: true,
+      'input-container--disabled': this.disabled,
+      'input-container--loading': this.loading,
+      'input-container--filled': this.type === TEXT_BOX_TYPES.filled,
+      'input-container--outlined': this.type === TEXT_BOX_TYPES.outlined,
+      'input-container--standard': this.type === TEXT_BOX_TYPES.standard
+    });
 
     const helperTextClasses = classMap({
       'helper-text': true,

@@ -20,9 +20,12 @@ export default class ArcTextField extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
   @property({ type: Boolean, reflect: true }) loading = false;
   @property({ type: String }) defaultValue = '';
-  @property({ type: String }) size = INPUT_SIZES.medium; 
+  @property({ type: String }) size = INPUT_SIZES.medium;
   @property({ type: String }) color = THEME_COLORS.default;
-  @property({ type: String }) type = TEXT_BOX_TYPES.standard; 
+  @property({ type: String }) type = TEXT_BOX_TYPES.standard;
+  @property({ type: Boolean, reflect: true }) required = false;
+  @property({ type: Boolean }) isValid = true; // Tracks validity of field if required prop enabled
+
   protected render() {
     const classes = classMap({
       'text-field': true,
@@ -41,7 +44,10 @@ export default class ArcTextField extends LitElement {
       'text-field--filled': this.type === TEXT_BOX_TYPES.filled,
       'text-field--outlined': this.type === TEXT_BOX_TYPES.outlined,
       'text-field--standard': this.type === TEXT_BOX_TYPES.standard,
+      'text-field--invalid': !this.isValid
     });
+        console.log(!this.isValid);
+
     return html`
         <input
           type="text"
@@ -49,6 +55,7 @@ export default class ArcTextField extends LitElement {
           .value=${this.value}
           @input=${this.handleInput}
           ?disabled=${this.disabled}
+          ?required=${this.required}
           placeholder=${this.defaultValue}
         >
         ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
@@ -56,9 +63,20 @@ export default class ArcTextField extends LitElement {
     `;
   }
 
+  private checkValidity() {
+    if (this.value.length === 0) {
+      this.isValid = false;
+    } else {
+      this.isValid = true;
+    }
+  }
+
   private handleInput(event: InputEvent) {
     const inputElement = event.target as HTMLInputElement;
     this.value = inputElement.value;
+    if (this.required) {
+      this.checkValidity();
+    }
     this.dispatchEvent(
       new CustomEvent('input-change', { detail: { value: this.value } }),
     );

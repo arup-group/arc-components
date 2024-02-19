@@ -24,6 +24,10 @@ export default {
       control: 'select',
       options: Object.values(TEXT_BOX_TYPES),
     },
+    required: {
+      control: 'boolean',
+      description: 'Marks the input field as required',
+    },
     value: {
       control: 'text',
     },
@@ -48,6 +52,7 @@ const Template: Story<ArcTextField> = (args) => html`
     .defaultValue="${args.defaultValue}"
     ?disabled="${args.disabled}"
     ?loading="${args.loading}"
+    ?required="${args.required}"
   ></arc-textfield>
 `;
 
@@ -60,6 +65,7 @@ Default.args = {
   defaultValue: 'Placeholder text',
   disabled: false,
   loading: false,
+  required: false,
 };
 
 export const PrimaryFilledLarge = Template.bind({});
@@ -88,4 +94,11 @@ export const Loading = Template.bind({});
 Loading.args = {
   ...Default.args,
   loading: true,
+};
+
+export const RequiredField = Template.bind({});
+RequiredField.args = {
+  ...Default.args,
+  required: true,
+  defaultValue: 'Required field', 
 };

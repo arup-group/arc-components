@@ -132,6 +132,11 @@ export default [
       border-color: #e5e5e5;
     }
 
+    .text-field--invalid {
+      border-color: rgba(var(--arc-color-error), 0.9);
+      box-shadow: 0 2px 4px rgba(var(--arc-color-error), 0.3);
+    }
+
     .loading-container {
       position: relative;
     }

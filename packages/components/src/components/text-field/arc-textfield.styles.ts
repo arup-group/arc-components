@@ -4,6 +4,12 @@ import componentStyles from '../../styles/component.styles.js';
 export default [
   componentStyles,
   css`
+    .text-field-container {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
     .text-field {
       padding: 10px;
       font-size: 16px;
@@ -30,7 +36,7 @@ export default [
       --textfield-size: var(--arc-input-height-large);
     }
 
-    */ Color modifiers */ 
+    /* Color modifiers */ 
     .text-field--primary {
       border-color: rgb(var(--arc-color-primary));
     }
@@ -64,7 +70,7 @@ export default [
       border: 1px solid;
     }
 
-    */ Focus and Hover States */ 
+    /* Focus and Hover States */ 
     .text-field--primary:hover {
       border-color: rgba(var(--arc-color-primary), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-primary), 0.2);
@@ -125,7 +131,7 @@ export default [
       box-shadow: 0 2px 4px rgba(var(--arc-color-success), 0.3);
     }
 
-    */ Disabled and loading */
+    /* Disabled and loading */ 
     .text-field--disabled {
       background-color: #f0f0f0;
       color: #a8a8a8;

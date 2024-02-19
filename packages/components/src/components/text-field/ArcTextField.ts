@@ -44,11 +44,12 @@ export default class ArcTextField extends LitElement {
       'text-field--filled': this.type === TEXT_BOX_TYPES.filled,
       'text-field--outlined': this.type === TEXT_BOX_TYPES.outlined,
       'text-field--standard': this.type === TEXT_BOX_TYPES.standard,
-      'text-field--invalid': !this.isValid
+      'text-field--invalid': !this.isValid,
     });
         console.log(!this.isValid);
 
     return html`
+      <div class="text-field-container">
         <input
           type="text"
           class=${classes}
@@ -60,6 +61,7 @@ export default class ArcTextField extends LitElement {
         >
         ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
         </input>
+      </div>
     `;
   }
 

@@ -7,7 +7,27 @@ export default [
     .text-field-container {
       display: inline-flex;
       flex-direction: column;
+      align-items: center;
       position: relative;
+    }
+
+    .text-field-wrapper {
+      display: flex;
+      align-items: center; /* Center items vertically */
+      position: relative; /* Essential for positioning elements like the spinner */
+    }
+
+    .adornment {
+      display: flex;
+      align-items: center;
+    }
+
+    .adornment.start {
+      margin-right: 8px;
+    }
+
+    .adornment.end {
+      margin-left: 8px;
     }
 
     .text-field {

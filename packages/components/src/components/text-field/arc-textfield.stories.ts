@@ -61,6 +61,7 @@ const Template: Story<ArcTextField> = (args) => html`
     ?required="${args.required}"
     .helperText="${args.helperText}"
     .errorText="${args.errorText}"
+    .adornments="${args.adornments}"
   ></arc-textfield>
 `;
 
@@ -76,6 +77,7 @@ Default.args = {
   required: false,
   helperText: '',
   errorText: null,
+  adornments: null
 };
 
 export const PrimaryFilledLarge = Template.bind({});
@@ -123,5 +125,14 @@ RequiredWithoutInput.args = {
 export const HelperText = Template.bind({});
 HelperText.args = {
   ...Default.args,
-  HelperText: 'Example helper text',
+  helperText: 'Example helper text',
+};
+
+export const WithAdornments = Template.bind({});
+WithAdornments.args = {
+  ...Default.args,
+  adornments: {
+    start: html`<arc-spinner></arc-spinner>`,
+    end: html`<arc-spinner></arc-spinner>`,
+  },
 };

@@ -27,6 +27,7 @@ export default class ArcTextField extends LitElement {
   @property({ type: Boolean }) isValid = true; // Tracks validity of field if required prop enabled
   @property({ type: String }) helperText = '';
   @property({ type: String }) errorText = '';
+  @property({ type: Object }) adornments = { start: null, end: null };
 
   protected render() {
     const inputClasses = classMap({
@@ -53,31 +54,35 @@ export default class ArcTextField extends LitElement {
       'helper-text': true,
       'helper-text--error': !this.isValid,
     });
-    console.log(!this.isValid);
 
     return html`
       <div class="text-field-container">
-        <input
-          type="text"
-          class=${inputClasses}
-          .value=${this.value}
-          @input=${this.handleInput}
-          ?disabled=${this.disabled}
-          placeholder=${this.defaultValue}
-          ?required=${this.required}
-          .helperText="${this.helperText}"
-          .errorText="${this.errorText}"
-        />
-        ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
-        <p class=${helperTextClasses}>
-          ${
-            !this.isValid
+          ${this.adornments?.start
+            ? html`<div class="adornment start">${this.adornments.start}</div>`
+          : null}
+          <input
+            type="text"
+            class=${inputClasses}
+            .value=${this.value}
+            @input=${this.handleInput}
+            ?disabled=${this.disabled}
+            placeholder=${this.defaultValue}
+            ?required=${this.required}
+            .helperText="${this.helperText}"
+            .errorText="${this.errorText}"
+          />
+          ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
+          ${this.adornments?.end
+            ? html`<div class="adornment end">${this.adornments.end}</div>`
+            : null}
+          <p class=${helperTextClasses}>
+            ${!this.isValid
               ? this.errorText
                 ? this.errorText
                 : 'Invalid'
-              : this.helperText
-          }
-        </p>
+              : this.helperText}
+          </p>
+        </div>
       </div>
     `;
   }

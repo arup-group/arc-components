@@ -225,7 +225,7 @@
   --arc-dark-container-color: var(--arc-grey-100);
 
   /* Set the color scheme for native form elements */
-  color-scheme: dark;
+  color-scheme: light dark;
 
   /* Palette */
   --arc-dark-color-default: var(--arc-grey-090);
@@ -345,9 +345,6 @@ arc-container {
     --arc-background-color: var(--arc-dark-background-color);
     --arc-container-color: var(--arc-dark-container-color);
 
-    /* Set the color scheme for native form elements */
-    color-scheme: dark;
-
     /* Palette */
     --arc-color-default: var(--arc-dark-color-default);
     --arc-color-primary: var(--arc-dark-color-primary);
@@ -403,9 +400,6 @@ arc-container[theme='dark'] {
   --arc-input-color: var(--arc-dark-input-color);
   --arc-background-color: var(--arc-dark-background-color);
   --arc-container-color: var(--arc-dark-container-color);
-
-  /* Set the color scheme for native form elements */
-  color-scheme: dark;
 
   /* Palette */
   --arc-color-default: var(--arc-dark-color-default);

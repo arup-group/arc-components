@@ -1,9 +1,11 @@
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../spinner/arc-spinner'; // Ensure you have an arc-spinner component for the loading state
 import styles from './arc-textfield.styles';
 import { TEXT_BOX_TYPES } from './constants/TextFieldConstants';
+
 import {
   THEME_COLORS,
   INPUT_SIZES,
@@ -17,6 +19,7 @@ export default class ArcTextField extends LitElement {
 
   static styles = styles;
 
+  @property({ type: String }) name: string;
   @property({ type: String, reflect: true }) value = '';
   @property({ type: Boolean, reflect: true }) disabled = false;
   @property({ type: Boolean, reflect: true }) loading = false;
@@ -76,6 +79,7 @@ export default class ArcTextField extends LitElement {
             <input
               type="text"
               class=${fieldContainerClasses}
+              name=${ifDefined(this.name)}
               .value=${this.value}
               @input=${this.handleInput}
               ?disabled=${this.disabled}

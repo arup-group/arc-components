@@ -19,7 +19,7 @@ export default [
         box-shadow 0.3s;
     }
 
-    // Size modifiers
+    */ Size modifiers */ 
     .text-field--small {
       --textfield-size: var(--arc-input-height-small);
     }
@@ -30,7 +30,7 @@ export default [
       --textfield-size: var(--arc-input-height-large);
     }
 
-    // Color modifiers
+    */ Color modifiers */ 
     .text-field--primary {
       border-color: rgb(var(--arc-color-primary));
     }
@@ -50,9 +50,9 @@ export default [
       border-color: rgb(var(--arc-color-success));
     }
 
-    // Text Box Types
+    /* Text Box Types */
     .text-field--standard {
-      border-bottom: 2px solid #ccc;
+      border-bottom: 2px solid;
     }
 
     .text-field--filled {
@@ -64,7 +64,7 @@ export default [
       border: 1px solid;
     }
 
-    // Focus and Hover States
+    */ Focus and Hover States */ 
     .text-field--primary:hover {
       border-color: rgba(var(--arc-color-primary), 0.7);
       box-shadow: 0 2px 4px rgba(var(--arc-color-primary), 0.2);
@@ -125,7 +125,7 @@ export default [
       box-shadow: 0 2px 4px rgba(var(--arc-color-success), 0.3);
     }
 
-    // Disabled and loading
+    */ Disabled and loading */
     .text-field--disabled {
       background-color: #f0f0f0;
       color: #a8a8a8;

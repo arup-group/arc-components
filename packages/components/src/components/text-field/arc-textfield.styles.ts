@@ -25,7 +25,22 @@ export default [
         box-shadow 0.3s;
     }
 
-    */ Size modifiers */ 
+    .helper-text {
+      margin-top: 4px;
+      font-size: 14px;
+      visibility: hidden; /* Hide helper text by default */
+    }
+
+    .helper-text--error {
+      color: rgb(var(--arc-color-error));
+    }
+
+    .text-field--invalid + .helper-text,
+    .text-field:not(--invalid) + .helper-text {
+      visibility: visible; /* Show helper text when needed */
+    }
+
+    /* Size modifiers */
     .text-field--small {
       --textfield-size: var(--arc-input-height-small);
     }

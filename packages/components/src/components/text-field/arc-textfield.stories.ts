@@ -28,6 +28,12 @@ export default {
       control: 'boolean',
       description: 'Marks the input field as required',
     },
+    helperText: {
+       control: 'text' 
+    },
+    errorText: {
+       control: 'text' 
+    },
     value: {
       control: 'text',
     },
@@ -53,6 +59,8 @@ const Template: Story<ArcTextField> = (args) => html`
     ?disabled="${args.disabled}"
     ?loading="${args.loading}"
     ?required="${args.required}"
+    .helperText="${args.helperText}"
+    .errorText="${args.errorText}"
   ></arc-textfield>
 `;
 
@@ -66,6 +74,8 @@ Default.args = {
   disabled: false,
   loading: false,
   required: false,
+  helperText: '',
+  errorText: null,
 };
 
 export const PrimaryFilledLarge = Template.bind({});
@@ -101,4 +111,17 @@ RequiredField.args = {
   ...Default.args,
   required: true,
   defaultValue: 'Required field', 
+};
+
+export const RequiredWithoutInput = Template.bind({});
+RequiredWithoutInput.args = {
+  ...Default.args,
+  required: true,
+  errorText: 'This field is required',
+};
+
+export const HelperText = Template.bind({});
+HelperText.args = {
+  ...Default.args,
+  HelperText: 'Example helper text',
 };

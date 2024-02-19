@@ -25,9 +25,11 @@ export default class ArcTextField extends LitElement {
   @property({ type: String }) type = TEXT_BOX_TYPES.standard;
   @property({ type: Boolean, reflect: true }) required = false;
   @property({ type: Boolean }) isValid = true; // Tracks validity of field if required prop enabled
+  @property({ type: String }) helperText = '';
+  @property({ type: String }) errorText = '';
 
   protected render() {
-    const classes = classMap({
+    const inputClasses = classMap({
       'text-field': true,
       'text-field--small': this.size === INPUT_SIZES.small,
       'text-field--medium': this.size === INPUT_SIZES.medium,
@@ -46,21 +48,37 @@ export default class ArcTextField extends LitElement {
       'text-field--standard': this.type === TEXT_BOX_TYPES.standard,
       'text-field--invalid': !this.isValid,
     });
-        console.log(!this.isValid);
+
+    const helperTextClasses = classMap({
+      'helper-text': true,
+      'helper-text--error': !this.isValid,
+    });
+    console.log(!this.isValid);
 
     return html`
       <div class="text-field-container">
         <input
           type="text"
-          class=${classes}
+          class=${inputClasses}
           .value=${this.value}
           @input=${this.handleInput}
           ?disabled=${this.disabled}
-          ?required=${this.required}
           placeholder=${this.defaultValue}
+          ?required=${this.required}
+          .helperText="${this.helperText}"
+          .errorText="${this.errorText}"
         >
         ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
         </input>
+        <p class=${helperTextClasses}>
+          ${
+            !this.isValid
+              ? this.errorText
+                ? this.errorText
+                : 'Invalid'
+              : this.helperText
+          }
+        </p>
       </div>
     `;
   }

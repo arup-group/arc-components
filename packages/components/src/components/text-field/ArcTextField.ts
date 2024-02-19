@@ -3,6 +3,11 @@ import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import '../spinner/arc-spinner'; // Ensure you have an arc-spinner component for the loading state
 import styles from './arc-textfield.styles';
+import { TEXT_BOX_TYPES } from './constants/TextFieldConstants';
+import {
+  THEME_COLORS,
+  INPUT_SIZES,
+} from '../../internal/constants/styleConstants';
 
 
 export default class ArcTextField extends LitElement {
@@ -15,19 +20,39 @@ export default class ArcTextField extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
   @property({ type: Boolean, reflect: true }) loading = false;
   @property({ type: String }) defaultValue = '';
-
+  @property({ type: String }) size = INPUT_SIZES.medium; 
+  @property({ type: String }) color = THEME_COLORS.default;
+  @property({ type: String }) type = TEXT_BOX_TYPES.standard; 
   protected render() {
+    const classes = classMap({
+      'text-field': true,
+      'text-field--small': this.size === INPUT_SIZES.small,
+      'text-field--medium': this.size === INPUT_SIZES.medium,
+      'text-field--large': this.size === INPUT_SIZES.large,
+      'text-field--default': this.color === THEME_COLORS.default,
+      'text-field--primary': this.color === THEME_COLORS.primary,
+      'text-field--secondary': this.color === THEME_COLORS.secondary,
+      'text-field--error': this.color === THEME_COLORS.error,
+      'text-field--warning': this.color === THEME_COLORS.warning,
+      'text-field--info': this.color === THEME_COLORS.info,
+      'text-field--success': this.color === THEME_COLORS.success,
+      'text-field--disabled': this.disabled,
+      'text-field--loading': this.loading,
+      'text-field--filled': this.type === TEXT_BOX_TYPES.filled,
+      'text-field--outlined': this.type === TEXT_BOX_TYPES.outlined,
+      'text-field--standard': this.type === TEXT_BOX_TYPES.standard,
+    });
     return html`
-      <div class=${classMap({ 'loading-container': this.loading })}>
         <input
           type="text"
+          class=${classes}
           .value=${this.value}
           @input=${this.handleInput}
           ?disabled=${this.disabled}
           placeholder=${this.defaultValue}
-        />
+        >
         ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
-      </div>
+        </input>
     `;
   }
 

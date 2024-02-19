@@ -2,77 +2,90 @@ import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import './arc-textfield'; // Ensure the import path is correct
 import type ArcTextField from './ArcTextField'; // Adjust the import path as necessary
+import { TEXT_BOX_TYPES } from './constants/TextFieldConstants';
+import {
+  THEME_COLORS,
+  INPUT_SIZES,
+} from '../../internal/constants/styleConstants';
 
 export default {
   title: 'Components/ArcTextField',
-  component: 'arc-text-field',
+  component: 'arc-textfield',
   argTypes: {
+    size: {
+      control: 'select',
+      options: Object.values(INPUT_SIZES),
+    },
+    color: {
+      control: 'select',
+      options: Object.values(THEME_COLORS),
+    },
+    type: {
+      control: 'select',
+      options: Object.values(TEXT_BOX_TYPES),
+    },
     value: {
       control: 'text',
-      description: 'The input value of the text field',
     },
     defaultValue: {
       control: 'text',
-      description: 'The default (placeholder) value of the text field',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disables the text field if true',
     },
     loading: {
       control: 'boolean',
-      description: 'Shows a loading indicator if true',
     },
   },
 } as Meta;
 
-const Template: Story<ArcTextField> = ({
-  value,
-  defaultValue,
-  disabled,
-  loading,
-}) => html`
+const Template: Story<ArcTextField> = (args) => html`
   <arc-textfield
-    .value=${value || ''}
-    .defaultValue=${defaultValue || ''}
-    ?disabled=${disabled}
-    ?loading=${loading}
+    .size="${args.size}"
+    .color="${args.color}"
+    .type="${args.type}"
+    .value="${args.value}"
+    .defaultValue="${args.defaultValue}"
+    ?disabled="${args.disabled}"
+    ?loading="${args.loading}"
   ></arc-textfield>
 `;
 
-// Default story
 export const Default = Template.bind({});
 Default.args = {
+  size: 'medium',
+  color: 'default',
+  type: 'standard',
   value: '',
-  defaultValue: 'Type here...',
+  defaultValue: 'Placeholder text',
   disabled: false,
   loading: false,
 };
 
-// Disabled state
+export const PrimaryFilledLarge = Template.bind({});
+PrimaryFilledLarge.args = {
+  ...Default.args,
+  color: 'primary',
+  type: 'filled',
+  size: 'large',
+};
+
+export const SecondaryOutlinedSmall = Template.bind({});
+SecondaryOutlinedSmall.args = {
+  ...Default.args,
+  color: 'secondary',
+  type: 'outlined',
+  size: 'small',
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   ...Default.args,
   disabled: true,
 };
 
-// Loading state
 export const Loading = Template.bind({});
 Loading.args = {
   ...Default.args,
   loading: true,
-};
-
-// With default value
-export const WithDefaultValue = Template.bind({});
-WithDefaultValue.args = {
-  ...Default.args,
-  defaultValue: 'Hello, World!',
-};
-
-// With initial value
-export const WithInitialValue = Template.bind({});
-WithInitialValue.args = {
-  ...Default.args,
-  value: 'Initial value',
 };

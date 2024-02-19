@@ -26,10 +26,10 @@ export default [
     }
 
     .helper-text {
-      padding: 10px;
+      padding-left: 5px;
       font-size: 12px;
-      margin-top: 0px;
-      margin-bottom: 0px;
+      margin-top: 2px;
+      margin-bottom: 2px;
       visibility: hidden; /* Hide helper text by default */
     }
 
@@ -40,6 +40,20 @@ export default [
     .text-field--invalid + .helper-text,
     .text-field:not(--invalid) + .helper-text {
       visibility: visible; /* Show helper text when needed */
+    }
+
+    /* Text Box Types */
+    .text-field--standard {
+      border-bottom: 2px solid;
+    }
+
+    .text-field--filled {
+      background-color: #f5f5f5; /* Light grey background */
+      border-bottom: 2px solid;
+    }
+
+    .text-field--outlined {
+      border: 1px solid;
     }
 
     /* Size modifiers */
@@ -54,6 +68,9 @@ export default [
     }
 
     /* Color modifiers */
+    .text-field--default {
+      border-color: rgb(var(--arc-color-default));
+    }
     .text-field--primary {
       border-color: rgb(var(--arc-color-primary));
     }
@@ -71,20 +88,6 @@ export default [
     }
     .text-field--success {
       border-color: rgb(var(--arc-color-success));
-    }
-
-    /* Text Box Types */
-    .text-field--standard {
-      border-bottom: 2px solid;
-    }
-
-    .text-field--filled {
-      background-color: #f5f5f5; /* Light grey background */
-      border-bottom: 2px solid;
-    }
-
-    .text-field--outlined {
-      border: 1px solid;
     }
 
     /* Focus and Hover States */

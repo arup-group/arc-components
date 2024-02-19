@@ -67,9 +67,8 @@ export default class ArcTextField extends LitElement {
           ?required=${this.required}
           .helperText="${this.helperText}"
           .errorText="${this.errorText}"
-        >
+        />
         ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
-        </input>
         <p class=${helperTextClasses}>
           ${
             !this.isValid

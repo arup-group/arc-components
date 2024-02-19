@@ -12,7 +12,6 @@ import {
 } from '../../internal/constants/styleConstants';
 import { FormController } from '../../internal/form-control.js';
 
-
 export default class ArcTextField extends LitElement {
   /** @internal */
   static tag = 'arc-textfield';
@@ -58,7 +57,7 @@ export default class ArcTextField extends LitElement {
       'input-container--loading': this.loading,
       'input-container--filled': this.type === TEXT_BOX_TYPES.filled,
       'input-container--outlined': this.type === TEXT_BOX_TYPES.outlined,
-      'input-container--standard': this.type === TEXT_BOX_TYPES.standard
+      'input-container--standard': this.type === TEXT_BOX_TYPES.standard,
     });
 
     const helperTextClasses = classMap({
@@ -87,6 +86,8 @@ export default class ArcTextField extends LitElement {
               ?required=${this.required}
               .helperText="${this.helperText}"
               .errorText="${this.errorText}"
+              aria-invalid=${this.isValid ? 'false' : 'true'}
+              aria-disabled=${this.disabled ? 'true' : 'false'}
             />
             ${this.loading ? html`<arc-spinner></arc-spinner>` : null}
             ${

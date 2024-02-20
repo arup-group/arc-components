@@ -1,61 +1,44 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import type ArcAvatar from './ArcAvatar.js';
+import ArcAvatar from './ArcAvatar.js';
 import './arc-avatar.js';
+type S = Story<ArcAvatar>;
 
 export default {
   title: 'Components/ArcAvatar',
   component: 'arc-avatar',
+  argTypes: {
+    name: { control: 'text' },
+    image: {
+      control: 'select',
+      options: [
+        undefined,
+        'https://picsum.photos/100',
+        'https://picsum.photos/200',
+        'https://picsum.photos/300',
+      ],
+    },
+    label: { control: 'text' },
+  },
+  parameters: { controls: { include: ['name', 'image', 'label'] } },
 } as Meta;
 
-const Template: Story<ArcAvatar> = ({ name, image, label }) => html`
+export const Default: S = ({ name, image, label }) => html`
   <arc-avatar
     name=${ifDefined(name || undefined)}
     image=${ifDefined(image || undefined)}
     label=${ifDefined(label || undefined)}
   ></arc-avatar>
 `;
+Default.args = {};
 
-const GroupTemplate: Story<ArcAvatar> = () => html`
-  <div class="avatar-group">
-    <arc-avatar
-      image="https://picsum.photos/200"
-      label="First avatar in avatar group."
-    ></arc-avatar>
+export const WithInitials: S = Default.bind({});
+WithInitials.args = { name: 'User Name' };
 
-    <arc-avatar
-      image="https://picsum.photos/300"
-      label="Second avatar in avatar group."
-    ></arc-avatar>
-
-    <arc-avatar
-      image="https://picsum.photos/400"
-      label="Third avatar in avatar group."
-    ></arc-avatar>
-  </div>
-  <style>
-    .avatar-group arc-avatar:not(:first-of-type) {
-      margin-left: -1rem;
-    }
-
-    .avatar-group arc-avatar {
-      border: var(--arc-border-style) 2px rgb(var(--arc-grey-000));
-    }
-  </style>
-`;
-
-export const Default = Template.bind({});
-
-export const Image = Template.bind({});
-Image.args = {
-  image: 'https://picsum.photos/300',
-  label: 'Example avatar for the arc-avatar component.',
-};
-
-export const Initials = Template.bind({});
-Initials.args = {
+export const WithImage: S = Default.bind({});
+WithImage.args = {
   name: 'User Name',
+  image: 'https://picsum.photos/100',
+  label: 'Alt text for avater image',
 };
-
-export const AvatarGroupExample = GroupTemplate.bind({});

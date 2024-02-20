@@ -47,7 +47,6 @@ export default class ArcBottombar extends LitElement {
 
   /* Emit an event to show the accessibility panel */
   emitAccessibility() {
-    this.log('Emitting arc-show-accessibility event');
     emit(this, ARC_EVENTS.showAccessibility);
   }
 

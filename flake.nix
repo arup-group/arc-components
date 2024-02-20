@@ -38,6 +38,7 @@
     };
 
     packages = forAllSystems (system: {
+      inherit (nixpkgsFor.${system}) components;
       default = self.packages.${system}.components;
     });
 

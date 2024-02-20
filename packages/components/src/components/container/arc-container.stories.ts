@@ -7,6 +7,7 @@ import './arc-container.js';
 import '../navbar/arc-navbar.js';
 import '../button/arc-button.js';
 import '../sidebar/arc-sidebar.js';
+type S = Story<ArcContainer>;
 
 export default {
   title: 'Components/ArcContainer',
@@ -19,21 +20,13 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
+export const Default: S = ({ theme, fullscreen }) => html`
   <arc-container theme="${theme}" ?fullscreen="${fullscreen}">
     <arc-navbar slot="nav" logo="/arc-red.svg">
       <span slot="name">WebComponents</span>
       <arc-button type="tab">Link 1</arc-button>
       <arc-button type="tab">Link 2</arc-button>
       <arc-button type="tab">Link 3</arc-button>
-      <arc-sso
-        slot="user"
-        client-id="b4a4c03f-4915-42db-aa79-d49a650974c2"
-        tenant-id="4ae48b41-0137-4599-8661-fc641fe77bea"
-        redirect-uri=${window.location.hostname === 'localhost'
-          ? 'http://localhost:9009/'
-          : 'https://arc.arup.com/'}
-      ></arc-sso>
     </arc-navbar>
     ${when(
       !fullscreen,
@@ -59,5 +52,8 @@ const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
   </arc-container>
 `;
 
-export const Container = Template.bind({});
-Container.args = { theme: CONTAINER_THEMES.auto, fullscreen: false };
+Default.args = { theme: CONTAINER_THEMES.auto, fullscreen: false };
+
+export const Fullscreen: S = Default.bind({});
+
+export const ListenToAccessiblityChanges: S = Default.bind({});

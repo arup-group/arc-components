@@ -8,6 +8,7 @@ import '../container/arc-container.js';
 import '../navbar/arc-navbar.js';
 import '../button/arc-button.js';
 import '../switch/arc-switch.js';
+type S = Story<ArcAccessibility>;
 
 export default {
   title: 'Components/ArcAccessibility',
@@ -23,10 +24,9 @@ export default {
   },
 } as Meta;
 
-export const Default: Story<ArcAccessibility> = () =>
-  html`<arc-container></arc-container>`;
+export const Default: S = () => html`<arc-container></arc-container>`;
 
-export const ListenToChanages: Story<ArcAccessibility> = () => html`
+export const ListenToChanages: S = () => html`
   <arc-container id="container-1"></arc-container>
 
   <script>
@@ -38,7 +38,7 @@ export const ListenToChanages: Story<ArcAccessibility> = () => html`
   </script>
 `;
 
-export const OpenWithCustomButton: Story<ArcAccessibility> = () => html`
+export const OpenWithCustomButton: S = () => html`
   <arc-container id="container-2">
     <arc-accessibility
       id="accessibility-2"
@@ -64,7 +64,7 @@ export const OpenWithCustomButton: Story<ArcAccessibility> = () => html`
   </script>
 `;
 
-export const ExtendWithCustomControls: Story<ArcAccessibility> = () => html`
+export const ExtendWithCustomControls: S = () => html`
   <arc-container id="container-3">
     <arc-accessibility id="accessibility-3" slot="accessibility">
       <div

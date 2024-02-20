@@ -1,65 +1,59 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
-  inputs.systems.url = "github:nix-systems/default";
-  inputs.napalm.url = "github:nix-community/napalm";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.noxide.url = "github:dominicegginton/noxide";
 
   outputs = {
     self,
     nixpkgs,
-    flake-utils,
-    systems,
-    napalm,
-  }:
-    flake-utils.lib.eachSystem (import systems) (
-      system: let
-        inherit (pkgs.stdenv) isLinux;
-        inherit (pkgs.lib) optional;
+    noxide,
+  }: let
+    version = builtins.substring 0 8 self.lastModifiedDate;
+    supportedSystems = ["x86_64-linux" "aarch64-linux" "i686-linux" "x86_64-darwin" "aarch64-darwin"];
 
-        pkgs = import nixpkgs {
-          inherit system;
-          # allow unfree packages required for:
-          # - terraform
-          # - google-chrome
-          config.allowUnfree = true;
-        };
+    forAllSystems = f:
+      nixpkgs.lib.genAttrs supportedSystems (system: f system);
 
-        nodejs = pkgs.nodejs_18;
-      in {
-        packages = {
-          components = napalm.legacyPackages.${system}.buildPackage ./. {
-            inherit nodejs;
-            installPhase = ''
-              ${pkgs.coreutils}/bin/mkdir -p dist
-              echo "Prebuilding components"
-              npx nx run components:prebuild
-              echo "Building components"
-              npx nx run components:prebuild
-              npx custom-elements-manifest analyze --litelement --globs \"dist/packages/components/src/**/*.js\" --outdir \"dist/packages/components\"
+    nixpkgsFor = forAllSystems (system:
+      import nixpkgs {
+        inherit system;
+        overlays = [
+          self.overlays.default
+          noxide.overlays.default
+        ];
+      });
 
-              ${pkgs.coreutils}/bin/mkdir -p $out
-              ${pkgs.coreutils}/bin/mv dist $out
-            '';
-          };
-        };
-
-        devShells = {
-          default = pkgs.mkShell {
-            # todo: add dep for google-chrome
-            # on darwin hosts
-            packages = with pkgs;
-              [nodejs]
-              ++ optional isLinux [google-chrome];
-          };
-
-          infratructure = pkgs.mkShell {
-            packages = with pkgs; [
-              nodejs
-              terraform
-              terraform-ls
-              azure-cli
-            ];
-          };
-        };
-      }
+    node = forAllSystems (
+      system:
+        nixpkgsFor.${system}.nodejs_20
     );
+  in {
+    formatter = forAllSystems (
+      system:
+        nixpkgsFor.${system}.alejandra
+    );
+    overlays = {
+      default = final: prev: {
+        components = final.noxide.buildPackage ./. {};
+      };
+    };
+
+    packages = forAllSystems (system: {
+      default = self.packages.${system}.components;
+    });
+
+    devShells = forAllSystems (system: {
+      default = nixpkgsFor.${system}.mkShell {
+        packages = [node.${system}];
+      };
+
+      infrastructure = nixpkgsFor.${system}.mkShell {
+        packages = with nixpkgsFor (system: nixpkgs.${system}); [
+          node.${system}
+          terraform
+          terraform-ls
+          azure-cli
+        ];
+      };
+    });
+  };
 }

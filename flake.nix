@@ -8,7 +8,7 @@
     noxide,
   }: let
     version = builtins.substring 0 8 self.lastModifiedDate;
-    supportedSystems = ["x86_64-linux" "aarch64-linux" "i686-linux" "x86_64-darwin" "aarch64-darwin"];
+    supportedSystems = ["x86_64-linux" "x86_64-darwin"];
 
     forAllSystems = f:
       nixpkgs.lib.genAttrs supportedSystems (system: f system);
@@ -33,7 +33,9 @@
     );
     overlays = {
       default = final: prev: {
-        components = final.noxide.buildPackage ./. {};
+        components = final.noxide.buildPackage ./. {
+          installCommands = ["npm ci --ignore-scirpts"];
+        };
       };
     };
 

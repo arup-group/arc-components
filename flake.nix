@@ -45,8 +45,6 @@
 
     packages = forAllSystems (system: {
       inherit (nixpkgsFor.${system}) components react;
-      components = self.packages.${system}.components;
-      react = self.packages.${system}.react;
     });
 
     devShells = forAllSystems (system: {

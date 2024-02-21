@@ -35,11 +35,25 @@
     overlays = {
       default = final: prev: {
         components = final.noxide.buildPackage ./. {
-          installCommands = ["npm ci --ignore-scirpts"];
+          buildInputs = with nixpkgsFor.${final.system}; [
+            gcc
+            python3
+          ];
+          installCommands = [
+            "export npm_config_python=${nixpkgsFor.${final.system}.python3}/bin/python"
+            "npm install --loglevel verbose --ignore-scripts"
+          ];
         };
 
         react = final.noxide.buildPackage ./. {
-          installCommands = ["npm ci --ignore-scirpts"];
+          buildInputs = with nixpkgsFor.${final.system}; [
+            gcc
+            python3
+          ];
+          installCommands = [
+            "export npm_config_python=${nixpkgsFor.${final.system}.python3}/bin/python"
+            "npm install --loglevel verbose --ignore-scripts"
+          ];
         };
       };
     };

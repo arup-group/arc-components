@@ -56,11 +56,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1708527685,
-        "narHash": "sha256-6mucA0oYbYBtp971yvhqUvBVedRCskeZTPLM1J+yJnk=",
+        "lastModified": 1708539431,
+        "narHash": "sha256-wh0IviU0s81xfN9YxGgLAE3mKgv6omeJXyB6QZNq7PU=",
         "owner": "dominicegginton",
         "repo": "noxide",
-        "rev": "83fbddc6a29d9966b86adfcd2b6bb1fc267ea3b7",
+        "rev": "8f29516265b88b4c602aeaf4c8f4d36892af7ad4",
         "type": "github"
       },
       "original": {

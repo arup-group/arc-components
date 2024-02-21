@@ -36,12 +36,17 @@
         components = final.noxide.buildPackage ./. {
           installCommands = ["npm ci --ignore-scirpts"];
         };
+
+        react = final.noxide.buildPackage ./. {
+          installCommands = ["npm ci --ignore-scirpts"];
+        };
       };
     };
 
     packages = forAllSystems (system: {
-      inherit (nixpkgsFor.${system}) components;
-      default = self.packages.${system}.components;
+      inherit (nixpkgsFor.${system}) components react;
+      components = self.packages.${system}.components;
+      react = self.packages.${system}.react;
     });
 
     devShells = forAllSystems (system: {

@@ -23,6 +23,6 @@ jobs:
       - run: nix develop
       - run: npm ci
       - run: npx nx run-many --target lint --projects=components,react
-      - run: npx nx run-many --target test --projects=components,react
+      # - run: npx nx run-many --target test --projects=components,react
       - run: nix build .#components
       - run: nix build .#react

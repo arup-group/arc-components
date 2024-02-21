@@ -16,6 +16,7 @@
     nixpkgsFor = forAllSystems (system:
       import nixpkgs {
         inherit system;
+        config.allowUnfree = true;
         overlays = [
           self.overlays.default
           noxide.overlays.default
@@ -49,7 +50,10 @@
 
     devShells = forAllSystems (system: {
       default = nixpkgsFor.${system}.mkShell {
-        packages = [node.${system}];
+        packages = with nixpkgsFor.${system}; [
+          node.${system}
+          google-chrome
+        ];
       };
 
       infrastructure = nixpkgsFor.${system}.mkShell {

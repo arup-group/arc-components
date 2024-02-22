@@ -1,7 +1,9 @@
+result
 dist
 node_modules
 coverage
 tmp
+.nx
 .angular
 .terraform
 terraform.tfvars

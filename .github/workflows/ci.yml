@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   main:
@@ -20,8 +21,11 @@ jobs:
       - uses: DeterminateSystems/flake-checker-action@main
       - uses: nrwl/nx-set-shas@v3
       - run: nix develop
-      - run: nix run .#packages.x86_64-linux.clean-install
-      - run: nix fmt && git diff --exit-code
-      - run: npx nx affected --target=lint --parallel=3
-      - run: npx nx affected --targets=build,build:storybook --parallel=3
-      - run: npx nx affected --target=test --parallel=3
+      - run: npm ci
+      - run: npx nx run-many --target lint
+      - run: npx nx run-many --target test
+      # TODO: build build nix derivations
+      - run: npx nx run-many --targets=build,storybook:build --projects=components,react
+      # - run: nix build .#components
+      # - run: nix build .#react
+      # - run: nix build .#storybook

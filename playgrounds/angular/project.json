@@ -28,8 +28,6 @@
         "tsConfig": "playgrounds/angular/tsconfig.json",
         "styles": [
           "packages/components/themes/index.css",
-          "packages/components/themes/light.css",
-          "packages/components/themes/dark.css",
           "playgrounds/angular/src/styles.css"
         ]
       },

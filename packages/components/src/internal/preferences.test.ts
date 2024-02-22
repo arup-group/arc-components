@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { setViewport, emulateMedia } from '@web/test-runner-commands';
 
-import { isMobile, prefersReducedMotion, prefersDark } from './preferences.js';
+import { isMobile, prefersReducedMotion } from './preferences.js';
 
 describe('isMobile', () => {
   it('returns true if width < 49rem', async () => {
@@ -24,14 +24,5 @@ describe('prefersReducedMotion', () => {
 
     await emulateMedia({ reducedMotion: 'no-preference' });
     expect(prefersReducedMotion()).to.be.false;
-  });
-});
-
-describe('prefersDark', () => {
-  it('validates the prefers-color-scheme: dark state', async () => {
-    await emulateMedia({ colorScheme: 'dark' });
-    expect(prefersDark()).to.be.true;
-    await emulateMedia({ colorScheme: 'light' });
-    expect(prefersDark()).to.be.false;
   });
 });

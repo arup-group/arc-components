@@ -12,6 +12,8 @@ In version 3 we have taken the opportunity to make serval important breaking cha
 - `ArcButton` color property has been updated from `primary` to `default`.
 - Cerry-picking components from the `@arc-web/components` package has changed from importing from the `/dist/src` directory to importing from the `/src` directory.
 - React component wrappers have been moved from the `@arc-web/components` package to the `@arc-web/react` package.
+- Auto theme now tracks system preference. It responds in real time to changes in system preference (i.e. even after the page loads) and ignores the time of day.
+- Dark and light theme styles have been moved to `index.css`, and `dark.css` and `light.css` have been deleted.
 
 #### Upgrade Steps
 
@@ -57,3 +59,51 @@ npm i @arc-web/components@latest @arc-web/react@latest
 ```
 
 </details>
+
+6. Remove references to separate dark and light theme stylesheets.
+
+```diff
+// If loaded manually in markup
+<html>
+  <head>
+    ...
+    <link rel="stylesheet" href="<public directory>/themes/index.css" />
+-   <link rel="stylesheet" href="<public directory>/themes/light.css" />
+-   <link rel="stylesheet" href="<public directory>/themes/dark.css" />
+    ...
+  </head>
+</html>
+
+// If loaded by Angular CLI
+  {
+    ...
+    "styles": [
+      "node_modules/@arc-web/components/themes/index.css",
+-     "node_modules/@arc-web/components/themes/light.css",
+-     "node_modules/@arc-web/components/themes/dark.css",
+      ...
+    ]
+    ...
+  }
+
+// If loaded by bundler
+import '@arc-web/components/themes/index.css';
+- import '@arc-web/components/themes/light.css';
+- import '@arc-web/components/themes/dark.css';
+
+
+```
+
+7. Adjust dark or light theme overrides.
+
+```diff
+- :root,
+- :host,
+- arc-container[theme='light'] {
+-   --arc-color-primary: var(--arc-green-050);
+- }
+
++ :root {
++   --arc-light-color-primary: var(--arc-green-050);
++ }
+```

@@ -42,7 +42,7 @@ npm install @arc-web/components@latest
 
 #### 2: Setup Stylesheets
 
-**ARC** components depend upon the stylesheets in the themes directory `@arc-web/components/themes` to be loaded at runtime. Ensure that the following stylesheets are loaded by your application:
+**ARC** components depend upon the stylesheet in the themes directory `@arc-web/components/themes` to be loaded at runtime. Ensure that the stylesheet is loaded by your application:
 
 <details>
 <summary>Build Script</summary>
@@ -53,15 +53,13 @@ Add a step to your build script that copies the contents of the `@arc-web/compon
 + cp -r node_modules/@arc-web/components/themes <public directory>
 ```
 
-Load the stylesheets in your application:
+Load the stylesheet in your application:
 
 ```diff
   <html>
     <head>
     ...
 +   <link rel="stylesheet" href="<public directory>/themes/index.css" />
-+   <link rel="stylesheet" href="<public directory>/themes/light.css" />
-+   <link rel="stylesheet" href="<public directory>/themes/dark.css" />
     ...
     </head>
   </html>
@@ -72,15 +70,13 @@ Load the stylesheets in your application:
 <details>
 <summary>Angular CLI</summary>
 
-Add the stylesheets directly to the `styles` array in your `angular.json` configuration file:
+Add the stylesheet directly to the `styles` array in your `angular.json` configuration file:
 
 ```diff
   {
     ...
     "styles": [
 +     "node_modules/@arc-web/components/themes/index.css",
-+     "node_modules/@arc-web/components/themes/light.css",
-+     "node_modules/@arc-web/components/themes/dark.css",
       ...
     ]
     ...
@@ -92,12 +88,10 @@ Add the stylesheets directly to the `styles` array in your `angular.json` config
 <details>
 <summary>CSS Imports</summary>
 
-Bunderlers that support CSS imports allow you to import CSS files directly into your application's entry point. This is the recommended approach as it allows the bundler to optimize the CSS and remove any unused styles:
+Bundlers that support CSS imports allow you to import CSS files directly into your application's entry point. This is the recommended approach as it allows the bundler to optimize the CSS and remove any unused styles:
 
 ```diff
 + import '@arc-web/components/themes/index.css';
-+ import '@arc-web/components/themes/light.css';
-+ import '@arc-web/components/themes/dark.css';
 ...
 ```
 
@@ -182,13 +176,13 @@ export const App = () => {
 
 Design tokens are accessed through CSS custom properties that are defined within the theme. Because design tokens live at the page level, they're prefixed with `--arc-` to avoid collisions with other libraries.
 
-To customize a design token, simply override it in your stylesheet using a `:root` block. Here's an example that changes the primary color of the light theme.
+To customize a design token, simply override it in your stylesheet using a `:root` block. If you are including the ARC-provided theme stylesheets, be sure to import your own _after_ the ARC stylesheets so that your styles override the ARC-provided ones where relevant.
+
+Here's an example that changes the primary color of the light theme. Note that you should use the ARC color palette, but if you _must_ provide a different color you should provide only the comma separated numbers to go inside an rgba block (e.g. `255,255,255,1`, not `rgba(255,255,255,1)` and not `#FFFFFF`)
 
 ```css
-:root,
-:host,
-arc-container[theme='light'] {
-  --arc-color-primary: var(--arc-green-050);
+:root {
+  --arc-light-color-primary: var(--arc-green-050);
 }
 ```
 

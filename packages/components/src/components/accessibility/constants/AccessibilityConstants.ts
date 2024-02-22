@@ -1,6 +1,6 @@
 import {
-  CONTAINER_THEMES,
-  ContainerTheme,
+  CONTAINER_THEME_PREFERENCES,
+  ContainerThemePreference,
 } from '../../container/constants/ContainerConstants.js';
 import {
   FONT_SIZES,
@@ -24,7 +24,7 @@ export declare type AccessibilityKey =
 export declare type AccessibilityOption = {
   name: AccessibilityKey;
   options:
-    | { [key in ColourPreference]: ContainerTheme[] }
+    | { [key in ColourPreference]: ContainerThemePreference[] }
     | { [key in ContentPreference]: FontSize[] | FontSpacing[] | null };
 };
 
@@ -32,7 +32,7 @@ export const ACCESSIBILITY_OPTIONS: AccessibilityOption[] = [
   {
     name: 'colourAdjustments',
     options: {
-      theme: Object.values(CONTAINER_THEMES),
+      theme: Object.values(CONTAINER_THEME_PREFERENCES),
     },
   },
   {

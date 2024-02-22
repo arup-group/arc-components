@@ -190,6 +190,60 @@
 
   /* Branding */
   --arc-brand-height: 1.25rem;
+
+  /** Light Theme Variables **/
+  /* Base */
+  --arc-light-font-color: var(--arc-grey-100);
+  --arc-light-input-color: var(--arc-grey-100);
+  --arc-light-background-color: var(--arc-grey-010);
+  --arc-light-container-color: var(--arc-white-000);
+
+  /* Palette */
+  --arc-light-color-default: var(--arc-grey-010);
+  --arc-light-color-primary: var(--arc-red-050);
+  --arc-light-color-secondary: var(--arc-grey-070);
+  --arc-light-color-error: var(--arc-red-040);
+  --arc-light-color-warning: var(--arc-orange-040);
+  --arc-light-color-info: var(--arc-blue-050);
+  --arc-light-color-success: var(--arc-green-040);
+
+  /* Box shadow */
+  --arc-light-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-15),
+    var(--arc-box-shadow-03) var(--arc-darker-13);
+
+  /* Hover */
+  --arc-light-hover-darker: var(--arc-darker-30);
+  --arc-light-hover-dark: var(--arc-darker-10);
+  --arc-light-hover-light: var(--arc-lighter-70);
+  --arc-light-hover-lighter: var(--arc-lighter-90);
+
+  /** Dark Theme **/
+  /* Base */
+  --arc-dark-font-color: var(--arc-grey-000);
+  --arc-dark-input-color: var(--arc-dark-font-color);
+  --arc-dark-background-color: var(--arc-grey-090);
+  --arc-dark-container-color: var(--arc-grey-100);
+
+  /* Set the color scheme for native form elements */
+  color-scheme: light dark;
+
+  /* Palette */
+  --arc-dark-color-default: var(--arc-grey-090);
+  --arc-dark-color-primary: var(--arc-grey-000);
+  --arc-dark-color-secondary: var(--arc-grey-040);
+  --arc-dark-color-error: var(--arc-red-040);
+  --arc-dark-color-warning: var(--arc-orange-040);
+  --arc-dark-color-info: var(--arc-blue-050);
+  --arc-dark-color-success: var(--arc-green-040);
+
+  /* Box shadow */
+  --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),
+    var(--arc-box-shadow-02) var(--arc-darker-15),
+    var(--arc-box-shadow-03) var(--arc-darker-13);
+
+  /* Hover */
+  --arc-dark-hover-light: var(--arc-darker-85);
+  --arc-dark-hover-lighter: var(--arc-darker-80);
 }
 
 body {
@@ -251,4 +305,117 @@ body {
 /* Classname used to fix FOUC */
 .no-fouc {
   display: none;
+}
+
+/* default theme */
+:root,
+:host,
+arc-container {
+  /* Base */
+  --arc-font-color: var(--arc-light-font-color);
+  --arc-input-color: var(--arc-light-input-color);
+  --arc-background-color: var(--arc-light-background-color);
+  --arc-container-color: var(--arc-light-container-color);
+
+  /* Palette */
+  --arc-color-default: var(--arc-light-color-default);
+  --arc-color-primary: var(--arc-light-color-primary);
+  --arc-color-secondary: var(--arc-light-color-secondary);
+  --arc-color-error: var(--arc-light-color-error);
+  --arc-color-warning: var(--arc-light-color-warning);
+  --arc-color-info: var(--arc-light-color-info);
+  --arc-color-success: var(--arc-light-color-success);
+
+  /* Box shadow */
+  --arc-box-shadow: var(--arc-light-box-shadow);
+
+  /* Hover */
+  --arc-hover-darker: var(--arc-light-hover-darker);
+  --arc-hover-dark: var(--arc-light-hover-dark);
+  --arc-hover-light: var(--arc-light-hover-light);
+  --arc-hover-lighter: var(--arc-light-hover-lighter);
+}
+
+@media (prefers-color-scheme: dark) {
+  :host,
+  arc-container {
+    /* Base */
+    --arc-font-color: var(--arc-dark-font-color);
+    --arc-input-color: var(--arc-dark-input-color);
+    --arc-background-color: var(--arc-dark-background-color);
+    --arc-container-color: var(--arc-dark-container-color);
+
+    /* Palette */
+    --arc-color-default: var(--arc-dark-color-default);
+    --arc-color-primary: var(--arc-dark-color-primary);
+    --arc-color-secondary: var(--arc-dark-color-secondary);
+    --arc-color-error: var(--arc-dark-color-error);
+    --arc-color-warning: var(--arc-dark-color-warning);
+    --arc-color-info: var(--arc-dark-color-info);
+    --arc-color-success: var(--arc-dark-color-success);
+
+    /* Box shadow */
+    --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),
+      var(--arc-box-shadow-02) var(--arc-darker-15),
+      var(--arc-box-shadow-03) var(--arc-darker-13);
+
+    /* Hover */
+    --arc-hover-light: var(--arc-dark-hover-light);
+    --arc-hover-lighter: var(--arc-dark-hover-lighter);
+  }
+}
+
+:root,
+:host,
+arc-container[theme='light'] {
+  /* Base */
+  --arc-font-color: var(--arc-light-font-color);
+  --arc-input-color: var(--arc-light-input-color);
+  --arc-background-color: var(--arc-light-background-color);
+  --arc-container-color: var(--arc-light-container-color);
+
+  /* Palette */
+  --arc-color-default: var(--arc-light-color-default);
+  --arc-color-primary: var(--arc-light-color-primary);
+  --arc-color-secondary: var(--arc-light-color-secondary);
+  --arc-color-error: var(--arc-light-color-error);
+  --arc-color-warning: var(--arc-light-color-warning);
+  --arc-color-info: var(--arc-light-color-info);
+  --arc-color-success: var(--arc-light-color-success);
+
+  /* Box shadow */
+  --arc-box-shadow: var(--arc-light-box-shadow);
+
+  /* Hover */
+  --arc-hover-darker: var(--arc-light-hover-darker);
+  --arc-hover-dark: var(--arc-light-hover-dark);
+  --arc-hover-light: var(--arc-light-hover-light);
+  --arc-hover-lighter: var(--arc-light-hover-lighter);
+}
+
+:host,
+arc-container[theme='dark'] {
+  /* Base */
+  --arc-font-color: var(--arc-dark-font-color);
+  --arc-input-color: var(--arc-dark-input-color);
+  --arc-background-color: var(--arc-dark-background-color);
+  --arc-container-color: var(--arc-dark-container-color);
+
+  /* Palette */
+  --arc-color-default: var(--arc-dark-color-default);
+  --arc-color-primary: var(--arc-dark-color-primary);
+  --arc-color-secondary: var(--arc-dark-color-secondary);
+  --arc-color-error: var(--arc-dark-color-error);
+  --arc-color-warning: var(--arc-dark-color-warning);
+  --arc-color-info: var(--arc-dark-color-info);
+  --arc-color-success: var(--arc-dark-color-success);
+
+  /* Box shadow */
+  --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),
+    var(--arc-box-shadow-02) var(--arc-darker-15),
+    var(--arc-box-shadow-03) var(--arc-darker-13);
+
+  /* Hover */
+  --arc-hover-light: var(--arc-dark-hover-light);
+  --arc-hover-lighter: var(--arc-dark-hover-lighter);
 }

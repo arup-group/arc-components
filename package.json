@@ -74,7 +74,6 @@
     "eslint-plugin-html": "7.1.0",
     "eslint-plugin-storybook": "0.6.12",
     "eslint-plugin-vue": "9.17.0",
-    "jsonc-eslint-parser": "2.3.0",
     "gridjs": "6.0.6",
     "jsonc-eslint-parser": "2.3.0",
     "koa": "2.14.2",

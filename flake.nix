@@ -33,9 +33,12 @@
         nixpkgsFor.${system}.alejandra
     );
     overlays = {
-      default = final: prev: {
+      default = final: prev: let
+        npmCommands = ["npm install --loglevel=verbose --no-fund --ignore-scripts"];
+        nodejs = node.${final.system};
+      in {
         components = final.noxide.buildPackage ./. {
-          npmCommands = ["npm install --loglevel=verbose --no-fund --ignore-scripts"];
+          inherit npmCommands nodejs;
           postNpmHook = ''
             npx nx run components:build
           '';
@@ -46,7 +49,7 @@
         };
 
         react = final.noxide.buildPackage ./. {
-          npmCommands = ["npm install --loglevel=verbose --no-fund --ignore-scripts"];
+          inherit npmCommands nodejs;
           postNpmHook = ''
             npx nx run react:build
           '';
@@ -57,8 +60,7 @@
         };
 
         storybook = final.noxide.buildPackage ./. {
-          nodejs = node.${final.system};
-          buildInputs = [nixpkgsFor.${final.system}.fswatch];
+          inherit npmCommands nodejs;
           postNpmHook = ''
             npx nx run components:storybook:build
           '';

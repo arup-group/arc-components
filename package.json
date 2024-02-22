@@ -5,6 +5,7 @@
     "arc-publish": "ts-node ./scripts/arc-publish.ts"
   },
   "nx": {},
+  "workspaces": ["packages/*"],
   "devDependencies": {
     "@angular-devkit/build-angular": "16.2.0",
     "@angular-devkit/core": "16.2.0",

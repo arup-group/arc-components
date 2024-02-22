@@ -25,7 +25,7 @@ jobs:
       - run: npx nx run-many --target lint
       - run: npx nx run-many --target test
       # TODO: build build nix derivations
-      - run: npx nx run-many --targets=build,storybook:build --projects=components,react
+      - run: npx nx run-many --target build --projects=components,react
       # - run: nix build .#components
       # - run: nix build .#react
       # - run: nix build .#storybook

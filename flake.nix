@@ -35,31 +35,43 @@
     overlays = {
       default = final: prev: {
         components = final.noxide.buildPackage ./. {
-          buildInputs = with nixpkgsFor.${final.system}; [
-            gcc
-            python3
-          ];
-          installCommands = [
-            "export npm_config_python=${nixpkgsFor.${final.system}.python3}/bin/python"
-            "npm install --loglevel verbose --ignore-scripts"
-          ];
+          npmCommands = ["npm install --loglevel=verbose --no-fund --ignore-scripts"];
+          postNpmHook = ''
+            npx nx run components:build
+          '';
+          installPhase = ''
+            mkdir -p $out
+            cp -r dist/packages/components/* $out
+          '';
         };
 
         react = final.noxide.buildPackage ./. {
-          buildInputs = with nixpkgsFor.${final.system}; [
-            gcc
-            python3
-          ];
-          installCommands = [
-            "export npm_config_python=${nixpkgsFor.${final.system}.python3}/bin/python"
-            "npm install --loglevel verbose --ignore-scripts"
-          ];
+          npmCommands = ["npm install --loglevel=verbose --no-fund --ignore-scripts"];
+          postNpmHook = ''
+            npx nx run react:build
+          '';
+          installPhase = ''
+            mkdir -p $out
+            cp -r dist/packages/react/* $out
+          '';
+        };
+
+        storybook = final.noxide.buildPackage ./. {
+          nodejs = node.${final.system};
+          buildInputs = [nixpkgsFor.${final.system}.fswatch];
+          postNpmHook = ''
+            npx nx run components:storybook:build
+          '';
+          installPhase = ''
+            mkdir -p $out
+            cp -r dist/packages/storybook/* $out
+          '';
         };
       };
     };
 
     packages = forAllSystems (system: {
-      inherit (nixpkgsFor.${system}) components react;
+      inherit (nixpkgsFor.${system}) components react storybook;
     });
 
     devShells = forAllSystems (system: {

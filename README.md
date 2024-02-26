@@ -1,5 +1,3 @@
-> This branch and README cover version 3. Please view version 2 [here](https://github.com/arup-group/arc-components/tree/v2)
-
 <h1><img src="/assets/arc-red.svg" style="height: 1em;" /> ARC </h1>
 
 > Arup Reusable Components

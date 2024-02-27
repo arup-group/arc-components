@@ -99,6 +99,9 @@ Info.args = { ...defaultArgs, color: THEME_COLORS.info };
 export const Success = Template.bind({});
 Success.args = { ...defaultArgs, color: THEME_COLORS.success };
 
+export const Brand = Template.bind({});
+Brand.args = { ...defaultArgs, color: THEME_COLORS.brand };
+
 /* TYPES */
 export const Filled = Template.bind({});
 Filled.args = { ...defaultArgs };

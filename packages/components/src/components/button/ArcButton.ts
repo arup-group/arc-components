@@ -129,6 +129,7 @@ export default class ArcButton extends LitElement {
           'button--warning': this.color === THEME_COLORS.warning,
           'button--info': this.color === THEME_COLORS.info,
           'button--success': this.color === THEME_COLORS.success,
+          'button--brand': this.color === THEME_COLORS.brand,
           'button--filled': this.type === BUTTON_TYPES.filled,
           'button--outlined': this.type === BUTTON_TYPES.outlined,
           'button--tab': this.type === BUTTON_TYPES.tab,

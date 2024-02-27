@@ -200,12 +200,13 @@
 
   /* Palette */
   --arc-light-color-default: var(--arc-grey-010);
-  --arc-light-color-primary: var(--arc-red-050);
-  --arc-light-color-secondary: var(--arc-grey-070);
-  --arc-light-color-error: var(--arc-red-040);
+  --arc-light-color-primary: var(--arc-blue-060);
+  --arc-light-color-secondary: var(--arc-grey-090);
+  --arc-light-color-error: var(--arc-red-070);
   --arc-light-color-warning: var(--arc-orange-040);
-  --arc-light-color-info: var(--arc-blue-050);
+  --arc-light-color-info: var(--arc-blue-040);
   --arc-light-color-success: var(--arc-green-040);
+  --arc-light-color-brand: var(--arc-red-050);
 
   /* Box shadow */
   --arc-light-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-15),
@@ -229,12 +230,13 @@
 
   /* Palette */
   --arc-dark-color-default: var(--arc-grey-090);
-  --arc-dark-color-primary: var(--arc-grey-000);
+  --arc-dark-color-primary: var(--arc-blue-040);
   --arc-dark-color-secondary: var(--arc-grey-040);
-  --arc-dark-color-error: var(--arc-red-040);
+  --arc-dark-color-error: var(--arc-red-030);
   --arc-dark-color-warning: var(--arc-orange-040);
-  --arc-dark-color-info: var(--arc-blue-050);
+  --arc-dark-color-info: var(--arc-blue-040);
   --arc-dark-color-success: var(--arc-green-040);
+  --arc-dark-color-brand: var(--arc-grey-000);
 
   /* Box shadow */
   --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),
@@ -325,6 +327,7 @@ arc-container {
   --arc-color-warning: var(--arc-light-color-warning);
   --arc-color-info: var(--arc-light-color-info);
   --arc-color-success: var(--arc-light-color-success);
+  --arc-color-brand: var(--arc-light-color-brand);
 
   /* Box shadow */
   --arc-box-shadow: var(--arc-light-box-shadow);
@@ -353,6 +356,7 @@ arc-container {
     --arc-color-warning: var(--arc-dark-color-warning);
     --arc-color-info: var(--arc-dark-color-info);
     --arc-color-success: var(--arc-dark-color-success);
+    --arc-color-brand: var(--arc-dark-color-brand);
 
     /* Box shadow */
     --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),
@@ -382,6 +386,7 @@ arc-container[theme='light'] {
   --arc-color-warning: var(--arc-light-color-warning);
   --arc-color-info: var(--arc-light-color-info);
   --arc-color-success: var(--arc-light-color-success);
+  --arc-color-brand: var(--arc-light-color-brand);
 
   /* Box shadow */
   --arc-box-shadow: var(--arc-light-box-shadow);
@@ -409,6 +414,7 @@ arc-container[theme='dark'] {
   --arc-color-warning: var(--arc-dark-color-warning);
   --arc-color-info: var(--arc-dark-color-info);
   --arc-color-success: var(--arc-dark-color-success);
+  --arc-color-brand: var(--arc-dark-color-brand);
 
   /* Box shadow */
   --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),

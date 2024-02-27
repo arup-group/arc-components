@@ -92,7 +92,7 @@ export default [
     }
 
     #company-logo {
-      color: rgb(var(--arc-color-primary));
+      color: rgb(var(--arc-color-brand));
       display: flex;
       align-items: center;
     }

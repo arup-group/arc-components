@@ -327,7 +327,6 @@ arc-container {
   --arc-color-warning: var(--arc-light-color-warning);
   --arc-color-info: var(--arc-light-color-info);
   --arc-color-success: var(--arc-light-color-success);
-  --arc-color-brand: var(--arc-light-color-brand);
 
   /* Box shadow */
   --arc-box-shadow: var(--arc-light-box-shadow);

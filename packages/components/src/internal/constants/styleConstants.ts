@@ -20,8 +20,7 @@ export declare type ThemeColor =
   | 'error'
   | 'warning'
   | 'info'
-  | 'success'
-  | 'brand';
+  | 'success';
 
 export const FONT_SIZES: { [key in FontSize]: FontSize } = {
   'xx-small': 'xx-small',
@@ -54,6 +53,5 @@ export const THEME_COLORS: { [key in ThemeColor]: ThemeColor } = {
   error: 'error',
   warning: 'warning',
   info: 'info',
-  success: 'success',
-  brand: 'brand',
+  success: 'success'
 };

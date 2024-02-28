@@ -131,14 +131,6 @@ export default [
       --btn-color: rgb(var(--arc-color-success));
     }
 
-    .button--filled.button--brand {
-      --btn-background: rgb(var(--arc-color-brand));
-      --focus-color: rgba(var(--arc-color-brand), 0.4);
-    }
-    .button--outlined.button--brand {
-      --btn-color: rgb(var(--arc-color-brand));
-    }
-
     /* Default - Hover, Focus & Mouse down */
     .button--filled:hover:not(.button--disabled):not(.button--loading),
     .button--filled:focus-visible:not(.button--disabled):not(.button--loading) {

@@ -1,7 +1,7 @@
 {
   "name": "@arc-web/react",
   "description": "React wrapper around the web-components built on the ARC design system",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "Arup (https://www.arup.com)",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
   },
   "type": "module",
   "peerDependencies": {
-    "@arc-web/components": "3.0.0",
+    "@arc-web/components": "3.0.1",
     "react": "^18.0.0"
   },
   "dependencies": {

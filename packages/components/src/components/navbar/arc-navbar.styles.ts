@@ -9,7 +9,8 @@ export default [
       height: 3.5rem;
       background-color: rgb(var(--arc-container-color));
       z-index: 1;
-      --logo-height: var(--arc-brand-height);
+      --logo-height: 1.25rem;
+      --company-logo-color: rgb(var(--arc-brand-color));
     }
 
     /* Layout */
@@ -92,13 +93,13 @@ export default [
     }
 
     #company-logo {
-      color: rgb(var(--arc-color-brand));
+      color: var(--company-logo-color);
       display: flex;
       align-items: center;
     }
 
     #company-logo > svg {
-      height: var(--arc-brand-height);
+      height: var(--logo-height);
       width: auto;
     }
 

@@ -4,6 +4,7 @@ export * from './components/arc-bottombar.js';
 export * from './components/arc-button.js';
 export * from './components/arc-card.js';
 export * from './components/arc-chip.js';
+export * from './components/arc-checkbox.js';
 export * from './components/arc-container.js';
 export * from './components/arc-drawer.js';
 export * from './components/arc-dropdown.js';

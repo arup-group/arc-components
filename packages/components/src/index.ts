@@ -21,6 +21,7 @@ import './components/switch/arc-switch.js';
 import './components/avatar/arc-avatar.js';
 import './components/chip/arc-chip.js';
 import './components/tooltip/arc-tooltip.js';
+import './components/checkbox/arc-checkbox.js';
 import './components/table/arc-table.js';
 
 /* Types */
@@ -38,6 +39,7 @@ export { default as ArcMenu } from './components/menu/ArcMenu.js';
 export { default as ArcMenuItem } from './components/menu-item/ArcMenuItem.js';
 export { default as ArcNavbar } from './components/navbar/ArcNavbar.js';
 export { default as ArcRadio } from './components/radio/ArcRadio.js';
+export { default as ArcCheckBox } from './components/checkbox/ArcCheckBox.js';
 export { default as ArcRadioGroup } from './components/radio-group/ArcRadioGroup.js';
 export { default as ArcSidebar } from './components/sidebar/ArcSidebar.js';
 export { default as ArcSpinner } from './components/spinner/ArcSpinner.js';

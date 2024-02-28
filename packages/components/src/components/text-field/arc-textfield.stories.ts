@@ -7,8 +7,8 @@ import {
   THEME_COLORS,
   INPUT_SIZES,
 } from '../../internal/constants/styleConstants';
-import '@arc-web/components/src/components/ph-icon/lock-key/ph-icon-lock-key.js';
-import '@arc-web/components/src/components/ph-icon/eye/ph-icon-eye.js';
+import '../ph-icon/lock-key/ph-icon-lock-key.js';
+import '../ph-icon/eye/ph-icon-eye.js';
 
 export default {
   title: 'Components/ArcTextField',

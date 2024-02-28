@@ -30,11 +30,13 @@ export default [
       height: var(--height);
       background-color: rgb(var(--arc-grey-060));
       border-radius: var(--height);
+      transition: background-color 0.2s linear;
     }
 
     #control {
       position: absolute;
       transform: translateX(calc((var(--width) - var(--height)) / -2));
+      transition: transform 0.2s ease-in-out;
     }
 
     #thumb {

@@ -53,5 +53,5 @@ export const THEME_COLORS: { [key in ThemeColor]: ThemeColor } = {
   error: 'error',
   warning: 'warning',
   info: 'info',
-  success: 'success'
+  success: 'success',
 };

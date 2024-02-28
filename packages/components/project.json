@@ -52,7 +52,7 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx custom-elements-manifest analyze --litelement --globs \"dist/packages/components/src/**/*.js\" --outdir \"dist/packages/components\"",
+        "command": "npx custom-elements-manifest analyze --litelement --globs \"dist/packages/components/src/**/*.js\" --outdir \"dist/packages/components\""
       },
       "dependsOn": ["prebuild"]
     },

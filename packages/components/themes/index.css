@@ -188,9 +188,6 @@
   --arc-z-index-toast: 950;
   --arc-z-index-tooltip: 1000;
 
-  /* Branding */
-  --arc-brand-height: 1.25rem;
-
   /** Light Theme Variables **/
   /* Base */
   --arc-light-font-color: var(--arc-grey-100);
@@ -200,11 +197,11 @@
 
   /* Palette */
   --arc-light-color-default: var(--arc-grey-010);
-  --arc-light-color-primary: var(--arc-red-050);
-  --arc-light-color-secondary: var(--arc-grey-070);
-  --arc-light-color-error: var(--arc-red-040);
+  --arc-light-color-primary: var(--arc-blue-060);
+  --arc-light-color-secondary: var(--arc-grey-090);
+  --arc-light-color-error: var(--arc-red-070);
   --arc-light-color-warning: var(--arc-orange-040);
-  --arc-light-color-info: var(--arc-blue-050);
+  --arc-light-color-info: var(--arc-blue-040);
   --arc-light-color-success: var(--arc-green-040);
 
   /* Box shadow */
@@ -217,7 +214,7 @@
   --arc-light-hover-light: var(--arc-lighter-70);
   --arc-light-hover-lighter: var(--arc-lighter-90);
 
-  /** Dark Theme **/
+  /** Dark Theme Variables **/
   /* Base */
   --arc-dark-font-color: var(--arc-grey-000);
   --arc-dark-input-color: var(--arc-dark-font-color);
@@ -229,11 +226,11 @@
 
   /* Palette */
   --arc-dark-color-default: var(--arc-grey-090);
-  --arc-dark-color-primary: var(--arc-grey-000);
+  --arc-dark-color-primary: var(--arc-blue-040);
   --arc-dark-color-secondary: var(--arc-grey-040);
-  --arc-dark-color-error: var(--arc-red-040);
+  --arc-dark-color-error: var(--arc-red-030);
   --arc-dark-color-warning: var(--arc-orange-040);
-  --arc-dark-color-info: var(--arc-blue-050);
+  --arc-dark-color-info: var(--arc-blue-040);
   --arc-dark-color-success: var(--arc-green-040);
 
   /* Box shadow */
@@ -307,7 +304,7 @@ body {
   display: none;
 }
 
-/* default theme */
+/* Default ARC Theme */
 :root,
 :host,
 arc-container {
@@ -334,6 +331,9 @@ arc-container {
   --arc-hover-dark: var(--arc-light-hover-dark);
   --arc-hover-light: var(--arc-light-hover-light);
   --arc-hover-lighter: var(--arc-light-hover-lighter);
+
+  /* Branding */
+  --arc-brand-color: var(--arc-red-050);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -362,6 +362,9 @@ arc-container {
     /* Hover */
     --arc-hover-light: var(--arc-dark-hover-light);
     --arc-hover-lighter: var(--arc-dark-hover-lighter);
+
+    /* Branding */
+    --arc-brand-color: var(--arc-red-050);
   }
 }
 
@@ -391,6 +394,9 @@ arc-container[theme='light'] {
   --arc-hover-dark: var(--arc-light-hover-dark);
   --arc-hover-light: var(--arc-light-hover-light);
   --arc-hover-lighter: var(--arc-light-hover-lighter);
+
+  /* Branding */
+  --arc-brand-color: var(--arc-red-050);
 }
 
 :host,
@@ -418,4 +424,7 @@ arc-container[theme='dark'] {
   /* Hover */
   --arc-hover-light: var(--arc-dark-hover-light);
   --arc-hover-lighter: var(--arc-dark-hover-lighter);
+
+  /* Branding */
+  --arc-brand-color: var(--arc-red-050);
 }

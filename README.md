@@ -368,6 +368,7 @@ Prebuild playgrounds provide examples of how to use **ARC** components in variou
 To run a playground locally, clone the repository and run the following commands:
 
 ```sh
+nix develop
 npm ci
 npx nx run <playground-name>:serve
 ```

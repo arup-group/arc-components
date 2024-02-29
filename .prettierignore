@@ -1,4 +1,2 @@
-dist
-.angular
-terraform.tfstate
-.terraform.lock.hcl
+.prettierignore
+.docusaurus/

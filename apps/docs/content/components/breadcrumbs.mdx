@@ -1,0 +1,61 @@
+---
+title: Breadcrumbs
+description: Breadcrumbs display the current page or context within the site, allowing them to navigate different levels of the hierarchy.
+reactId: breadcrumbs
+railsIds:
+- Primer::Beta::Breadcrumbs
+figmaId: breadcrumbs
+rails: https://primer.style/view-components/components/beta/breadcrumbs
+---
+
+import {Box, Text} from '@primer/react'
+import ComponentLayout from '~/src/layouts/component-layout'
+export default ComponentLayout
+import {AccessibilityLink} from '~/src/components/accessibility-link'
+
+<img
+  width="960"
+  alt="An image of the breadcrumb component"
+  src="https://github.com/primer/design/assets/2313998/712e582d-6b51-4b03-a141-747fd31a30e9"
+/>
+
+## Usage
+
+Breadcrumbs are used to show taxonomical context on pages that are many levels deep in a site’s hierarchy. Breadcrumbs show and link to pages higher up in the ancestry.
+
+Breadcrumbs are most appropriate on pages that:
+
+- Are many levels deep on a site
+- Do not have a section-level navigation
+- May need the ability to quickly go back to the previous (parent) page
+- All items must contain links, with the last item as the user's current context
+
+## Anatomy
+
+Breadcrumbs are made of links (indicating parents), dividers, and the current page. The default breadcrumbs component can be modified to change the number of items within the chain.
+
+<img
+  width="960"
+  alt="An image showing the anatomy of the breacrumb component"
+  src="https://github.com/primer/design/assets/2313998/068d9757-0a9c-46cd-a3b8-2720447d9fad"
+/>
+
+<Caption>Note: The space between items is set to 0px as the divider has padding built into it.</Caption>
+
+## Options
+
+### Breadcrumb length
+
+By default the breadcrumbs component can show up to 10 items within the chain.
+
+<img
+  width="960"
+  alt="An image showing various breadcrumbs with different numbers of items in the breadcrumb chain"
+  src="https://github.com/primer/design/assets/2313998/0007110c-0e54-4775-aeac-d8de1dfc916a"
+/>
+
+## Accessibility
+
+### Known accessibility issues (GitHub staff only)
+
+ <AccessibilityLink label="Breadcrumbs"/>

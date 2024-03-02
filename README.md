@@ -36,16 +36,11 @@ For more information, see [Responsive](/foundations/responsive).
 
 ## Design for efficiency
 
-GitHub is a platform used for productivity. We aim to encourage flow, focus, and an experience that is fast and compact.
-
-By providing a cohesive, inclusive, and responsive design, Primer’s goal is to remove as much friction as possible between the human and the software.
-
-Primer patterns and components aim towards accessible solutions that don’t dilute efficient UI interactions. It focuses on responsive design that doesn’t reduce desktop experiences into mobile-first solutions. Ultimately, it recognizes the need to encourage flow by providing calm and logical experiences throughout.
+With ARC we aim to encourage flow, focus, and an experience that is fast and compact.
+By providing a cohesive, inclusive, and responsive design, the goal is to remove as much friction as possible between the human and the software.
+The design system provides patterns and components that aim towards accessible solutions that don’t dilute efficient UI interactions and focuses on responsive design that doesn’t reduce desktop experiences into mobile-first solutions. Ultimately, it recognizes the need to encourage flow by providing calm and logical experiences throughout.
 
 ## The Zen of ARC
-
-> “Whether you call it taste, culture, or zen, there are underlying assumptions that members of an organization rely on to resolve ambiguity in pursuit of the organization’s mission.”
-> – [Ben Balter](https://ben.balter.com/2015/08/12/the-zen-of-github/)
 
 - Responsive is better than fast
 - It’s not fully shipped until it’s fast

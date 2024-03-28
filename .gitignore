@@ -10,3 +10,4 @@ terraform.tfvars
 tfplan
 .docusaurus/
 .cache-loader/
+.env

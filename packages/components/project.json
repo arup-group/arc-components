@@ -85,15 +85,6 @@
         "configDir": "packages/components/.storybook"
       },
       "dependsOn": ["build"]
-    },
-    "storybook:deploy": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx swa deploy --config packages/components/.storybook/swa-cli.config.json --env production",
-        "cwd": ".",
-        "parallel": false
-      },
-      "dependsOn": ["storybook:build"]
     }
   }
 }

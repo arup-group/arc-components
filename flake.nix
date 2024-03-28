@@ -97,7 +97,7 @@
       # a different system than Linux.
       default = mkShell {
         packages = with pkgs;
-          [node.${system}]
+          [nodejs]
           ++ optional isLinux [google-chrome];
 
         shellHook = ''

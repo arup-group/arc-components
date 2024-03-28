@@ -24,8 +24,8 @@ In version 3 we have taken the opportunity to make several important breaking ch
 - import '@arc-web/components/src/components/icon/arc-icon';
 - <arc-icon name="home"></arc-icon>
 
-+ import '@arc-web/components/src/components/icon/house/arc-icon-house';
-+ <arc-icon-house></arc-icon-house>
++ import '@arc-web/components/src/components/ph-icon/house/ph-icon-house';
++ <ph-icon-house></ph-icon-house>
 ```
 
 - Update all cherry-picked components from the `@arc-web/components` package to import from the `/src` directory.
@@ -137,4 +137,11 @@ Load the stylesheet in your application:
 +   --arc-light-color-primary: var(--arc-green-060);
 +   --arc-dark-color-primary: var(--arc-green-040);
 + }
+```
+
+- Remove setting base path
+
+```js
+- import { setBasePath } from '@arc-web/components';
+- setBasePath('');
 ```

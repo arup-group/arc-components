@@ -5,7 +5,11 @@
     "baseUrl": ".",
     "module": "ES6",
     "target": "es2022",
-    "lib": ["ES6", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES6",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "moduleResolution": "node",
     "importHelpers": true,
     "esModuleInterop": true,
@@ -26,10 +30,19 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@arc-web/components": ["packages/components/src/index.ts"],
-      "@arc-web/components/*": ["packages/components/src/*"],
-      "@arc-web/react": ["packages/react/src/index.ts"]
+      "@arc-web/components": [
+        "packages/components/src/index.ts"
+      ],
+      "@arc-web/components/*": [
+        "packages/components/src/*"
+      ],
+      "@arc-web/react": [
+        "packages/react/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

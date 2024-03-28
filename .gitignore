@@ -8,3 +8,5 @@ tmp
 .terraform
 terraform.tfvars
 tfplan
+.docusaurus/
+.cache-loader/

@@ -1,0 +1,152 @@
+# Command Line Interfaces
+
+At Arup is it common to write scripts and command line tools to automate tasks...
+
+## Principles
+
+### Reasonable defaults, easy overrides
+
+Optimize for what most people will need to do most of the time, but make it easy for people to adjust it to their needs.
+Often this means considering the default behavior of each command, and how it might need to be adjusted with flags.
+
+### Make it feel like Arup
+
+Using this tool, it should be obvious that it’s Arup and not anything else. Use details that are specific to Arup, such as language or color.
+When designing output, reflect the Arup interface as much as possible and appropriate.
+
+### Reduce cognitive load
+
+Command line interfaces are not as visually intuitive as graphical interfaces. They have very few affordances (indicators of use), rely on memory, and are often unforgiving of mistakes. We do our best to design our commands to mitigate this.
+
+Reducing cognitive load is necessary for [making an accessible product](https://www.w3.org/TR/coga-usable/#summary) .
+
+#### Ways to reduce cognitive load
+
+- Include confirm steps, especially for riskier commands
+- Include headers to help set context for output
+- Ensure consistent command language to make memorizing easier
+- Ensure similar commands are visually and behaviorally parallel. \* For example, any create command should behave the same
+- Anticipate what people might want to do next. \* For example, we ask if you want to delete your branch after you merge.
+- Anticipate what mistakes people might make
+
+## Process
+
+When designing for the command line, consider:
+
+### 1. What the command does
+
+- What makes sense to do from a terminal? What doesn’t?
+- What might people want to automate?
+- What is the default behavior? What flags might you need to change that behavior?
+- What might people try and fail to do and how can you anticipate that?
+
+### 2. What the command is called
+
+- What should the command language system be?
+- What should be a command vs a flag?
+- How can you align the language of the new command with the existing commands?
+
+### 3. What the command outputs
+
+- What can you do to make the CLI version feel like the Arup version using [color](/native/cli/foundations#color), [language](/native/cli/foundations#language), [spacing](/native/cli/foundations#spacing), info shown, etc?
+- How should the [machine output](/native/cli/foundations#scriptability) differ from the interactive behavior?
+
+### 4. How you explain your command
+
+- You will need to provide a short and long description of the command for the [help pages](/components/help).
+
+### 5. How people discover your command
+
+- Are there ways to integrate CLI into the feature where it exists on other platforms?
+
+## Language
+
+Language is the most important tool at our disposal for creating a clear, understandable product. Having clear language helps us create memorable commands that are clear in what they will do.
+
+Commands should follow this structure:
+
+```bash
+<package-name> <command> <subcommand> [value] [flags] [value]
+```
+
+**Command:** The object you want to interact with
+
+**Subcommand:** The action you want to take on that object.
+
+**Flag:** A way to modify the command, also may be called “options”. You can use multiple flags. Flags can take values, but don’t always. Flags always have a long version with two dashes `(--state)` but often also have a shortcut with one dash and one letter `(-s)`. It’s possible to chain shorthand flags: `-sfv` is the same as `-s -f -v`
+
+**Values:** Are passed to the commands or flags
+
+**When designing your command’s language system:**
+
+- Use unambiguous language that can’t be confused for something else
+- Use shorter phrases if possible and appropriate
+
+## Typography
+
+Everything in a command line interface is text, so type hierarchy is important. All type is the same size and font, but you can still create type hierarchy using font weight and space.
+
+- People customize their fonts, but you can assume it will be a monospace
+- Monospace fonts inherently create visual order
+- Fonts may have variable unicode support
+
+### Accessibility
+
+If you want to ensure that a screen reader will read a pause, you can use a:
+
+- period (`.`)
+- comma (`,`)
+- colon (`:`)
+
+## Spacing
+
+You can use the following to create hierarchy and visual rhythm:
+
+- Line breaks
+- Tables
+- Indentation
+
+## Color
+
+Terminals reliably recognize the 8 basic ANSI colors. There are also bright versions of each of these colors that you can use, but less reliably.
+
+### Things to note
+
+- Background color is available but we haven’t taken advantage of it yet.
+- Some terminals do not reliably support 256-color escape sequences.
+- Users can customize how their terminal displays the 8 basic colors, but that’s opt-in (for example, the user knows they’re making their greens not green).
+- Only use color to [enhance meaning](/components/icon#usage), not to communicate meaning.
+
+## Iconography
+
+Since graphical image support in terminal emulators is unreliable, we rely on Unicode for iconography. When applying iconography consider:
+
+- People use different fonts that will have varying Unicode support
+- Only use iconography to enhance meaning, not to communicate meaning
+
+_Note: In Windows, Powershell’s default font (Lucida Console) has poor Unicode support. Microsoft suggests changing it for more Unicode support._
+
+## Scriptability
+
+Make choices that ensure that creating automations or scripts with the command line interface is obvious and frictionless. Practically, this means:
+
+- Create flags for anything interactive
+- Ensure flags have clear language and defaults
+- Consider what should be different for terminal vs machine output
+
+### Differences to note in machine output
+
+- No color or styling
+- State is explicitly written, not implied from color
+- Tabs between columns instead of table layout, since `cut` uses tabs as a delimiter
+- No truncation
+- Exact date format
+- No header
+
+## Customizability
+
+Be aware that people exist in different environments and may customize their setups. Customizations include:
+
+- **Shell:** shell prompt, shell aliases, PATH and other environment variables, tab-completion behavior
+- **Terminal:** font, color scheme, and keyboard shortcuts
+- **Operating system**: language input options, accessibility settings

@@ -21,7 +21,7 @@ jobs:
       - uses: DeterminateSystems/flake-checker-action@main
       - uses: nrwl/nx-set-shas@v3
       - run: nix develop
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
       - run: npx nx run-many --target lint
       - run: npx nx run-many --target test
       # TODO: build build nix derivations

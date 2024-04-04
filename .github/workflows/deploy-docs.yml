@@ -20,7 +20,7 @@ jobs:
       - run: nix develop
       - run: npm ci --legacy-peer-deps
       - run: npx nx run components:storybook:build
-      - run: swa deploy -nu
+      - run: npx swa deploy -nu
         env:
           SWA_CLI_DEPLOY_ENV: production
           SWA_CLI_DEPLOYMENT_TOKEN: ${{ secrets.SWA_CLI_DEPLOYMENT_TOKEN }}

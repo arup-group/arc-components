@@ -9,3 +9,4 @@
 Report security vulnerability directly to an ARC core dev team member:
 
 Dom Egginton - dom.egginton@arup.com
+Thomas Marr - thomas.marr@arup.com

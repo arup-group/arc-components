@@ -20,8 +20,7 @@ const config = {
       'classic',
       ({
         docs: { sidebarPath: require.resolve('./sidebars.js') },
-        blog: { showReadingTime: true },
-        theme: { customCss: require.resolve('./src/css/custom.css') },
+        theme: { customCss: require.resolve('../../dist/packages/components/themes/docusaurus.css') },
       }),
     ],
   ],
@@ -45,37 +44,6 @@ const config = {
             href: 'https://github.com/arup-grou/arc-components',
             label: 'GitHub',
             position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/arup-group/arc-components',
-              },
-            ],
           },
         ],
       },

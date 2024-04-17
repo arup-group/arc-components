@@ -8,13 +8,25 @@
       "executor": "@nx-plus/docusaurus:dev-server",
       "options": {
         "port": 4200
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "components"
+        }
+      ]
     },
     "build": {
       "executor": "@nx-plus/docusaurus:browser",
       "options": {
         "outputPath": "dist/packages/docs"
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "components"
+        }
+      ]
     }
   },
   "tags": []

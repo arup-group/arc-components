@@ -32,13 +32,7 @@ export function* renderIndex({ name }: IndexProps) {
       </script>
   `;
 
-  yield* render(html`
-    <arc-container>
-      <section id="playground" style="padding: var(--arc-spacing-small)">
-        <p>Hello ${name}!</p>
-      </section>
-    </arc-container>
-  `);
+  yield* render(html`<arc-button color="primary">Hello ${name}</arc-button>`);
 
   yield `
       <script type="module">

@@ -1,10 +1,4 @@
-{
-  pkgs,
-  nodejs,
-}:
-with pkgs;
-  mkShell {
-    buildInputs = [
-      nodejs
-    ];
-  }
+{pkgs}:
+pkgs.mkShell {
+  buildInputs = with pkgs; [nodejs];
+}

@@ -12,6 +12,12 @@ with pkgs.lib;
       ;
 
     src = sources.cleanSource ./.;
-    npmDepsHash = "sha256-gqx8pPnDS3Xr13VJkBEuO+oPwqZT3ZFO8teugpef4us=";
-    npmInstallFlags = ["--ignore-scripts" "--legacy-peer-deps"];
+    npmDepsHash = "sha256-jSY4KWr+Z6BmESH5ukbFOlRZcGnht1eB5TmecdkbHb8=";
+    buildInputs = with pkgs; [pkg-config python3 python3Packages.gyp libsecret];
+
+    npmInstallFlags = [
+      # ignore legacy peer dependencies
+      # due to peer conflics in npm deps
+      "--legacy-peer-deps"
+    ];
   }

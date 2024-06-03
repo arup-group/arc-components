@@ -1,8 +1,7 @@
 {pkgs}:
 pkgs.mkShell {
   buildInputs = with pkgs; [
-    terraform
-    terraform-ls
+    opentofu
     azure-cli
   ];
 }

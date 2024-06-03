@@ -3,7 +3,9 @@ import { renderIndex } from './pages/index.js';
 import fs from 'fs';
 
 const index = new RenderResultReadable(renderIndex());
-fs.mkdirSync('./dist/playgrounds/node-prerender/dist');
+if (!fs.existsSync('./dist/playgrounds/node-prerender/dist')) {
+  fs.mkdirSync('./dist/playgrounds/node-prerender/dist');
+}
 index.pipe(
   fs.createWriteStream('./dist/playgrounds/node-prerender/dist/index.html'),
 );

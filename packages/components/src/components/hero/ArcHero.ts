@@ -12,6 +12,8 @@ import styles from './arc-hero.styles.js';
  * @slot subtitle - The subtitle of the hero.
  *
  * @cssproperty --content-gap - Set the distance between the title and the content.
+ *
+ * @ssr - True
  */
 export default class ArcHero extends LitElement {
   /** @internal */

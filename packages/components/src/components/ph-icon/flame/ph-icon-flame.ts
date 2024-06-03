@@ -1,0 +1,62 @@
+/* GENERATED FILE */
+import { html, svg, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import {
+  FONT_SIZES,
+  FontSize,
+} from '../../../internal/constants/styleConstants.js';
+import styles from '../../icon/icon.styles.js';
+
+/**
+ * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
+ */
+@customElement('ph-icon-flame')
+export default class PhIconFlame extends LitElement {
+  /** @internal */
+  static tag = 'ph-icon-flame';
+
+  /** @internal */
+  static styles = styles;
+
+  /** @internal */
+  static svg = svg`<path d="M173.79,51.48a221.25,221.25,0,0,0-41.67-34.34,8,8,0,0,0-8.24,0A221.25,221.25,0,0,0,82.21,51.48C54.59,80.48,40,112.47,40,144a88,88,0,0,0,176,0C216,112.47,201.41,80.48,173.79,51.48ZM96,184c0-27.67,22.53-47.28,32-54.3,9.48,7,32,26.63,32,54.3a32,32,0,0,1-64,0Zm77.27,15.93A47.8,47.8,0,0,0,176,184c0-44-42.09-69.79-43.88-70.86a8,8,0,0,0-8.24,0C122.09,114.21,80,140,80,184a47.8,47.8,0,0,0,2.73,15.93A71.88,71.88,0,0,1,56,144c0-34.41,20.4-63.15,37.52-81.19A216.21,216.21,0,0,1,128,33.54a215.77,215.77,0,0,1,34.48,29.27C193.49,95.5,200,125,200,144A71.88,71.88,0,0,1,173.27,199.93Z"/>`;
+
+  /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
+  @property({ type: String }) label: string;
+
+  /** Set the size of the icon. */
+  @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;
+
+  /** Set the rotation of the icon. */
+  @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
+
+  protected render() {
+    return html`
+      <svg
+        id="main"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 256 256"
+        role=${ifDefined(this.label ? 'img' : undefined)}
+        aria-label=${ifDefined(this.label || undefined)}
+        aria-hidden=${ifDefined(this.label ? undefined : 'true')}
+        style=${styleMap({
+          transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
+          height: `var(--arc-font-size-${this.size})`,
+          width: `var(--arc-font-size-${this.size})`,
+        })}
+      >
+        ${PhIconFlame.svg}
+      </svg>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ph-icon-flame': PhIconFlame;
+  }
+}

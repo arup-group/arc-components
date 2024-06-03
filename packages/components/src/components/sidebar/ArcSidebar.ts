@@ -4,9 +4,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { emit, waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import styles from './arc-sidebar.styles.js';
 import '../icon-button/arc-icon-button.js';
+import '../ph-icon/x/ph-icon-x.js';
+import '../ph-icon/arrow-right/ph-icon-arrow-right.js';
 
 /**
  * @slot default - The sidebar's content.
@@ -19,6 +20,8 @@ import '../icon-button/arc-icon-button.js';
  *
  * @cssproperty --gap-distance - Set the distance between sidebar elements.
  * @cssproperty --sidebar-width - Set the width of the sidebar.
+ *
+ * @ssr - True
  */
 export default class ArcSidebar extends LitElement {
   /** @internal */
@@ -99,10 +102,11 @@ export default class ArcSidebar extends LitElement {
               <slot id="title" name="label"><span>${this.label}</span></slot>
               <arc-icon-button
                 id="toggleClose"
-                name=${ICON_TYPES['arrow-left']}
                 label="Close sidebar"
                 @click=${this._handleClick}
-              ></arc-icon-button>
+              >
+                <ph-icon-x slot="icon"></ph-icon-x>
+              </arc-icon-button>
             </div>
             <div id="content">
               <slot @slotchange=${this.handleSlots}></slot>
@@ -112,10 +116,11 @@ export default class ArcSidebar extends LitElement {
       : html`
           <arc-icon-button
             id="toggleOpen"
-            name=${ICON_TYPES['arrow-right']}
             label="Open sidebar"
             @click=${this._handleClick}
-          ></arc-icon-button>
+          >
+            <ph-icon-arrow-right slot="icon"></ph-icon-arrow-right>
+          </arc-icon-button>
         `;
   }
 }

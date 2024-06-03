@@ -1,0 +1,62 @@
+/* GENERATED FILE */
+import { html, svg, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import {
+  FONT_SIZES,
+  FontSize,
+} from '../../../internal/constants/styleConstants.js';
+import styles from '../../icon/icon.styles.js';
+
+/**
+ * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
+ */
+@customElement('ph-icon-tiktok-logo')
+export default class PhIconTiktokLogo extends LitElement {
+  /** @internal */
+  static tag = 'ph-icon-tiktok-logo';
+
+  /** @internal */
+  static styles = styles;
+
+  /** @internal */
+  static svg = svg`<path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"/>`;
+
+  /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
+  @property({ type: String }) label: string;
+
+  /** Set the size of the icon. */
+  @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;
+
+  /** Set the rotation of the icon. */
+  @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
+
+  protected render() {
+    return html`
+      <svg
+        id="main"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 256 256"
+        role=${ifDefined(this.label ? 'img' : undefined)}
+        aria-label=${ifDefined(this.label || undefined)}
+        aria-hidden=${ifDefined(this.label ? undefined : 'true')}
+        style=${styleMap({
+          transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
+          height: `var(--arc-font-size-${this.size})`,
+          width: `var(--arc-font-size-${this.size})`,
+        })}
+      >
+        ${PhIconTiktokLogo.svg}
+      </svg>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ph-icon-tiktok-logo': PhIconTiktokLogo;
+  }
+}

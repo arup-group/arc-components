@@ -1,0 +1,62 @@
+/* GENERATED FILE */
+import { html, svg, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import {
+  FONT_SIZES,
+  FontSize,
+} from '../../../internal/constants/styleConstants.js';
+import styles from '../../icon/icon.styles.js';
+
+/**
+ * @cssproperty --icon-color - Set the color of the icon.
+ *
+ * @ssr - True
+ */
+@customElement('ph-icon-drop-half')
+export default class PhIconDropHalf extends LitElement {
+  /** @internal */
+  static tag = 'ph-icon-drop-half';
+
+  /** @internal */
+  static styles = styles;
+
+  /** @internal */
+  static svg = svg`<path d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75ZM200,144a70.57,70.57,0,0,1-.46,8H136V136h63.64Q200,140,200,144ZM183.39,88H136V72h36.89A175.85,175.85,0,0,1,183.39,88ZM136,200h37.19A71.67,71.67,0,0,1,136,215.54Zm0-16V168h59.87a72,72,0,0,1-8,16Zm0-64V104h55.39a116.84,116.84,0,0,1,5.45,16Zm23.89-64H136V32.6A257.22,257.22,0,0,1,159.89,56ZM56,144c0-50,42.26-92.71,64-111.4V215.54A72.08,72.08,0,0,1,56,144Z"/>`;
+
+  /** An alternate description to use for accessibility. If omitted, the icon will be ignored by assistive devices. */
+  @property({ type: String }) label: string;
+
+  /** Set the size of the icon. */
+  @property({ type: String, reflect: true }) size: FontSize = FONT_SIZES.medium;
+
+  /** Set the rotation of the icon. */
+  @property({ type: Number }) rotation: 0 | 90 | 180 | 270 = 0;
+
+  protected render() {
+    return html`
+      <svg
+        id="main"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 256 256"
+        role=${ifDefined(this.label ? 'img' : undefined)}
+        aria-label=${ifDefined(this.label || undefined)}
+        aria-hidden=${ifDefined(this.label ? undefined : 'true')}
+        style=${styleMap({
+          transform: this.rotation ? `rotate(${this.rotation}deg)` : null,
+          height: `var(--arc-font-size-${this.size})`,
+          width: `var(--arc-font-size-${this.size})`,
+        })}
+      >
+        ${PhIconDropHalf.svg}
+      </svg>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'ph-icon-drop-half': PhIconDropHalf;
+  }
+}

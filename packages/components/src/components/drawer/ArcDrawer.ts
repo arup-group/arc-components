@@ -22,9 +22,9 @@ import {
 } from './constants/DrawerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { ARC_ANIMATION_OPTIONS } from '../../internal/constants/animationConstants.js';
-import { ICON_TYPES } from '../icon/constants/IconConstants.js';
 import styles from './arc-drawer.styles.js';
 import '../icon-button/arc-icon-button.js';
+import '../ph-icon/x/ph-icon-x.js';
 
 /**
  * @slot default - The drawer's content.
@@ -39,6 +39,8 @@ import '../icon-button/arc-icon-button.js';
  * @event arc-request-close - Emitted when the user attempts to close the drawer by clicking the close button, clicking the overlay, or pressing the escape key. Calling event.preventDefault() will prevent the drawer from closing. Avoid using this unless closing the drawer will result in destructive behavior such as data loss.
  *
  * @cssproperty --size - The preferred size of the drawer. This will be applied to either the width or height depending on its placement.
+ *
+ * @ssr - True
  */
 export default class ArcDrawer extends LitElement {
   /** @internal */
@@ -254,10 +256,11 @@ export default class ArcDrawer extends LitElement {
             <slot id="title" name="label"><span>${this.label}</span></slot>
             <arc-icon-button
               id="toggleClose"
-              name=${ICON_TYPES.x}
               label="Close drawer"
               @click=${this._requestClose}
-            ></arc-icon-button>
+            >
+              <ph-icon-x slot="icon"></ph-icon-x>
+            </arc-icon-button>
           </div>
 
           <div id="body">

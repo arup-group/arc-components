@@ -1,0 +1,34 @@
+:root {
+  --arc-red-000: 255, 238, 239;
+  --arc-red-010: 255, 217, 217;
+  --arc-red-020: 255, 177, 179;
+  --arc-red-030: 250, 119, 124;
+  --arc-red-040: 242, 69, 77;
+  --arc-red-050: 230, 30, 40;
+  --arc-red-060: 209, 9, 17;
+  --arc-red-070: 182, 0, 7;
+  --arc-red-080: 148, 0, 4;
+  --arc-red-090: 109, 0, 3;
+  --arc-red-100: 77, 0, 2;
+
+  --ifm-color-primary: rgb(var(--arc-red-070));
+  --ifm-color-primary-dark: rgb(var(--arc-red-080));
+  --ifm-color-primary-darker: rgb(var(--arc-red-090));
+  --ifm-color-primary-darkest: rgb(var(--arc-red-100));
+  --ifm-color-primary-light: rgb(var(--arc-red-060));
+  --ifm-color-primary-lighter: rgb(var(--arc-red-050));
+  --ifm-color-primary-lightest: rgb(var(--arc-red-040));
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: rgb(var(--arc-red-030));
+  --ifm-color-primary-dark: rgb(var(--arc-red-040));
+  --ifm-color-primary-darker: rgb(var(--arc-red-050));
+  --ifm-color-primary-darkest: rgb(var(--arc-red-060));
+  --ifm-color-primary-light: rgb(var(--arc-red-020));
+  --ifm-color-primary-lighter: rgb(var(--arc-red-010));
+  --ifm-color-primary-lightest: rgb(var(--arc-red-000));
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}

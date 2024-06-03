@@ -5,6 +5,7 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcCard from './ArcCard.js';
 import './arc-card.js';
 import '../image/arc-image.js';
+import '../ph-icon/gear/ph-icon-gear.js';
 
 export default {
   title: 'Components/ArcCard',
@@ -25,7 +26,9 @@ const Template: Story<ArcCard> = ({ collapsed }) => html`
   <arc-card class="card" ?collapsed=${ifDefined(collapsed || undefined)}>
     <div slot="header">
       <strong>Header</strong>
-      <arc-icon-button name="settings"></arc-icon-button>
+      <arc-icon-button>
+        <ph-icon-gear slot="icon"></ph-icon-gear>
+      </arc-icon-button>
     </div>
     <arc-image
       slot="image"
@@ -60,7 +63,9 @@ const HeaderTemplate: Story<ArcCard> = ({ collapsed }) => html`
   <arc-card class="card" ?collapsed=${ifDefined(collapsed || undefined)}>
     <div slot="header">
       <strong>Header</strong>
-      <arc-icon-button name="settings"></arc-icon-button>
+      <arc-icon-button>
+        <ph-icon-gear slot="icon"></ph-icon-gear>
+      </arc-icon-button>
     </div>
     This card has a header. You can put all sorts of things in it!
   </arc-card>

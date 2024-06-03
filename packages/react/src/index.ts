@@ -10,7 +10,6 @@ export * from './components/arc-drawer.js';
 export * from './components/arc-dropdown.js';
 export * from './components/arc-hero.js';
 export * from './components/arc-icon-button.js';
-export * from './components/arc-icon.js';
 export * from './components/arc-image.js';
 export * from './components/arc-menu-item.js';
 export * from './components/arc-menu.js';
@@ -24,6 +23,5 @@ export * from './components/arc-switch.js';
 export * from './components/arc-table.js';
 export * from './components/arc-tooltip.js';
 
-export * from '@arc-web/components/src/utilities/base-path.js';
 export * from '@arc-web/components/src/utilities/form-utils.js';
 export * from '@arc-web/components/src/utilities/style-utils.js';

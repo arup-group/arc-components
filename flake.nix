@@ -1,46 +1,40 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
-  inputs.systems.url = "github:nix-systems/default";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.noxide.url = "github:dominicegginton/noxide";
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
-    systems,
-    ...
+    noxide,
   }:
-    flake-utils.lib.eachSystem (import systems) (
+    flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
+
+          overlays = [
+            noxide.overlays.default
+          ];
         };
 
-        clean-install = pkgs.writeShellApplication {
-          name = "clean-install";
-          runtimeInputs = with pkgs; [nodejs_18];
-          text = ''
-            rm -rf node_modules
-            rm -rf .angular
-            rm -rf coverage
-            rm -rf dist
-            rm -rf tmp
-            npm ci
-            npx playwright install-deps
-          '';
-        };
+        nodejs = pkgs.nodejs;
       in {
         formatter = pkgs.alejandra;
 
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            git
-            terraform
-            azure-cli
-            clean-install
-          ];
-          nativeBuildInputs = with pkgs; [nodejs_18];
-          shellHook = ''export PATH=$PATH:$(npm bin)'';
+        packages = rec {
+          arc = import ./default.nix {
+            inherit (pkgs) noxide;
+            inherit nodejs;
+          };
+
+          default = arc.components;
+        };
+
+        devShells = {
+          default = import ./shell.nix {inherit pkgs nodejs;};
+          infrastructure = import ./infrastructure/shell.nix {inherit pkgs;};
         };
       }
     );

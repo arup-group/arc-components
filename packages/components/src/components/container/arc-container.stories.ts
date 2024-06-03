@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit';
 import { when } from 'lit/directives/when.js';
-import { CONTAINER_THEMES } from './constants/ContainerConstants.js';
+import { CONTAINER_THEME_PREFERENCES } from './constants/ContainerConstants.js';
 import type ArcContainer from './ArcContainer.js';
 import './arc-container.js';
 import '../navbar/arc-navbar.js';
@@ -14,7 +14,7 @@ export default {
   argTypes: {
     theme: {
       control: 'select',
-      options: Object.values(CONTAINER_THEMES),
+      options: Object.values(CONTAINER_THEME_PREFERENCES),
     },
   },
 } as Meta;
@@ -60,4 +60,4 @@ const Template: Story<ArcContainer> = ({ theme, fullscreen }) => html`
 `;
 
 export const Container = Template.bind({});
-Container.args = { theme: CONTAINER_THEMES.auto, fullscreen: false };
+Container.args = { theme: CONTAINER_THEME_PREFERENCES.auto, fullscreen: false };

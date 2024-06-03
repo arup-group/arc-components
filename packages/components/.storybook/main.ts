@@ -1,6 +1,7 @@
 import { StorybookConfig } from '@storybook/web-components-vite';
 
 const STORYBOOK_CONFIGURATION: StorybookConfig = {
+  core: { disableTelemetry: true },
   features: { storyStoreV7: true },
   framework: '@storybook/web-components-vite',
   stories: [
@@ -9,10 +10,6 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
     '../stories/*.mdx',
   ],
   staticDirs: [
-    {
-      from: '../../../dist/packages/components/assets',
-      to: 'assets',
-    },
     {
       from: '../../../assets',
       to: 'assets',

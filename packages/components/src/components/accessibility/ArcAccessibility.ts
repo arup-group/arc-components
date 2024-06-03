@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { html, LitElement, isServer } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
@@ -24,19 +24,19 @@ import {
   FontSpacing,
 } from '../../internal/constants/styleConstants.js';
 import {
-  CONTAINER_THEMES,
-  ContainerTheme,
+  CONTAINER_THEME_PREFERENCES,
+  ContainerThemePreference,
 } from '../container/constants/ContainerConstants.js';
 import styles from './arc-accessibility.styles.js';
 import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
-import '../icon/arc-icon.js';
+import '../icon/accessibility/arc-icon-accessibility.js';
 import '../button/arc-button.js';
 
 export declare type UserPreferences = {
-  theme: ContainerTheme;
+  theme: ContainerThemePreference;
   fontSize: FontSize;
   lineHeight: FontSpacing;
   letterSpacing: FontSpacing;
@@ -47,6 +47,8 @@ export declare type UserPreferences = {
 
 /**
  * @event arc-accessibility-change - Emitted when the user preferences change.
+ *
+ * @ssr - True
  */
 export default class ArcAccessibility extends LitElement {
   /** @internal */
@@ -59,7 +61,7 @@ export default class ArcAccessibility extends LitElement {
 
   /** @internal - Fallback preferences. */
   private _defaultPreferences: UserPreferences = {
-    theme: this.getTheme(),
+    theme: this.getThemePreference(),
     fontSize: FONT_SIZES.medium,
     lineHeight: FONT_SPACING.normal,
     letterSpacing: FONT_SPACING.normal,
@@ -132,10 +134,13 @@ export default class ArcAccessibility extends LitElement {
   }
 
   /* Method used to grab the theme property from the arc-container */
-  getTheme() {
+  getThemePreference() {
+    /* When the component is rendered on the server, return the auto theme */
+    if (isServer) return CONTAINER_THEME_PREFERENCES.auto;
+
     const arcContainer: ArcContainer | null =
       document.querySelector('arc-container');
-    return arcContainer ? arcContainer.theme : CONTAINER_THEMES.auto;
+    return arcContainer ? arcContainer.theme : CONTAINER_THEME_PREFERENCES.auto;
   }
 
   /* Store :root css values i.e. --arc-font-size, --arc-letter-spacing etc. */
@@ -238,7 +243,7 @@ export default class ArcAccessibility extends LitElement {
 
   radioTemplate(
     key: keyof UserPreferences,
-    values: ContainerTheme[] | FontSize[],
+    values: ContainerThemePreference[] | FontSize[],
   ) {
     return html`
       <arc-radio-group id=${key}>
@@ -264,7 +269,7 @@ export default class ArcAccessibility extends LitElement {
       <div id="main">
         <arc-drawer id="drawer" @arc-hide=${this.hide} ?open=${this.open}>
           <div class="label" slot="label">
-            <arc-icon name="accessibility" size="large"></arc-icon>
+            <arc-icon-accessibility size="large"></arc-icon-accessibility>
             <span>Accessibility Controls</span>
           </div>
           <div id="wrapper">
@@ -273,7 +278,6 @@ export default class ArcAccessibility extends LitElement {
               (item: AccessibilityOption) => html`
                 <div class="label">
                   <span>${stringToSpaceSeparated(item.name)}</span>
-                  <arc-icon name=${item.icon}></arc-icon>
                 </div>
                 <div class="options">
                   ${map(
@@ -292,6 +296,7 @@ export default class ArcAccessibility extends LitElement {
                 </div>
               `,
             )}
+            <slot name="options"></slot>
           </div>
           <arc-button
             type="tab"

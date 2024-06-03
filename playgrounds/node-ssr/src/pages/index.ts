@@ -1,8 +1,7 @@
 import { render } from '@lit-labs/ssr';
 import { html } from 'lit';
 
-import '../../../../dist/packages/components/src/components/spinner/arc-spinner.js';
-import '../../../../dist/packages/components/src/components/button/arc-button.js';
+import '@arc-web/components';
 
 export interface IndexProps {
   name: string;
@@ -24,8 +23,6 @@ export function* renderIndex({ name }: IndexProps) {
       <link rel="icon" href="assets/icons/152x152.png" />
       <link rel="icon" type="image/x-icon" href="assets/icons/favicon_96.ico" />
       <link rel="stylesheet" href="dist/packages/components/themes/index.css" />
-      <link rel="stylesheet" href="dist/packages/components/themes/light.css" />
-      <link rel="stylesheet" href="dist/packages/components/themes/dark.css" />
     <head>
     <body hydration-pending>
       <script>
@@ -36,10 +33,11 @@ export function* renderIndex({ name }: IndexProps) {
   `;
 
   yield* render(html`
-    <section id="playground" style="padding: var(--arc-spacing-small)">
-      <p>Hello ${name}!</p>
-      <arc-button color="primary">open alert</arc-button>
-    </section>
+    <arc-container>
+      <section id="playground" style="padding: var(--arc-spacing-small)">
+        <p>Hello ${name}!</p>
+      </section>
+    </arc-container>
   `);
 
   yield `
@@ -54,15 +52,7 @@ export function* renderIndex({ name }: IndexProps) {
         document.body.removeAttribute('hydration-pending');
 
         // IMPORT ROOT COMPONENTS
-        import('./dist/packages/components/src/components/spinner/arc-spinner.js');
-        import('./dist/packages/components/src/components/button/arc-button.js');
-
-        // APP
-        const playground = document.getElementById('playground');
-        const button = playground.querySelector('arc-button');
-        button.addEventListener('click', () => {
-          alert('Hello ${name}');
-        });
+        import('./dist/packages/components/src/index.js');
       </script>
     </body>
   </html>

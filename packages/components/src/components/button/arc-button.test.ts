@@ -268,8 +268,12 @@ describe('ArcButton', () => {
       );
 
       expect(getPropertyValue(element, '--min-width')).to.equal('0');
-      expect(getPropertyValue(element, '--btn-color')).to.equal('');
-      expect(getPropertyValue(element, '--btn-background')).to.equal('');
+      expect(getPropertyValue(element, '--btn-color')).to.equal(
+        'rgb(28, 28, 28)',
+      );
+      expect(getPropertyValue(element, '--btn-background')).to.equal(
+        'rgb(239, 239, 239)',
+      );
     });
     it('overwrites the css variables', async () => {
       const element: ArcButton = await fixture(

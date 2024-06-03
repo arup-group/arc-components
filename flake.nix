@@ -1,40 +1,32 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.noxide.url = "github:dominicegginton/noxide";
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
-    noxide,
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
-        pkgs = import nixpkgs {
-          inherit system;
-
-          overlays = [
-            noxide.overlays.default
-          ];
+        pkgs = import nixpkgs {inherit system;};
+        buildArcPackage = import ./build-arc-package.nix {inherit pkgs;};
+        arcPackages = {
+          components = import ./packages/components/default.nix {inherit buildArcPackage;};
+          react = import ./packages/react/default.nix {inherit buildArcPackage;};
         };
-
-        nodejs = pkgs.nodejs;
+        arcDocumentation = import ./apps/docs/default.nix {inherit buildArcPackage;};
+        arcDevelopmentShell = import ./shell.nix {inherit pkgs;};
+        arcInfrastructureShell = import ./infrastructure/shell.nix {inherit pkgs;};
       in {
         formatter = pkgs.alejandra;
-
         packages = rec {
-          arc = import ./default.nix {
-            inherit (pkgs) noxide;
-            inherit nodejs;
-          };
-
-          default = arc.components;
+          inherit arcPackages arcDocumentation;
+          default = arcPackages.components;
         };
-
-        devShells = {
-          default = import ./shell.nix {inherit pkgs nodejs;};
-          infrastructure = import ./infrastructure/shell.nix {inherit pkgs;};
+        devShells = rec {
+          inherit arcDevelopmentShell arcInfrastructureShell;
+          default = arcDevelopmentShell;
         };
       }
     );

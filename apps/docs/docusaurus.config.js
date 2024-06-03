@@ -18,40 +18,43 @@ const config = {
   presets: [
     [
       'classic',
-      ({
+      {
         docs: { sidebarPath: require.resolve('./sidebars.js') },
-        theme: { customCss: require.resolve('../../dist/packages/components/themes/docusaurus.css') },
-      }),
+        theme: {
+          customCss: require.resolve(
+            '../../dist/packages/components/themes/docusaurus.css',
+          ),
+        },
+      },
     ],
   ],
-  themeConfig:
-    ({
-      navbar: {
-        title: 'ARC',
-        logo: {
-          alt: 'ARC Logo',
-          src: 'img/logo.svg',
+  themeConfig: {
+    navbar: {
+      title: 'ARC',
+      logo: {
+        alt: 'ARC Logo',
+        src: 'img/logo.svg',
+      },
+      items: [
+        {
+          type: 'doc',
+          docId: 'introduction',
+          position: 'left',
+          label: 'Documentation',
         },
-        items: [
-          {
-            type: 'doc',
-            docId: 'introduction',
-            position: 'left',
-            label: 'Documentation',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/arup-grou/arc-components',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
-    }),
+        { to: '/blog', label: 'Blog', position: 'left' },
+        {
+          href: 'https://github.com/arup-grou/arc-components',
+          label: 'GitHub',
+          position: 'right',
+        },
+      ],
+    },
+    prism: {
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
+    },
+  },
 };
 
 module.exports = config;

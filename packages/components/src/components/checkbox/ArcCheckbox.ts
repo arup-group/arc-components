@@ -5,7 +5,6 @@ import { live } from 'lit/directives/live.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
 import { emit } from '../../internal/event.js';
-import { FormController } from '../../internal/form-control.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import styles from './arc-checkbox.styles.js';
 
@@ -14,134 +13,73 @@ import styles from './arc-checkbox.styles.js';
  *
  * @event arc-change - Emitted when the control's checked state changes.
  */
-export default class ArcCheckBox extends LitElement {
-  /** @internal */
+export default class ArcCheckbox extends LitElement {
   static tag = 'arc-checkbox';
-
   static styles = styles;
 
-  /** @internal */
-  @query('input[type="checkbox"]') input: HTMLInputElement;
-
-  /** @internal - Controller used to recognize form controls located inside a shadow root. */
-  /* @ts-expect-error - Controller used to hook the component to the formData */
-  private readonly formController = new FormController(this, {
-    value: (control: ArcCheckBox) =>
-      control.checked ? control.value : undefined,
-  });
+  @query('input[type="checkbox"]') private input: HTMLInputElement;
 
   /** The name used to reference the value of the control. */
-  @property({ type: String }) name: string;
+  @property({ type: String }) public name: string;
 
   /** The value attribute of the radio. */
-  @property({ type: String }) value: string;
+  @property({ type: String }) public value: string;
 
   /** Draws the component in a disabled state. */
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) public disabled: boolean = false;
 
   /** Draws the component in a checked state. */
-  @property({ type: Boolean, reflect: true }) checked: boolean = false;
+  @property({ type: Boolean, reflect: true }) public checked: boolean = false;
 
   /**
    * This will be true when the control is in an invalid state. Validity in radios is determined by the message provided
    * by the `setCustomValidity` method.
    */
-  @property({ type: Boolean, reflect: true }) invalid = false;
+  @property({ type: Boolean, reflect: true }) public invalid = false;
 
   /* Enable/disable the editor when the disabled property changes */
   @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
+  public handleDisabledChange(): void {
     /* Disabled form controls are always valid, so we need to recheck validity when the state changes */
     this.input.disabled = this.disabled;
     this.invalid = !this.input.checkValidity();
   }
 
   @watch('checked', { waitUntilFirstUpdate: true })
-  handleCheckedChange() {
+  public handleCheckedChange(): void {
     if (this.value == undefined) {
       this.value = !!this.checked ? 'on' : 'off';
     }
   }
 
-  // getAllCheckboxes(
-  //   options: { includeDisabled: boolean } = { includeDisabled: true },
-  // ) {
-  //   const checkboxGroup = this.closest('arc-checkbox-group');
-  //   const { includeDisabled } = options;
-
-  //   if (!checkboxGroup) return [this];
-
-  //   return [...checkboxGroup.querySelectorAll('arc-checkbox')].filter(
-  //     (checkbox: ArcCheckBox) => {
-  //       if (checkbox.name !== this.name) return false;
-
-  //       /* Are disabled items included? return true, else false. */
-  //       return !(!includeDisabled && checkbox.disabled);
-  //     },
-  //   ) as ArcCheckBox[];
-  // }
-
-  // getSiblingCheckboxes() {
-  //   return this.getAllCheckboxes().filter(
-  //     (checkboxes) => checkboxes !== this,
-  //   ) as ArcCheckBox[];
-  // }
-
-  handleKeyDown(event: KeyboardEvent) {
-    /* Move the selection when pressing down, up, left or right. */
-    if (
-      ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(event.key)
-    ) {
-      // const checkbox = this.getAllCheckboxes({ includeDisabled: false });
-      // const incr = ['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1;
-      // let index = checkbox.indexOf(this) + incr;
-      // if (index < 0) index = checkbox.length - 1;
-      // if (index > checkbox.length - 1) index = 0;
-
-      /* Remove the checked state of all radio buttons. */
-      // this.getAllCheckboxes().forEach((checkbox) => {
-      //   checkbox.checked = false;
-      //   checkbox.input.tabIndex = -1;
-      // });
-      // /* Set focus on the checkbox. */
-      // checkbox[index].input.focus();
-      // checkbox[index].checked = true;
-      // checkbox[index].input.tabIndex = 0;
-
-      // emit(checkbox[index], ARC_EVENTS.change);
-
-      event.preventDefault();
-    }
-  }
-
-  /* Simulates a click on the radio. */
-  click() {
+  /* Simulates a click on the checkbox. */
+  public click(): void {
     this.input.click();
   }
 
-  /* Sets focus on the radio. */
-  focus(options?: FocusOptions) {
+  /* Sets focus on the checkbox. */
+  public focus(options?: FocusOptions): void {
     this.input.focus(options);
   }
 
-  /* Removes focus from the radio. */
-  blur() {
+  /* Removes focus from the checkbox. */
+  public blur(): void {
     this.input.blur();
   }
 
   /** Checks for validity and shows the browser's validation message if the control is invalid. */
-  reportValidity() {
+  public reportValidity(): boolean {
     return this.input.reportValidity();
   }
 
   /** Sets a custom validation message. If `message` is not empty, the field will be considered invalid. */
-  setCustomValidity(message: string) {
+  public setCustomValidity(message: string): void {
     this.input.setCustomValidity(message);
     this.invalid = !this.input.checkValidity();
   }
 
-  /* Handle the click of the radio */
-  private _handleClick() {
+  /* Handle the click of the checkbox */
+  private handleClick(): void {
     if (!this.checked) {
       this.checked = true;
       emit(this, ARC_EVENTS.change);
@@ -169,7 +107,7 @@ export default class ArcCheckBox extends LitElement {
           .disabled=${this.disabled}
           aria-checked=${this.checked ? 'true' : 'false'}
           aria-disabled=${this.disabled ? 'true' : 'false'}
-          @click=${this._handleClick}
+          @click=${this.handleClick}
         />
         <span id="control">
           <span id="icon">
@@ -211,6 +149,6 @@ export default class ArcCheckBox extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'arc-checkbox': ArcCheckBox;
+    'arc-checkbox': ArcCheckbox;
   }
 }

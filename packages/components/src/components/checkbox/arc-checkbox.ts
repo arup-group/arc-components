@@ -1,3 +1,3 @@
-import ArcCheckBox from './ArcCheckBox.js';
+import ArcCheckbox from './ArcCheckbox.js';
 
-customElements.define('arc-checkbox', ArcCheckBox);
+customElements.define(ArcCheckbox.tag, ArcCheckbox);

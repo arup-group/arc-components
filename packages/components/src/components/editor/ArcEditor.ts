@@ -10,73 +10,74 @@ import { FormController } from '../../internal/form-control.js';
 import { OUTPUT_TYPES, EditorOutput } from './constants/EditorConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import styles from './arc-editor.styles.js';
+import Block, { BlockEmbed } from 'quill/blots/block.js';
 
 export default class ArcEditor extends LitElement {
   static tag = 'arc-markdown';
-
   static styles = styles;
 
-  private _editor: Quill;
+  private quill: Quill;
 
-  @query('#main') scrollContainer: HTMLElement;
   @query('#editor') editor: HTMLElement;
   @query('#input') input: HTMLInputElement;
 
   // @ts-ignore
-  private readonly formSubmitController = new FormController(this);
+  private readonly formSubmitController = new FormController(this, {
+    value: (control: ArcEditor) => control.value,
+  });
 
-  @property() name: string;
-  @property() value: string = '';
-
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
-  @property({ type: Boolean, reflect: true }) readonly: boolean = false;
-  @property({ type: Number }) minlength: number;
-  @property({ type: Number }) maxlength: number;
-  @property({ type: Number }) minlines: number;
-  @property({ type: Number }) maxlines: number;
-  @property({ type: Boolean, reflect: true }) required = false;
-  @property({ type: Boolean, reflect: true }) invalid: boolean = false;
-  @property({ type: String, reflect: true }) output: EditorOutput =
+  @property() public name: string;
+  @property() public value: string = '';
+  @property() public placeholder: string = '';
+  @property({ type: Boolean, reflect: true }) public disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) public readonly: boolean = false;
+  @property({ type: Number }) public minlength: number;
+  @property({ type: Number }) public maxlength: number;
+  @property({ type: Number }) public minlines: number;
+  @property({ type: Number }) public maxlines: number;
+  @property({ type: Boolean, reflect: true }) public required = false;
+  @property({ type: Boolean, reflect: true }) public invalid: boolean = false;
+  @property({ type: String, reflect: true }) public output: EditorOutput =
     OUTPUT_TYPES.default;
 
-  @state() length: number = 0;
-  @state() lines: string[] = [];
+  @state() public length: number = 0;
+  @state() public lines: (Block | BlockEmbed)[] = [];
 
   @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
+  public handleDisabledChange(): void {
     this.invalid = !this.input.checkValidity();
-    this._editor.enable(!this.disabled);
+    this.quill.enable(!this.disabled);
   }
 
   @watch('readonly', { waitUntilFirstUpdate: true })
-  handleReadOnlyChange() {
-    this._editor.enable(!this.readonly);
+  public handleReadOnlyChange(): void {
+    this.quill.enable(!this.readonly);
   }
 
   @watch('value', { waitUntilFirstUpdate: true })
-  handleValueChange() {
-    this._updateStatus();
+  public handleValueChange(): void {
+    this.updateStatus();
     this.invalid = !this.checkValidity();
   }
 
-  connectedCallback() {
+  public connectedCallback(): void {
     super.connectedCallback();
     document.addEventListener(
       'selectionchange',
-      this._updateSelection.bind(this),
+      this.updateSelection.bind(this),
     );
   }
 
-  disconnectedCallback() {
+  public disconnectedCallback(): void {
     super.disconnectedCallback();
     document.removeEventListener(
       'selectionchange',
-      this._updateSelection.bind(this),
+      this.updateSelection.bind(this),
     );
   }
 
-  firstUpdated() {
-    this._editor = new Quill(this.editor, {
+  public firstUpdated(): void {
+    this.quill = new Quill(this.editor, {
       modules: {
         toolbar: [
           [{ header: [1, 2, 3, 4, false] }],
@@ -87,73 +88,97 @@ export default class ArcEditor extends LitElement {
           ['clean'],
         ],
       },
-      placeholder: this._getPlaceholder(),
+      placeholder: this.placeholder,
       readOnly: this.readonly || this.disabled,
-      scrollingContainer: this.scrollContainer,
       theme: 'snow',
     });
-    if (this.value) this._editor.root.innerHTML = this.value;
-    this._updateStatus();
-    this._replaceRange();
-    this._editor.on('text-change', this._handleChange.bind(this));
+    if (this.value) this.quill.root.innerHTML = this.value;
+    this.updateStatus();
+    this.quill.on('text-change', this.handleChange.bind(this));
+    this.quill.selection.getNativeRange.bind(this.getNativeRange);
     this.invalid = !this.checkValidity();
   }
 
-  private _replaceRange() {
-    // this._editor.selection.getNativeRange = () => {
-    //   const selection: Selection = this._editor.root.getRootNode().getSelection();
-    //   if (selection == null || selection.rangeCount <= 0) return null;
-    //   const nativeRange = selection.getRangeAt(0);
-    //   if (nativeRange == null) return null;
-    //   return this._normalizeNative(nativeRange);
-    // };
+  public select(): void {
+    this.quill.setSelection(0, this.quill.getLength());
   }
 
-  // private _normalizeNative(nativeRange: Range) {
-  // if (
-  //   !this._editor.root.contains(nativeRange.startContainer) ||
-  //   (!nativeRange.collapsed && !this._editor.root.contains(nativeRange.startContainer))
-  // ) {
-  //   return null;
-  // }
-  //
-  // const range = {
-  //   start: { node: nativeRange.startContainer, offset: nativeRange.startOffset },
-  //   end: { node: nativeRange.endContainer, offset: nativeRange.endOffset },
-  //   native: nativeRange,
-  // };
-  //
-  // [range.start, range.end].forEach(position => {
-  //   let { node, offset } = position;
-  //
-  //   while (!(node instanceof Text) && node.childNodes.length > 0) {
-  //     if (node.childNodes.length > offset) {
-  //       node = node.childNodes[offset];
-  //       offset = 0;
-  //     } else if (node.childNodes.length === offset) {
-  //       // @ts-ignore
-  //       node = node.lastChild;
-  //       offset = node instanceof Text ? node.data.length : node.childNodes.length + 1;
-  //     } else {
-  //       break;
-  //     }
-  //   }
-  //   position.node = node;
-  //   position.offset = offset;
-  // });
-  // return range;
-  // }
-
-  private _updateSelection() {
-    this._editor;
+  public reportValidity(): boolean {
+    return this.input.reportValidity();
   }
 
-  private _handleChange() {
-    this.value = this._getOutput();
+  public setCustomValidity(message: string): void {
+    this.input.setCustomValidity(message);
+    this.invalid = !this.input.checkValidity();
+  }
+
+  public checkValidity(): boolean {
+    const valid =
+      this.readonly || (this.required === false && this.length === 0);
+
+    if (valid) {
+      return true;
+    }
+
+    return (
+      this.validateMinLength(this.length) &&
+      this.validateMaxLength(this.length) &&
+      this.validateMinLines(this.lines) &&
+      this.validateMaxLines(this.lines)
+    );
+  }
+
+  private validateMinLength(length: number): boolean {
+    const isValid = !this.minlength || length >= this.minlength;
+    const message = !isValid
+      ? `Please lengthen this text to ${this.minlength} characters or more (you are currently using ${length})`
+      : '';
+    this.setCustomValidity(message);
+    return isValid;
+  }
+
+  private validateMaxLength(length: number): boolean {
+    const isValid = !this.maxlength || length <= this.maxlength;
+    const message = !isValid
+      ? `Please shorten this text to ${this.maxlength} characters or less (you are currently using ${length})`
+      : '';
+    this.setCustomValidity(message);
+    return isValid;
+  }
+
+  private validateMinLines(lines: (Block | BlockEmbed)[]): boolean {
+    const isValid = !this.minlines || lines.length >= this.minlines;
+    const message = !isValid
+      ? `Please lengthen this text to ${this.minlines} lines or more (you are currently using ${lines.length})`
+      : '';
+    this.setCustomValidity(message);
+    return isValid;
+  }
+
+  private validateMaxLines(lines: (Block | BlockEmbed)[]): boolean {
+    const isValid = !this.maxlines || lines.length <= this.maxlines;
+    const message = !isValid
+      ? `Please shorten this text to ${this.maxlines} lines or less (you are currently using ${lines.length})`
+      : '';
+    this.setCustomValidity(message);
+    return isValid;
+  }
+
+  private updateStatus(): void {
+    this.length = this.quill.getLength() - 1;
+    this.lines = this.quill.getLines();
+  }
+
+  private updateSelection(): void {
+    this.quill.selection.update();
+  }
+
+  private handleChange(): void {
+    this.value = this.getOutput();
     emit(this, ARC_EVENTS.change);
   }
 
-  private _getOutput(): string {
+  private getOutput(): string {
     const regex = /<p\s*\/?><br\s*\/?><\/p\s*\/?>/gi;
     switch (this.output) {
       case OUTPUT_TYPES.html:
@@ -161,97 +186,60 @@ export default class ArcEditor extends LitElement {
           .querySelector('.ql-editor')!
           .innerHTML.replace(regex, '<p></p>');
       case OUTPUT_TYPES.text:
-        return this._editor.getText().slice(0, -1) || '';
+        return this.quill.getText().slice(0, -1) || '';
       default:
-        return JSON.stringify(this._editor.getContents().ops);
+        return JSON.stringify(this.quill.getContents().ops);
     }
   }
 
-  private _getPlaceholder(): string | undefined {
-    if ((this.disabled || this.readonly) && !this.value) {
-      return `The editor is ${this.disabled ? 'disabled' : 'read-only'}.`;
-    }
-    return undefined;
+  private getNativeRange() {
+    const dom = this.quill.root.getRootNode();
+    // @ts-ignore
+    const selection = dom.getSelection();
+    const range = this.normalizeNative(selection);
+    return range;
   }
 
-  private _updateStatus(): void {
-    this.length = this._editor.getLength() - 1;
-    this.lines = this._editor.getLines();
-  }
-
-  private _validateMinLength(length: number): boolean {
-    const isValid = !this.minlength || length >= this.minlength;
-    this.setCustomValidity(
-      !isValid
-        ? `Please lengthen this text to ${this.minlength} characters or more (you are currently using ${length})`
-        : '',
-    );
-    return isValid;
-  }
-
-  private _validateMaxLength(length: number): boolean {
-    const isValid = !this.maxlength || length <= this.maxlength;
-    this.setCustomValidity(
-      !isValid
-        ? `Please shorten this text to ${this.maxlength} characters or less (you are currently using ${length})`
-        : '',
-    );
-    return isValid;
-  }
-
-  private _validateMinLines(lines: string[]): boolean {
-    const isValid = !this.minlines || lines.length >= this.minlines;
-    this.setCustomValidity(
-      !isValid
-        ? `Please lengthen this text to ${this.minlines} lines or more (you are currently using ${lines.length})`
-        : '',
-    );
-    return isValid;
-  }
-
-  private _validateMaxLines(lines: string[]): boolean {
-    const isValid = !this.maxlines || lines.length <= this.maxlines;
-    this.setCustomValidity(
-      !isValid
-        ? `Please shorten this text to ${this.maxlines} lines or less (you are currently using ${lines.length})`
-        : '',
-    );
-    return isValid;
-  }
-
-  select() {
-    this._editor.setSelection(0, this._editor.getLength());
-  }
-
-  reportValidity() {
-    return this.input.reportValidity();
-  }
-
-  setCustomValidity(message: string) {
-    this.input.setCustomValidity(message);
-    this.invalid = !this.input.checkValidity();
-  }
-
-  checkValidity() {
-    if (
-      this.disabled ||
-      this.readonly ||
-      (!this.required && this.length === 0)
-    ) {
-      this.setCustomValidity('');
-      return true;
-    }
-
-    return (
-      this._validateMinLength(this.length) &&
-      this._validateMaxLength(this.length) &&
-      this._validateMinLines(this.lines) &&
-      this._validateMaxLines(this.lines)
-    );
+  private normalizeNative(nativeRange: any | null) {
+      // document.getSelection model has properties startContainer and endContainer
+      // shadow.getSelection model has baseNode and focusNode
+      // Unify formats to always look like document.getSelection 
+    
+      if (nativeRange) {
+    
+        const range = nativeRange;
+        
+        if (range.baseNode) {  
+          range.startContainer = nativeRange.baseNode;
+          range.endContainer = nativeRange.focusNode;
+          range.startOffset = nativeRange.baseOffset;
+          range.endOffset = nativeRange.focusOffset;
+    
+          if (range.endOffset < range.startOffset) {
+            range.startContainer = nativeRange.focusNode;
+            range.endContainer = nativeRange.baseNode;    
+            range.startOffset = nativeRange.focusOffset;
+            range.endOffset = nativeRange.baseOffset;
+          }
+        }
+    
+        if (range.startContainer) {
+          
+          return {
+            start: { node: range.startContainer, offset: range.startOffset },
+            end: { node: range.endContainer, offset: range.endOffset },
+            native: range
+          };
+        }
+      }
+    
+      return null
   }
 
   protected render() {
     return html`
+      <! -- TODO: REMOVE THIS -- !>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" />
       <div id="main">
         <input
           id="input"

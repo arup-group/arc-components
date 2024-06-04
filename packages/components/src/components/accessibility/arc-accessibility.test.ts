@@ -322,7 +322,7 @@ describe('ArcAccessibility', () => {
   describe('events', () => {
     let element: ArcAccessibility;
     let themeRadioGroup: ArcRadioGroup;
-    const accessibilityChangeHandler: SinonSpy = sinon.spy();
+    let accessibilityChangeHandler: SinonSpy;
 
     /* Grab the user preferences from the localStore */
     const getCachedPreferences = () => {
@@ -336,6 +336,7 @@ describe('ArcAccessibility', () => {
     };
 
     beforeEach(async () => {
+      accessibilityChangeHandler = sinon.spy();
       element = await fixture(html`<arc-accessibility></arc-accessibility>`);
       themeRadioGroup = element.shadowRoot?.getElementById(
         'theme',

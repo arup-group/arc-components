@@ -1,8 +1,8 @@
 import { setCustomElementsManifest, Preview } from '@storybook/web-components';
 import DocumentationTemplate from './documentation-template.mdx';
 
-import '@arc-web/components/themes/index.css';
-import '@arc-web/components/src/index';
+import '../themes/index.css';
+import '../src/index';
 
 // @ts-ignore
 import CUSTOM_ELEMENTS from '../../../dist/packages/components/custom-elements.json';

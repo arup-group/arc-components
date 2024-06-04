@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "docusaurus-build": {
+      "implementation": "./tools/executors/docusaurus-build/executor",
+      "schema": "./tools/executors/docusaurus-build/schema.json",
+      "description": "Build docusaurus site"
+    },
+    "serve": {
+      "implementation": "./tools/executors/docusaurus-serve/executor",
+      "schema": "./tools/executors/docusaurus-serve/schema.json",
+      "description": "Serve docusaurus site"
+    }
+  }
+}

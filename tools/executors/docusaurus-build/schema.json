@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "outputCapture": "direct-nodejs",
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Build Docusaurus",
+  "description": "Build docusaurus site.",
+  "type": "object",
+  "properties": {
+    "outputPath": {
+      "type": "string",
+      "description": "The output path for the generated site."
+    }
+  },
+  "required": ["outputPath"]
+}

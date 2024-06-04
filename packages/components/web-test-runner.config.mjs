@@ -4,6 +4,7 @@ const { CI = false } = process.env;
 
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 const CONFIG = {
+  rootDir: 'packages/components',
   files: ['packages/components/src/**/*.test.ts'],
   nodeResolve: {
     exportConditions: ['browser', 'development'],

@@ -1,7 +1,7 @@
 import { render } from '@lit-labs/ssr';
 import { html } from 'lit';
 
-import '../../../../dist/packages/components/src/components/spinner/arc-spinner.js';
+import '@arc-web/components';
 
 export interface IndexProps {
   name: string;
@@ -23,8 +23,6 @@ export function* renderIndex({ name }: IndexProps) {
       <link rel="icon" href="assets/icons/152x152.png" />
       <link rel="icon" type="image/x-icon" href="assets/icons/favicon_96.ico" />
       <link rel="stylesheet" href="dist/packages/components/themes/index.css" />
-      <link rel="stylesheet" href="dist/packages/components/themes/light.css" />
-      <link rel="stylesheet" href="dist/packages/components/themes/dark.css" />
     <head>
     <body hydration-pending>
       <script>
@@ -34,7 +32,13 @@ export function* renderIndex({ name }: IndexProps) {
       </script>
   `;
 
-  yield* render(html`<p>Hello, ${name}! <arc-spinner></arc-spinner></p>`);
+  yield* render(html`
+    <arc-container>
+      <section id="playground" style="padding: var(--arc-spacing-small)">
+        <p>Hello ${name}!</p>
+      </section>
+    </arc-container>
+  `);
 
   yield `
       <script type="module">
@@ -48,7 +52,7 @@ export function* renderIndex({ name }: IndexProps) {
         document.body.removeAttribute('hydration-pending');
 
         // IMPORT ROOT COMPONENTS
-        import('./dist/packages/components/src/components/spinner/arc-spinner.js');
+        import('./dist/packages/components/src/index.js');
       </script>
     </body>
   </html>

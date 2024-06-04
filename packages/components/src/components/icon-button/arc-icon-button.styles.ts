@@ -38,6 +38,7 @@ export default [
     }
 
     #icon {
+      display: flex;
       padding: var(--arc-spacing-small);
       border-radius: 50%;
     }

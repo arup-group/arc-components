@@ -4,7 +4,9 @@ import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcMenu from './ArcMenu.js';
 import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
-import '../icon/arc-icon.js';
+import '../ph-icon/house/ph-icon-house.js';
+import '../ph-icon/paper-plane-tilt/ph-icon-paper-plane-tilt.js';
+import '../ph-icon/gear/ph-icon-gear.js';
 
 export default {
   title: 'Components/ArcMenu',
@@ -19,21 +21,16 @@ export default {
 const Template: Story<ArcMenu> = () => html`
   <arc-menu>
     <arc-menu-item value="home">
-      <arc-icon name="home" slot="prefix"></arc-icon>
+      <ph-icon-house slot="prefix"></ph-icon-house>
       Home
     </arc-menu-item>
     <arc-menu-item value="messages">
-      <arc-icon name="speech" slot="prefix"></arc-icon>
+      <ph-icon-paper-plane-tilt slot="prefix"></ph-icon-paper-plane-tilt>
       Messages
     </arc-menu-item>
-    <arc-menu-item value="calendar" disabled>
-      <arc-icon name="calender" slot="prefix"></arc-icon>
-      Calendar
-    </arc-menu-item>
     <arc-menu-item value="settings">
-      <arc-icon name="settings" slot="prefix"></arc-icon>
+      <ph-icon-gear slot="prefix"></ph-icon-gear>
       Settings
-      <arc-icon name="arrow-right" slot="suffix"></arc-icon>
     </arc-menu-item>
   </arc-menu>
 `;

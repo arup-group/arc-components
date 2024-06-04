@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { html, isServer, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 import * as Msal from '@azure/msal-browser';
@@ -25,6 +25,8 @@ import '../menu-item/arc-menu-item.js';
  * @slot logout - Used to overwrite the default logout slot.
  *
  * @event arc-auth - Emitted when the internal authentication state of the component changes.
+ *
+ * @ssr - True
  */
 export default class ArcSSO extends LitElement {
   /** @internal */
@@ -101,6 +103,9 @@ export default class ArcSSO extends LitElement {
       this.loginRequest.scopes = this.loginRequest.scopes.concat(this.scopes);
     }
 
+    /* If rendered on server dont get active account */
+    if (isServer) return;
+
     /* Update the _isAuth state */
     this._isAuth = !!this.getAccount();
   }
@@ -126,6 +131,8 @@ export default class ArcSSO extends LitElement {
   }
 
   private _getAccessToken() {
+    if (isServer) return undefined;
+
     const account = this.getAccount();
 
     const accessTokenRequest = {
@@ -164,6 +171,8 @@ export default class ArcSSO extends LitElement {
   }
 
   getAccount() {
+    if (isServer) return;
+
     return this._msalInstance.getAllAccounts()[0] as AccountInfo;
   }
 

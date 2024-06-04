@@ -5,7 +5,7 @@ import ArcDrawerWC from '@arc-web/components/src/components/drawer/ArcDrawer.js'
 import '@arc-web/components/src/components/drawer/arc-drawer.js';
 
 export const ArcDrawer = createComponent({
-  tagName: 'arc-container',
+  tagName: 'arc-drawer',
   elementClass: ArcDrawerWC,
   react: React,
   events: {

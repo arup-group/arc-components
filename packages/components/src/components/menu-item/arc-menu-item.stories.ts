@@ -3,7 +3,9 @@ import { html } from 'lit';
 import type ArcMenuItem from './ArcMenuItem.js';
 import '../menu/arc-menu.js';
 import './arc-menu-item.js';
-import '../icon/arc-icon.js';
+import '../ph-icon/house/ph-icon-house.js';
+import '../ph-icon/paper-plane-tilt/ph-icon-paper-plane-tilt.js';
+import '../ph-icon/gear/ph-icon-gear.js';
 
 export default {
   title: 'Components/ArcMenuItem',
@@ -23,17 +25,17 @@ const Template: Story<ArcMenuItem> = ({ value, href, disabled }) => html`
 const PrefixSuffixTemplate: Story<ArcMenuItem> = () => html`
   <arc-menu class="menu">
     <arc-menu-item>
-      <arc-icon name="home" slot="prefix"></arc-icon>
+      <ph-icon-house slot="prefix"></ph-icon-house>
       Home
     </arc-menu-item>
     <arc-menu-item>
-      <arc-icon name="speech" slot="prefix"></arc-icon>
+      <ph-icon-paper-plane-tilt slot="prefix"></ph-icon-paper-plane-tilt>
       Messages
     </arc-menu-item>
     <arc-menu-item>
-      <arc-icon name="settings" slot="prefix"></arc-icon>
+      <ph-icon-gear slot="prefix"></ph-icon-gear>
       Settings
-      <arc-icon name="arrow-right" slot="suffix"></arc-icon>
+      <ph-icon name="arrow-right" slot="suffix"></ph-icon>
     </arc-menu-item>
   </arc-menu>
   <style>

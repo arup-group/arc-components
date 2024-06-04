@@ -13,6 +13,8 @@ import styles from './arc-radio.styles.js';
  * @slot default - The radio's label.
  *
  * @event arc-change - Emitted when the control's checked state changes.
+ *
+ * @ssr - True
  */
 export default class ArcRadio extends LitElement {
   /** @internal */

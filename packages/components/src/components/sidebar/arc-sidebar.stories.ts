@@ -7,7 +7,9 @@ import '../navbar/arc-navbar.js';
 import './arc-sidebar.js';
 import '../menu/arc-menu.js';
 import '../menu-item/arc-menu-item.js';
-import '../icon/arc-icon.js';
+import '../ph-icon/house/ph-icon-house.js';
+import '../ph-icon/paper-plane-tilt/ph-icon-paper-plane-tilt.js';
+import '../ph-icon/gear/ph-icon-gear.js';
 
 export default {
   title: 'Components/ArcSidebar',
@@ -37,7 +39,8 @@ export default {
 
 const Template: Story = ({ customLabel, open }) => html`
   <arc-container>
-    <arc-navbar slot="nav" logo="/arc-red.svg"></arc-navbar>
+    <arc-navbar slot="nav"></arc-navbar>
+
     <arc-sidebar
       slot="side"
       label=${ifDefined(customLabel || undefined)}
@@ -45,21 +48,22 @@ const Template: Story = ({ customLabel, open }) => html`
     >
       <arc-menu>
         <arc-menu-item value="home">
-          <arc-icon name="home" slot="prefix"></arc-icon>
+          <ph-icon-house slot="prefix"></ph-icon-house>
           Home
         </arc-menu-item>
         <arc-menu-item value="messages">
-          <arc-icon name="speech" slot="prefix"></arc-icon>
+          <ph-icon-paper-plane-tilt slot="prefix"></ph-icon-paper-plane-tilt>
           Messages
         </arc-menu-item>
       </arc-menu>
       <arc-menu>
         <arc-menu-item value="settings">
-          <arc-icon name="settings" slot="prefix"></arc-icon>
+          <ph-icon-gear slot="prefix"></ph-icon-gear>
           Settings
         </arc-menu-item>
       </arc-menu>
     </arc-sidebar>
+
     <div style="padding: var(--arc-spacing-normal)">
       <p>
         When using the <code class="code-block">fullscreen</code> property, the

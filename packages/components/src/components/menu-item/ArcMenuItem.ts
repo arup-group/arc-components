@@ -11,6 +11,8 @@ import styles from './arc-menu-item.styles.js';
  * @slot default - The menu item's label.
  * @slot prefix - Used to prepend an icon or similar element to the menu-item.
  * @slot suffix - Used to append an icon or similar element to the menu-item.
+ *
+ * @ssr - True
  */
 export default class ArcMenuItem extends LitElement {
   /** @internal */

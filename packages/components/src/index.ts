@@ -8,7 +8,6 @@ import './components/drawer/arc-drawer.js';
 import './components/dropdown/arc-dropdown.js';
 import './components/editor/arc-editor.js';
 import './components/hero/arc-hero.js';
-import './components/icon/arc-icon.js';
 import './components/icon-button/arc-icon-button.js';
 import './components/image/arc-image.js';
 import './components/menu/arc-menu.js';
@@ -35,7 +34,6 @@ export { default as ArcDrawer } from './components/drawer/ArcDrawer.js';
 export { default as ArcDropdown } from './components/dropdown/ArcDropdown.js';
 export { default as ArcEditor } from './components/editor/ArcEditor.js';
 export { default as ArcHero } from './components/hero/ArcHero.js';
-export { default as ArcIcon } from './components/icon/ArcIcon.js';
 export { default as ArcIconButton } from './components/icon-button/ArcIconButton.js';
 export { default as ArcImage } from './components/image/ArcImage.js';
 export { default as ArcMenu } from './components/menu/ArcMenu.js';
@@ -53,6 +51,5 @@ export { default as ArcTooltip } from './components/tooltip/ArcTooltip.js';
 export { default as ArcTable } from './components/table/ArcTable.js';
 
 /* Utilities */
-export * from './utilities/base-path.js';
 export * from './utilities/form-utils.js';
 export * from './utilities/style-utils.js';

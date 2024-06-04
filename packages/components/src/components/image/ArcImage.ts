@@ -17,6 +17,8 @@ import styles from './arc-image.styles.js';
 /**
  * @event arc-loaded - Emitted when the image is loaded.
  * @event arc-error - Emitted when the image cannot be loaded.
+ *
+ * @ssr - True
  */
 export default class ArcImage extends LitElement {
   /** @internal */

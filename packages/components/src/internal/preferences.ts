@@ -11,9 +11,4 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-/* Tells if the user has enabled the "color-scheme" setting in their browser or OS. */
-function prefersDark() {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-
-export { mobileBreakpoint, isMobile, prefersReducedMotion, prefersDark };
+export { mobileBreakpoint, isMobile, prefersReducedMotion };

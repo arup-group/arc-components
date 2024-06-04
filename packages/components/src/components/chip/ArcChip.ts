@@ -11,11 +11,13 @@ import {
   InputSize,
 } from '../../internal/constants/styleConstants.js';
 import styles from './arc-chip.styles.js';
-import '../icon/arc-icon.js';
+import '../ph-icon/x/ph-icon-x.js';
 
 /**
  * @slot default - The chip's label.
  * @slot avatar - Used to prepend an avatar element to the chip.
+ *
+ * @ssr - True
  */
 export default class ArcChip extends LitElement {
   /** @internal */
@@ -58,10 +60,11 @@ export default class ArcChip extends LitElement {
             this.clearable,
             () =>
               html`<arc-icon-button
-                name="close-circle"
                 label="Clear chip"
                 @click=${this._handleClear}
-              ></arc-icon-button>`,
+              >
+                <ph-icon-x slot="icon"></ph-icon-x>
+              </arc-icon-button>`,
           )}
         </span>
       </div>

@@ -1,3 +1,4 @@
+import { isServer } from 'lit';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 /*
@@ -37,6 +38,9 @@ class HasSlotController implements ReactiveController {
   }
 
   test(slotName: string) {
+    /** If we're on the server, we can't check for slots. */
+    if (isServer) return false;
+
     return slotName === '[default]'
       ? this.hasDefaultSlot()
       : this.hasNamedSlot(slotName);

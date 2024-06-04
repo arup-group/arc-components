@@ -27,6 +27,8 @@ import '../spinner/arc-spinner.js';
  * @cssproperty --min-width - Set the min width of the button.
  * @cssproperty --btn-color - Overwrite the font color of the button.
  * @cssproperty --btn-background - Overwrite the background color of the button.
+ *
+ * @ssr - True
  */
 export default class ArcButton extends LitElement {
   /** @internal */

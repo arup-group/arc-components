@@ -2,8 +2,6 @@ import { setCustomElementsManifest, Preview } from '@storybook/web-components';
 import DocumentationTemplate from './documentation-template.mdx';
 
 import '@arc-web/components/themes/index.css';
-import '@arc-web/components/themes/light.css';
-import '@arc-web/components/themes/dark.css';
 import '@arc-web/components/src/index';
 
 // @ts-ignore
@@ -27,7 +25,7 @@ const PREVIEW: Preview = {
     },
     options: {
       storySort: {
-        order: ['Getting Started', 'Components'],
+        order: ['Welcome', 'Components'],
       },
     },
   },

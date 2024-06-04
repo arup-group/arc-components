@@ -1,6 +1,8 @@
 import React from 'react';
 import { ArcContainer, ArcNavbar } from '@arc-web/react';
 
+import { PhIconHouse } from '@arc-web/react/src/components/ph-icon/house/ph-icon-house';
+
 export function App() {
   return (
     <ArcContainer>
@@ -8,7 +10,11 @@ export function App() {
         <span slot="name">ARC Playground</span>
       </ArcNavbar>
 
-      <section id="playground"></section>
+      <section id="playground">
+
+        <PhIconHouse />
+
+      </section>
     </ArcContainer>
   );
 }

@@ -69,15 +69,6 @@
       },
       "dependsOn": ["build"]
     },
-    "storybook:preview": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx @web/dev-server --root-dir dist/packages/storybook --port 4200",
-        "cwd": ".",
-        "parallel": false
-      },
-      "dependsOn": ["storybook:build"]
-    },
     "storybook:serve": {
       "executor": "@nx/storybook:storybook",
       "options": {

@@ -21,6 +21,7 @@ body:
         - label: 'bottombar'
         - label: 'button'
         - label: 'card'
+        - label: 'checkbox'
         - label: 'chip'
         - label: 'container'
         - label: 'drawer'

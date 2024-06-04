@@ -1,9 +1,6 @@
 {
   "name": "@arc-web/components",
-  "workspaces": [
-    "packages/*"
-  ],
- "generators": "./generators.json",
+  "generators": "./generators.json",
   "executors": "./executors.json",
   "devDependencies": {
     "@angular-devkit/build-angular": "16.2.0",

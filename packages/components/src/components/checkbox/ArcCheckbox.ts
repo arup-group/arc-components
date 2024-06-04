@@ -3,6 +3,7 @@ import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { FormController } from '../../internal/form-control.js';
 import { watch } from '../../internal/watch.js';
 import { emit } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -17,16 +18,26 @@ export default class ArcCheckbox extends LitElement {
   static tag = 'arc-checkbox';
   static styles = styles;
 
+  /** @internal - Controller used to recognize form controls located inside a shadow root. */
+  /* @ts-expect-error - Controller used to hook the component to the formData */
+  private readonly formController = new FormController(this, {
+    value: (control: ArcCheckbox) =>
+      control.checked ? control.value : undefined,
+  });
+
   @query('input[type="checkbox"]') private input: HTMLInputElement;
 
   /** The name used to reference the value of the control. */
   @property({ type: String }) public name: string;
 
-  /** The value attribute of the radio. */
+  /** The value attribute of the checkbox. */
   @property({ type: String }) public value: string;
 
   /** Draws the component in a disabled state. */
   @property({ type: Boolean, reflect: true }) public disabled: boolean = false;
+
+   /** Makes the chechbox a required field. */
+  @property({ type: Boolean, reflect: true }) public required = false;
 
   /** Draws the component in a checked state. */
   @property({ type: Boolean, reflect: true }) public checked: boolean = false;
@@ -36,6 +47,10 @@ export default class ArcCheckbox extends LitElement {
    * by the `setCustomValidity` method.
    */
   @property({ type: Boolean, reflect: true }) public invalid = false;
+
+  firstUpdated() {
+    this.invalid = !this.input.checkValidity();
+  }
 
   /* Enable/disable the editor when the disabled property changes */
   @watch('disabled', { waitUntilFirstUpdate: true })
@@ -47,9 +62,8 @@ export default class ArcCheckbox extends LitElement {
 
   @watch('checked', { waitUntilFirstUpdate: true })
   public handleCheckedChange(): void {
-    if (this.value == undefined) {
-      this.value = !!this.checked ? 'on' : 'off';
-    }
+    this.input.checked = this.checked;
+    this.invalid = !this.input.checkValidity();
   }
 
   /* Simulates a click on the checkbox. */
@@ -105,6 +119,7 @@ export default class ArcCheckbox extends LitElement {
           .value=${ifDefined(this.value || undefined)}
           .checked=${live(this.checked)}
           .disabled=${this.disabled}
+          .required=${this.required}
           aria-checked=${this.checked ? 'true' : 'false'}
           aria-disabled=${this.disabled ? 'true' : 'false'}
           @click=${this.handleClick}

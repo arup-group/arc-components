@@ -10,7 +10,7 @@
   },
   "type": "module",
   "peerDependencies": {
-    "@arc-web/components": "3.1.1",
+    "@arc-web/components": "3.2.0",
     "react": "^18.0.0"
   },
   "dependencies": {

@@ -95,6 +95,7 @@ Avoid using emojis, but when you do:
 Be friendly and helpful, and avoid jargon. Do not blame the user.
 
 **Do:**
+
 ```html
 <em>Enter a name</em>
 <br />
@@ -102,6 +103,7 @@ Be friendly and helpful, and avoid jargon. Do not blame the user.
 ```
 
 **Don’t:**
+
 ```html
 <em>Error 1234567890</em>
 <br />
@@ -111,11 +113,13 @@ Be friendly and helpful, and avoid jargon. Do not blame the user.
 Be specific.
 
 **Do:**
+
 ```html
 <em>Enter a credit card number</em>
 ```
 
 **Don’t:**
+
 ```html
 <em>Field required</em>
 ```
@@ -123,11 +127,13 @@ Be specific.
 In most cases, apologizing won't fix the problem. As a rule, do not apologize too much in any situation in the UI.
 
 **Do:**
+
 ```html
 <em>All checks failed</em>
 ```
 
 **Don’t:**
+
 ```html
 <em>Sorry, all checks failed</em>
 ```
@@ -135,11 +141,13 @@ In most cases, apologizing won't fix the problem. As a rule, do not apologize to
 Do not try to be funny or humorous.
 
 **Do:**
+
 ```html
 <em>Some checks failed</em>
 ```
 
 **Don’t:**
+
 ```html
 <em>Oops, some checks failed</em>
 ```
@@ -149,14 +157,15 @@ Do not try to be funny or humorous.
 Feedback should be clear and reassuring, using the same terms used by the UI elements that triggered it. Don't try to be funny, and avoid jargon.
 
 **Do:**
+
 ```html
-<em>Issue transfer in progress</em>
-<br /><br />
-Feedback message when transferring an issue, using the same term ("transfer") as the trigger button
+<em>Issue transfer in progress</em> <br /><br />
+Feedback message when transferring an issue, using the same term ("transfer") as
+the trigger button
 ```
 
-
 **Don’t:**
+
 ```html
 <em>Moving the issue</em><br /><br />
 Feedback message that uses a different term ("moving") than the trigger button
@@ -176,6 +185,7 @@ Do not include colons in form labels.
 All labels and button text should be in sentence case, and not include punctuation.
 
 **Do:**
+
 ```html
 <em>Save email preferences</em>
 <br />
@@ -185,6 +195,7 @@ All labels and button text should be in sentence case, and not include punctuati
 ```
 
 **Don’t:**
+
 ```html
 <em>Save email preferences.</em>
 <br />
@@ -194,13 +205,15 @@ All labels and button text should be in sentence case, and not include punctuati
 ```
 
 <Note>
-  When a sentence or label starts with a number (for example, “2 references”), the number is the first word, and the
-  rest of the sentence should be in lowercase.
+  When a sentence or label starts with a number (for example, “2 references”),
+  the number is the first word, and the rest of the sentence should be in
+  lowercase.
 </Note>
 
 Action labels should start with an imperative verb that clearly indicates what to expect.
 
 **Do:**
+
 ```html
 <em>Save preferences</em>
 ```
@@ -208,6 +221,7 @@ Action labels should start with an imperative verb that clearly indicates what t
 Action labels can be shortened to only include an adjective and a noun.
 
 **Do:**
+
 ```html
 <em>New issue</em>
 ```
@@ -219,16 +233,23 @@ Use “sign in” rather than “log in”.
 Link text should be meaningful and unique, with as few duplicated references as possible to prevent confusion. Ideally the link itself, or, alternatively, its programmatically determined context, should provide information about where the link will take you, and help users decide whether to follow the link. Examples of programmatically determined context can be aria labels, or text within the same paragraph as the link.
 
 **Do:**
+
 ```html
-<em>You can find out more about our speakers at the <a href="https://githubuniverse.com/" target="_blank">GitHub Universe site</a></em>
+<em
+  >You can find out more about our speakers at the
+  <a href="https://githubuniverse.com/" target="_blank"
+    >GitHub Universe site</a
+  ></em
+>
 ```
 
 Set the context of the image link from the text within the same container.
 
 **Do:**
+
 ```html
 <a href="/pricing">
-  <img src="pricing.png" alt="">
+  <img src="pricing.png" alt="" />
   Pricing information
 </a>
 ```
@@ -236,6 +257,7 @@ Set the context of the image link from the text within the same container.
 Never say “here” or “click here”.
 
 **Dont:**
+
 ```html
 <em>Click here to find out more about our speakers at GitHub Universe.</em>
 ```
@@ -250,11 +272,13 @@ TODO: Commas, truncation, rounding up or down. Do units have a space, KB, MB, et
 Headings, labels and buttons should not include punctuation. In most cases, exclamation marks are not appropriate — most things aren't _that_ exciting.
 
 **Do:**
+
 ```html
 <em>No code scanning alerts found</em>
 ```
 
 **Don’t:**
+
 ```html
 <em>No code scanning alerts found.</em>
 ```
@@ -284,11 +308,13 @@ _Open the `docs` folder._
 In most instances, address the user as "you" and items "owned" by the user as "your" or "yours".
 
 **Do:**
+
 ```html
 <em>Update your profile</em>
 ```
 
 **Don’t:**
+
 ```html
 <em>Update my profile</em>
 ```
@@ -300,6 +326,7 @@ Some exceptions exist and are usually related to legal language, such as when a 
 <br />
 <em>I understand, convert this issue to a discussion</em>
 ```
+
 <!--
 ### Text truncation
 TODO: Examples of truncation: dates, large numbers, long file names.

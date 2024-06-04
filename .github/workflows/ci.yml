@@ -20,7 +20,6 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: DeterminateSystems/flake-checker-action@main
       - uses: nrwl/nx-set-shas@v3
-      - run: nix develop
-      - run: npm ci --legacy-peer-deps
-      - run: npx nx run-many --target lint,test
-      - run: npx nx run-many --target build --projects=components,react
+      - run: nix develop --command npm ci --legacy-peer-deps
+      - run: nix develop --command npx nx run-many --target lint,test
+      - run: nix develop --command npx nx run-many --target build --projects=components,react

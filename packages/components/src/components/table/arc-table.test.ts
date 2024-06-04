@@ -134,7 +134,7 @@ describe('ArcTable', () => {
   /* Test specific methods */
   describe('methods', () => {
     let element: ArcTable;
-    const tableReadySpy: SinonSpy = sinon.spy();
+    let tableReadySpy: SinonSpy;
 
     /* Due to GridJS creating the table, the reference to any DOM elements is lost after each update. */
     const getTableBody = (): HTMLTableSectionElement => {
@@ -144,6 +144,7 @@ describe('ArcTable', () => {
     };
 
     beforeEach(async () => {
+      tableReadySpy = sinon.spy();
       element = await fixture(html`<arc-table></arc-table>`);
       element.addEventListener(ARC_EVENTS.tableReady, tableReadySpy);
     });
@@ -214,8 +215,7 @@ describe('ArcTable', () => {
         return columns[0] as HTMLTableCellElement;
       };
 
-      /* Wait for the underlying GridJS instance to finish rendering. */
-      await waitUntil(() => tableReadySpy.calledOnce, 'Table did not render');
+      await waitUntil(() => tableReadySpy.calledOnce);
 
       /* Update the GridJS configuration */
       element.updateConfig({
@@ -229,7 +229,7 @@ describe('ArcTable', () => {
       /* Wait for the underlying GridJS instance to finish rendering. */
       await waitUntil(
         () => tableReadySpy.calledTwice,
-        'Table did not update with date',
+        'Table did not update with data',
       );
 
       expect(firstColumn()).dom.to.equal('John');

@@ -3,6 +3,7 @@ import './components/accessibility/arc-accessibility.js';
 import './components/bottombar/arc-bottombar.js';
 import './components/button/arc-button.js';
 import './components/card/arc-card.js';
+import './components/checkbox/arc-checkbox.js';
 import './components/container/arc-container.js';
 import './components/drawer/arc-drawer.js';
 import './components/dropdown/arc-dropdown.js';
@@ -28,6 +29,7 @@ export { default as ArcAccessibility } from './components/accessibility/ArcAcces
 export { default as ArcBottombar } from './components/bottombar/ArcBottombar.js';
 export { default as ArcButton } from './components/button/ArcButton.js';
 export { default as ArcCard } from './components/card/ArcCard.js';
+export { default as ArcCheckxox } from './components/checkbox/ArcCheckbox.js';
 export { default as ArcContainer } from './components/container/ArcContainer.js';
 export { default as ArcDrawer } from './components/drawer/ArcDrawer.js';
 export { default as ArcDropdown } from './components/dropdown/ArcDropdown.js';

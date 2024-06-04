@@ -1,0 +1,53 @@
+# Color and themes
+
+## Customization
+
+**ARC** components can be customized at a high level through design tokens. This gives you control over theme colours and general styling. For more advanced customizations, web-components can expose something called CSS `parts`. To ensure that each application looks and feels the same, these `parts` are not being exposed from the **ARC** components.
+
+## Design Tokens
+
+**ARC** makes use of several design tokens to provide a consistent appearance across components. You can customize them and use them in your own application with pure CSS. Design tokens offer a high-level approach to customizing your components, with minimal effort. There are no component-specific variables, however, as design tokens are intended to be generic and highly reusable.
+
+Design tokens are accessed through CSS custom properties that are defined within the theme. Because design tokens live at the page level, they're prefixed with `--arc-` to avoid collisions with other libraries.
+
+To customize a design token, simply override it in your stylesheet using a `:root` block. If you are including the ARC-provided theme stylesheets, be sure to import your own _after_ the ARC stylesheets so that your styles override the ARC-provided ones where relevant.
+
+Here's an example that changes the primary color of the light theme. Note that you should use the ARC color palette, but if you _must_ provide a different color you should provide only the comma separated numbers to go inside an rgba block (e.g. `255,255,255,1`, not `rgba(255,255,255,1)` and not `#FFFFFF`)
+
+```css
+:root {
+  --arc-light-color-primary: var(--arc-green-050);
+}
+```
+
+## Custom Properties
+
+For convenience, some components expose CSS custom properties you can override. These are not design tokens, nor do they have the same `--arc-` prefix since they're scoped to a component.
+
+You can set custom properties on a component in your stylesheet.
+
+```css
+arc-button {
+  --btn-color: green;
+}
+```
+
+This will also work if you need to target a subset of components with a specific class.
+
+```css
+arc-button.green {
+  --btn-color: rgb(var(--arc-green-050));
+}
+
+arc-button.blue {
+  --btn-color: rgb(var(--arc-blue-050));
+}
+```
+
+Alternatively, you can set them inline directly on the component.
+
+```html
+<arc-button style="--btn-color=rgb(var(--arc-green-050))">My Button</arc-button>
+```
+
+Not all components expose CSS custom properties. For those that do, they can be found in the component's API documentation. In the properties table, these can be found under the `CSS CUSTOM PROPERTIES` row.

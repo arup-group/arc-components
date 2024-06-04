@@ -1,0 +1,24 @@
+# Playgrounds
+
+Prebuild playgrounds provide examples of how to use **ARC** components in various frameworks and environments:
+
+- [Angular](https://github.com/arup-group/arc-components/tree/main/playgrounds/angular) An Angular application build with the Angular CLI.
+- [LIT](https://github.com/arup-group/arc-components/tree/main/playgrounds/lit) A LIT application build and bundled with Vite.
+- [React](https://github.com/arup-group/arc-components/tree/main/playgrounds/react) A React application build and bundled with Vite.
+- [Vue](https://github.com/arup-group/arup-components/tree/main/playgrounds/vue) A Vue application build and bundled with Vite.
+- [Vanilla JS](https://github.com/arup-group/arup-components/tree/main/playgrounds/vanilla) A Vanilla JS application build and bundled with Vite.
+- [Node SSR](https://github.com/arup-group/arup-components/tree/main/playgrounds/node-ssr) A Node application that uses The Koa framework to server side render and hydrate **ARC** components.
+- [Node Prerender](https://github.com/arup-group/arup-components/tree/main/playgrounds/node-prerender) A Node application that prerenders a static index.html file that included \*_ARC_ components.
+
+<details>
+<summary>Running Playgrounds Locally</summary>
+
+To run a playground locally, clone the repository and run the following commands:
+
+```sh
+nix develop
+npm ci
+npx nx run <playground-name>:serve
+```
+
+</details>

@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'ARC',
   tagline: '(ARC) Arup Reuable Components',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
   organizationName: 'arup-group',
   projectName: 'arc-components',
   url: 'https://arc.arup.com',
@@ -22,22 +22,23 @@ const config: Config = {
       {
         docs: { sidebarPath: require.resolve('./sidebars.ts') },
         theme: {
-          customCss: require.resolve('../dist/packages/components/themes/docusaurus.css'),
+          customCss: require.resolve(
+            '../dist/packages/components/themes/docusaurus.css',
+          ),
         },
       } satisfies Preset.Options,
     ],
   ],
   themeConfig: {
     navbar: {
-      title: 'ARC',
       logo: {
         alt: 'ARC Logo',
         src: 'img/logo.svg',
       },
       items: [
         {
-          type: 'doc',
-          docId: 'introduction',
+          type: 'docSidebar',
+          sidebarId: 'documentation',
           position: 'left',
           label: 'Documentation',
         },

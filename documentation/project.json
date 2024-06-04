@@ -1,12 +1,13 @@
 {
-  "name": "docs",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "documentation",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "packages/docs/src",
+  "sourceRoot": "documentation/src",
   "targets": {
     "serve": {
-      "executor": "@nx-plus/docusaurus:dev-server",
+      "executor": "./:serve",
       "options": {
+        "config": "documentation/docusaurus.config.ts",
         "port": 4200
       },
       "dependsOn": [
@@ -17,9 +18,9 @@
       ]
     },
     "build": {
-      "executor": "@nx-plus/docusaurus:browser",
+      "executor": "./:docusaurus-build",
       "options": {
-        "outputPath": "dist/packages/docs"
+        "outputPath": "dist/packages/documentation"
       },
       "dependsOn": [
         {
@@ -28,6 +29,5 @@
         }
       ]
     }
-  },
-  "tags": []
+  }
 }

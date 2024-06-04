@@ -12,7 +12,7 @@ with pkgs.lib;
       ;
 
     src = sources.cleanSource ./.;
-    npmDepsHash = "sha256-jSY4KWr+Z6BmESH5ukbFOlRZcGnht1eB5TmecdkbHb8=";
+    npmDepsHash = "sha256-BzSjmtT7/sNZ4Hd4KT/SYZ3kTnKzMI42LiJcLvKA3gY=";
 
     npmInstallFlags = [
       # ignore legacy peer dependencies

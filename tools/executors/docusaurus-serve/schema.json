@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "outputCapture": "direct-nodejs",
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Serve Docusaurus",
+  "description": "Serve Docusaurus site.",
+  "type": "object",
+  "properties": {},
+  "required": []
+}

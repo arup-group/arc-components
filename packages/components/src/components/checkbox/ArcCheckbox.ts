@@ -36,7 +36,7 @@ export default class ArcCheckbox extends LitElement {
   /** Draws the component in a disabled state. */
   @property({ type: Boolean, reflect: true }) public disabled: boolean = false;
 
-   /** Makes the chechbox a required field. */
+  /** Makes the chechbox a required field. */
   @property({ type: Boolean, reflect: true }) public required = false;
 
   /** Draws the component in a checked state. */

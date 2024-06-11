@@ -42,7 +42,6 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/arup-group/arc-components',
           label: 'GitHub',

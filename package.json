@@ -1,5 +1,4 @@
 {
-  "name": "@arc-web/components",
   "generators": "./generators.json",
   "executors": "./executors.json",
   "workspaces": [

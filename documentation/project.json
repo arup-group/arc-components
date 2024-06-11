@@ -13,7 +13,7 @@
       "dependsOn": [
         {
           "target": "build",
-          "projects": "components"
+          "projects": ["components", "react"]
         }
       ]
     },

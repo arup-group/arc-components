@@ -1,5 +1,7 @@
 # Forms
 
+> This document outlines a guide to using forms with **ARC** components in your web-based application.
+
 Every **ARC** component makes use of a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate markup, styles and behaviour. One caveat of this approach is that native `form` elements do not recognize form controls located inside a shadow root.
 
 **ARC** solves this problem by using the [formData](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event) event, which is available in all [modern browsers](https://caniuse.com/mdn-api_htmlformelement_formdata_event). This means, when a form is submitted, **ARC** form controls (i.e. arc-radio) will automatically append their values to the `FormData` object that is used to submit the form. In most cases, things will 'just work.' However, if you are using a form serialization library, it might need to be adapted to recognize **ARC** form controls.

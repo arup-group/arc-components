@@ -73,10 +73,10 @@ describe('ArcNavbar', () => {
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcNavbar;
-
-    const showHandler: SinonSpy = sinon.spy();
+    let showHandler: SinonSpy;
 
     beforeEach(async () => {
+      showHandler = sinon.spy();
       element = await fixture(html`<arc-navbar></arc-navbar>`);
     });
 

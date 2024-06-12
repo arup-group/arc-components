@@ -76,9 +76,10 @@ describe('ArcChip', () => {
   describe('events', () => {
     let element: ArcChip;
     let clearButton: ArcIconButton;
-    const clearSpy: SinonSpy = sinon.spy();
+    let clearSpy: SinonSpy;
 
     beforeEach(async () => {
+      clearSpy = sinon.spy();
       element = await fixture(html`<arc-chip clearable>Chip one</arc-chip>`);
       clearButton = element.shadowRoot!.querySelector('arc-icon-button')!;
     });

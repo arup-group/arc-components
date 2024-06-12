@@ -173,9 +173,10 @@ describe('ArcCheckbox', () => {
     let form: HTMLFormElement;
     let firstCheckbox: ArcCheckbox;
     let submitBtn: ArcButton;
-    const submitSpy: SinonSpy = sinon.spy();
+    let submitSpy: SinonSpy;
 
     beforeEach(async () => {
+      submitSpy = sinon.spy();
       form = await fixture(html`
         <form>
           <arc-checkbox name="dogs" value="likes_dogs" checked

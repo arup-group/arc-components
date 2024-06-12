@@ -35,6 +35,7 @@ const sidebars: SidebarsConfig = {
         'dev-guides/iconography',
         'dev-guides/ssr',
         'dev-guides/typescript',
+        'dev-guides/docusaurus',
       ],
     },
   ],

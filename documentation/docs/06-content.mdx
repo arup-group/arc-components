@@ -1,3 +1,5 @@
+import { DoDontCard, Do, Dont } from '../src/components/do-dont';
+
 # Content
 
 TODO: update link to Arup's content guide
@@ -91,82 +93,92 @@ Avoid using emojis, but when you do:
 
 Be friendly and helpful, and avoid jargon. Do not blame the user.
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Enter a name</em>
+    <br />
+    <em>Your name must be between 2 and 20 characters</em>
+    ```
+  </Do>
 
-```html
-<em>Enter a name</em>
-<br />
-<em>Your name must be between 2 and 20 characters</em>
-```
+  <Dont>
+    ```html
+    <em>Error 1234567890</em>
+    <br />
+    <em>You forgot to add your name</em>
+    ```
+  </Dont>
+</DoDontCard>
 
-**Don’t:**
+Always be specific:
 
-```html
-<em>Error 1234567890</em>
-<br />
-<em>You forgot to add your name</em>
-```
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Enter a credit card number</em>
+    ```
+  </Do>
 
-Be specific.
+  <Dont>
+    ```html
+    <em>Field required</em>
+    ```
+  </Dont>
+</DoDontCard>
 
-**Do:**
+Never apologize in any situation in the UI.
 
-```html
-<em>Enter a credit card number</em>
-```
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Some checks failed</em>
+    ```
+  </Do>
 
-**Don’t:**
+  <Dont>
+    ```html
+      <em>Sorry, all check failed</em>
+    ```
+  </Dont>
+</DoDontCard>
 
-```html
-<em>Field required</em>
-```
+Never try to be funny or humorous.
 
-In most cases, apologizing won't fix the problem. As a rule, do not apologize too much in any situation in the UI.
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Some checks failed</em>
+    ```
+  </Do>
 
-**Do:**
-
-```html
-<em>All checks failed</em>
-```
-
-**Don’t:**
-
-```html
-<em>Sorry, all checks failed</em>
-```
-
-Do not try to be funny or humorous.
-
-**Do:**
-
-```html
-<em>Some checks failed</em>
-```
-
-**Don’t:**
-
-```html
-<em>Oops, some checks failed</em>
-```
+  <Dont>
+    ```html
+    <em>Oops, some checks failed</em>
+    ```
+  </Dont>
+</DoDontCard>
 
 ### Feedback
 
 Feedback should be clear and reassuring, using the same terms used by the UI elements that triggered it. Don't try to be funny, and avoid jargon.
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Issue transfer in progress</em> <br /><br />
+    Feedback message when transferring an issue, using the same term ("transfer") as
+    the trigger button
+    ```
+  </Do>
 
-```html
-<em>Issue transfer in progress</em> <br /><br />
-Feedback message when transferring an issue, using the same term ("transfer") as
-the trigger button
-```
-
-**Don’t:**
-
-```html
-<em>Moving the issue</em><br /><br />
-Feedback message that uses a different term ("moving") than the trigger button
-```
+  <Dont>
+    ```html
+    <em>Moving the issue</em><br /><br />
+    Feedback message that uses a different term ("moving") than the trigger button
+    ```
+  </Dont>
+</DoDontCard>
 
 <!-- TODO: More confirmation messages. Save, close, dismiss. -->
 
@@ -181,25 +193,27 @@ Do not include colons in form labels.
 
 All labels and button text should be in sentence case, and not include punctuation.
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Save email preferences</em>
+    <br />
+    <em>1 linked pull request</em>
+    <br />
+    <em>12 days ago</em>
+    ```
+  </Do>
 
-```html
-<em>Save email preferences</em>
-<br />
-<em>1 linked pull request</em>
-<br />
-<em>12 days ago</em>
-```
-
-**Don’t:**
-
-```html
-<em>Save email preferences.</em>
-<br />
-<em>1 Linked pull request</em>
-<br />
-<em>12 Days ago</em>
-```
+  <Dont>
+    ```html
+    <em>Save email preferences.</em>
+    <br />
+    <em>1 Linked pull request</em>
+    <br />
+    <em>12 Days ago</em>
+    ```
+  </Dont>
+</DoDontCard>
 
 <note>
   When a sentence or label starts with a number (for example, “2 references”),
@@ -209,58 +223,124 @@ All labels and button text should be in sentence case, and not include punctuati
 
 Action labels should start with an imperative verb that clearly indicates what to expect.
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Save preferences</em>
+    ```
+  </Do>
 
-```html
-<em>Save preferences</em>
-```
+  <Dont>
+    ```html
+    <em>Preferences saved</em>
+    ```
+  </Dont>
+</DoDontCard>
 
 Action labels can be shortened to only include an adjective and a noun.
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Save changes</em>
+    ```
+  </Do>
 
-```html
-<em>New issue</em>
-```
+  <Dont>
+    ```html
+    <em>Save your changes</em>
+    ```
+  </Dont>
+</DoDontCard>
 
-Use “sign in” rather than “log in”.
+Always use “sign in” rather than “log in”:
+
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Sign in</em>
+    ```
+  </Do>
+
+  <Dont>
+    ```html
+    <em>Log in</em>
+    ```
+  </Dont>
+</DoDontCard>
 
 ### Links
 
 Link text should be meaningful and unique, with as few duplicated references as possible to prevent confusion. Ideally the link itself, or, alternatively, its programmatically determined context, should provide information about where the link will take you, and help users decide whether to follow the link. Examples of programmatically determined context can be aria labels, or text within the same paragraph as the link.
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>
+      You can find out more about our speakers at the
+      <a href="https://githubuniverse.com/" target="_blank">
+        GitHub Universe site
+      </a>
+    </em>
+    ```
+  </Do>
 
-```html
-<em
-  >You can find out more about our speakers at the
-  <a href="https://githubuniverse.com/" target="_blank"
-    >GitHub Universe site</a
-  ></em
->
-```
+  <Dont>
+    ```html
+    <em>
+      You can find out more about our speakers
+      <a href="https://githubuniverse.com/" target="_blank">
+        here
+      </a>
+    </em>
+    ```
+  </Dont>
+</DoDontCard>
 
 Set the context of the image link from the text within the same container.
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <a href="/pricing">
+      <img src="pricing.png" alt="" />
+      Pricing information
+    </a>
+    ```
+  </Do>
 
-```html
-<a href="/pricing">
-  <img src="pricing.png" alt="" />
-  Pricing information
-</a>
-```
+  <Dont>
+    ```html
+    <a href="/pricing">
+      <img src="pricing.png" alt="" />
+      Click here for pricing information
+    </a>
+    ```
+  </Dont>
+</DoDontCard>
 
-Never say “here” or “click here”.
+Never say “here” or “click here”:
 
-**Dont:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>You can find out more about our speakers at the
+      <a href="https://githubuniverse.com/" target="_blank"
+        >GitHub Universe site</a
+      ></em
+    >
+    ```
+  </Do>
 
-```html
-<em>Click here to find out more about our speakers at GitHub Universe.</em>
-```
+  <Dont>
+    ```html
+    <em>Click here to find out more about our speakers at GitHub Universe.</em>
+    ```
+  </Dont>
+</DoDontCard>
+### Numbers
 
 <!--
-### Numbers
 TODO: Commas, truncation, rounding up or down. Do units have a space, KB, MB, etc.?
 -->
 
@@ -268,17 +348,19 @@ TODO: Commas, truncation, rounding up or down. Do units have a space, KB, MB, et
 
 Headings, labels and buttons should not include punctuation. In most cases, exclamation marks are not appropriate — most things aren't _that_ exciting.
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>No code scanning alerts found</em>
+    ```
+  </Do>
 
-```html
-<em>No code scanning alerts found</em>
-```
-
-**Don’t:**
-
-```html
-<em>No code scanning alerts found.</em>
-```
+  <Dont>
+    ```html
+    <em>No code scanning alerts found.</em>
+    ```
+  </Dont>
+</DoDontCard>
 
 ### References to UI
 
@@ -302,32 +384,27 @@ _Open the `docs` folder._
 
 ### Subject
 
-In most instances, address the user as "you" and items "owned" by the user as "your" or "yours".
+Address the user as "you" and items "owned" by the user as "your" or "yours".
 
-**Do:**
+<DoDontCard>
+  <Do>
+    ```html
+    <em>Update your profile</em>
+    ```
+  </Do>
 
-```html
-<em>Update your profile</em>
-```
-
-**Don’t:**
-
-```html
-<em>Update my profile</em>
-```
+  <Dont>
+    ```html
+    <em>Update my profile</em>
+    ```
+  </Dont>
+</DoDontCard>
 
 Some exceptions exist and are usually related to legal language, such as when a user needs to agree to terms, or confirm a destructive action.
 
-```html
-<em>I have read the Terms of Service</em>
-<br />
-<em>I understand, convert this issue to a discussion</em>
-```
-
-<!--
 ### Text truncation
-TODO: Examples of truncation: dates, large numbers, long file names.
--->
+
+<!-- TODO: Examples of truncation: dates, large numbers, long file names. -->
 
 ## What to avoid
 

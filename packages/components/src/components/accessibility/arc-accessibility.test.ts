@@ -4,7 +4,7 @@ import sinon, { SinonSpy } from 'sinon';
 import { parseObject, stringToHyphenSeparated } from '../../internal/string.js';
 import { setRootValue, getRootValue } from '../../utilities/style-utils.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import { CONTAINER_THEMES } from '../container/constants/ContainerConstants.js';
+import { CONTAINER_THEME_PREFERENCES } from '../container/constants/ContainerConstants.js';
 import {
   FONT_SIZES,
   FONT_SPACING,
@@ -155,20 +155,26 @@ describe('ArcAccessibility', () => {
       localStorage.clear();
 
       const container: ArcContainer = await fixture(
-        html`<arc-container theme=${CONTAINER_THEMES.dark}></arc-container>`,
+        html`<arc-container
+          theme=${CONTAINER_THEME_PREFERENCES.dark}
+        ></arc-container>`,
       );
       const accessibility = container.shadowRoot?.getElementById(
         'accessibility',
       ) as ArcAccessibility;
 
-      expect(accessibility.getTheme()).to.equal(CONTAINER_THEMES.dark);
+      expect(accessibility.getThemePreference()).to.equal(
+        CONTAINER_THEME_PREFERENCES.dark,
+      );
     });
 
     it('should return the default theme property when no parent arc-container is present', async () => {
       const element: ArcAccessibility = await fixture(
         html`<arc-accessibility></arc-accessibility>`,
       );
-      expect(element.getTheme()).to.equal(CONTAINER_THEMES.auto);
+      expect(element.getThemePreference()).to.equal(
+        CONTAINER_THEME_PREFERENCES.auto,
+      );
     });
 
     it('should update arc css root variables', async () => {
@@ -238,7 +244,7 @@ describe('ArcAccessibility', () => {
       );
       element.updateRootValue(
         'theme' as keyof UserPreferences,
-        CONTAINER_THEMES.dark,
+        CONTAINER_THEME_PREFERENCES.dark,
       );
       expect('nothing happened').to.equal('nothing happened');
     });
@@ -316,7 +322,7 @@ describe('ArcAccessibility', () => {
   describe('events', () => {
     let element: ArcAccessibility;
     let themeRadioGroup: ArcRadioGroup;
-    const accessibilityChangeHandler: SinonSpy = sinon.spy();
+    let accessibilityChangeHandler: SinonSpy;
 
     /* Grab the user preferences from the localStore */
     const getCachedPreferences = () => {
@@ -330,6 +336,7 @@ describe('ArcAccessibility', () => {
     };
 
     beforeEach(async () => {
+      accessibilityChangeHandler = sinon.spy();
       element = await fixture(html`<arc-accessibility></arc-accessibility>`);
       themeRadioGroup = element.shadowRoot?.getElementById(
         'theme',

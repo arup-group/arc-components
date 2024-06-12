@@ -1,18 +1,24 @@
 import '@arc-web/components/themes/index.css';
-import '@arc-web/components/themes/light.css';
-import '@arc-web/components/themes/dark.css';
 import '@arc-web/components';
 
-class AppComponent extends HTMLElement {
-  connectedCallback() {
-    this.innerHTML = `<arc-container>
-      <arc-navbar slot="nav" logo="assets/arc-red.svg">
-        <span slot="name">ARC Playground</span>
-      </arc-navbar>
+const app = document.querySelector('app-root')!;
+const container = document.createElement('arc-container');
+const table = document.createElement('arc-table');
 
-      <section id="playground"></section>
-    </arc-container>`;
-  }
-}
+Object.assign(table, {
+  columns: [
+    'Name',
+    'LastName',
+    'Email',
+  ],
+  data: [
+    ['John', 'Doe', 'john.doe@arup.com'],
+    ['Jane', 'Doe', 'jane.doe@arup.com'],
+    ['Joe', 'Doakes', 'joe.doakes@arup.com'],
+    ['Juan', 'Perez', 'juan.perez@arup.com'],
+    ['Fred', 'Nerk', 'fred.nerk@arup.com'],
+  ],
+});
 
-customElements.define('app-root', AppComponent);
+container.appendChild(table);
+app.appendChild(container);

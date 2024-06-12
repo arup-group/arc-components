@@ -1,6 +1,8 @@
-export declare type ContainerTheme = 'auto' | 'dark' | 'light';
+export declare type ContainerThemePreference = 'auto' | 'dark' | 'light';
 
-export const CONTAINER_THEMES: { [key in ContainerTheme]: ContainerTheme } = {
+export const CONTAINER_THEME_PREFERENCES: {
+  [key in ContainerThemePreference]: ContainerThemePreference;
+} = {
   auto: 'auto',
   dark: 'dark',
   light: 'light',

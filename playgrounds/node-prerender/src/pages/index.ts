@@ -9,14 +9,6 @@ export function* renderIndex() {
     'dist/packages/components/themes/index.css',
     'utf8',
   );
-  const light = fs.readFileSync(
-    'dist/packages/components/themes/light.css',
-    'utf8',
-  );
-  const dark = fs.readFileSync(
-    'dist/packages/components/themes/dark.css',
-    'utf8',
-  );
 
   yield `
   <!doctype html>
@@ -33,8 +25,6 @@ export function* renderIndex() {
       <link rel="icon" type="image/x-icon" href="assets/icons/favicon_96.ico" />
       <style>
         ${index}
-        ${light}
-        ${dark}
       </style>
     <head>
   `;

@@ -223,7 +223,9 @@ describe('ArcIconButton', () => {
         html`<arc-icon-button>Test</arc-icon-button>`,
       );
 
-      expect(getPropertyValue(element, '--icon-color')).to.equal('');
+      expect(getPropertyValue(element, '--icon-color')).to.equal(
+        'rgb(28, 28, 28)',
+      );
     });
 
     it('overwrites the css variables', async () => {

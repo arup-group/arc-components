@@ -1,0 +1,33 @@
+{
+  "name": "documentation",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "documentation/src",
+  "targets": {
+    "serve": {
+      "executor": "./:serve",
+      "options": {
+        "config": "documentation/docusaurus.config.ts",
+        "port": 4200
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": ["components", "react"]
+        }
+      ]
+    },
+    "build": {
+      "executor": "./:docusaurus-build",
+      "options": {
+        "outputPath": "dist/packages/documentation"
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "components"
+        }
+      ]
+    }
+  }
+}

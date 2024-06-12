@@ -207,7 +207,7 @@ describe('ArcSidebar', () => {
         html`<arc-sidebar></arc-sidebar>`,
       );
 
-      expect(getPropertyValue(element, '--gap-distance')).to.equal('');
+      expect(getPropertyValue(element, '--gap-distance')).to.equal('1rem');
       expect(getPropertyValue(element, '--sidebar-width')).to.equal(
         'clamp(15rem, 30%, 23rem)',
       );

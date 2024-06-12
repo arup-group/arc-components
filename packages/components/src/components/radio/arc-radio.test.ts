@@ -280,9 +280,10 @@ describe('ArcRadio', () => {
     let form: HTMLFormElement;
     let firstRadio: ArcRadio;
     let submitBtn: ArcButton;
-    const submitSpy: SinonSpy = sinon.spy();
+    let submitSpy: SinonSpy;
 
     beforeEach(async () => {
+      submitSpy = sinon.spy();
       form = await fixture(html`
         <form>
           <arc-radio-group>

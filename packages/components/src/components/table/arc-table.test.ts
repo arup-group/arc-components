@@ -263,9 +263,9 @@ describe('ArcTable', () => {
   /* Test the events (click, focus, blur etc.) */
   describe('events', () => {
     let element: ArcTable;
-    const rowClickSpy: SinonSpy = sinon.spy();
-    const cellClickSpy: SinonSpy = sinon.spy();
-    const tableReadySpy: SinonSpy = sinon.spy();
+    let rowClickSpy: SinonSpy;
+    let cellClickSpy: SinonSpy;
+    let tableReadySpy: SinonSpy;
 
     /* Due to GridJS creating the table, the reference to any DOM elements is lost after each update. */
     const getTableBody = (): HTMLTableSectionElement => {
@@ -275,6 +275,9 @@ describe('ArcTable', () => {
     };
 
     beforeEach(async () => {
+      rowClickSpy = sinon.spy();
+      cellClickSpy = sinon.spy();
+      tableReadySpy = sinon.spy();
       const data = ['John', 'Doe', 'john.doe@johndoe.com'];
       element = await fixture(html`<arc-table .data=${data}></arc-table>`);
       element.addEventListener(ARC_EVENTS.tableReady, tableReadySpy);

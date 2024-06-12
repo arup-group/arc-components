@@ -173,9 +173,10 @@ describe('ArcSwitch', () => {
     let form: HTMLFormElement;
     let firstSwitch: ArcSwitch;
     let submitBtn: ArcButton;
-    const submitSpy: SinonSpy = sinon.spy();
+    let submitSpy: SinonSpy;
 
     beforeEach(async () => {
+      submitSpy = sinon.spy();
       form = await fixture(html`
         <form>
           <arc-switch name="dogs" value="likes_dogs" checked

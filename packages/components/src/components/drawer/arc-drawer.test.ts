@@ -106,13 +106,14 @@ describe('ArcDrawer', () => {
     let overlay: HTMLElement;
     let panel: HTMLElement;
     let isOpen: Function;
-
-    const initialFocusHandler: SinonSpy = sinon.spy((event) => {
-      event.preventDefault();
-      input.focus();
-    });
+    let initialFocusHandler: SinonSpy;
 
     beforeEach(async () => {
+      initialFocusHandler = sinon.spy((event) => {
+        event.preventDefault();
+        input.focus();
+      });
+
       element = await fixture(
         html`<arc-drawer id="one"><input /></arc-drawer>`,
       );

@@ -134,9 +134,10 @@ describe('ArcMenuItem', () => {
   /* Test the events (click etc.) */
   describe('events', () => {
     let element: ArcMenuItem;
-    const clickSpy: SinonSpy = sinon.spy();
+    let clickSpy: SinonSpy;
 
     beforeEach(async () => {
+      clickSpy = sinon.spy();
       element = await fixture(html`<arc-menu-item></arc-menu-item>`);
       element.addEventListener('click', clickSpy);
     });

@@ -96,10 +96,12 @@ describe('ArcImage', () => {
     let element: ArcImage;
     let image: HTMLElement;
     let overlay: HTMLElement;
-    const loadHandler: SinonSpy = sinon.spy();
-    const errorHandler: SinonSpy = sinon.spy();
+    let loadHandler: SinonSpy;
+    let errorHandler: SinonSpy;
 
     beforeEach(async () => {
+      loadHandler = sinon.spy();
+      errorHandler = sinon.spy();
       await setViewport({ width: 100, height: 100 });
       element = await fixture(
         html`<arc-image width="500px" height="500px" delay="1000"></arc-image>`,

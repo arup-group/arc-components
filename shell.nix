@@ -1,6 +1,6 @@
-{pkgs}:
+{ pkgs }:
 pkgs.mkShell {
-  buildInputs = with pkgs; [nodejs azure-cli];
+  buildInputs = with pkgs; [ nodejs azure-cli ];
 
   shellHook = ''
     # add node modules binaries to PATH

@@ -1,10 +1,19 @@
-{buildArcPackage}:
+{ pkgs }:
+
+let
+  lib = import ../lib.nix { inherit pkgs; };
+in
+
+with lib;
+
 buildArcPackage {
-  name = "arc-documentation";
-  buildInputs = [pkgs.python3];
+  name = "documentation";
+
+  # run the documentation build script
   buildPhase = ''
-    npx nx run docs:build
+    npx nx run documentation:build
   '';
+
   installPhase = ''
     mkdir -p $out
     cp -r dist/packages/docs/* $out

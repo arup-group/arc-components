@@ -12,7 +12,7 @@
 
 <summary>Internal Links</summary>
 
-[Sharepoint (Arup Internal)](https://arup.sharepoint.com/:u:/r/sites/ARCDesignSystem/SitePages/ARC-Design-System.aspx?csf=1&web=1&e=bkD3kw) | [Jira (Arup Internal)](https://arupdigital.atlassian.net/jira/software/projects/ARC/boards/564)
+[Sharepoint](https://arup.sharepoint.com/:u:/r/sites/ARCDesignSystem/SitePages/ARC-Design-System.aspx?csf=1&web=1&e=bkD3kw) | [Jira](https://arupdigital.atlassian.net/jira/software/projects/ARC/boards/564)
 
 </details>
 

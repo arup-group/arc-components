@@ -33,7 +33,7 @@ const config: Config = {
     navbar: {
       logo: {
         alt: 'ARC Logo',
-        src: 'img/logo.svg',
+        src: 'img/favicon.svg',
       },
       items: [
         {

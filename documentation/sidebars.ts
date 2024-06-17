@@ -20,9 +20,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Designer Guides',
-      items: [
-        'design-guides/getting-started',
-      ],
+      items: ['design-guides/getting-started'],
     },
     {
       type: 'category',

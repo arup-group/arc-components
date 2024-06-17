@@ -16,6 +16,6 @@ buildArcPackage {
 
   installPhase = ''
     mkdir -p $out
-    cp -r dist/packages/docs/* $out
+    cp -r dist/packages/documentation/* $out
   '';
 }

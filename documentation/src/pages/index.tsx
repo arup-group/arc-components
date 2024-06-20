@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Layout from '@theme/Layout';
+import useIsBrowser from '@docusaurus/useIsBrowser';
 
 export default function Home(): JSX.Element {
-  const [isMobile] = useState(window.matchMedia('(max-width: 768px)').matches);
+  const isBrowser = useIsBrowser();
+  const isMobile = isBrowser
+    ? window.matchMedia('(max-width: 768px)').matches
+    : false;
 
   return (
     <Layout title="Arup Reuseable Components" description="">
@@ -21,7 +25,7 @@ export default function Home(): JSX.Element {
               style={{ position: 'absolute', bottom: 0, left: 0, width: '25%' }}
             />
           </div>
-          <img src="/img/arc-cover.svg" />
+          <img src="/arc-cover.svg" />
         </div>
 
         <div

@@ -5,17 +5,12 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'ARC',
   tagline: '(ARC) Arup Reuable Components',
-  favicon: 'img/favicon.svg',
+  favicon: 'icons/favicon_152.ico',
   organizationName: 'arup-group',
   projectName: 'arc-components',
   url: 'https://arc.arup.com',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
+  staticDirectories: ['../assets'],
   presets: [
     [
       'classic',

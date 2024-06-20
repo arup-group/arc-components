@@ -6,9 +6,8 @@ We welcome all contributions and engagement with the **ARC** design system.
 
 **ARC** is built using [LIT](https://lit.dev/) web components and is built on top of the Web Components standards. Every component is a native web component, with the power of interoperability. Web components work anywhere you use HTML, with any framework, or none at all. This makes using **ARC** ideal for building shareable components, or maintainable, future-ready sites and apps.
 
-- [Development Environment](#development-environment)
-- [Dependencies](#dependencies)
 - [Workspace](#workspace)
+- [Development Environment](#development-environment)
 - [Build System](#build-system)
 - [Development Guidelines](#development-guidelines)
   - [Directory Structure](#directory-structure)
@@ -18,46 +17,6 @@ We welcome all contributions and engagement with the **ARC** design system.
   - [Formatting and Linting](#formatting-and-linting)
 - [Infrastructure](#infrastructure)
 - [Guides](#guides)
-
-## Development Environment
-
-The following system native build dependencies are required for a local development environment:
-
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en/)
-- [Google Chrome](https://www.google.com/chrome/)
-- [Terraform](https://www.terraform.io/)
-- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)
-
-<details>
-  <summary>NIX</summary>
-
-If you are using [NIX](https://nixos.org/) switch to the the provided development shell with:
-
-```sh
-nix develop
-```
-
-</details>
-
-## Dependencies
-
-Install all package dependencies using npm:
-
-```sh
-npm ci && npx playwright install --with-deps
-```
-
-<details>
-  <summary>NIX</summary>
-
-If you are using [NIX](https://nixos.org/) use the `clean-install` deerivation:
-
-```sh
-nix run .#utils.[host platform].clean-install
-```
-
-</details>
 
 ## Workspace
 
@@ -77,13 +36,27 @@ This worksapce is a monorepo containing all packages and playgrounds that relate
     └── vue             # Vue + ARC playground
 ```
 
-## Build System
+[NX](https://nx.dev/) is used as a monorepo management for the Javascript ecosystem within this workspace.
 
-[NX](https://nx.dev/) is used as a build system and tasks are run using its [run tasks](https://nx.dev/core-features/run-tasks) core functionality:
+## Development Environment
+
+Switch to the provided develop environment using the following command:
 
 ```sh
-npx nx run <project>:<target>:<configuration>
+nix develop
 ```
+
+Install dependencies using the following command:
+
+```sh
+npm install --legacy-peer-deps
+```
+
+See relative project.json for each package or playground for available [NX](https://nx.dev/) runnable targets.
+
+## Build System
+
+**Nix** is used for all builds - please see our [flake](./flake.nix).
 
 ## Development Guidelines
 
@@ -159,13 +132,13 @@ Every component requires the following documentation:
 
 ### Formatting and Linting
 
-Workspace files must adhere to the formatting and linting rules. You can run the formatter with the command:
+Format this workspace with:
 
 ```sh
-npx nx format
+npx nx format:wrtie
 ```
 
-And the linter for all projects with:
+Run all lint targets using:
 
 ```sh
 npx nx run-many --target lint
@@ -199,25 +172,9 @@ C4Deployment
 
 ## Guides
 
-### Icons
-
-**ARC** uses [Phosphor Icons](https://phosphoricons.com/) as for its icon set. When updating the `@phosphor-icons/core` dependency ensure to run the `npx nx run components:ph-icons-assemble` target that updates the the genorated web components.
-
 ### Release
 
-Use the `arc-release` script to set a new version for all packages within the workspace with:
-
-```sh
-npx nx run arc-release
-```
-
-Packages and storybook documentation for the release are built and published using the [publish](./.github/workflows/publish.yml) workflow upon a GitHub release being created.
-
-### Updating Infrastucture
-
-To update infrastructure:
-
-1. Make changes to the [infrastructure](./infrastructure) terraform files.
-2. Run `npx nx run infrastructure:plan` to see the changes that will be applied.
-3. Submit a pull request with the changes. Include the output of `npx nx run infrastructure:plan` in the pull request description.
-4. Once the pull request is approved and merged into main run the `npx nx run infrastructure:apply` to apply chanages.
+1. Update all package package.json versions
+2. For each package built it with Nix: `nix build .#<package-name>`
+3. For each package the release to NPM: `cd result && npm publish`
+2. Create a release commit, tag and GitHub release

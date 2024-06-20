@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-  lib = import ../lib.nix { inherit pkgs; };
+  lib = import ../../lib.nix { inherit pkgs; };
 in
 
 with lib;

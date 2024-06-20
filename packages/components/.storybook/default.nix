@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-  lib = import ../lib.nix { inherit pkgs; };
+  lib = import ../../../lib.nix { inherit pkgs; };
 in
 
 with lib;
@@ -11,7 +11,7 @@ buildArcPackage {
 
   # run the storybook build script
   buildPhase = ''
-    npx nx run storybook:build
+    npx nx run components:storybook:build
   '';
 
   installPhase = ''

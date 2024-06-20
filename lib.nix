@@ -24,14 +24,23 @@ in
         inherit buildPhase installPhase;
 
         pname = "arc-web-${name}";
-        version = if componentsPackageJson.version == reactPackageJson.version then componentsPackageJson.version else throw "version mismatch";
+        version =
+          if componentsPackageJson.version == reactPackageJson.version
+          then componentsPackageJson.version
+          else throw "version mismatch";
+
+
+        # this workspace is a monorepo and all dependencies
+        # are resolved via the workspace root package.json
         src = cleanSource ./.;
         npmDepsHash = "sha256-lEPSjjh4yqqsB6HoS5D+xTKNakRI568INmlXPScqmBE=";
 
+        # dont run the build scripts when rebuilding
+        # npm dependencies as node-keytar will fail
+        npmRebuildFlags = [ "--ignore-scripts" ];
+
         # ignore legacy peer dependencies
         # due to peer conflics in npm deps
-        npmInstallFlags = [
-          "--legacy-peer-deps"
-        ];
+        npmInstallFlags = [ "--legacy-peer-deps" ];
       };
 }

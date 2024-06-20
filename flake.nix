@@ -17,16 +17,16 @@
       {
         formatter = pkgs.nixpkgs-fmt;
 
-        packages.arc = {
-          components = callPackage ./packages/components { };
+        packages = {
           react = callPackage ./packages/react { };
+          components = callPackage ./packages/components { };
           documentation = callPackage ./documentation { };
+          storybook = callPackage ./packages/components/.storybook { };
         };
 
-        devShells = rec {
-          arcDevelopmentShell = callPackage ./shell.nix { };
-          arcInfrastructureShell = callPackage ./infrastructure/shell.nix { };
-          default = arcDevelopmentShell;
+        devShells = {
+          default = callPackage ./shell.nix { };
+          infrastructure = callPackage ./infrastructure/shell.nix { };
         };
       }
     );

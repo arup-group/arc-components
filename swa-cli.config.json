@@ -3,8 +3,8 @@
   "configurations": {
     "arup-arc-prod-documentation": {
       "appLocation": ".",
-      "outputLocation": "./dist/packages/storybook",
-      "appBuildCommand": "npx nx run components:storybook:build",
+      "outputLocation": "./result",
+      "appBuildCommand": "nix build .#storybook",
       "run": "npx nx run components:storybook:serve",
       "appDevserverUrl": "http://localhost:4200",
       "appName": "arup-arc-prod-documentation",

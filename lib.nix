@@ -26,7 +26,7 @@ in
         pname = "arc-web-${name}";
         version = if componentsPackageJson.version == reactPackageJson.version then componentsPackageJson.version else throw "version mismatch";
         src = cleanSource ./.;
-        npmDepsHash = "sha256-Clv6fGOFoaFJi8Xo6wjmmm6qidixChLxKzNavQYkJcs=";
+        npmDepsHash = "sha256-lEPSjjh4yqqsB6HoS5D+xTKNakRI568INmlXPScqmBE=";
 
         # ignore legacy peer dependencies
         # due to peer conflics in npm deps

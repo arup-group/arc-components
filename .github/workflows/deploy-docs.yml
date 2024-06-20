@@ -16,7 +16,7 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: DeterminateSystems/flake-checker-action@main
       - run: nix build .#storybook
-      - run: nix develop --command npm run install --legacy-peer-deps
+      - run: nix develop --command npm ci --legacy-peer-deps
       - run: nix develop --command npx swa deploy -nu
         env:
           SWA_CLI_DEPLOY_ENV: production

@@ -6,7 +6,7 @@ export default [
   componentStyles,
   css`
     :host {
-      --arc-banner-background: rgb(var(--arc-brand-color));
+      --arc-banner-background: rgb(var(--arc-color-warning));
       --arc-banner-color: rgb(var(--arc-white-000));
 
       display: flex;

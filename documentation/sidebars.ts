@@ -15,6 +15,8 @@ const sidebars: SidebarsConfig = {
         'typography',
         'iconography',
         'cli',
+        'status',
+        'support',
       ],
     },
     {

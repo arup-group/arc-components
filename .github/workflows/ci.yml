@@ -22,6 +22,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v3
       - run: nix develop --command npm ci --legacy-peer-deps
       - run: nix develop --command npx nx run-many --target lint,test
+      - run: nix flake check
       - run: nix build .#components
       - run: nix build .#react
       - run: nix build .#documentation

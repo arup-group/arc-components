@@ -3,31 +3,29 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    ,
-    }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
+    { nixpkgs, flake-utils, ... }:
+
+      with flake-utils.lib;
+
+      eachDefaultSystem (system:
+
       let
         pkgs = import nixpkgs { inherit system; };
-        inherit (pkgs) callPackage;
       in
-      {
+
+      rec {
+        checks = legacyPackages;
         formatter = pkgs.nixpkgs-fmt;
-
-        packages = {
-          react = callPackage ./packages/react { };
-          components = callPackage ./packages/components { };
-          documentation = callPackage ./documentation { };
-          storybook = callPackage ./packages/components/.storybook { };
+        legacyPackages = {
+          react = pkgs.callPackage ./packages/react { };
+          components = pkgs.callPackage ./packages/components { };
+          documentation = pkgs.callPackage ./documentation { };
+          storybook = pkgs.callPackage ./packages/components/.storybook { };
         };
-
         devShells = {
-          default = callPackage ./shell.nix { };
-          infrastructure = callPackage ./infrastructure/shell.nix { };
+          default = pkgs.callPackage ./shell.nix { };
+          infrastructure = pkgs.callPackage ./infrastructure/shell.nix { };
         };
       }
-    );
+      );
 }

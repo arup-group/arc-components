@@ -2,20 +2,6 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "extends": "nx/presets/core.json",
   "npmScope": "@arc-web",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "lint",
-          "test",
-          "prebuild",
-          "build",
-          "storybook:build"
-        ]
-      }
-    }
-  },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build", "prebuild"]

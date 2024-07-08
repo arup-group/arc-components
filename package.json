@@ -67,7 +67,7 @@
     "@vitejs/plugin-react": "4.1.0",
     "@vitejs/plugin-vue": "4.3.4",
     "@web/dev-server-esbuild": "0.2.16",
-    "@web/test-runner": "0.13.31",
+    "@web/test-runner": "0.18.2",
     "@webcomponents/template-shadowroot": "0.2.1",
     "clsx": "2.1.1",
     "date-fns": "2.29.1",

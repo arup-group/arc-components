@@ -18,9 +18,11 @@ jobs:
         run: npm set //registry.npmjs.org/:_authToken=$AUTH_TOKEN
       - run: nix build .#components
       - name: publish @arc-web/components
-        run: npm publish --access public
-        working-directory: ./result
+        run: |
+          cd result /
+          && npm publish --access public
       - run: nix build .#react
       - name: publish @arc-web/react
-        run: npm publish --access public
-        working-directory: ./result
+        run: |
+          cd result /
+          && npm publish --access public

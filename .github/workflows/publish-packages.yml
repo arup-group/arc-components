@@ -10,15 +10,16 @@ jobs:
       - uses: actions/checkout@v3
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
+      - run: nix develop
       - run: nix build .#components
       - name: npm publish
-        run: nix develop --command npm publish --provenance --access public
+        run: publish --provenance --access public
         working-directory: ./result
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: nix build .#react
       - name: npm publish
-        run: nix develop --command npm publish --provenance --access public
+        run: npm publish --provenance --access public
         working-directory: ./result
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

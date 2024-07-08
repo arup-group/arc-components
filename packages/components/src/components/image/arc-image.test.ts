@@ -139,9 +139,9 @@ describe('ArcImage', () => {
 
       /* Ensure that the image is fully intersecting. */
       await setViewport({ width: 1000, height: 1000 });
-      await aTimeout(
-        1100,
-      ); /* Timeout needed as the delay within the component is 1000ms. */
+
+      /* Timeout needed as the delay within the component is 1000ms. */
+      await aTimeout(1200);
 
       await waitUntil(() => loadHandler.calledOnce);
 

@@ -157,7 +157,6 @@ export default [
 
     /* Error message */
     td.gridjs-message {
-      color: rgb(var(--arc-grey-050));
       text-align: center;
     }
 

@@ -13,7 +13,7 @@ jobs:
       - run: nix develop
       - run: nix build .#components
       - name: npm publish
-        run: publish --provenance --access public
+        run: npm publish --provenance --access public
         working-directory: ./result
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

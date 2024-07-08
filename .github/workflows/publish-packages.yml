@@ -11,14 +11,15 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix develop
-      - run: npm set //registry.npmjs.org/:_authToken=$AUTH_TOKEN
+      - name: setup npm auth
+        run: npm set //registry.npmjs.org/:_authToken=$AUTH_TOKEN
         with:
           AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: nix build .#components
-      - name: npm publish
+      - name: publish @arc-web/components
         run: npm publish --access public
         working-directory: ./result
       - run: nix build .#react
-      - name: npm publish
+      - name: publish @arc-web/react
         run: npm publish --access public
         working-directory: ./result

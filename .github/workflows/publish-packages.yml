@@ -16,7 +16,7 @@ jobs:
         working-directory: ./result
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: nix build .#packages
+      - run: nix build .#react
       - name: npm publish
         run: nix develop --command npm publish --provenance --access public
         working-directory: ./result

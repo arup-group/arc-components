@@ -15,13 +15,8 @@ app.use(nodeResolve());
 app.use(KoaStatic(process.cwd()));
 
 router.get('/', (ctx) => {
-  const name = ctx.query['name']
-    ? Array.isArray(ctx.query['name'])
-      ? ctx.query['name'][0]
-      : ctx.query['name']
-    : 'ARC';
   ctx.type = 'text/html';
-  ctx.body = new RenderResultReadable(renderIndex({ name }));
+  ctx.body = new RenderResultReadable(renderIndex({}));
 });
 
 app.use(router.routes());

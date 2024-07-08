@@ -1,6 +1,7 @@
 import { html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
 import {
   CONTAINER_THEME_PREFERENCES,
@@ -18,6 +19,10 @@ import '../bottombar/arc-bottombar.js';
  * @slot accessibility - The accessibility drawer.
  * @slot side - The container's sidebar.
  * @slot bottom - The container's bottom bar.
+ * @slot banner - The container's banner.
+ *
+ * @cssproperty --arc-banner-background - Set the background color of the banner.
+ * @cssproperty --arc-banner-color - Set the font color of the banner.
  *
  * @ssr - True
  */
@@ -43,6 +48,9 @@ export default class ArcContainer extends LitElement {
 
   /** Set the container to fullscreen mode. This hides the padding, margin and gap values. */
   @property({ type: Boolean }) fullscreen: boolean = false;
+
+  /** Set the banner text. This enables the sticky banner to be rendered above the container. */
+  @property() banner: string | boolean = false;
 
   @watch('theme')
   handleThemeChange() {
@@ -84,7 +92,18 @@ export default class ArcContainer extends LitElement {
   }
 
   protected render() {
+    const banner = html`
+      <div class="banner">
+        ${when(
+          typeof this.banner === 'string',
+          () => html`<span>${this.banner}</span>`,
+          () => html`<slot name="banner"></slot>`,
+        )}
+      </div>
+    `;
+
     return html`
+      ${when(this.banner, () => banner)}
       <div id="main">
         <slot
           id="nav"

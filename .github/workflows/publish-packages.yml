@@ -1,0 +1,24 @@
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - run: nix build .#components
+      - name: npm publish
+        run: nix develop --command npm publish --provenance --access public
+        working-directory: ./result
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: nix build .#packages
+      - name: npm publish
+        run: nix develop --command npm publish --provenance --access public
+        working-directory: ./result
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

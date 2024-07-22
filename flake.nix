@@ -1,33 +1,45 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.nix-github-actions.url = "github:nix-community/nix-github-actions";
+  inputs.nix-github-actions.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    ,
-    }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-        inherit (pkgs) callPackage;
-      in
-      {
-        formatter = pkgs.nixpkgs-fmt;
+  outputs = { self, nixpkgs, flake-utils, nix-github-actions }:
 
-        packages = {
-          react = callPackage ./packages/react { };
-          components = callPackage ./packages/components { };
-          documentation = callPackage ./documentation { };
-          storybook = callPackage ./packages/components/.storybook { };
-        };
+    with nixpkgs.lib;
+    with flake-utils.lib;
+    with nix-github-actions.lib;
 
-        devShells = {
-          default = callPackage ./shell.nix { };
-          infrastructure = callPackage ./infrastructure/shell.nix { };
-        };
-      }
-    );
+    eachSystem nixpkgs.legacyPackages.x86_64-linux.nodejs.meta.platforms
+      (system:
+
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+
+            overlays = [
+              (final: prev: { lib = prev.lib // import ./lib.nix { pkgs = final; }; })
+            ];
+          };
+        in
+
+        rec {
+          checks = packages;
+          formatter = pkgs.nixpkgs-fmt;
+          packages = {
+            react = pkgs.callPackage ./packages/react { };
+            components = pkgs.callPackage ./packages/components { };
+            documentation = pkgs.callPackage ./documentation { };
+            storybook = pkgs.callPackage ./packages/components/.storybook { };
+          };
+          devShells = {
+            default = pkgs.callPackage ./shell.nix { };
+            infrastructure = pkgs.callPackage ./infrastructure/shell.nix { };
+          };
+        }
+      )
+
+    //
+
+    { githubActions = mkGithubMatrix { checks = getAttrs (attrNames githubPlatforms) self.checks; }; };
 }

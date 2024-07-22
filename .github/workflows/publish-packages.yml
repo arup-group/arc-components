@@ -1,0 +1,28 @@
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+env:
+  AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - run: nix develop
+      - name: setup npm auth
+        run: npm set //registry.npmjs.org/:_authToken=$AUTH_TOKEN
+      - run: nix build .#components
+      - name: publish @arc-web/components
+        run: |
+          cd result \
+          && npm publish --access public
+      - run: nix build .#react
+      - name: publish @arc-web/react
+        run: |
+          cd result \
+          && npm publish --access public

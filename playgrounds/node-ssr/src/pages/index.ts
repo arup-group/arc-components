@@ -1,13 +1,11 @@
 import { render } from '@lit-labs/ssr';
 import { html } from 'lit';
 
-import '@arc-web/components';
+import '@arc-web/components/src/components/container/arc-container';
 
-export interface IndexProps {
-  name: string;
-}
+export interface IndexProps {}
 
-export function* renderIndex({ name }: IndexProps) {
+export function* renderIndex({}: IndexProps) {
   yield `
   <!doctype html>
   <html>
@@ -32,22 +30,19 @@ export function* renderIndex({ name }: IndexProps) {
       </script>
   `;
 
-  yield* render(html`<arc-button color="primary">Hello ${name}</arc-button>`);
+  yield* render(html`<arc-container></arc-container>`);
 
   yield `
-      <script type="module">
-        const hydrateSupport = import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
-        if (!HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
-          const { hydrateShadowRoots } = await import('@webcomponents/template-shadowroot/template-shadowroot.js');
-          hydrateShadowRoots(document.body);
-          document.body.removeAttribute('hydration-pending');
-        }
-        await hydrateSupport;
+    <script type="module">
+      const hydrateSupport = import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
+      if (!HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
+        const { hydrateShadowRoots } = await import('@webcomponents/template-shadowroot/template-shadowroot.js');
+        hydrateShadowRoots(document.body);
         document.body.removeAttribute('hydration-pending');
-
-        // IMPORT ROOT COMPONENTS
-        import('./dist/packages/components/src/index.js');
-      </script>
+        await hydrateSupport;
+        import('./dist/packages/components/src/components/container/arc-container.js');
+      }
+    </script>
     </body>
   </html>
   `;

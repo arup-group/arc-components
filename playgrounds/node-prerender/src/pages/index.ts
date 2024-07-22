@@ -29,13 +29,7 @@ export function* renderIndex() {
     <head>
   `;
 
-  yield* render(html`
-    <arc-container>
-      <section id="playground" style="padding: var(--arc-spacing-small)">
-        <p>Hello Arc!</p>
-      </section>
-    </arc-container>
-  `);
+  yield* render(html`<arc-container></arc-container>`);
 
   yield `
     </body>

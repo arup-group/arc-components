@@ -1,12 +1,6 @@
-{ pkgs }:
+{ lib }:
 
-let
-  lib = import ../lib.nix { inherit pkgs; };
-in
-
-with lib;
-
-buildArcPackage {
+lib.buildArcPackage {
   name = "documentation";
 
   # run the documentation build script

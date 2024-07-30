@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Storybook](https://arc.arup.com) | [Issues](https://github.com/arup-group/arc-components/issues) | [Discussions](https://github.com/arup-group/arc-components/discussions) | [Contributing](https://github.com/arup-group/arc-components/blob/main/CONTRIBUTING.md) | [Code Of Conduct](https://github.com/arup-group/arc-components/blob/main/CODE_OF_CONDUCT.md) | [Security](https://github.com/arup-group/arc-components/blob/main/SECURITY.md) | [License](https://github.com/arup-group/arc-components/blob/main/LICENSE)
+[Storybook](https://arc.arup.com) | [Issues](https://github.com/arup-group/arc-components/issues) | [Discussions](https://github.com/arup-group/arc-components/discussions) | [Contributing](https://github.com/arup-group/arc-components/blob/main/CONTRIBUTING.md) | [Code Of Conduct](https://github.com/arup-group/arc-components/blob/main/CODE_OF_CONDUCT.md) | [Security](https://github.com/arup-group/arc-components/blob/main/SECURITY.md) | [License](https://github.com/arup-group/arc-components/blob/main/LICENSE) | [v2.X.X](https://github.com/arup-group/arc-components/tree/v2.3.3)
 
 <details align="center">
 

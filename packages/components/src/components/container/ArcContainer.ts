@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
@@ -8,10 +8,12 @@ import {
   ContainerThemePreference,
 } from './constants/ContainerConstants.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
+import { NotificationType } from './ArcNotification.js';
 import styles from './arc-container.styles.js';
 import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
+import './ArcNotification.js';
 
 /**
  * @slot default - The container's content.
@@ -91,6 +93,19 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
+  @state()
+  private notifcation?: {
+    duration: number;
+    title: string;
+    message: string;
+    type: NotificationType;
+  };
+
+  public showNotification(config: ArcContainer['notifcation']) {
+    this.notifcation = config;
+    setTimeout(() => (this.notifcation = undefined), config?.duration ?? 1000);
+  }
+
   protected render() {
     const banner = html`
       <div class="banner">
@@ -114,6 +129,7 @@ export default class ArcContainer extends LitElement {
             @arc-show-accessibility=${this.showAccessibility}
           ></arc-navbar>
         </slot>
+
         <div
           id="container"
           class=${classMap({
@@ -121,6 +137,15 @@ export default class ArcContainer extends LitElement {
             'container--fullscreen': this.fullscreen,
           })}
         >
+          ${when(
+            this.notifcation !== undefined,
+            () =>
+              html` <arc-notification
+                type="${this.notifcation!.type}"
+                title="${this.notifcation!.title}"
+                message="${this.notifcation!.message}"
+              ></arc-notification>`,
+          )}
           <slot name="side"></slot>
           <div id="content">
             <slot></slot>

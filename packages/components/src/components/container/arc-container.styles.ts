@@ -41,6 +41,7 @@ export default [
       overflow: hidden;
       gap: 0;
       padding: 0;
+      position: relative;
     }
 
     ::slotted(arc-sidebar) {

@@ -27,6 +27,14 @@ export default [
       pointer-events: none;
     }
 
+    div.notification-container {
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
     #main {
       height: 100%;
       display: flex;

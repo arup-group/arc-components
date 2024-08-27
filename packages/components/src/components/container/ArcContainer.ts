@@ -3,25 +3,38 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
+
+import { parseObject } from '../../internal/string.js';
 import {
   CONTAINER_THEME_PREFERENCES,
   ContainerThemePreference,
 } from './constants/ContainerConstants.js';
-import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
+
+import ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import { NotificationType } from './ArcNotification.js';
 import styles from './arc-container.styles.js';
+
 import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import './ArcNotification.js';
 
+/** @bata-feature */
 export interface Notification {
-  duration?: number;
-  title: string;
-  message: string;
+  /** The type of notification. */
   type: NotificationType;
+  /** Title of the notification. */
+  title: string;
+  /** The message to display in the notification */
+  message: string;
+  /** The duration in milliseconds to show the notification. If not provided,
+   * the notification will be shown until the user closes it. The user can
+   * always close the notification manually and may choose to ignore all
+   * notfication durations in there accessibility settings. */
+  duration?: number;
+  /** If the notification should be saved in the notification history. */
   saveInHistory?: true;
-};
+}
 
 export type NotificationHistory = Notification[];
 
@@ -72,7 +85,6 @@ export default class ArcContainer extends LitElement {
     }
   }
 
-  /* Listen to keyboard input on the page */
   connectedCallback() {
     super.connectedCallback();
 
@@ -103,18 +115,16 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
+  /** @bata-feature */
   @state()
-  private notifcation?: Notification;
+  private notifcations: Array<[Symbol, Notification]> = [];
 
-  public showNotification(config: Notification): void {
-    if (isServer) return;
-
-    this.notifcation = config;
+  /** @bata-feature Open a notification. */
+  public openNotification(config: Notification): Symbol {
+    const notification = Symbol(config.title + config.message);
+    if (isServer) return notification;
+    this.notifcations = [...this.notifcations, [notification, config]];
     const { duration, saveInHistory } = config;
-
-    if (duration && duration !== 0) {
-      setTimeout(() => this.notifcation = undefined , config.duration || 5000);
-    }
 
     if (saveInHistory) {
       const history = localStorage.getItem('arc-notification-history');
@@ -126,26 +136,39 @@ export default class ArcContainer extends LitElement {
         JSON.stringify(historyArray),
       );
     }
+
+    if (duration && duration !== 0) {
+      /* Check for cached preferences in the localStore and update the state. */
+      const cachedPreferences = localStorage.getItem(ArcAccessibility.tag);
+      if (cachedPreferences) {
+        /* Update the state of the user preferences */
+        const sn = parseObject(cachedPreferences).stickyNotifications;
+        if (sn) return notification;
+      }
+      const hideNotificationCallback = () =>
+        this.hideNotification(notification);
+      setTimeout(hideNotificationCallback, duration);
+    }
+    return notification;
   }
 
-  public hideNotification(): void {
+  /** @bata-feature Hide a notification. */
+  public hideNotification(notfication: Symbol): void {
     if (isServer) return;
-    this.notifcation = undefined;
+    this.notifcations = this.notifcations.filter(([key]) => key !== notfication);
   }
 
+  /** @bata-feature Get all notifcations in history. */
   public getNotificationHistory(): NotificationHistory {
     if (isServer) return [];
     const history = localStorage.getItem('arc-notification-history');
     return history ? JSON.parse(history) : [];
   }
 
+  /** @bata-feature Clear notifcation history */
   public clearNotificationHistory(): void {
     if (isServer) return;
     localStorage.removeItem('arc-notification-history');
-  }
-
-  private handleNotificationClose(): void {
-    this.hideNotification();
   }
 
   protected render() {
@@ -180,13 +203,19 @@ export default class ArcContainer extends LitElement {
           })}
         >
           ${when(
-            this.notifcation !== undefined,
+            this.notifcations.length > 0,
             () =>
-              html` <arc-notification
-                type="${this.notifcation!.type}"
-                title="${this.notifcation!.title}"
-                message="${this.notifcation!.message}"
-              ></arc-notification>`,
+              html`<div class="notification-container">
+                ${this.notifcations.map(
+                  ([notification, { type, title, message }]) =>
+                    html` <arc-notification
+                      type="${type}"
+                      title="${title}"
+                      message="${message}"
+                      @arc-hide=${() => this.hideNotification(notification)}
+                    />`,
+                )}
+              </div>`,
           )}
           <slot name="side"></slot>
           <div id="content">

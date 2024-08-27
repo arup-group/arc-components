@@ -32,6 +32,7 @@ import type ArcContainer from '../container/ArcContainer.js';
 import '../drawer/arc-drawer.js';
 import '../radio-group/arc-radio-group.js';
 import '../radio/arc-radio.js';
+import '../checkbox/arc-checkbox.js';
 import '../icon/accessibility/arc-icon-accessibility.js';
 import '../button/arc-button.js';
 
@@ -43,6 +44,7 @@ export declare type UserPreferences = {
   highLegibilityFonts: boolean;
   highlightLinks: boolean;
   plainText: boolean;
+  stickyNotifications: boolean;
 };
 
 /**
@@ -68,6 +70,7 @@ export default class ArcAccessibility extends LitElement {
     highLegibilityFonts: false,
     highlightLinks: false,
     plainText: false,
+    stickyNotifications: false,
   };
 
   /** @internal - Available root values. */
@@ -233,15 +236,15 @@ export default class ArcAccessibility extends LitElement {
 
   /* Method used to update a preference */
   handleOptionChange(event: MouseEvent) {
-    const radio = event.target as HTMLInputElement;
-    const key = radio.name as keyof UserPreferences;
-    const value = radio.value as any;
+    const control = event.target as HTMLInputElement;
+    const key = control.name as keyof UserPreferences;
+    const value = control.value ?? control.checked;
 
     /* Update the state of the user preferences */
     this._userPreferences = { ...this._userPreferences, [key]: value };
   }
 
-  radioTemplate(
+  private radioTemplate(
     key: keyof UserPreferences,
     values: ContainerThemePreference[] | FontSize[],
   ) {
@@ -262,6 +265,15 @@ export default class ArcAccessibility extends LitElement {
         )}
       </arc-radio-group>
     `;
+  }
+
+  private checkBoxTemplate(key: keyof UserPreferences) {
+    return html`<arc-checkbox
+      name=${key}
+      ?checked=${this._userPreferences[key]}
+      @arc-change=${this.handleOptionChange}
+      >${stringToSpaceSeparated(key)}</arc-checkbox
+    >`;
   }
 
   protected render() {
@@ -288,9 +300,14 @@ export default class ArcAccessibility extends LitElement {
                         any,
                       ];
 
-                      return html`${when(Array.isArray(value), () =>
-                        this.radioTemplate(userPreference, value),
-                      )}`;
+                      return html`
+                        ${when(Array.isArray(value), () =>
+                          this.radioTemplate(userPreference, value),
+                        )}
+                        ${when(typeof value === 'boolean', () =>
+                          this.checkBoxTemplate(userPreference),
+                        )}
+                      `;
                     },
                   )}
                 </div>

@@ -17,9 +17,6 @@ import '../ph-icon/x/ph-icon-x.js';
 export type NotificationType = NotificationColor;
 
 /**
- * @cssproperty --ntf-background - Set the background color of the notification.
- * @cssproperty --ntf-color - Set the font color of the notification.
- *
  * @ssr - True
  */
 @customElement('arc-notification')
@@ -94,9 +91,18 @@ export class ArcNotification extends LitElement {
   /** @internal */
   /** Returns the icon based on the notification type */
   private icon() {
-    // TODO
-
-    return html` <ph-icon-warning-octagon></ph-icon-warning-octagon> `;
+    switch (this.type) {
+      case NOTIFICATION_COLORS.error:
+        return html` <ph-icon-warning></ph-icon-warning> `;
+      case NOTIFICATION_COLORS.warning:
+        return html` <ph-icon-warning-octagon></ph-icon-warning-octagon> `;
+      case NOTIFICATION_COLORS.info:
+        return html` <ph-icon-info></ph-icon-info> `;
+      case NOTIFICATION_COLORS.success:
+        return html` <ph-icon-info></ph-icon-info> `;
+      default:
+        return html``;
+    }
   }
 
   protected render() {

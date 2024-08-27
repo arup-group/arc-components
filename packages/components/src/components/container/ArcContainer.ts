@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { html, isServer, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
@@ -14,6 +14,16 @@ import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import './ArcNotification.js';
+
+export interface Notification {
+  duration?: number;
+  title: string;
+  message: string;
+  type: NotificationType;
+  saveInHistory?: true;
+};
+
+export type NotificationHistory = Notification[];
 
 /**
  * @slot default - The container's content.
@@ -94,16 +104,48 @@ export default class ArcContainer extends LitElement {
   }
 
   @state()
-  private notifcation?: {
-    duration: number;
-    title: string;
-    message: string;
-    type: NotificationType;
-  };
+  private notifcation?: Notification;
 
-  public showNotification(config: ArcContainer['notifcation']) {
+  public showNotification(config: Notification): void {
+    if (isServer) return;
+
     this.notifcation = config;
-    setTimeout(() => (this.notifcation = undefined), config?.duration ?? 1000);
+    const { duration, saveInHistory } = config;
+
+    if (duration && duration !== 0) {
+      setTimeout(() => this.notifcation = undefined , config.duration || 5000);
+    }
+
+    if (saveInHistory) {
+      const history = localStorage.getItem('arc-notification-history');
+      let historyArray: NotificationHistory = [];
+      if (history) historyArray = JSON.parse(history);
+      historyArray.push(config);
+      localStorage.setItem(
+        'arc-notification-history',
+        JSON.stringify(historyArray),
+      );
+    }
+  }
+
+  public hideNotification(): void {
+    if (isServer) return;
+    this.notifcation = undefined;
+  }
+
+  public getNotificationHistory(): NotificationHistory {
+    if (isServer) return [];
+    const history = localStorage.getItem('arc-notification-history');
+    return history ? JSON.parse(history) : [];
+  }
+
+  public clearNotificationHistory(): void {
+    if (isServer) return;
+    localStorage.removeItem('arc-notification-history');
+  }
+
+  private handleNotificationClose(): void {
+    this.hideNotification();
   }
 
   protected render() {

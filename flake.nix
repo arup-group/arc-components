@@ -14,28 +14,18 @@
       (system:
 
         let
+          overlays = import ./overlays.nix { };
           pkgs = import nixpkgs {
             inherit system;
-
-            overlays = [
-              (final: prev: { lib = prev.lib // import ./lib.nix { pkgs = final; }; })
-            ];
+            overlays = with overlays; [ default ];
           };
         in
 
         rec {
           checks = packages;
           formatter = pkgs.nixpkgs-fmt;
-          packages = {
-            react = pkgs.callPackage ./packages/react { };
-            components = pkgs.callPackage ./packages/components { };
-            documentation = pkgs.callPackage ./documentation { };
-            storybook = pkgs.callPackage ./packages/components/.storybook { };
-          };
-          devShells = {
-            default = pkgs.callPackage ./shell.nix { };
-            infrastructure = pkgs.callPackage ./infrastructure/shell.nix { };
-          };
+          packages = { inherit (pkgs) components documentation react storybook; };
+          devShells.default = pkgs.callPackage ./shell.nix { };
         }
       )
 

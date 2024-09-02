@@ -2,13 +2,11 @@ import { DoDontCard, Do, Dont } from '../src/components/do-dont';
 
 # Content
 
-TODO: update link to Arup's content guide
-
-Your first port of call for general content guidelines should be [Arup's content guide](https://google.com) (link only accessible to Arup staff), followed by the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
+Your first port of call for general content guidelines should be [Arup Writing Guide](https://arupcan-my.sharepoint.com/:b:/g/personal/victoria_dolbik_arup_com/ESCP2v536CBJlb4QsrLZy60Bxu9-I09Bw2rls9pm0oB0Uw?e=CjCWLD) (link only accessible to Arup staff), followed by the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
 
 ## UI content principles
 
-Keep the following principles in mind when creating UI content for GitHub.
+Keep the following principles in mind when creating UI content for Arup.
 
 ### 1. Keep it clear
 
@@ -33,7 +31,7 @@ Arups’s voice is:
 - Inclusive but not disingenuous
 - Helpful but not overly-prescriptive
 
-Tone is how you express personality and mood depending on the situation. GitHub’s tone is almost always **informal and positive**, with adjustments when needed depending on the channel, audience, and emotional state of the audience.
+Tone is how you express personality and mood depending on the situation. Arup’s tone is almost always **informal and positive**, with adjustments when needed depending on the channel, audience, and emotional state of the audience.
 
 You should consider the context of when a user will read something, keeping in mind that:
 
@@ -95,19 +93,15 @@ Be friendly and helpful, and avoid jargon. Do not blame the user.
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Enter a name</em>
     <br />
     <em>Your name must be between 2 and 20 characters</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Error 1234567890</em>
     <br />
     <em>You forgot to add your name</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -115,15 +109,11 @@ Always be specific:
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Enter a credit card number</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Field required</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -131,15 +121,11 @@ Never apologize in any situation in the UI.
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Some checks failed</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
       <em>Sorry, all check failed</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -147,15 +133,11 @@ Never try to be funny or humorous.
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Some checks failed</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Oops, some checks failed</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -165,18 +147,14 @@ Feedback should be clear and reassuring, using the same terms used by the UI ele
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Issue transfer in progress</em> <br /><br />
     Feedback message when transferring an issue, using the same term ("transfer") as
     the trigger button
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Moving the issue</em><br /><br />
     Feedback message that uses a different term ("moving") than the trigger button
-    ```
   </Dont>
 </DoDontCard>
 
@@ -195,23 +173,19 @@ All labels and button text should be in sentence case, and not include punctuati
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Save email preferences</em>
     <br />
     <em>1 linked pull request</em>
     <br />
     <em>12 days ago</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Save email preferences.</em>
     <br />
     <em>1 Linked pull request</em>
     <br />
     <em>12 Days ago</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -225,15 +199,11 @@ Action labels should start with an imperative verb that clearly indicates what t
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Save preferences</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Preferences saved</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -241,15 +211,11 @@ Action labels can be shortened to only include an adjective and a noun.
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Save changes</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Save your changes</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -257,15 +223,11 @@ Always use “sign in” rather than “log in”:
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Sign in</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Log in</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -275,25 +237,15 @@ Link text should be meaningful and unique, with as few duplicated references as 
 
 <DoDontCard>
   <Do>
-    ```html
     <em>
-      You can find out more about our speakers at the
-      <a href="https://githubuniverse.com/" target="_blank">
-        GitHub Universe site
-      </a>
+      You can find out more about our workflow at the<a>Workflow documentation site</a>
     </em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>
-      You can find out more about our speakers
-      <a href="https://githubuniverse.com/" target="_blank">
-        here
-      </a>
+      You can find out more about our workflow <a>here</a>
     </em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -301,21 +253,17 @@ Set the context of the image link from the text within the same container.
 
 <DoDontCard>
   <Do>
-    ```html
-    <a href="/pricing">
-      <img src="pricing.png" alt="" />
+    <a>
+      <img src="" alt="" />
       Pricing information
     </a>
-    ```
   </Do>
 
   <Dont>
-    ```html
-    <a href="/pricing">
-      <img src="pricing.png" alt="" />
+    <a>
+      <img src="" alt="" />
       Click here for pricing information
     </a>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -323,21 +271,14 @@ Never say “here” or “click here”:
 
 <DoDontCard>
   <Do>
-    ```html
-    <em>You can find out more about our speakers at the
-      <a href="https://githubuniverse.com/" target="_blank"
-        >GitHub Universe site</a
-      ></em
-    >
-    ```
+    <em>You can find out more about our workflow at the <a>Workflow Documentation site</a></em>
   </Do>
 
   <Dont>
-    ```html
-    <em>Click here to find out more about our speakers at GitHub Universe.</em>
-    ```
+    <a>Click here to find out more about our workflow at Workflow Documentation Site.</a>
   </Dont>
 </DoDontCard>
+
 ### Numbers
 
 <!--
@@ -350,15 +291,11 @@ Headings, labels and buttons should not include punctuation. In most cases, excl
 
 <DoDontCard>
   <Do>
-    ```html
     <em>No code scanning alerts found</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>No code scanning alerts found.</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -366,21 +303,17 @@ Headings, labels and buttons should not include punctuation. In most cases, excl
 
 When referring to unclickable page names and sections, write them as they appear in the interface in quotation marks.
 
-```html
 <em>Go to the “Email notifications settings” section.</em>
-```
 
 When referring to button or link text that a user should click on, use bold text without quotation marks. Make sure all UI references match the capitalization in the interface. If you’re writing for a mobile app experience, use “tap”, instead of “click”.
 
-```html
-<em>Click <strong>Save</strong></em>
-```
+<em>
+  Click <strong>Save</strong>
+</em>
 
 When referring to a folder, use a code tag.
 
-```html
 _Open the `docs` folder._
-```
 
 ### Subject
 
@@ -388,15 +321,11 @@ Address the user as "you" and items "owned" by the user as "your" or "yours".
 
 <DoDontCard>
   <Do>
-    ```html
     <em>Update your profile</em>
-    ```
   </Do>
 
   <Dont>
-    ```html
     <em>Update my profile</em>
-    ```
   </Dont>
 </DoDontCard>
 
@@ -415,7 +344,3 @@ Some exceptions exist and are usually related to legal language, such as when a 
 - Do not use exclamation marks to indicate excitement, most actions aren’t.
 - Do not use the greater than and less than symbols to indicate steps in a flow.
 - Do not use semicolons: they are hard to get right and can be replaced by a period most times.
-
-## How to get help
-
-If you need clarification and can’t find an answer in [GitHub’s content guide](https://github.com/github/brand/blob/main/content.md) (link only accessible to GitHub staff) or the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/), or would like your UI content to be reviewed, please start a discussion in github/primer and someone in the team will get back to you. If your query is urgent, you can ask directly in the [#primer](https://github.slack.com/archives/CSGAVNZ19) channel.

@@ -1,18 +1,18 @@
 export function Do(props) {
   return (
-    <span>
+    <div style={{ background: 'lightgrey', padding: 8, borderRadius: 4 }}>
       <p style={{ color: 'green' }}>Do:</p>
       {props.children}
-    </span>
+    </div>
   );
 }
 
 export function Dont(props) {
   return (
-    <span>
+    <div style={{ background: 'lightgrey', padding: 8, borderRadius: 4 }}>
       <p style={{ color: 'red' }}>Do not:</p>
       {props.children}
-    </span>
+    </div>
   );
 }
 

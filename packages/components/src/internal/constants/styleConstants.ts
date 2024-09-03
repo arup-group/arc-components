@@ -22,7 +22,7 @@ export declare type ThemeColor =
   | 'info'
   | 'success';
 
-export declare type NotificationColor =
+export declare type OperationColor =
   | 'error'
   | 'warning'
   | 'info'
@@ -62,8 +62,8 @@ export const THEME_COLORS: { [key in ThemeColor]: ThemeColor } = {
   success: 'success',
 };
 
-export const NOTIFICATION_COLORS: {
-  [key in NotificationColor]: NotificationColor;
+export const OPERATION_COLORS: {
+  [key in OperationColor]: OperationColor
 } = {
   error: 'error',
   warning: 'warning',

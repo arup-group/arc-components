@@ -310,6 +310,7 @@ body {
 arc-container {
   /* Base */
   --arc-font-color: var(--arc-light-font-color);
+  --arc-font-inverse-color: var(--arc-dark-font-color);
   --arc-input-color: var(--arc-light-input-color);
   --arc-background-color: var(--arc-light-background-color);
   --arc-container-color: var(--arc-light-container-color);
@@ -341,6 +342,7 @@ arc-container {
   arc-container {
     /* Base */
     --arc-font-color: var(--arc-dark-font-color);
+    --arc-font-inverse-color: var(--arc-light-font-color);
     --arc-input-color: var(--arc-dark-input-color);
     --arc-background-color: var(--arc-dark-background-color);
     --arc-container-color: var(--arc-dark-container-color);
@@ -373,6 +375,7 @@ arc-container {
 arc-container[theme='light'] {
   /* Base */
   --arc-font-color: var(--arc-light-font-color);
+  --arc-font-inverse-color: var(--arc-dark-font-color);
   --arc-input-color: var(--arc-light-input-color);
   --arc-background-color: var(--arc-light-background-color);
   --arc-container-color: var(--arc-light-container-color);
@@ -403,6 +406,7 @@ arc-container[theme='light'] {
 arc-container[theme='dark'] {
   /* Base */
   --arc-font-color: var(--arc-dark-font-color);
+  --arc-font-inverse-color: var(--arc-light-font-color);
   --arc-input-color: var(--arc-dark-input-color);
   --arc-background-color: var(--arc-dark-background-color);
   --arc-container-color: var(--arc-dark-container-color);

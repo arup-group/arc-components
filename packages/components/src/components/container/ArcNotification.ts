@@ -4,10 +4,7 @@ import { classMap } from 'lit/directives/class-map.js';
 
 import componentStyles from '../../styles/component.styles.js';
 
-import {
-  NOTIFICATION_COLORS,
-  NotificationColor,
-} from '../../internal/constants/styleConstants.js';
+import { Operation, OPERATIONS } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { emit } from '../../internal/event.js';
 
@@ -16,8 +13,6 @@ import '../ph-icon/warning-octagon/ph-icon-warning-octagon.js';
 import '../ph-icon/info/ph-icon-info.js';
 import '../ph-icon/check-circle/ph-icon-check-circle.js';
 import '../ph-icon/x/ph-icon-x.js';
-
-export type NotificationType = NotificationColor;
 
 /**
  * @ bata component feature (api subject to change)
@@ -34,8 +29,8 @@ export class ArcNotification extends LitElement {
     componentStyles,
     css`
       :host {
-        --ntf-background: rgb(var(--arc-blue-020));
-        --ntf-color: rgb(var(--arc-blue-090));
+        --ntf-background: rgb(var(--arc-color-primary));
+        --ntf-color: rgb(var(--arc-font-inverse-color));
 
         display: block;
         top: 0;
@@ -90,20 +85,19 @@ export class ArcNotification extends LitElement {
   @property({ type: String, reflect: true }) message: string;
 
   /** Notification type */
-  @property({ type: String, reflect: true }) type: NotificationColor =
-    NOTIFICATION_COLORS.info;
+  @property({ type: String, reflect: true }) type: Operation = OPERATIONS.default;
 
   /** @internal */
   /** Returns the icon based on the notification type */
   private icon() {
     switch (this.type) {
-      case NOTIFICATION_COLORS.error:
+      case OPERATIONS.error:
         return html`<ph-icon-warning size="x-large" />`;
-      case NOTIFICATION_COLORS.warning:
+      case OPERATIONS.warning:
         return html`<ph-icon-warning-octagon size="x-large" />`;
-      case NOTIFICATION_COLORS.info:
+      case OPERATIONS.info:
         return html`<ph-icon-info size="x-large" />`;
-      case NOTIFICATION_COLORS.success:
+      case OPERATIONS.success:
         return html`<ph-icon-check-circle size="x-large" />`;
       default:
         return html`<ph-icon-info size="x-large" />`;
@@ -120,10 +114,10 @@ export class ArcNotification extends LitElement {
     return html`<div
       class=${classMap({
         ntf: true,
-        'ntf--error': this.type === NOTIFICATION_COLORS.error,
-        'ntf--warning': this.type === NOTIFICATION_COLORS.warning,
-        'ntf--info': this.type === NOTIFICATION_COLORS.info,
-        'ntf--success': this.type === NOTIFICATION_COLORS.success,
+        'ntf--error': this.type === OPERATIONS.error,
+        'ntf--warning': this.type === OPERATIONS.warning,
+        'ntf--info': this.type === OPERATIONS.info,
+        'ntf--success': this.type === OPERATIONS.success,
       })}
     >
       ${this.icon()}

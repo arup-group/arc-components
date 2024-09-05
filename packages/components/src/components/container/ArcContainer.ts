@@ -11,7 +11,7 @@ import {
 } from './constants/ContainerConstants.js';
 
 import ArcAccessibility from '../accessibility/ArcAccessibility.js';
-import { NotificationType } from './ArcNotification.js';
+import type { NotificationConfiguration } from './constants/ContainerConstants.js';
 import styles from './arc-container.styles.js';
 
 import '../navbar/arc-navbar.js';
@@ -19,24 +19,7 @@ import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import './ArcNotification.js';
 
-/** @bata-feature */
-export interface Notification {
-  /** The type of notification. */
-  type: NotificationType;
-  /** Title of the notification. */
-  title: string;
-  /** The message to display in the notification */
-  message: string;
-  /** The duration in milliseconds to show the notification. If not provided,
-   * the notification will be shown until the user closes it. The user can
-   * always close the notification manually and may choose to ignore all
-   * notfication durations in there accessibility settings. */
-  duration?: number;
-  /** If the notification should be saved in the notification history. */
-  saveInHistory?: true;
-}
-
-export type NotificationHistory = Notification[];
+export type NotificationHistory = NotificationConfiguration[];
 
 /**
  * @slot default - The container's content.
@@ -117,10 +100,10 @@ export default class ArcContainer extends LitElement {
 
   /** @bata-feature */
   @state()
-  private notifcations: Array<[Symbol, Notification]> = [];
+  private notifcations: Array<[Symbol, NotificationConfiguration]> = [];
 
   /** @bata-feature Open a notification. */
-  public openNotification(config: Notification): Symbol {
+  public openNotification(config: NotificationConfiguration): Symbol {
     const notification = Symbol(config.title + config.message);
     if (isServer) return notification;
     this.notifcations = [...this.notifcations, [notification, config]];

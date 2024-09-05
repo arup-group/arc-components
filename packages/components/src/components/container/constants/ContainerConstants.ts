@@ -1,3 +1,4 @@
+import { ThemeColor } from '../../../internal/constants/styleConstants.js';
 export declare type ContainerThemePreference = 'auto' | 'dark' | 'light';
 
 export const CONTAINER_THEME_PREFERENCES: {
@@ -7,3 +8,29 @@ export const CONTAINER_THEME_PREFERENCES: {
   dark: 'dark',
   light: 'light',
 };
+
+export declare type ActionsCallback = () => void;
+export declare interface Action {
+  label: string;
+  callback: ActionsCallback;
+}
+
+export declare type Operation = Extract<ThemeColor, 'default' | 'error' | 'warning' | 'info' | 'success'>;
+export const OPERATIONS: { [key in Operation]: Operation; } = {
+  default: 'default',
+  error: 'error',
+  warning: 'warning',
+  info: 'info',
+  success: 'success'
+};
+export declare interface OperationConfiguration {
+  title: string;
+  message: string;
+  type?: Operation;
+}
+
+export declare interface AlertConfiguration extends OperationConfiguration {
+  dismissable?: boolean;
+  action?: Action;
+  secondaryAction?: Action;
+}

@@ -1,49 +1,16 @@
 import { html, css, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { AlertConfiguration, OPERATIONS } from './constants/ContainerConstants.js';
 import { emit } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import componentStyles from '../../styles/component.styles.js';
-import {
-  OPERATION_COLORS,
-  OperationColor,
-} from '../../internal/constants/styleConstants.js';
 
 import '../ph-icon/warning/ph-icon-warning.js';
 import '../ph-icon/warning-octagon/ph-icon-warning-octagon.js';
 import '../ph-icon/info/ph-icon-info.js';
 import '../ph-icon/check-circle/ph-icon-check-circle.js';
 import '../ph-icon/x/ph-icon-x.js';
-
-/** Color of the alert */
-export type AlertColor = OperationColor;
-
-/** Function to be called when the action button is clicked */
-export type Action = () => void;
-
-/** Configuration for the action button */
-export interface ActionConfig {
-  /** Label for the action button */
-  label: string;
-  /** Function to be called when the action button is clicked */
-  action: Action;
-}
-
-/** Configuration for the alert */
-export interface AlertConfig {
-  /** Title of the alert */
-  title: string;
-  /** Message of the alert */
-  message: string;
-  /** Type of the alert */
-  type?: 'success' | 'error' | 'warning' | 'info';
-  /** Action button configuration */
-  action?: ActionConfig;
-  /** Secondary action button configuration */
-  secondaryAction?: ActionConfig;
-  /** Dismiss button visibility - always visible if no actions are provided */
-  dismissable?: boolean;
-}
 
 /**
  * @ bata component feature (api subject to change)
@@ -121,20 +88,20 @@ export default class ArcAlert extends LitElement {
   @property({ type: Boolean, reflect: true }) active = false;
 
   /** @internal */
-  @state() public config: AlertConfig;
+  @state() public config: AlertConfiguration;
 
   /** @internal */
   /** Returns the icon based on the notification type */
   private icon() {
     const { type } = this.config;
     switch (type) {
-      case OPERATION_COLORS.error:
+      case OPERATIONS.error:
         return html`<ph-icon-warning size="x-large" />`;
-      case OPERATION_COLORS.warning:
+      case OPERATIONS.warning:
         return html`<ph-icon-warning-octagon size="x-large" />`;
-      case OPERATION_COLORS.info:
+      case OPERATIONS.info:
         return html`<ph-icon-info size="x-large" />`;
-      case OPERATION_COLORS.success:
+      case OPERATIONS.success:
         return html`<ph-icon-check-circle size="x-large" />`;
       default:
         return html`<ph-icon-info size="x-large" />`;
@@ -153,10 +120,10 @@ export default class ArcAlert extends LitElement {
     return html`<div
         class=${classMap({
           alert: true,
-          'alert--error': type === OPERATION_COLORS.error,
-          'alert--warning': type === OPERATION_COLORS.warning,
-          'alert--info': type === OPERATION_COLORS.info,
-          'alert--success': type === OPERATION_COLORS.success,
+          'alert--error': type === OPERATIONS.error,
+          'alert--warning': type === OPERATIONS.warning,
+          'alert--info': type === OPERATIONS.info,
+          'alert--success': type === OPERATIONS.success,
         })}
       >
         ${this.icon()}
@@ -180,7 +147,7 @@ export default class ArcAlert extends LitElement {
               ${secondaryAction
                 ? html`
                     <arc-button
-                      @click=${secondaryAction.action}
+                      @click=${secondaryAction.callback}
                       color="secondary"
                       type="outlined"
                     >
@@ -191,7 +158,7 @@ export default class ArcAlert extends LitElement {
               ${action
                 ? html`
                     <arc-button
-                      @click=${action.action}
+                      @click=${action.callback}
                       color="primary"
                       type="outlined"
                     >

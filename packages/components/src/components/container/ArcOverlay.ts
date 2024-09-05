@@ -86,9 +86,9 @@ export default class ArcOverlay extends LitElement {
   /** Open an alert with the given configuration */
   public openAlert(config: AlertConfig): () => void {
     const alert = document.createElement('arc-alert') as ArcAlert;
-    this.setActiveAlert(this.activeAlertIndex);
     alert.config = config;
     this.appendChild(alert);
+    this.setActiveAlert(this.activeAlertIndex);
     const closeCallback = () => {
       alert.remove();
       this.setActiveAlert(

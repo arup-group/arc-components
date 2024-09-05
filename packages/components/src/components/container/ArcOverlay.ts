@@ -88,20 +88,39 @@ export default class ArcOverlay extends LitElement {
 
   /** Open an alert with the given configuration */
   public openAlert(config: AlertConfiguration): ActionCallback {
+    /** create a new alert element */
     const alert = document.createElement('arc-alert') as ArcAlert;
     alert.config = config;
-    this.appendChild(alert);
+
+    /** append the alert to the overlay */
+    config.assertive === true
+      ? this.prepend(alert)
+      : this.appendChild(alert);
+
+    /** set the active alert */
     this.setActiveAlert(this.activeAlertIndex);
+
+    /** return a callback to close the alert */
     const closeCallback = () => {
+      /** remove the event listener and element */
+      alert.removeEventListener(ARC_EVENTS.hide, closeCallback);
       alert.remove();
-      this.setActiveAlert(
-        this.activeAlertIndex - 1 >= 0 ? this.activeAlertIndex - 1 : 0,
-      );
+
+      /** update the active alert index */
+      const alerts = this.alertElements?.length || 0;
+      const index = this.activeAlertIndex;
+      const newIndex = index - 1 >= 0 ? index - 1 : index + 1 >= alerts ? 0 : index + 1;
+      this.setActiveAlert(newIndex);
+
+      /** remove the overlay if there are no more alerts */
       if (this.alertElements?.length === 0) {
         this.remove();
       }
     };
+
+    /** listen for the alert hide event */
     alert.addEventListener(ARC_EVENTS.hide, closeCallback);
+
     return closeCallback;
   }
 

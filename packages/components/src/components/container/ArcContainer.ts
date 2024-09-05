@@ -6,10 +6,10 @@ import { watch } from '../../internal/watch.js';
 import {
   CONTAINER_THEME_PREFERENCES,
   ContainerThemePreference,
+  AlertConfiguration,
 } from './constants/ContainerConstants.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import type ArcOverlay from './ArcOverlay.js';
-import type { AlertConfig } from './ArcAlert.js';
 import styles from './arc-container.styles.js';
 
 import '../navbar/arc-navbar.js';
@@ -99,7 +99,7 @@ export default class ArcContainer extends LitElement {
   }
 
   /* Open an alert */
-  openAlert(config: AlertConfig): () => void {
+  openAlert(config: AlertConfiguration): () => void {
     if (isServer) () => void 0;
     let overlay = this.querySelector('arc-overlay') as ArcOverlay;
     if (overlay === null) {

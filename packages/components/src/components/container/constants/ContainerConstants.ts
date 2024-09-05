@@ -9,19 +9,22 @@ export const CONTAINER_THEME_PREFERENCES: {
   light: 'light',
 };
 
-export declare type ActionsCallback = () => void;
+export declare type ActionCallback = () => void;
 export declare interface Action {
   label: string;
-  callback: ActionsCallback;
+  callback: ActionCallback;
 }
 
-export declare type Operation = Extract<ThemeColor, 'default' | 'error' | 'warning' | 'info' | 'success'>;
-export const OPERATIONS: { [key in Operation]: Operation; } = {
+export declare type Operation = Extract<
+  ThemeColor,
+  'default' | 'error' | 'warning' | 'info' | 'success'
+>;
+export const OPERATIONS: { [key in Operation]: Operation } = {
   default: 'default',
   error: 'error',
   warning: 'warning',
   info: 'info',
-  success: 'success'
+  success: 'success',
 };
 export declare interface OperationConfiguration {
   title: string;

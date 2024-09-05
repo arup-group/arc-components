@@ -1,9 +1,12 @@
 import { html, css, LitElement, isServer } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
+import type {
+  ActionCallback,
+  AlertConfiguration,
+} from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 import type ArcAlert from './ArcAlert.js';
-import type { AlertConfig } from './ArcAlert.js';
 
 import '../icon-button/arc-icon-button.js';
 import '../ph-icon/arrow-left/ph-icon-arrow-left.js';
@@ -84,7 +87,7 @@ export default class ArcOverlay extends LitElement {
   }
 
   /** Open an alert with the given configuration */
-  public openAlert(config: AlertConfig): () => void {
+  public openAlert(config: AlertConfiguration): ActionCallback {
     const alert = document.createElement('arc-alert') as ArcAlert;
     alert.config = config;
     this.appendChild(alert);

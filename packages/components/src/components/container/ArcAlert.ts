@@ -1,9 +1,14 @@
 import { html, css, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { AlertConfiguration, OPERATIONS } from './constants/ContainerConstants.js';
+import {
+  AlertConfiguration,
+  OPERATIONS,
+} from './constants/ContainerConstants.js';
 import { emit } from '../../internal/event.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
+import { THEME_COLORS } from '../../internal/constants/styleConstants.js';
+import { BUTTON_TYPES } from '../button/constants/ButtonConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 
 import '../ph-icon/warning/ph-icon-warning.js';
@@ -47,20 +52,22 @@ export default class ArcAlert extends LitElement {
         max-width: 500px;
       }
       div.alert--error {
-        --alert-background: rgb(var(--arc-red-020));
-        --alert-color: rgb(var(--arc-red-090));
+        --alert-background: rgb(var(--arc-color-error));
       }
       div.alert--warning {
-        --alert-background: rgb(var(--arc-yellow-020));
-        --alert-color: rgb(var(--arc-yellow-090));
+        --alert-background: rgb(var(--arc-color-warning));
       }
       div.alert--info {
-        --alert-background: rgb(var(--arc-blue-020));
-        --alert-color: rgb(var(--arc-blue-090));
+        --alert-background: rgb(var(--arc-color-info));
       }
       div.alert--success {
-        --alert-background: rgb(var(--arc-green-020));
-        --alert-color: rgb(var(--arc-green-090));
+        --alert-background: rgb(var(--arc-color-success));
+      }
+      div.alert--error,
+      div.alert--warning,
+      div.alert--info,
+      div.alert--success {
+        color: rgb(var(--arc-font-inverse-color));
       }
       div.content {
         display: grid;
@@ -80,6 +87,7 @@ export default class ArcAlert extends LitElement {
         position: absolute;
         top: 4px;
         right: 4px;
+        --icon-color: var(--alert-color);
       }
     `,
   ];
@@ -148,8 +156,8 @@ export default class ArcAlert extends LitElement {
                 ? html`
                     <arc-button
                       @click=${secondaryAction.callback}
-                      color="secondary"
-                      type="outlined"
+                      color=${THEME_COLORS.secondary}
+                      type=${BUTTON_TYPES.outlined}
                     >
                       ${secondaryAction.label}
                     </arc-button>
@@ -159,8 +167,10 @@ export default class ArcAlert extends LitElement {
                 ? html`
                     <arc-button
                       @click=${action.callback}
-                      color="primary"
-                      type="outlined"
+                      color=${type && type !== OPERATIONS.default
+                        ? type
+                        : THEME_COLORS.primary}
+                      type=${BUTTON_TYPES.outlined}
                     >
                       ${action.label}
                     </arc-button>

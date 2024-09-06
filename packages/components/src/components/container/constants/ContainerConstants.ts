@@ -32,7 +32,9 @@ export declare interface OperationConfiguration {
   type?: Operation;
 }
 
-export declare interface NotificationConfiguration extends OperationConfiguration {
+export declare interface NotificationConfiguration
+  extends OperationConfiguration {
+  timeStamp?: Date;
   duration?: number;
   saveInHistory?: boolean;
 }

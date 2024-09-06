@@ -1,23 +1,25 @@
 import { html, isServer, LitElement } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
 
-import { parseObject } from '../../internal/string.js';
 import {
   CONTAINER_THEME_PREFERENCES,
   ContainerThemePreference,
+  NotificationConfiguration,
+  ActionCallback,
 } from './constants/ContainerConstants.js';
 
 import ArcAccessibility from '../accessibility/ArcAccessibility.js';
-import type { NotificationConfiguration } from './constants/ContainerConstants.js';
+import ArcNotification from './ArcNotification.js';
 import styles from './arc-container.styles.js';
 
 import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import './ArcNotification.js';
+import ArcFlyer from './ArcFlyer.js';
 
 export type NotificationHistory = NotificationConfiguration[];
 
@@ -98,47 +100,18 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
-  /** @bata-feature */
-  @state()
-  private notifcations: Array<[Symbol, NotificationConfiguration]> = [];
-
   /** @bata-feature Open a notification. */
-  public openNotification(config: NotificationConfiguration): Symbol {
-    const notification = Symbol(config.title + config.message);
-    if (isServer) return notification;
-    this.notifcations = [...this.notifcations, [notification, config]];
-    const { duration, saveInHistory } = config;
+  public openNotification(config: NotificationConfiguration): ActionCallback {
+    if (isServer) return () => {};
 
-    if (saveInHistory) {
-      const history = localStorage.getItem('arc-notification-history');
-      let historyArray: NotificationHistory = [];
-      if (history) historyArray = JSON.parse(history);
-      historyArray.push(config);
-      localStorage.setItem(
-        'arc-notification-history',
-        JSON.stringify(historyArray),
-      );
+    /* ensure that the arc flyer is present */
+    let arcFlyer = this.querySelector(ArcFlyer.tag) as ArcFlyer;
+    if (!arcFlyer) {
+      arcFlyer = document.createElement(ArcFlyer.tag) as ArcFlyer;
+      this.appendChild(arcFlyer);
     }
-
-    if (duration && duration !== 0) {
-      /* Check for cached preferences in the localStore and update the state. */
-      const cachedPreferences = localStorage.getItem(ArcAccessibility.tag);
-      if (cachedPreferences) {
-        /* Update the state of the user preferences */
-        const sn = parseObject(cachedPreferences).stickyNotifications;
-        if (sn) return notification;
-      }
-      const hideNotificationCallback = () =>
-        this.hideNotification(notification);
-      setTimeout(hideNotificationCallback, duration);
-    }
-    return notification;
-  }
-
-  /** @bata-feature Hide a notification. */
-  public hideNotification(notfication: Symbol): void {
-    if (isServer) return;
-    this.notifcations = this.notifcations.filter(([key]) => key !== notfication);
+    const closeCallback = arcFlyer.openNotification(config);
+    return closeCallback;
   }
 
   /** @bata-feature Get all notifcations in history. */
@@ -185,21 +158,7 @@ export default class ArcContainer extends LitElement {
             'container--fullscreen': this.fullscreen,
           })}
         >
-          ${when(
-            this.notifcations.length > 0,
-            () =>
-              html`<div class="notification-container">
-                ${this.notifcations.map(
-                  ([notification, { type, title, message }]) =>
-                    html` <arc-notification
-                      type="${type}"
-                      title="${title}"
-                      message="${message}"
-                      @arc-hide=${() => this.hideNotification(notification)}
-                    />`,
-                )}
-              </div>`,
-          )}
+          <div class="notification-container"></div>
           <slot name="side"></slot>
           <div id="content">
             <slot></slot>

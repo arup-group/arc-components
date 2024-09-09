@@ -200,9 +200,13 @@
   --arc-light-color-primary: var(--arc-blue-060);
   --arc-light-color-secondary: var(--arc-grey-090);
   --arc-light-color-error: var(--arc-red-070);
-  --arc-light-color-warning: var(--arc-orange-040);
-  --arc-light-color-info: var(--arc-blue-040);
-  --arc-light-color-success: var(--arc-green-040);
+  --arc-light-background-color-error: var(--arc-red-000);
+  --arc-light-color-warning: var(--arc-orange-070);
+  --arc-light-background-color-warning: var(--arc-orange-000);
+  --arc-light-color-info: var(--arc-blue-070);
+  --arc-light-background-color-info: var(--arc-blue-000);
+  --arc-light-color-success: var(--arc-green-070);
+  --arc-light-background-color-success: var(--arc-green-000);
 
   /* Box shadow */
   --arc-light-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-15),
@@ -228,10 +232,14 @@
   --arc-dark-color-default: var(--arc-grey-090);
   --arc-dark-color-primary: var(--arc-blue-040);
   --arc-dark-color-secondary: var(--arc-grey-040);
-  --arc-dark-color-error: var(--arc-red-030);
-  --arc-dark-color-warning: var(--arc-orange-040);
-  --arc-dark-color-info: var(--arc-blue-040);
-  --arc-dark-color-success: var(--arc-green-040);
+  --arc-dark-color-error: var(--arc-red-070);
+  --arc-dark-background-color-error: var(--arc-red-000);
+  --arc-dark-color-warning: var(--arc-orange-070);
+  --arc-dark-background-color-warning: var(--arc-orange-000);
+  --arc-dark-color-info: var(--arc-blue-070);
+  --arc-dark-background-color-info: var(--arc-blue-000);
+  --arc-dark-color-success: var(--arc-green-070);
+  --arc-dark-background-color-success: var(--arc-green-000);
 
   /* Box shadow */
   --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),
@@ -320,9 +328,13 @@ arc-container {
   --arc-color-primary: var(--arc-light-color-primary);
   --arc-color-secondary: var(--arc-light-color-secondary);
   --arc-color-error: var(--arc-light-color-error);
+  --arc-background-color-error: var(--arc-light-background-color-error);
   --arc-color-warning: var(--arc-light-color-warning);
+  --arc-background-color-warning: var(--arc-light-background-color-warning);
   --arc-color-info: var(--arc-light-color-info);
+  --arc-background-color-info: var(--arc-light-background-color-info);
   --arc-color-success: var(--arc-light-color-success);
+  --arc-background-color-success: var(--arc-light-background-color-success);
 
   /* Box shadow */
   --arc-box-shadow: var(--arc-light-box-shadow);
@@ -352,9 +364,13 @@ arc-container {
     --arc-color-primary: var(--arc-dark-color-primary);
     --arc-color-secondary: var(--arc-dark-color-secondary);
     --arc-color-error: var(--arc-dark-color-error);
+    --arc-background-color-error: var(--arc-dark-background-color-error);
     --arc-color-warning: var(--arc-dark-color-warning);
+    --arc-background-color-warning: var(--arc-dark-background-color-warning);
     --arc-color-info: var(--arc-dark-color-info);
+    --arc-background-color-info: var(--arc-dark-background-color-info);
     --arc-color-success: var(--arc-dark-color-success);
+    --arc-background-color-success: var(--arc-dark-background-color-success);
 
     /* Box shadow */
     --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),
@@ -385,9 +401,13 @@ arc-container[theme='light'] {
   --arc-color-primary: var(--arc-light-color-primary);
   --arc-color-secondary: var(--arc-light-color-secondary);
   --arc-color-error: var(--arc-light-color-error);
+  --arc-background-color-error: var(--arc-light-background-color-error);
   --arc-color-warning: var(--arc-light-color-warning);
+  --arc-background-color-warning: var(--arc-light-background-color-warning);
   --arc-color-info: var(--arc-light-color-info);
+  --arc-background-color-info: var(--arc-light-background-color-info);
   --arc-color-success: var(--arc-light-color-success);
+  --arc-background-color-success: var(--arc-light-background-color-success);
 
   /* Box shadow */
   --arc-box-shadow: var(--arc-light-box-shadow);
@@ -416,9 +436,13 @@ arc-container[theme='dark'] {
   --arc-color-primary: var(--arc-dark-color-primary);
   --arc-color-secondary: var(--arc-dark-color-secondary);
   --arc-color-error: var(--arc-dark-color-error);
+  --arc-background-color-error: var(--arc-dark-background-color-error);
   --arc-color-warning: var(--arc-dark-color-warning);
+  --arc-background-color-warning: var(--arc-dark-background-color-warning);
   --arc-color-info: var(--arc-dark-color-info);
+  --arc-background-color-info: var(--arc-dark-background-color-info);
   --arc-color-success: var(--arc-dark-color-success);
+  --arc-background-color-success: var(--arc-dark-background-color-success);
 
   /* Box shadow */
   --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),

@@ -15,7 +15,6 @@ import '../ph-icon/warning/ph-icon-warning.js';
 import '../ph-icon/warning-octagon/ph-icon-warning-octagon.js';
 import '../ph-icon/info/ph-icon-info.js';
 import '../ph-icon/check-circle/ph-icon-check-circle.js';
-import '../ph-icon/x/ph-icon-x.js';
 
 /**
  * @ bata component feature (api subject to change)
@@ -32,7 +31,7 @@ export default class ArcAlert extends LitElement {
     componentStyles,
     css`
       :host {
-        --alert-background: rgb(var(--arc-container-color));
+        --alert-background: rgb(var(--arc-background-color));
         --alert-color: rgb(var(--arc-text-color));
         display: inline-block;
         font-size: var(--arc-font-size-small);
@@ -48,46 +47,43 @@ export default class ArcAlert extends LitElement {
         gap: var(--arc-spacing-medium);
         background: var(--alert-background);
         color: var(--alert-color);
-        min-width: 300px;
+        width: 100%;
         max-width: 500px;
       }
       div.alert--error {
-        --alert-background: rgb(var(--arc-color-error));
+        --alert-background: rgb(var(--arc-background-color-error));
+        --alert-color: rgb(var(--arc-color-error));
       }
       div.alert--warning {
-        --alert-background: rgb(var(--arc-color-warning));
+        --alert-background: rgb(var(--arc-background-color-warning));
+        --alert-color: rgb(var(--arc-color-warning));
       }
       div.alert--info {
-        --alert-background: rgb(var(--arc-color-info));
+        --alert-background: rgb(var(--arc-background-color-info));
+        --alert-color: rgb(var(--arc-color-info));
       }
       div.alert--success {
-        --alert-background: rgb(var(--arc-color-success));
-      }
-      div.alert--error,
-      div.alert--warning,
-      div.alert--info,
-      div.alert--success {
-        color: rgb(var(--arc-font-inverse-color));
+        --alert-background: rgb(var(--arc-background-color-success));
+        --alert-color: rgb(var(--arc-color-success));
       }
       div.content {
         display: grid;
-        gap: var(--arc-spacing-small);
+        gap: var(--arc-spacing-x-small);
       }
       span.title {
         font-weight: bold;
+      }
+      span.message {
+        display: block;
+        max-height: 230px;
+        overflow: scroll;
       }
       div.actions {
         display: grid;
         grid-auto-flow: column;
         gap: calc(var(--arc-spacing-x-small));
         justify-content: flex-end;
-        padding: var(--arc-spacing-medium);
-      }
-      arc-icon-button {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        --icon-color: var(--alert-color);
+        padding: var(--arc-spacing-small);
       }
     `,
   ];
@@ -123,8 +119,8 @@ export default class ArcAlert extends LitElement {
   }
 
   protected render() {
-    const { title, message, type, dismissable, action, secondaryAction } =
-      this.config;
+    const { title, message, type, action, secondaryAction } = this.config;
+
     return html`<div
         class=${classMap({
           alert: true,
@@ -135,49 +131,50 @@ export default class ArcAlert extends LitElement {
         })}
       >
         ${this.icon()}
-        ${dismissable === true ||
-        (action === undefined && secondaryAction === undefined)
-          ? html`
-              <arc-icon-button @click=${this.handleCloseBtnClick}>
-                <ph-icon-x slot="icon"></ph-icon-x>
-              </arc-icon-button>
-            `
-          : ''}
+
         <div class="content">
           <span class="title">${title}</span>
           <span class="message">${message}</span>
         </div>
       </div>
 
-      ${action || secondaryAction
-        ? html`
-            <div class="actions">
-              ${secondaryAction
-                ? html`
-                    <arc-button
-                      @click=${secondaryAction.callback}
-                      color=${THEME_COLORS.secondary}
-                      type=${BUTTON_TYPES.outlined}
-                    >
-                      ${secondaryAction.label}
-                    </arc-button>
-                  `
-                : ''}
-              ${action
-                ? html`
-                    <arc-button
-                      @click=${action.callback}
-                      color=${type && type !== OPERATIONS.default
-                        ? type
-                        : THEME_COLORS.primary}
-                      type=${BUTTON_TYPES.outlined}
-                    >
-                      ${action.label}
-                    </arc-button>
-                  `
-                : ''}
-            </div>
-          `
-        : ''} `;
+      <div class="actions">
+        ${action === undefined && secondaryAction === undefined
+          ? html`
+              <arc-button
+                type=${BUTTON_TYPES.outlined}
+                color=${type && type !== OPERATIONS.default
+                  ? type
+                  : THEME_COLORS.primary}
+                @click=${this.handleCloseBtnClick}
+                >Close</arc-button
+              >
+            `
+          : ''}
+        ${secondaryAction
+          ? html`
+              <arc-button
+                @click=${secondaryAction.callback}
+                color=${THEME_COLORS.secondary}
+                type=${BUTTON_TYPES.outlined}
+              >
+                ${secondaryAction.label}
+              </arc-button>
+            `
+          : ''}
+        ${action
+          ? html`
+              <arc-button
+                @click=${action.callback}
+                color=${type && type !== OPERATIONS.default
+                  ? type
+                  : THEME_COLORS.primary}
+                type=${BUTTON_TYPES.outlined}
+              >
+                ${action.label}
+              </arc-button>
+            `
+          : ''}
+      </div>`;
   }
 }

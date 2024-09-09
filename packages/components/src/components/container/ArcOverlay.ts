@@ -38,11 +38,14 @@ export default class ArcOverlay extends LitElement {
         z-index: 1000;
         place-items: center;
       }
-      div.alert-controls {
+      div.controls {
         position: absolute;
         bottom: var(--arc-spacing-large);
         left: 50%;
         transform: translateX(-50%);
+        background: rgb(var(--arc-background-color));
+        border-radius: var(--arc-border-radius-small);
+        padding: calc(var(--arc-spacing-x-small) / 2);
         display: grid;
         grid-template-columns: repeat(3, auto);
         align-items: center;
@@ -93,9 +96,7 @@ export default class ArcOverlay extends LitElement {
     alert.config = config;
 
     /** append the alert to the overlay */
-    config.assertive === true
-      ? this.prepend(alert)
-      : this.appendChild(alert);
+    config.assertive === true ? this.prepend(alert) : this.appendChild(alert);
 
     /** set the active alert */
     this.setActiveAlert(this.activeAlertIndex);
@@ -109,7 +110,8 @@ export default class ArcOverlay extends LitElement {
       /** update the active alert index */
       const alerts = this.alertElements?.length || 0;
       const index = this.activeAlertIndex;
-      const newIndex = index - 1 >= 0 ? index - 1 : index + 1 >= alerts ? 0 : index + 1;
+      const newIndex =
+        index - 1 >= 0 ? index - 1 : index + 1 >= alerts ? 0 : index + 1;
       this.setActiveAlert(newIndex);
 
       /** remove the overlay if there are no more alerts */
@@ -126,21 +128,20 @@ export default class ArcOverlay extends LitElement {
 
   protected render() {
     const alerts = this.alertElements?.length || 0;
+
     return html`
       <slot></slot>
-      <div class="alert-controls">
-        ${alerts > 1
-          ? html`
-              <arc-icon-button @click=${this.handlePreviousAlert}>
-                <ph-icon-arrow-left slot="icon" />
-              </arc-icon-button>
-              <sub>${this.activeAlertIndex + 1} / ${alerts}</sub>
-              <arc-icon-button @click=${this.handleNextAlert}>
-                <ph-icon-arrow-right slot="icon" />
-              </arc-icon-button>
-            `
-          : ''}
-      </div>
+      ${alerts > 1
+        ? html` <div class="controls">
+            <arc-icon-button @click=${this.handlePreviousAlert}>
+              <ph-icon-arrow-left slot="icon" />
+            </arc-icon-button>
+            <sub>${this.activeAlertIndex + 1} / ${alerts}</sub>
+            <arc-icon-button @click=${this.handleNextAlert}>
+              <ph-icon-arrow-right slot="icon" />
+            </arc-icon-button>
+          </div>`
+        : ''}
     `;
   }
 }

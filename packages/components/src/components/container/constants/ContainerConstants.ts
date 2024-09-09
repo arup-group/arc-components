@@ -34,7 +34,6 @@ export declare interface OperationConfiguration {
 
 export declare interface AlertConfiguration extends OperationConfiguration {
   assertive?: boolean;
-  dismissable?: boolean;
   action?: Action;
   secondaryAction?: Action;
 }

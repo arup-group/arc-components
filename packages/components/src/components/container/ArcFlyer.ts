@@ -14,8 +14,7 @@ import ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import { NotificationHistory } from './ArcContainer.js';
 
 import '../icon-button/arc-icon-button.js';
-import '../ph-icon/arrow-up/ph-icon-arrow-up.js';
-import '../ph-icon/arrow-down/ph-icon-arrow-down.js';
+import '../ph-icon/dots-three/ph-icon-dots-three.js';
 import './ArcNotification.js';
 
 /**
@@ -33,41 +32,40 @@ export default class ArcFlyer extends LitElement {
     componentStyles,
     css`
       :host {
+        --flyer-position-spacing: var(--arc-spacing-medium);
         display: grid;
         gap: var(--arc-spacing-small);
         position: fixed;
         z-index: calc(var(--arc-z-index-drawer) - 1);
-        width: calc(
-          clamp(0px, 480px, 100%) - calc(var(--arc-spacing-small) * 2)
-        );
+        width: calc(clamp(0px, 480px, 100%) - var(--arc-spacing-medium));
       }
       :host([placement='top-start']) {
-        top: var(--arc-spacing-small);
+        top: var(--flyer-position-spacing);
         right: unset;
-        left: var(--arc-spacing-small);
+        left: var(--flyer-position-spacing);
       }
       :host([placement='top-end']) {
-        top: var(--arc-spacing-small);
-        right: var(--arc-spacing-small);
+        top: var(--flyer-position-spacing);
+        right: var(--flyer-position-spacing);
         left: unset;
       }
       :host([placement='bottom-start']) {
-        bottom: var(--arc-spacing-small);
+        bottom: var(--flyer-position-spacing);
         right: unset;
-        left: var(--arc-spacing-small);
+        left: var(--flyer-position-spacing);
       }
       :host([placement='bottom-end']) {
-        bottom: var(--arc-spacing-small);
-        right: var(--arc-spacing-small);
+        bottom: var(--flyer-position-spacing);
+        right: var(--flyer-position-spacing);
         left: unset;
       }
       :host([placement='top']) {
-        top: var(--arc-spacing-small);
+        top: var(--flyer-position-spacing);
         right: 50%;
         transform: translateX(50%);
       }
       :host([placement='bottom']) {
-        bottom: var(--arc-spacing-small);
+        bottom: var(--flyer-position-spacing);
         right: 50%;
         transform: translateX(50%);
       }
@@ -75,16 +73,14 @@ export default class ArcFlyer extends LitElement {
         display: grid;
         gap: var(--arc-spacing-small);
         width: 100;
+        max-height: calc(75vh - calc(var(--flyer-position-spacing) * 2));
+        overflow: auto;
       }
       div.controls {
-        display: flex;
+        display: inline-flex;
         gap: var(--arc-spacing-x-small);
-        background: rgb(var(--arc-background-color));
-        padding: var(--arc-spacing-x-small);
-        border-radius: var(--arc-border-radius-small);
-        box-shadow: var(--arc-box-shadow);
         align-items: center;
-        justify-content: end;
+        justify-content: center;
       }
       arc-tooltip {
         --arrow-size: 0px;
@@ -113,6 +109,7 @@ export default class ArcFlyer extends LitElement {
   /** Open an alert with the given configuration */
   public openNotification(config: NotificationConfiguration): ActionCallback {
     const { duration, saveInHistory, timeStamp } = config;
+    const isTopPlacement = this.placement.includes('top');
 
     /* ensure that the time stamp is set */
     if (!timeStamp) {
@@ -143,13 +140,21 @@ export default class ArcFlyer extends LitElement {
       const nextNotification =
         this.currentNotifications[this.maxNotifications - 1];
       if (nextNotification) {
-        this.append(nextNotification);
+        if (isTopPlacement) {
+          this.prepend(nextNotification);
+        } else {
+          this.append(nextNotification);
+        }
       }
 
-      this.hiddenNotifications =
-        this.currentNotifications.length - this.maxNotifications > 0
-          ? this.currentNotifications.length - this.maxNotifications
-          : 0;
+      /* update the hidden notifications count */
+      if (this.currentNotifications.length - this.maxNotifications > 0) {
+        const newValue =
+          this.currentNotifications.length - this.maxNotifications;
+        this.hiddenNotifications = newValue;
+      } else {
+        this.hiddenNotifications = 0;
+      }
 
       /* if no notifications are left, remove the flyer */
       if (!this.notificationElements?.length) {
@@ -159,24 +164,6 @@ export default class ArcFlyer extends LitElement {
 
     /* call the close callback when the notification is closed by the user the the close button */
     notificationElement.addEventListener(ARC_EVENTS.hide, closeCallback);
-
-    /* add the nottification to the elements list */
-    this.currentNotifications.push(notificationElement);
-
-    /* if adding the notification will not cause the max notifications to be exceeded, add the notification to the DOM */
-    if (this.currentNotifications.length <= this.maxNotifications) {
-      this.append(notificationElement);
-    }
-
-    /* remove the oldest notification if the max notifications is reached */
-    if (this.currentNotifications.length > this.maxNotifications) {
-      const oldestNotification =
-        this.currentNotifications[this.currentNotifications.length - 1];
-      oldestNotification.remove();
-    }
-
-    this.hiddenNotifications =
-      this.currentNotifications.length - this.maxNotifications;
 
     /* save the notification in history */
     if (saveInHistory) {
@@ -206,39 +193,68 @@ export default class ArcFlyer extends LitElement {
       setTimeout(closeCallback, duration);
     }
 
-    return closeCallback;
-  }
+    /* add the nottification to the elements list */
+    this.currentNotifications.push(notificationElement);
 
-  /** @internal */
-  private handleCloseAll() {
-    this.currentNotifications.forEach((notification) => notification.remove());
-    this.remove();
+    /* if adding the notification will not cause the max notifications to be exceeded, add the notification to the DOM */
+    if (
+      this.currentNotifications.length <= this.maxNotifications ||
+      duration !== undefined
+    ) {
+      if (isTopPlacement) {
+        this.prepend(notificationElement);
+      } else {
+        this.append(notificationElement);
+      }
+    }
+
+    /* remove the oldest notification if the max notifications is reached */
+    if (this.currentNotifications.length > this.maxNotifications && !duration) {
+      const oldestNotification =
+        this.currentNotifications[this.currentNotifications.length - 1];
+      oldestNotification.remove();
+      this.hiddenNotifications =
+        this.currentNotifications.length - this.maxNotifications;
+    }
+
+    return closeCallback;
   }
 
   /** @internal */
   @state() private hiddenNotifications = 0;
 
-  private controls() {
-    return html`
-      <div class="controls">
-        ${this.hiddenNotifications > 0
-          ? html`<span>+${this.hiddenNotifications} Notifications</span>`
-          : ''}
-        <arc-icon-button @click=${this.handleCloseAll} size="small">
-          <ph-icon-x slot="icon" size="small" />
-        </arc-icon-button>
-      </div>
-    `;
+  /** @internal */
+  private showMore() {
+    return this.hiddenNotifications > 0
+      ? html`<div class="controls">
+          <arc-icon-button @click=${this.handleShowAllBtnClick}>
+            <ph-icon-dots-three slot="icon" />
+          </arc-icon-button>
+        </div>`
+      : html``;
+  }
+
+  /** @internal */
+  private handleShowAllBtnClick() {
+    const isTopPlacement = this.placement.includes('top');
+    this.currentNotifications.forEach((notification) => {
+      if (isTopPlacement) {
+        this.prepend(notification);
+      } else {
+        this.append(notification);
+      }
+    });
+    this.hiddenNotifications = 0;
   }
 
   protected render() {
     const isTopPlacement = this.placement.includes('top');
     return html`
-      ${isTopPlacement ? this.controls() : ''}
+      ${!isTopPlacement ? this.showMore() : ''}
       <div class="notifications">
         <slot></slot>
       </div>
-      ${!isTopPlacement ? this.controls() : ''}
+      ${isTopPlacement ? this.showMore() : ''}
     `;
   }
 }

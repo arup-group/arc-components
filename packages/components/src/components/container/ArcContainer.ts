@@ -122,6 +122,7 @@ export default class ArcContainer extends LitElement {
       this.appendChild(arcFlyer);
     }
     const closeCallback = arcFlyer.openNotification(config);
+
     return closeCallback;
   }
 

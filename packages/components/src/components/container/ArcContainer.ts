@@ -66,6 +66,9 @@ export default class ArcContainer extends LitElement {
   /** @bata-feature Set the flyer placement for notifications. */
   @property() flyerPlacement: FlyerPlacement = FLYER_PLACEMENT['bottom-end'];
 
+  /** @bata-feature Set the max number of notifications to display. */
+  @property({ type: Number }) maxNotifications: number | undefined;
+
   @watch('theme')
   handleThemeChange() {
     /* If the provided theme is not valid, force auto theme */
@@ -113,6 +116,9 @@ export default class ArcContainer extends LitElement {
     if (!arcFlyer) {
       arcFlyer = document.createElement(ArcFlyer.tag) as ArcFlyer;
       arcFlyer.placement = this.flyerPlacement;
+      if (this.maxNotifications) {
+        arcFlyer.maxNotifications = this.maxNotifications;
+      }
       this.appendChild(arcFlyer);
     }
     const closeCallback = arcFlyer.openNotification(config);

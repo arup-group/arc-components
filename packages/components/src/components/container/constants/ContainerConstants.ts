@@ -40,9 +40,11 @@ export declare interface NotificationConfiguration
   saveInHistory?: boolean;
 }
 
-
-export declare type FlyerPlacement = Extract<Placement, 'top'| 'bottom'| 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'>;
-export const FLYER_PLACEMENT: { [key in FlyerPlacement]: FlyerPlacement} = {
+export declare type FlyerPlacement = Extract<
+  Placement,
+  'top' | 'bottom' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'
+>;
+export const FLYER_PLACEMENT: { [key in FlyerPlacement]: FlyerPlacement } = {
   top: 'top',
   bottom: 'bottom',
   'top-start': 'top-start',

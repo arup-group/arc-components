@@ -86,14 +86,18 @@ export default class ArcFlyer extends LitElement {
         align-items: center;
         justify-content: end;
       }
+      arc-tooltip {
+        --arrow-size: 0px;
+      }
     `,
   ];
 
   /** Set the placement of the flyer */
-  @property({ reflect: true }) public placement: FlyerPlacement = FLYER_PLACEMENT['bottom-end'];
+  @property({ reflect: true }) public placement: FlyerPlacement =
+    FLYER_PLACEMENT['bottom-end'];
 
-  /** @internal */
-  private maxNotifications = 3;
+  /** Set the max number of notifications to display */
+  @property({ type: Number, reflect: true }) public maxNotifications = 5;
 
   /** @internal */
   private currentNotifications: ArcNotification[] = [];
@@ -214,22 +218,27 @@ export default class ArcFlyer extends LitElement {
   /** @internal */
   @state() private hiddenNotifications = 0;
 
-  protected render() {
+  private controls() {
     return html`
+      <div class="controls">
+        ${this.hiddenNotifications > 0
+          ? html`<span>+${this.hiddenNotifications} Notifications</span>`
+          : ''}
+        <arc-icon-button @click=${this.handleCloseAll} size="small">
+          <ph-icon-x slot="icon" size="small" />
+        </arc-icon-button>
+      </div>
+    `;
+  }
+
+  protected render() {
+    const isTopPlacement = this.placement.includes('top');
+    return html`
+      ${isTopPlacement ? this.controls() : ''}
       <div class="notifications">
         <slot></slot>
       </div>
-
-      ${this.currentNotifications.length > 0
-        ? html`<div class="controls">
-            ${this.hiddenNotifications > 0
-              ? html`<arc-button color"secondary" size="small"> +${this.hiddenNotifications} Notifications</arc-button>`
-              : ''}
-            <arc-icon-button @click=${this.handleCloseAll} size="small">
-              <ph-icon-x slot="icon" size="small" />
-            </arc-icon-button>
-          </div>`
-        : ''}
+      ${!isTopPlacement ? this.controls() : ''}
     `;
   }
 }

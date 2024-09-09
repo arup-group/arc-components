@@ -1,9 +1,11 @@
 import { html, css, LitElement, isServer } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import type {
   ActionCallback,
   NotificationConfiguration,
+  FlyerPlacement,
 } from './constants/ContainerConstants.js';
+import { FLYER_PLACEMENT } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import componentStyles from '../../styles/component.styles.js';
 import ArcNotification from './ArcNotification.js';
@@ -34,20 +36,46 @@ export default class ArcFlyer extends LitElement {
         display: grid;
         gap: var(--arc-spacing-small);
         position: fixed;
-        bottom: var(--arc-spacing-small);
-        right: var(--arc-spacing-small);
         z-index: calc(var(--arc-z-index-drawer) - 1);
         width: calc(
           clamp(0px, 480px, 100%) - calc(var(--arc-spacing-small) * 2)
         );
       }
-
+      :host([placement='top-start']) {
+        top: var(--arc-spacing-small);
+        right: unset;
+        left: var(--arc-spacing-small);
+      }
+      :host([placement='top-end']) {
+        top: var(--arc-spacing-small);
+        right: var(--arc-spacing-small);
+        left: unset;
+      }
+      :host([placement='bottom-start']) {
+        bottom: var(--arc-spacing-small);
+        right: unset;
+        left: var(--arc-spacing-small);
+      }
+      :host([placement='bottom-end']) {
+        bottom: var(--arc-spacing-small);
+        right: var(--arc-spacing-small);
+        left: unset;
+      }
+      :host([placement='top']) {
+        top: var(--arc-spacing-small);
+        right: 50%;
+        transform: translateX(50%);
+      }
+      :host([placement='bottom']) {
+        bottom: var(--arc-spacing-small);
+        right: 50%;
+        transform: translateX(50%);
+      }
       div.notifications {
         display: grid;
         gap: var(--arc-spacing-small);
         width: 100;
       }
-
       div.controls {
         display: flex;
         gap: var(--arc-spacing-x-small);
@@ -61,7 +89,13 @@ export default class ArcFlyer extends LitElement {
     `,
   ];
 
+  /** Set the placement of the flyer */
+  @property({ reflect: true }) public placement: FlyerPlacement = FLYER_PLACEMENT['bottom-end'];
+
+  /** @internal */
   private maxNotifications = 3;
+
+  /** @internal */
   private currentNotifications: ArcNotification[] = [];
 
   /** @internal */
@@ -185,12 +219,13 @@ export default class ArcFlyer extends LitElement {
       <div class="notifications">
         <slot></slot>
       </div>
+
       ${this.currentNotifications.length > 0
         ? html`<div class="controls">
             ${this.hiddenNotifications > 0
-              ? html`<span>${this.hiddenNotifications} more</span>`
+              ? html`<arc-button color"secondary" size="small"> +${this.hiddenNotifications} Notifications</arc-button>`
               : ''}
-            <arc-icon-button @click=${this.handleCloseAll}>
+            <arc-icon-button @click=${this.handleCloseAll} size="small">
               <ph-icon-x slot="icon" size="small" />
             </arc-icon-button>
           </div>`

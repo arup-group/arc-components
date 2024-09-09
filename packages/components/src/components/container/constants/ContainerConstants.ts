@@ -1,6 +1,7 @@
+import { Placement } from '@floating-ui/dom';
 import { ThemeColor } from '../../../internal/constants/styleConstants.js';
-export declare type ContainerThemePreference = 'auto' | 'dark' | 'light';
 
+export declare type ContainerThemePreference = 'auto' | 'dark' | 'light';
 export const CONTAINER_THEME_PREFERENCES: {
   [key in ContainerThemePreference]: ContainerThemePreference;
 } = {
@@ -38,3 +39,14 @@ export declare interface NotificationConfiguration
   duration?: number;
   saveInHistory?: boolean;
 }
+
+
+export declare type FlyerPlacement = Extract<Placement, 'top'| 'bottom'| 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'>;
+export const FLYER_PLACEMENT: { [key in FlyerPlacement]: FlyerPlacement} = {
+  top: 'top',
+  bottom: 'bottom',
+  'top-start': 'top-start',
+  'top-end': 'top-end',
+  'bottom-start': 'bottom-start',
+  'bottom-end': 'bottom-end',
+};

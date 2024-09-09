@@ -57,20 +57,20 @@ export default class ArcNotification extends LitElement {
         font-size: var(--arc-font-size-small);
       }
       div.notification--error {
-        --notification-background: rgb(var(--arc-red-020));
-        --notification-color: rgb(var(--arc-red-090));
+        --notification-background: rgb(var(--arc-background-color-error));
+        --notification-color: rgb(var(--arc-color-error));
       }
       div.notification--warning {
-        --notification-background: rgb(var(--arc-yellow-020));
-        --notification-color: rgb(var(--arc-yellow-090));
+        --notification-background: rgb(var(--arc-background-color-warning));
+        --notification-color: rgb(var(--arc-color-warning));
       }
       div.notification--info {
-        --notification-background: rgb(var(--arc-blue-020));
-        --notification-color: rgb(var(--arc-blue-090));
+        --notification-background: rgb(var(--arc-background-color-info));
+        --notification-color: rgb(var(--arc-color-info));
       }
       div.notification--success {
-        --notification-background: rgb(var(--arc-green-020));
-        --notification-color: rgb(var(--arc-green-090));
+        --notification-background: rgb(var(--arc-background-color-success));
+        --notification-color: rgb(var(--arc-color-success));
       }
       div.details {
         display: grid;
@@ -119,8 +119,6 @@ export default class ArcNotification extends LitElement {
       hour: 'numeric',
       minute: 'numeric',
     });
-
-    console.log(title);
 
     return html`<div
       class=${classMap({

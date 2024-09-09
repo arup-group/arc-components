@@ -9,17 +9,18 @@ import {
   ContainerThemePreference,
   NotificationConfiguration,
   ActionCallback,
+  FlyerPlacement,
+  FLYER_PLACEMENT,
 } from './constants/ContainerConstants.js';
 
 import ArcAccessibility from '../accessibility/ArcAccessibility.js';
-import ArcNotification from './ArcNotification.js';
+import ArcFlyer from './ArcFlyer.js';
 import styles from './arc-container.styles.js';
 
 import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import './ArcNotification.js';
-import ArcFlyer from './ArcFlyer.js';
 
 export type NotificationHistory = NotificationConfiguration[];
 
@@ -61,6 +62,9 @@ export default class ArcContainer extends LitElement {
 
   /** Set the banner text. This enables the sticky banner to be rendered above the container. */
   @property() banner: string | boolean = false;
+
+  /** @bata-feature Set the flyer placement for notifications. */
+  @property() flyerPlacement: FlyerPlacement = FLYER_PLACEMENT['bottom-end'];
 
   @watch('theme')
   handleThemeChange() {
@@ -108,6 +112,7 @@ export default class ArcContainer extends LitElement {
     let arcFlyer = this.querySelector(ArcFlyer.tag) as ArcFlyer;
     if (!arcFlyer) {
       arcFlyer = document.createElement(ArcFlyer.tag) as ArcFlyer;
+      arcFlyer.placement = this.flyerPlacement;
       this.appendChild(arcFlyer);
     }
     const closeCallback = arcFlyer.openNotification(config);

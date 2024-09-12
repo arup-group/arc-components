@@ -1,8 +1,7 @@
 import { setCustomElementsManifest, Preview } from '@storybook/web-components';
-import DocumentationTemplate from './documentation-template.mdx';
 
-import '../themes/index.css';
-import '../src/index';
+import '../../../packages/components/themes/index.css';
+import '../../../packages/components/src/index';
 
 // @ts-ignore
 import CUSTOM_ELEMENTS from '../../../dist/packages/components/custom-elements.json';
@@ -13,9 +12,6 @@ const PREVIEW: Preview = {
   parameters: {
     layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
-    docs: {
-      page: DocumentationTemplate,
-    },
     controls: {
       matchers: {
         color:

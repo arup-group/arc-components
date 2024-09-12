@@ -1,9 +1,11 @@
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import { INPUT_SIZES } from '../../internal/constants/styleConstants.js';
 import { CHIP_TYPES } from './constants/ChipConstants.js';
 import type ArcChip from './ArcChip.js';
 import './arc-chip.js';
+import '../avatar/arc-avatar.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 export default {
   title: 'Components/ArcChip',
@@ -20,31 +22,22 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcChip> = ({ size, type, clearable }) => html`
-  <arc-chip size=${size} type=${type} ?clearable=${clearable}>Chip</arc-chip>
+export const Default: StoryFn<ArcChip> = ({ size, type, clearable }) => html`
+  <arc-chip
+    size=${ifDefined(size)}
+    type=${ifDefined(type)}
+    ?clearable=${clearable}
+  >
+  </arc-chip>
 `;
 
-const AvatarTemplate: Story<ArcChip> = ({ size, type, clearable }) => html`
-  <arc-chip size=${size} type=${type} ?clearable=${clearable}>
+export const WithAvatar: StoryFn<ArcChip> = ({ size, type, clearable }) => html`
+  <arc-chip
+    size=${ifDefined(size)}
+    type=${ifDefined(type)}
+    ?clearable=${clearable}
+  >
     <arc-avatar slot="avatar" name="User Name"></arc-avatar>
     Chip
   </arc-chip>
 `;
-
-const defaultArgs = {
-  size: INPUT_SIZES.medium,
-  type: CHIP_TYPES.filled,
-  clearable: false,
-};
-
-export const Filled = Template.bind({});
-Filled.args = { ...defaultArgs };
-
-export const Outlined = Template.bind({});
-Outlined.args = { ...defaultArgs, type: CHIP_TYPES.outlined };
-
-export const Clearable = Template.bind({});
-Clearable.args = { ...defaultArgs, clearable: true };
-
-export const ChipWithAvatar = AvatarTemplate.bind({});
-ChipWithAvatar.args = { ...defaultArgs };

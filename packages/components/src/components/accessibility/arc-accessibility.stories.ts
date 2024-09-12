@@ -1,9 +1,10 @@
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
-import type ArcAccessibility from './ArcAccessibility.js';
+import ArcAccessibility from '../accessibility/ArcAccessibility';
+import ArcContainer from '../container/ArcContainer.js';
 import '../container/arc-container.js';
-import '../navbar/arc-navbar.js';
+import '../switch/arc-switch.js';
 
 export default {
   title: 'Components/ArcAccessibility',
@@ -15,21 +16,28 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcAccessibility> = () => html`
-  <arc-container>
-    <arc-navbar slot="nav"></arc-navbar>
-    <div style="padding: var(--arc-spacing-normal)">
-      <p>Hi there!</p>
-      <p>
-        You can click on the <arc-icon name="accessibility"></arc-icon> icon in
-        the navbar to change your personal preferences.
-      </p>
-      <p>
-        Check the arc-accessibility-change event being fired inside the
-        <code class="code-block">Actions</code> tab whenever a change is made.
-      </p>
-    </div>
-  </arc-container>
-`;
+export const Default: StoryFn<ArcAccessibility> = () =>
+  html`<arc-container></arc-container>`;
 
-export const Default = Template.bind({});
+const handleAccessibilityOpen = (event: CustomEvent) => {
+  const container = event.target as ArcContainer;
+  const accessibility = container.querySelector(
+    'arc-accessibility',
+  ) as ArcAccessibility;
+  if (accessibility) {
+    accessibility.open = true;
+  }
+};
+
+export const CustomFeature: StoryFn<ArcAccessibility> = () =>
+  html`<arc-container
+    @arc-show-accessibility=${(event: CustomEvent) =>
+      handleAccessibilityOpen(event)}
+  >
+    <arc-accessibility slot="accessibility">
+      <div slot="options" class="accessibility__options">
+        <span class="accessibility__label">Custom Accessibility Feature</span>
+        <arc-switch>Enable custom feature</arc-switch>
+      </div>
+    </arc-accessibility>
+  </arc-container> `;

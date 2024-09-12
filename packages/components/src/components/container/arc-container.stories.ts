@@ -17,17 +17,9 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn<ArcContainer> = ({ theme, fullscreen, banner }) =>
+export const Default: StoryFn<ArcContainer> = ({ theme, fullscreen, banner }) =>
   html`<arc-container
     theme="${theme ?? 'auto'}"
     ?fullscreen="${ifDefined(fullscreen)}"
     banner="${ifDefined(banner)}"
   ></arc-container>`;
-
-export const Container = Template.bind({});
-
-export const Fullscreen = Template.bind({});
-Fullscreen.args = { fullscreen: true };
-
-export const Banner = Template.bind({});
-Banner.args = { banner: 'Arc Banner' };

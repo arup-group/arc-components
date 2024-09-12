@@ -1,0 +1,39 @@
+{
+  "name": "storybook",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/storybook/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/storybook:build",
+      "options": {
+        "outputDir": "dist/packages/storybook",
+        "configDir": "apps/storybook/src"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "components"
+        }
+      ]
+    },
+    "serve": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4200,
+        "configDir": "apps/storybook/src"
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "components"
+        }
+      ]
+    }
+  }
+}

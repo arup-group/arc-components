@@ -2,12 +2,10 @@ import { StorybookConfig } from '@storybook/web-components-vite';
 
 const STORYBOOK_CONFIGURATION: StorybookConfig = {
   core: { disableTelemetry: true },
-  features: { storyStoreV7: true },
   framework: '@storybook/web-components-vite',
   stories: [
-    '../src/**/*.stories.ts',
-    '../src/**/*.stories.tsx',
-    '../stories/*.mdx',
+    './stories/*.mdx|ts|tsx)',
+    '../../../packages/components/src/**/*.stories.@(ts|tsx)',
   ],
   staticDirs: [
     {
@@ -36,7 +34,7 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
     </style>
   `,
   viteFinal: (config) => {
-    config.cacheDir = '../../../node_modules/.vite/storybook';
+    config.cacheDir = '../../node_modules/.vite/storybook';
     return config;
   },
 };

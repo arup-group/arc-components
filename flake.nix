@@ -14,10 +14,17 @@
       (system:
 
         let
-          overlays = import ./overlays.nix { };
           pkgs = import nixpkgs {
             inherit system;
-            overlays = with overlays; [ default ];
+            overlays = [
+              (final: prev: {
+                lib = prev.lib // import ./lib.nix { pkgs = final; };
+                react = final.callPackage ./packages/react { };
+                components = final.callPackage ./packages/components { };
+                documentation = final.callPackage ./apps/documentation { };
+                storybook = final.callPackage ./packages/components/.storybook { };
+              })
+            ];
           };
         in
 

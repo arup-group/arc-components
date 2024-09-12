@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import {
@@ -28,7 +28,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArcButton> = ({
+export const Default: StoryFn<ArcButton> = ({
   color,
   size,
   type,
@@ -58,87 +58,3 @@ const Template: Story<ArcButton> = ({
     >Button</arc-button
   >
 `;
-const WidthTemplate: Story<ArcButton> = () =>
-  html`<arc-button style="width: 10rem;">Button</arc-button>`;
-
-const defaultArgs = {
-  color: THEME_COLORS.primary,
-  size: INPUT_SIZES.medium,
-  type: BUTTON_TYPES.filled,
-  name: '',
-  value: '',
-  href: '',
-  target: '',
-  download: '',
-  active: false,
-  disabled: false,
-  loading: false,
-  submit: false,
-  width: undefined,
-};
-
-/* COLORS */
-export const Primary = Template.bind({});
-Primary.args = { ...defaultArgs };
-
-export const PrimaryTwo = Template.bind({});
-PrimaryTwo.args = { ...defaultArgs, color: THEME_COLORS.secondary };
-
-export const Default = Template.bind({});
-Default.args = { ...defaultArgs, color: THEME_COLORS.default };
-
-export const Error = Template.bind({});
-Error.args = { ...defaultArgs, color: THEME_COLORS.error };
-
-export const Warning = Template.bind({});
-Warning.args = { ...defaultArgs, color: THEME_COLORS.warning };
-
-export const Info = Template.bind({});
-Info.args = { ...defaultArgs, color: THEME_COLORS.info };
-
-export const Success = Template.bind({});
-Success.args = { ...defaultArgs, color: THEME_COLORS.success };
-
-/* TYPES */
-export const Filled = Template.bind({});
-Filled.args = { ...defaultArgs };
-
-export const Outlined = Template.bind({});
-Outlined.args = { ...defaultArgs, type: BUTTON_TYPES.outlined };
-
-export const Tab = Template.bind({});
-Tab.args = { ...defaultArgs, type: BUTTON_TYPES.tab };
-
-export const Link = Template.bind({});
-Link.args = { ...defaultArgs, href: '/' };
-
-export const LinkNewWindow = Template.bind({});
-LinkNewWindow.args = { ...Link.args, target: '_blank' };
-
-export const LinkDownload = Template.bind({});
-LinkDownload.args = { ...Link.args, download: 'ARC Storybook' };
-
-export const LinkDisabled = Template.bind({});
-LinkDisabled.args = { ...Link.args, disabled: true };
-
-/* SIZES */
-export const Small = Template.bind({});
-Small.args = { ...defaultArgs, size: INPUT_SIZES.small };
-
-export const Medium = Template.bind({});
-Medium.args = { ...defaultArgs, size: INPUT_SIZES.medium };
-
-export const Large = Template.bind({});
-Large.args = { ...defaultArgs, size: INPUT_SIZES.large };
-
-export const CustomWidth = WidthTemplate.bind({});
-
-/* STATES */
-export const Active = Template.bind({});
-Active.args = { ...Tab.args, active: true };
-
-export const Disabled = Template.bind({});
-Disabled.args = { ...Tab.args, disabled: true };
-
-export const Loading = Template.bind({});
-Loading.args = { ...Tab.args, loading: true };

@@ -22,7 +22,7 @@
                 react = final.callPackage ./packages/react { };
                 components = final.callPackage ./packages/components { };
                 documentation = final.callPackage ./apps/documentation { };
-                storybook = final.callPackage ./packages/components/.storybook { };
+                storybook = final.callPackage ./apps/storybook { };
               })
             ];
           };

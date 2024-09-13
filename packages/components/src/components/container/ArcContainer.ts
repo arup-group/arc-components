@@ -102,7 +102,7 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
-  /* Open an alert (`ArcAlert`) with the given configuration */
+  /* @bata Open an `ArcAlert` with the given configuration */
   dispatchAlert(config: AlertConfiguration): ActionCallback {
     if (isServer) return () => void 0;
 

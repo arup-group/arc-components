@@ -14,8 +14,8 @@ import '../ph-icon/arrow-right/ph-icon-arrow-right.js';
 import './ArcAlert.js';
 
 /**
- * @ bata component feature (api subject to change)
- * @internal
+ * @bata
+ * @internal component should only be created by an `ArcContainer` component
  * @ssr - True
  */
 @customElement(ArcOverlay.tag)

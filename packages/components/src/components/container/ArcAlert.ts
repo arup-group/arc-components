@@ -17,8 +17,8 @@ import '../ph-icon/info/ph-icon-info.js';
 import '../ph-icon/check-circle/ph-icon-check-circle.js';
 
 /**
- * @ bata component feature (api subject to change)
- * @internal
+ * @bata
+ * @internal component should only be created by an `ArcOverlay` component
  * @ssr - True
  */
 @customElement(ArcAlert.tag)

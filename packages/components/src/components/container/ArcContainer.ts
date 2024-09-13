@@ -153,14 +153,8 @@ export default class ArcContainer extends LitElement {
     return html`
       ${when(this.banner, () => banner)}
       <div id="main">
-        <slot
-          id="nav"
-          name="nav"
-          @arc-show-accessibility=${this.showAccessibility}
-        >
-          <arc-navbar
-            @arc-show-accessibility=${this.showAccessibility}
-          ></arc-navbar>
+        <slot name="nav" @arc-show-accessibility=${this.showAccessibility}>
+          <arc-navbar @arc-show-accessibility=${this.showAccessibility} />
         </slot>
 
         <div
@@ -176,6 +170,7 @@ export default class ArcContainer extends LitElement {
             <slot></slot>
           </div>
         </div>
+
         <slot
           name="accessibility"
           @arc-accessibility-change=${this.handleAccessibilityChange}
@@ -183,12 +178,11 @@ export default class ArcContainer extends LitElement {
           <arc-accessibility
             id="accessibility"
             @arc-accessibility-change=${this.handleAccessibilityChange}
-          ></arc-accessibility>
+          />
         </slot>
-        <slot name="bottom">
-          <arc-bottombar
-            @arc-show-accessibility=${this.showAccessibility}
-          ></arc-bottombar>
+
+        <slot name="bottom" @arc-show-accessibility=${this.showAccessibility}>
+          <arc-bottombar @arc-show-accessibility=${this.showAccessibility} />
         </slot>
       </div>
     `;

@@ -7,6 +7,7 @@ import {
   CONTAINER_THEME_PREFERENCES,
   ContainerThemePreference,
   AlertConfiguration,
+  ActionCallback,
 } from './constants/ContainerConstants.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import type ArcOverlay from './ArcOverlay.js';
@@ -45,6 +46,9 @@ export default class ArcContainer extends LitElement {
 
   /** @internal */
   @query('#accessibility') accessibility: ArcAccessibility;
+
+  /** @internal */
+  @query('arc-overlay') private overlay: ArcOverlay;
 
   /** @internal - Reference to the preferred theme set by the app. */
   private _appPreferredTheme: ContainerThemePreference;
@@ -98,16 +102,17 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
-  /* Open an alert */
-  openAlert(config: AlertConfiguration): () => void {
-    if (isServer) () => void 0;
-    let overlay = this.querySelector('arc-overlay') as ArcOverlay;
-    if (overlay === null) {
-      overlay = document.createElement('arc-overlay') as ArcOverlay;
+  /* Open an alert (`ArcAlert`) with the given configuration */
+  dispatchAlert(config: AlertConfiguration): ActionCallback {
+    if (isServer) return () => void 0;
+
+    /* if the overlay does not exist, create it */
+    if (!this.overlay) {
+      const overlay = document.createElement('arc-overlay') as ArcOverlay;
       this.appendChild(overlay);
     }
-    const closeCallback = overlay.openAlert(config);
-    return closeCallback;
+
+    return this.overlay.dispatchAlert(config);
   }
 
   protected render() {

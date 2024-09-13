@@ -48,6 +48,7 @@ export default class ArcAlert extends LitElement {
         background: var(--alert-background);
         color: var(--alert-color);
         width: 100%;
+        min-width: 255px;
         max-width: 500px;
       }
       div.alert--error {

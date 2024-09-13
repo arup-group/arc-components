@@ -90,7 +90,9 @@ export default class ArcOverlay extends LitElement {
   }
 
   /** Open an alert with the given configuration */
-  public openAlert(config: AlertConfiguration): ActionCallback {
+  public dispatchAlert(config: AlertConfiguration): ActionCallback {
+    if (isServer) return () => void 0;
+
     /** create a new alert element */
     const alert = document.createElement('arc-alert') as ArcAlert;
     alert.config = config;
@@ -132,7 +134,7 @@ export default class ArcOverlay extends LitElement {
     return html`
       <slot></slot>
       ${alerts > 1
-        ? html` <div class="controls">
+        ? html`<div class="controls">
             <arc-icon-button @click=${this.handlePreviousAlert}>
               <ph-icon-arrow-left slot="icon" />
             </arc-icon-button>

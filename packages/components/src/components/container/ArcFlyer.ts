@@ -32,49 +32,53 @@ export default class ArcFlyer extends LitElement {
     componentStyles,
     css`
       :host {
-        --flyer-position-spacing: var(--arc-spacing-medium);
+        --flyer-position-spacing-horizontal: calc(var(--arc-spacing-medium) * 1.5);
+        --flyer-position-spacing-vertical: calc(var(--arc-spacing-normal) * 1.5);
         display: grid;
         gap: var(--arc-spacing-small);
         position: fixed;
         z-index: calc(var(--arc-z-index-drawer) - 1);
         width: calc(clamp(0px, 480px, 100%) - var(--arc-spacing-medium));
+        max-height: calc(100vh - calc(var(--flyer-position-spacing) * 2));
       }
       :host([placement='top-start']) {
-        top: var(--flyer-position-spacing);
+        top: var(--flyer-position-spacing-vertical);
         right: unset;
-        left: var(--flyer-position-spacing);
+        left: var(--flyer-position-spacing-horizontal);
       }
       :host([placement='top-end']) {
-        top: var(--flyer-position-spacing);
-        right: var(--flyer-position-spacing);
+        top: var(--flyer-position-spacing-vertical);
+        right: var(--flyer-position-spacing-horizontal);
         left: unset;
       }
       :host([placement='bottom-start']) {
-        bottom: var(--flyer-position-spacing);
+        bottom: var(--flyer-position-spacing-vertical);
         right: unset;
-        left: var(--flyer-position-spacing);
+        left: var(--flyer-position-spacing-horizontal);
       }
       :host([placement='bottom-end']) {
-        bottom: var(--flyer-position-spacing);
-        right: var(--flyer-position-spacing);
+        bottom: var(--flyer-position-spacing-vertical);
+        right: var(--flyer-position-spacing-horizontal);
         left: unset;
       }
       :host([placement='top']) {
-        top: var(--flyer-position-spacing);
-        right: 50%;
-        transform: translateX(50%);
+        bottom: unset;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
       }
       :host([placement='bottom']) {
-        bottom: var(--flyer-position-spacing);
-        right: 50%;
-        transform: translateX(50%);
+        top: unset;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
       }
       div.notifications {
         display: grid;
         gap: var(--arc-spacing-small);
-        width: 100;
-        max-height: calc(75vh - calc(var(--flyer-position-spacing) * 2));
-        overflow: auto;
+        width: 100%;
+        max-height: calc(100vh - var(--flyer-position-spacing-vertical));
+        overflow-y: scroll;
       }
       div.controls {
         display: inline-flex;
@@ -108,6 +112,7 @@ export default class ArcFlyer extends LitElement {
 
   /** Open an alert with the given configuration */
   public openNotification(config: NotificationConfiguration): ActionCallback {
+    if (isServer) return () => {};
     const { duration, saveInHistory, timeStamp } = config;
     const isTopPlacement = this.placement.includes('top');
 

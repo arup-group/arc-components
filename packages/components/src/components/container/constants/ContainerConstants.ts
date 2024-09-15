@@ -37,7 +37,6 @@ export declare interface NotificationConfiguration
   extends OperationConfiguration {
   timeStamp?: Date;
   duration?: number;
-  saveInHistory?: boolean;
 }
 
 export declare type FlyerPlacement = Extract<

@@ -11,7 +11,6 @@ import componentStyles from '../../styles/component.styles.js';
 import ArcNotification from './ArcNotification.js';
 import { parseObject } from '../../internal/string.js';
 import ArcAccessibility from '../accessibility/ArcAccessibility.js';
-import { NotificationHistory } from './ArcContainer.js';
 
 import '../icon-button/arc-icon-button.js';
 import '../ph-icon/dots-three/ph-icon-dots-three.js';
@@ -111,9 +110,10 @@ export default class ArcFlyer extends LitElement {
   }
 
   /** Open an alert with the given configuration */
-  public openNotification(config: NotificationConfiguration): ActionCallback {
+  public dispatchNotification(config: NotificationConfiguration): ActionCallback {
     if (isServer) return () => {};
-    const { duration, saveInHistory, timeStamp } = config;
+
+    const { duration, timeStamp } = config;
     const isTopPlacement = this.placement.includes('top');
 
     /* ensure that the time stamp is set */
@@ -169,18 +169,6 @@ export default class ArcFlyer extends LitElement {
 
     /* call the close callback when the notification is closed by the user the the close button */
     notificationElement.addEventListener(ARC_EVENTS.hide, closeCallback);
-
-    /* save the notification in history */
-    if (saveInHistory) {
-      const history = localStorage.getItem('arc-notification-history');
-      let historyArray: NotificationHistory = [];
-      if (history) historyArray = parseObject(history);
-      historyArray.push(config);
-      localStorage.setItem(
-        'arc-notification-history',
-        JSON.stringify(historyArray),
-      );
-    }
 
     /* check for cached preferences */
     const cachedPreferences = localStorage.getItem(ArcAccessibility.tag) || '';

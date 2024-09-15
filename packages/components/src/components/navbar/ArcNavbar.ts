@@ -1,12 +1,14 @@
 import { html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { emit } from '../../internal/event.js';
+import { ActionCallback, NotificationConfiguration } from '../container/constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { arupLogo } from './arup-logo.js';
 import styles from './arc-navbar.styles.js';
 import '../icon-button/arc-icon-button.js';
 import '../ph-icon/list/ph-icon-list.js';
+import '../ph-icon/notification/ph-icon-notification.js';
 import '../icon/accessibility/arc-icon-accessibility.js';
 
 /**
@@ -40,6 +42,9 @@ export default class ArcNavbar extends LitElement {
     emit(this, ARC_EVENTS.showAccessibility);
   }
 
+  @state() notifications: [NotificationConfiguration, ActionCallback][] = [];
+  @property({ type: Boolean }) notificationHistory = false;
+
   protected render() {
     const logoInterior = html`
       ${when(
@@ -67,18 +72,46 @@ export default class ArcNavbar extends LitElement {
             () => html`<div id="logoWrapper">${logoInterior}</div>`,
           )}
         </div>
+
         <div id="right">
           <nav id="tabs" aria-label="primary navigation">
             <slot id="tabSlot"></slot>
+
+            ${this.notificationHistory ? html`
+              <arc-dropdown>
+                <arc-icon-button slot="trigger">
+                  <ph-icon-notification slot="icon" />
+                </arc-icon-button>
+
+                <arc-menu>
+                  ${this.notifications.map(
+                    ([notification, close]) => html`
+                      <arc-menu-item>
+                        <div>
+                          <span>${notification.title}</span>
+                          <span>${notification.message}</span>
+                        </div>
+                        <arc-icon-button @click=${close}>
+                          <ph-icon-x slot="icon" />
+                        </arc-icon-button>
+                      </arc-menu-item>
+                    `,
+                  )}
+                </arc-menu>
+              </arc-dropdown>
+            ` : ``}
+
             <arc-icon-button
               id="accessibility"
               label="Accessibility panel"
               @click=${this.emitAccessibility}
             >
-              <arc-icon-accessibility slot="icon"></arc-icon-accessibility>
+              <arc-icon-accessibility slot="icon" />
             </arc-icon-button>
+
             <slot name="user"></slot>
           </nav>
+
           <slot name="company-logo" id="company-logo">${arupLogo}</slot>
         </div>
       </header>

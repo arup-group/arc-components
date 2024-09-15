@@ -13,6 +13,7 @@ import {
   FLYER_PLACEMENT,
 } from './constants/ContainerConstants.js';
 
+import ArcNavbar from '../navbar/ArcNavbar.js';
 import ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import ArcFlyer from './ArcFlyer.js';
 import styles from './arc-container.styles.js';
@@ -21,8 +22,6 @@ import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
 import './ArcNotification.js';
-
-export type NotificationHistory = NotificationConfiguration[];
 
 /**
  * @slot default - The container's content.
@@ -63,11 +62,8 @@ export default class ArcContainer extends LitElement {
   /** Set the banner text. This enables the sticky banner to be rendered above the container. */
   @property() banner: string | boolean = false;
 
-  /** @bata-feature Set the flyer placement for notifications. */
+  /** @bata Set the placement of the notification flyer. */
   @property() flyerPlacement: FlyerPlacement = FLYER_PLACEMENT['bottom-end'];
-
-  /** @bata-feature Set the max number of notifications to display. */
-  @property({ type: Number }) maxNotifications: number | undefined;
 
   @watch('theme')
   handleThemeChange() {
@@ -107,36 +103,28 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
-  /** @bata-feature Open a notification. */
-  public openNotification(config: NotificationConfiguration): ActionCallback {
-    if (isServer) return () => {};
+  /** @bata Open a notification. */
+  public dispatchNotification(config: NotificationConfiguration): [ActionCallback, ActionCallback] {
+    if (isServer) return [() => void 0, () => void 0];
 
     /* ensure that the arc flyer is present */
-    let arcFlyer = this.querySelector(ArcFlyer.tag) as ArcFlyer;
-    if (!arcFlyer) {
-      arcFlyer = document.createElement(ArcFlyer.tag) as ArcFlyer;
-      arcFlyer.placement = this.flyerPlacement;
-      if (this.maxNotifications) {
-        arcFlyer.maxNotifications = this.maxNotifications;
-      }
-      this.appendChild(arcFlyer);
+    let flyer = this.querySelector(ArcFlyer.tag) as ArcFlyer;
+    if (flyer === null) {
+      flyer = document.createElement(ArcFlyer.tag) as ArcFlyer;
+      flyer.placement = this.flyerPlacement;
+      this.appendChild(flyer);
     }
-    const closeCallback = arcFlyer.openNotification(config);
 
-    return closeCallback;
-  }
+    const navbar = this.querySelector(ArcNavbar.tag) as ArcNavbar;
+    const removeNotficationCallback = () => {
+      const newNotifications = navbar.notifications.filter(([n]) => n !== config);
+      navbar.notifications = newNotifications;
+    }
+    if (navbar !== null) {
+      navbar.notifications = [...navbar.notifications, [config, removeNotficationCallback]];
+    }
 
-  /** @bata-feature Get all notifcations in history. */
-  public getNotificationHistory(): NotificationHistory {
-    if (isServer) return [];
-    const history = localStorage.getItem('arc-notification-history');
-    return history ? JSON.parse(history) : [];
-  }
-
-  /** @bata-feature Clear notifcation history */
-  public clearNotificationHistory(): void {
-    if (isServer) return;
-    localStorage.removeItem('arc-notification-history');
+    return [flyer.dispatchNotification(config), removeNotficationCallback];
   }
 
   protected render() {
@@ -164,7 +152,6 @@ export default class ArcContainer extends LitElement {
             'container--fullscreen': this.fullscreen,
           })}
         >
-          <div class="notification-container"></div>
           <slot name="side"></slot>
           <div id="content">
             <slot></slot>

@@ -51,3 +51,9 @@ export const FLYER_PLACEMENT: { [key in FlyerPlacement]: FlyerPlacement } = {
   'bottom-start': 'bottom-start',
   'bottom-end': 'bottom-end',
 };
+
+export declare interface AlertConfiguration extends OperationConfiguration {
+  assertive?: boolean;
+  action?: Action;
+  secondaryAction?: Action;
+}

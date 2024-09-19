@@ -1,5 +1,11 @@
 import { html } from 'lit';
-import { expect, fixture, elementUpdated, waitUntil, aTimeout } from '@open-wc/testing';
+import {
+  expect,
+  fixture,
+  elementUpdated,
+  waitUntil,
+  aTimeout,
+} from '@open-wc/testing';
 import sinon, { SinonSpy } from 'sinon';
 import { parseObject, stringToHyphenSeparated } from '../../internal/string.js';
 import { setRootValue, getRootValue } from '../../utilities/style-utils.js';
@@ -390,7 +396,7 @@ describe('ArcAccessibility', () => {
       await waitUntil(() => accessibilityChangeHandler.calledOnce);
       expect(accessibilityChangeHandler).to.have.been.calledOnce;
 
-      const { theme }= getCachedPreferences();
+      const { theme } = getCachedPreferences();
 
       expect((currentPreferences as any).theme).to.not.equal(theme);
     });

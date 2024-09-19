@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { html, isServer, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
@@ -6,12 +6,18 @@ import { watch } from '../../internal/watch.js';
 import {
   CONTAINER_THEME_PREFERENCES,
   ContainerThemePreference,
+  AlertConfiguration,
+  ActionCallback,
 } from './constants/ContainerConstants.js';
 import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
+import type ArcOverlay from './ArcOverlay.js';
 import styles from './arc-container.styles.js';
+
 import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
+import './ArcOverlay.js';
+import './ArcAlert.js';
 
 /**
  * @slot default - The container's content.
@@ -27,6 +33,8 @@ import '../bottombar/arc-bottombar.js';
  * @ssr - True
  */
 export default class ArcContainer extends LitElement {
+  @property({ type: String }) title = '';
+
   /** @internal */
   static tag = 'arc-container';
 
@@ -38,6 +46,9 @@ export default class ArcContainer extends LitElement {
 
   /** @internal */
   @query('#accessibility') accessibility: ArcAccessibility;
+
+  /** @internal */
+  @query('arc-overlay') private overlay: ArcOverlay;
 
   /** @internal - Reference to the preferred theme set by the app. */
   private _appPreferredTheme: ContainerThemePreference;
@@ -89,6 +100,19 @@ export default class ArcContainer extends LitElement {
   /* Trigger the show event of the arc-accessibility component */
   showAccessibility() {
     this.accessibility.open = true;
+  }
+
+  /* @bata Open an `ArcAlert` with the given configuration */
+  dispatchAlert(config: AlertConfiguration): ActionCallback {
+    if (isServer) return () => void 0;
+
+    /* if the overlay does not exist, create it */
+    if (!this.overlay) {
+      const overlay = document.createElement('arc-overlay') as ArcOverlay;
+      this.appendChild(overlay);
+    }
+
+    return this.overlay.dispatchAlert(config);
   }
 
   protected render() {

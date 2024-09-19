@@ -15,7 +15,10 @@ import styles from './arc-checkbox.styles.js';
  * @event arc-change - Emitted when the control's checked state changes.
  */
 export default class ArcCheckbox extends LitElement {
+  /** @internal - The component's tag */
   static tag = 'arc-checkbox';
+
+  /** @internal - The component's styles */
   static styles = styles;
 
   /** @internal - Controller used to recognize form controls located inside a shadow root. */
@@ -127,8 +130,6 @@ export default class ArcCheckbox extends LitElement {
         <span id="control">
           <span id="icon">
             <svg
-              width="42"
-              height="42"
               class="bg"
               focusable="false"
               aria-hidden="true"
@@ -137,13 +138,10 @@ export default class ArcCheckbox extends LitElement {
             >
               <path
                 d="M28.5 12.1875H13.5C13.1519 12.1875 12.8181 12.3258 12.5719 12.5719C12.3258 12.8181 12.1875 13.1519 12.1875 13.5V28.5C12.1875 28.8481 12.3258 29.1819 12.5719 29.4281C12.8181 29.6742 13.1519 29.8125 13.5 29.8125H28.5C28.8481 29.8125 29.1819 29.6742 29.4281 29.4281C29.6742 29.1819 29.8125 28.8481 29.8125 28.5V13.5C29.8125 13.1519 29.6742 12.8181 29.4281 12.5719C29.1819 12.3258 28.8481 12.1875 28.5 12.1875ZM28.6875 28.5C28.6875 28.5497 28.6677 28.5974 28.6326 28.6326C28.5974 28.6677 28.5497 28.6875 28.5 28.6875H13.5C13.4503 28.6875 13.4026 28.6677 13.3674 28.6326C13.3323 28.5974 13.3125 28.5497 13.3125 28.5V13.5C13.3125 13.4503 13.3323 13.4026 13.3674 13.3674C13.4026 13.3323 13.4503 13.3125 13.5 13.3125H28.5C28.5497 13.3125 28.5974 13.3323 28.6326 13.3674C28.6677 13.4026 28.6875 13.4503 28.6875 13.5V28.5Z"
-                fill="black"
                 fill-opacity="0.6"
               />
             </svg>
             <svg
-              width="42"
-              height="42"
               class="fill"
               focusable="false"
               aria-hidden="true"

@@ -1,13 +1,20 @@
 import { html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { emit } from '../../internal/event.js';
+import { NotificationConfiguration } from '../container/constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { arupLogo } from './arup-logo.js';
 import styles from './arc-navbar.styles.js';
 import '../icon-button/arc-icon-button.js';
-import '../ph-icon/list/ph-icon-list.js';
 import '../icon/accessibility/arc-icon-accessibility.js';
+import '../ph-icon/list/ph-icon-list.js';
+import '../ph-icon/notification/ph-icon-notification.js';
+import '../dropdown/arc-dropdown.js';
+import '../menu/arc-menu.js';
+import '../menu-item/arc-menu-item.js';
+
+import '../container/ArcNotification.js';
 
 /**
  * @slot default - This slot is used to add tabs to the navbar.
@@ -40,6 +47,9 @@ export default class ArcNavbar extends LitElement {
     emit(this, ARC_EVENTS.showAccessibility);
   }
 
+  @state() public notifications: NotificationConfiguration[] = [];
+  @property({ type: Boolean }) public notificationHistory = false;
+
   protected render() {
     const logoInterior = html`
       ${when(
@@ -67,18 +77,50 @@ export default class ArcNavbar extends LitElement {
             () => html`<div id="logoWrapper">${logoInterior}</div>`,
           )}
         </div>
+
         <div id="right">
           <nav id="tabs" aria-label="primary navigation">
             <slot id="tabSlot"></slot>
+
+            ${this.notificationHistory
+              ? html`
+                  <arc-dropdown>
+                    <arc-icon-button slot="trigger" ?disabled=${this.notifications.length === 0}>
+                      <ph-icon-notification slot="icon"></ph-icon-notification>
+                    </arc-icon-button>
+
+                    <arc-menu style="width:400px;">
+                      ${this.notifications.map(
+                        (config) => {
+                          const removeNotficationCallback = () => {
+                            this.notifications = this.notifications.filter(
+                              (n) => n !== config,
+                            );
+                          }
+
+                        return html`
+                          <arc-notification .config=${config} @arc-hide=${removeNotficationCallback}></arc-notification>
+                          <div
+                            style="border-bottom: 1px solid rgb(var(--arc-border-color));"
+                          ></div>
+                        `;},
+                      )}
+                    </arc-menu>
+                  </arc-dropdown>
+                `
+              : ``}
+
             <arc-icon-button
               id="accessibility"
               label="Accessibility panel"
               @click=${this.emitAccessibility}
             >
-              <arc-icon-accessibility slot="icon"></arc-icon-accessibility>
+              <arc-icon-accessibility slot="icon" />
             </arc-icon-button>
+
             <slot name="user"></slot>
           </nav>
+
           <slot name="company-logo" id="company-logo">${arupLogo}</slot>
         </div>
       </header>

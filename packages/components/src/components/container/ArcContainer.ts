@@ -3,19 +3,27 @@ import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
+
 import {
   CONTAINER_THEME_PREFERENCES,
   ContainerThemePreference,
-  AlertConfiguration,
+  NotificationConfiguration,
   ActionCallback,
+  FlyerPlacement,
+  AlertConfiguration,
+  FLYER_PLACEMENT,
 } from './constants/ContainerConstants.js';
-import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
-import type ArcOverlay from './ArcOverlay.js';
+
+import ArcNavbar from '../navbar/ArcNavbar.js';
+import ArcAccessibility from '../accessibility/ArcAccessibility.js';
+import ArcFlyer from './ArcFlyer.js';
+import ArcOverlay from './ArcOverlay.js';
 import styles from './arc-container.styles.js';
 
 import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
+import './ArcNotification.js';
 import './ArcOverlay.js';
 import './ArcAlert.js';
 
@@ -63,6 +71,9 @@ export default class ArcContainer extends LitElement {
   /** Set the banner text. This enables the sticky banner to be rendered above the container. */
   @property() banner: string | boolean = false;
 
+  /** @bata Set the placement of the notification flyer. */
+  @property() flyerPlacement: FlyerPlacement = FLYER_PLACEMENT['bottom-end'];
+
   @watch('theme')
   handleThemeChange() {
     /* If the provided theme is not valid, force auto theme */
@@ -71,7 +82,6 @@ export default class ArcContainer extends LitElement {
     }
   }
 
-  /* Listen to keyboard input on the page */
   connectedCallback() {
     super.connectedCallback();
 
@@ -100,6 +110,37 @@ export default class ArcContainer extends LitElement {
   /* Trigger the show event of the arc-accessibility component */
   showAccessibility() {
     this.accessibility.open = true;
+  }
+
+  /** @bata Open a notification. */
+  public dispatchNotification(config: NotificationConfiguration): ActionCallback {
+    if (isServer) return () => void 0;
+
+    /* ensure that both the title and message have a minimum length */
+    const minLen = 3;
+    if (config.title.length < minLen || config.message.length < minLen) {
+      console.warn(
+        'Notification title and message must be at least 3 characters long, the notification will not be dispatched.',
+      );
+      return () => void 0;
+    }
+
+    /* ensure that the arc flyer is present */
+    let flyer = this.querySelector(ArcFlyer.tag) as ArcFlyer;
+    if (flyer === null) {
+      flyer = document.createElement(ArcFlyer.tag) as ArcFlyer;
+      flyer.placement = this.flyerPlacement;
+      this.appendChild(flyer);
+    }
+
+    const navbar = this.querySelector(ArcNavbar.tag) as ArcNavbar;
+    if (navbar !== null) {
+      const notifications = [...navbar.notifications, config];
+      navbar.notifications = notifications;
+    }
+
+    const closeNotificationCallback = flyer.dispatchNotification(config);
+    return closeNotificationCallback;
   }
 
   /* @bata Open an `ArcAlert` with the given configuration */

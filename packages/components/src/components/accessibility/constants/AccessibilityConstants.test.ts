@@ -12,7 +12,7 @@ describe('AccessibilityOptions', () => {
     const values = Object.values(ACCESSIBILITY_OPTIONS);
 
     /* Containing colourAdjustments and contentAdjustments */
-    expect(keys.length).to.equal(2);
+    expect(keys.length).to.equal(3);
 
     /* Each AccessibilityOption requires a name, icon and a set of options */
     values.forEach((value: AccessibilityOption) => {

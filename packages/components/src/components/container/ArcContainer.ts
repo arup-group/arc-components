@@ -113,8 +113,17 @@ export default class ArcContainer extends LitElement {
   }
 
   /** @bata Open a notification. */
-  public dispatchNotification(config: NotificationConfiguration): [ActionCallback, ActionCallback] {
-    if (isServer) return [() => void 0, () => void 0];
+  public dispatchNotification(config: NotificationConfiguration): ActionCallback {
+    if (isServer) return () => void 0;
+
+    /* ensure that both the title and message have a minimum length */
+    const minLen = 3;
+    if (config.title.length < minLen || config.message.length < minLen) {
+      console.warn(
+        'Notification title and message must be at least 3 characters long, the notification will not be dispatched.',
+      );
+      return () => void 0;
+    }
 
     /* ensure that the arc flyer is present */
     let flyer = this.querySelector(ArcFlyer.tag) as ArcFlyer;
@@ -125,18 +134,16 @@ export default class ArcContainer extends LitElement {
     }
 
     const navbar = this.querySelector(ArcNavbar.tag) as ArcNavbar;
-    const removeNotficationCallback = () => {
-      const newNotifications = navbar.notifications.filter(([n]) => n !== config);
-      navbar.notifications = newNotifications;
-    }
     if (navbar !== null) {
-      navbar.notifications = [...navbar.notifications, [config, removeNotficationCallback]];
+      const notifications = [...navbar.notifications, config];
+      navbar.notifications = notifications;
     }
 
-    return [flyer.dispatchNotification(config), removeNotficationCallback];
+    const closeNotificationCallback = flyer.dispatchNotification(config);
+    return closeNotificationCallback;
   }
 
-    /* @bata Open an `ArcAlert` with the given configuration */
+  /* @bata Open an `ArcAlert` with the given configuration */
   dispatchAlert(config: AlertConfiguration): ActionCallback {
     if (isServer) return () => void 0;
 
@@ -148,8 +155,6 @@ export default class ArcContainer extends LitElement {
 
     return this.overlay.dispatchAlert(config);
   }
-
-
 
   protected render() {
     const banner = html`

@@ -1,9 +1,10 @@
 import { html, css, LitElement, isServer } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import type {
+import { customElement, property } from 'lit/decorators.js';
+import {
   ActionCallback,
   NotificationConfiguration,
   FlyerPlacement,
+  OPERATIONS,
 } from './constants/ContainerConstants.js';
 import { FLYER_PLACEMENT } from './constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
@@ -31,8 +32,12 @@ export default class ArcFlyer extends LitElement {
     componentStyles,
     css`
       :host {
-        --flyer-position-spacing-horizontal: calc(var(--arc-spacing-medium) * 1.5);
-        --flyer-position-spacing-vertical: calc(var(--arc-spacing-normal) * 1.5);
+        --flyer-position-spacing-horizontal: calc(
+          var(--arc-spacing-medium) * 1.5
+        );
+        --flyer-position-spacing-vertical: calc(
+          var(--arc-spacing-normal) * 1.5
+        );
         display: grid;
         gap: var(--arc-spacing-small);
         position: fixed;
@@ -95,11 +100,8 @@ export default class ArcFlyer extends LitElement {
   @property({ reflect: true }) public placement: FlyerPlacement =
     FLYER_PLACEMENT['bottom-end'];
 
-  /** Set the max number of notifications to display */
-  @property({ type: Number, reflect: true }) public maxNotifications = 5;
-
   /** @internal */
-  private currentNotifications: ArcNotification[] = [];
+  private notifications: ArcNotification[] = [];
 
   /** @internal */
   private get notificationElements(): NodeListOf<ArcNotification> | undefined {
@@ -110,16 +112,24 @@ export default class ArcFlyer extends LitElement {
   }
 
   /** Open an alert with the given configuration */
-  public dispatchNotification(config: NotificationConfiguration): ActionCallback {
+  public dispatchNotification(
+    config: NotificationConfiguration,
+  ): ActionCallback {
     if (isServer) return () => {};
 
-    const { duration, timeStamp } = config;
-    const isTopPlacement = this.placement.includes('top');
-
     /* ensure that the time stamp is set */
-    if (!timeStamp) {
-      config.timeStamp = new Date();
+    if (config.timeStamp === undefined) {
+      const now = new Date(Date.now());
+      config.timeStamp = now;
     }
+
+    /* if the notificaiton operation type is an error ensure that it is assertive */
+    if (config.type === OPERATIONS.error) {
+      config.assertive = true;
+    }
+
+    const { duration, assertive } = config;
+    const isTopPlacement = this.placement.includes('top');
 
     /* create the notification element */
     const notificationElement = document.createElement(
@@ -133,33 +143,13 @@ export default class ArcFlyer extends LitElement {
       notificationElement.removeEventListener(ARC_EVENTS.hide, closeCallback);
 
       /* remove the notification from the current notifications list */
-      const newNotifications = this.currentNotifications.filter(
+      const newNotifications = this.notifications.filter(
         (n) => n !== notificationElement,
       );
-      this.currentNotifications = newNotifications;
+      this.notifications = newNotifications;
 
       /* remove the notification from the DOM */
       notificationElement.remove();
-
-      /* if there is a next notification, add it to the DOM */
-      const nextNotification =
-        this.currentNotifications[this.maxNotifications - 1];
-      if (nextNotification) {
-        if (isTopPlacement) {
-          this.prepend(nextNotification);
-        } else {
-          this.append(nextNotification);
-        }
-      }
-
-      /* update the hidden notifications count */
-      if (this.currentNotifications.length - this.maxNotifications > 0) {
-        const newValue =
-          this.currentNotifications.length - this.maxNotifications;
-        this.hiddenNotifications = newValue;
-      } else {
-        this.hiddenNotifications = 0;
-      }
 
       /* if no notifications are left, remove the flyer */
       if (!this.notificationElements?.length) {
@@ -187,67 +177,27 @@ export default class ArcFlyer extends LitElement {
     }
 
     /* add the nottification to the elements list */
-    this.currentNotifications.push(notificationElement);
+    this.notifications.push(notificationElement);
 
-    /* if adding the notification will not cause the max notifications to be exceeded, add the notification to the DOM */
-    if (
-      this.currentNotifications.length <= this.maxNotifications ||
-      duration !== undefined
-    ) {
-      if (isTopPlacement) {
-        this.prepend(notificationElement);
-      } else {
-        this.append(notificationElement);
-      }
+    /* add the notification to the DOM */
+    if (isTopPlacement) {
+      assertive
+        ? this.prepend(notificationElement)
+        : this.append(notificationElement);
+    } else {
+      assertive
+        ? this.append(notificationElement)
+        : this.prepend(notificationElement);
     }
 
-    /* remove the oldest notification if the max notifications is reached */
-    if (this.currentNotifications.length > this.maxNotifications && !duration) {
-      const oldestNotification =
-        this.currentNotifications[this.currentNotifications.length - 1];
-      oldestNotification.remove();
-      this.hiddenNotifications =
-        this.currentNotifications.length - this.maxNotifications;
-    }
 
     return closeCallback;
   }
-
-  /** @internal */
-  @state() private hiddenNotifications = 0;
-
-  /** @internal */
-  private showMore() {
-    return this.hiddenNotifications > 0
-      ? html`<div class="controls">
-          <arc-icon-button @click=${this.handleShowAllBtnClick}>
-            <ph-icon-dots-three slot="icon" />
-          </arc-icon-button>
-        </div>`
-      : html``;
-  }
-
-  /** @internal */
-  private handleShowAllBtnClick() {
-    const isTopPlacement = this.placement.includes('top');
-    this.currentNotifications.forEach((notification) => {
-      if (isTopPlacement) {
-        this.prepend(notification);
-      } else {
-        this.append(notification);
-      }
-    });
-    this.hiddenNotifications = 0;
-  }
-
   protected render() {
-    const isTopPlacement = this.placement.includes('top');
     return html`
-      ${!isTopPlacement ? this.showMore() : ''}
       <div class="notifications">
         <slot></slot>
       </div>
-      ${isTopPlacement ? this.showMore() : ''}
     `;
   }
 }

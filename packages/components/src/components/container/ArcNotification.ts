@@ -9,6 +9,7 @@ import {
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { emit } from '../../internal/event.js';
 
+import '../icon-button/arc-icon-button.js';
 import '../ph-icon/notification/ph-icon-notification.js';
 import '../ph-icon/warning/ph-icon-warning.js';
 import '../ph-icon/warning-octagon/ph-icon-warning-octagon.js';
@@ -33,6 +34,7 @@ export default class ArcNotification extends LitElement {
       :host {
         --notification-background: rgb(var(--arc-background-color));
         --notification-color: rgb(var(--arc-font-color));
+        display: grid;
         width: 100%;
       }
       span.title {

@@ -33,7 +33,7 @@ in
         # this workspace is a monorepo and all dependencies
         # are resolved via the workspace root package.json
         src = cleanSource ./.;
-        npmDepsHash = "sha256-vrTooJkg5kguPD4Af9ECj+vDhkAkoT1Pvknpky59qVE=";
+        npmDepsHash = "sha256-7NsmP8IxCBz6895mBNa9pBY+HJaYXCGoICdSq2/hgSI=";
 
         # dont run the build scripts when rebuilding
         # npm dependencies as node-keytar will fail

@@ -113,7 +113,9 @@ export default class ArcContainer extends LitElement {
   }
 
   /** @bata Open a notification. */
-  public dispatchNotification(config: NotificationConfiguration): ActionCallback {
+  public dispatchNotification(
+    config: NotificationConfiguration,
+  ): ActionCallback {
     if (isServer) return () => void 0;
 
     /* ensure that both the title and message have a minimum length */
@@ -151,6 +153,7 @@ export default class ArcContainer extends LitElement {
     if (!this.overlay) {
       const overlay = document.createElement('arc-overlay') as ArcOverlay;
       this.appendChild(overlay);
+      return overlay.dispatchAlert(config);
     }
 
     return this.overlay.dispatchAlert(config);

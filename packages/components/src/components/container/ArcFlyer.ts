@@ -190,7 +190,6 @@ export default class ArcFlyer extends LitElement {
         : this.prepend(notificationElement);
     }
 
-
     return closeCallback;
   }
   protected render() {

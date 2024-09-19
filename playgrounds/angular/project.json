@@ -24,12 +24,9 @@
         "outputPath": "dist/playgrounds/angular",
         "index": "playgrounds/angular/src/index.html",
         "main": "playgrounds/angular/src/main.ts",
-        "polyfills": ["zone.js"],
         "tsConfig": "playgrounds/angular/tsconfig.json",
-        "styles": [
-          "packages/components/themes/index.css",
-          "playgrounds/angular/src/styles.css"
-        ]
+        "polyfills": ["zone.js"],
+        "styles": ["packages/components/themes/index.css"]
       },
       "configurations": {
         "local": {

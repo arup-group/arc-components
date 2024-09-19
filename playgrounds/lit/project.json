@@ -18,7 +18,9 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "local",
       "options": {
-        "outputPath": "dist/playgrounds/lit"
+        "outputPath": "dist/playgrounds/lit",
+        "tsconfig": "playgrounds/lit/tsconfig.json",
+        "configFile": "playgrounds/lit/vite.config.ts"
       },
       "configurations": {
         "local": {

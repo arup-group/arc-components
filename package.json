@@ -43,7 +43,7 @@
     "@nx/js": "16.9.1",
     "@nx/linter": "16.5.3",
     "@nx/storybook": "18.1.3",
-    "@nx/vite": "16.5.3",
+    "@nx/vite": "19.8.0",
     "@open-wc/eslint-config": "12.0.0",
     "@open-wc/testing": "3.2.0",
     "@phosphor-icons/core": "2.0.3",

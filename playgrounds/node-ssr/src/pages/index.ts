@@ -6,6 +6,8 @@ import '@arc-web/components/src/components/container/arc-container';
 export interface IndexProps {}
 
 export function* renderIndex({}: IndexProps) {
+  console.log('Rendering index');
+
   yield `
   <!doctype html>
   <html>

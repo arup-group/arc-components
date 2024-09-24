@@ -12,6 +12,7 @@ import componentStyles from '../../styles/component.styles.js';
 import ArcNotification from './ArcNotification.js';
 import { parseObject } from '../../internal/string.js';
 import ArcAccessibility from '../accessibility/ArcAccessibility.js';
+import { mobileBreakpoint } from '../../internal/preferences.js';
 
 import '../icon-button/arc-icon-button.js';
 import '../ph-icon/dots-three/ph-icon-dots-three.js';
@@ -42,7 +43,7 @@ export default class ArcFlyer extends LitElement {
         gap: var(--arc-spacing-small);
         position: fixed;
         z-index: calc(var(--arc-z-index-drawer) - 1);
-        width: calc(clamp(0px, 480px, 100%) - var(--arc-spacing-medium));
+        width: calc(100% - var(--flyer-position-spacing-horizontal) * 2);
         max-height: calc(100vh - calc(var(--flyer-position-spacing) * 2));
       }
       :host([placement='top-start']) {
@@ -93,6 +94,13 @@ export default class ArcFlyer extends LitElement {
       arc-tooltip {
         --arrow-size: 0px;
       }
+      /* Medium devices and up */
+      @media (min-width: ${mobileBreakpoint}rem) {
+        :host{
+          width: calc(clamp(0px, 480px, 100%) - var(--arc-spacing-medium));
+        }
+      }
+
     `,
   ];
 

@@ -15,6 +15,7 @@ import {
 } from './constants/ContainerConstants.js';
 
 import ArcNavbar from '../navbar/ArcNavbar.js';
+import ArcBottombar from '../bottombar/ArcBottombar.js';
 import ArcAccessibility from '../accessibility/ArcAccessibility.js';
 import ArcFlyer from './ArcFlyer.js';
 import ArcOverlay from './ArcOverlay.js';
@@ -115,8 +116,10 @@ export default class ArcContainer extends LitElement {
   /** @bata Open a notification. */
   public dispatchNotification(
     config: NotificationConfiguration,
-  ): ActionCallback {
-    if (isServer) return () => void 0;
+  ): [ActionCallback, ActionCallback] {
+    if (isServer) {
+      return [() => void 0, () => void 0];
+    }
 
     /* ensure that both the title and message have a minimum length */
     const minLen = 3;
@@ -124,7 +127,7 @@ export default class ArcContainer extends LitElement {
       console.warn(
         'Notification title and message must be at least 3 characters long, the notification will not be dispatched.',
       );
-      return () => void 0;
+      return [() => void 0, () => void 0];
     }
 
     /* ensure that the arc flyer is present */
@@ -135,14 +138,41 @@ export default class ArcContainer extends LitElement {
       this.appendChild(flyer);
     }
 
+    const closeNotificationCallback = flyer.dispatchNotification(config);
+
+    /* if the navbar and bottombar exist, add the notification to both */
     const navbar = this.querySelector(ArcNavbar.tag) as ArcNavbar;
+    const bottombar = this.querySelector(ArcBottombar.tag) as ArcBottombar;
+    const removeNotificationCallback = () => {
+      /* remove the notification from the navbar and bottombar */
+      if (navbar !== null) {
+        navbar.notifications = navbar.notifications.filter(
+          (n) => n[0] !== config,
+        );
+      }
+      if (bottombar !== null) {
+        bottombar.notifications = bottombar.notifications.filter(
+          (n) => n[0] !== config,
+        );
+      }
+      closeNotificationCallback();
+    };
     if (navbar !== null) {
-      const notifications = [...navbar.notifications, config];
+      const notifications: Array<[ActionCallback, ActionCallback]> = [
+        ...navbar.notifications,
+        [config, removeNotificationCallback],
+      ];
       navbar.notifications = notifications;
     }
+    if (bottombar !== null) {
+      const notifications: Array<[ActionCallback, ActionCallback]> = [
+        ...bottombar.notifications,
+        [config, removeNotificationCallback],
+      ];
+      bottombar.notifications = notifications;
+    }
 
-    const closeNotificationCallback = flyer.dispatchNotification(config);
-    return closeNotificationCallback;
+    return [closeNotificationCallback, removeNotificationCallback];
   }
 
   /* @bata Open an `ArcAlert` with the given configuration */

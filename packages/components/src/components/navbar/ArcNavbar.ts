@@ -89,7 +89,7 @@ export default class ArcNavbar extends LitElement {
 
             ${this.notificationHistory
               ? html`
-                  <arc-dropdown>
+                  <arc-dropdown id="notificationHistory">
                     <arc-icon-button
                       slot="trigger"
                       ?disabled=${this.notifications.length === 0}

@@ -71,10 +71,6 @@ export default [
       gap: var(--arc-spacing-medium);
     }
 
-    #tabSlot {
-      display: none;
-    }
-
     ::slotted(arc-button) {
       border-left: var(--arc-border-width) var(--arc-border-style)
         rgb(var(--arc-color-default));
@@ -88,7 +84,9 @@ export default [
       margin: 0 var(--arc-spacing-x-small) 0 var(--arc-spacing-x-small);
     }
 
-    #accessibility {
+    #tabSlot,
+    #accessibility,
+    #notificationHistory {
       display: none;
     }
 
@@ -107,7 +105,8 @@ export default [
     @media (min-width: ${mobileBreakpoint}rem) {
       #tabSlot,
       #tool-logo + #tool-name,
-      #accessibility {
+      #accessibility,
+      #notificationHistory {
         display: flex;
       }
 

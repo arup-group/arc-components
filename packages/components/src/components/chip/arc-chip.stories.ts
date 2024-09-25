@@ -28,6 +28,7 @@ export const Default: StoryFn<ArcChip> = ({ size, type, clearable }) => html`
     type=${ifDefined(type)}
     ?clearable=${clearable}
   >
+    Chip
   </arc-chip>
 `;
 

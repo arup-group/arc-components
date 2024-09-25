@@ -1,6 +1,5 @@
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
-import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import type ArcMenu from './ArcMenu.js';
 import './arc-menu.js';
 import '../menu-item/arc-menu-item.js';
@@ -11,14 +10,9 @@ import '../ph-icon/gear/ph-icon-gear.js';
 export default {
   title: 'Components/ArcMenu',
   component: 'arc-menu',
-  parameters: {
-    actions: {
-      handles: [ARC_EVENTS.select],
-    },
-  },
 } as Meta;
 
-const Template: Story<ArcMenu> = () => html`
+export const Default: StoryFn<ArcMenu> = () => html`
   <arc-menu>
     <arc-menu-item value="home">
       <ph-icon-house slot="prefix"></ph-icon-house>
@@ -34,5 +28,3 @@ const Template: Story<ArcMenu> = () => html`
     </arc-menu-item>
   </arc-menu>
 `;
-
-export const Default = Template.bind({});

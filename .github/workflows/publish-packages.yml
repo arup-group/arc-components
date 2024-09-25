@@ -1,10 +1,8 @@
 on:
-  release:
-    types: [published]
   workflow_dispatch:
 
 env:
-  AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   publish:
@@ -14,13 +12,13 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix develop
-      - name: setup npm auth
-        run: npm set //registry.npmjs.org/:_authToken=$AUTH_TOKEN
+      - run: setup-npm-config
       - run: nix build .#components
       - name: publish @arc-web/components
         run: |
           cd result \
           && npm publish --access public
+      - run: rm -rf result
       - run: nix build .#react
       - name: publish @arc-web/react
         run: |

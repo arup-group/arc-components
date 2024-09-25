@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, writers }:
 
 with builtins;
 with pkgs.lib;
@@ -43,4 +43,17 @@ in
         # due to peer conflics in npm deps
         npmInstallFlags = [ "--legacy-peer-deps" ];
       };
+
+  # writes the npm config file with the NPM_TOKEN
+  setup-npm-config = writers.writeRustBin "setup-npm-config" {} ''
+    use std::fs::File;
+    use std::io::Write;
+    use std::env;
+
+    fn main() {
+      let npm_token = env::var("NPM_TOKEN").unwrap();
+      let mut file = File::create(".npmrc").unwrap();
+      file.write_all(format!("//registry.npmjs.org/:_authToken={}\n", npm_token).as_bytes()).unwrap();
+    }
+  '';
 }

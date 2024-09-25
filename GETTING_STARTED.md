@@ -339,12 +339,12 @@ container.dispatchNotification({
 });
 ```
 
-The `ArcContainer.dispatchNotification()` method will return a callback function that can be used to dismiss the notification:
+The `ArcContainer.dispatchNotification()` method will return callback functions that can be used to dismiss and remove the notification:
 
 ``` js
 const container = document.querySelector('arc-container');
 
-const dismiss = container.dispatchNotification({
+const [dismiss, remove] = container.dispatchNotification({
     title: 'Example Notification',
     message: 'This is an example notification message',
 });
@@ -352,13 +352,16 @@ const dismiss = container.dispatchNotification({
 setTimeout(() => dismiss(), 5000);
 ```
 
-Set the `ArcNavbar.notificationHistory` property to `true` to display a notification history in the navigation bar.
+Set the `ArcNavbar.notificationHistory` and `ArcBottombar.notificationHistory` properties to `true` to display a notification history in both the navigation and bottom bar.
 
 ``` html
 <arc-container>
     <arc-navbar slot="nav" notificationHistory></arc-navbar>
+    <arc-bottombar slot="bottom" notificationHistory></arc-bottombar>
 </arc-container>
 ```
+
+Currently the state of both `ArcNavbar.notification` and `ArcBottombar.notification` is not managed by ARC. You will need to repopulate the notification history when the page is reloaded.
 
 ### Flash of unstyled content (FOUC)
 

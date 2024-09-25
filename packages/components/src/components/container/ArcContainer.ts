@@ -158,14 +158,14 @@ export default class ArcContainer extends LitElement {
       closeNotificationCallback();
     };
     if (navbar !== null) {
-      const notifications: Array<[ActionCallback, ActionCallback]> = [
+      const notifications: Array<[NotificationConfiguration, ActionCallback]> = [
         ...navbar.notifications,
         [config, removeNotificationCallback],
       ];
       navbar.notifications = notifications;
     }
     if (bottombar !== null) {
-      const notifications: Array<[ActionCallback, ActionCallback]> = [
+      const notifications: Array<[NotificationConfiguration, ActionCallback]> = [
         ...bottombar.notifications,
         [config, removeNotificationCallback],
       ];

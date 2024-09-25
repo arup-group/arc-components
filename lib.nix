@@ -33,7 +33,7 @@ in
         # this workspace is a monorepo and all dependencies
         # are resolved via the workspace root package.json
         src = cleanSource ./.;
-        npmDepsHash = "sha256-q3e3I3fgbr9rsQsXUR/Xs9+fGnJKv54tovx4zLPmphA=";
+        npmDepsHash = "sha256-7Ou/Bw4en7m7tknHVYJ9tPAV8croJ6NuCYuisL2neP0=";
 
         # dont run the build scripts when rebuilding
         # npm dependencies as node-keytar will fail
@@ -45,7 +45,7 @@ in
       };
 
   # writes the npm config file with the NPM_TOKEN
-  setup-npm-config = writers.writeRustBin "setup-npm-config" {} ''
+  setup-npm-config = writers.writeRustBin "setup-npm-config" { } ''
     use std::fs::File;
     use std::io::Write;
     use std::env;
@@ -53,7 +53,7 @@ in
     fn main() {
       let npm_token = env::var("NPM_TOKEN").unwrap();
       let mut file = File::create(".npmrc").unwrap();
-      file.write_all(format!("//registry.npmjs.org/:_authToken={}\n", npm_token).as_bytes()).unwrap();
+      file.write_all(format!("//registry.npmjs.org/:_authToken={}\nregistry=https://registry.npmjs.org/\nalways-auth=true\n", npm_token).as_bytes()).unwrap();
     }
   '';
 }

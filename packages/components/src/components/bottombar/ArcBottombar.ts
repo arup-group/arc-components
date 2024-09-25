@@ -1,6 +1,8 @@
 import { html, LitElement } from 'lit';
-import { state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { emit } from '../../internal/event.js';
+import { NotificationConfiguration } from '../container/constants/ContainerConstants.js';
+import { ActionCallback } from '../container/constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import styles from './arc-bottombar.styles.js';
 import '../icon-button/arc-icon-button.js';
@@ -51,10 +53,45 @@ export default class ArcBottombar extends LitElement {
     emit(this, ARC_EVENTS.showAccessibility);
   }
 
+  @state() public notifications: Array<
+    [NotificationConfiguration, ActionCallback]
+  > = [];
+  @property({ type: Boolean }) public notificationHistory = false;
+
   protected render() {
     return html`
       <nav id="main" aria-label="mobile navigation">
         <slot @slotchange=${this._handleTabChange}></slot>
+        ${this.notificationHistory
+          ? html`
+              <arc-dropdown>
+                <arc-icon-button
+                  slot="trigger"
+                  ?disabled=${this.notifications.length === 0}
+                >
+                  <ph-icon-notification slot="icon"></ph-icon-notification>
+                  Notifications
+                </arc-icon-button>
+
+                <arc-menu style="width:400px;">
+                  ${this.notifications.map(
+                    ([config, removeNotficationCallback]) => {
+                      return html`
+                        <arc-notification
+                          .config=${config}
+                          @arc-hide=${removeNotficationCallback}
+                        ></arc-notification>
+                        <div
+                          style="border-bottom: 1px solid rgb(var(--arc-border-color));"
+                        ></div>
+                      `;
+                    },
+                  )}
+                </arc-menu>
+              </arc-dropdown>
+            `
+          : ``}
+
         <arc-icon-button @click=${this.emitAccessibility}>
           <arc-icon-accessibility slot="icon"></arc-icon-accessibility>
           Accessibility Panel

@@ -2,7 +2,10 @@ import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { emit } from '../../internal/event.js';
-import { NotificationConfiguration } from '../container/constants/ContainerConstants.js';
+import {
+  ActionCallback,
+  NotificationConfiguration,
+} from '../container/constants/ContainerConstants.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 import { arupLogo } from './arup-logo.js';
 import styles from './arc-navbar.styles.js';
@@ -47,7 +50,9 @@ export default class ArcNavbar extends LitElement {
     emit(this, ARC_EVENTS.showAccessibility);
   }
 
-  @state() public notifications: NotificationConfiguration[] = [];
+  @state() public notifications: Array<
+    [NotificationConfiguration, ActionCallback]
+  > = [];
   @property({ type: Boolean }) public notificationHistory = false;
 
   protected render() {
@@ -84,26 +89,27 @@ export default class ArcNavbar extends LitElement {
 
             ${this.notificationHistory
               ? html`
-                  <arc-dropdown>
-                    <arc-icon-button slot="trigger" ?disabled=${this.notifications.length === 0}>
+                  <arc-dropdown id="notificationHistory">
+                    <arc-icon-button
+                      slot="trigger"
+                      ?disabled=${this.notifications.length === 0}
+                    >
                       <ph-icon-notification slot="icon"></ph-icon-notification>
                     </arc-icon-button>
 
                     <arc-menu style="width:400px;">
                       ${this.notifications.map(
-                        (config) => {
-                          const removeNotficationCallback = () => {
-                            this.notifications = this.notifications.filter(
-                              (n) => n !== config,
-                            );
-                          }
-
-                        return html`
-                          <arc-notification .config=${config} @arc-hide=${removeNotficationCallback}></arc-notification>
-                          <div
-                            style="border-bottom: 1px solid rgb(var(--arc-border-color));"
-                          ></div>
-                        `;},
+                        ([config, removeNotficationCallback]) => {
+                          return html`
+                            <arc-notification
+                              .config=${config}
+                              @arc-hide=${removeNotficationCallback}
+                            ></arc-notification>
+                            <div
+                              style="border-bottom: 1px solid rgb(var(--arc-border-color));"
+                            ></div>
+                          `;
+                        },
                       )}
                     </arc-menu>
                   </arc-dropdown>

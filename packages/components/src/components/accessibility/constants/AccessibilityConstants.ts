@@ -17,15 +17,18 @@ export declare type ContentPreference =
   | 'highLegibilityFonts'
   | 'highlightLinks'
   | 'plainText';
+export declare type NotificationPreference = 'stickyNotifications';
 
 export declare type AccessibilityKey =
   | 'colourAdjustments'
-  | 'contentAdjustments';
+  | 'contentAdjustments'
+  | 'notifications';
 export declare type AccessibilityOption = {
   name: AccessibilityKey;
   options:
     | { [key in ColourPreference]: ContainerThemePreference[] }
-    | { [key in ContentPreference]: FontSize[] | FontSpacing[] | null };
+    | { [key in ContentPreference]: FontSize[] | FontSpacing[] | null }
+    | { [key in NotificationPreference]: boolean };
 };
 
 export const ACCESSIBILITY_OPTIONS: AccessibilityOption[] = [
@@ -48,6 +51,12 @@ export const ACCESSIBILITY_OPTIONS: AccessibilityOption[] = [
       highLegibilityFonts: null,
       highlightLinks: null,
       plainText: null,
+    },
+  },
+  {
+    name: 'notifications',
+    options: {
+      stickyNotifications: false,
     },
   },
 ];

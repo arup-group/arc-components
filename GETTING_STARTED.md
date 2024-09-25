@@ -291,6 +291,78 @@ To create a custom validation error, pass a non-empty string to the `setCustomVa
 </script>
 ```
 
+### Alerts
+
+> [!WARNING]
+> The alert feature is currently in beta and may change in future releases.
+> Please provide feedback on this feature and its API in the [GH discussion](https://github.com/arup-group/arc-components/discussions/316).
+
+Call the `ArcContainer.dispatchAlert()` method to display an alert message:
+
+``` js
+const container = document.querySelector('arc-container');
+
+container.dispatchAlert({
+    title: 'Example Alert',
+    message: 'This is an example alert message',
+});
+```
+
+The `ArcContainer.dispatchAlert()` method will return a callback function that can be used to dismiss the alert:
+
+``` js
+const container = document.querySelector('arc-container');
+
+const dismiss = container.dispatchAlert({
+    title: 'Example Alert',
+    message: 'This is an example alert message',
+});
+
+
+setTimeout(() => dismiss(), 5000);
+```
+
+### Notifications
+
+> [!WARNING]
+> The notification feature is currently in beta and may change in future releases.
+> Please provide feedback on this feature and its API in the [GH discussion](https://github.com/arup-group/arc-components/discussions/315).
+
+Call the `ArcContainer.dispatchNotification()` method to display a notification message:
+
+``` js
+const container = document.querySelector('arc-container');
+
+container.dispatchNotification({
+    title: 'Example Notification',
+    message: 'This is an example notification message',
+});
+```
+
+The `ArcContainer.dispatchNotification()` method will return callback functions that can be used to dismiss and remove the notification:
+
+``` js
+const container = document.querySelector('arc-container');
+
+const [dismiss, remove] = container.dispatchNotification({
+    title: 'Example Notification',
+    message: 'This is an example notification message',
+});
+
+setTimeout(() => dismiss(), 5000);
+```
+
+Set the `ArcNavbar.notificationHistory` and `ArcBottombar.notificationHistory` properties to `true` to display a notification history in both the navigation and bottom bar.
+
+``` html
+<arc-container>
+    <arc-navbar slot="nav" notificationHistory></arc-navbar>
+    <arc-bottombar slot="bottom" notificationHistory></arc-bottombar>
+</arc-container>
+```
+
+Currently the state of both `ArcNavbar.notification` and `ArcBottombar.notification` is not managed by ARC. You will need to repopulate the notification history when the page is reloaded.
+
 ### Flash of unstyled content (FOUC)
 
 A flash of unstyled content (FOUC, also flash of unstyled text) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet, due to the web browser engine rendering the page before all information is retrieved. The page corrects itself as soon as the style rules are loaded and applied; however, the shift may be distracting or even seem unprofessional. These problems can be resolved by using the built-in noFOUC() utility function as shown below. This will only display the content once the document.readyState is equal to 'complete'.

@@ -1,17 +1,32 @@
-import { html, LitElement } from 'lit';
+import { html, isServer, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { when } from 'lit/directives/when.js';
 import { watch } from '../../internal/watch.js';
+
 import {
   CONTAINER_THEME_PREFERENCES,
   ContainerThemePreference,
+  NotificationConfiguration,
+  ActionCallback,
+  FlyerPlacement,
+  AlertConfiguration,
+  FLYER_PLACEMENT,
 } from './constants/ContainerConstants.js';
-import type ArcAccessibility from '../accessibility/ArcAccessibility.js';
+
+import ArcNavbar from '../navbar/ArcNavbar.js';
+import ArcBottombar from '../bottombar/ArcBottombar.js';
+import ArcAccessibility from '../accessibility/ArcAccessibility.js';
+import ArcFlyer from './ArcFlyer.js';
+import ArcOverlay from './ArcOverlay.js';
 import styles from './arc-container.styles.js';
+
 import '../navbar/arc-navbar.js';
 import '../accessibility/arc-accessibility.js';
 import '../bottombar/arc-bottombar.js';
+import './ArcNotification.js';
+import './ArcOverlay.js';
+import './ArcAlert.js';
 
 /**
  * @slot default - The container's content.
@@ -27,6 +42,8 @@ import '../bottombar/arc-bottombar.js';
  * @ssr - True
  */
 export default class ArcContainer extends LitElement {
+  @property({ type: String }) title = '';
+
   /** @internal */
   static tag = 'arc-container';
 
@@ -38,6 +55,9 @@ export default class ArcContainer extends LitElement {
 
   /** @internal */
   @query('#accessibility') accessibility: ArcAccessibility;
+
+  /** @internal */
+  @query('arc-overlay') private overlay: ArcOverlay;
 
   /** @internal - Reference to the preferred theme set by the app. */
   private _appPreferredTheme: ContainerThemePreference;
@@ -52,6 +72,9 @@ export default class ArcContainer extends LitElement {
   /** Set the banner text. This enables the sticky banner to be rendered above the container. */
   @property() banner: string | boolean = false;
 
+  /** @bata Set the placement of the notification flyer. */
+  @property() flyerPlacement: FlyerPlacement = FLYER_PLACEMENT['bottom-end'];
+
   @watch('theme')
   handleThemeChange() {
     /* If the provided theme is not valid, force auto theme */
@@ -60,7 +83,6 @@ export default class ArcContainer extends LitElement {
     }
   }
 
-  /* Listen to keyboard input on the page */
   connectedCallback() {
     super.connectedCallback();
 
@@ -91,6 +113,82 @@ export default class ArcContainer extends LitElement {
     this.accessibility.open = true;
   }
 
+  /** @bata Open a notification. */
+  public dispatchNotification(
+    config: NotificationConfiguration,
+  ): [ActionCallback, ActionCallback] {
+    if (isServer) {
+      return [() => void 0, () => void 0];
+    }
+
+    /* ensure that both the title and message have a minimum length */
+    const minLen = 3;
+    if (config.title.length < minLen || config.message.length < minLen) {
+      console.warn(
+        'Notification title and message must be at least 3 characters long, the notification will not be dispatched.',
+      );
+      return [() => void 0, () => void 0];
+    }
+
+    /* ensure that the arc flyer is present */
+    let flyer = this.querySelector(ArcFlyer.tag) as ArcFlyer;
+    if (flyer === null) {
+      flyer = document.createElement(ArcFlyer.tag) as ArcFlyer;
+      flyer.placement = this.flyerPlacement;
+      this.appendChild(flyer);
+    }
+
+    const closeNotificationCallback = flyer.dispatchNotification(config);
+
+    /* if the navbar and bottombar exist, add the notification to both */
+    const navbar = this.querySelector(ArcNavbar.tag) as ArcNavbar;
+    const bottombar = this.querySelector(ArcBottombar.tag) as ArcBottombar;
+    const removeNotificationCallback = () => {
+      /* remove the notification from the navbar and bottombar */
+      if (navbar !== null) {
+        navbar.notifications = navbar.notifications.filter(
+          (n) => n[0] !== config,
+        );
+      }
+      if (bottombar !== null) {
+        bottombar.notifications = bottombar.notifications.filter(
+          (n) => n[0] !== config,
+        );
+      }
+      closeNotificationCallback();
+    };
+    if (navbar !== null) {
+      const notifications: Array<[NotificationConfiguration, ActionCallback]> = [
+        ...navbar.notifications,
+        [config, removeNotificationCallback],
+      ];
+      navbar.notifications = notifications;
+    }
+    if (bottombar !== null) {
+      const notifications: Array<[NotificationConfiguration, ActionCallback]> = [
+        ...bottombar.notifications,
+        [config, removeNotificationCallback],
+      ];
+      bottombar.notifications = notifications;
+    }
+
+    return [closeNotificationCallback, removeNotificationCallback];
+  }
+
+  /* @bata Open an `ArcAlert` with the given configuration */
+  dispatchAlert(config: AlertConfiguration): ActionCallback {
+    if (isServer) return () => void 0;
+
+    /* if the overlay does not exist, create it */
+    if (!this.overlay) {
+      const overlay = document.createElement('arc-overlay') as ArcOverlay;
+      this.appendChild(overlay);
+      return overlay.dispatchAlert(config);
+    }
+
+    return this.overlay.dispatchAlert(config);
+  }
+
   protected render() {
     const banner = html`
       <div class="banner">
@@ -105,15 +203,10 @@ export default class ArcContainer extends LitElement {
     return html`
       ${when(this.banner, () => banner)}
       <div id="main">
-        <slot
-          id="nav"
-          name="nav"
-          @arc-show-accessibility=${this.showAccessibility}
-        >
-          <arc-navbar
-            @arc-show-accessibility=${this.showAccessibility}
-          ></arc-navbar>
+        <slot name="nav" @arc-show-accessibility=${this.showAccessibility}>
+          <arc-navbar @arc-show-accessibility=${this.showAccessibility} />
         </slot>
+
         <div
           id="container"
           class=${classMap({
@@ -126,6 +219,7 @@ export default class ArcContainer extends LitElement {
             <slot></slot>
           </div>
         </div>
+
         <slot
           name="accessibility"
           @arc-accessibility-change=${this.handleAccessibilityChange}
@@ -133,12 +227,11 @@ export default class ArcContainer extends LitElement {
           <arc-accessibility
             id="accessibility"
             @arc-accessibility-change=${this.handleAccessibilityChange}
-          ></arc-accessibility>
+          />
         </slot>
-        <slot name="bottom">
-          <arc-bottombar
-            @arc-show-accessibility=${this.showAccessibility}
-          ></arc-bottombar>
+
+        <slot name="bottom" @arc-show-accessibility=${this.showAccessibility}>
+          <arc-bottombar @arc-show-accessibility=${this.showAccessibility} />
         </slot>
       </div>
     `;

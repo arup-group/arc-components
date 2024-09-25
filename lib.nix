@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, writers }:
 
 with builtins;
 with pkgs.lib;
@@ -33,7 +33,7 @@ in
         # this workspace is a monorepo and all dependencies
         # are resolved via the workspace root package.json
         src = cleanSource ./.;
-        npmDepsHash = "sha256-ENUZIfquIE0X/MzX2kTIo9z6EWfandRvqMsjYo4Yi+4=";
+        npmDepsHash = "sha256-7Ou/Bw4en7m7tknHVYJ9tPAV8croJ6NuCYuisL2neP0=";
 
         # dont run the build scripts when rebuilding
         # npm dependencies as node-keytar will fail
@@ -43,4 +43,17 @@ in
         # due to peer conflics in npm deps
         npmInstallFlags = [ "--legacy-peer-deps" ];
       };
+
+  # writes the npm config file with the NPM_TOKEN
+  setup-npm-config = writers.writeRustBin "setup-npm-config" { } ''
+    use std::fs::File;
+    use std::io::Write;
+    use std::env;
+
+    fn main() {
+      let npm_token = env::var("NPM_TOKEN").unwrap();
+      let mut file = File::create(".npmrc").unwrap();
+      file.write_all(format!("//registry.npmjs.org/:_authToken={}\nregistry=https://registry.npmjs.org/\nalways-auth=true\n", npm_token).as_bytes()).unwrap();
+    }
+  '';
 }

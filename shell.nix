@@ -1,4 +1,4 @@
-{ pkgs, mkShell, nodejs, prefetch-npm-deps, makeSetupHook, writeScript }:
+{ pkgs, lib, mkShell, nodejs, prefetch-npm-deps, makeSetupHook, writeScript }:
 
 let
 
@@ -13,6 +13,6 @@ in
 
 mkShell {
   inputsFrom = with pkgs; [ components ];
-  packages = with pkgs; [ opentofu azure-cli prefetch-npm-deps ];
+  packages = with pkgs; [ opentofu azure-cli prefetch-npm-deps lib.setup-npm-config ];
   buildInputs = [ nodejsShellHook ];
 }

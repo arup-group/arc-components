@@ -174,7 +174,9 @@ C4Deployment
 
 ### Release
 
-1. Update all package package.json versions
-2. For each package built it with Nix: `nix build .#<package-name>`
-3. For each package the release to NPM: `cd result && npm publish`
-2. Create a release commit, tag and GitHub release
+1. Update all package.json versions and run `npm install --legacy-peer-deps`
+2. Compute a new sha256 hash for the `buildArcPackage` function in lib.nix with `prefetch-npm-deps package-lock.json`
+3. Create a release commit, tag and GitHub release
+4. Checkout the release tag
+5. For each package built it with Nix: `nix build .#<package-name>`
+6. For each package the release to NPM: `cd result && npm publish`

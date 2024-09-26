@@ -56,4 +56,43 @@ in
       file.write_all(format!("//registry.npmjs.org/:_authToken={}\nregistry=https://registry.npmjs.org/\nalways-auth=true\n", npm_token).as_bytes()).unwrap();
     }
   '';
+
+  # script to generate sbom, vulerability scan &
+  # list of outdated nix packages dependencies
+  generate-sbom = pkgs.writeShellApplication {
+    name = "generate-sbom";
+    runtimeInputs = with pkgs; [ sbomnix zip ];
+    text = ''
+      sbomnix .#components --buildtime --depth 2
+      nixgraph .#components --buildtime --depth 2
+      vulnxscan .#components --buildtime
+      nix_outdated .#components --buildtime
+
+      mkdir -p ./reports
+      mv sbom.cdx.json ./reports/components-sbom.cdx.json
+      mv sbom.csv ./reports/components-sbom.csv
+      mv sbom.spdx.json ./reports/components-sbom.spdx.json
+      mv graph.png ./reports/components-graph.png
+      mv vulns.csv ./reports/components-vulns.csv
+      mv nix_outdated.csv ./reports/components-nix_outdated.csv
+
+      sbomnix .#react --buildtime --depth 2
+      nixgraph .#react --buildtime --depth 2
+      vulnxscan .#react --buildtime
+      nix_outdated .#react --buildtime
+
+      mkdir -p ./reports
+      mv sbom.cdx.json ./reports/react-sbom.cdx.json
+      mv sbom.csv ./reports/react-sbom.csv
+      mv sbom.spdx.json ./reports/react-sbom.spdx.json
+      mv graph.png ./reports/react-graph.png
+      mv vulns.csv ./reports/react-vulns.csv
+      mv nix_outdated.csv ./reports/react-nix_outdated.csv
+
+      zip -r reports.zip ./reports
+
+
+
+    '';
+  };
 }

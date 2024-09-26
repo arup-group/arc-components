@@ -11,3 +11,14 @@ tfplan
 .docusaurus/
 .cache-loader/
 .env
+ARCHITECTURE.pdf
+*.archimate.bak
+graph.png
+http_cache.sqlite
+sbom.cdx.json
+sbom.csv
+sbom.spdx.json
+vulns.csv
+nix_outdated.csv
+sbom/
+sbom.zip

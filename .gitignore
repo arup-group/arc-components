@@ -11,6 +11,7 @@ tfplan
 .docusaurus/
 .cache-loader/
 .env
+.svelte-kit
 ARCHITECTURE.pdf
 *.archimate.bak
 graph.png

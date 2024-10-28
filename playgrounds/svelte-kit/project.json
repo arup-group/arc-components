@@ -1,0 +1,21 @@
+{
+  "name": "svelte-kit-playground",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "playgrounds/svelte-kit/src",
+  "tags": ["playground"],
+  "implicitDependencies": ["components"],
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "rm -rf .svelte-kit",
+          "npx vite dev",
+        ],
+        "cwd": "playgrounds/svelte-kit",
+        "parallel": false
+      }
+    },
+  }
+}

@@ -44,6 +44,7 @@ export default function Home(): JSX.Element {
               color: 'var(--ifm-color-primary)',
             }}
             href="/docs/introduction"
+            aria-label="Get Started"
           >
             <h2>Overview</h2>
             <p>
@@ -60,6 +61,7 @@ export default function Home(): JSX.Element {
               color: 'var(--ifm-color-primary)',
             }}
             href="/docs/design-guides/getting-started"
+            aria-label="Design Documentation"
           >
             <h2>Design Documentation</h2>
             <p>
@@ -75,6 +77,7 @@ export default function Home(): JSX.Element {
               color: 'var(--ifm-color-primary)',
             }}
             href="/docs/dev-guides/getting-started"
+            aria-label="Developer Documentation"
           >
             <h2>Developer Documentation</h2>
             <p>
@@ -91,6 +94,7 @@ export default function Home(): JSX.Element {
               color: 'var(--ifm-color-primary)',
             }}
             href="/docs/status"
+            aria-label="Component & Feature Status"
           >
             <h2>Component & Feature Status</h2>
             <p>Track the progress of ARC components and features.</p>

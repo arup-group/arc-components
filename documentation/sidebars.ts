@@ -16,7 +16,6 @@ const sidebars: SidebarsConfig = {
         'iconography',
         'cli',
         'status',
-        'support',
       ],
     },
     {
@@ -33,8 +32,22 @@ const sidebars: SidebarsConfig = {
         'dev-guides/accessibility',
         'dev-guides/forms',
         'dev-guides/iconography',
-        'dev-guides/ssr',
         'dev-guides/typescript',
+        {
+          type: 'category',
+          label: 'Frameworks and Libraries',
+          items: [
+            'dev-guides/frameworks/angular',
+            'dev-guides/frameworks/react',
+            'dev-guides/frameworks/vue',
+            'dev-guides/frameworks/svelte-kit',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Serevr Side Rendering',
+          items: ['dev-guides/ssr'],
+        },
         'dev-guides/docusaurus',
       ],
     },

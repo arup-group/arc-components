@@ -19,8 +19,9 @@
             overlays = [
               (final: prev: {
                 lib = prev.lib // import ./lib.nix { pkgs = final; writers = final.writers; };
-                react = final.callPackage ./packages/react { };
                 components = final.callPackage ./packages/components { };
+                react = final.callPackage ./packages/react { };
+                material = final.callPackage ./packages/material { };
                 documentation = final.callPackage ./documentation { };
                 storybook = final.callPackage ./packages/components/.storybook { };
               })
@@ -31,7 +32,7 @@
         rec {
           checks = packages;
           formatter = pkgs.nixpkgs-fmt;
-          packages = { inherit (pkgs) components documentation react storybook; };
+          packages = { inherit (pkgs) components react material documentation storybook; };
           devShells.default = pkgs.callPackage ./shell.nix { };
         }
       )

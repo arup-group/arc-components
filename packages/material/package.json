@@ -1,7 +1,7 @@
 {
   "name": "@arc-web/material",
   "description": "Material UI theme around the web-components built on the ARC design system",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "author": "Arup (https://www.arup.com)",
   "repository": {
     "type": "git",
@@ -9,14 +9,14 @@
     "directory": "packages/material"
   },
   "type": "module",
-  "dependencies": {
-    "@mui/material": "6.3.0",
-    "@emotion/styled": "11.14.0",
-    "@emotion/react": "11.4.0"
-  },
   "peerDependencies": {
-    "@arc-web/components": "3.4.1",
+    "@arc-web/components": "3.5.0",
+    "@arc-web/react": "3.5.0",
     "@mui/material": "6.3.0",
     "react": "17.0.2"
+  },
+  "dependencies": {
+    "@emotion/styled": "11.14.0",
+    "@emotion/react": "11.4.0"
   }
 }

@@ -1,0 +1,35 @@
+{
+  "name": "material",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/material/src",
+  "projectType": "library",
+  "tags": ["package"],
+  "implicitDependencies": ["components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/material/package.json",
+          "packages/material/**/*.ts"
+        ]
+      }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/material",
+        "main": "packages/material/src/index.ts",
+        "tsConfig": "packages/material/tsconfig.json",
+        "assets": ["README.md", "LICENSE"]
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
+    }
+  }
+}

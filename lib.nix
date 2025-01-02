@@ -33,7 +33,7 @@ in
         # this workspace is a monorepo and all dependencies
         # are resolved via the workspace root package.json
         src = cleanSource ./.;
-        npmDepsHash = "sha256-F1yz18glDERcufe6VqgYYdM43GAf5A8QHX/Hg1NeIm8=";
+        npmDepsHash = "sha256-S7IetVc9X1enM5SclL7USMsgGJ+LQ9CXQNb5h8DmSbM=";
 
         # dont run the build scripts when rebuilding
         # npm dependencies as node-keytar will fail
@@ -90,9 +90,6 @@ in
       mv nix_outdated.csv ./reports/react-nix_outdated.csv
 
       zip -r reports.zip ./reports
-
-
-
     '';
   };
 }

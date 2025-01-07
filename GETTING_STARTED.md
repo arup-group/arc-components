@@ -178,9 +178,7 @@ Here's an example implementation of a custom theme using design tokens. Note tha
 
 ```css
 :root {
-  /** Custom Brand Color **/
-  --arc-brand-color: var(--arc-red-050);
-  /** Custom Light Theme Variables **/
+  --arc-light-brand-color: var(--arc-red-050);
   --arc-light-font-color: var(--arc-grey-100);
   --arc-light-input-color: var(--arc-grey-100);
   --arc-light-background-color: var(--arc-grey-010);
@@ -202,7 +200,7 @@ Here's an example implementation of a custom theme using design tokens. Note tha
   --arc-light-hover-dark: var(--arc-darker-10);
   --arc-light-hover-light: var(--arc-lighter-70);
   --arc-light-hover-lighter: var(--arc-lighter-90);
-  /** Custom Dark Theme Variables **/
+  --arc-dark-brand-color: var(--arc-white-000);
   --arc-dark-font-color: var(--arc-grey-000);
   --arc-dark-input-color: var(--arc-dark-font-color);
   --arc-dark-background-color: var(--arc-grey-090);

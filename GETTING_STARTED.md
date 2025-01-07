@@ -136,6 +136,28 @@ export const App = () => {
 };
 ```
 
+#### React with (ARC & Material UI Components)
+
+```
+npm install @arc-web/components@latest @arc-web/react@latest @arc-wb/material@latest
+```
+
+```tsx
+import { ThemeProvier } from '@arc-web/material';
+import { ArcContainer } from '@arc-web/react';
+import { Button } from '@arc-web/material';
+
+export const App = () => {
+  return (
+    <ThemeProvier>
+      <ArcContainer>
+        <Button>Click Me</Button>
+      </ArcContainer>
+    </ThemeProvier>
+  );
+};
+```
+
 ### Customization
 
 **ARC** components can be customized at a high level through design tokens. This gives you control over theme colours and general styling. For more advanced customizations, web-components can expose something called CSS `parts`. To ensure that each application looks and feels the same, these `parts` are not being exposed from the **ARC** components.

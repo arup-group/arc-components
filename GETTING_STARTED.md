@@ -139,23 +139,27 @@ export const App = () => {
 #### React with (ARC & Material UI Components)
 
 ```
-npm install @arc-web/components@latest @arc-web/react@latest @arc-wb/material@latest
+npm install @arc-web/components@latest @arc-web/react@latest @arc-wb/material@latest @mui/material@latest @mui/icons-material@latest
 ```
 
 ```tsx
-import { ThemeProvier } from '@arc-web/material';
-import { ArcContainer } from '@arc-web/react';
-import { Button } from '@arc-web/material';
+import React from 'react';
+import { ArcContainer, ArcButton } from '@arc-web/react';
+import { ThemeProvider } from '@arc-web/material';
+import { Button } from '@mui/material';
 
-export const App = () => {
+export function App() {
   return (
-    <ThemeProvier>
+    <ThemeProvider>
       <ArcContainer>
-        <Button>Click Me</Button>
+        <div style={{ margin: 'var(--arc-spacing-small)' }}>
+          <ArcButton color="primary">Click me</ArcButton>
+          <Button variant="contained">Click me</Button>
+        </div>
       </ArcContainer>
-    </ThemeProvier>
+    </ThemeProvider>
   );
-};
+}
 ```
 
 ### Customization
@@ -170,11 +174,55 @@ Design tokens are accessed through CSS custom properties that are defined within
 
 To customize a design token, simply override it in your stylesheet using a `:root` block. If you are including the ARC-provided theme stylesheets, be sure to import your own _after_ the ARC stylesheets so that your styles override the ARC-provided ones where relevant.
 
-Here's an example that changes the primary color of the light theme. Note that you should use the ARC color palette, but if you _must_ provide a different color you should provide only the comma separated numbers to go inside an rgba block (e.g. `255,255,255,1`, not `rgba(255,255,255,1)` and not `#FFFFFF`)
+Here's an example implementation of a custom theme using design tokens. Note that you should use the ARC color palette, but if you _must_ provide a different color you should provide only the comma separated numbers to go inside an rgba block (e.g. `255,255,255,1`, not `rgba(255,255,255,1)` and not `#FFFFFF`)
 
 ```css
 :root {
-  --arc-light-color-primary: var(--arc-green-050);
+  /** Custom Brand Color **/
+  --arc-brand-color: var(--arc-red-050);
+  /** Custom Light Theme Variables **/
+  --arc-light-font-color: var(--arc-grey-100);
+  --arc-light-input-color: var(--arc-grey-100);
+  --arc-light-background-color: var(--arc-grey-010);
+  --arc-light-container-color: var(--arc-white-000);
+  --arc-light-color-default: var(--arc-grey-010);
+  --arc-light-color-primary: var(--arc-blue-060);
+  --arc-light-color-secondary: var(--arc-grey-090);
+  --arc-light-color-error: var(--arc-red-070);
+  --arc-light-background-color-error: var(--arc-red-000);
+  --arc-light-color-warning: var(--arc-orange-070);
+  --arc-light-background-color-warning: var(--arc-orange-000);
+  --arc-light-color-info: var(--arc-blue-070);
+  --arc-light-background-color-info: var(--arc-blue-000);
+  --arc-light-color-success: var(--arc-green-070);
+  --arc-light-background-color-success: var(--arc-green-000);
+  --arc-light-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-15),
+    var(--arc-box-shadow-03) var(--arc-darker-13);
+  --arc-light-hover-darker: var(--arc-darker-30);
+  --arc-light-hover-dark: var(--arc-darker-10);
+  --arc-light-hover-light: var(--arc-lighter-70);
+  --arc-light-hover-lighter: var(--arc-lighter-90);
+  /** Custom Dark Theme Variables **/
+  --arc-dark-font-color: var(--arc-grey-000);
+  --arc-dark-input-color: var(--arc-dark-font-color);
+  --arc-dark-background-color: var(--arc-grey-090);
+  --arc-dark-container-color: var(--arc-grey-100);
+  --arc-dark-color-default: var(--arc-grey-090);
+  --arc-dark-color-primary: var(--arc-blue-040);
+  --arc-dark-color-secondary: var(--arc-grey-040);
+  --arc-dark-color-error: var(--arc-red-070);
+  --arc-dark-background-color-error: var(--arc-red-000);
+  --arc-dark-color-warning: var(--arc-orange-070);
+  --arc-dark-background-color-warning: var(--arc-orange-000);
+  --arc-dark-color-info: var(--arc-blue-070);
+  --arc-dark-background-color-info: var(--arc-blue-000);
+  --arc-dark-color-success: var(--arc-green-070);
+  --arc-dark-background-color-success: var(--arc-green-000);
+  --arc-dark-box-shadow: var(--arc-box-shadow-01) var(--arc-darker-30),
+    var(--arc-box-shadow-02) var(--arc-darker-15),
+    var(--arc-box-shadow-03) var(--arc-darker-13);
+  --arc-dark-hover-light: var(--arc-darker-85);
+  --arc-dark-hover-lighter: var(--arc-darker-80);
 }
 ```
 

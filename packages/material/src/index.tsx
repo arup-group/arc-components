@@ -4,11 +4,21 @@ import { UserPreferences } from '@arc-web/components/components/accessibility/Ar
 import { ARC_EVENTS } from '@arc-web/components/src/internal/constants/eventConstants';
 import { Theme, ThemeProvider as MTP, createTheme, rgbToHex } from "@mui/material";
 
+/**
+  * Converts a CSS variable value to a hex color.
+  * @param value The CSS variable value to convert.
+  * @returns The hex color.
+  */
 function rgbValue(value: string): string {
   const [r, g, b] = getRootValue(value).split(",").map((v) => parseInt(v, 10));
   return `rgb(${r}, ${g}, ${b})`;
 }
 
+/**
+  * Creates the ARC light theme.
+  * @param args Optional theme options to be overriden in the light theme.
+  * @returns The ARC light theme.
+  */
 export function createLightTheme(...args: Parameters<typeof createTheme>): ReturnType<typeof createTheme> {
   args[0] = {
     palette: {
@@ -44,6 +54,11 @@ export function createLightTheme(...args: Parameters<typeof createTheme>): Retur
   return createTheme(...args);
 }
 
+/**
+  * Creates the ARC dark theme.
+  * @param args Optional theme options to be overriden in the dark theme.
+  * @returns The ARC dark theme.
+  */
 export function createDarkTheme(...args: Parameters<typeof createTheme>): ReturnType<typeof createTheme> {
   args[0] = {
     palette: {
@@ -80,11 +95,19 @@ export function createDarkTheme(...args: Parameters<typeof createTheme>): Return
 }
 
 interface ThemeProvierProps {
+  /* The children to render. */
   children: React.ReactNode;
+  /* The light theme to use. */
   lightTheme?: Theme;
+  /* The dark theme to use. */
   darkTheme?: Theme;
 }
 
+/**
+  * Provides the ARC theme to the application.
+  * @param props The component properties.
+  * @returns The component.
+  */
 export const ThemeProvider: FC<ThemeProvierProps> = ({ children, lightTheme, darkTheme }) => {
   const [isDark, setIsDark] = useState(false);
   lightTheme = lightTheme || createLightTheme();

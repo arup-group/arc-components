@@ -22,7 +22,6 @@ import './components/switch/arc-switch.js';
 import './components/avatar/arc-avatar.js';
 import './components/chip/arc-chip.js';
 import './components/tooltip/arc-tooltip.js';
-import './components/table/arc-table.js';
 
 /* Types */
 export { default as ArcAccessibility } from './components/accessibility/ArcAccessibility.js';
@@ -48,7 +47,6 @@ export { default as ArcSwitch } from './components/switch/ArcSwitch.js';
 export { default as ArcAvatar } from './components/avatar/ArcAvatar.js';
 export { default as ArcChip } from './components/chip/ArcChip.js';
 export { default as ArcTooltip } from './components/tooltip/ArcTooltip.js';
-export { default as ArcTable } from './components/table/ArcTable.js';
 
 /* Utilities */
 export * from './utilities/form-utils.js';

@@ -1,3 +1,30 @@
 # Docuaurus
 
 > This document outlines a guide to using the **ARC** design system and components with Docusaurus.
+
+1. Install `@arc-web/components` package:
+
+```sh
+npm install -E @arc-web/components
+```
+
+2. Set the custom css property in `docusaurus.config.[js|ts]`:
+
+```ts
+module.exports = {
+  ...
+  presets: [
+    [
+      'classic',
+      {
+        ...
+        theme: {
+          customCss: [
+            "./node_modules/@arc-web/components/themes/docusaurus.css",
+          ],
+        },
+      },
+    ],
+  ],
+};
+```

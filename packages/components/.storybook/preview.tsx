@@ -1,6 +1,7 @@
-import { setCustomElementsManifest, Preview } from '@storybook/web-components';
+import { html } from 'lit';
+import { setCustomElementsManifest } from '@storybook/web-components';
+import { Preview } from '@story/types';
 import DocumentationTemplate from './documentation-template.mdx';
-
 import '../themes/index.css';
 import '../src/index';
 
@@ -10,18 +11,22 @@ import CUSTOM_ELEMENTS from '../../../dist/packages/components/custom-elements.j
 setCustomElementsManifest(CUSTOM_ELEMENTS);
 
 const PREVIEW: Preview = {
+  decorators: [
+    (story, { parameters }) => {
+      const { noContainer } = parameters;
+      return noContainer
+        ? html`${story()}`
+        : html`<arc-container
+            ><div style="padding: var(--arc-spacing-small);">
+              ${story()}
+            </div></arc-container
+          >`;
+    },
+  ],
   parameters: {
     layout: 'fullscreen',
-    actions: { argTypesRegex: '^on[A-Z].*' },
     docs: {
       page: DocumentationTemplate,
-    },
-    controls: {
-      matchers: {
-        color:
-          /(colorPrimary|colorSecondary|btnColor|btnBackground|iconColor|strokeColor)$/i,
-        date: /Date$/,
-      },
     },
     options: {
       storySort: {

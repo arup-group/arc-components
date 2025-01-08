@@ -96,11 +96,10 @@ export default class ArcFlyer extends LitElement {
       }
       /* Medium devices and up */
       @media (min-width: ${mobileBreakpoint}rem) {
-        :host{
+        :host {
           width: calc(clamp(0px, 480px, 100%) - var(--arc-spacing-medium));
         }
       }
-
     `,
   ];
 

@@ -2,7 +2,6 @@ import { StorybookConfig } from '@storybook/web-components-vite';
 
 const STORYBOOK_CONFIGURATION: StorybookConfig = {
   core: { disableTelemetry: true },
-  features: { storyStoreV7: true },
   framework: '@storybook/web-components-vite',
   stories: [
     '../src/**/*.stories.ts',

@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import type ArcBottombar from './ArcBottombar.js';
 import '../container/arc-container.js';
@@ -10,9 +10,12 @@ import '../icon/accessibility/arc-icon-accessibility.js';
 export default {
   title: 'Components/ArcBottombar',
   component: 'arc-bottombar',
+  parameters: {
+    noContainer: true,
+  },
 } as Meta;
 
-const Template: Story<ArcBottombar> = () => html`
+const Template: StoryFn<ArcBottombar> = () => html`
   <arc-container>
     <arc-navbar slot="nav"></arc-navbar>
 

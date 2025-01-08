@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import type ArcNavbar from './ArcNavbar.js';
@@ -8,16 +8,17 @@ import '../button/arc-button.js';
 export default {
   title: 'Components/ArcNavbar',
   component: 'arc-navbar',
+  parameters: {
+    noContainer: true,
+  },
 } as Meta;
 
-const Template: Story<ArcNavbar> = ({ arup, home, logo, tabs }) => html`
+const Template: StoryFn<ArcNavbar> = ({ home, logo }) => html`
   <arc-container>
     <arc-navbar
       slot="nav"
       home=${ifDefined(home || undefined)}
       logo=${ifDefined(logo || undefined)}
-      tabs=${ifDefined(tabs || undefined)}
-      arup=${arup}
     >
       <span slot="name">Web Components</span>
       <arc-button type="tab">Menu</arc-button>
@@ -39,10 +40,8 @@ const Template: Story<ArcNavbar> = ({ arup, home, logo, tabs }) => html`
 `;
 
 const defaultArgs = {
-  arup: true,
   home: '/',
   logo: '/arc-red.svg',
-  tabs: 5,
 };
 
 export const Default = Template.bind({});

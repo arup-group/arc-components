@@ -15,6 +15,9 @@ export default {
       options: Object.values(CONTAINER_THEME_PREFERENCES),
     },
   },
+  parameters: {
+    noContainer: true,
+  },
 } as Meta;
 
 const Template: StoryFn<ArcContainer> = ({ theme, fullscreen, banner }) =>

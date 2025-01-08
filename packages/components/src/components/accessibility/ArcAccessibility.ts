@@ -48,6 +48,7 @@ export declare type UserPreferences = {
 };
 
 /**
+ * @slot options - Slot to add additional options to the drawer.
  * @event arc-accessibility-change - Emitted when the user preferences change.
  *
  * @ssr - True

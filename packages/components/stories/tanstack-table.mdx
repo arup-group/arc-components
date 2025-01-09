@@ -28,115 +28,46 @@ npm install -E @arc-web/components@latest @tanstack/table-core@latest
   <body>
     <arc-container></arc-container>
     <script type="module">
-      import { createTable, createColumnHelper, getCoreRowModel } from '@tanstack/table-core';
-      import { atom } from 'nanostores';
+      import {
+        createTable,
+        createColumnHelper,
+        getCoreRowModel,
+      } from '@tanstack/table-core';
+
+      function createRandomPerson() {
+        return {
+          firstName: Math.random()
+            .toString(36)
+            .substring(Math.floor(Math.random() * 10)),
+          lastName: Math.random()
+            .toString(36)
+            .substring(Math.floor(Math.random() * 10)),
+          age: Math.floor(Math.random() * 100),
+        };
+      }
 
       const arcContainer = document.querySelector('arc-container');
-
-      const useTable = <TData extends RowData>(options: TableOptions<TData>) => {
-        const resolvedOptions: TableOptionsResolved<TData> = {
-          state: {},
-          onStateChange: () => {},
-          renderFallbackValue: null,
-          ...options,
-        };
-        const table = createTable<TData>(resolvedOptions);
-        const state = atom(table.initialState);
-        state.subscribe((currentState) => {
-          table.setOptions((prev) => ({
-            ...prev,
-            ...options,
-            state: {
-              ...currentState,
-              ...options.state,
-            },
-            onStateChange: (updater) => {
-              if (typeof updater === 'function') {
-                const newState = updater(currentState);
-                state.set(newState);
-              } else {
-                state.set(updater);
-              }
-              options.onStateChange?.(updater);
-            },
-          }));
-        });
-        return table;
-      };
-
-      const flexRender = (comp, props) => {
-        if (typeof comp === 'function') {
-          return comp(props);
-        }
-        return comp;
-      };
-
-      const data = [
-        {
-          firstName: 'tanner',
-          lastName: 'linsley',
-          age: 24,
-          visits: 100,
-          status: 'In Relationship',
-          progress: 50,
-        },
-        {
-          firstName: 'tandy',
-          lastName: 'miller',
-          age: 40,
-          visits: 40,
-          status: 'Single',
-          progress: 80,
-        },
-        {
-          firstName: 'joe',
-          lastName: 'dirte',
-          age: 45,
-          visits: 20,
-          status: 'Complicated',
-          progress: 10,
-        },
-      ];
-
+      const tableContainer = document.createElement('div');
+      arcContainer.appendChild(tableContainer);
       const columnHelper = createColumnHelper();
-
-      const columns = [
-        columnHelper.accessor('firstName', {
-          cell: (info) => info.getValue(),
-          footer: (info) => info.column.id,
-        }),
-        columnHelper.accessor((row) => row.lastName, {
-          id: 'lastName',
-          cell: (info) => `<i>${info.getValue()}</i>`,
-          header: () => '<span>Last Name</span>',
-          footer: (info) => info.column.id,
-        }),
-        columnHelper.accessor('age', {
-          header: () => 'Age',
-          cell: (info) => info.renderValue(),
-          footer: (info) => info.column.id,
-        }),
-        columnHelper.accessor('visits', {
-          header: () => '<span>Visits</span>',
-          footer: (info) => info.column.id,
-        }),
-        columnHelper.accessor('status', {
-          header: 'Status',
-          footer: (info) => info.column.id,
-        }),
-        columnHelper.accessor('progress', {
-          header: 'Profile Progress',
-          footer: (info) => info.column.id,
-        }),
-      ];
-
-      const table = useTable({
-        data,
-        columns,
+      const table = createTable({
+        state: {},
+        onStateChange: () => {},
+        renderFallbackValue: null,
+        columns: Object.keys(createRandomPerson()).map((key) =>
+          columnHelper.accessor(key, {}),
+        ),
+        data: Array.from({ length: 10 }, createRandomPerson),
         getCoreRowModel: getCoreRowModel(),
       });
+      table.setOptions((prev) => ({
+        ...prev,
+        state: { ...table.initialState },
+      }));
       const tableElement = document.createElement('table');
-      tableElement.attributes.setNamedItem(document.createAttribute('arc-table'));
+      tableElement.attributes.setNamedItem(
+        document.createAttribute('arc-table'),
+      );
       const theadElement = document.createElement('thead');
       const tbodyElement = document.createElement('tbody');
       tableElement.appendChild(theadElement);
@@ -145,9 +76,10 @@ npm install -E @arc-web/components@latest @tanstack/table-core@latest
         const trElement = document.createElement('tr');
         headerGroup.headers.forEach((header) => {
           const thElement = document.createElement('th');
-          thElement.innerHTML = header.isPlaceholder
-            ? ''
-            : flexRender(header.column.columnDef.header, header.getContext());
+          thElement.innerHTML =
+            typeof header.column.columnDef.header === 'function'
+              ? header.column.columnDef.header(header.getContext())
+              : header.column.columnDef.header;
           trElement.appendChild(thElement);
         });
         theadElement.appendChild(trElement);
@@ -156,15 +88,16 @@ npm install -E @arc-web/components@latest @tanstack/table-core@latest
         const trElement = document.createElement('tr');
         row.getVisibleCells().forEach((cell) => {
           const tdElement = document.createElement('td');
-          tdElement.innerHTML = flexRender(
-            cell.column.columnDef.cell,
-            cell.getContext(),
-          );
+          tdElement.innerHTML =
+            typeof cell.column.columnDef.cell === 'function'
+              ? cell.column.columnDef.cell(cell.getContext())
+              : cell.column.columnDef.cell;
           trElement.appendChild(tdElement);
         });
         tbodyElement.appendChild(trElement);
       });
-      arcTable.appendChild(tableElement);
+
+      tableContainer.appendChild(tableElement);
     </script>
   </body>
 </html>

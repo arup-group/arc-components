@@ -6,36 +6,48 @@ import { Meta } from '@storybook/blocks';
 
 Grid.js is a Free and open-source JavaScript table plugin.
 
-## Basic Usage
+## Installation
 
 ```bash
 npm i -E @arc-web/components@latest gridjs@latest
 ```
 
+## Basic Usage
+
 ```html
-<head>
-  <link rel="stylesheet" href="@arc-web/components/themes/index.css" />
-  <link rel="stylesheet" href="@arc-web/components/themes/gridjs.css" />
-  <script src="@arc-web/components/index.js"></script>
-</head>
-<body>
-  <arc-container>
-    <div id="grid"></div>
-  </arc-container>
+<!doctype html>
+<html>
+  <head>
+    ...
+    <link rel="stylesheet" href="@arc-web/components/themes/gridjs.css" />
+  </head>
+  <body>
+    <arc-container>
+      <div id="grid"></div>
+    </arc-container>
 
-  <script type="module">
-    import { Grid } from 'gridjs';
+    <script type="module">
+      import { Grid } from 'gridjs';
 
-    new Grid({
-      columns: ["Name", "Email", "Phone Number"],
-      data: [
-        ["John", "john@example.com" , "00000000000"],
-        ["Mark", "mark@exmaple.com", "00000000000"],
-        ["Eoin", "eoin@example.com", "00000000000"],
-      ],
-    }).render(document.querySelector('#grid')!);
-  </script>
-</body>
+      function createRandomPerson() {
+        return {
+          firstName: Math.random()
+            .toString(36)
+            .substring(Math.floor(Math.random() * 10)),
+          lastName: Math.random()
+            .toString(36)
+            .substring(Math.floor(Math.random() * 10)),
+          age: Math.floor(Math.random() * 100),
+        };
+      }
+
+      new ArcGrid({
+        columns: Object.keys(createRandomPerson()),
+        data: Array.from({ length: 10 }, createRandomPerson),
+      }).render(document.getElementById('grid'));
+    </script>
+  </body>
+</html>
 ```
 
 Please refer to the [official gridjs documentation](https://gridjs.io/) for more information.

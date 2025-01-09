@@ -5,11 +5,5 @@
     "../../packages/components/src/**/*.test.ts",
     "../../packages/components/src/**/*.stories.ts"
   ],
-  "files": ["src/main.ts"],
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+  "files": ["src/main.ts"]
 }

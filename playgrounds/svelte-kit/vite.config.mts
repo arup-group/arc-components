@@ -9,9 +9,13 @@ export default defineConfig({
     port: 4200,
     host: 'localhost',
   },
-  ssr: { noExternal: ['@sveltejs/site-kit', '@sveltejs/kit', 'svelte', '@arc-web/components'] },
-  plugins: [
-    viteTsConfigPaths({ root: '../../' }),
-    sveltekit(),
-  ],
+  ssr: {
+    noExternal: [
+      '@sveltejs/site-kit',
+      '@sveltejs/kit',
+      'svelte',
+      '@arc-web/components',
+    ],
+  },
+  plugins: [viteTsConfigPaths({ root: '../../' }), sveltekit()],
 });

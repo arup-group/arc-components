@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Intergrations/Grid.js" />
+
+# Grid.js
+
+Grid.js is a Free and open-source JavaScript table plugin.
+
+## Basic Usage
+
+```bash
+npm i -E @arc-web/components@latest gridjs@latest
+```
+
+```html
+<head>
+  <link rel="stylesheet" href="@arc-web/components/themes/index.css" />
+  <link rel="stylesheet" href="@arc-web/components/themes/gridjs.css" />
+  <script src="@arc-web/components/index.js"></script>
+</head>
+<body>
+  <arc-container>
+    <div id="grid"></div>
+  </arc-container>
+
+  <script type="module">
+    import { Grid } from 'gridjs';
+
+    new Grid({
+      columns: ["Name", "Email", "Phone Number"],
+      data: [
+        ["John", "john@example.com" , "00000000000"],
+        ["Mark", "mark@exmaple.com", "00000000000"],
+        ["Eoin", "eoin@example.com", "00000000000"],
+      ],
+    }).render(document.querySelector('#grid')!);
+  </script>
+</body>
+```
+
+Please refer to the [official gridjs documentation](https://gridjs.io/) for more information.

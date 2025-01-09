@@ -116,52 +116,6 @@ import '@arc-web/components/src/components/button/arc-button';
 
 </details>
 
-### React
-
-React can render web components, however, makes assumptions about HTML elements that don't always hold for custom elements, while also treating lower-case tag names differently from upper-cased. This makes working with web components harder than necessary to use. React is working on fixes to these issues, but in the meantime, the `@arc-web/react` provides a wrapper that takes care of setting properties and listening to events for you. Read more about why we need this wrapper [here](https://lit.dev/docs/frameworks/react/#why-are-wrappers-needed)
-
-Install both the `@arc-web/components` and `@arc-web/react` packages from npm:
-
-```sh
-npm install @arc-web/components@latest @arc-web/react@latest
-```
-
-Setup the `@arc-web/components` package as described above, however, import components from the `@arc-web/react` package instead:
-
-```tsx
-import { ArcButton } from '@arc-web/react';
-
-export const App = () => {
-  return <ArcButton>Click Me</ArcButton>;
-};
-```
-
-#### React with (ARC & Material UI Components)
-
-```
-npm install @arc-web/components@latest @arc-web/react@latest @arc-wb/material@latest @mui/material@latest @mui/icons-material@latest
-```
-
-```tsx
-import React from 'react';
-import { ArcContainer, ArcButton } from '@arc-web/react';
-import { ThemeProvider } from '@arc-web/material';
-import { Button } from '@mui/material';
-
-export function App() {
-  return (
-    <ThemeProvider>
-      <ArcContainer>
-        <div style={{ margin: 'var(--arc-spacing-small)' }}>
-          <ArcButton color="primary">Click me</ArcButton>
-          <Button variant="contained">Click me</Button>
-        </div>
-      </ArcContainer>
-    </ThemeProvider>
-  );
-}
-```
-
 ### Customization
 
 **ARC** components can be customized at a high level through design tokens. This gives you control over theme colours and general styling. For more advanced customizations, web-components can expose something called CSS `parts`. To ensure that each application looks and feels the same, these `parts` are not being exposed from the **ARC** components.

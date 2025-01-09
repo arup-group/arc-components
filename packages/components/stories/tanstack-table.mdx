@@ -1,0 +1,173 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Intergrations/TanStack Tables" />
+
+# TanStack Tables
+
+TanStack table is a headless UI for building powerful tables & datagrids.
+
+## Installation
+
+```bash
+npm install -E @arc-web/components@latest @tanstack/table-core@latest
+```
+
+## Usage
+
+```html
+<!doctype html>
+<html>
+  <head>
+    ...
+    <link
+      rel="stylesheet"
+      href="@arc-web/components/themes/tanstack-table.css"
+    />
+  </head>
+
+  <body>
+    <arc-container></arc-container>
+    <script type="module">
+      import { createTable, createColumnHelper, getCoreRowModel } from '@tanstack/table-core';
+      import { atom } from 'nanostores';
+
+      const arcContainer = document.querySelector('arc-container');
+
+      const useTable = <TData extends RowData>(options: TableOptions<TData>) => {
+        const resolvedOptions: TableOptionsResolved<TData> = {
+          state: {},
+          onStateChange: () => {},
+          renderFallbackValue: null,
+          ...options,
+        };
+        const table = createTable<TData>(resolvedOptions);
+        const state = atom(table.initialState);
+        state.subscribe((currentState) => {
+          table.setOptions((prev) => ({
+            ...prev,
+            ...options,
+            state: {
+              ...currentState,
+              ...options.state,
+            },
+            onStateChange: (updater) => {
+              if (typeof updater === 'function') {
+                const newState = updater(currentState);
+                state.set(newState);
+              } else {
+                state.set(updater);
+              }
+              options.onStateChange?.(updater);
+            },
+          }));
+        });
+        return table;
+      };
+
+      const flexRender = (comp, props) => {
+        if (typeof comp === 'function') {
+          return comp(props);
+        }
+        return comp;
+      };
+
+      const data = [
+        {
+          firstName: 'tanner',
+          lastName: 'linsley',
+          age: 24,
+          visits: 100,
+          status: 'In Relationship',
+          progress: 50,
+        },
+        {
+          firstName: 'tandy',
+          lastName: 'miller',
+          age: 40,
+          visits: 40,
+          status: 'Single',
+          progress: 80,
+        },
+        {
+          firstName: 'joe',
+          lastName: 'dirte',
+          age: 45,
+          visits: 20,
+          status: 'Complicated',
+          progress: 10,
+        },
+      ];
+
+      const columnHelper = createColumnHelper();
+
+      const columns = [
+        columnHelper.accessor('firstName', {
+          cell: (info) => info.getValue(),
+          footer: (info) => info.column.id,
+        }),
+        columnHelper.accessor((row) => row.lastName, {
+          id: 'lastName',
+          cell: (info) => `<i>${info.getValue()}</i>`,
+          header: () => '<span>Last Name</span>',
+          footer: (info) => info.column.id,
+        }),
+        columnHelper.accessor('age', {
+          header: () => 'Age',
+          cell: (info) => info.renderValue(),
+          footer: (info) => info.column.id,
+        }),
+        columnHelper.accessor('visits', {
+          header: () => '<span>Visits</span>',
+          footer: (info) => info.column.id,
+        }),
+        columnHelper.accessor('status', {
+          header: 'Status',
+          footer: (info) => info.column.id,
+        }),
+        columnHelper.accessor('progress', {
+          header: 'Profile Progress',
+          footer: (info) => info.column.id,
+        }),
+      ];
+
+      const table = useTable({
+        data,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+      });
+      const tableElement = document.createElement('table');
+      tableElement.attributes.setNamedItem(document.createAttribute('arc-table'));
+      const theadElement = document.createElement('thead');
+      const tbodyElement = document.createElement('tbody');
+      tableElement.appendChild(theadElement);
+      tableElement.appendChild(tbodyElement);
+      table.getHeaderGroups().forEach((headerGroup) => {
+        const trElement = document.createElement('tr');
+        headerGroup.headers.forEach((header) => {
+          const thElement = document.createElement('th');
+          thElement.innerHTML = header.isPlaceholder
+            ? ''
+            : flexRender(header.column.columnDef.header, header.getContext());
+          trElement.appendChild(thElement);
+        });
+        theadElement.appendChild(trElement);
+      });
+      table.getRowModel().rows.forEach((row) => {
+        const trElement = document.createElement('tr');
+        row.getVisibleCells().forEach((cell) => {
+          const tdElement = document.createElement('td');
+          tdElement.innerHTML = flexRender(
+            cell.column.columnDef.cell,
+            cell.getContext(),
+          );
+          trElement.appendChild(tdElement);
+        });
+        tbodyElement.appendChild(trElement);
+      });
+      arcTable.appendChild(tableElement);
+    </script>
+  </body>
+</html>
+```
+
+Please refer to the [official TanStack table documentation](https://tanstack.com/) for more information.

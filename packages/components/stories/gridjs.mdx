@@ -41,7 +41,7 @@ npm i -E @arc-web/components@latest gridjs@latest
         };
       }
 
-      new ArcGrid({
+      new Grid({
         columns: Object.keys(createRandomPerson()),
         data: Array.from({ length: 10 }, createRandomPerson),
       }).render(document.getElementById('grid'));

@@ -20,19 +20,13 @@ export default {
 } satisfies Meta;
 
 export const Default: StoryFn<ArcIconButton> = ({ disabled, loading }) => html`
-  <arc-icon-button
-    ?disabled="${disabled}"
-    ?loading="${loading}"
-  >
+  <arc-icon-button ?disabled="${disabled}" ?loading="${loading}">
     <ph-icon-rocket slot="icon"></ph-icon-rocket>
   </arc-icon-button>
 `;
 
 export const Labaled: StoryFn<ArcIconButton> = ({ disabled, loading }) => html`
-  <arc-icon-button
-    ?disabled="${disabled}"
-    ?loading="${loading}"
-  >
+  <arc-icon-button ?disabled="${disabled}" ?loading="${loading}">
     <ph-icon-rocket slot="icon"></ph-icon-rocket>
     <span>Rocket</span>
   </arc-icon-button>

@@ -6,4 +6,3 @@ export const BUTTON_GROUP_TYPES: Record<string, ButtonGroupType> = {
   filled: 'filled',
   outlined: 'outlined',
 };
-

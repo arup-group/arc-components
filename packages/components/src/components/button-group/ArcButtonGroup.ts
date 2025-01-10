@@ -8,7 +8,10 @@ import {
   ThemeColor,
 } from '../../internal/constants/styleConstants.js';
 import { ButtonTarget } from '../button/constants/ButtonConstants.js';
-import { ButtonGroupType, BUTTON_GROUP_TYPES } from './constants/ButtonGroupConstants.js';
+import {
+  ButtonGroupType,
+  BUTTON_GROUP_TYPES,
+} from './constants/ButtonGroupConstants.js';
 import styles from './arc-button-group.styles.js';
 
 export default class ArcButtonGroup extends LitElement {
@@ -39,12 +42,14 @@ export default class ArcButtonGroup extends LitElement {
    */
   protected firstUpdated(changedProperties) {
     const els = this.defaultSlot?.assignedElements({ flatten: true });
-    if (els.filter(({ tagName }) => tagName !== "ARC-BUTTON").length > 0) {
+    if (els.filter(({ tagName }) => tagName !== 'ARC-BUTTON').length > 0) {
       this.defaultSlot.remove();
-      throw new Error("ArcButton components are the only allowed slotted elements within an ArcButtonGroup");
+      throw new Error(
+        'ArcButton components are the only allowed slotted elements within an ArcButtonGroup',
+      );
     }
     changedProperties.forEach((_, propName) => {
-      if (propName === "loading") return;
+      if (propName === 'loading') return;
       els.forEach((el) => el.setAttribute(propName, this[propName]));
     });
     els.forEach((el) => {
@@ -52,20 +57,18 @@ export default class ArcButtonGroup extends LitElement {
     });
   }
 
-
   /* for each changed prop ensure that its chanaged in for every arc button */
   protected updated(changedProperties) {
     const els = this.defaultSlot?.assignedElements({ flatten: true });
     changedProperties.forEach((_, propName) => {
-      if (propName === "loading") return;
-      if (typeof this[propName] === "string") {
+      if (propName === 'loading') return;
+      if (typeof this[propName] === 'string') {
         els.forEach((el) => el.setAttribute(propName, this[propName]));
       } else {
         els.forEach((el) => el.toggleAttribute(propName));
       }
     });
   }
-
 
   protected render() {
     return html`<slot></slot>`;

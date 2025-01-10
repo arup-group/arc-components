@@ -29,37 +29,45 @@ export default {
     suffix: { table: { disable: true } },
     default: { table: { disable: true } },
     type: { table: { disable: true } },
-    "--min-width": { table: { disable: true } },
-    "--btn-color": { table: { disable: true } },
-    "--btn-background": { table: { disable: true } },
+    '--min-width': { table: { disable: true } },
+    '--btn-color': { table: { disable: true } },
+    '--btn-background': { table: { disable: true } },
   },
 } satisfies Meta;
 
-export const Default: StoryFn<ArcButtonGroup> = ({ color, size, disabled, loading }) =>
-  html`
-    <arc-button-group
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-    >
-      <arc-button value="1">Button 1</arc-button>
-      <arc-button value="2">Button 2</arc-button>
-      <arc-button value="3">Button 3</arc-button>
-    </arc-button-group>
-  `;
+export const Default: StoryFn<ArcButtonGroup> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button-group
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    <arc-button value="1">Button 1</arc-button>
+    <arc-button value="2">Button 2</arc-button>
+    <arc-button value="3">Button 3</arc-button>
+  </arc-button-group>
+`;
 
-export const Outlined: StoryFn<ArcButtonGroup> = ({ color, size, disabled, loading }) =>
-  html`
-    <arc-button-group
-      type="outlined"
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-    >
-      <arc-button value="1">Button 1</arc-button>
-      <arc-button value="2">Button 2</arc-button>
-      <arc-button value="3">Button 3</arc-button>
-    </arc-button-group>
-  `;
+export const Outlined: StoryFn<ArcButtonGroup> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button-group
+    type="outlined"
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    <arc-button value="1">Button 1</arc-button>
+    <arc-button value="2">Button 2</arc-button>
+    <arc-button value="3">Button 3</arc-button>
+  </arc-button-group>
+`;

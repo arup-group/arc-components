@@ -1,13 +1,16 @@
 import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import ArcButtonGroup from './ArcButtonGroup.js';
 import {
   INPUT_SIZES,
   THEME_COLORS,
 } from '../../internal/constants/styleConstants.js';
-import '../button/arc-button.js';
-import './arc-button-group.js';
+import ArcButtonGroup from './arc-button-group.js';
+import '../menu/arc-menu.js';
+import '../menu-item/arc-menu-item.js';
+import '../dropdown/arc-dropdown.js';
+import '../icon-button/arc-icon-button.js';
+import '../ph-icon/caret-down/ph-icon-caret-down.js';
 
 export default {
   title: 'Form/ArcButtonGroup',
@@ -23,7 +26,7 @@ export default {
     },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
-    active: { table: { disable: true } },
+    row: { table: { disable: true } },
     submit: { table: { disable: true } },
     prefix: { table: { disable: true } },
     suffix: { table: { disable: true } },
@@ -47,9 +50,9 @@ export const Default: StoryFn<ArcButtonGroup> = ({
     ?disabled="${disabled}"
     ?loading="${loading}"
   >
-    <arc-button value="1">Button 1</arc-button>
-    <arc-button value="2">Button 2</arc-button>
-    <arc-button value="3">Button 3</arc-button>
+    <arc-button>Button 1</arc-button>
+    <arc-button>Button 2</arc-button>
+    <arc-button>Button 3</arc-button>
   </arc-button-group>
 `;
 
@@ -60,14 +63,63 @@ export const Outlined: StoryFn<ArcButtonGroup> = ({
   loading,
 }) => html`
   <arc-button-group
-    type="outlined"
+    type="group-outlined"
     color=${ifDefined(color || undefined)}
     size=${ifDefined(size || undefined)}
     ?disabled="${disabled}"
     ?loading="${loading}"
   >
-    <arc-button value="1">Button 1</arc-button>
-    <arc-button value="2">Button 2</arc-button>
-    <arc-button value="3">Button 3</arc-button>
+    <arc-button>Button 1</arc-button>
+    <arc-button>Button 2</arc-button>
+    <arc-button>Button 3</arc-button>
+  </arc-button-group>
+`;
+
+export const Vertical: StoryFn<ArcButtonGroup> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button-group
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+    column
+  >
+    <arc-button>Button 1</arc-button>
+    <arc-button>Button 2</arc-button>
+    <arc-button>Button 3</arc-button>
+  </arc-button-group>
+`;
+
+export const Menu: StoryFn<ArcButtonGroup> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button-group
+    type="group-filled"
+    column
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    <arc-button>Button 1</arc-button>
+    <arc-button>Button 2</arc-button>
+    <arc-button>Button 3</arc-button>
+    <arc-dropdown slot="menu">
+      <arc-button slot="trigger"
+        ><ph-icon-caret-down></ph-icon-caret-down
+      ></arc-button>
+      <arc-menu>
+        <arc-menu-item>Button 4</arc-menu-item>
+        <arc-menu-item>Button 5</arc-menu-item>
+        <arc-menu-item>Button 6</arc-menu-item>
+      </arc-menu>
+    </arc-dropdown>
   </arc-button-group>
 `;

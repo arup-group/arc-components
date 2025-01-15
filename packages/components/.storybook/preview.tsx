@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { setCustomElementsManifest } from '@storybook/web-components';
-import { Preview } from '@story/types';
 import DocumentationTemplate from './documentation-template.mdx';
 import '../themes/index.css';
 import '../src/index';
@@ -10,7 +9,7 @@ import CUSTOM_ELEMENTS from '../../../dist/packages/components/custom-elements.j
 
 setCustomElementsManifest(CUSTOM_ELEMENTS);
 
-const PREVIEW: Preview = {
+const PREVIEW = {
   decorators: [
     (story, { parameters }) => {
       const { noContainer } = parameters;

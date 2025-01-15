@@ -9,13 +9,10 @@
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "rm -rf .svelte-kit",
-          "npx vite dev",
-        ],
+        "commands": ["rm -rf .svelte-kit", "npx vite dev"],
         "cwd": "playgrounds/svelte-kit",
         "parallel": false
       }
-    },
+    }
   }
 }

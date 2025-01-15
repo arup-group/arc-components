@@ -1,0 +1,23 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Intergrations/React" />
+
+# React
+
+React can render web components, however, makes assumptions about HTML elements that don't always hold for custom elements, while also treating lower-case tag names differently from upper-cased. This makes working with web components harder than necessary to use. React is working on fixes to these issues, but in the meantime, the `@arc-web/react` provides a wrapper that takes care of setting properties and listening to events for you. Read more about why we need this wrapper [here](https://lit.dev/docs/frameworks/react/#why-are-wrappers-needed)
+
+Install both the `@arc-web/components` and `@arc-web/react` packages from npm:
+
+```sh
+npm install @arc-web/components@latest @arc-web/react@latest
+```
+
+Setup the `@arc-web/components` package as normal, however, import React components from the `@arc-web/react` package:
+
+```tsx
+import { ArcContainer } from '@arc-web/react';
+
+export const App = () => {
+  return <ArcContainer></ArcContainer>;
+};
+```

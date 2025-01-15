@@ -20,7 +20,6 @@ export * from './components/arc-sidebar.js';
 export * from './components/arc-spinner.js';
 export * from './components/arc-sso.js';
 export * from './components/arc-switch.js';
-export * from './components/arc-table.js';
 export * from './components/arc-tooltip.js';
 
 export * from '@arc-web/components/src/utilities/form-utils.js';

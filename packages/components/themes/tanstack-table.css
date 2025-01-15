@@ -1,0 +1,92 @@
+table[arc-table] {
+  flex: 1 1 100%;
+  border-collapse: collapse;
+  text-align: left;
+  display: table;
+  table-layout: fixed;
+  overflow: auto;
+  width: 100%;
+  border: var(--arc-border-style) var(--arc-border-width)
+    rgb(var(--arc-color-default));
+}
+table[arc-table]::-webkit-scrollbar-track {
+  border-left: var(--arc-border-width) var(--arc-border-style)
+    rgb(var(--arc-color-default));
+  border-radius: 0;
+}
+table[arc-table]::-webkit-scrollbar-track:horizontal {
+  border-top: var(--arc-border-width) var(--arc-border-style)
+    rgb(var(--arc-color-default));
+  border-left: none;
+}
+
+table[arc-table] tr {
+  border-top: var(--arc-border-width) var(--arc-border-style)
+    rgb(var(--arc-color-default));
+  border-bottom: var(--arc-border-width) var(--arc-border-style)
+    rgb(var(--arc-color-default));
+}
+table[arc-table] tr:hover {
+  background-color: rgba(var(--arc-font-color), 5%);
+}
+table[arc-table] tr:first-of-type,
+table[arc-table] tr:first-child {
+  border-top: none;
+}
+table[arc-table] tr:last-of-type,
+table[arc-table] tr:last-child {
+  border-bottom: none;
+}
+
+table[arc-table] th {
+  position: relative;
+  padding: var(--arc-spacing-small) var(--arc-spacing-medium);
+  background-color: rgb(var(--arc-container-color));
+  border: var(--arc-border-width) var(--arc-border-style)
+    rgb(var(--arc-color-default));
+  border-top: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  outline: none;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+table[arc-table] th[arc-fixed] {
+  position: sticky;
+}
+table[arc-table] th[arc-fixed]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--arc-border-width);
+  background-color: rgb(var(--arc-color-default));
+}
+table[arc-table] th:first-of-type {
+  border-left: none;
+}
+table[arc-table] th:last-of-type {
+  border-right: none;
+}
+
+table[arc-table] td {
+  border-left: var(--arc-border-width) var(--arc-border-style)
+    rgb(var(--arc-color-default));
+  border-right: var(--arc-border-width) var(--arc-border-style)
+    rgb(var(--arc-color-default));
+  padding: var(--arc-spacing-small) var(--arc-spacing-medium);
+  background-color: transparent;
+  box-sizing: content-box;
+}
+table[arc-table] td:first-of-type {
+  border-left: none;
+}
+table[arc-table] td:last-of-type {
+  border-right: none;
+}

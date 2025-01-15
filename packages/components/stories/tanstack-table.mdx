@@ -1,0 +1,106 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Intergrations/TanStack Tables" />
+
+# TanStack Tables
+
+TanStack table is a headless UI for building powerful tables & datagrids.
+
+## Installation
+
+```bash
+npm install -E @arc-web/components@latest @tanstack/table-core@latest
+```
+
+## Usage
+
+```html
+<!doctype html>
+<html>
+  <head>
+    ...
+    <link
+      rel="stylesheet"
+      href="@arc-web/components/themes/tanstack-table.css"
+    />
+  </head>
+
+  <body>
+    <arc-container></arc-container>
+    <script type="module">
+      import {
+        createTable,
+        createColumnHelper,
+        getCoreRowModel,
+      } from '@tanstack/table-core';
+
+      function createRandomPerson() {
+        return {
+          firstName: Math.random()
+            .toString(36)
+            .substring(Math.floor(Math.random() * 10)),
+          lastName: Math.random()
+            .toString(36)
+            .substring(Math.floor(Math.random() * 10)),
+          age: Math.floor(Math.random() * 100),
+        };
+      }
+
+      const arcContainer = document.querySelector('arc-container');
+      const tableContainer = document.createElement('div');
+      arcContainer.appendChild(tableContainer);
+      const columnHelper = createColumnHelper();
+      const table = createTable({
+        state: {},
+        onStateChange: () => {},
+        renderFallbackValue: null,
+        columns: Object.keys(createRandomPerson()).map((key) =>
+          columnHelper.accessor(key, {}),
+        ),
+        data: Array.from({ length: 10 }, createRandomPerson),
+        getCoreRowModel: getCoreRowModel(),
+      });
+      table.setOptions((prev) => ({
+        ...prev,
+        state: { ...table.initialState },
+      }));
+      const tableElement = document.createElement('table');
+      tableElement.attributes.setNamedItem(
+        document.createAttribute('arc-table'),
+      );
+      const theadElement = document.createElement('thead');
+      const tbodyElement = document.createElement('tbody');
+      tableElement.appendChild(theadElement);
+      tableElement.appendChild(tbodyElement);
+      table.getHeaderGroups().forEach((headerGroup) => {
+        const trElement = document.createElement('tr');
+        headerGroup.headers.forEach((header) => {
+          const thElement = document.createElement('th');
+          thElement.innerHTML =
+            typeof header.column.columnDef.header === 'function'
+              ? header.column.columnDef.header(header.getContext())
+              : header.column.columnDef.header;
+          trElement.appendChild(thElement);
+        });
+        theadElement.appendChild(trElement);
+      });
+      table.getRowModel().rows.forEach((row) => {
+        const trElement = document.createElement('tr');
+        row.getVisibleCells().forEach((cell) => {
+          const tdElement = document.createElement('td');
+          tdElement.innerHTML =
+            typeof cell.column.columnDef.cell === 'function'
+              ? cell.column.columnDef.cell(cell.getContext())
+              : cell.column.columnDef.cell;
+          trElement.appendChild(tdElement);
+        });
+        tbodyElement.appendChild(trElement);
+      });
+
+      tableContainer.appendChild(tableElement);
+    </script>
+  </body>
+</html>
+```
+
+Please refer to the [official TanStack table documentation](https://tanstack.com/) for more information.

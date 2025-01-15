@@ -30,26 +30,38 @@ export default {
     suffix: { table: { disable: true } },
     default: { table: { disable: true } },
     type: { table: { disable: true } },
-    "--min-width": { table: { disable: true } },
-    "--btn-color": { table: { disable: true } },
-    "--btn-background": { table: { disable: true } },
+    '--min-width': { table: { disable: true } },
+    '--btn-color': { table: { disable: true } },
+    '--btn-background': { table: { disable: true } },
   },
 } satisfies Meta;
 
-export const Default: StoryFn<ArcButton> = ({ color, size, disabled, loading }) =>
-  html`
-    <arc-button
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-    >
-      Button
-    </arc-button>
-  `;
+export const Default: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Button
+  </arc-button>
+`;
 
-export const Submit: StoryFn<ArcButton> = ({ color, size, disabled, loading }) => html`
-  <form @submit=${(e: Event) => { e.preventDefault(); console.log(e); }}>
+export const Submit: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <form @submit=${(e: Event) => {
+    e.preventDefault();
+    console.log(e);
+  }}>
     <arc-button
       submit
       color=${ifDefined(color || undefined)}
@@ -62,46 +74,58 @@ export const Submit: StoryFn<ArcButton> = ({ color, size, disabled, loading }) =
   </form>
 `;
 
-export const Link: StoryFn<ArcButton> = ({ color, size, disabled, loading }) =>
-  html`
-    <arc-button
-      href="https://arc.arup.com"
-      target="_blank"
-      rel="noopener"
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-    >
-      Link
-    </arc-button>
-  `;
+export const Link: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    href="https://arc.arup.com"
+    target="_blank"
+    rel="noopener"
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Link
+  </arc-button>
+`;
 
-export const Download: StoryFn<ArcButton> = ({ color, size, disabled, loading }) =>
-  html`
-    <arc-button
-      download="arc"
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-    >
-      Download
-    </arc-button>
-  `;
+export const Download: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    download="arc"
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Download
+  </arc-button>
+`;
 
-export const Outlined: StoryFn<ArcButton> = ({ color, size, disabled, loading }) =>
-  html`
-    <arc-button
-      type="outlined"
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-    >
-      Outlined
-    </arc-button>
-  `;
+export const Outlined: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    type="outlined"
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Outlined
+  </arc-button>
+`;
 
 type TabStory = StoryObj<ArcButton>;
 
@@ -128,32 +152,40 @@ export const Tab: TabStory = {
   `,
 };
 
-export const Prefix: StoryFn<ArcButton> = ({ color, size, disabled, loading }) =>
-  html`
-    <arc-button
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-    >
-      <span slot="prefix">
-        <ph-icon-arrow-left></ph-icon-arrow-left>
-      </span>
-      Prefix
-    </arc-button>
-  `;
+export const Prefix: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    <span slot="prefix">
+      <ph-icon-arrow-left></ph-icon-arrow-left>
+    </span>
+    Prefix
+  </arc-button>
+`;
 
-export const Suffix: StoryFn<ArcButton> = ({ color, size, disabled, loading }) =>
-  html`
-    <arc-button
-      color=${ifDefined(color || undefined)}
-      size=${ifDefined(size || undefined)}
-      ?disabled="${disabled}"
-      ?loading="${loading}"
-    >
-      Suffix
-      <span slot="suffix">
-        <ph-icon-arrow-right></ph-icon-arrow-right>
-      </span>
-    </arc-button>
-  `;
+export const Suffix: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Suffix
+    <span slot="suffix">
+      <ph-icon-arrow-right></ph-icon-arrow-right>
+    </span>
+  </arc-button>
+`;

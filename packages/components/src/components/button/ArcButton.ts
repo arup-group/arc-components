@@ -32,9 +32,10 @@ import '../spinner/arc-spinner.js';
  */
 export default class ArcButton extends LitElement {
   /** @internal */
-  static tag = 'arc-button';
+  public static tag = 'arc-button';
 
-  static styles = styles;
+  /** i@internal */
+  public static styles = styles;
 
   /** @internal */
   @query('#main') button: HTMLButtonElement | HTMLLinkElement;
@@ -110,6 +111,15 @@ export default class ArcButton extends LitElement {
     }
   }
 
+  private get isGroup(): boolean {
+    return (
+      this.type === BUTTON_TYPES['group-filled'] ||
+      this.type === BUTTON_TYPES['group-outlined'] ||
+      this.type === BUTTON_TYPES['group-filled-menu'] ||
+      this.type === BUTTON_TYPES['group-outlined-menu']
+    );
+  }
+
   protected render() {
     const isLink = !!this.href;
     const tag = isLink ? literal`a` : literal`button`;
@@ -132,6 +142,13 @@ export default class ArcButton extends LitElement {
           'button--filled': this.type === BUTTON_TYPES.filled,
           'button--outlined': this.type === BUTTON_TYPES.outlined,
           'button--tab': this.type === BUTTON_TYPES.tab,
+          'button--group-filled': this.type === BUTTON_TYPES['group-filled'],
+          'button--group-outlined':
+            this.type === BUTTON_TYPES['group-outlined'],
+          'button--group-filled-menu':
+            this.type === BUTTON_TYPES['group-filled-menu'],
+          'button--group-outlined-menu':
+            this.type === BUTTON_TYPES['group-outlined-menu'],
           'button--active': this.active,
           'button--disabled': this.disabled,
           'button--loading': this.loading,
@@ -153,7 +170,7 @@ export default class ArcButton extends LitElement {
         <slot id="label"></slot>
         <slot id="suffix" name="suffix"></slot>
         ${when(
-          this.loading,
+          this.loading && !this.isGroup,
           () => html`<arc-spinner id="loader"></arc-spinner>`,
         )}
       </${tag}>

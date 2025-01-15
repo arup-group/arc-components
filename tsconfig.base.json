@@ -28,8 +28,8 @@
     "paths": {
       "@arc-web/components": ["./packages/components/src/index.ts"],
       "@arc-web/components/*": ["./packages/components/src/*"],
-      "@arc-web/react": ["./packages/react/src/index.ts"],
-      "@arc-web/material": ["./packages/material/src/index.tsx"]
+      "@arc-web/material": ["./packages/material/src/index.tsx"],
+      "@arc-web/react": ["./packages/react/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

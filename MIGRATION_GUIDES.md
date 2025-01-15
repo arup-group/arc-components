@@ -1,5 +1,33 @@
 # Migration Guides
 
+## v3 to v4
+
+v4 introdcues serval breaking chanages to the library. Please take care to read the following migration guide before upgrading.
+
+#### Breaking Changes
+
+- `ArcTable` component has been removed in favour of the **gridjs** theme.
+
+#### Upgrade Steps
+
+- Replace all instances of `ArcTable` with the new **gridjs** theme:
+
+```diff
+- import '@arc-web/components/src/components/table/arc-table';
+- <arc-table></arc-table>
+
++ <link rel="stylesheet" href="@arc-web/components/themes/gridjs.css" />
++ <div id="grid"></div>
++ <script type="module">
++   import { Grid } from 'gridjs';
++
++   new Grid({ ... }).render(document.getElementById('grid'));
++ </script>
+
+```
+
+Please refer to the [official gridjs documentation](https://gridjs.io/) for more information.
+
 ## v2 to v3
 
 In version 3 we have taken the opportunity to make several important breaking changes to the library. Please take care to read the following migration guide before upgrading.

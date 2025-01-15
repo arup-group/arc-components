@@ -14,8 +14,20 @@ describe('ArcButton', () => {
     it('renders', () => {
       expect(element).dom.to.equal(`
         <arc-button-group>
-          <arc-button>Button One</arc-button>
-          <arc-button>Button Two</arc-button>
+          <arc-button
+            color="default"
+            size="medium"
+            type="filled"
+          >
+            Button One
+          </arc-button>
+          <arc-button
+            color="default"
+            size="medium"
+            type="filled"
+          >
+            Button Two
+          </arc-button>
         </arc-button-group>
       `);
     });

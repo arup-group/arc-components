@@ -1,68 +1,57 @@
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import type ArcIconButton from './ArcIconButton.js';
+import ArcIconButton from './ArcIconButton';
 import './arc-icon-button.js';
+import '../ph-icon/rocket/ph-icon-rocket.js';
+import '../ph-icon/link/ph-icon-link.js';
+import '../ph-icon/download/ph-icon-download.js';
 
 export default {
-  title: 'Components/ArcIconButton',
-  component: 'arc-icon-button',
-} as Meta;
+  title: 'Form/ArcIconButton',
+  component: ArcIconButton.tag,
+  argTypes: {
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
+    active: { table: { disable: true } },
+    href: { table: { disable: true } },
+    target: { table: { disable: true } },
+    download: { table: { disable: true } },
+  },
+} satisfies Meta;
 
-const Template: Story<ArcIconButton> = ({
-  name,
-  label,
-  href,
-  target,
-  download,
-  active,
-  disabled,
-  loading,
-}) => html`
-  <arc-icon-button
-    label="${label}"
-    href=${ifDefined(href || undefined)}
-    target=${ifDefined(target || undefined)}
-    download=${ifDefined(download || undefined)}
-    ?active="${active}"
-    ?disabled="${disabled}"
-    ?loading="${loading}"
-    >${label}</arc-icon-button
-  >
+export const Default: StoryFn<ArcIconButton> = ({ disabled, loading }) => html`
+  <arc-icon-button ?disabled="${disabled}" ?loading="${loading}">
+    <ph-icon-rocket slot="icon"></ph-icon-rocket>
+  </arc-icon-button>
 `;
 
-const defaultArgs = {
-  label: 'Icon button',
-  href: '',
-  target: '',
-  download: '',
-  active: false,
-  disabled: false,
-  loading: false,
-};
+export const Labaled: StoryFn<ArcIconButton> = ({ disabled, loading }) => html`
+  <arc-icon-button ?disabled="${disabled}" ?loading="${loading}">
+    <ph-icon-rocket slot="icon"></ph-icon-rocket>
+    <span>Rocket</span>
+  </arc-icon-button>
+`;
 
-/* TYPES */
-export const Default = Template.bind({});
-Default.args = { ...defaultArgs };
+export const Link: StoryFn<ArcIconButton> = ({ disabled, loading }) => html`
+  <arc-icon-button
+    href="https://arc.arup.com"
+    target="_blank"
+    rel="noopener"
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    <ph-icon-link slot="icon"></ph-icon-link>
+    <span>Link</span>
+  </arc-icon-button>
+`;
 
-export const Link = Template.bind({});
-Link.args = { ...defaultArgs, href: '/' };
-
-export const LinkNewWindow = Template.bind({});
-LinkNewWindow.args = { ...Link.args, target: '_blank' };
-
-export const LinkDownload = Template.bind({});
-LinkDownload.args = { ...Link.args, download: 'ARC Storybook' };
-
-export const LinkDisabled = Template.bind({});
-LinkDisabled.args = { ...Link.args, disabled: true };
-
-/* STATES */
-export const Active = Template.bind({});
-Active.args = { ...defaultArgs, active: true };
-
-export const Disabled = Template.bind({});
-Disabled.args = { ...defaultArgs, disabled: true };
-
-export const Loading = Template.bind({});
-Loading.args = { ...defaultArgs, loading: true };
+export const Download: StoryFn<ArcIconButton> = ({ disabled, loading }) => html`
+  <arc-icon-button
+    download="file.txt"
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    <ph-icon-download slot="icon"></ph-icon-download>
+    <span>Download</span>
+  </arc-icon-button>
+`;

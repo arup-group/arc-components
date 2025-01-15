@@ -1,17 +1,18 @@
-import { Meta, Story } from '@storybook/web-components';
+import { Meta, StoryFn, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import {
   INPUT_SIZES,
   THEME_COLORS,
 } from '../../internal/constants/styleConstants.js';
-import { BUTTON_TYPES } from './constants/ButtonConstants.js';
-import type ArcButton from './ArcButton.js';
+import ArcButton from './ArcButton.js';
 import './arc-button.js';
+import '../ph-icon/arrow-left/ph-icon-arrow-left.js';
+import '../ph-icon/arrow-right/ph-icon-arrow-right.js';
 
 export default {
-  title: 'Components/ArcButton',
-  component: 'arc-button',
+  title: 'Form/ArcButton',
+  component: ArcButton.tag,
   argTypes: {
     color: {
       control: 'select',
@@ -21,124 +22,170 @@ export default {
       control: 'select',
       options: Object.values(INPUT_SIZES),
     },
-    type: {
-      control: 'select',
-      options: Object.values(BUTTON_TYPES),
-    },
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
+    active: { table: { disable: true } },
+    submit: { table: { disable: true } },
+    prefix: { table: { disable: true } },
+    suffix: { table: { disable: true } },
+    default: { table: { disable: true } },
+    type: { table: { disable: true } },
+    '--min-width': { table: { disable: true } },
+    '--btn-color': { table: { disable: true } },
+    '--btn-background': { table: { disable: true } },
   },
-} as Meta;
+} satisfies Meta;
 
-const Template: Story<ArcButton> = ({
+export const Default: StoryFn<ArcButton> = ({
   color,
   size,
-  type,
-  name,
-  value,
-  href,
-  target,
-  download,
-  active,
   disabled,
   loading,
-  submit,
 }) => html`
   <arc-button
-    type=${ifDefined(type || undefined)}
     color=${ifDefined(color || undefined)}
     size=${ifDefined(size || undefined)}
-    name=${ifDefined(name || undefined)}
-    value=${ifDefined(value || undefined)}
-    href=${ifDefined(href || undefined)}
-    target=${ifDefined(target || undefined)}
-    download=${ifDefined(download || undefined)}
-    ?active="${active}"
     ?disabled="${disabled}"
     ?loading="${loading}"
-    ?submit="${submit}"
-    >Button</arc-button
   >
+    Button
+  </arc-button>
 `;
-const WidthTemplate: Story<ArcButton> = () =>
-  html`<arc-button style="width: 10rem;">Button</arc-button>`;
 
-const defaultArgs = {
-  color: THEME_COLORS.primary,
-  size: INPUT_SIZES.medium,
-  type: BUTTON_TYPES.filled,
-  name: '',
-  value: '',
-  href: '',
-  target: '',
-  download: '',
-  active: false,
-  disabled: false,
-  loading: false,
-  submit: false,
-  width: undefined,
+export const Submit: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <form @submit=${(e: Event) => {
+    e.preventDefault();
+    console.log(e);
+  }}>
+    <arc-button
+      submit
+      color=${ifDefined(color || undefined)}
+      size=${ifDefined(size || undefined)}
+      ?disabled="${disabled}"
+      ?loading="${loading}"
+    >
+      Submit
+    </arc-button
+  </form>
+`;
+
+export const Link: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    href="https://arc.arup.com"
+    target="_blank"
+    rel="noopener"
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Link
+  </arc-button>
+`;
+
+export const Download: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    download="arc"
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Download
+  </arc-button>
+`;
+
+export const Outlined: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    type="outlined"
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Outlined
+  </arc-button>
+`;
+
+type TabStory = StoryObj<ArcButton>;
+
+export const Tab: TabStory = {
+  parameters: { noContainer: true },
+  argTypes: {
+    active: { table: { disable: false } },
+    color: { table: { disable: true } },
+    size: { table: { disable: true } },
+  },
+  render: ({ disabled, loading, active }) => html`
+    <arc-container>
+      <arc-navbar slot="nav">
+        <arc-button
+          type="tab"
+          ?disabled="${disabled}"
+          ?loading="${loading}"
+          ?active="${active}"
+        >
+          Tab
+        </arc-button>
+      </arc-navbar>
+    </arc-container>
+  `,
 };
 
-/* COLORS */
-export const Primary = Template.bind({});
-Primary.args = { ...defaultArgs };
+export const Prefix: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    <span slot="prefix">
+      <ph-icon-arrow-left></ph-icon-arrow-left>
+    </span>
+    Prefix
+  </arc-button>
+`;
 
-export const PrimaryTwo = Template.bind({});
-PrimaryTwo.args = { ...defaultArgs, color: THEME_COLORS.secondary };
-
-export const Default = Template.bind({});
-Default.args = { ...defaultArgs, color: THEME_COLORS.default };
-
-export const Error = Template.bind({});
-Error.args = { ...defaultArgs, color: THEME_COLORS.error };
-
-export const Warning = Template.bind({});
-Warning.args = { ...defaultArgs, color: THEME_COLORS.warning };
-
-export const Info = Template.bind({});
-Info.args = { ...defaultArgs, color: THEME_COLORS.info };
-
-export const Success = Template.bind({});
-Success.args = { ...defaultArgs, color: THEME_COLORS.success };
-
-/* TYPES */
-export const Filled = Template.bind({});
-Filled.args = { ...defaultArgs };
-
-export const Outlined = Template.bind({});
-Outlined.args = { ...defaultArgs, type: BUTTON_TYPES.outlined };
-
-export const Tab = Template.bind({});
-Tab.args = { ...defaultArgs, type: BUTTON_TYPES.tab };
-
-export const Link = Template.bind({});
-Link.args = { ...defaultArgs, href: '/' };
-
-export const LinkNewWindow = Template.bind({});
-LinkNewWindow.args = { ...Link.args, target: '_blank' };
-
-export const LinkDownload = Template.bind({});
-LinkDownload.args = { ...Link.args, download: 'ARC Storybook' };
-
-export const LinkDisabled = Template.bind({});
-LinkDisabled.args = { ...Link.args, disabled: true };
-
-/* SIZES */
-export const Small = Template.bind({});
-Small.args = { ...defaultArgs, size: INPUT_SIZES.small };
-
-export const Medium = Template.bind({});
-Medium.args = { ...defaultArgs, size: INPUT_SIZES.medium };
-
-export const Large = Template.bind({});
-Large.args = { ...defaultArgs, size: INPUT_SIZES.large };
-
-export const CustomWidth = WidthTemplate.bind({});
-
-/* STATES */
-export const Active = Template.bind({});
-Active.args = { ...Tab.args, active: true };
-
-export const Disabled = Template.bind({});
-Disabled.args = { ...Tab.args, disabled: true };
-
-export const Loading = Template.bind({});
-Loading.args = { ...Tab.args, loading: true };
+export const Suffix: StoryFn<ArcButton> = ({
+  color,
+  size,
+  disabled,
+  loading,
+}) => html`
+  <arc-button
+    color=${ifDefined(color || undefined)}
+    size=${ifDefined(size || undefined)}
+    ?disabled="${disabled}"
+    ?loading="${loading}"
+  >
+    Suffix
+    <span slot="suffix">
+      <ph-icon-arrow-right></ph-icon-arrow-right>
+    </span>
+  </arc-button>
+`;

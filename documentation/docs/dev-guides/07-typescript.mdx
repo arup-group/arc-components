@@ -1,3 +1,12 @@
 # Typescript
 
 > This document outlines how to use **ARC** components with TypeScript in your web-based application.
+
+**ARC** components are written in TypeScript and can be used in TypeScript projects without any additional configuration.
+
+```ts
+import type { ArcButtonProps } from '@arc-web/components';
+import '@arc-web/components/src/components/button/arc-button';
+
+const button = document.createElement('arc-button') as ArcButton;
+```

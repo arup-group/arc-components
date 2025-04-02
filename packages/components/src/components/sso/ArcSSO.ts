@@ -1,4 +1,4 @@
-import { html, isServer, LitElement } from 'lit';
+import { html, isServer, LitElement, PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 import * as Msal from '@azure/msal-browser';
@@ -52,13 +52,17 @@ export default class ArcSSO extends LitElement {
   };
 
   /** @internal - Reference to the MSAL instance. */
-  private _msalInstance: PublicClientApplication;
+  @property({ type: PublicClientApplication, attribute: false })
+  msalInstance: PublicClientApplication;
 
   /** @internal - State that keeps track of the auth status of the user. */
   @state() private _isAuth: boolean = false;
 
   /** @internal - State that keeps track of the user avatar. */
   @state() private _avatar: string;
+
+  /** @internal - Keeps track of the callback ID. Not state to prevent infinite loops */
+  private _callbackId: string | null;
 
   /** The id of the application. This value can be found on the Azure AD portal. */
   @property({ type: String, attribute: 'client-id' }) clientId: string;
@@ -96,7 +100,9 @@ export default class ArcSSO extends LitElement {
     super.connectedCallback();
 
     /* Initialize the MSAL authentication context */
-    this._msalInstance = this._initMsal();
+    if (!this.msalInstance) {
+      this.msalInstance = this._initMsal();
+    }
 
     /* Add additional scopes (permissions) */
     if (this.scopes && this.scopes.length > 0) {
@@ -106,8 +112,51 @@ export default class ArcSSO extends LitElement {
     /* If rendered on server dont get active account */
     if (isServer) return;
 
+    this._callbackId = this.msalInstance.addEventCallback(
+      this._handleAuthChange.bind(this),
+    );
+
     /* Update the _isAuth state */
     this._isAuth = !!this.getAccount();
+  }
+
+  private _handleAuthChange(event: Msal.EventMessage) {
+    if (event.eventType === EventType.LOGIN_SUCCESS && !!event.payload) {
+      this.msalInstance.setActiveAccount(event.payload as AccountInfo);
+      this._isAuth = true;
+    } else if (event.eventType === EventType.LOGOUT_SUCCESS) {
+      this._isAuth = false;
+    }
+  }
+
+  protected updated(changedProperties: PropertyValues): void {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('msalInstance')) {
+      // If msalInstance has just been set
+      const oldMsal: PublicClientApplication | undefined =
+        changedProperties.get('msalInstance');
+      if (this._callbackId && oldMsal) {
+        // If there was a previously registered instance
+        oldMsal.removeEventCallback(this._callbackId);
+      }
+      this._callbackId = this.msalInstance.addEventCallback(
+        this._handleAuthChange.bind(this),
+      );
+    } else if (
+      changedProperties.has('clientId') ||
+      changedProperties.has('tenantId') ||
+      changedProperties.has('redirectUri')
+    ) {
+      // If properties requiring a new instance have been set
+      if (this._callbackId) {
+        this.msalInstance.removeEventCallback(this._callbackId);
+      }
+      this.msalInstance = this._initMsal();
+      this._callbackId = this.msalInstance.addEventCallback(
+        this._handleAuthChange.bind(this),
+      );
+    }
   }
 
   /* Initialize the MSAL authentication context */
@@ -142,7 +191,7 @@ export default class ArcSSO extends LitElement {
 
     /* c8 ignore next 5 */
     return account
-      ? this._msalInstance
+      ? this.msalInstance
           .acquireTokenSilent(accessTokenRequest)
           .then((resp) => resp.accessToken)
       : undefined;
@@ -150,30 +199,23 @@ export default class ArcSSO extends LitElement {
 
   /* c8 ignore next 19 */
   signIn() {
-    this._msalInstance.addEventCallback((event) => {
-      if (event.eventType === EventType.LOGIN_SUCCESS && !!event.payload) {
-        this._msalInstance.setActiveAccount(event.payload as AccountInfo);
-        this._isAuth = true;
-      }
-    });
-
-    this._msalInstance.handleRedirectPromise().then(() => {
+    this.msalInstance.handleRedirectPromise().then(() => {
       /* Check if user signed in */
       if (!this.getAccount()) {
-        this._msalInstance.loginPopup(this.loginRequest);
+        this.msalInstance.loginPopup(this.loginRequest);
       }
     });
   }
 
   /* c8 ignore next 4 */
   signOut() {
-    this._msalInstance.logoutRedirect();
+    this.msalInstance.logoutRedirect();
   }
 
   getAccount() {
     if (isServer) return;
 
-    return this._msalInstance.getAllAccounts()[0] as AccountInfo;
+    return this.msalInstance.getAllAccounts()[0] as AccountInfo;
   }
 
   async getAvatar() {

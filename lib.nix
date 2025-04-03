@@ -33,7 +33,7 @@ in
         # this workspace is a monorepo and all dependencies
         # are resolved via the workspace root package.json
         src = cleanSource ./.;
-        npmDepsHash = "sha256-vaLGyLd24ethltsLfF+4aXkz5CpbQg8JaWhgEqvD5gE=";
+        npmDepsHash = "sha256-DJL/WnoLk05/2ppwWn31XMRA8G/7SAZkR5AVKBOugVA=";
 
 
         # dont run the build scripts when rebuilding

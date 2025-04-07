@@ -1,6 +1,10 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "jsx": "react"
-  }
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx:",
+    "../packages/components/src/**/*.stories.ts",
+    "../packages/components/src/**/*.stories.tsx",
+    "../packages/components/src/**/**.mdx"
+  ]
 }

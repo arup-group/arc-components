@@ -6,7 +6,7 @@ import './arc-radio-group.js';
 import '../radio/arc-radio.js';
 
 export default {
-  title: 'Components/ArcRadioGroup',
+  title: 'Form/ArcRadioGroup',
   component: 'arc-radio-group',
   argTypes: {
     customLabel: {

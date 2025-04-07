@@ -12,7 +12,7 @@ jobs:
           fetch-depth: 0
       - uses: DeterminateSystems/nix-installer-action@v14
       - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - run: nix build .#storybook
+      - run: nix build .#documentation
       - run: nix develop --command npm ci --legacy-peer-deps
       - run: nix develop --command npx swa deploy -nu
         env:

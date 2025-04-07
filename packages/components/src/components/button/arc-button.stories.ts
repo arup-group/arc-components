@@ -11,7 +11,7 @@ import '../ph-icon/arrow-left/ph-icon-arrow-left.js';
 import '../ph-icon/arrow-right/ph-icon-arrow-right.js';
 
 export default {
-  title: 'Form/ArcButton',
+  title: 'Components/ArcButton',
   component: ArcButton.tag,
   argTypes: {
     color: {

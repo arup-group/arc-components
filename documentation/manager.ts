@@ -2,7 +2,7 @@ import { addons } from '@storybook/addons';
 import { create } from '@storybook/theming';
 import Events from '@storybook/core-events';
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
-import arcLogo from '../../../assets/arc-storybook.svg';
+import arcLogo from '../assets/arc-storybook.svg';
 
 const THEME = create({
   base: 'light',

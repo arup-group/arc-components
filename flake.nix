@@ -23,7 +23,6 @@
                 react = final.callPackage ./packages/react { };
                 material = final.callPackage ./packages/material { };
                 documentation = final.callPackage ./documentation { };
-                storybook = final.callPackage ./packages/components/.storybook { };
               })
             ];
           };
@@ -32,7 +31,7 @@
         rec {
           checks = packages;
           formatter = pkgs.nixpkgs-fmt;
-          packages = { inherit (pkgs) components react material documentation storybook; };
+          packages = { inherit (pkgs) components react material documentation; };
           devShells.default = pkgs.callPackage ./shell.nix { };
         }
       )

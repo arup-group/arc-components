@@ -13,7 +13,7 @@ import '../icon-button/arc-icon-button.js';
 import '../ph-icon/caret-down/ph-icon-caret-down.js';
 
 export default {
-  title: 'Form/ArcButtonGroup',
+  title: 'Components/ArcButtonGroup',
   component: ArcButtonGroup.tag,
   argTypes: {
     color: {

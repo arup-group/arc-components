@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import { setCustomElementsManifest } from '@storybook/web-components';
 import DocumentationTemplate from './documentation-template.mdx';
-import '../themes/index.css';
-import '../src/index';
+import '../dist/packages/components/themes/index.css';
+import '../dist/packages/components/src/index';
 
 // @ts-ignore
-import CUSTOM_ELEMENTS from '../../../dist/packages/components/custom-elements.json';
+import CUSTOM_ELEMENTS from '../dist/packages/components/custom-elements.json';
 
 setCustomElementsManifest(CUSTOM_ELEMENTS);
 

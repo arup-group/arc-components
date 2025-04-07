@@ -5,7 +5,7 @@ import type ArcCheckbox from './ArcCheckbox.js';
 import './arc-checkbox.js';
 
 export default {
-  title: 'Components/ArcCheckbox',
+  title: 'Form/ArcCheckbox',
   component: 'arc-checkbox',
   decorators: [],
   parameters: {

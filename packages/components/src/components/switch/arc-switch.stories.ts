@@ -6,7 +6,7 @@ import './arc-switch.js';
 import { ARC_EVENTS } from '../../internal/constants/eventConstants.js';
 
 export default {
-  title: 'Components/ArcSwitch',
+  title: 'Form/ArcSwitch',
   component: 'arc-switch',
   parameters: {
     actions: {

@@ -3,29 +3,36 @@
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "documentation/src",
+  "implicitDependencies": ["components"],
   "targets": {
-    "serve": {
-      "executor": "./:serve",
+    "build": {
+      "executor": "@nx/storybook:build",
       "options": {
-        "config": "documentation/docusaurus.config.ts",
-        "port": 4200
+        "outputDir": "dist/documentation",
+        "configDir": "documentation"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
       },
       "dependsOn": [
         {
           "target": "build",
-          "projects": ["components", "react"]
+          "projects": "dependencies"
         }
       ]
     },
-    "build": {
-      "executor": "./:docusaurus-build",
+    "serve": {
+      "executor": "@nx/storybook:storybook",
       "options": {
-        "outputPath": "dist/packages/documentation"
+        "port": 4200,
+        "configDir": "documentation"
       },
       "dependsOn": [
         {
           "target": "build",
-          "projects": "components"
+          "projects": "dependencies"
         }
       ]
     }

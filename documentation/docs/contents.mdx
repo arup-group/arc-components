@@ -1,4 +1,39 @@
-import { DoDontCard, Do, Dont } from '../src/components/do-dont';
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Content" />
+
+export function Do(props) {
+  return (
+    <div style={{ background: 'lightgrey', padding: 8, borderRadius: 4 }}>
+      <p style={{ color: 'green' }}>Do:</p>
+      {props.children}
+    </div>
+  );
+}
+
+export function Dont(props) {
+  return (
+    <div style={{ background: 'lightgrey', padding: 8, borderRadius: 4 }}>
+      <p style={{ color: 'red' }}>Do not:</p>
+      {props.children}
+    </div>
+  );
+}
+
+export function DoDontCard(props) {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '50% 50%',
+        gap: 16,
+      }}
+    >
+      {props.children}
+    </div>
+  );
+}
+
 
 # Content
 
@@ -61,20 +96,11 @@ Use acronyms when they are more widely used than the spelled out term.
 
 “Pull request” should never be abbreviated. It’s always lowercase unless it’s starting a sentence.
 
-<!-- TODO: Where do we abbreviate? Months -->
-
-<!--
-### Alternative text
-TODO: In which cases should the UI include alternative text that doesn’t come for free with Primer.
-
 Do not replace text with emojis.
--->
 
 ### Dates and time
 
 When referring to times, use am and pm, and not any other variation (a.m., A.M., AM).
-
-<!-- TODO: Dates. -->
 
 ### Emojis
 
@@ -84,8 +110,6 @@ Avoid using emojis, but when you do:
 - Use only well-recognized emojis
 - Do not repeat emojis
 - Use emojis that will work well in both dark and light modes
-
-<!-- See also alternative text. -->
 
 ### Error messages
 
@@ -158,14 +182,10 @@ Feedback should be clear and reassuring, using the same terms used by the UI ele
   </Dont>
 </DoDontCard>
 
-<!-- TODO: More confirmation messages. Save, close, dismiss. -->
-
 ### Forms
 
 Use sentence case for form titles, labels, and fields.
 Do not include colons in form labels.
-
-<!-- TODO: Error messages, form validation examples. -->
 
 ### Labels and buttons
 
@@ -281,10 +301,6 @@ Never say “here” or “click here”:
 
 ### Numbers
 
-<!--
-TODO: Commas, truncation, rounding up or down. Do units have a space, KB, MB, etc.?
--->
-
 ### Punctuation
 
 Headings, labels and buttons should not include punctuation. In most cases, exclamation marks are not appropriate — most things aren't _that_ exciting.
@@ -332,8 +348,6 @@ Address the user as "you" and items "owned" by the user as "your" or "yours".
 Some exceptions exist and are usually related to legal language, such as when a user needs to agree to terms, or confirm a destructive action.
 
 ### Text truncation
-
-<!-- TODO: Examples of truncation: dates, large numbers, long file names. -->
 
 ## What to avoid
 

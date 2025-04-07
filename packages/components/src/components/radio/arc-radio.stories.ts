@@ -6,7 +6,7 @@ import '../radio-group/arc-radio-group.js';
 import './arc-radio.js';
 
 export default {
-  title: 'Components/ArcRadio',
+  title: 'Form/ArcRadio',
   component: 'arc-radio',
   parameters: {
     actions: {

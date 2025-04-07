@@ -8,7 +8,7 @@ in
 
 mkShell {
   buildInputs = [ nodejsShellHook ];
-  inputsFrom = with pkgs; [ components react ];
+  inputsFrom = with pkgs; [ components react material ];
   packages = with pkgs; [
     opentofu
     azure-cli

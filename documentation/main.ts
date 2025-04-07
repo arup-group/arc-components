@@ -4,13 +4,13 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   core: { disableTelemetry: true },
   framework: '@storybook/web-components-vite',
   stories: [
-    '../src/**/*.stories.ts',
-    '../src/**/*.stories.tsx',
-    '../stories/*.mdx',
+    '../packages/components/src/**/*.stories.ts',
+    '../packages/compoennts/src/**/*.stories.tsx',
+    './docs/*.mdx',
   ],
   staticDirs: [
     {
-      from: '../../../assets',
+      from: '../assets',
       to: 'assets',
     },
   ],
@@ -35,7 +35,7 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
     </style>
   `,
   viteFinal: (config) => {
-    config.cacheDir = '../../../node_modules/.vite/storybook';
+    config.cacheDir = '../node_modules/.vite/storybook';
     return config;
   },
 };

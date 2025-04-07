@@ -55,27 +55,6 @@
         "command": "npx custom-elements-manifest analyze --litelement --globs \"dist/packages/components/src/**/*.js\" --outdir \"dist/packages/components\""
       },
       "dependsOn": ["prebuild"]
-    },
-    "storybook:build": {
-      "executor": "@nx/storybook:build",
-      "options": {
-        "outputDir": "dist/packages/storybook",
-        "configDir": "packages/components/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      },
-      "dependsOn": ["build"]
-    },
-    "storybook:serve": {
-      "executor": "@nx/storybook:storybook",
-      "options": {
-        "port": 4200,
-        "configDir": "packages/components/.storybook"
-      },
-      "dependsOn": ["build"]
     }
   }
 }

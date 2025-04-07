@@ -7,7 +7,7 @@ import '../ph-icon/link/ph-icon-link.js';
 import '../ph-icon/download/ph-icon-download.js';
 
 export default {
-  title: 'Form/ArcIconButton',
+  title: 'Components/ArcIconButton',
   component: ArcIconButton.tag,
   argTypes: {
     disabled: { control: 'boolean' },

@@ -4,7 +4,7 @@
   inputs.nix-github-actions.url = "github:nix-community/nix-github-actions";
   inputs.nix-github-actions.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, flake-utils, nix-github-actions }:
+  outputs = { nixpkgs, flake-utils, nix-github-actions, ... }:
 
     with nixpkgs.lib;
     with flake-utils.lib;
@@ -18,7 +18,7 @@
             inherit system;
             overlays = [
               (final: prev: {
-                lib = prev.lib // import ./lib.nix { pkgs = final; writers = final.writers; };
+                lib = prev.lib // import ./lib.nix { pkgs = prev; };
                 components = final.callPackage ./packages/components { };
                 react = final.callPackage ./packages/react { };
                 material = final.callPackage ./packages/material { };

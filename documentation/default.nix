@@ -1,13 +1,10 @@
-{ lib }:
+{ buildNpmPackage }: 
 
-lib.buildArcPackage {
+buildNpmPackage {
   name = "documentation";
-
-  # run the storybook build script
   buildPhase = ''
     npx nx run documentation:build
   '';
-
   installPhase = ''
     mkdir -p $out
     cp -r dist/documentation/* $out

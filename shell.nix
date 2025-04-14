@@ -33,7 +33,7 @@ mkShell {
     azure-cli
     (writeShellApplication {
       name = "deploy-infrastructure";
-      runtimeInputs = [ azure-cli opentofu ]; 
+      runtimeInputs = [ azure-cli opentofu ];
       text = ''
         az login
         tofu -chdir=infrastructure init

@@ -1,4 +1,4 @@
-{ buildNpmPackage }: 
+{ buildNpmPackage }:
 
 buildNpmPackage {
   name = "documentation";

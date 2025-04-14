@@ -18,7 +18,36 @@
             inherit system;
             overlays = [
               (final: prev: {
-                lib = prev.lib // import ./lib.nix { pkgs = final; writers = final.writers; };
+                buildNpmPackage =
+                  let
+                    componentsPackageJson = importJSON ./packages/components/package.json;
+                    reactPackageJson = importJSON ./packages/react/package.json;
+                    materialPackageJson = importJSON ./packages/material/package.json;
+                  in
+
+                  assert componentsPackageJson.version == reactPackageJson.version;
+                  assert componentsPackageJson.version == materialPackageJson.version;
+                  assert reactPackageJson.peerDependencies."@arc-web/components" == "${componentsPackageJson.version}";
+                  assert materialPackageJson.peerDependencies."@arc-web/components" == "${componentsPackageJson.version}";
+
+
+                  attrs @ { name, buildPhase, installPhase, ... }:
+                  prev.buildNpmPackage ((builtins.removeAttrs attrs [ "name" ]) // rec {
+                    inherit buildPhase installPhase;
+                    pname = "arc-web-${name}";
+                    version = componentsPackageJson.version;
+                    src = prev.lib.sources.cleanSource ./.;
+                    npmConfigHook = prev.importNpmLock.npmConfigHook;
+                    npmDeps = prev.importNpmLock {
+                      npmRoot = src;
+                    };
+                    # dont run the build scripts when rebuilding
+                    # npm dependencies as node-keytar will fail
+                    npmRebuildFlags = [ "--ignore-scripts" ];
+                    # ignore legacy peer dependencies
+                    # due to peer conflicts in npm deps
+                    npmInstallFlags = [ "--legacy-peer-deps" ];
+                  });
                 components = final.callPackage ./packages/components { };
                 react = final.callPackage ./packages/react { };
                 material = final.callPackage ./packages/material { };

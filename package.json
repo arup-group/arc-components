@@ -1,4 +1,5 @@
 {
+  "name": "@arc-web/*",
   "version": "3.6.0",
   "generators": "./generators.json",
   "executors": "./executors.json",
@@ -81,6 +82,7 @@
     "@web/test-runner": "0.18.2",
     "@webcomponents/template-shadowroot": "0.2.1",
     "clsx": "2.1.1",
+    "d3": "^7.9.0",
     "date-fns": "2.29.1",
     "esbuild": "0.19.4",
     "eslint": "8.41.0",

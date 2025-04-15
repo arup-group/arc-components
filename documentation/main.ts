@@ -4,9 +4,8 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   core: { disableTelemetry: true },
   framework: '@storybook/web-components-vite',
   stories: [
-    '../packages/components/src/**/*.stories.ts',
-    '../packages/compoennts/src/**/*.stories.tsx',
-    './docs/*.mdx',
+    '../packages/components/src/**/*.stories.@(ts|tsx)',
+    './docs/**/*.@(ts|tsx|mdx)',
   ],
   staticDirs: [
     {

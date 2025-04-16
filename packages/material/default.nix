@@ -9,4 +9,5 @@ buildNpmPackage {
     mkdir -p $out
     cp -r dist/packages/material/* $out
   '';
+  meta.description = "ARC React MUI Theme";
 }

@@ -30,8 +30,8 @@
                   assert reactPackageJson.peerDependencies."@arc-web/components" == "${componentsPackageJson.version}";
                   assert materialPackageJson.peerDependencies."@arc-web/components" == "${componentsPackageJson.version}";
 
-
                   attrs @ { name, buildPhase, installPhase, ... }:
+
                   prev.buildNpmPackage ((builtins.removeAttrs attrs [ "name" ]) // rec {
                     inherit buildPhase installPhase;
                     pname = "arc-web-${name}";
@@ -41,12 +41,12 @@
                     npmDeps = prev.importNpmLock {
                       npmRoot = src;
                     };
-                    # dont run the build scripts when rebuilding
-                    # npm dependencies as node-keytar will fail
                     npmRebuildFlags = [ "--ignore-scripts" ];
-                    # ignore legacy peer dependencies
-                    # due to peer conflicts in npm deps
                     npmInstallFlags = [ "--legacy-peer-deps" ];
+                    meta = (attrs.meta or {}) // {
+                      license = prev.lib.licenses.mit;
+                      maintainers = [ { name = "Arup"; } ];
+                    };
                   });
                 components = final.callPackage ./packages/components { };
                 react = final.callPackage ./packages/react { };

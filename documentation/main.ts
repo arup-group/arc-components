@@ -13,7 +13,7 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
       to: 'assets',
     },
   ],
-  addons: ['@storybook/addon-essentials'],
+  addons: ['@storybook/addon-essentials',  '@storybook/addon-docs'],
   docs: {
     autodocs: true,
     defaultName: 'Documentation',
@@ -27,7 +27,7 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
         }
         .docs-story #root-inner arc-container {
           min-height: 250px;
-          max-height: 500px;
+          max-height: 900px;
           height: 100vh;
           display: block;
         }

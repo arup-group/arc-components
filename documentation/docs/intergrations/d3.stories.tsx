@@ -26,7 +26,9 @@ export const Color: StoryFn = ({}) => {
         var cls = 'color-' + x;
         demo
           .selectAll('.' + cls)
-          .data(th)
+          .data(Object.values(th).sort((a, b) => 
+            parseInt(a.replace(/[^0-9]/g, '')) - parseInt(b.replace(/[^0-9]/g, '')
+          )))
           .enter()
           .append('rect')
           .attr('class', cls)
@@ -38,32 +40,16 @@ export const Color: StoryFn = ({}) => {
       }
 
       [
-        'blue',
-        'green',
-        'grey',
-        'orange',
-        'pink',
-        'purple',
-        'red',
-        'teal',
-        'yellow',
-      ]
-        .map((color) =>
-          [
-            '000',
-            '010',
-            '020',
-            '030',
-            '040',
-            '050',
-            '060',
-            '070',
-            '080',
-            '090',
-            '100',
-          ].map((shade) => 'rgb(var(--arc-' + color + '-' + shade + '))'),
-        )
-        .forEach(present);
+        arc.Theme.colors.blue, 
+        arc.Theme.colors.green,
+        arc.Theme.colors.grey,
+        arc.Theme.colors.orange,
+        arc.Theme.colors.pink,
+        arc.Theme.colors.purple,
+        arc.Theme.colors.red,
+        arc.Theme.colors.teal,
+        arc.Theme.colors.yellow,
+      ].forEach(present);
     </script>
   `;
 };

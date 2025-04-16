@@ -7,6 +7,7 @@ import '../packages/components/themes/tanstack-table.css';
 import '../packages/components/src/index';
 // @ts-ignore
 import CUSTOM_ELEMENTS from '../dist/packages/components/custom-elements.json';
+import * as arc from '../packages/components/src/index';
 import * as d3 from 'd3';
 import * as gridjs from 'gridjs';
 import * as tanstacktablecore from '@tanstack/table-core';
@@ -43,6 +44,7 @@ function RenderStoryWithArcContainer(story) {
 setCustomElementsManifest(CUSTOM_ELEMENTS);
 
 /* Setup globals for stories */
+window.arc = arc;
 window.d3 = d3;
 window.gridjs = gridjs;
 window.tanstacktablecore = tanstacktablecore;

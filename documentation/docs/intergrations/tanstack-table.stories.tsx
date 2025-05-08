@@ -2,7 +2,7 @@ import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 
 export default {
-  title: 'Intergrations/TanStack Table',
+  title: 'Integrations/TanStack Table',
   parameters: {
     controls: { disable: true },
     actions: { disable: true },

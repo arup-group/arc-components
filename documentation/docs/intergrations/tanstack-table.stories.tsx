@@ -1,64 +1,31 @@
-import { Meta } from '@storybook/blocks';
+import { Meta, StoryFn } from '@storybook/web-components';
+import { html } from 'lit';
 
-<Meta title="Intergrations/TanStack Tables" />
+export default {
+  title: 'Integrations/TanStack Table',
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+  },
+} satisfies Meta;
 
-# TanStack Tables
-
-TanStack table is a headless UI for building powerful tables & datagrids.
-
-## Installation
-
-```bash
-npm install -E @arc-web/components@latest @tanstack/table-core@latest
-```
-
-## Usage
-
-```html
-<!doctype html>
-<html>
-  <head>
-    ...
-    <link
-      rel="stylesheet"
-      href="@arc-web/components/themes/tanstack-table.css"
-    />
-  </head>
-
-  <body>
-    <arc-container></arc-container>
+export const Default: StoryFn = ({}) => {
+  const id = crypto.randomUUID();
+  return html`
+    <div id="${id}"></div>
     <script type="module">
-      import {
-        createTable,
-        createColumnHelper,
-        getCoreRowModel,
-      } from '@tanstack/table-core';
-
-      function createRandomPerson() {
-        return {
-          firstName: Math.random()
-            .toString(36)
-            .substring(Math.floor(Math.random() * 10)),
-          lastName: Math.random()
-            .toString(36)
-            .substring(Math.floor(Math.random() * 10)),
-          age: Math.floor(Math.random() * 100),
-        };
-      }
-
-      const arcContainer = document.querySelector('arc-container');
-      const tableContainer = document.createElement('div');
-      arcContainer.appendChild(tableContainer);
-      const columnHelper = createColumnHelper();
-      const table = createTable({
+      const tableContainer = document.getElementById('${id}');
+      const columnHelper = tanstacktablecore.createColumnHelper();
+      const people = Array.from({ length: 10 }, createRandomPerson);
+      const table = tanstacktablecore.createTable({
         state: {},
         onStateChange: () => {},
         renderFallbackValue: null,
-        columns: Object.keys(createRandomPerson()).map((key) =>
+        columns: Object.keys(people[0]).map((key) =>
           columnHelper.accessor(key, {}),
         ),
-        data: Array.from({ length: 10 }, createRandomPerson),
-        getCoreRowModel: getCoreRowModel(),
+        data: people,
+        getCoreRowModel: tanstacktablecore.getCoreRowModel(),
       });
       table.setOptions((prev) => ({
         ...prev,
@@ -96,11 +63,7 @@ npm install -E @arc-web/components@latest @tanstack/table-core@latest
         });
         tbodyElement.appendChild(trElement);
       });
-
       tableContainer.appendChild(tableElement);
     </script>
-  </body>
-</html>
-```
-
-Please refer to the [official TanStack table documentation](https://tanstack.com/) for more information.
+  `;
+};

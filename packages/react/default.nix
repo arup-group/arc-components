@@ -9,4 +9,5 @@ buildNpmPackage {
     mkdir -p $out
     cp -r dist/packages/react/* $out
   '';
+  meta.description = "ARC React Components";
 }

@@ -4,9 +4,8 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
   core: { disableTelemetry: true },
   framework: '@storybook/web-components-vite',
   stories: [
-    '../packages/components/src/**/*.stories.ts',
-    '../packages/compoennts/src/**/*.stories.tsx',
-    './docs/*.mdx',
+    '../packages/components/src/**/*.stories.@(ts|tsx)',
+    './docs/**/*.@(ts|tsx|mdx)',
   ],
   staticDirs: [
     {
@@ -14,7 +13,7 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
       to: 'assets',
     },
   ],
-  addons: ['@storybook/addon-essentials'],
+  addons: ['@storybook/addon-essentials',  '@storybook/addon-docs'],
   docs: {
     autodocs: true,
     defaultName: 'Documentation',
@@ -28,7 +27,7 @@ const STORYBOOK_CONFIGURATION: StorybookConfig = {
         }
         .docs-story #root-inner arc-container {
           min-height: 250px;
-          max-height: 500px;
+          max-height: 900px;
           height: 100vh;
           display: block;
         }

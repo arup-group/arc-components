@@ -1,4 +1,5 @@
-{ mkShell
+{ lib
+, mkShell
 , components
 , react
 , material
@@ -17,14 +18,10 @@ mkShell {
   npmConfigHook = importNpmLock.npmConfigHook;
   npmDeps = importNpmLock.buildNodeModules {
     inherit nodejs;
-    npmRoot = ./.;
+    npmRoot = components.src;
     derivationArgs = {
-      # ignore legacy peer dependencies
-      # due to peer conflicts in npm deps
-      npmFlags = [ "--legacy-peer-deps" ];
-      # dont run the build scripts when rebuilding
-      # npm dependencies as node-keytar will fail
-      npmRebuildFlags = [ "--ignore-scripts" ];
+      pname = "arc-web-node-modules";
+      inherit (components) npmRebuildFlags npmInstallFlags;
     };
   };
   packages = [
@@ -85,4 +82,5 @@ mkShell {
       '';
     })
   ];
+  meta.maintainers = [ lib.maintainers.arup ];
 }

@@ -51,3 +51,4 @@ export { default as ArcTooltip } from './components/tooltip/ArcTooltip.js';
 /* Utilities */
 export * from './utilities/form-utils.js';
 export * from './utilities/style-utils.js';
+export * from './utilities/theme-utils.js';

@@ -12,28 +12,29 @@ import * as d3 from 'd3';
 import * as gridjs from 'gridjs';
 import * as tanstacktablecore from '@tanstack/table-core';
 
-
 /** Storybook preview utils */
 function createRandomPerson() {
-        return {
-          firstName: Math.random()
-            .toString(36)
-            .substring(Math.floor(Math.random() * 10)),
-          lastName: Math.random()
-            .toString(36)
-            .substring(Math.floor(Math.random() * 10)),
-          age: Math.floor(Math.random() * 100),
-        };
-      }
+  return {
+    firstName: Math.random()
+      .toString(36)
+      .substring(Math.floor(Math.random() * 10)),
+    lastName: Math.random()
+      .toString(36)
+      .substring(Math.floor(Math.random() * 10)),
+    age: Math.floor(Math.random() * 100),
+  };
+}
 
 function RenderStory(story) {
-  return html`${story()}`
+  return html`${story()}`;
 }
 
 function RenderStoryWithArcContainer(story) {
-  return html `
+  return html`
     <arc-container>
-      <div style="margin: var(--arc-spacing-small); height: 100%; overflow-y: auto;">
+      <div
+        style="margin: var(--arc-spacing-small); height: 100%; overflow-y: auto;"
+      >
         ${story()}
       </div>
     </arc-container>
@@ -50,12 +51,13 @@ window.gridjs = gridjs;
 window.tanstacktablecore = tanstacktablecore;
 window.createRandomPerson = createRandomPerson;
 
-
 const PREVIEW = {
   decorators: [
     (story, { parameters }) => {
       const { noContainer } = parameters;
-      return noContainer ? RenderStory(story) : RenderStoryWithArcContainer(story);
+      return noContainer
+        ? RenderStory(story)
+        : RenderStoryWithArcContainer(story);
     },
   ],
   parameters: {

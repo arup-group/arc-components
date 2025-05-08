@@ -26,9 +26,13 @@ export const Color: StoryFn = ({}) => {
         var cls = 'color-' + x;
         demo
           .selectAll('.' + cls)
-          .data(Object.values(th).sort((a, b) => 
-            parseInt(a.replace(/[^0-9]/g, '')) - parseInt(b.replace(/[^0-9]/g, '')
-          )))
+          .data(
+            Object.values(th).sort(
+              (a, b) =>
+                parseInt(a.replace(/[^0-9]/g, '')) -
+                parseInt(b.replace(/[^0-9]/g, '')),
+            ),
+          )
           .enter()
           .append('rect')
           .attr('class', cls)
@@ -40,7 +44,7 @@ export const Color: StoryFn = ({}) => {
       }
 
       [
-        arc.Theme.colors.blue, 
+        arc.Theme.colors.blue,
         arc.Theme.colors.green,
         arc.Theme.colors.grey,
         arc.Theme.colors.orange,

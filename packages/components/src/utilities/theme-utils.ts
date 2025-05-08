@@ -3,12 +3,12 @@
 const VAR = (name: string) => `var(${name})`;
 const RGB = (v: string) => `rgb(${v})`;
 const ARCCOLORRGBSCALE = (color: string): Record<string, string> => {
-    const SCALE = {};
-    for (let i = 0; i <= 10; i++) {
-        const value = (i * (100 / 10)).toString().padStart(3, '0');
-        SCALE[value] = RGB(VAR(`--arc-${color}-${value}`));
-    }
-    return SCALE;
+  const SCALE = {};
+  for (let i = 0; i <= 10; i++) {
+    const value = (i * (100 / 10)).toString().padStart(3, '0');
+    SCALE[value] = RGB(VAR(`--arc-${color}-${value}`));
+  }
+  return SCALE;
 };
 export const Theme = {
   colors: {

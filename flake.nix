@@ -18,6 +18,7 @@
             inherit system;
             overlays = [
               (final: prev: {
+                lib = prev.lib // { maintainers = prev.lib.maintainers // { arup = { name = "Arup"; }; }; };
                 buildNpmPackage =
                   let
                     componentsPackageJson = importJSON ./packages/components/package.json;
@@ -43,9 +44,9 @@
                     };
                     npmRebuildFlags = [ "--ignore-scripts" ];
                     npmInstallFlags = [ "--legacy-peer-deps" ];
-                    meta = (attrs.meta or {}) // {
+                    meta = (attrs.meta or { }) // {
                       license = prev.lib.licenses.mit;
-                      maintainers = [ { name = "Arup"; } ];
+                      maintainers = [ prev.lib.maintainers.arup ];
                     };
                   });
                 components = final.callPackage ./packages/components { };

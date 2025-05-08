@@ -1,5 +1,5 @@
 {
-  "name": "@arc-web/*",
+  "name": "arc-web",
   "version": "3.6.0",
   "generators": "./generators.json",
   "executors": "./executors.json",
@@ -67,6 +67,7 @@
     "@tanstack/react-table": "8.20.6",
     "@tanstack/table-core": "8.20.5",
     "@tanstack/vue-table": "8.20.5",
+    "@types/d3": "7.4.3",
     "@types/koa": "2.13.9",
     "@types/koa-router": "7.4.5",
     "@types/koa-static": "4.0.2",

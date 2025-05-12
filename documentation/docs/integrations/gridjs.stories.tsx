@@ -2,7 +2,7 @@ import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 
 export default {
-  title: 'Intergrations/GridJS',
+  title: 'integrations/GridJS',
   parameters: {
     controls: { disable: true },
     actions: { disable: true },

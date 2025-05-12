@@ -2,7 +2,7 @@ import { Meta, StoryFn } from '@storybook/web-components';
 import { html } from 'lit';
 
 export default {
-  title: 'Intergrations/D3',
+  title: 'integrations/D3',
   parameters: {
     controls: { disable: true },
     actions: { disable: true },

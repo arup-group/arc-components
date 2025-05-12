@@ -4,7 +4,6 @@ import DocumentationTemplate from './documentation-template.mdx';
 import '../packages/components/themes/index.css';
 import '../packages/components/themes/gridjs.css';
 import '../packages/components/themes/tanstack-table.css';
-import '../packages/components/src/index';
 // @ts-ignore
 import CUSTOM_ELEMENTS from '../dist/packages/components/custom-elements.json';
 import * as arc from '../packages/components/src/index';

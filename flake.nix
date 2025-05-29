@@ -5,8 +5,8 @@
   inputs.nix-github-actions.inputs.nixpkgs.follows = "nixpkgs";
 
   nixConfig = {
-    substituters = ["https://arup-group-arc-components.cachix.org"];
-    trusted-public-keys = ["arup-group-arc-components.cachix.org-1:/e9giLE0vuWhodoWCzibaAgv1rXwsUArAhcKYABiQ7k="];
+    substituters = [ "https://arup-group-arc-components.cachix.org" ];
+    trusted-public-keys = [ "arup-group-arc-components.cachix.org-1:/e9giLE0vuWhodoWCzibaAgv1rXwsUArAhcKYABiQ7k=" ];
   };
 
   outputs = { self, nixpkgs, flake-utils, nix-github-actions }:

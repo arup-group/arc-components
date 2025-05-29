@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 0' # Sunday at midnight
+    - cron: "0 0 * * 0" # Sunday at midnight
 
 jobs:
   update-lockfile:
@@ -11,9 +11,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v14
-      - uses: DeterminateSystems/update-flake-lock@v24
+      - uses: cachix/install-nix-action@v31
+      - uses: determinatesystems/update-flake-lock@v25
         with:
-          pr-title: 'chore(worksapce): update flake.lock'
-          pr-labels: |
-            dependencies
+          pr-title: "chore: update flake.lock"

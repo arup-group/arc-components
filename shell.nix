@@ -22,7 +22,7 @@ mkShell {
     npmRoot = components.src;
     derivationArgs = {
       pname = "arc-web-node-modules";
-      inherit (components) npmInstallFlags;
+      inherit (components) npmRebuildFlags npmInstallFlags;
     };
   };
   packages = [

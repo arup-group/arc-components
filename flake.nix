@@ -47,7 +47,7 @@
                     npmDeps = prev.importNpmLock {
                       npmRoot = src;
                     };
-                    npmRebuildFlags = [ "--ignore-scripts" ];
+#                    npmRebuildFlags = [ "--ignore-scripts" ];
                     npmInstallFlags = [ "--legacy-peer-deps" ];
                     meta = (attrs.meta or { }) // {
                       license = prev.lib.licenses.mit;

@@ -7,6 +7,7 @@
 , nodejs
 , opentofu
 , azure-cli
+, chromium
 , writers
 , writeShellApplication
 , sbomnix
@@ -21,13 +22,14 @@ mkShell {
     npmRoot = components.src;
     derivationArgs = {
       pname = "arc-web-node-modules";
-      inherit (components) npmRebuildFlags npmInstallFlags;
+      inherit (components) npmInstallFlags;
     };
   };
   packages = [
     importNpmLock.hooks.linkNodeModulesHook
     opentofu
     azure-cli
+    chromium
     (writeShellApplication {
       name = "deploy-infrastructure";
       runtimeInputs = [ azure-cli opentofu ];

@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { ArcContainer, getRootValue } from '@arc-web/components';
-import { UserPreferences } from '@arc-web/components/components/accessibility/ArcAccessibility';
+import { UserPreferences } from '@arc-web/components/src/components/accessibility/ArcAccessibility';
 import { ARC_EVENTS } from '@arc-web/components/src/internal/constants/eventConstants';
 import {
   Theme,
@@ -23,7 +23,7 @@ function rgbValue(value: string): string {
 
 /**
  * Creates the ARC light theme.
- * @param args Optional theme options to be overriden in the light theme.
+ * @param args Optional theme options to be overridden in the light theme.
  * @returns The ARC light theme.
  */
 export function createLightTheme(
@@ -65,7 +65,7 @@ export function createLightTheme(
 
 /**
  * Creates the ARC dark theme.
- * @param args Optional theme options to be overriden in the dark theme.
+ * @param args Optional theme options to be overridden in the dark theme.
  * @returns The ARC dark theme.
  */
 export function createDarkTheme(
@@ -105,7 +105,7 @@ export function createDarkTheme(
   return createLightTheme(...args);
 }
 
-interface ThemeProvierProps {
+interface ThemeProviderProps {
   /* The children to render. */
   children: React.ReactNode;
   /* The light theme to use. */
@@ -119,7 +119,7 @@ interface ThemeProvierProps {
  * @param props The component properties.
  * @returns The component.
  */
-export const ThemeProvider: FC<ThemeProvierProps> = ({
+export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
   lightTheme,
   darkTheme,

@@ -20,7 +20,7 @@ We welcome all contributions and engagement with the **ARC** design system.
 
 ## Workspace
 
-This worksapce is a monorepo containing all packages and playgrounds that relate to the **ARC** design system. The following directory structure is used:
+This workspace is a monorepo containing all packages and playgrounds that relate to the **ARC** design system. The following directory structure is used:
 
 ```
 ├── assets              # Shared assets for storybook and playgrounds
@@ -72,14 +72,14 @@ The following directory structure should be followed when creating simple compon
         └─── src
            └── components
                └── foo
-                   ├── ArcFoo.ts              # Component class implmentation
+                   ├── ArcFoo.ts              # Component class implementation
                    ├── arc-foo.stories.ts     # Storybook stories for component
                    ├── arc-foo.styles.ts      # Styles for component
                    ├── arc-foo.test.ts        # Tests for component
-                   └── arc-foo.ts             # Component element registation
+                   └── arc-foo.ts             # Component element registration
 ```
 
-More complex compnents may also adher to the following:
+More complex components may also adher to the following:
 
 ```
 └── packages
@@ -90,7 +90,7 @@ More complex compnents may also adher to the following:
                    ├── constants
                    │   ├── FooConstants.test.ts    # Tests for constants
                    │   └── FooConstants.ts         # Constants for component
-                   ├── ArcFoo.ts                   # Component class implmentation
+                   ├── ArcFoo.ts                   # Component class implementation
                    ├── arc-foo.documentation.mdx   # Storybook documentation for component
                    ├── arc-foo.stories.tsx         # Storybook stories for component
                    ├── arc-foo.styles.ts           # Styles for component
@@ -109,10 +109,10 @@ npx nx run <angular-playground | lit-playground | react-playground | vue-playgro
 Or start the storybook development server with:
 
 ```sh
-npx nx run components:storybook:serve
+npx nx run documentation:serve
 ```
 
-Source code chanages will be hot reloaded in the browser making any of the above commands ideal for local component development.
+Source code changes will be hot reloaded in the browser making any of the above commands ideal for local component development.
 
 ### Unit Tests
 
@@ -135,7 +135,7 @@ Every component requires the following documentation:
 Format this workspace with:
 
 ```sh
-npx nx format:wrtie
+npx nx format:write
 ```
 
 Run all lint targets using:
@@ -154,7 +154,7 @@ Link any commits, issues and pull requests to the relevant Jira ticket, if appli
 
 ### Infrastructure
 
-The **ARC** project infrastucture is spread across the following deployment nodes:
+The **ARC** project infrastructure is spread across the following deployment nodes:
 
 ```mermaid
 C4Deployment

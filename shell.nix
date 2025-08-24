@@ -7,6 +7,7 @@
 , nodejs
 , opentofu
 , azure-cli
+, chromium
 , writers
 , writeShellApplication
 , sbomnix
@@ -28,6 +29,7 @@ mkShell {
     importNpmLock.hooks.linkNodeModulesHook
     opentofu
     azure-cli
+    chromium
     (writeShellApplication {
       name = "deploy-infrastructure";
       runtimeInputs = [ azure-cli opentofu ];
